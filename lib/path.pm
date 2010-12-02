@@ -6,15 +6,15 @@ use ASF::Value;
 our @patterns = (
 	[qr!\.mdtext$!, single_narrative => { template => "single_narrative.html" }],
 
-#	[qr!^/stanbol/sitemap\.html$!, sitemap => { headers => { title => "Stanbol Sitemap" }} ],
+	[qr!/sitemap\.html$!, sitemap => { headers => { title => "Lucene Sitemap" }} ],
 
 ) ;
 
 # for specifying interdependencies between files
 
-#our %dependencies = (
-#    "/stanbol/sitemap.html" => [ grep s!^content!!, glob "content/stanbol/*.mdtext" ],
-#);
+our %dependencies = (
+    "/lucene/sitemap.html" => [ grep s!^content!!, glob "content/lucene/*.mdtext" ],
+);
 
 1;
 
