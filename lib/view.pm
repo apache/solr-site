@@ -43,6 +43,15 @@ sub single_narrative {
         }
     }
 
+#	$args{sidenav} = {};
+#	read_text_file "templates/sidenav.mdtext", $args{sidenav} ;
+
+#	select STDOUT ;
+#	$| = 1 ;
+#	for my $ke (keys %args) {
+#		print STDOUT "$ke \n";
+#	}
+
     return Dotiac::DTL::Template($template)->render(\%args), html => \%args;
 }
 
@@ -65,12 +74,8 @@ sub news_page {
         }
     }
 
-    my $count=0;
-    for (fetch_doap_url_list()) {
-        my $result = parse_doap($_);
-        next unless defined $result;
-        push @{$args{projects}}, $result;
-        last if ++$count == 3;
+    for ((fetch_doap_url_list())[0..2]) {
+        push @{$args{projects}}, parse_doap($_);
     }
 
     return Dotiac::DTL::Template($template)->render(\%args), html => \%args;
@@ -145,7 +150,6 @@ sub parse_doap {
     close $fh;
     my $result = eval `xsltproc lib/doap2perl.xsl $filename`;
     unlink $filename;
-    return undef if $result->{pmc} =~ m!^http://attic\.apache\.org!;
     return $result;
 }
 

@@ -4,43 +4,17 @@ use ASF::Value;
 # taken from django's url.py
 
 our @patterns = (
+	[qr!\.mdtext$!, single_narrative => { template => "single_narrative.html" }],
 
-    [qr!^/index\.html$!, news_page =>
-      {
-        svn      => ASF::Value::SVN->new(limit => 5),
-        jira     => ASF::Value::Jira->new(limit => 5,
-                                          url => "http://s.apache.org/q4"),
-        announce => ASF::Value::Mail->new(list => 'announce@apache.org',
-                                          limit => 5),
-        planet   => ASF::Value::Blogs->new(blog => "planet", limit=> 5),
-        blog     => ASF::Value::Blogs->new(blog => "foundation", limit=> 5),
-        twitter  => ASF::Value::Twitter->new(name => 'TheASF', limit => 5),
-      },
-    ],
+#	[qr!^/stanbol/sitemap\.html$!, sitemap => { headers => { title => "Stanbol Sitemap" }} ],
 
-    [qr!^/dev/index\.html$!, news_page =>
-      {
-        svn      => ASF::Value::SVN->new(limit => 5),
-        twitter  => ASF::Value::Twitter->new(name=>"infrabot", limit => 5),
-        blog     => ASF::Value::Blogs->new(blog => "infra", limit=> 5),
-        jira     => ASF::Value::Jira->new(limit => 5,
-                                          url => "http://s.apache.org/lg"),
-      },
-    ],
-
-    [qr!^/dev/sitemap\.html$!, sitemap => { headers => { title => "Developer Sitemap" }} ],
-
-    [qr!^/licenses/exports/index\.html$!, exports => {} ],
-
-    [qr!\.mdtext$!, single_narrative => { template => "single_narrative.html" }],
-);
-
+) ;
 
 # for specifying interdependencies between files
 
-our %dependencies = (
-    "/dev/sitemap.html" => [ grep s!^content!!, glob "content/dev/*.mdtext" ],
-);
+#our %dependencies = (
+#    "/stanbol/sitemap.html" => [ grep s!^content!!, glob "content/stanbol/*.mdtext" ],
+#);
 
 1;
 
@@ -62,3 +36,5 @@ our %dependencies = (
            KIND, either express or implied.  See the License for the
            specific language governing permissions and limitations
            under the License.
+
+
