@@ -7,6 +7,10 @@ our @patterns = (
 
 #	[qr!/sitemap\.html$!, sitemap => { headers => { title => "Lucene Sitemap" }} ],
 	[qr!\.mdtext$!, main => { template => "main.html" }],
+	[qr!core\.mdtext$!, main => { template => "core.html" }],
+	[qr!solr\.mdtext$!, main => { template => "solr.html" }],
+	[qr!pylucene\.mdtext$!, main => { template => "pylucene.html" }],
+	[qr!openrelevance\.mdtext$!, main => { template => "orp.html" }],
 
 ) ;
 

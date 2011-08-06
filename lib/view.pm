@@ -42,16 +42,6 @@ sub main {
             read_text_file $f, $args{$1};
         }
     }
-
-#	$args{sidenav} = {};
-#	read_text_file "templates/sidenav.mdtext", $args{sidenav} ;
-
-#	select STDOUT ;
-#	$| = 1 ;
-#	for my $ke (keys %args) {
-#		print STDOUT "$ke \n";
-#	}
-
     return Dotiac::DTL::Template($template)->render(\%args), html => \%args;
 }
 
