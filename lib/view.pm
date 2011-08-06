@@ -24,7 +24,7 @@ push @Dotiac::DTL::TEMPLATE_DIRS, "templates";
 # passed to the template in the "bar" (hash)
 # variable.
 
-sub single_narrative {
+sub main {
     my %args = @_;
     my $file = "content$args{path}";
     my $template = $args{template};

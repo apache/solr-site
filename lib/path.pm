@@ -4,9 +4,9 @@ use ASF::Value;
 # taken from django's url.py
 
 our @patterns = (
-	[qr!\.mdtext$!, single_narrative => { template => "single_narrative.html" }],
 
 #	[qr!/sitemap\.html$!, sitemap => { headers => { title => "Lucene Sitemap" }} ],
+	[qr!\.mdtext$!, main => { template => "main.html" }],
 
 ) ;
 
