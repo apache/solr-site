@@ -41,7 +41,6 @@
   <div id="header">
     <div id="logo">
       <a href="http://lucene.apache.org/"><img border="0" src="images/lucene_green_300.gif" alt="Lucene Logo"/></a>
-      <a href="http://lucene.apache.org/"><img border="0" src="images/solr.png" alt="Solr Logo"/></a>
     </div>
     <div id="search">
       <script type="text/javascript">
@@ -171,7 +170,7 @@
   <div id="content-wrap" class="clearfix">
     <div id="main">
       <h1 class="title">{% block title %}{{ headers.title }}{% endblock %}</h1>
-      {% block content %}{{ content|markdown }}{% endblock %}
+      <div>{% block content %}{{ content|markdown }}{% endblock %}</div>
     </div>
 
     <div id="sidebar">
