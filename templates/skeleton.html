@@ -161,15 +161,16 @@
 	    document.observe ('dom:loaded', StartSlides);
 	  </script> 
 	</div>
-  <div id="navigation"> 
-  {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
-  </div>
-  
-  <div id="content">
+  <div id="content-wrap" class="clearfix">
+  <div id="main">
     <h1 class="title">{% block title %}{{ headers.title }}{% endblock %}</h1>
     {% block content %}{{ content|markdown }}{% endblock %}
   </div>
-  
+
+  <div id="sidebar">
+    {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
+  </div>
+  </div>
   <div id="footer">
     <div class="copyright">
       <p>
