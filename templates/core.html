@@ -2,6 +2,7 @@
 <html>
 <head>
   <!--
+  Core
 
       Licensed to the Apache Software Foundation (ASF) under one or more
       contributor license agreements.  See the NOTICE file distributed with
@@ -19,7 +20,7 @@
       limitations under the License.
   -->
 
-  <link href="css/lucene.css" rel="stylesheet" type="text/css">
+
   <title>Apache Lucene - {% block title %}{{ headers.title }}{% endblock %}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
@@ -28,20 +29,29 @@
   <meta name="keywords"
         content="apache, apache lucene, apache solr, solr, lucene
         search, information retrieval, spell checking, faceting, inverted index, open source"/>
-  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico"/>
-  <link rel="stylesheet" href="images/global.css" type="text/css"/>
-  <script type="text/javascript" src="scripts/prototype.js"></script>
-  <script type="text/javascript" src="scripts/effects.js"></script>
-  <script type="text/javascript" src="scripts/search.js"></script>
-  <script type="text/javascript" src="scripts/slides.js"></script>
+  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
+  <link rel="stylesheet" href="../css/core.css" type="text/css"/>
+  <script type="text/javascript" src="../scripts/prototype.js"></script>
+  <script type="text/javascript" src="../scripts/effects.js"></script>
+  <script type="text/javascript" src="../scripts/search.js"></script>
+  <script type="text/javascript" src="../scripts/slides.js"></script>
 </head>
 
 <body id="home">
 <div id="wrap">
   <div id="header">
     <div id="logo">
-      <a href="http://lucene.apache.org/"><img border="0" src="images/lucene_green_300.gif" alt="Lucene Logo"/></a>
+      <a href="http://lucene.apache.org/"><img border="0" src="../images/lucene_green_300.gif" alt="Lucene Logo"/></a>
     </div>
+    <div id="nav">
+    <ul>
+      <li><a href="downloads.html">Download</a></li>
+      <li><a href="documentation.html">Documentation</a></li>
+      <li><a href="quickstart.html">Tutorials</a></li>
+      <li><a href="https://issues.apache.org/jira/browse/LUCENE">Bug Tracker</a></li>
+      <li><a class="last" href="mailing-lists.html">Discussion</a></li>
+    </ul>
+  </div>
     <div id="search">
       <script type="text/javascript">
         function getBlank(input, stdValue) {
@@ -104,68 +114,6 @@
         </script>
       </form>
     </div>
-    <div id="slides">
-      <div class="slideshow" id="mantleSlides">
-        <div id="slide1" style="display:none">
-          <div class="callout">
-            Ultra-fast Search Library and Server<br/>
-          </div>
-          <div class="description">
-            Apache Lucene and Solr set the standard for search and indexing performance
-          </div>
-          <div class="mantle">
-            <img alt="Apache Lucene" src="images/mantle-lucene-solr.png"/>
-          </div>
-        </div>
-        <div id="slide2" style="display:none">
-          <div class="callout">
-            Proven search capabilities<br/>
-          </div>
-          <div class="description">
-            Our core algorithms along with the Solr search server power applications the world over, ranging
-            from mobile devices to sites like Twitter, Apple and Wikipedia.
-          </div>
-          <div class="mantle">
-            <img alt="Lucene Power" src="images/mantle-power.png"/>
-          </div>
-        </div>
-        <div id="slide3" style="display:none">
-          <div class="callout">
-            Large, Vibrant community
-          </div>
-          <div class="description">
-            The goal of Apache Lucene and Solr is to provide world class search capabilities
-          </div>
-          <div class="mantle">
-            <img alt="Apache Mahout community" src="images/mantle-community.png"/>
-          </div>
-        </div>
-        <div id="slide4" style="opacity:0.5">
-          <div class="callout">
-            Apache 2.0 licensed
-          </div>
-          <div class="description">
-            Apache Lucene and Solr are distributed under a commercially friendly Apache Software license
-          </div>
-          <div class="mantle">
-            <img alt="Apache Software Foundation" src="images/mantle-asf.png"/>
-          </div>
-        </div>
-      </div>
-      <div class="controls">
-        <a class="next" id="next" title="Next" href="http://lucene.apache.org/#">Next</a>
-        <a class="previous" id="previous" title="Previous" href="http://lucene.apache.org/#">Previous</a>
-        <a class="start" id="start" title="Start" href="http://lucene.apache.org/#" style="display: none; ">Start</a>
-        <a class="stop" id="stop" title="Stop" href="http://lucene.apache.org/#">Stop</a>
-      </div>
-    </div>
-
-    <script type="text/javascript">
-      function StartSlides() {
-        new Slides('mantleSlides');
-      }
-      document.observe('dom:loaded', StartSlides);
-    </script>
   </div>
   <div id="content-wrap" class="clearfix">
     <div id="main">
