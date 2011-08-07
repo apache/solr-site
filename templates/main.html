@@ -135,47 +135,42 @@ https://docs.djangoproject.com/en/dev/topics/templates/
     {% block sidebar %}
     <div id="sidebar">
       {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
-      <div>
+      <div class="status">
         <div id="svn">
-          <h2>Latest SVN</h2>
+          <h1>Latest SVN</h1>
+          <div class="status-item">
           {% for e in svn.list %}
-        <div class="section-content">
-          <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision
-            }}</a>
+          <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision }}</a>
           {{ e.message|safe|truncatewords_html:20 }} ({{
           e.projects|safe }}) &mdash;
           <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
-        </div>
-        {% endfor %}</div>
-
+        {% endfor %}</div></div>
         <div id="jira">
-          <h2>Latest JIRA</h2>
-          {% for e in jira.list %}
-        <div class="section-content">
+          <h1>Latest JIRA</h1>
+          <div class="status-item">{% for e in jira.list %}
           <a class="bug" href="{{ e.url }}">{{ e.title|safe }}</a><br/>
           {{ e.content|safe|truncatewords_html:20 }}
-        </div>
-        {% endfor %}</div>
+        {% endfor %}</div></div>
         <div id="dev-mail">
-          <h2>Latest Dev</h2>
-          {% for e in dev.list %}
+          <h1>Latest Dev</h1>
+          <div class="status-item">{% for e in dev.list %}
           <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
           <hr>
-          {% endfor %}
+          {% endfor %}</div>
         </div>
         <div id="core-user-mail">
-          <h2>Latest Core User</h2>
-          {% for e in core-user.list %}
+          <h1>Latest Core User</h1>
+          <div class="status-item">{% for e in core-user.list %}
           <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
           <hr>
-          {% endfor %}
+          {% endfor %}</div>
         </div>
         <div id="solr-user-mail">
-          <h2>Latest Solr User</h2>
-          {% for e in solr-user.list %}
+          <h1>Latest Solr User</h1>
+          <div class="status-item">{% for e in solr-user.list %}
           <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
           <hr>
-          {% endfor %}
+          {% endfor %}</div>
         </div>
       </div>
     </div>
