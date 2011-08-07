@@ -20,7 +20,7 @@
       limitations under the License.
   -->
 
-  <link href="../css/solr.css" rel="stylesheet" type="text/css">
+  <link href="../css/core.css" rel="stylesheet" type="text/css">
   <title>Apache Lucene - {% block title %}{{ headers.title }}{% endblock %}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
@@ -38,7 +38,7 @@
 </head>
 {% endblock %}
 {% block logo %}
-  <a href="http://lucene.apache.org/"><img border="0" src="../images/lucene_green_300.gif" alt="Lucene Logo"/></a>
+  <a href="index.html"><img border="0" src="../images/solr.png" alt="Solr Logo"/></a>
 {% endblock %}
 {% block slides %}
 {% endblock %}
@@ -48,12 +48,12 @@
   <li><a href="downloads.html">Download</a></li>
   <li><a href="documentation.html">Documentation</a></li>
   <li><a href="quickstart.html">Tutorials</a></li>
-  <li><a href="https://issues.apache.org/jira/browse/SOLR">Bug Tracker</a></li>
+  <li><a href="https://issues.apache.org/jira/browse/LUCENE">Bug Tracker</a></li>
   <li><a class="last" href="mailing-lists.html">Discussion</a></li>
 </ul>
 {% endblock %}
 {% block sidebar %}
     <div id="sidebar">
-      {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
+      {% filter markdown %}{% include "solrnav.mdtext" %}{% endfilter %}
     </div>
 {% endblock %}
