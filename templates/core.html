@@ -1,8 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+{% extends "main.html" %}
+{% block head %}
 <head>
   <!--
-  Core
+
 
       Licensed to the Apache Software Foundation (ASF) under one or more
       contributor license agreements.  See the NOTICE file distributed with
@@ -20,7 +20,7 @@
       limitations under the License.
   -->
 
-
+  <link href="../css/core.css" rel="stylesheet" type="text/css">
   <title>Apache Lucene - {% block title %}{{ headers.title }}{% endblock %}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
@@ -30,112 +30,30 @@
         content="apache, apache lucene, apache solr, solr, lucene
         search, information retrieval, spell checking, faceting, inverted index, open source"/>
   <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
-  <link rel="stylesheet" href="../css/core.css" type="text/css"/>
   <script type="text/javascript" src="../scripts/prototype.js"></script>
   <script type="text/javascript" src="../scripts/effects.js"></script>
   <script type="text/javascript" src="../scripts/search.js"></script>
   <script type="text/javascript" src="../scripts/slides.js"></script>
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
 </head>
-
-<body id="home">
-<div id="wrap">
-  <div id="header">
-    <div id="logo">
-      <a href="http://lucene.apache.org/core"><img border="0" src="../images/lucene_green_300.gif" alt="Lucene Logo"/></a>
-    </div>
-    <div id="nav">
-    <ul>
-      <li><a href="index.html">Core</a></li>
-      <li><a href="downloads.html">Download</a></li>
-      <li><a href="documentation.html">Documentation</a></li>
-      <li><a href="quickstart.html">Tutorials</a></li>
-      <li><a href="https://issues.apache.org/jira/browse/LUCENE">Bug Tracker</a></li>
-      <li><a class="last" href="mailing-lists.html">Discussion</a></li>
-    </ul>
-  </div>
-    <div id="search">
-      <script type="text/javascript">
-        function getBlank(input, stdValue) {
-          if (input.value == stdValue) {
-            input.value = '';
-          }
-          return true;
-        }
-
-        function selectProvider(form) {
-          provider = form.elements['searchProvider'].value;
-          if (provider == "any") {
-            if (Math.random() > 0.5) {
-              provider = "lucid";
-            } else {
-              provider = "sl";
-            }
-          }
-
-          if (provider == "lucid") {
-            form.action = "http://search.lucidimagination.com/p:lucene";
-          } else if (provider == "sl") {
-            form.action = "http://search-lucene.com/lucene";
-          }
-
-          days = 90; // cookie will be valid for 90 days
-          date = new Date();
-          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-          expires = "; expires=" + date.toGMTString();
-          document.cookie = "searchProvider=" + provider + expires + "; path=/";
-          return true;
-        }
-      </script>
-      <form id="quick-search" method="GET" onsubmit="return selectProvider(this)"
-            action="http://search-lucene.com/lucene"
-            name="searchform">
-        <fieldset>
-          <input type="search" name="q" value="Search with Apache Solr..." class="class1 class2 hint" accesskey="q"
-                 onfocus="getBlank(this, 'Search with Apache Solr...')">
-          <span style="color:white">@</span>
-          <select name="searchProvider" id="searchProvider">
-            <option value="any">select provider</option>
-            <option value="lucid">Lucid Find</option>
-            <option value="sl">Search-Lucene</option>
-          </select>
-        </fieldset>
-        <script type="text/javascript">
-          if (document.cookie.length > 0) {
-            cStart = document.cookie.indexOf("searchProvider=");
-            if (cStart != -1) {
-              cStart = cStart + "searchProvider=".length;
-              cEnd = document.cookie.indexOf(";", cStart);
-              if (cEnd == -1) {
-                cEnd = document.cookie.length;
-              }
-              provider = unescape(document.cookie.substring(cStart, cEnd));
-              document.forms['searchform'].elements['searchProvider'].value = provider;
-            }
-          }
-        </script>
-      </form>
-    </div>
-  </div>
-  <div id="content-wrap" class="clearfix">
-    <div id="main">
-      <h1 class="title">{% block title %}{{ headers.title }}{% endblock %}</h1>
-      <div>{% block content %}{{ content|markdown }}{% endblock %}</div>
-    </div>
-
+{% endblock %}
+{% block logo %}
+  <a href="http://lucene.apache.org/"><img border="0" src="../images/lucene_green_300.gif" alt="Lucene Logo"/></a>
+{% endblock %}
+{% block slides %}
+{% endblock %}
+{% block nav %}
+<ul>
+  <li><a href="index.html">Core</a></li>
+  <li><a href="downloads.html">Download</a></li>
+  <li><a href="documentation.html">Documentation</a></li>
+  <li><a href="quickstart.html">Tutorials</a></li>
+  <li><a href="https://issues.apache.org/jira/browse/LUCENE">Bug Tracker</a></li>
+  <li><a class="last" href="mailing-lists.html">Discussion</a></li>
+</ul>
+{% endblock %}
+{% block sidebar %}
     <div id="sidebar">
       {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
     </div>
-  </div>
-</div>
-<div id="footer">
-  <div class="copyright">
-    <p>
-      Copyright &copy; 2011 The Apache Software Foundation, Licensed under
-      the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
-      <br/>
-      Apache and the Apache feather logo are trademarks of The Apache Software Foundation.
-    </p>
-  </div>
-</div>
-</body>
-</html>
+{% endblock %}

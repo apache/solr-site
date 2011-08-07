@@ -1,7 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+{#
+See for how templates work
+https://docs.djangoproject.com/en/dev/topics/templates/
+#}
+{% block head %}
 <head>
   <!--
+
 
       Licensed to the Apache Software Foundation (ASF) under one or more
       contributor license agreements.  See the NOTICE file distributed with
@@ -33,84 +39,29 @@
   <script type="text/javascript" src="scripts/effects.js"></script>
   <script type="text/javascript" src="scripts/search.js"></script>
   <script type="text/javascript" src="scripts/slides.js"></script>
+  <script type="text/javascript" src="scripts/jquery.js"></script>
 </head>
-
+{% endblock %}
 <body id="home">
 <div id="wrap">
   <div id="header">
     <div id="logo">
+      {% block logo %}
       <a href="http://lucene.apache.org/"><img border="0" src="images/lucene_green_300.gif" alt="Lucene Logo"/></a>
+      {% endblock %}
     </div>
     <div id="nav">
-    <ul>
-      <li><a href="./core/">Core (Java)</a></li>
-      <li><a href="./solr/">Solr</a></li>
-      <li><a href="./pylucene/">PyLucene</a></li>
-      <li><a href="Open Relevance">Open Relevance</a></li>
-    </ul>
-  </div>
-    <div id="search">
-      <script type="text/javascript">
-        function getBlank(input, stdValue) {
-          if (input.value == stdValue) {
-            input.value = '';
-          }
-          return true;
-        }
-
-        function selectProvider(form) {
-          provider = form.elements['searchProvider'].value;
-          if (provider == "any") {
-            if (Math.random() > 0.5) {
-              provider = "lucid";
-            } else {
-              provider = "sl";
-            }
-          }
-
-          if (provider == "lucid") {
-            form.action = "http://search.lucidimagination.com/p:lucene";
-          } else if (provider == "sl") {
-            form.action = "http://search-lucene.com/lucene";
-          }
-
-          days = 90; // cookie will be valid for 90 days
-          date = new Date();
-          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-          expires = "; expires=" + date.toGMTString();
-          document.cookie = "searchProvider=" + provider + expires + "; path=/";
-          return true;
-        }
-      </script>
-      <form id="quick-search" method="GET" onsubmit="return selectProvider(this)"
-            action="http://search-lucene.com/lucene"
-            name="searchform">
-        <fieldset>
-          <input type="search" name="q" value="Search with Apache Solr..." class="class1 class2 hint" accesskey="q"
-                 onfocus="getBlank(this, 'Search with Apache Solr...')">
-          <span style="color:white">@</span>
-          <select name="searchProvider" id="searchProvider">
-            <option value="any">select provider</option>
-            <option value="lucid">Lucid Find</option>
-            <option value="sl">Search-Lucene</option>
-          </select>
-        </fieldset>
-        <script type="text/javascript">
-          if (document.cookie.length > 0) {
-            cStart = document.cookie.indexOf("searchProvider=");
-            if (cStart != -1) {
-              cStart = cStart + "searchProvider=".length;
-              cEnd = document.cookie.indexOf(";", cStart);
-              if (cEnd == -1) {
-                cEnd = document.cookie.length;
-              }
-              provider = unescape(document.cookie.substring(cStart, cEnd));
-              document.forms['searchform'].elements['searchProvider'].value = provider;
-            }
-          }
-        </script>
-      </form>
+      {% block nav %}
+      <ul>
+        <li><a href="./core/">Core (Java)</a></li>
+        <li><a href="./solr/">Solr</a></li>
+        <li><a href="./pylucene/">PyLucene</a></li>
+        <li><a href="Open Relevance">Open Relevance</a></li>
+      </ul>
+      {% endblock %}
     </div>
+    {% include "search.html" %}
+    {% block slides %}
     <div id="slides">
       <div class="slideshow" id="mantleSlides">
         <div id="slide1" style="display:none">
@@ -173,27 +124,66 @@
       }
       document.observe('dom:loaded', StartSlides);
     </script>
+    {% endblock %}
   </div>
   <div id="content-wrap" class="clearfix">
     <div id="main">
       <h1 class="title">{% block title %}{{ headers.title }}{% endblock %}</h1>
+
       <div>{% block content %}{{ content|markdown }}{% endblock %}</div>
     </div>
-
+    {% block sidebar %}
     <div id="sidebar">
       {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
+      <div>
+        {% for e in twitter.list %}
+        <div class="section-content">
+          <a href="{{ e.url }}">@</a>{{ e.title|safe }}
+        </div>
+        {% endfor %}
+
+        {% for e in svn.list %}
+        <div class="section-content">
+          <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision
+            }}</a>
+          {{ e.message|safe|truncatewords_html:20 }} ({{
+          e.projects|safe }}) &mdash;
+          <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
+        </div>
+        {% endfor %}
+
+        {% for e in jira.list %}
+        <div class="section-content">
+          <a class="bug" href="{{ e.url }}">{{ e.title|safe }}</a><br/>
+          {{ e.content|safe|truncatewords_html:20 }}
+        </div>
+        {% endfor %}
+        <div id="dev-mail">
+          <h2>Latest Dev</h2>
+          {% for e in dev.list %}
+          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
+          <hr>
+          {% endfor %}
+        </div>
+        <div id="core-user-mail">
+          <h2>Latest Core User</h2>
+          {% for e in core-user.list %}
+          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
+          <hr>
+          {% endfor %}
+        </div>
+        <div id="solr-user-mail">
+          <h2>Latest Solr User</h2>
+          {% for e in solr-user.list %}
+          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
+          <hr>
+          {% endfor %}
+        </div>
+      </div>
     </div>
+    {% endblock %}
   </div>
 </div>
-<div id="footer">
-  <div class="copyright">
-    <p>
-      Copyright &copy; 2011 The Apache Software Foundation, Licensed under
-      the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
-      <br/>
-      Apache and the Apache feather logo are trademarks of The Apache Software Foundation.
-    </p>
-  </div>
-</div>
+{% include "footer.html" %}
 </body>
 </html>
