@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% block head %}
+<head>
+  <!--
+
+
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE- 2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+  -->
+
+  <link href="../css/solr.css" rel="stylesheet" type="text/css">
+  <title>Apache Lucene - {% block title %}{{ headers.title }}{% endblock %}</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+  <meta name="Distribution" content="Global"/>
+  <meta name="Robots" content="index,follow"/>
+  <meta name="keywords"
+        content="apache, apache lucene, apache solr, solr, lucene
+        search, information retrieval, spell checking, faceting, inverted index, open source"/>
+  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
+  <script type="text/javascript" src="../scripts/prototype.js"></script>
+  <script type="text/javascript" src="../scripts/effects.js"></script>
+  <script type="text/javascript" src="../scripts/search.js"></script>
+  <script type="text/javascript" src="../scripts/slides.js"></script>
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
+</head>
+{% endblock %}
+{% block logo %}
+  <a href="http://lucene.apache.org/"><img border="0" src="../images/lucene_green_300.gif" alt="Lucene Logo"/></a>
+{% endblock %}
+{% block slides %}
+{% endblock %}
+{% block nav %}
+<ul>
+  <li><a href="index.html">Solr</a></li>
+  <li><a href="downloads.html">Download</a></li>
+  <li><a href="documentation.html">Documentation</a></li>
+  <li><a href="quickstart.html">Tutorials</a></li>
+  <li><a href="https://issues.apache.org/jira/browse/SOLR">Bug Tracker</a></li>
+  <li><a class="last" href="mailing-lists.html">Discussion</a></li>
+</ul>
+{% endblock %}
+{% block sidebar %}
+    <div id="sidebar">
+      {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
+    </div>
+{% endblock %}
