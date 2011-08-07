@@ -136,13 +136,13 @@ https://docs.djangoproject.com/en/dev/topics/templates/
     <div id="sidebar">
       {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
       <div>
-        {% for e in twitter.list %}
+        <div id="twitter">{% for e in twitter.list %}
         <div class="section-content">
           <a href="{{ e.url }}">@</a>{{ e.title|safe }}
         </div>
-        {% endfor %}
+        {% endfor %}</div>
 
-        {% for e in svn.list %}
+        <div id="svn">{% for e in svn.list %}
         <div class="section-content">
           <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision
             }}</a>
@@ -150,14 +150,14 @@ https://docs.djangoproject.com/en/dev/topics/templates/
           e.projects|safe }}) &mdash;
           <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
         </div>
-        {% endfor %}
+        {% endfor %}</div>
 
-        {% for e in jira.list %}
+        <div id="jira">{% for e in jira.list %}
         <div class="section-content">
           <a class="bug" href="{{ e.url }}">{{ e.title|safe }}</a><br/>
           {{ e.content|safe|truncatewords_html:20 }}
         </div>
-        {% endfor %}
+        {% endfor %}</div>
         <div id="dev-mail">
           <h2>Latest Dev</h2>
           {% for e in dev.list %}
