@@ -17,9 +17,9 @@ our @patterns = (
   #                                          url => "https://issues.apache.org/jira/plugins/servlet/streams?key=LUCENE"),
      dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
                                             limit => 3),
-     core-user => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
+     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
                                             limit => 3),
-     solr-user => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
+     solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
                                             limit => 3),
 	 }],
 ) ;

@@ -160,14 +160,14 @@ https://docs.djangoproject.com/en/dev/topics/templates/
         </div>
         <div id="core-user-mail">
           <h1>Latest Core User</h1>
-          <div class="status-item">{% for e in core-user.list %}
+          <div class="status-item">{% for e in coreuser.list %}
           <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
           <hr>
           {% endfor %}</div>
         </div>
         <div id="solr-user-mail">
           <h1>Latest Solr User</h1>
-          <div class="status-item">{% for e in solr-user.list %}
+          <div class="status-item">{% for e in solruser.list %}
           <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
           <hr>
           {% endfor %}</div>
