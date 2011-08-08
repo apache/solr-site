@@ -352,8 +352,7 @@ input.button {
 ********************************/
 #footer {
     position: relative;
-	margin: -50px auto 0px auto;
-	height: 50px;
+	height: 80px;
 	clear:both;
 	font-size:11px;
 	font-family:Verdana, Arial, sans-serif;
@@ -793,6 +792,16 @@ body#home #header #slides .callout {
 	color: #2b1f48;
 }
 
+body#home #header #slides .descwrapper {
+	position: absolute;
+	top: 175px;
+	font-size: 14px;
+	line-height: 15px;
+    background-color: #2B2A38;
+	width: 945px;
+    height: 85px;
+}
+
 body#home #header #slides .description {
 	position: absolute;
 	top: 175px;
@@ -800,9 +809,19 @@ body#home #header #slides .description {
 	font-size: 14px;
 	line-height: 15px;
 	color: #e0e0e0;
-    background-color: #2B2A38;
 	width: 350px;
 }
+
+body#home #header #slides .descwrapper .description {
+	position: relative;
+	top: 15px;
+	left: 10px;
+	font-size: 14px;
+	line-height: 15px;
+	color: #e0e0e0;
+	width: 350px;
+}
+
 
 body#home #header #slides .controls {
 	width: 100px;

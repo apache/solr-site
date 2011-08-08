@@ -19,8 +19,8 @@
       See the License for the specific language governing permissions and
       limitations under the License.
   -->
-
-  <link href="../css/core.css" rel="stylesheet" type="text/css">
+  <link href="../css/global.css" rel="stylesheet" type="text/css">
+  <link href="../css/solr.css" rel="stylesheet" type="text/css">
   <title>Apache Lucene - {% block title %}{{ headers.title }}{% endblock %}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
@@ -41,19 +41,52 @@
   <a href="index.html"><img border="0" src="../images/solr.png" alt="Solr Logo"/></a>
 {% endblock %}
 {% block slides %}
+
 {% endblock %}
 {% block nav %}
 <ul>
   <li><a href="index.html">Solr</a></li>
   <li><a href="downloads.html">Download</a></li>
   <li><a href="documentation.html">Documentation</a></li>
-  <li><a href="quickstart.html">Tutorials</a></li>
-  <li><a href="https://issues.apache.org/jira/browse/LUCENE">Bug Tracker</a></li>
-  <li><a class="last" href="mailing-lists.html">Discussion</a></li>
+  <li><a href="quickstart.html">Tutorial</a></li>
+  <li><a href="https://issues.apache.org/jira/browse/SOLR">Bug Tracker</a></li>
+  <li><a href="mailing-lists.html">Discussion</a></li>
+  <li><a class="last" href="../">Lucene</a></li>
 </ul>
 {% endblock %}
 {% block sidebar %}
     <div id="sidebar">
       {% filter markdown %}{% include "solrnav.mdtext" %}{% endfilter %}
+      <div class="status">
+        <div id="svn">
+          <h1>Latest SVN</h1>
+          <div class="status-item">
+          {% for e in svn.list %}
+          <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision }}</a>
+          {{ e.message|safe|truncatewords_html:20 }} ({{
+          e.projects|safe }}) &mdash;
+          <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
+        {% endfor %}</div></div>
+        <div id="jira">
+          <h1>Latest JIRA</h1>
+          <div class="status-item">{% for e in jira.list %}
+          <a class="bug" href="{{ e.url }}">{{ e.title|safe }}</a><br/>
+          {{ e.content|safe|truncatewords_html:20 }}
+        {% endfor %}</div></div>
+        <div id="dev-mail">
+          <h1>Latest Dev</h1>
+          <div class="status-item">{% for e in dev.list %}
+          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
+          <hr>
+          {% endfor %}</div>
+        </div>
+        <div id="solr-user-mail">
+          <h1>Latest Solr User</h1>
+          <div class="status-item">{% for e in solruser.list %}
+          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
+          <hr>
+          {% endfor %}</div>
+        </div>
+      </div>
     </div>
 {% endblock %}
