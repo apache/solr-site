@@ -108,6 +108,10 @@
   <li><a class="last" href="../">Lucene</a></li>
 </ul>
 {% endblock %}
+{% block news %}
+  <div>{% filter markdown %}{% include "../content/lucene/solr/solrnews.mdtext" %}{% endfilter %}</div>
+{% endblock %}
+
 {% block sidebar %}
     <div id="sidebar">
       {% filter markdown %}{% include "solrnav.mdtext" %}{% endfilter %}

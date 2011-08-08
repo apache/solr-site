@@ -1,0 +1,190 @@
+# News
+##28 July 2011 - WARNING: Index corruption and crashes in Apache Lucene Core / Apache Solr with Java 7
+
+Oracle released <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 7</a> today.
+Unfortunately it contains hotspot compiler optimizations, which miscompile some loops.
+This can affect code of several Apache projects. Sometimes JVMs only crash, but in several cases,
+results calculated can be incorrect, leading to bugs in applications
+(see Hotspot bugs <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7070134">7070134</a>,
+<a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7044738">7044738</a>,
+<a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7068051">7068051</a>).
+<strong>Apache Lucene Core</strong> and <strong>Apache Solr</strong> are two Apache projects,
+which are affected by these bugs, namely all versions released until today.
+Solr users with the default configuration will have
+Java crashing with <code>SIGSEGV</code> as soon as they start to index documents, as one
+affected part is the well-known Porter stemmer
+(see <a href="https://issues.apache.org/jira/browse/LUCENE-3335">LUCENE-3335</a>).
+Other loops in Lucene may be miscompiled, too, leading to index corruption
+(especially on Lucene trunk with pulsing codec; other loops may be
+affected, too - <a href="https://issues.apache.org/jira/browse/LUCENE-3346">LUCENE-3346</a>).
+These problems were detected only 5 days before the official Java 7 release,
+so Oracle had no time to fix those bugs, affecting also many more applications.
+In response to our questions, they proposed to include the fixes into service
+release u2 (eventually into service release u1, see
+<a href="http://mail.openjdk.java.net/pipermail/hotspot-compiler-dev/2011-July/005971.html">this mail</a>).
+<strong>This means you cannot use Apache Lucene/Solr with Java 7 releases before Update 2!</strong>
+If you do, please don't open bug reports, it is not the committers' fault!
+At least disable loop optimizations using the <code>-XX:-UseLoopPredicate</code> JVM option
+to not risk index corruptions.
+<em>Please note:</em> Also Java 6 users are affected, if they use one of those
+JVM options, which are <strong>not</strong> enabled by default: <code>-XX:+OptimizeStringConcat</code>
+or <code>-XX:+AggressiveOpts</code>.
+It is strongly recommended not to use any hotspot optimization switches in any Java
+version without extensive testing!
+In case you upgrade to Java 7, remember that you may have to reindex, as the unicode
+version shipped with Java 7 changed and tokenization behaves differently
+(e.g. lowercasing). For more information, read <code>JRE_VERSION_MIGRATION.txt</code>
+in your distribution package!
+
+##1 July 2011 - Lucene Core 3.3 and Solr 3.3 Available
+The Lucene PMC is pleased to announce the availability of Apache Lucene 3.3 and Apache Solr 3.3.
+
+Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
+Highlights of the Lucene release include:
+
+
+   - The spellchecker module now includes suggest/auto-complete functionality,
+       with three implementations: Jaspell, Ternary Trie, and Finite State.
+   - Support for merging results from multiple shards, for both "normal"
+       search results (TopDocs.merge) as well as grouped results using the
+       grouping module (SearchGroup.merge, TopGroups.merge).
+   - An optimized implementation of KStem, a less aggressive stemmer
+       for English
+   - Single-pass grouping implementation based on block document indexing.
+   - Improvements to MMapDirectory (now also the default implementation
+       returned by FSDirectory.open on 64-bit Linux).
+   - NRTManager simplifies handling near-real-time search with multiple
+       search threads, allowing the application to control which indexing
+       changes must be visible to which search requests.
+   - TwoPhaseCommitTool facilitates performing a multi-resource
+       two-phased commit, including IndexWriter.
+   - The default merge policy, TieredMergePolicy, has a new method
+       (set/getReclaimDeletesWeight) to control how aggressively it
+       targets segments with deletions, and is now more aggressive than
+       before by default.
+   - PKIndexSplitter tool splits an index by a mid-point term.
+
+Highlights of the Solr release include:
+
+
+   - Grouping / Field Collapsing
+   - A new, automaton-based suggest/autocomplete implementation offering an
+       order of magnitude smaller RAM consumption.
+   - KStemFilterFactory, an optimized implementation of a less aggressive
+       stemmer for English.
+   - Solr defaults to a new, more efficient merge policy (TieredMergePolicy).
+       See <a href="http://s.apache.org/merging">http://s.apache.org/merging</a> for more information.
+   - Important bugfixes, including extremely high RAM usage in spellchecking.
+   - Bugfixes and improvements from Apache Lucene 3.3
+
+
+##4 June 2011 - Lucene Core 3.2 and Solr 3.2 Available
+The Lucene PMC is pleased to announce the availability of Apache Lucene 3.2 and Apache Solr 3.2.
+
+Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
+Highlights of the Lucene release include:
+
+
+   - A new grouping module, under lucene/contrib/grouping, enables
+       search results to be grouped by a single-valued indexed field
+   - A new IndexUpgrader tool fully converts an old index to the
+       current format.
+   - A new Directory implementation, NRTCachingDirectory, caches small
+       segments in RAM, to reduce the I/O load for applications with fast
+       NRT reopen rates.
+   - A new Collector implementation, CachingCollector, is able to
+       gather search hits (document IDs and optionally also scores) and
+       then replay them.  This is useful for Collectors that require two
+       or more passes to produce results.
+   - Index a document block using IndexWriter's new addDocuments or
+       updateDocuments methods.  These experimental APIs ensure that the
+       block of documents will forever remain contiguous in the index,
+       enabling interesting future features like grouping and joins.
+   - A new default merge policy, TieredMergePolicy, which is more
+       efficient due to being able to merge non-contiguous segments.
+       See <a href="http://s.apache.org/merging">http://s.apache.org/merging</a> for details.
+   - NumericField is now returned correctly when you load a stored
+       document (previously you received a normal Field back, with the
+       numeric value converted string).
+   - Deleted terms are now applied during flushing to the newly flushed
+       segment, which is more efficient than having to later initialize a
+       reader for that segment.
+
+Highlights of the Solr release include:
+
+
+   - Ability to specify overwrite and commitWithin as request parameters when 
+       using the JSON update format.
+   - TermQParserPlugin, useful when generating filter queries from terms 
+       returned from field faceting or the terms component.
+   - DebugComponent now supports using a NamedList to model Explanation objects 
+       in its responses instead of Explanation.toString.
+   - Improvements to the UIMA and Carrot2 integrations.
+   - Highlighting performance improvements. 
+   - A test-framework jar for easy testing of Solr extensions.
+   - Bugfixes and improvements from Apache Lucene 3.2. 
+
+
+##31 March 2011 - Lucene Core 3.1 and Solr 3.1 Available
+The Lucene PMC is pleased to announce the availability of Apache Lucene 3.1 and Apache Solr 3.1.
+The version number for Solr 3.1 was chosen to reflect the merge of
+development with Lucene, which is currently also on 3.1.  Going
+forward, we expect the Solr version to be the same as the Lucene
+version.  Solr 3.1 contains Lucene 3.1 and is the release after Solr 1.4.1.
+
+Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
+Highlights of the Lucene release include:
+
+
+- Numerous performance improvements: faster exact PhraseQuery; merging
+favors segments with deletions; primary key lookup is faster;
+IndexWriter.addIndexes(Directory[]) uses file copy instead of
+merging; various Directory performance improvements; compound file
+is dynamically turned off for large segments; fully deleted segments
+are dropped on commit; faster snowball analyzers (in contrib);
+ConcurrentMergeScheduler is more careful about setting priority of
+merge threads.
+- ReusableAnalyzerBase makes it easier to reuse TokenStreams
+correctly.
+- Improved Analysis capabilities: Improved Unicode support, including
+Unicode 4, more friendly term handling (CharTermAttribute), easier
+object reuse and better support for protected words in lossy token
+filters (e.g. stemmers).
+- ConstantScoreQuery now allows directly wrapping a Query.
+- IndexWriter is now configured with a new separate builder API,
+IndexWriterConfig.  You can now control IndexWriter's previously
+fixed internal thread limit by calling setMaxThreadStates.
+- IndexWriter.getReader is replaced by IndexReader.open(IndexWriter).
+In addition you can now specify whether deletes should be resolved
+when you open an NRT reader.
+- MultiSearcher is deprecated; ParallelMultiSearcher has been
+absorbed directly into IndexSearcher.
+- On 64bit Windows and Solaris JVMs, MMapDirectory is now the
+default implementation (returned by FSDirectory.open).
+MMapDirectory also enables unmapping if the JVM supports it.
+- New TotalHitCountCollector just counts total number of hits.
+- ReaderFinishedListener API enables external caches to evict entries
+once a segment is finished.
+
+Highlights of the Solr release include:
+
+- Numeric range facets (similar to date faceting).
+- New spatial search, including spatial filtering, boosting and sorting capabilities.
+- Example Velocity driven search UI at http://localhost:8983/solr/browse
+- A new termvector-based highlighter
+- Extend dismax (edismax) query parser which addresses some
+missing features in the dismax query parser along with some
+extensions.
+- Several more components now support distributed mode:
+TermsComponent, SpellCheckComponent.
+- A new Auto Suggest component.
+- Ability to sort by functions.
+- JSON document indexing.
+- CSV response format.
+- Apache UIMA integration for metadata extraction.
+- Leverages Lucene 3.1 and it's inherent optimizations and bug fixes
+as well as new analysis capabilities.
+- Numerous improvements, bug fixes, and optimizations.
+
+
+
