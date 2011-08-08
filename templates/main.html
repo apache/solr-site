@@ -39,7 +39,7 @@ https://docs.djangoproject.com/en/dev/topics/templates/
   <script type="text/javascript" src="scripts/effects.js"></script>
   <script type="text/javascript" src="scripts/search.js"></script>
   <script type="text/javascript" src="scripts/slides.js"></script>
-  <script type="text/javascript" src="scripts/jquery.js"></script>
+  <!--<script type="text/javascript" src="scripts/jquery.js"></script>-->
 </head>
 {% endblock %}
 <body id="home">
@@ -64,7 +64,7 @@ https://docs.djangoproject.com/en/dev/topics/templates/
     {% block slides %}
     <div id="slides">
       <div class="slideshow" id="mantleSlides">
-        <div id="slide1" style="display:none">
+        <div id="slide1" style="opacity: 0.5">
           <div class="callout">
             Ultra-fast Search Library and Server<br/>
           </div>
@@ -98,7 +98,7 @@ https://docs.djangoproject.com/en/dev/topics/templates/
             <img alt="Apache Mahout community" src="images/mantle-community.png"/>
           </div>
         </div>
-        <div id="slide4" style="opacity:0.5">
+        <div id="slide4" style="display:none">
           <div class="callout">
             Apache 2.0 licensed
           </div>
@@ -111,10 +111,10 @@ https://docs.djangoproject.com/en/dev/topics/templates/
         </div>
       </div>
       <div class="controls">
-        <a class="next" id="next" title="Next" href="http://lucene.apache.org/#">Next</a>
-        <a class="previous" id="previous" title="Previous" href="http://lucene.apache.org/#">Previous</a>
-        <a class="start" id="start" title="Start" href="http://lucene.apache.org/#" style="display: none; ">Start</a>
-        <a class="stop" id="stop" title="Stop" href="http://lucene.apache.org/#">Stop</a>
+        <a class="next" id="next" title="Next" href="#">Next</a>
+        <a class="previous" id="previous" title="Previous" href="#">Previous</a>
+        <a class="start" id="start" title="Start" href="#" style="display: none; ">Start</a>
+        <a class="stop" id="stop" title="Stop" href="#">Stop</a>
       </div>
     </div>
 
