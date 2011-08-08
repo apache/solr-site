@@ -13,8 +13,8 @@ our @patterns = (
 	# keep the general one last
   [qr!\.mdtext$!, main => { template => "main.html",
      svn      => ASF::Value::SVN->new(project => "lucene", limit => 5),
-  #	 jira     => ASF::Value::Jira->new(limit => 5,
-  #                                          url => "https://issues.apache.org/jira/plugins/servlet/streams?key=LUCENE"),
+  	 jira     => ASF::Value::Jira->new(limit => 5,
+                                            url => "https://issues.apache.org/jira/sr/jira.issueviews:searchrequest-comments-rss/temp/SearchRequest.xml?jqlQuery=project+%3D+LUCENE+ORDER+BY+updatedDate+DESC&tempMax=1000"),
      dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
                                             limit => 3),
      coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
