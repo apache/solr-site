@@ -42,6 +42,60 @@
   <a href="http://lucene.apache.org/"><img border="0" src="../images/lucene_green_300.gif" alt="Lucene Logo"/></a>
 {% endblock %}
 {% block slides %}
+<div id="slides">
+      <div class="slideshow" id="mantleSlides">
+        <div id="slide1" >
+          <div class="callout">
+            Ultra-fast Search Library<br/>
+          </div>
+          <div class="descwrapper"><div class="description">
+            Apache Lucene sets the standard for search and indexing performance
+          </div></div>
+          <div class="mantle">
+            <img alt="Apache Lucene" src="../images/mantle-lucene.png"/>
+          </div>
+        </div>
+        <div id="slide2" style="display:none">
+          <div class="callout">
+            Proven search capabilities<br/>
+          </div>
+          <div class="descwrapper"><div class="description">
+            Lucene is the de facto standard for search libraries
+          </div></div>
+          <div class="mantle">
+            <img alt="Lucene Power" src="../images/mantle-power.png"/>
+          </div>
+        </div>
+        <div id="slide3" style="display:none">
+          <div class="callout">
+            Innovation and Maturity
+          </div>
+          <div class="descwrapper"><div class="description">
+            Lucene has proven stability as well as a track record of innovation
+          </div></div>
+          <div class="mantle">
+            <img alt="Apache Lucene" src="../images/mantle-innovation.png"/>
+          </div>
+        </div>
+        <div id="slide4" style="display:none">
+          <div class="callout">
+            Apache 2.0 licensed
+          </div>
+          <div class="descwrapper"><div class="description">
+            Apache Lucene is distributed under a commercially friendly Apache Software license
+          </div></div>
+          <div class="mantle">
+            <img alt="Apache Software Foundation" src="../images/mantle-asf.png"/>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <a class="next" id="next" title="Next" href="#">Next</a>
+        <a class="previous" id="previous" title="Previous" href="#">Previous</a>
+        <a class="start" id="start" title="Start" href="#" style="display: none; ">Start</a>
+        <a class="stop" id="stop" title="Stop" href="#">Stop</a>
+      </div>
+    </div>
 {% endblock %}
 {% block nav %}
 <ul>
@@ -51,6 +105,7 @@
   <li><a href="quickstart.html">Tutorials</a></li>
   <li><a href="https://issues.apache.org/jira/browse/LUCENE">Bug Tracker</a></li>
   <li><a class="last" href="mailing-lists.html">Discussion</a></li>
+  <li><a class="last" href="../">Lucene</a></li>
 </ul>
 {% endblock %}
 {% block sidebar %}

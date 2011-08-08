@@ -50,6 +50,7 @@ https://docs.djangoproject.com/en/dev/topics/templates/
       <a href="http://lucene.apache.org/"><img border="0" src="images/lucene_green_300.gif" alt="Lucene Logo"/></a>
       {% endblock %}
     </div>
+    {% include "search.html" %}
     <div id="nav">
       {% block nav %}
       <ul>
@@ -60,7 +61,6 @@ https://docs.djangoproject.com/en/dev/topics/templates/
       </ul>
       {% endblock %}
     </div>
-    {% include "search.html" %}
     {% block slides %}
     <div id="slides">
       <div class="slideshow" id="mantleSlides">

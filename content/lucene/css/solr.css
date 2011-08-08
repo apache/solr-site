@@ -383,7 +383,7 @@ input.button {
 
 #header #logo {
     position: absolute;
-    top: 5px;
+    top: 15px;
     left: 20px;
     height: 42px;
     width: 405px;
@@ -455,7 +455,7 @@ input.button {
 	padding-left:5px;
 	right:0px;
     height: 34px;
-    top: 84px;
+    top: 114px;
 	border-radius:3px;
     z-index: 99999;
 	background-color:#444;
@@ -767,15 +767,15 @@ body#home #header {
 
 body#home #header #slides {
 	position: absolute;
-	top: 128px;
-	left: 10px;
-	width: 923px;
+	top: 148px;
+	left: 0px;
+	width: 945px;
 	height: 260px;
     background-color: #C4E0BA;
 }
 
 body#home #header #slides .slideshow {
-	width:923px;
+	width:945px;
 	height:260px;
 	margin:0px;
 	padding:0px;
@@ -790,6 +790,16 @@ body#home #header #slides .callout {
 	color: #2b1f48;
 }
 
+body#home #header #slides .descwrapper {
+	position: absolute;
+	top: 175px;
+	font-size: 14px;
+	line-height: 15px;
+    background-color: #2B2A38;
+	width: 945px;
+    height: 85px;
+}
+
 body#home #header #slides .description {
 	position: absolute;
 	top: 175px;
@@ -797,7 +807,16 @@ body#home #header #slides .description {
 	font-size: 14px;
 	line-height: 15px;
 	color: #e0e0e0;
-    background-color: #2B2A38;
+	width: 350px;
+}
+
+body#home #header #slides .descwrapper .description {
+	position: relative;
+	top: 15px;
+	left: 10px;
+	font-size: 14px;
+	line-height: 15px;
+	color: #e0e0e0;
 	width: 350px;
 }
 
