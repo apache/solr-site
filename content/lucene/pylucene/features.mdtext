@@ -1,0 +1,280 @@
+<warning>
+Before calling any PyLucene API that requires the Java VM, start it by
+calling <code>initVM(classpath, ...)</code>. More about this function
+in <a href="site:jcc/documentation/readme">here</a>.
+</warning>
+
+#Installing PyLucene
+
+PyLucene is a Python extension built with 
+<a href="site:jcc/about/index">JCC</a>.
+
+
+To build PyLucene, JCC needs to be built first. Sources for JCC are
+included with the PyLucene sources. Instructions for building and
+installing JCC are <a href="site:jcc/documentation/install">here</a>. 
+
+
+Instruction for building PyLucene
+are <a href="site:documentation/install">here</a>.
+
+
+
+#API documentation
+
+PyLucene is closely tracking Java Lucene releases. It intends to
+supports the entire Lucene API.
+
+
+PyLucene also includes a number of Lucene contrib packages: the
+Snowball analyzer and stemmers, the highlighter package, analyzers
+for other languages than english, regular expression queries, 
+specialized queries such as 'more like this' and more.
+
+
+This document only covers the pythonic extensions to Lucene offered
+by PyLucene as well as some differences between the Java and Python
+APIs. For the documentation on Java Lucene APIs,
+see <a href="http://lucene.apache.org/java/docs/api/index.html">here</a>.
+
+
+To help with debugging and to support some Lucene APIs, PyLucene also
+exposes some Java runtime APIs.
+
+
+#Samples
+
+The best way to learn PyLucene is to look at the many samples
+included with the PyLucene source release or on the web at:
+
+
+- <a href="http://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/samples">http://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/samples</a>
+
+- <a href="http://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/samples/LuceneInAction">http://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/samples/LuceneInAction</a>
+
+
+
+A large number of samples are shipped with PyLucene. Most notably,
+all the samples published in
+the <a href="http://www.manning.com/hatcher2"><em>Lucene in
+Action</em></a> book that did not depend on a third party Java
+library for which there was no obvious Python equivalent were
+ported to Python and PyLucene.
+
+
+<em>Lucene in Action</em> is a great companion to learning
+Lucene. Having all the samples available in Python should make it
+even easier for Python developers.
+
+
+<em>Lucene in Action</em> was written by Erik Hatcher and Otis
+Gospodnetic, both part of the Java Lucene development team, and is
+available from
+<a href="http://www.manning.com/hatcher2">Manning Publications</a>.
+
+
+
+#Threading support with attachCurrentThread
+
+Before PyLucene APIs can be used from a thread other than the main
+thread that was not created by the Java Runtime, the
+<code>attachCurrentThread()</code> method must be called on the
+<code>JCCEnv</code> object returned by the <code>initVM()</code>
+or <code>getVMEnv()</code> functions.
+
+
+
+#Exception handling with lucene.JavaError
+
+Java exceptions are caught at the language barrier and reported to
+Python by raising a JavaError instance whose args tuple contains the
+actual Java Exception instance.
+
+
+
+#Handling Java arrays
+
+Java arrays are returned to Python in a <code>JArray</code>
+wrapper instance that implements the Python sequence protocol. It
+is possible to change array elements but not to change the array
+size.
+
+
+A few Lucene APIs take array arguments and expect values to be
+returned in them. To call such an API and be able to retrieve the
+array values after the call, a Java array needs to instantiated
+first.<br/>
+For example, accessing termDocs:
+
+<source>
+termDocs = reader.termDocs(Term("isbn", isbn))
+docs = JArray('int')(1)   # allocate an int[1] array
+freq = JArray('int')(1)   # allocate an int[1] array
+if termDocs.read(docs, freq) == 1:
+  bits.set(docs[0])     # access the array's first element
+</source>
+
+In addition to <code>'int'</code>, the <code>'JArray'</code>
+function accepts <code>'object'</code>, <code>'string'</code>,
+<code>'bool'</code>, <code>'byte'</code>, <code>'char'</code>,
+<code>'double'</code>, <code>'float'</code>, <code>'long'</code>
+and <code>'short'</code> to create an array of the corresponding
+type. The <code>JArray('object')</code> constructor takes a second
+argument denoting the class of the object elements. This argument
+is optional and defaults to Object.
+
+
+To convert a char array to a Python string use a
+<code>''.join(array)</code> construct.
+
+
+Instead of an integer denoting the size of the desired Java array,
+a sequence of objects of the expected element type may be passed
+in to the array constructor.<br/>
+For example:
+
+<source>
+# creating a Java array of double from the [1.5, 2.5] list
+JArray('double')([1.5, 2.5])
+</source>
+
+All methods that expect an array also accept a sequence of Python
+objects of the expected element type. If no values are expected
+from the array arguments after the call, it is hence not necessary
+to instantiate a Java array to make such calls.
+
+
+See <a href="site:jcc/documentation/readme">JCC</a> for more
+information about handling arrays.
+
+
+
+#Differences between the Java Lucene and PyLucene APIs
+
+- The PyLucene API exposes all Java Lucene classes in a flat namespace
+in the PyLucene module. For example, the Java import
+statement <code>import
+org.apache.lucene.index.IndexReader;</code> corresponds to the
+Python import statement <code>from lucene import
+IndexReader</code>
+
+- Downcasting is a common operation in Java but not a concept in
+Python. Because the wrapper objects implementing exactly the
+APIs of the declared type of the wrapped object, all classes
+implement two class methods called instance_ and cast_ that
+verify and cast an instance respectively.
+
+
+
+
+#Pythonic extensions to the Java Lucene APIs
+
+Java is a very verbose language. Python, on the other hand, offers
+many syntactically attractive constructs for iteration, property
+access, etc... As the Java Lucene samples from the <em>Lucene in
+Action</em> book were ported to Python, PyLucene received a number
+of pythonic extensions listed here:
+
+
+- Iterating search hits is a very common operation. Hits instances
+are iterable in Python. Two values are returned for each
+iteration, the zero-based number of the document in the Hits
+instance and the document instance itself.<br/>
+The Java loop:
+<source>
+  for (int i = 0; i &lt; hits.length(); i++) {
+      Document doc = hits.doc(i);
+      System.out.println(hits.score(i) + " : " + doc.get("title"));
+  }
+</source>
+can be written in Python:
+<source>
+ for hit in hits:
+     hit = Hit.cast_(hit)
+     print hit.getScore(), ':', hit.getDocument['title']
+ </source>
+if hit.iterator()'s next() method were declared to return
+<code>Hit</code> instead of <code>Object</code>, the above
+cast_() call would not be unnecessary.<br/>
+The same java loop can also be written:
+<source>
+  for i xrange(len(hits)):
+      print hits.score(i), ':', hits[i]['title']
+</source>
+
+- Hits instances partially implement the Python 'sequence'
+protocol.<br/>
+The Java expressions:
+<source>
+  hits.length()
+  doc = hits.get(i)
+</source>
+are better written in Python:
+<source>
+  len(hits)
+  doc = hits[i]
+</source>
+
+- Document instances have fields whose values can be accessed
+through the mapping protocol.<br/>
+The Java expression:
+<source>
+  doc.get("title")
+</source>
+is better written in Python:
+<source>
+  doc['title']
+</source>
+
+- Document instances can be iterated over for their fields.<br/>
+The Java loop:
+<source>
+  Enumeration fields = doc.getFields();
+  while (fields.hasMoreElements()) {
+      Field field = (Field) fields.nextElement();
+      ...
+  }
+</source>
+is better written in Python:
+<source>
+  for field in doc.getFields():
+      field = Field.cast_(field)
+      ...
+</source>
+Once JCC heeds Java 1.5 type parameters and once Java Lucene
+makes use of them, such casting should become unncessary.
+
+
+
+
+#Extending Java Lucene classes from Python
+
+Many areas of the Lucene API expect the programmer to provide
+their own implementation or specialization of a feature where
+the default is inappropriate. For example, text analyzers and
+tokenizers are an area where many parameters and environmental
+or cultural factors are calling for customization.
+
+
+PyLucene enables this by providing Java extension points listed
+below that serve as proxies for Java to call back into the
+Python implementations of these customizations.
+
+
+These extension points are simple Java classes that JCC
+generates the native C++ implementations for. It is easy to add
+more such extensions classes into the 'java' directory of the
+PyLucene source tree.
+
+
+To learn more about this topic, please refer to the JCC
+<a href="site:jcc/documentation/readme">documentation</a>.
+
+
+Please refer to the classes in the 'java' tree for currently
+available extension points. Examples of uses of these extension
+points are to be found in PyLucene's unit tests and <em>Lucene
+in
+Action</em> <a href="http://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/samples/LuceneInAction">samples</a>.
+
+

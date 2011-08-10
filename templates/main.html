@@ -57,7 +57,7 @@ https://docs.djangoproject.com/en/dev/topics/templates/
         <li><a href="./core/">Core (Java)</a></li>
         <li><a href="./solr/">Solr</a></li>
         <li><a href="./pylucene/">PyLucene</a></li>
-        <li><a href="Open Relevance">Open Relevance</a></li>
+        <li><a href="./openrelevance/">Open Relevance</a></li>
       </ul>
       {% endblock %}
     </div>
@@ -134,7 +134,9 @@ https://docs.djangoproject.com/en/dev/topics/templates/
       {% block news %}
       <div>{% filter markdown %}{% include "mainnews.mdtext" %}{% endfilter %}</div>
       {% endblock %}
+      {% block asfboiler %}
       <div>{% filter markdown %}{% include "asf.mdtext" %}{% endfilter %}</div>
+      {% endblock %}
     </div>
     {% block sidebar %}
     <div id="sidebar">

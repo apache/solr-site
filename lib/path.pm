@@ -34,7 +34,7 @@ our @patterns = (
                                             limit => 3),
 	 }],
 	[qr!pylucene\/.*?\.mdtext$!, main => { template => "pylucene.html" }],
-	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "orp.html" }],
+	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance.html" }],
 	# keep the general one last
   [qr!\.mdtext$!, main => { template => "main.html",
      dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
