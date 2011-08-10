@@ -3,6 +3,9 @@
 {#
 See for how templates work
 https://docs.djangoproject.com/en/dev/topics/templates/
+
+Similar to main.html, but with less boilerplate in the main section as
+well as no news
 #}
 {% block head %}
 <head>
@@ -129,12 +132,7 @@ https://docs.djangoproject.com/en/dev/topics/templates/
   <div id="content-wrap" class="clearfix">
     <div id="main">
       <h1 class="title">{% block title %}{{ headers.title }}{% endblock %}</h1>
-
       <div>{% block content %}{{ content|markdown }}{% endblock %}</div>
-      {% block news %}
-      <div>{% filter markdown %}{% include "mainnews.mdtext" %}{% endfilter %}</div>
-      {% endblock %}
-      <div>{% filter markdown %}{% include "asf.mdtext" %}{% endfilter %}</div>
     </div>
     {% block sidebar %}
     <div id="sidebar">

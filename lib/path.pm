@@ -6,7 +6,16 @@ use ASF::Value;
 our @patterns = (
 
 #	[qr!/sitemap\.html$!, sitemap => { headers => { title => "Lucene Sitemap" }} ],
-	[qr!core\/.*?\.mdtext$!, main => { template => "core.html",
+	[qr!privacy\.mdtext$!, main => { template => "simple.html",
+	   svn      => ASF::Value::SVN->new(project => "lucene", limit => 5),
+  	 jira     => ASF::Value::Jira->new(limit => 5,
+                                            url => "https://issues.apache.org/jira/sr/jira.issueviews:searchrequest-comments-rss/temp/SearchRequest.xml?jqlQuery=project+%3D+LUCENE+ORDER+BY+updatedDate+DESC&tempMax=20"),
+     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
+                                            limit => 3),
+     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
+                                            limit => 3)
+	  }],
+	 [qr!core\/.*?\.mdtext$!, main => { template => "core.html",
 	   svn      => ASF::Value::SVN->new(project => "lucene", limit => 5),
   	 jira     => ASF::Value::Jira->new(limit => 5,
                                             url => "https://issues.apache.org/jira/sr/jira.issueviews:searchrequest-comments-rss/temp/SearchRequest.xml?jqlQuery=project+%3D+LUCENE+ORDER+BY+updatedDate+DESC&tempMax=20"),
