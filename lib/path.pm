@@ -8,6 +8,8 @@ our @patterns = (
 
   #	[qr!/sitemap\.html$!, sitemap => { headers => { title => "Lucene Sitemap" }} ],
   # separate ones for the index.html pages, as they will include the news
+  #TODO: fix the duplication of SVN, jira, etc.
+
 	 [qr!core\/index\.mdtext$!, main => { template => "core.html",
 	   svn      => ASF::Value::SVN->new(project => "lucene/dev/trunk/lucene", limit => 5),
   	 jira     => ASF::Value::Jira->new(limit => 5,
@@ -60,7 +62,15 @@ our @patterns = (
 	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance-simple.html" }],
 
 	# keep the general one last
-  [qr!\.mdtext$!, main => { template => "main.html",
+  [qr!lucene\/index\.mdtext$!, main => { template => "main.html",
+     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
+                                            limit => 3),
+     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
+                                            limit => 3),
+     solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
+                                            limit => 3),
+	 }],
+	 [qr!\.mdtext$!, main => { template => "simple.html",
      dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
                                             limit => 3),
      coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
