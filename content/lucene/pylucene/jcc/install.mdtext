@@ -1,0 +1,216 @@
+
+##Getting JCC's Source Code
+
+JCC's source code is included with PyLucene's. If you've downloaded
+the PyLucene source code already, JCC's is to be found in
+the <code>jcc</code> subdirectory.
+
+
+To get the JCC source code only from SVN use:<br/>
+<code>$ svn co
+http://svn.apache.org/repos/asf/lucene/pylucene/trunk/jcc jcc</code>
+
+##Building JCC
+
+JCC is a Python extension written in Python and C++. It requires a
+Java Runtime Environment to operate as it uses Java's reflection
+APIs to do its work. It is built and installed
+via <code>distutils</code>
+or <a href="http://pypi.python.org/pypi/setuptools">setuptools</a>.
+
+
+- Edit <code>setup.py</code> and review that values in
+the <code>INCLUDES</code>, <code>CFLAGS</code>,
+<code>DEBUG_CFLAGS</code>, <code>LFLAGS</code>
+and <code>JAVAC</code> are correct for your system. These values
+are also going to be compiled into JCC's <code>config.py</code>
+file and are going to be used by JCC when
+invoking <code>distutils</code> or <code>setuptools</code> to
+compile extensions it is generating code for.
+- At the command line, enter:
+<source>
+$ python setup.py build
+$ sudo python setup.py install
+</source>
+
+
+##Requirements
+
+JCC requires a Java Development Kit to be present. It uses the Java
+Native Invocation Interface and expects <code>&lt;jni.h&gt;</code>
+and the Java libraries to be present at build and runtime.
+
+
+JCC requires a C++ compiler. A recent C++ compiler for your
+platform is expected to work as expected.
+
+
+##Shared Mode: Support for the <code>--shared</code> Flag
+
+JCC includes a small runtime that keeps track of the Java VM and of
+Java objects escaping it. Because there can be only one Java VM
+embedded in a given process at a time, the JCC runtime must be
+compiled as a shared library when more than one JCC-built Python
+extension is going to be imported into a given Python process.
+
+
+Shared mode depends on <code>setuptools</code>' capability of
+building plain shared libraries (as opposed to shared libraries for
+Python extensions).
+
+
+Currently, shared mode is supported with <code>setuptools
+0.6c7</code> and above out of the box on Mac OS X and Windows. On
+Linux, a patch to <code>setuptools</code> needs to be applied
+first. This patch is included in the JCC source distribution in
+the <code>jcc/patches</code> directory, <code>patch.43</code>. This
+patch was submitted to the <code>setuptools</code> project
+via <a href="http://bugs.python.org/setuptools/issue43">issue
+43</a>.
+
+
+The <code>shared mode disabled</code> error reported during the
+build of JCC's on Linux contains the exact instructions on how to
+patch the <code>setuptools</code> installation
+with <code>patch.43</code> on your system.
+
+
+Shared mode is also required when embedding Python in a Java VM as
+JCC's runtime shared library is used by the JVM to load JCC and
+bootstrap the Python VM via the JNI.
+
+
+When shared mode is not enabled, not supported
+or <code>distutils</code> is used instead
+of <code>setuptools</code>, static mode is used instead. The JCC
+runtime code is statically linked with each JCC-built Python
+extension and only one such extension can be used in a given Python
+process at a time.
+
+
+As setuptools grows its shared library building capability it is
+expected that more operating systems should be supported with shared
+mode in the future.
+
+
+Shared mode can be forced off by building JCC with
+the <code>NO_SHARED</code> environment variable set.
+
+
+There are two defaults to consider here:
+
+
+- Is JCC built with shared mode support or not ?
+
+- By default, on Mac OS X and Windows this is the case.
+
+- By default, on Linux, this is the case.
+  if <code>setuptools</code> is patched.
+
+- On other operating systems shared mode support is off by
+  default - not supported - because shared mode depends on
+  <code>setuptools</code>'s capability of building a regular
+  shared library which is still an experimental feature.
+
+- Is a JCC-built Python extension built with shared mode ?<br/>
+    By default, no, shared mode is enabled only with
+    the <code>--shared</code> command line argument.
+
+
+
+##Notes for Mac OS X
+
+On Mac OS X, Java is installed by Apple's setup as a framework. The
+values in <code>setup.py</code> for <code>INCLUDES</code>
+and <code>LFLAGS</code> for <code>darwin</code> should be correct
+and ready to use.
+
+
+  However, if you intend to use the 'system' Python from a Java VM
+  on Mac OS X -- Python embedded in Java --
+  you will need to add the flags <code>"-framework", "Python"</code>
+  to the <code>LFLAGS</code> value.
+
+
+##Notes for Linux
+
+JCC has been built and tested on a variety of Linux distributions,
+32- and 64-bit. Getting the java configuration correct is important
+and is done differently for every distribution.<br/>
+For example:
+
+
+- On Ubuntu, to install Java 5, these commands may be used:
+<source>
+      $ sudo apt-get install sun-java5-jdk
+      $ sudo update-java-alternatives -s java-1.5.0-sun
+</source>
+The samples flags for Linux in JCC's setup.py should be close to
+correct.
+
+- On Gentoo, the <code>java-config</code> utility should be used to
+locate, and possibly change, the default java installation.
+The sample flags for Linux in JCC's <code>setup.py</code> should
+be changed to reflect the root of the Java installation which may
+be obtained via:
+<source>
+      $ java-config -O
+</source>
+
+
+
+See earlier section about <a href="#shared">Shared Mode</a> for
+Linux support.
+
+
+##Notes for Solaris
+
+At this time, JCC has been built and tested only on Solaris 11 with Sun
+Studio C++ 12, Java 1.6 and Python 2.4.
+
+
+Because JCC is written in C++, Python's <code>distutils</code> must
+be nudged a bit to invoke the correct compiler. Sun Studio's C
+compiler is called <code>cc</code> while its C++ compiler is
+called <code>CC</code>. To build JCC, use the following shell
+command to ensure that the C++ compiler is used:
+
+<source>
+$ CC=CC python setup.py build
+</source>
+
+Shared mode is not currently implemented for
+Solaris, <code>setuptools</code> needs to be taught how to build
+plain shared libraries on Solaris first.
+
+
+##Notes for Windows
+
+At this time, JCC has been built and tested on Win2k and WinXP with
+a variety of Python and Java versions.
+
+
+- Adding the Python directory to <code>PATH</code> is recommended.
+
+- Adding the Java directories containing the necessary DLLs and to
+<code>PATH</code> is a must.
+
+- Adding the directory containing <code>javac.exe</code>
+to <code>PATH</code> is required for shared mode (enabled by
+default if <code>setuptools >= 0.6c7</code> is found to be
+installed).
+
+
+
+##Notes for Python 2.3
+
+To use JCC with Python 2.3, setuptools is required
+
+
+- download <a href="http://pypi.python.org/pypi/setuptools">setuptools</a>.
+
+- edit the downloaded <code>setuptools</code> egg file to use
+python2.3 instead of python2.4.
+
+- At the command line, run:<br/>
+<code>$ sudo sh setuptools-0.6c7-py2.4.egg</code>
