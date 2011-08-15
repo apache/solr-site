@@ -5,79 +5,27 @@ use ASF::Value;
 
 # Patterns should go from more restrictive matches to less restrictive.
 our @patterns = (
-
-  #	[qr!/sitemap\.html$!, sitemap => { headers => { title => "Lucene Sitemap" }} ],
-  # separate ones for the index.html pages, as they will include the news
-  #TODO: fix the duplication of SVN, jira, etc.
-
-	 [qr!core\/index\.mdtext$!, main => { template => "core.html",
-	   svn      => ASF::Value::SVN->new(project => "lucene/dev/trunk/lucene", limit => 5),
-  	 jira     => ASF::Value::Jira->new(limit => 5,
-                                url => "https://issues.apache.org/jira/sr/jira.issueviews:searchrequest-comments-rss/temp/SearchRequest.xml?jqlQuery=project+%3D+LUCENE+ORDER+BY+updatedDate+DESC&tempMax=20"),
-     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                            limit => 3),
-     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
-                                            limit => 3)
-	}],
-	[qr!solr\/index\.mdtext$!, main => { template => "solr.html",
-	  svn      => ASF::Value::SVN->new(project => "lucene/dev/trunk/solr", limit => 5),
-  	 jira     => ASF::Value::Jira->new(limit => 5,
-                                url => "https://issues.apache.org/jira/sr/jira.issueviews:searchrequest-comments-rss/temp/SearchRequest.xml?jqlQuery=project+%3D+SOLR+ORDER+BY+updatedDate+DESC&tempMax=20"),
-     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                            limit => 3),
-     solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
-                                            limit => 3),
+[qr!core\/index\.mdtext$!, main => { template => "core.html"	}],
+	[qr!solr\/index\.mdtext$!, main => { template => "solr.html"
 	 }],
 	[qr!pylucene\/index\.mdtext$!, main => { template => "pylucene.html" }],
 	[qr!openrelevance\/index\.mdtext$!, main => { template => "openrelevance.html" }],
 
-	[qr!privacy\.mdtext$!, main => { template => "simple.html",
-	   svn      => ASF::Value::SVN->new(project => "lucene", limit => 5),
-  	 jira     => ASF::Value::Jira->new(limit => 5,
-                                url => "https://issues.apache.org/jira/sr/jira.issueviews:searchrequest-comments-rss/temp/SearchRequest.xml?jqlQuery=project+%3D+LUCENE+ORDER+BY+updatedDate+DESC&tempMax=20"),
-     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                            limit => 3),
-     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
-                                            limit => 3)
-	  }],
-	 [qr!core\/.*?\.mdtext$!, main => { template => "core-simple.html",
-	   svn      => ASF::Value::SVN->new(project => "lucene/dev/trunk/lucene", limit => 5),
-  	 jira     => ASF::Value::Jira->new(limit => 5,
-                                url => "https://issues.apache.org/jira/sr/jira.issueviews:searchrequest-comments-rss/temp/SearchRequest.xml?jqlQuery=project+%3D+LUCENE+ORDER+BY+updatedDate+DESC&tempMax=20"),
-     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                            limit => 3),
-     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
-                                            limit => 3)
+	[qr!privacy\.mdtext$!, main => { template => "simple.html" }],
+
+	  [qr!\/lucene\/index\.mdtext$!, main => { template => "main.html" }],
+
+	 [qr!core\/.*?\.mdtext$!, main => { template => "core-simple.html"
 	}],
-	[qr!solr\/.*?\.mdtext$!, main => { template => "solr-simple.html",
-	  svn      => ASF::Value::SVN->new(project => "lucene/dev/trunk/solr", limit => 5),
-  	 jira     => ASF::Value::Jira->new(limit => 5,
-                                url => "https://issues.apache.org/jira/sr/jira.issueviews:searchrequest-comments-rss/temp/SearchRequest.xml?jqlQuery=project+%3D+SOLR+ORDER+BY+updatedDate+DESC&tempMax=20"),
-     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                            limit => 3),
-     solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
-                                            limit => 3),
+
+	[qr!solr\/.*?\.mdtext$!, main => { template => "solr-simple.html"
 	 }],
 	[qr!pylucene\/.*?\.mdtext$!, main => { template => "pylucene-simple.html" }],
 	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance-simple.html" }],
 
 	# keep the general one last
-  [qr!lucene\/index\.mdtext$!, main => { template => "main.html",
-     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                            limit => 3),
-     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
-                                            limit => 3),
-     solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
-                                            limit => 3),
-	 }],
-	 [qr!\.mdtext$!, main => { template => "simple.html",
-     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                            limit => 3),
-     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
-                                            limit => 3),
-     solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
-                                            limit => 3),
-	 }],
+  [qr!lucene\/index\.mdtext$!, main => { template => "main.html"}],
+  [qr!\.mdtext$!, main => { template => "simple.html"	 }],
 ) ;
 
 # for specifying interdependencies between files
