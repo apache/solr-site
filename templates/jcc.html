@@ -2,7 +2,7 @@
 {% block head %}
 <head>
   <!--
-      pylucene.html
+      jcc.html
 
       Licensed to the Apache Software Foundation (ASF) under one or more
       contributor license agreements.  See the NOTICE file distributed with
@@ -19,44 +19,43 @@
       See the License for the specific language governing permissions and
       limitations under the License.
   -->
-  <link href="../css/pylucene.css" rel="stylesheet" type="text/css">
+  <link href="../../css/pylucene.css" rel="stylesheet" type="text/css">
   <title>Apache PyLucene - {% block title %}{{ headers.title }}{% endblock %}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
   <meta name="Distribution" content="Global"/>
   <meta name="Robots" content="index,follow"/>
   <meta name="keywords"
-        content="apache, jcc, pylucene, lucene, apache pylucene, apache jcc,
-  apache lucene, python java, open source"/>
-  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
-  <script type="text/javascript" src="../scripts/prototype.js"></script>
-  <script type="text/javascript" src="../scripts/effects.js"></script>
-  <script type="text/javascript" src="../scripts/search.js"></script>
-  <script type="text/javascript" src="../scripts/slides.js"></script>
-  <script type="text/javascript" src="../scripts/jquery.js"></script>
+        content="apache, pylucene, jcc, lucene, apache pylucene, apache jcc,
+  apache lucene, search, python search, information retrieval, spell checking, faceting, inverted index, open source"/>
+  <link rel="shortcut icon" type="image/x-icon" href="../../images/favicon.ico"/>
+  <script type="text/javascript" src="../../scripts/prototype.js"></script>
+  <script type="text/javascript" src="../../scripts/effects.js"></script>
+  <script type="text/javascript" src="../../scripts/search.js"></script>
+  <script type="text/javascript" src="../../scripts/slides.js"></script>
+  <script type="text/javascript" src="../../scripts/jquery.js"></script>
 </head>
 {% endblock %}
 {% block logo %}
-  <a href="index.html"><img border="0" src="../images/lucene_logo_green_300.png" alt="Lucene Logo"/></a>
+  <a href="index.html"><img border="0" src="../../images/lucene_logo_green_300.png" alt="Lucene Logo"/></a>
 {% endblock %}
 {% block slides %}
 {% endblock %}
 {% block nav %}
 <ul>
-  <li><a href="index.html">PyLucene</a></li>
-  <li><a href="jcc/index.html">JCC</a></li>
+  <li><a href="index.html">JCC</a></li>
   <li><a href="https://issues.apache.org/jira/browse/PYLUCENE">Bug Tracker</a></li>
-  <li><a href="mailing-lists.html">Discussion</a></li>
-  <li><a class="last" href="../index.html">Lucene</a></li>
+  <li><a href="../mailing-lists.html">Discussion</a></li>
+  <li><a href="../index.html">PyLucene</a></li>
+  <li><a class="last" href="../../index.html">Lucene</a></li>
 </ul>
 {% endblock %}
 {% block news %}
-  <div>{% filter markdown %}{% include "../content/pylucene/pynews.mdtext" %}{% endfilter %}</div>
 {% endblock %}
 
 {% block sidebar %}
     <div id="sidebar">
-      {% filter markdown %}{% include "pynav.mdtext" %}{% endfilter %}
+      {% filter markdown %}{% include "jccnav.mdtext" %}{% endfilter %}
     </div>
 {% endblock %}
-{% block privacy %}<a href="../privacy.html">Privacy Policy</a>{% endblock %}
+{% block privacy %}<a href="../../privacy.html">Privacy Policy</a>{% endblock %}

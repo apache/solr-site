@@ -8,7 +8,8 @@ our @patterns = (
 [qr!core\/index\.mdtext$!, main => { template => "core.html"	}],
 	[qr!solr\/index\.mdtext$!, main => { template => "solr.html"
 	 }],
-	[qr!pylucene\/index\.mdtext$!, main => { template => "pylucene.html" }],
+	[qr!pylucene/jcc/index\.mdtext$!, main => { template => "jcc.html" }],
+	[qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html" }],
 	[qr!openrelevance\/index\.mdtext$!, main => { template => "openrelevance.html" }],
 
 	[qr!privacy\.mdtext$!, main => { template => "simple.html" }],
@@ -20,7 +21,8 @@ our @patterns = (
 
 	[qr!solr\/.*?\.mdtext$!, main => { template => "solr-simple.html"
 	 }],
-	[qr!pylucene\/.*?\.mdtext$!, main => { template => "pylucene-simple.html" }],
+	[qr!pylucene/jcc/.*?\.mdtext$!, main => { template => "jcc-simple.html" }],
+	[qr!pylucene/.*?\.mdtext$!, main => { template => "pylucene-simple.html" }],
 	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance-simple.html" }],
 
 	# keep the general one last
