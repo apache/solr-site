@@ -1,4 +1,27 @@
-{% extends "pylucene.html" %}
-{% block news %}
+{#
+ This is a work around to the fact that the CMS doesn't allow inheritance of depth
+        2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
+#}
+{% extends "head.html" %}
+{% block css %}
+    <link href="../css/pylucene.css" rel="stylesheet" type="text/css">
 {% endblock %}
+{% block metakeys %}<meta name="keywords"
+        content="apache, jcc, pylucene, lucene, apache pylucene, apache jcc,
+  apache lucene, python java, open source"/>
+{% endblock %}
+{% endextends %}
+{% extends "body.html" %}
+{% block slides %}
+{% endblock %}
+{% block logo %}
+  {% include "py-logo.html" %}
+{% endblock %}
+{% block nav %}
+  {% include "py-nav.html" %}
+{% endblock %}
+{% block sidebar %}
+  {% include "py-sidebar.html" %}
+{% endblock %}
+{% block privacy %}<a href="../privacy.html">Privacy Policy</a>{% endblock %}
 {% endextends %}

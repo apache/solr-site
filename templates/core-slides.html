@@ -1,18 +1,17 @@
-{% block theslides %}
+{% block  coreslides %}
 <div id="slides">
   <div class="slideshow" id="mantleSlides">
     <div id="slide1">
       <div class="callout">
-        Ultra-fast Lucene-based Search Server<br/>
+        Ultra-fast Search Library<br/>
       </div>
       <div class="descwrapper">
         <div class="description">
-          Apache Solr offers Lucene's capabilities in an easy to use,
-          fast search server with additional features like faceting, scalability and much more
+          Apache Lucene sets the standard for search and indexing performance
         </div>
       </div>
       <div class="mantle">
-        <img alt="Apache Solr" src="../images/mantle-solr.png"/>
+        <img alt="Apache Lucene" src="../images/mantle-lucene.png"/>
       </div>
     </div>
     <div id="slide2" style="display:none">
@@ -21,26 +20,24 @@
       </div>
       <div class="descwrapper">
         <div class="description">
-          The Solr search server powers a wide range of applications such as Netflix, AOL, CNET, Zappos and many more
+          Lucene is the de facto standard for search libraries
         </div>
       </div>
       <div class="mantle">
-        <img alt="Solr Power" src="../images/mantle-power.png"/>
+        <img alt="Lucene Power" src="../images/mantle-power.png"/>
       </div>
     </div>
     <div id="slide3" style="display:none">
       <div class="callout">
-        Scalable
+        Innovation and Maturity
       </div>
       <div class="descwrapper">
         <div class="description">
-          Apache Solr has been deployed successfully in both high query volume
-          situations and
-          large collection sizes
+          Lucene has proven stability as well as a track record of innovation
         </div>
       </div>
       <div class="mantle">
-        <img alt="Apache Solr community" src="../images/mantle-scale.png"/>
+        <img alt="Apache Lucene" src="../images/mantle-innovation.png"/>
       </div>
     </div>
     <div id="slide4" style="display:none">
@@ -49,7 +46,7 @@
       </div>
       <div class="descwrapper">
         <div class="description">
-          Apache Solr is distributed under a commercially friendly Apache Software license
+          Apache Lucene is distributed under a commercially friendly Apache Software license
         </div>
       </div>
       <div class="mantle">
@@ -64,4 +61,10 @@
     <a class="stop" id="stop" title="Stop" href="#">Stop</a>
   </div>
 </div>
+<script type="text/javascript">
+  function StartSlides() {
+    new Slides('mantleSlides');
+  }
+  document.observe('dom:loaded', StartSlides);
+</script>
 {% endblock %}

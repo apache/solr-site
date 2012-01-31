@@ -1,62 +1,31 @@
-{% extends "main.html" %}
-{% block head %}
-<head>
-  <!--
-      pylucene.html
-
-      Licensed to the Apache Software Foundation (ASF) under one or more
-      contributor license agreements.  See the NOTICE file distributed with
-      this work for additional information regarding copyright ownership.
-      The ASF licenses this file to You under the Apache License, Version 2.0
-      (the "License"); you may not use this file except in compliance with
-      the License.  You may obtain a copy of the License at
-
-         http://www.apache.org/licenses/LICENSE- 2.0
-
-      Unless required by applicable law or agreed to in writing, software
-      distributed under the License is distributed on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-      See the License for the specific language governing permissions and
-      limitations under the License.
-  -->
-  <link href="../css/global.css" rel="stylesheet" type="text/css">
-  <title>Apache PyLucene - {% block title %}{{ headers.title }}{% endblock %}</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-  <meta name="Distribution" content="Global"/>
-  <meta name="Robots" content="index,follow"/>
-  <meta name="keywords"
+{#
+ This is a work around to the fact that the CMS doesn't allow inheritance of depth
+        2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
+#}
+{% extends "head.html" %}
+{% block css %}
+    <link href="../css/pylucene.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block metakeys %}<meta name="keywords"
         content="apache, jcc, pylucene, lucene, apache pylucene, apache jcc,
   apache lucene, python java, open source"/>
-  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
-  <script type="text/javascript" src="../scripts/prototype.js"></script>
-  <script type="text/javascript" src="../scripts/effects.js"></script>
-  <script type="text/javascript" src="../scripts/search.js"></script>
-  <script type="text/javascript" src="../scripts/slides.js"></script>
-  <script type="text/javascript" src="../scripts/jquery.js"></script>
-</head>
 {% endblock %}
-{% block logo %}
-  <a href="index.html"><img border="0" src="../images/lucene_logo_green_300.png" alt="Lucene Logo"/></a>
-{% endblock %}
+{% endextends %}
+{% extends "body.html" %}
 {% block slides %}
 {% endblock %}
-{% block nav %}
-<ul>
-  <li><a href="index.html">PyLucene</a></li>
-  <li><a href="jcc/index.html">JCC</a></li>
-  <li><a href="https://issues.apache.org/jira/browse/PYLUCENE">Bug Tracker</a></li>
-  <li><a href="mailing-lists.html">Discussion</a></li>
-  <li><a class="last" href="../index.html">Lucene</a></li>
-</ul>
+{% block logo %}
+  {% include "py-logo.html" %}
 {% endblock %}
-{% block news %}
-  <div>{% filter markdown %}{% include "../content/pylucene/pynews.mdtext" %}{% endfilter %}</div>
+{% block nav %}
+  {% include "py-nav.html" %}
 {% endblock %}
 
+{% block news %}
+<div>{% filter markdown %}{% include "../content/pylucene/pynews.mdtext" %}{% endfilter %}</div>
+{% endblock %}
 {% block sidebar %}
-    <div id="sidebar">
-      {% filter markdown %}{% include "pynav.mdtext" %}{% endfilter %}
-    </div>
+  {% include "py-sidebar.html" %}
 {% endblock %}
 {% block privacy %}<a href="../privacy.html">Privacy Policy</a>{% endblock %}
+{% endextends %}
