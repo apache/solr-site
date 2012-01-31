@@ -1,0 +1,19 @@
+# Updating the Lucene Sites
+
+## Editing Content
+
+Editing any of the Lucene sites (Core, Solr, PyLucene, OpenRelevance) is easily done using the [ASF CMS](http://www.apache.org/dev/cms.html).
+
+To get started, take the following steps from the command line:
+
+* svn co https://svn.apache.org/repos/asf/lucene/cms/trunk cms/trunk
+* svn co https://svn.apache.org/repos/infra/websites/cms/build if you wish to build and test locally
+	* [http://www.apache.org/dev/cmsref.html#local-build](http://www.apache.org/dev/cmsref.html#local-build) for details on building locally.  If you are on a mac, you may need some perl dependencies installed.
+	* cd asf-cms
+	* ./build_site.pl --target-base=<path to output on local HTTPd server, I use ~/Sites> --source=../trunk/
+*  Edit the files in cms/trunk/content and cms/trunk/templates as you see fit.  When you are satisfied, svn commit.
+* Browse to the [staging site](http://lucene.staging.apache.org/) to see them live (it may take a few seconds to build).
+
+## Publishing Content to the Live Site
+
+TBD
