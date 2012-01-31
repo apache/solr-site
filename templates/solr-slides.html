@@ -64,4 +64,10 @@
     <a class="stop" id="stop" title="Stop" href="#">Stop</a>
   </div>
 </div>
+<script type="text/javascript">
+  function StartSlides() {
+    new Slides('mantleSlides');
+  }
+  document.observe('dom:loaded', StartSlides);
+</script>
 {% endblock %}
