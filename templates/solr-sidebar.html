@@ -1,0 +1,47 @@
+{% block solrside %}
+<div id="sidebar">
+  <span class="sidenav">{% filter markdown %}{% include "solrnav.mdtext" %}{% endfilter %}
+    <div class="status">
+      <div id="svn">
+        <h1>Latest SVN</h1>
+
+        <div class="status-item">
+          {% for e in svn.list %}
+          <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision
+            }}</a>
+          {{ e.message|safe|truncatewords_html:20 }} ({{
+          e.projects|safe }}) &mdash;
+          <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      <div id="jira">
+        <h1>Latest JIRA</h1>
+
+        <div class="status-item">{% for e in jira.list %}
+          <a class="bug" href="{{ e.url }}">{{ e.title|safe }}</a><br/>
+          {{ e.content|safe|truncatewords_html:20 }}
+          {% endfor %}
+        </div>
+      </div>
+      <div id="dev-mail">
+        <h1>Latest Dev</h1>
+
+        <div class="status-item">{% for e in dev.list %}
+          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
+          <hr>
+          {% endfor %}
+        </div>
+      </div>
+      <div id="solr-user-mail">
+        <h1>Latest Solr User</h1>
+
+        <div class="status-item">{% for e in solruser.list %}
+          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
+          <hr>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </span>
+</div>{% endblock %}

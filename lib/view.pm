@@ -42,7 +42,7 @@ sub main {
             read_text_file $f, $args{$1};
         }
     }
-    print "Template: $template\n";
+    print "Template: $template \n";
     return Dotiac::DTL::Template($template)->render(\%args), html => \%args;
 }
 
@@ -156,7 +156,7 @@ sub fetch_doap_url_list {
     return @urls;
 }
 
-1;
+
 
 sub breadcrumbs {
     my @path = split m!/!, shift;

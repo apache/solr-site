@@ -1,0 +1,73 @@
+{% block theslides %}
+<div id="slides">
+  <div class="slideshow" id="mantleSlides">
+    <div id="slide1">
+      <div class="callout">
+        Ultra-fast Lucene-based Search Server<br/>
+      </div>
+      <div class="descwrapper">
+        <div class="description">
+          Apache Solr offers Lucene's capabilities in an easy to use,
+          fast search server with additional features like faceting, scalability and much more
+        </div>
+      </div>
+      <div class="mantle">
+        <img alt="Apache Solr" src="../images/mantle-solr.png"/>
+      </div>
+    </div>
+    <div id="slide2" style="display:none">
+      <div class="callout">
+        Proven search capabilities<br/>
+      </div>
+      <div class="descwrapper">
+        <div class="description">
+          The Solr search server powers a wide range of applications such as Netflix, AOL, CNET, Zappos and many more
+        </div>
+      </div>
+      <div class="mantle">
+        <img alt="Solr Power" src="../images/mantle-power.png"/>
+      </div>
+    </div>
+    <div id="slide3" style="display:none">
+      <div class="callout">
+        Scalable
+      </div>
+      <div class="descwrapper">
+        <div class="description">
+          Apache Solr has been deployed successfully in both high query volume
+          situations and
+          large collection sizes
+        </div>
+      </div>
+      <div class="mantle">
+        <img alt="Apache Solr community" src="../images/mantle-scale.png"/>
+      </div>
+    </div>
+    <div id="slide4" style="display:none">
+      <div class="callout">
+        Apache 2.0 licensed
+      </div>
+      <div class="descwrapper">
+        <div class="description">
+          Apache Solr is distributed under a commercially friendly Apache Software license
+        </div>
+      </div>
+      <div class="mantle">
+        <img alt="Apache Software Foundation" src="../images/mantle-asf.png"/>
+      </div>
+    </div>
+  </div>
+  <div class="controls">
+    <a class="next" id="next" title="Next" href="#">Next</a>
+    <a class="previous" id="previous" title="Previous" href="#">Previous</a>
+    <a class="start" id="start" title="Start" href="#" style="display: none; ">Start</a>
+    <a class="stop" id="stop" title="Stop" href="#">Stop</a>
+  </div>
+</div>
+<script type="text/javascript">
+  function StartSlides() {
+    new Slides('mantleSlides');
+  }
+  document.observe('dom:loaded', StartSlides);
+</script>
+{% endblock %}

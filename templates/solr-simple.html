@@ -1,7 +1,34 @@
 <!-- solr-simple.html -->
-{% extends "solr.html" %}
 {#
-No news section
+ This is a work around to the fact that the CMS doesn't allow inheritance of depth
+        2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
 #}
-{% block news %}<!-- Here no news -->{% endblock %}
+{% extends "head.html" %}
+{% block css %}
+    <link href="../css/global.css" rel="stylesheet" type="text/css">
+    <link href="../css/solr.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block metakeys %}<meta name="keywords"
+        content="apache, apache lucene, apache solr, solr, lucene
+        search, information retrieval, spell checking, faceting, inverted index, open source"/>
+{% endblock %}
+{% endextends %}
+{% extends "body.html" %}
+{% block logo %}
+  {% include "solr-logo.html" %}
+{% endblock %}
+{% block slides %}
+  {% include "solr-slides.html" %}
+{% endblock %}
+{% block nav %}
+  {% include "solr-nav.html" %}
+{% endblock %}
+
+{% block news %}
+{% endblock %}
+{% block asfboiler %}{% endblock %}
+{% block sidebar %}
+    {% include "solr-sidebar.html" %}
+{% endblock %}
+{% block privacy %}<a href="../privacy.html">Privacy Policy</a>{% endblock %}
 {% endextends %}

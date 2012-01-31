@@ -1,159 +1,33 @@
-{% extends "main.html" %}
-{% block head %}
-<head>
-  <!--
-       solr.html
-
-      Licensed to the Apache Software Foundation (ASF) under one or more
-      contributor license agreements.  See the NOTICE file distributed with
-      this work for additional information regarding copyright ownership.
-      The ASF licenses this file to You under the Apache License, Version 2.0
-      (the "License"); you may not use this file except in compliance with
-      the License.  You may obtain a copy of the License at
-
-         http://www.apache.org/licenses/LICENSE- 2.0
-
-      Unless required by applicable law or agreed to in writing, software
-      distributed under the License is distributed on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-      See the License for the specific language governing permissions and
-      limitations under the License.
-  -->
-  <link href="../css/solr.css" rel="stylesheet" type="text/css">
-  <title>Apache Lucene - {% block title %}{{ headers.title }}{% endblock %}</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-  <meta name="Distribution" content="Global"/>
-  <meta name="Robots" content="index,follow"/>
-  <meta name="keywords"
+{#
+ This is a work around to the fact that the CMS doesn't allow inheritance of depth
+        2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
+#}
+{% extends "head.html" %}
+{% block css %}
+    <link href="../css/global.css" rel="stylesheet" type="text/css">
+    <link href="../css/solr.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block metakeys %}<meta name="keywords"
         content="apache, apache lucene, apache solr, solr, lucene
         search, information retrieval, spell checking, faceting, inverted index, open source"/>
-  <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico"/>
-  <script type="text/javascript" src="../scripts/prototype.js"></script>
-  <script type="text/javascript" src="../scripts/effects.js"></script>
-  <script type="text/javascript" src="../scripts/search.js"></script>
-  <script type="text/javascript" src="../scripts/slides.js"></script>
-  <!--<script type="text/javascript" src="../scripts/jquery.js"></script>-->
-</head>
 {% endblock %}
+{% endextends %}
+{% extends "body.html" %}
 {% block logo %}
-  <a href="index.html"><img border="0" width="250" height="137" src="../images/solr.png" alt="Solr Logo"/></a>
+  {% include "solr-logo.html" %}
 {% endblock %}
 {% block slides %}
-<div id="slides">
-      <div class="slideshow" id="mantleSlides">
-        <div id="slide1" >
-          <div class="callout">
-            Ultra-fast Lucene-based Search Server<br/>
-          </div>
-          <div class="descwrapper"><div class="description">
-            Apache Solr offers Lucene's capabilities in an easy to use,
-            fast search server with additional features like faceting, scalability and much more
-          </div></div>
-          <div class="mantle">
-            <img alt="Apache Solr" src="../images/mantle-solr.png"/>
-          </div>
-        </div>
-        <div id="slide2" style="display:none">
-          <div class="callout">
-            Proven search capabilities<br/>
-          </div>
-          <div class="descwrapper"><div class="description">
-            The Solr search server powers a wide range of applications such as Netflix, AOL, CNET, Zappos and many more
-          </div></div>
-          <div class="mantle">
-            <img alt="Solr Power" src="../images/mantle-power.png"/>
-          </div>
-        </div>
-        <div id="slide3" style="display:none">
-          <div class="callout">
-            Scalable
-          </div>
-          <div class="descwrapper"><div class="description">
-            Apache Solr has been deployed successfully in both high query volume
-            situations and
-            large collection sizes
-          </div></div>
-          <div class="mantle">
-            <img alt="Apache Solr community" src="../images/mantle-scale.png"/>
-          </div>
-        </div>
-        <div id="slide4" style="display:none">
-          <div class="callout">
-            Apache 2.0 licensed
-          </div>
-          <div class="descwrapper"><div class="description">
-            Apache Solr is distributed under a commercially friendly Apache Software license
-          </div></div>
-          <div class="mantle">
-            <img alt="Apache Software Foundation" src="../images/mantle-asf.png"/>
-          </div>
-        </div>
-      </div>
-      <div class="controls">
-        <a class="next" id="next" title="Next" href="#">Next</a>
-        <a class="previous" id="previous" title="Previous" href="#">Previous</a>
-        <a class="start" id="start" title="Start" href="#" style="display: none; ">Start</a>
-        <a class="stop" id="stop" title="Stop" href="#">Stop</a>
-      </div>
-    </div>
-    <script type="text/javascript">
-      function StartSlides() {
-        new Slides('mantleSlides');
-      }
-      document.observe('dom:loaded', StartSlides);
-    </script>
+  {% include "solr-slides.html" %}
 {% endblock %}
 {% block nav %}
-<ul>
-  <li><a href="index.html">Solr</a></li>
-  <li><a href="downloads.html">Download</a></li>
-  <li><a href="documentation.html">Documentation</a></li>
-  <li><a href="quickstart.html">Tutorial</a></li>
-  <li><a href="https://issues.apache.org/jira/browse/SOLR">Bug Tracker</a></li>
-  <li><a href="discussion.html">Discussion</a></li>
-  <li><a class="last" href="../">Lucene</a></li>
-</ul>
+  {% include "solr-nav.html" %}
 {% endblock %}
 
-{% block news %}<div>{% filter markdown %}{% include "../content/solr/solrnews.mdtext" %}{% endfilter %}</div>{% endblock %}
-
+{% block news %}
+<div>{% filter markdown %}{% include "../content/solr/solrnews.mdtext" %}{% endfilter %}</div>
+{% endblock %}
 {% block sidebar %}
-    <div id="sidebar">
-      <span class="sidenav">{% filter markdown %}{% include "solrnav.mdtext" %}{% endfilter %}
-        <div class="status">
-          <div id="svn">
-            <h1>Latest SVN</h1>
-            <div class="status-item">
-            {% for e in svn.list %}
-            <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision }}</a>
-            {{ e.message|safe|truncatewords_html:20 }} ({{
-            e.projects|safe }}) &mdash;
-            <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
-          {% endfor %}</div></div>
-          <div id="jira">
-            <h1>Latest JIRA</h1>
-            <div class="status-item">{% for e in jira.list %}
-            <a class="bug" href="{{ e.url }}">{{ e.title|safe }}</a><br/>
-            {{ e.content|safe|truncatewords_html:20 }}
-          {% endfor %}</div></div>
-          <div id="dev-mail">
-            <h1>Latest Dev</h1>
-            <div class="status-item">{% for e in dev.list %}
-            <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
-            <hr>
-            {% endfor %}</div>
-          </div>
-          <div id="solr-user-mail">
-            <h1>Latest Solr User</h1>
-            <div class="status-item">{% for e in solruser.list %}
-            <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
-            <hr>
-            {% endfor %}</div>
-          </div>
-        </div>
-      </span>
-    </div>
+    {include "solr-sidebar.html" %}
 {% endblock %}
 {% block privacy %}<a href="../privacy.html">Privacy Policy</a>{% endblock %}
 {% endextends %}
