@@ -2,6 +2,7 @@
 <div id="sidebar">
   <span class="sidenav">{% filter markdown %}{% include "solrnav.mdtext" %}{% endfilter %}
     <div class="status">
+      {% if svn %}
       <div id="svn">
         <h1>Latest SVN</h1>
 
@@ -13,6 +14,8 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
+      {% if jira %}
       <div id="jira">
         <h1>Latest JIRA</h1>
 
@@ -22,6 +25,8 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
+      {% if dev %}
       <div id="dev-mail">
         <h1>Latest Dev</h1>
 
@@ -31,6 +36,8 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
+      {% if solruser %}
       <div id="solr-user-mail">
         <h1>Latest Solr User</h1>
 
@@ -40,6 +47,7 @@
           {% endfor %}
         </div>
       </div>
+      {% endif %}
     </div>
   </span>
 </div>{% endblock %}

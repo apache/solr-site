@@ -2,6 +2,7 @@
 <div id="sidebar">
   {% filter markdown %}{% include "corenav.mdtext" %}{% endfilter %}
   <div class="status">
+    {% if svn %}
     <div id="svn">
       <h1>Latest SVN</h1>
       <div class="status-item">
@@ -11,12 +12,16 @@
       e.projects|safe }}) &mdash;
       <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
     {% endfor %}</div></div>
+    {% endif %}
+    {% if jira %}
     <div id="jira">
       <h1>Latest JIRA</h1>
       <div class="status-item">{% for e in jira.list %}
       <a class="bug" href="{{ e.url }}">{{ e.title|safe }}</a><br/>
       {{ e.content|safe|truncatewords_html:20 }}
     {% endfor %}</div></div>
+    {% endif %}
+    {% if dev %}
     <div id="dev-mail">
       <h1>Latest Dev</h1>
       <div class="status-item">{% for e in dev.list %}
@@ -24,6 +29,8 @@
       <hr>
       {% endfor %}</div>
     </div>
+    {% endif %}
+    {% if coreuser %}
     <div id="core-user-mail">
       <h1>Latest Core User</h1>
       <div class="status-item">{% for e in coreuser.list %}
@@ -31,6 +38,7 @@
       <hr>
       {% endfor %}</div>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
