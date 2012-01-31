@@ -131,9 +131,7 @@ https://docs.djangoproject.com/en/dev/topics/templates/
       <h1 class="title">{% block title %}{{ headers.title }}{% endblock %}</h1>
 
       <div>{% block content %}{{ content|markdown }}{% endblock %}</div>
-      {% block news %}
-      <div>{% filter markdown %}{% include "mainnews.mdtext" %}{% endfilter %}</div>
-      {% endblock %}
+      {% block news %}<div>{% filter markdown %}{% include "mainnews.mdtext" %}{% endfilter %}</div>{% endblock %}
       {% block asfboiler %}
       <div>{% filter markdown %}{% include "asf.mdtext" %}{% endfilter %}</div>
       {% endblock %}

@@ -33,7 +33,7 @@
   <script type="text/javascript" src="../scripts/effects.js"></script>
   <script type="text/javascript" src="../scripts/search.js"></script>
   <script type="text/javascript" src="../scripts/slides.js"></script>
-  <script type="text/javascript" src="../scripts/jquery.js"></script>
+  <!--<script type="text/javascript" src="../scripts/jquery.js"></script>-->
 </head>
 {% endblock %}
 {% block logo %}
@@ -47,7 +47,8 @@
             Ultra-fast Lucene-based Search Server<br/>
           </div>
           <div class="descwrapper"><div class="description">
-            Apache Solr offers Lucene's capabilities in an easy to use, fast search server
+            Apache Solr offers Lucene's capabilities in an easy to use,
+            fast search server with additional features like faceting, scalability and much more
           </div></div>
           <div class="mantle">
             <img alt="Apache Solr" src="../images/mantle-solr.png"/>
@@ -69,11 +70,12 @@
             Scalable
           </div>
           <div class="descwrapper"><div class="description">
-            Apache Solr has been deployed successfully in both high query volume situations and
+            Apache Solr has been deployed successfully in both high query volume
+            situations and
             large collection sizes
           </div></div>
           <div class="mantle">
-            <img alt="Apache Mahout community" src="../images/mantle-scale.png"/>
+            <img alt="Apache Solr community" src="../images/mantle-scale.png"/>
           </div>
         </div>
         <div id="slide4" style="display:none">
@@ -95,6 +97,12 @@
         <a class="stop" id="stop" title="Stop" href="#">Stop</a>
       </div>
     </div>
+    <script type="text/javascript">
+      function StartSlides() {
+        new Slides('mantleSlides');
+      }
+      document.observe('dom:loaded', StartSlides);
+    </script>
 {% endblock %}
 {% block nav %}
 <ul>
@@ -107,9 +115,8 @@
   <li><a class="last" href="../">Lucene</a></li>
 </ul>
 {% endblock %}
-{% block news %}
-  <div>{% filter markdown %}{% include "../content/solr/solrnews.mdtext" %}{% endfilter %}</div>
-{% endblock %}
+
+{% block news %}<div>{% filter markdown %}{% include "../content/solr/solrnews.mdtext" %}{% endfilter %}</div>{% endblock %}
 
 {% block sidebar %}
     <div id="sidebar">
@@ -149,3 +156,4 @@
     </div>
 {% endblock %}
 {% block privacy %}<a href="../privacy.html">Privacy Policy</a>{% endblock %}
+{% endextends %}

@@ -19,8 +19,7 @@ our @patterns = (
 	 [qr!core\/.*?\.mdtext$!, main => { template => "core-simple.html"
 	}],
 
-	[qr!solr\/.*?\.mdtext$!, main => { template => "solr-simple.html"
-	 }],
+	[qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-simple.html"}],
 	[qr!pylucene/jcc/.*?\.mdtext$!, main => { template => "jcc-simple.html" }],
 	[qr!pylucene/.*?\.mdtext$!, main => { template => "pylucene-simple.html" }],
 	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance-simple.html" }],
