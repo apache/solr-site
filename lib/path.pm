@@ -5,6 +5,8 @@ use ASF::Value;
 
 # Patterns should go from more restrictive matches to less restrictive.
 our @patterns = (
+[qr!core\/mirrors-core-redir\.mdtext$!, main => { template => "mirrors-core-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
+[qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
 [qr!core\/index\.mdtext$!, main => { template => "core.html"	}],
 	[qr!solr\/index\.mdtext$!, main => { template => "solr.html"
 	 }],
