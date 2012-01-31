@@ -8,7 +8,7 @@ our @patterns = (
   [qr!core\/mirrors-core-redir\.mdtext$!, main => { template => "mirrors-core-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
   [qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
   [qr!core\/index\.mdtext$!, main => { template => "core.html",
-  	jira     => ASF::Value::Jira->new(limit => 50,
+  	jira     => ASF::Value::Jira->new(limit => 5,
                                       url => "http://s.apache.org/corejira"),
     svn      => ASF::Value::SVN->new(limit => 50, project => "/lucene/dev/trunk"),
     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
