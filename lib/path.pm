@@ -5,11 +5,27 @@ use ASF::Value;
 
 # Patterns should go from more restrictive matches to less restrictive.
 our @patterns = (
-[qr!core\/mirrors-core-redir\.mdtext$!, main => { template => "mirrors-core-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
-[qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
-[qr!core\/index\.mdtext$!, main => { template => "core.html"	}],
-	[qr!solr\/index\.mdtext$!, main => { template => "solr.html"
-	 }],
+  [qr!core\/mirrors-core-redir\.mdtext$!, main => { template => "mirrors-core-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
+  [qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
+  [qr!core\/index\.mdtext$!, main => { template => "core.html",
+  	jira     => ASF::Value::Jira->new(limit => 50,
+                                      url => "http://s.apache.org/corejira"),
+    svn      => ASF::Value::SVN->new(limit => 50, project => "/lucene/dev/trunk"),
+    coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
+                                          limit => 3),
+    dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
+                                          limit => 3)
+                                      }],
+  [qr!solr\/index\.mdtext$!, main => {
+    template => "solr.html",
+    svn      => ASF::Value::SVN->new(limit => 50, project => "/lucene/dev/trunk"),
+    jira     => ASF::Value::Jira->new(limit => 5,
+                                      url => "http://s.apache.org/solrjira"),
+    solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
+                                          limit => 3),
+    dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
+                                          limit => 3)
+  }],
 	[qr!pylucene/jcc/index\.mdtext$!, main => { template => "jcc.html" }],
 	[qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html" }],
 	[qr!openrelevance\/index\.mdtext$!, main => { template => "openrelevance.html" }],
