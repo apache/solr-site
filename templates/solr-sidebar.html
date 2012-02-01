@@ -48,6 +48,17 @@
         </div>
       </div>
       {% endif %}
+      {% if solrtwitter %}
+      <div id="solr-twitter">
+        <h1>#solr</h1>
+
+        <div class="status-item">{% for e in solrtwitter.list %}
+          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
+          <hr>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
     </div>
   </span>
 </div>{% endblock %}

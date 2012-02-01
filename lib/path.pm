@@ -24,7 +24,8 @@ our @patterns = (
     solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
                                           limit => 3),
     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                          limit => 3)
+                                          limit => 3),
+    solrtwitter  => ASF::Value::Twitter->new(search => '#solr', limit => 3),
   }],
 	[qr!pylucene/jcc/index\.mdtext$!, main => { template => "jcc.html" }],
 	[qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html" }],

@@ -196,7 +196,7 @@ Here is an example of using delete-by-query to delete anything with
   <a href="http://localhost:8983/solr/select?q=name:DDR&amp;fl=name">DDR</a> in the name:
 
 <div class="cmd">
-java -Ddata=args -jar post.jar "<delete><query>name:DDR</query></delete>"
+java -Ddata=args -jar post.jar "&lt;delete&gt;&lt;query&lt;name:DDR&lt;/query&gt;&lt;/delete&gt;"
 </div>
 
 Commit can be an expensive operation so it's best to make many changes to an index in a batch and
