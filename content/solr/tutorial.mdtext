@@ -16,7 +16,7 @@ To follow along with this tutorial, you will need...
 <a href="http://openjdk.java.net/">Open JDK</a>,
 <a href="http://www.ibm.com/developerworks/java/jdk/">IBM</a>, or
 <br/>
-Running <code>java -version</code> at the command line should indicate a version
+Running <code class="inline">java -version</code> at the command line should indicate a version
 number starting with 1.6.  Gnu's GCJ is not supported and does not work with Solr.
 
 - A <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">Solr release</a>.
@@ -27,7 +27,7 @@ Please run the browser showing this tutorial and the Solr server on the same mac
 *
 
 Begin by unziping the Solr release and changing your working directory
-to be the "<code>example</code>" directory.  (Note that the base directory name may vary with the version of Solr downloaded.)  For example, with a shell in UNIX, Cygwin, or MacOS:
+to be the "<code  class="inline">example</code>" directory.  (Note that the base directory name may vary with the version of Solr downloaded.)  For example, with a shell in UNIX, Cygwin, or MacOS:
 
 <div class="cmd">
     user:~solr$ ls
@@ -40,7 +40,7 @@ Solr can run in any Java Servlet Container of your choice, but to simplify
 this tutorial, the example index includes a small installation of Jetty.
 
 
-To launch Jetty with the Solr WAR, and the example configs, just run the <code>start.jar</code> ...
+To launch Jetty with the Solr WAR, and the example configs, just run the <code  class="inline">start.jar</code> ...
 
 <div class="cmd">
     user:~/solr/example$ java -jar start.jar
@@ -68,18 +68,19 @@ update) documents, delete documents, commit pending adds and deletes, and
 optimize your index.  
 
 
-The <code>exampledocs</code> directory contains samples of the types of
+The <code class="inline">exampledocs</code> directory contains samples of the types of
 instructions Solr expects, as well as a java utility for posting them from the
-command line (a <code>post.sh</code> shell script is also available, but for
+command line (a <code  class="inline">post.sh</code> shell script is also available, but for
 this tutorial we'll use the cross-platform Java client).    To try this,
 open a new terminal window, enter the exampledocs directory, and run
-"<code>java -jar post.jar</code>" on some of the XML files in that directory,
+"<code  class="inline">java -jar post.jar</code>" on some of the XML files in that directory,
 indicating the URL of the Solr server:
 
 <div class="cmd">
     user:~/solr/example/exampledocs$ java -jar post.jar solr.xml monitor.xml
     SimplePostTool: version 1.2
-    SimplePostTool: WARNING: Make sure your XML documents are encoded in UTF-8, other encodings are not currently supported
+    SimplePostTool: WARNING: Make sure your XML documents are encoded in UTF-8, \
+              other encodings are not currently supported
     SimplePostTool: POSTing files to http://localhost:8983/solr/update..
     SimplePostTool: POSTing file solr.xml
     SimplePostTool: POSTing file monitor.xml
@@ -98,7 +99,8 @@ You can index all of the sample data, using the following command (assuming your
 <div class="cmd">
     user:~/solr/example/exampledocs$ java -jar post.jar *.xml
     SimplePostTool: version 1.2
-    SimplePostTool: WARNING: Make sure your XML documents are encoded in UTF-8, other encodings are not currently supported
+    SimplePostTool: WARNING: Make sure your XML documents are encoded in UTF-8, \
+                other encodings are not currently supported
     SimplePostTool: POSTing files to http://localhost:8983/solr/update..
     SimplePostTool: POSTing file hd.xml
     SimplePostTool: POSTing file ipod_other.xml
@@ -142,20 +144,20 @@ programatically create documents to send to Solr.
 
 ##Updating Data
 
-You may have noticed that even though the file <code>solr.xml</code> has now
+You may have noticed that even though the file <code  class="inline">solr.xml</code> has now
 been POSTed to the server twice, you still only get 1 result when searching for
 "solr".  This is because the example schema.xml specifies a "uniqueKey" field
-called "<code>id</code>".  Whenever you POST instructions to Solr to add a
+called "<code  class="inline">id</code>".  Whenever you POST instructions to Solr to add a
 document with the same value for the uniqueKey as an existing document, it
 automatically replaces it for you.  You can see that that has happened by
-looking at the values for <code>numDocs</code> and <code>maxDoc</code> in the
+looking at the values for <code  class="inline">numDocs</code> and <code  class="inline">maxDoc</code> in the
 "CORE"/searcher section of the statistics page...  
 
 <a href="http://localhost:8983/solr/admin/stats.jsp">http://localhost:8983/solr/admin/stats.jsp</a>
 
 *numDocs* represents the number of searchable documents in the
 index (and will be larger than the number of XML files since some files
-contained more than one <code>&lt;doc&gt;</code>). *maxDoc*
+contained more than one <code  class="inline">&lt;doc&gt;</code>). *maxDoc*
 may be larger as the maxDoc count includes logically deleted documents that
 have not yet been removed from the index. You can re-post the sample XML
 files over and over again as much as you want and numDocs will never
@@ -163,7 +165,7 @@ increase,because the new documents will constantly be replacing the old.
 
 
 Go ahead and edit the existing XML files to change some of the data, and re-run
-the <code>java -jar post.jar</code> command, you'll see your changes reflected
+the <code  class="inline">java -jar post.jar</code> command, you'll see your changes reflected
 in subsequent searches.
 
 
@@ -175,17 +177,17 @@ You can delete data by POSTing a delete command to the update URL and specifying
 Execute the following command to delete a document
 
 <div class="cmd">
-    java -Ddata=args -Dcommit=no -jar post.jar "<delete><id>SP2514N</id></delete>"
+java -Ddata=args -Dcommit=no -jar post.jar "&lt;delete&gt;&lt;id&gt;SP2514N&lt;/id&lt;&gt;/delete&gt;"
 </div>
 
 Now if you go to the <a href="http://localhost:8983/solr/admin/stats.jsp">statistics</a> page and scroll down
-   to the UPDATE_HANDLERS section and verify that "<code>deletesById : 1</code>"
+   to the UPDATE_HANDLERS section and verify that "<code class="inline">deletesById : 1</code>"
 If you search for <a href="http://localhost:8983/solr/select?q=id:SP2514N">id:SP2514N</a> it will still be found,
    because index changes are not visible until, and a new searcher is opened.  To cause
    this to happen, send a commit command to Solr (post.jar does this for you by default):
 
 <div class="cmd">
-    java -jar post.jar
+java -jar post.jar
 </div>
 
 Now re-execute the previous search and verify that no matching documents are found.  Also revisit the
@@ -194,7 +196,7 @@ Here is an example of using delete-by-query to delete anything with
   <a href="http://localhost:8983/solr/select?q=name:DDR&amp;fl=name">DDR</a> in the name:
 
 <div class="cmd">
-    java -Ddata=args -jar post.jar "<delete><query>name:DDR</query></delete>"
+java -Ddata=args -jar post.jar "<delete><query>name:DDR</query></delete>"
 </div>
 
 Commit can be an expensive operation so it's best to make many changes to an index in a batch and
@@ -203,10 +205,10 @@ Commit can be an expensive operation so it's best to make many changes to an ind
   deleted documents to be removed.  All of the update commands are documented <a href="http://wiki.apache.org/solr/UpdateXmlMessages">here</a>.
 
 
-To continue with the tutorial, re-add any documents you may have deleted by going to the <code>exampledocs</code> directory and executing
+To continue with the tutorial, re-add any documents you may have deleted by going to the <code class="inline">exampledocs</code> directory and executing
 
 <div class="cmd">
-    java -jar post.jar *.xml
+java -jar post.jar *.xml
 </div>
 
 ##Querying Data
@@ -244,7 +246,7 @@ that allows setting the various request parameters and is useful when trying out
 
   - <a href="http://localhost:8983/solr/select/?indent=on&amp;q=*:*&amp;sort=div(popularity,add(price,1))+desc">q=video&amp;sort=div(popularity,add(price,1)) desc</a>
 
-  If no sort is specified, the default is <code>score desc</code> to return the matches having the highest relevancy.
+  If no sort is specified, the default is <code class="inline">score desc</code> to return the matches having the highest relevancy.
 
 ##Highlighting
 
@@ -252,10 +254,10 @@ Hit highlighting returns relevent snippets of each returned document, and highli
 keywords from the query within those context snippets.
 
 
-The following example searches for <code>video card</code> and requests
-highlighting on the fields <code>name,features</code>.  This causes a
-<code>highlighting</code> section to be added to the response with the
-words to highlight surrounded with <code>&lt;em&gt;</code> (for emphasis)
+The following example searches for <code class="inline">video card</code> and requests
+highlighting on the fields <code class="inline">name,features</code>.  This causes a
+<code class="inline">highlighting</code> section to be added to the response with the
+words to highlight surrounded with <code class="inline">&lt;em&gt;</code> (for emphasis)
 tags.
 
 <a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=video+card&amp;fl=name,id&amp;hl=true&amp;hl.fl=name,features">...&amp;q=video card&amp;fl=name,id&amp;hl=true&amp;hl.fl=name,features</a>
@@ -272,8 +274,8 @@ properties or categories.  Links are usually provided that allows users to "dril
 refine their search results based on the returned categories.
 
 
-The following example searches for all documents (<code>*:*</code>) and
-requests counts by the category field <code>cat</code>.
+The following example searches for all documents (<code class="inline">*:*</code>) and
+requests counts by the category field <code class="inline">cat</code>.
 
 
 <a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=*:*&amp;fl=name&amp;facet=true&amp;facet.field=cat">...&amp;q=*:*&amp;facet=true&amp;facet.field=cat</a>
@@ -285,18 +287,18 @@ the facet counts generated are for the complete set of documents that match the 
 
 
 We can facet multiple ways at the same time.  The following example adds a facet on the
-boolean <code>inStock</code> field:
+boolean <code class="inline">inStock</code> field:
 
 
 <a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=*:*&amp;fl=name&amp;facet=true&amp;facet.field=cat&amp;facet.field=inStock">...&amp;q=*:*&amp;facet=true&amp;facet.field=cat&amp;facet.field=inStock</a>
 
 Solr can also generate counts for arbitrary queries. The following example
-queries for <code>ipod</code> and shows prices below and above 100 by using
+queries for <code class="inline">ipod</code> and shows prices below and above 100 by using
 range queries on the price field.
 
 <a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=ipod&amp;fl=name&amp;facet=true&amp;facet.query=price:[0+TO+100]&amp;facet.query=price:[100+TO+*]">...&amp;q=ipod&amp;facet=true&amp;facet.query=price:[0 TO 100]&amp;facet.query=price:[100 TO *]</a>
 
-One can even facet by date ranges.  This example requests counts for the manufacture date (<code>manufacturedate_dt</code> field) for each year between 2004 and 2010.
+One can even facet by date ranges.  This example requests counts for the manufacture date (<code class="inline">manufacturedate_dt</code> field) for each year between 2004 and 2010.
 
 <a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=*:*&amp;fl=name,manufacturedate_dt&amp;facet=true&amp;facet.date=manufacturedate_dt&amp;facet.date.start=2004-01-01T00:00:00Z&amp;facet.date.end=2010-01-01T00:00:00Z&amp;facet.date.gap=%2b1YEAR">...&amp;q=*:*&amp;facet=true&amp;facet.date=manufacturedate_dt&amp;facet.date.start=2004-01-01T00:00:00Z&amp;facet.date.end=2010-01-01T00:00:00Z&amp;facet.date.gap=+1YEAR</a>
 
@@ -331,25 +333,25 @@ Example queries demonstrating relevancy improving transformations:
 
 - A search for
    <a href="http://localhost:8983/solr/select/?indent=on&amp;q=power-shot&amp;fl=name">power-shot</a>
-   matches <code>PowerShot</code>, and
+   matches <code class="inline">PowerShot</code>, and
   <a href="http://localhost:8983/solr/select/?indent=on&amp;q=adata&amp;fl=name">adata</a>
-  matches <code>A-DATA</code> due to the use of WordDelimiterFilter and LowerCaseFilter.
+  matches <code class="inline">A-DATA</code> due to the use of WordDelimiterFilter and LowerCaseFilter.
 
 
 - A search for
   <a href="http://localhost:8983/solr/select/?indent=on&amp;q=features:recharging&amp;fl=name,features">features:recharging</a>
-   matches <code>Rechargeable</code> due to stemming with the EnglishPorterFilter.
+   matches <code class="inline">Rechargeable</code> due to stemming with the EnglishPorterFilter.
 
 
 - A search for
    <a href="http://localhost:8983/solr/select/?indent=on&amp;q=&quot;1 gigabyte&quot;&amp;fl=name">"1 gigabyte"</a>
-   matches things with <code>GB</code>, and the misspelled
+   matches things with <code class="inline">GB</code>, and the misspelled
   <a href="http://localhost:8983/solr/select/?indent=on&amp;q=pixima&amp;fl=name">pixima</a>
-   matches <code>Pixma</code> due to use of a SynonymFilter.
+   matches <code class="inline">Pixma</code> due to use of a SynonymFilter.
 
 The <a href="http://wiki.apache.org/solr/SchemaXml">schema</a> defines
 the fields in the index and what type of analysis is applied to them.  The current schema your server is using
-may be accessed via the <code>[SCHEMA]</code> link on the <a href="http://localhost:8983/solr/admin/">admin</a> page.
+may be accessed via the <code class="inline">[SCHEMA]</code> link on the <a href="http://localhost:8983/solr/admin/">admin</a> page.
 
 A full description of the analysis components, Analyzers, Tokenizers, and TokenFilters
 available for use is <a href="http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters">here</a>.
@@ -361,10 +363,10 @@ There is a handy <a href="http://localhost:8983/solr/admin/analysis.jsp">analysi
 
 
   <a href="http://localhost:8983/solr/admin/analysis.jsp?name=name&amp;val=Canon+Power-Shot+SD500">This</a>
-  shows how "<code>Canon Power-Shot SD500</code>" would be indexed as a value in the name field.  Each row of
-  the table shows the resulting tokens after having passed through the next TokenFilter in the Analyzer for the <code>name</code> field.
-  Notice how both <code>powershot</code> and <code>power</code>, <code>shot</code> are indexed.  Tokens generated at the same position
-  are shown in the same column, in this case <code>shot</code> and <code>powershot</code>.
+  shows how "<code class="inline">Canon Power-Shot SD500</code>" would be indexed as a value in the name field.  Each row of
+  the table shows the resulting tokens after having passed through the next TokenFilter in the Analyzer for the <code class="inline">name</code> field.
+  Notice how both <code class="inline">powershot</code> and <code class="inline">power</code>, <code class="inline">shot</code> are indexed.  Tokens generated at the same position
+  are shown in the same column, in this case <code class="inline">shot</code> and <code class="inline">powershot</code>.
 
 Selecting <a href="http://localhost:8983/solr/admin/analysis.jsp?name=name&amp;verbose=on&amp;val=Canon+Power-Shot+SD500">verbose output</a>
 will show more details, such as the name of each analyzer component in the chain, token positions, and the start and end positions
