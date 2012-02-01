@@ -1,4 +1,6 @@
-Title: Solr Tutorial
+<div class="tutorial">
+
+# Solr Tutorial
 
 ##Overview
 
@@ -27,11 +29,12 @@ Please run the browser showing this tutorial and the Solr server on the same mac
 Begin by unziping the Solr release and changing your working directory
 to be the "<code>example</code>" directory.  (Note that the base directory name may vary with the version of Solr downloaded.)  For example, with a shell in UNIX, Cygwin, or MacOS:
 
+<div class="cmd">
     user:~solr$ ls
     solr-nightly.zip
     user:~solr$ unzip -q solr-nightly.zip
     user:~solr$ cd solr-nightly/example/
-
+</div>
 
 Solr can run in any Java Servlet Container of your choice, but to simplify
 this tutorial, the example index includes a small installation of Jetty.
@@ -39,6 +42,7 @@ this tutorial, the example index includes a small installation of Jetty.
 
 To launch Jetty with the Solr WAR, and the example configs, just run the <code>start.jar</code> ...
 
+<div class="cmd">
     user:~/solr/example$ java -jar start.jar
     2009-10-23 16:42:53.816::INFO:  Logging to STDERR via org.mortbay.log.StdErrLog
     2009-10-23 16:42:53.907::INFO:  jetty-6.1.26
@@ -47,6 +51,7 @@ To launch Jetty with the Solr WAR, and the example configs, just run the <code>s
     
     Oct 23, 2009 4:41:56 PM org.apache.solr.core.SolrCore registerSearcher
     INFO: [] Registered new searcher Searcher@7c3885 main
+</div>
 
 This will start up the Jetty application server on port 8983, and use your terminal to display the logging information from Solr.
 
@@ -71,6 +76,7 @@ open a new terminal window, enter the exampledocs directory, and run
 "<code>java -jar post.jar</code>" on some of the XML files in that directory,
 indicating the URL of the Solr server:
 
+<div class="cmd">
     user:~/solr/example/exampledocs$ java -jar post.jar solr.xml monitor.xml
     SimplePostTool: version 1.2
     SimplePostTool: WARNING: Make sure your XML documents are encoded in UTF-8, other encodings are not currently supported
@@ -78,6 +84,7 @@ indicating the URL of the Solr server:
     SimplePostTool: POSTing file solr.xml
     SimplePostTool: POSTing file monitor.xml
     SimplePostTool: COMMITting Solr index changes..
+</div>
 
 You have now indexed two documents in Solr, and committed these changes.  
 You can now search for "solr" using the "Make a Query" interface on the Admin screen, and you should get one result.  
@@ -88,6 +95,7 @@ Clicking the "Search" button should take you to the following URL...
 
 You can index all of the sample data, using the following command (assuming your command line shell supports the *.xml notation):
 
+<div class="cmd">
     user:~/solr/example/exampledocs$ java -jar post.jar *.xml
     SimplePostTool: version 1.2
     SimplePostTool: WARNING: Make sure your XML documents are encoded in UTF-8, other encodings are not currently supported
@@ -105,6 +113,7 @@ You can index all of the sample data, using the following command (assuming your
     SimplePostTool: POSTing file utf8-example.xml
     SimplePostTool: POSTing file vidcard.xml
     SimplePostTool: COMMITting Solr index changes..
+</div>
 
 ...and now you can search for all sorts of things using the default <a href="http://wiki.apache.org/solr/SolrQuerySyntax">Solr Query Syntax</a> (a superset of the Lucene query syntax)...
 
@@ -165,7 +174,9 @@ You can delete data by POSTing a delete command to the update URL and specifying
 
 Execute the following command to delete a document
 
+<div class="cmd">
     java -Ddata=args -Dcommit=no -jar post.jar "<delete><id>SP2514N</id></delete>"
+</div>
 
 Now if you go to the <a href="http://localhost:8983/solr/admin/stats.jsp">statistics</a> page and scroll down
    to the UPDATE_HANDLERS section and verify that "<code>deletesById : 1</code>"
@@ -173,14 +184,18 @@ If you search for <a href="http://localhost:8983/solr/select?q=id:SP2514N">id:SP
    because index changes are not visible until, and a new searcher is opened.  To cause
    this to happen, send a commit command to Solr (post.jar does this for you by default):
 
+<div class="cmd">
     java -jar post.jar
+</div>
 
 Now re-execute the previous search and verify that no matching documents are found.  Also revisit the
 statistics page and observe the changes in both the UPDATE_HANDLERS section and the CORE section.
 Here is an example of using delete-by-query to delete anything with
   <a href="http://localhost:8983/solr/select?q=name:DDR&amp;fl=name">DDR</a> in the name:
 
+<div class="cmd">
     java -Ddata=args -jar post.jar "<delete><query>name:DDR</query></delete>"
+</div>
 
 Commit can be an expensive operation so it's best to make many changes to an index in a batch and
   then send the commit command at the end.  There is also an optimize command that does the same thing as commit,
@@ -190,7 +205,9 @@ Commit can be an expensive operation so it's best to make many changes to an ind
 
 To continue with the tutorial, re-add any documents you may have deleted by going to the <code>exampledocs</code> directory and executing
 
+<div class="cmd">
     java -jar post.jar *.xml
+</div>
 
 ##Querying Data
 
@@ -386,3 +403,4 @@ more details about Solr's many
 <a href="features.html">features</a>.
 
 Have Fun, and we'll see you on the Solr mailing lists!
+</div>
