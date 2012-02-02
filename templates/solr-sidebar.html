@@ -2,10 +2,10 @@
 <div id="sidebar">
   <span class="sidenav">{% filter markdown %}{% include "solrnav.mdtext" %}{% endfilter %}
     <div class="status">
-      {% if svn %}
       <div id="svn">
         <h1>Latest SVN</h1>
 
+        {% if svn.list %}
         <div class="status-item">
           {% for e in svn.list %}
           <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision }}</a>
@@ -13,52 +13,61 @@
           <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
           {% endfor %}
         </div>
+        {% else if %}
+          <div class="status-item">Not Available</div>
+        {% endif %}
       </div>
-      {% endif %}
-      {% if jira %}
       <div id="jira">
         <h1>Latest JIRA</h1>
 
+        {% if jira.list %}
         <div class="status-item">{% for e in jira.list %}
           <a class="bug" href="{{ e.url }}">{{ e.title|safe }}</a><br/>
                          {{ e.content|safe|truncatewords_html:20 }}
           {% endfor %}
         </div>
+        {% else if %}
+          <div class="status-item">Not Available</div>
+        {% endif %}
       </div>
-      {% endif %}
-      {% if dev %}
       <div id="dev-mail">
         <h1>Latest Dev</h1>
 
+        {% if dev.list %}
         <div class="status-item">{% for e in dev.list %}
-          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
-          <hr>
+          <h4><a href="{{ e.url }}">{{ e.title|safe }}</a></h4>
           {% endfor %}
         </div>
+        {% else if %}
+          <div class="status-item">Not Available</div>
+        {% endif %}
       </div>
-      {% endif %}
-      {% if solruser %}
       <div id="solr-user-mail">
         <h1>Latest Solr User</h1>
 
+        {% if solruser.list %}
         <div class="status-item">{% for e in solruser.list %}
-          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
-          <hr>
+          <h4><a href="{{ e.url }}">{{ e.title|safe }}</a></h4>
           {% endfor %}
         </div>
       </div>
+      {% else if %}
+          <div class="status-item">Not Available</div>
       {% endif %}
-      {% if solrtwitter %}
+
       <div id="solr-twitter">
         <h1>#solr</h1>
-
+        {% if solrtwitter.list %}
         <div class="status-item">{% for e in solrtwitter.list %}
-          <h4><a href="{{ e.url }}">{{ e.title }}</a></h4>
-          <hr>
+          <div class="section-content">
+             <a href="{{ e.url }}">@</a>{{ e.title|safe }}
+          </div>
           {% endfor %}
         </div>
+        {% else if %}
+          <div class="status-item">Not Available</div>
+        {% endif %}
       </div>
-      {% endif %}
     </div>
   </span>
 </div>{% endblock %}

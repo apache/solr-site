@@ -2,6 +2,7 @@ package path;
 use ASF::Value;
 
 # taken from django's url.py
+$localMode = 0;
 
 # Patterns should go from more restrictive matches to less restrictive.
 our @patterns = (
@@ -9,23 +10,29 @@ our @patterns = (
   [qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
   [qr!core\/index\.mdtext$!, main => { template => "core.html",
   	jira     => ASF::Value::Jira->new(limit => 5,
-                                      url => "http://s.apache.org/corejira"),
-    svn      => ASF::Value::SVN->new(limit => 50, project => "/lucene/dev/trunk"),
+                                      url => "http://s.apache.org/corejira", localMode => $localMode),
+    svn      => ASF::Value::SVN->new(limit => 5, project => "/lucene/dev/trunk",
+                                      localMode => $localMode),
     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
-                                          limit => 3),
+                                          limit => 3,
+                                          localMode => $localMode),
     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                          limit => 3)
+                                          limit => 3, localMode => $localMode),
+
                                       }],
   [qr!solr\/index\.mdtext$!, main => {
     template => "solr.html",
-    svn      => ASF::Value::SVN->new(limit => 50, project => "/lucene/dev/trunk"),
+    svn      => ASF::Value::SVN->new(limit => 5, project => "/lucene/dev/trunk",
+                                      localMode => $localMode),
     jira     => ASF::Value::Jira->new(limit => 5,
-                                      url => "http://s.apache.org/solrjira"),
+                                      url => "http://s.apache.org/solrjira",
+                                      localMode => $localMode),
     solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
-                                          limit => 3),
+                                          limit => 3, localMode => $localMode),
     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
-                                          limit => 3),
-    solrtwitter  => ASF::Value::Twitter->new(search => '#solr', limit => 3),
+                                          limit => 3, localMode => $localMode),
+    solrtwitter  => ASF::Value::Twitter->new(search => '#solr', limit => 3,
+                                        localMode => $localMode),
   }],
 	[qr!pylucene/jcc/index\.mdtext$!, main => { template => "jcc.html" }],
 	[qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html" }],
