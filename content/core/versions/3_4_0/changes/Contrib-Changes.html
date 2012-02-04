@@ -1,0 +1,1186 @@
+<!--
+**********************************************************
+** WARNING: This file is generated from CHANGES.txt by the 
+**          Perl script 'changes2html.pl'.
+**          Do *not* edit this file!
+**********************************************************
+          
+****************************************************************************
+* Licensed to the Apache Software Foundation (ASF) under one or more
+* contributor license agreements.  See the NOTICE file distributed with
+* this work for additional information regarding copyright ownership.
+* The ASF licenses this file to You under the Apache License, Version 2.0
+* (the "License"); you may not use this file except in compliance with
+* the License.  You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+****************************************************************************
+-->
+<html>
+<head>
+  <title>Lucene contrib change Log</title>
+  <link rel="stylesheet" href="ChangesFancyStyle.css" title="Fancy">
+  <link rel="alternate stylesheet" href="ChangesSimpleStyle.css" title="Simple">
+  <link rel="alternate stylesheet" href="ChangesFixedWidthStyle.css" title="Fixed Width">
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <SCRIPT>
+    function toggleList(id) {
+      listStyle = document.getElementById(id + '.list').style;
+      anchor = document.getElementById(id);
+      if (listStyle.display == 'none') {
+        listStyle.display = 'block';
+        anchor.title = 'Click to collapse';
+        location.href = '#' + id;
+      } else {
+        listStyle.display = 'none';
+        anchor.title = 'Click to expand';
+      }
+      var expandButton = document.getElementById('expand.button');
+      expandButton.disabled = false;
+      var collapseButton = document.getElementById('collapse.button');
+      collapseButton.disabled = false;
+    }
+
+    function collapseAll() {
+      var unorderedLists = document.getElementsByTagName("ul");
+      for (var i = 0; i < unorderedLists.length; i++) {
+        if (unorderedLists[i].className != 'bulleted-list')
+          unorderedLists[i].style.display = "none";
+        else
+          unorderedLists[i].style.display = "block";
+      }
+      var orderedLists = document.getElementsByTagName("ol");
+      for (var i = 0; i < orderedLists.length; i++)
+        orderedLists[i].style.display = "none"; 
+      var anchors = document.getElementsByTagName("a");
+      for (var i = 0 ; i < anchors.length; i++) {
+        if (anchors[i].id != '')
+          anchors[i].title = 'Click to expand';
+      }
+      var collapseButton = document.getElementById('collapse.button');
+      collapseButton.disabled = true;
+      var expandButton = document.getElementById('expand.button');
+      expandButton.disabled = false;
+    }
+
+    function expandAll() {
+      var unorderedLists = document.getElementsByTagName("ul");
+      for (var i = 0; i < unorderedLists.length; i++)
+        unorderedLists[i].style.display = "block";
+      var orderedLists = document.getElementsByTagName("ol");
+      for (var i = 0; i < orderedLists.length; i++)
+        orderedLists[i].style.display = "block"; 
+      var anchors = document.getElementsByTagName("a");
+      for (var i = 0 ; i < anchors.length; i++) {
+        if (anchors[i].id != '')
+          anchors[i].title = 'Click to collapse';
+      }
+      var expandButton = document.getElementById('expand.button');
+      expandButton.disabled = true;
+      var collapseButton = document.getElementById('collapse.button');
+      collapseButton.disabled = false;
+
+    }
+
+    var newerRegex = new RegExp("^(?:3\\\\.4\\\\.0|3\\\\.3\\\\.0)");
+    function isOlder(listId) {
+      return ! newerRegex.test(listId);
+    }
+
+    function escapeMeta(s) {
+      return s.replace(/(?=[.*+?^${}()|[\]\/\\])/g, '\\');
+    }
+
+    function shouldExpand(currentList, currentAnchor, listId) {
+      var listName = listId.substring(0, listId.length - 5);
+      var parentRegex = new RegExp("^" + escapeMeta(listName) + "\\.");
+      return currentList == listId
+             || (isOlder(currentAnchor) && listId == 'older.list')
+             || parentRegex.test(currentAnchor);
+    }
+
+    function collapse() {
+      /* Collapse all but the first and second releases. */
+      var unorderedLists = document.getElementsByTagName("ul");
+      var currentAnchor = location.hash.substring(1);
+      var currentList = currentAnchor + ".list";
+
+      for (var i = 0; i < unorderedLists.length; i++) {
+        var list = unorderedLists[i];
+        /* Collapse the current item, unless either the current item is one of
+         * the first two releases, or the current URL has a fragment and the
+         * fragment refers to the current item or one of its ancestors.
+         */
+        if (list.id != '3.4.0.list' 
+            && list.id != '3.3.0.list'
+            && list.className != 'bulleted-list'
+            && (currentAnchor == ''
+                || ! shouldExpand(currentList, currentAnchor, list.id))) {
+          list.style.display = "none";
+        }
+      }
+      var orderedLists = document.getElementsByTagName("ol");
+      for (var i = 0; i < orderedLists.length; i++) {
+        var list = orderedLists[i];
+        /* Collapse the current item, unless the current URL has a fragment
+         * and the fragment refers to the current item or one of its ancestors.
+         */
+        if (currentAnchor == ''
+            || ! shouldExpand(currentList, currentAnchor, list.id)) {
+          list.style.display = "none";
+        }
+      }
+      /* Add "Click to collapse/expand" tooltips to the release/section headings */
+      var anchors = document.getElementsByTagName("a");
+      for (var i = 0 ; i < anchors.length; i++) {
+        var anchor = anchors[i];
+        if (anchor.id != '') {
+          if (anchor.id == '3.4.0' || anchor.id == '3.3.0') {
+            anchor.title = 'Click to collapse';
+          } else {
+            anchor.title = 'Click to expand';
+          }
+        }
+      }
+
+      /* Insert "Expand All" and "Collapse All" buttons */
+      var buttonsParent = document.getElementById('buttons.parent');
+      var expandButton = document.createElement('button');
+      expandButton.appendChild(document.createTextNode('Expand All'));
+      expandButton.onclick = function() { expandAll(); }
+      expandButton.id = 'expand.button';
+      buttonsParent.appendChild(expandButton);
+      var collapseButton = document.createElement('button');
+      collapseButton.appendChild(document.createTextNode('Collapse All'));
+      collapseButton.onclick = function() { collapseAll(); }
+      collapseButton.id = 'collapse.button';
+      buttonsParent.appendChild(collapseButton);
+    }
+
+    window.onload = collapse;
+  </SCRIPT>
+</head>
+<body>
+
+<h1>Lucene contrib change Log</h1>
+
+<div id="buttons.parent"></div>
+
+<h2><a id="3.4.0" href="javascript:toggleList('3.4.0')">Release 3.4.0 </a></h2>
+<ul id="3.4.0.list">
+  <li><a id="3.4.0.new_features" href="javascript:toggleList('3.4.0.new_features')">New Features</a>&nbsp;&nbsp;&nbsp;(7)
+    <ol id="3.4.0.new_features.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3234">LUCENE-3234</a>: provide a limit on phrase analysis in FastVectorHighlighter for
+highlighting speed up. Use FastVectorHighlighter.setPhraseLimit() to set limit
+(e.g. 5000).
+<br /><span class="attrib">(Mike Sokolov via Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3079">LUCENE-3079</a>: a new facet module which provides faceted indexing &amp; search
+capabilities. It allows managing a taxonomy of categories, and index them
+with documents. It also provides search API for aggregating (e.g. count)
+the weights of the categories that are relevant to the search results.
+<br /><span class="attrib">(Shai Erera)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3171">LUCENE-3171</a>: Added BlockJoinQuery and BlockJoinCollector, under the
+new contrib/join module, to enable searches that require joining
+between parent and child documents.  Joined (children + parent)
+documents must be indexed as a document block, using
+IndexWriter.add/UpdateDocuments
+<br /><span class="attrib">(Mark Harwood, Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3233">LUCENE-3233</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-3375">LUCENE-3375</a>: Added SynonymFilter for applying multi-word synonyms
+during indexing or querying (with parsers for wordnet and solr formats).
+Removed contrib/wordnet.
+<br /><span class="attrib">(Simon Rosenthal, Robert Muir, Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1768">LUCENE-1768</a>: added support for numeric ranges in contrib query parser;
+added support for simple numeric queries, such as &lt;age:4&gt;, in contrib
+query parser
+<br /><span class="attrib">(Vinicius Barros via Uwe Schindler)</span></li>
+      <li>Changes in runtime behavior:
+<p/>
+</li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1768">LUCENE-1768</a>: StandardQueryConfigHandler now uses NumericFieldConfigListener
+to set a NumericConfig to its corresponding FieldConfig;
+StandardQueryTreeBuilder now uses DummyQueryNodeBuilder for
+NumericQueryNodes and uses NumericRangeQueryNodeBuilder for
+NumericRangeQueryNodes; StandardQueryNodeProcessorPipeline now executes
+NumericQueryNodeProcessor followed by NumericRangeQueryNodeProcessor
+right after LowercaseExpandedTermsQueryNodeProcessor
+<br /><span class="attrib">(Vinicius Barros via Uwe Schindler)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.4.0.api_changes" href="javascript:toggleList('3.4.0.api_changes')">API Changes</a>&nbsp;&nbsp;&nbsp;(4)
+    <ol id="3.4.0.api_changes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3296">LUCENE-3296</a>: PKIndexSplitter &amp; MultiPassIndexSplitter now have version
+constructors. PKIndexSplitter accepts a IndexWriterConfig for each of
+the target indexes.
+<br /><span class="attrib">(Simon Willnauer, Jason Rutherglen)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2979">LUCENE-2979</a>: queryparser configuration API located under
+org.apache.lucene.queryParser.core.config has been simplified and
+Attribute objects no longer should be used to configure query parsers. Now
+any configuration should be done through AbstractQueryConfig's set and get
+methods. The old API, which uses Attributes objects, is still in place, however
+it has been deprecated and will be removed soon.
+<br /><span class="attrib">(Phillipe Ramalho via Adriano Crestani)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3400">LUCENE-3400</a>: Deprecated DutchAnalyzer.setStemDictionary since it prevents
+TokenStream reuse
+<br /><span class="attrib">(Chris Male)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1768">LUCENE-1768</a>: setNumericConfigMap and getNumericConfigMap were added
+to StandardQueryParser; ParametricRangeQueryNode and
+oal.queryParser.standard.nodes.RangeQueryNode now implement
+oal.queryParser.core.nodes.RangeQueryNode;
+oal.queryParser.core.nodes.RangeQueryNode was deprecated and now extends
+TermRangeQueryNode, which extends AbstractRangeQueryNode;
+ParametricQueryNode was deprecated; FieldQueryNode now implements the
+new FieldValueQueryNode&lt;CharSequence&gt;, which this last one implements
+FieldableQueryNode and thew new ValueQueryNode
+<br /><span class="attrib">(Vinicius Barros via Uwe Schindler)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.4.0.optimizations" href="javascript:toggleList('3.4.0.optimizations')">Optimizations</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.4.0.optimizations.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3306">LUCENE-3306</a>: Disabled indexing of positions for spellchecker n-gram
+fields: they are not needed because the spellchecker does not
+use positional queries.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.4.0.bug_fixes" href="javascript:toggleList('3.4.0.bug_fixes')">Bug Fixes</a>&nbsp;&nbsp;&nbsp;(3)
+    <ol id="3.4.0.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3326">LUCENE-3326</a>: Fixed bug if you used MoreLikeThis.like(Reader), it would
+try to re-analyze the same Reader multiple times, passing different
+field names to the analyzer. Additionally MoreLikeThisQuery would take
+your string and encode/decode it using the default charset, it now uses
+a StringReader.  Finally, MoreLikeThis's methods that take File, URL, InputStream,
+are deprecated, please create the Reader yourself.
+<br /><span class="attrib">(Trejkaz, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3347">LUCENE-3347</a>: XML query parser did not always incorporate boosts from
+UserQuery elements.
+<br /><span class="attrib">(Moogie, Uwe Schindler)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3382">LUCENE-3382</a>: Fixed a bug where NRTCachingDirectory's listAll() would wrongly
+throw NoSuchDirectoryException when all files written so far have been
+cached to RAM and the directory still has not yet been created on the
+filesystem.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+</ul>
+<h2><a id="3.3.0" href="javascript:toggleList('3.3.0')">Release 3.3.0  [2011-07-01]</a></h2>
+<ul id="3.3.0.list">
+  <li><a id="3.3.0.new_features" href="javascript:toggleList('3.3.0.new_features')">New Features</a>&nbsp;&nbsp;&nbsp;(6)
+    <ol id="3.3.0.new_features.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-152">LUCENE-152</a>: Add KStem (light stemmer for English).
+<br /><span class="attrib">(Yonik Seeley via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3135">LUCENE-3135</a>: Add suggesters (autocomplete) to contrib/spellchecker,
+with three implementations: Jaspell, Ternary Trie, and Finite State.
+<br /><span class="attrib">(Andrzej Bialecki, Dawid Weiss, Mike Mccandless, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3129">LUCENE-3129</a>: Added BlockGroupingCollector, a single pass
+grouping collector which is faster than the two-pass approach, and
+also computes the total group count, but requires that every
+document sharing the same group was indexed as a doc block
+(IndexWriter.add/updateDocuments).
+<br /><span class="attrib">(Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2955">LUCENE-2955</a>: Added NRTManager and NRTManagerReopenThread, to
+simplify handling NRT reopen with multiple search threads, and to
+allow an app to control which indexing changes must be visible to
+which search requests.
+<br /><span class="attrib">(Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3191">LUCENE-3191</a>: Added SearchGroup.merge and TopGroups.merge, to
+facilitate doing grouping in a distributed environment
+<br /><span class="attrib">(Uwe
+Schindler, Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2919">LUCENE-2919</a>: Added PKIndexSplitter, that splits an index according
+to a middle term in a specified field.
+<br /><span class="attrib">(Jason Rutherglen via Mike
+McCandless, Uwe Schindler)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.3.0.api_changes" href="javascript:toggleList('3.3.0.api_changes')">API Changes</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="3.3.0.api_changes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3141">LUCENE-3141</a>: add getter method to access fragInfos in FieldFragList.
+<br /><span class="attrib">(Sujit Pal via Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3099">LUCENE-3099</a>: Allow subclasses to determine the group value for
+First/SecondPassGroupingCollector.
+<br /><span class="attrib">(Martijn van Groningen, Mike
+McCandless)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.3.0.bug_fixes" href="javascript:toggleList('3.3.0.bug_fixes')">Bug Fixes</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="3.3.0.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3185">LUCENE-3185</a>: Fix bug in NRTCachingDirectory.deleteFile that would
+always throw exception and sometimes fail to actually delete the
+file.
+<br /><span class="attrib">(Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3188">LUCENE-3188</a>: contrib/misc IndexSplitter creates indexes with incorrect
+SegmentInfos.counter; added CheckIndex check &amp; fix for this problem.
+<br /><span class="attrib">(Ivan Dimitrov Vasilev via Steve Rowe)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.3.0.build" href="javascript:toggleList('3.3.0.build')">Build</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.3.0.build.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3149">LUCENE-3149</a>: Upgrade contrib/icu's ICU jar file to ICU 4.8.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+</ul>
+<h2><a id="older" href="javascript:toggleList('older')">Older Releases</a></h2>
+<ul id="older.list">
+<h3><a id="3.2.0" href="javascript:toggleList('3.2.0')">Release 3.2.0  [2011-06-03]</a></h3>
+<ul id="3.2.0.list">
+  <li><a id="3.2.0.changes_in_backwards_compatibility_policy" href="javascript:toggleList('3.2.0.changes_in_backwards_compatibility_policy')">Changes in backwards compatibility policy</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.2.0.changes_in_backwards_compatibility_policy.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2981">LUCENE-2981</a>: Removed the following contribs: ant, db, lucli, swing.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.2.0.changes_in_runtime_behavior" href="javascript:toggleList('3.2.0.changes_in_runtime_behavior')">Changes in runtime behavior</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.2.0.changes_in_runtime_behavior.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3086">LUCENE-3086</a>: ItalianAnalyzer now uses ElisionFilter with a set of Italian
+contractions by default.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.2.0.bug_fixes" href="javascript:toggleList('3.2.0.bug_fixes')">Bug Fixes</a>&nbsp;&nbsp;&nbsp;(6)
+    <ol id="3.2.0.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3045">LUCENE-3045</a>: fixed QueryNodeImpl.containsTag(String key) that was
+not lowercasing the key before checking for the tag
+<br /><span class="attrib">(Adriano Crestani)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3026">LUCENE-3026</a>: SmartChineseAnalyzer's WordTokenFilter threw NullPointerException
+on sentences longer than 32,767 characters.
+<br /><span class="attrib">(wangzhenghang via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2939">LUCENE-2939</a>: Highlighter should try and use maxDocCharsToAnalyze in
+WeightedSpanTermExtractor when adding a new field to MemoryIndex as well as
+when using CachingTokenStream. This can be a significant performance bug for
+large documents.
+<br /><span class="attrib">(Mark Miller)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3043">LUCENE-3043</a>: GermanStemmer threw IndexOutOfBoundsException if it encountered
+a zero-length token.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3044">LUCENE-3044</a>: ThaiWordFilter didn't reset its cached state correctly, this only
+caused a problem if you consumed a tokenstream, then reused it, added different
+attributes to it, and consumed it again.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3113">LUCENE-3113</a>: Fixed some minor analysis bugs: double-reset() in ReusableAnalyzerBase
+and ShingleAnalyzerWrapper, missing end() implementations in PrefixAwareTokenFilter
+and PrefixAndSuffixAwareTokenFilter, invocations of incrementToken() after it
+already returned false in CommonGramsQueryFilter, HyphenatedWordsFilter,
+ShingleFilter, and SynonymsFilter.
+<br /><span class="attrib">(Robert Muir, Steven Rowe, Uwe Schindler)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.2.0.new_features" href="javascript:toggleList('3.2.0.new_features')">New Features</a>&nbsp;&nbsp;&nbsp;(4)
+    <ol id="3.2.0.new_features.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3016">LUCENE-3016</a>: Add analyzer for Latvian.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1421">LUCENE-1421</a>: create new grouping contrib module, enabling search
+results to be grouped by a single-valued indexed field.  This
+module was factored out of Solr's grouping implementation, but
+it cannot group by function queries nor arbitrary queries.
+<br /><span class="attrib">(Mike
+McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3098">LUCENE-3098</a>: add AllGroupsCollector, to collect all unique groups
+(but in unspecified order).
+<br /><span class="attrib">(Martijn van Groningen via Mike
+McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3092">LUCENE-3092</a>: Added NRTCachingDirectory in contrib/misc, which
+caches small segments in RAM.  This is useful, in the near-real-time
+case where the indexing rate is lowish but the reopen rate is
+highish, to take load off the IO system.
+<br /><span class="attrib">(Mike McCandless)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.2.0.optimizations" href="javascript:toggleList('3.2.0.optimizations')">Optimizations</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.2.0.optimizations.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3040">LUCENE-3040</a>: Switch all analysis consumers (highlighter, morelikethis, memory, ...)
+over to reusableTokenStream().
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+</ul>
+<h3><a id="3.1.0" href="javascript:toggleList('3.1.0')">Release 3.1.0  [2011-03-31]</a></h3>
+<ul id="3.1.0.list">
+  <li><a id="3.1.0.changes_in_backwards_compatibility_policy" href="javascript:toggleList('3.1.0.changes_in_backwards_compatibility_policy')">Changes in backwards compatibility policy</a>&nbsp;&nbsp;&nbsp;(6)
+    <ol id="3.1.0.changes_in_backwards_compatibility_policy.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2100">LUCENE-2100</a>: All Analyzers in Lucene-contrib have been marked as final.
+Analyzers should be only act as a composition of TokenStreams, users should
+compose their own analyzers instead of subclassing existing ones.
+<br /><span class="attrib">(Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2194">LUCENE-2194</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-2201">LUCENE-2201</a>: Snowball APIs were upgraded to snowball revision
+502 (with some local modifications for improved performance).
+Index backwards compatibility and binary backwards compatibility is
+preserved, but some protected/public member variables changed type. This
+does NOT affect java code/class files produced by the snowball compiler,
+but technically is a backwards compatibility break.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2226">LUCENE-2226</a>: Moved contrib/snowball functionality into contrib/analyzers.
+Be sure to remove any old obselete lucene-snowball jar files from your
+classpath!
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2323">LUCENE-2323</a>: Moved contrib/wikipedia functionality into contrib/analyzers.
+Additionally the package was changed from org.apache.lucene.wikipedia.analysis
+to org.apache.lucene.analysis.wikipedia.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2581">LUCENE-2581</a>: Added new methods to FragmentsBuilder interface. These methods
+are used to set pre/post tags and Encoder.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2391">LUCENE-2391</a>: Improved spellchecker (re)build time/ram usage by omitting
+frequencies/positions/norms for single-valued fields, modifying the default
+ramBufferMBSize to match IndexWriterConfig (16MB), making index optimization
+an optional boolean parameter, and modifying the incremental update logic
+to work well with unoptimized spellcheck indexes. The indexDictionary() methods
+were made final to ensure a hard backwards break in case you were subclassing
+Spellchecker. In general, subclassing Spellchecker is not recommended.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.1.0.changes_in_runtime_behavior" href="javascript:toggleList('3.1.0.changes_in_runtime_behavior')">Changes in runtime behavior</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="3.1.0.changes_in_runtime_behavior.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2117">LUCENE-2117</a>: SnowballAnalyzer uses TurkishLowerCaseFilter instead of
+LowercaseFilter to correctly handle the unique Turkish casing behavior if
+used with Version &gt; 3.0 and the TurkishStemmer.
+<br /><span class="attrib">(Robert Muir via Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2055">LUCENE-2055</a>: GermanAnalyzer now uses the Snowball German2 algorithm and
+stopwords list by default for Version &gt; 3.0.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler, Simon Willnauer)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.1.0.bug_fixes" href="javascript:toggleList('3.1.0.bug_fixes')">Bug fixes</a>&nbsp;&nbsp;&nbsp;(17)
+    <ol id="3.1.0.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2855">LUCENE-2855</a>: contrib queryparser was using CharSequence as key in some internal
+Map instances, which was leading to incorrect behavior, since some CharSequence
+implementors do not override hashcode and equals methods. Now the internal Maps
+are using String instead.
+<br /><span class="attrib">(Adriano Crestani)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2068">LUCENE-2068</a>: Fixed ReverseStringFilter which was not aware of supplementary
+characters. During reverse the filter created unpaired surrogates, which
+will be replaced by U+FFFD by the indexer, but not at query time. The filter
+now reverses supplementary characters correctly if used with Version &gt; 3.0.
+<br /><span class="attrib">(Simon Willnauer, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2035">LUCENE-2035</a>: TokenSources.getTokenStream() does not assign  positionIncrement.
+<br /><span class="attrib">(Christopher Morris via Mark Miller)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2055">LUCENE-2055</a>: Deprecated RussianTokenizer, RussianStemmer, RussianStemFilter,
+FrenchStemmer, FrenchStemFilter, DutchStemmer, and DutchStemFilter. For
+these Analyzers, SnowballFilter is used instead (for Version &gt; 3.0), as
+the previous code did not always implement the Snowball algorithm correctly.
+Additionally, for Version &gt; 3.0, the Snowball stopword lists are used by
+default.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler, Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2184">LUCENE-2184</a>: Fixed bug with handling best fit value when the proper best fit value is
+not an indexed field.  Note, this change affects the APIs.
+<br /><span class="attrib">(Grant Ingersoll)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2359">LUCENE-2359</a>: Fix bug in CartesianPolyFilterBuilder related to handling of behavior around
+the 180th meridian
+<br /><span class="attrib">(Grant Ingersoll)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2404">LUCENE-2404</a>: Fix bugs with position increment and empty tokens in ThaiWordFilter.
+For matchVersion &gt;= 3.1 the filter also no longer lowercases. ThaiAnalyzer
+will use a separate LowerCaseFilter instead.
+<br /><span class="attrib">(Uwe Schindler, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2615">LUCENE-2615</a>: Fix DirectIOLinuxDirectory to not assign bogus
+permissions to newly created files, and to not silently hardwire
+buffer size to 1 MB.
+<br /><span class="attrib">(Mark Miller, Robert Muir, Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2629">LUCENE-2629</a>: Fix gennorm2 task for generating ICUFoldingFilter's .nrm file. This allows
+you to customize its normalization/folding, by editing the source data files in src/data
+and regenerating a new .nrm with 'ant gennorm2'.
+<br /><span class="attrib">(David Bowen via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2653">LUCENE-2653</a>: ThaiWordFilter depends on the JRE having a Thai dictionary, which is not
+always the case. If the dictionary is unavailable, the filter will now throw
+UnsupportedOperationException in the constructor.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-589">LUCENE-589</a>: Fix contrib/demo for international documents.
+<br /><span class="attrib">(Curtis d'Entremont via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2246">LUCENE-2246</a>: Fix contrib/demo for Turkish html documents.
+<br /><span class="attrib">(Selim Nadi via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-590">LUCENE-590</a>: Demo HTML parser gives incorrect summaries when title is repeated as a heading
+<br /><span class="attrib">(Curtis d'Entremont via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-591">LUCENE-591</a>: The demo indexer now indexes meta keywords.
+<br /><span class="attrib">(Curtis d'Entremont via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2874">LUCENE-2874</a>: Highlighting overlapping tokens outputted doubled words.
+<br /><span class="attrib">(Pierre Gossé via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2943">LUCENE-2943</a>: Fix thread-safety issues with ICUCollationKeyFilter.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-3087">LUCENE-3087</a>: Highlighter: fix case that was preventing highlighting
+of exact phrase when tokens overlap.
+<br /><span class="attrib">(Pierre Gossé via Mike
+McCandless)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.1.0.api_changes" href="javascript:toggleList('3.1.0.api_changes')">API Changes</a>&nbsp;&nbsp;&nbsp;(12)
+    <ol id="3.1.0.api_changes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2867">LUCENE-2867</a>: Some contrib queryparser methods that receives CharSequence as
+identifier, such as QueryNode#unsetTag(CharSequence), were deprecated and
+will be removed on version 4.
+<br /><span class="attrib">(Adriano Crestani)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2147">LUCENE-2147</a>: Spatial GeoHashUtils now always decode GeoHash strings
+with full precision. GeoHash#decode_exactly(String) was merged into
+GeoHash#decode(String).
+<br /><span class="attrib">(Chris Male, Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2204">LUCENE-2204</a>: Change some package private classes/members to publicly accessible to implement
+custom FragmentsBuilders.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2055">LUCENE-2055</a>: Integrate snowball into contrib/analyzers. SnowballAnalyzer is
+now deprecated in favor of language-specific analyzers which contain things
+such as stopword lists and any language-specific processing in addition to
+stemming. Add Turkish and Romanian stopwords lists to support this.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler, Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2603">LUCENE-2603</a>: Add setMultiValuedSeparator(char) method to set an arbitrary
+char that is used when concatenating multiValued data. Default is a space
+(' '). It is applied on ANALYZED field only.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2626">LUCENE-2626</a>: FastVectorHighlighter: enable FragListBuilder and FragmentsBuilder
+to be set per-field override.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2712">LUCENE-2712</a>: FieldBoostMapAttribute in contrib/queryparser was changed from
+a Map&lt;CharSequence,Float&gt; to a Map&lt;String,Float&gt;. Per the CharSequence javadoc,
+CharSequence is inappropriate as a map key.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1937">LUCENE-1937</a>: Add more methods to manipulate QueryNodeProcessorPipeline elements.
+QueryNodeProcessorPipeline now implements the List interface, this is useful
+if you want to extend or modify an existing pipeline.
+<br /><span class="attrib">(Adriano Crestani via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2754">LUCENE-2754</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-2757">LUCENE-2757</a>: Deprecated SpanRegexQuery. Use
+new SpanMultiTermQueryWrapper&lt;RegexQuery&gt;(new RegexQuery()) instead.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2747">LUCENE-2747</a>: Deprecated ArabicLetterTokenizer. StandardTokenizer now tokenizes
+most languages correctly including Arabic.
+<br /><span class="attrib">(Steven Rowe, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2830">LUCENE-2830</a>: Use StringBuilder instead of StringBuffer across Benchmark, and
+remove the StringBuffer HtmlParser.parse() variant.
+<br /><span class="attrib">(Shai Erera)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2920">LUCENE-2920</a>: Deprecated ShingleMatrixFilter as it is unmaintained and does
+not work with custom Attributes or custom payload encoders.
+<br /><span class="attrib">(Uwe Schindler)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.1.0.new_features" href="javascript:toggleList('3.1.0.new_features')">New features</a>&nbsp;&nbsp;&nbsp;(29)
+    <ol id="3.1.0.new_features.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2500">LUCENE-2500</a>: Added DirectIOLinuxDirectory, a Linux-specific
+Directory impl that uses the O_DIRECT flag to bypass the buffer
+cache.  This is useful to prevent segment merging from evicting
+pages from the buffer cache, since fadvise/madvise do not seem.
+<br /><span class="attrib">(Michael McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2306">LUCENE-2306</a>: Add NumericRangeFilter and NumericRangeQuery support to XMLQueryParser.
+<br /><span class="attrib">(Jingkei Ly, via Mark Harwood)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2102">LUCENE-2102</a>: Add a Turkish LowerCase Filter. TurkishLowerCaseFilter handles
+Turkish and Azeri unique casing behavior correctly.
+<br /><span class="attrib">(Ahmet Arslan, Robert Muir via Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2039">LUCENE-2039</a>: Add a extensible query parser to contrib/misc.
+ExtendableQueryParser enables arbitrary parser extensions based on a
+customizable field naming scheme.
+<br /><span class="attrib">(Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2067">LUCENE-2067</a>: Add a Czech light stemmer. CzechAnalyzer will now stem words
+when Version is set to 3.1 or higher.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2062">LUCENE-2062</a>: Add a Bulgarian analyzer.
+<br /><span class="attrib">(Robert Muir, Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2206">LUCENE-2206</a>: Add Snowball's stopword lists for Danish, Dutch, English,
+Finnish, French, German, Hungarian, Italian, Norwegian, Russian, Spanish,
+and Swedish. These can be loaded with WordListLoader.getSnowballWordSet.
+<br /><span class="attrib">(Robert Muir, Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2243">LUCENE-2243</a>: Add DisjunctionMaxQuery support for FastVectorHighlighter.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2218">LUCENE-2218</a>: ShingleFilter supports minimum shingle size, and the separator
+character is now configurable. Its also up to 20% faster.
+<br /><span class="attrib">(Steven Rowe via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2234">LUCENE-2234</a>: Add a Hindi analyzer.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2055">LUCENE-2055</a>: Add analyzers/misc/StemmerOverrideFilter. This filter provides
+the ability to override any stemmer with a custom dictionary map.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler, Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2399">LUCENE-2399</a>: Add ICUNormalizer2Filter, which normalizes tokens with ICU's
+Normalizer2. This allows for efficient combinations of normalization and custom
+mappings in addition to standard normalization, and normalization combined
+with unicode case folding.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1343">LUCENE-1343</a>: Add ICUFoldingFilter, a replacement for ASCIIFoldingFilter that
+does a more thorough job of normalizing unicode text for search.
+<br /><span class="attrib">(Robert Haschart, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2409">LUCENE-2409</a>: Add ICUTransformFilter, which transforms text in a context
+sensitive way, either from ICU built-in rules (such as Traditional-Simplified),
+or from rules you write yourself.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2414">LUCENE-2414</a>: Add ICUTokenizer, a tailorable tokenizer that implements Unicode
+Text Segmentation. This tokenizer is useful for documents or collections with
+multiple languages.  The default configuration includes special support for
+Thai, Lao, Myanmar, and Khmer.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2298">LUCENE-2298</a>: Add analyzers/stempel, an algorithmic stemmer with support for
+the Polish language.
+<br /><span class="attrib">(Andrzej Bialecki via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2400">LUCENE-2400</a>: ShingleFilter was changed to don't output all-filler shingles and
+unigrams, and uses a more performant algorithm to build grams using a linked list
+of AttributeSource.cloneAttributes() instances and the new copyTo() method.
+<br /><span class="attrib">(Steven Rowe via Uwe Schindler)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2437">LUCENE-2437</a>: Add an Analyzer for Indonesian.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2393">LUCENE-2393</a>: The HighFreqTerms tool (in misc) can now optionally
+also include the total termFreq.
+<br /><span class="attrib">(Tom Burton-West via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2463">LUCENE-2463</a>: Add a Greek inflectional stemmer. GreekAnalyzer will now stem words
+when Version is set to 3.1 or higher.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1287">LUCENE-1287</a>: Allow usage of HyphenationCompoundWordTokenFilter without dictionary.
+<br /><span class="attrib">(Thomas Peuss via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2464">LUCENE-2464</a>: FastVectorHighlighter: add SingleFragListBuilder to return
+entire field contents.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2503">LUCENE-2503</a>: Added lighter stemming alternatives for European languages.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2581">LUCENE-2581</a>: FastVectorHighlighter: add Encoder to FragmentsBuilder.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2624">LUCENE-2624</a>: Add Analyzers for Armenian, Basque, and Catalan, from snowball.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1938">LUCENE-1938</a>: PrecedenceQueryParser is now implemented with the flexible QP framework.
+This means that you can also add this functionality to your own QP pipeline by using
+BooleanModifiersQueryNodeProcessor, for example instead of GroupQueryNodeProcessor.
+<br /><span class="attrib">(Adriano Crestani via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2791">LUCENE-2791</a>: Added WindowsDirectory, a Windows-specific Directory impl
+that doesn't synchronize on the file handle. This can be useful to
+avoid the performance problems of SimpleFSDirectory and NIOFSDirectory.
+<br /><span class="attrib">(Robert Muir, Simon Willnauer, Uwe Schindler, Michael McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2842">LUCENE-2842</a>: Add analyzer for Galician. Also adds the RSLP (Orengo) stemmer
+for Portuguese.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/SOLR-1057">SOLR-1057</a>: Add PathHierarchyTokenizer that represents file path hierarchies as synonyms of
+/something, /something/something, /something/something/else.
+<br /><span class="attrib">(Ryan McKinley, Koji Sekiguchi)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.1.0.build" href="javascript:toggleList('3.1.0.build')">Build</a>&nbsp;&nbsp;&nbsp;(6)
+    <ol id="3.1.0.build.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2124">LUCENE-2124</a>: Moved the JDK-based collation support from contrib/collation
+into core, and moved the ICU-based collation support into contrib/icu.
+<br /><span class="attrib">(Steven Rowe, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2323">LUCENE-2323</a>: Moved contrib/regex into contrib/queries. Moved the
+queryparsers under contrib/misc and contrib/surround into contrib/queryparser.
+Moved contrib/fast-vector-highlighter into contrib/highlighter.
+Moved ChainedFilter from contrib/misc to contrib/queries. contrib/spatial now
+depends on contrib/queries instead of contrib/misc.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2333">LUCENE-2333</a>: Fix failures during contrib builds, when classes in
+core were changed without ant clean. This fix also optimizes the
+dependency management between contribs by a new ANT macro.
+<br /><span class="attrib">(Uwe Schindler, Shai Erera)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2797">LUCENE-2797</a>: Upgrade contrib/icu's ICU jar file to ICU 4.6
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2833">LUCENE-2833</a>: Upgrade contrib/ant's jtidy jar file to r938
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2413">LUCENE-2413</a>: Moved the demo out of lucene core and into contrib/demo.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.1.0.optimizations" href="javascript:toggleList('3.1.0.optimizations')">Optimizations</a>&nbsp;&nbsp;&nbsp;(4)
+    <ol id="3.1.0.optimizations.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2157">LUCENE-2157</a>: DelimitedPayloadTokenFilter no longer copies the buffer
+over itsself. Instead it sets only the length. This patch also optimizes
+the logic of the filter and uses NIO for IdentityEncoder.
+<br /><span class="attrib">(Uwe Schindler)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2084">LUCENE-2084</a>: Change IndexableBinaryStringTools to work on byte[] and char[]
+directly, instead of Byte/CharBuffers, and modify ICUCollationKeyFilter to
+take advantage of this for faster performance.
+<br /><span class="attrib">(Steven Rowe, Uwe Schindler, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2194">LUCENE-2194</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-2201">LUCENE-2201</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-2288">LUCENE-2288</a>: Snowball stemmers in contrib/analyzers
+have been optimized to work on char[] and remove unnecessary object creation.
+<br /><span class="attrib">(Shai Erera, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2404">LUCENE-2404</a>: Improve performance of ThaiWordFilter by using a char[]-backed
+CharacterIterator (currently from javax.swing).
+<br /><span class="attrib">(Uwe Schindler, Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.1.0.test_cases" href="javascript:toggleList('3.1.0.test_cases')">Test Cases</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.1.0.test_cases.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2115">LUCENE-2115</a>: Cutover contrib tests to use Java5 generics.
+<br /><span class="attrib">(Kay Kay
+via Mike McCandless)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.1.0.other" href="javascript:toggleList('3.1.0.other')">Other</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="3.1.0.other.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1845">LUCENE-1845</a>: Updated bdb-je jar from version 3.3.69 to 3.3.93.
+<br /><span class="attrib">(Simon Willnauer via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2415">LUCENE-2415</a>: Use reflection instead of a shim class to access Jakarta
+Regex prefix.
+<br /><span class="attrib">(Uwe Schindler)</span></li>
+    </ol>
+  </li>
+</ul>
+<h3><a id="2.9.4" href="javascript:toggleList('2.9.4')">Release 2.9.4 / 3.0.3 [2010-12-03]</a></h3>
+<ul id="2.9.4.list">
+  <li><a id="2.9.4.bug_fixes" href="javascript:toggleList('2.9.4.bug_fixes')">Bug Fixes</a>&nbsp;&nbsp;&nbsp;(6)
+    <ol id="2.9.4.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2277">LUCENE-2277</a>: QueryNodeImpl threw ConcurrentModificationException on
+add(List&lt;QueryNode&gt;).
+<br /><span class="attrib">(Frank Wesemann via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2284">LUCENE-2284</a>: MatchAllDocsQueryNode toString() created an invalid XML tag.
+<br /><span class="attrib">(Frank Wesemann via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2278">LUCENE-2278</a>: FastVectorHighlighter: Highlighted term is out of alignment
+in multi-valued NOT_ANALYZED field.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2524">LUCENE-2524</a>: FastVectorHighlighter: use mod for getting colored tag.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2616">LUCENE-2616</a>: FastVectorHighlighter: out of alignment when the first value is
+empty in multiValued field
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2731">LUCENE-2731</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-2732">LUCENE-2732</a>: Fix (charset) problems in XML loading in
+HyphenationCompoundWordTokenFilter (partial bugfix-only in 2.9 and 3.0,
+full fix will be in later 3.1).
+<br /><span class="attrib">(Uwe Schinder)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.4.documentation" href="javascript:toggleList('2.9.4.documentation')">Documentation</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="2.9.4.documentation.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2055">LUCENE-2055</a>: Add documentation noting that the Dutch and French stemmers
+in contrib/analyzers do not implement the Snowball algorithm correctly,
+and recommend to use the equivalents in contrib/snowball if possible.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler, Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2653">LUCENE-2653</a>: Add documentation noting that ThaiWordFilter will not work
+as expected on all JRE's. For example, on an IBM JRE, it does nothing.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+</ul>
+<h3><a id="2.9.3" href="javascript:toggleList('2.9.3')">Release 2.9.3 / 3.0.2 [2010-06-18]</a></h3>
+    <ul id="2.9.3.list">
+      <li>No changes.
+</li>
+    </ul>
+<h3><a id="2.9.2" href="javascript:toggleList('2.9.2')">Release 2.9.2 / 3.0.1 [2010-02-26]</a></h3>
+<ul id="2.9.2.list">
+  <li><a id="2.9.2.new_features" href="javascript:toggleList('2.9.2.new_features')">New features</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="2.9.2.new_features.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2108">LUCENE-2108</a>: Spellchecker now safely supports concurrent modifications to
+the spell-index. Threads can safely obtain term suggestions while the spell-
+index is rebuild, cleared or reset. Internal IndexSearcher instances remain
+open until the last thread accessing them releases the reference.
+<br /><span class="attrib">(Simon Willnauer)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.2.bug_fixes" href="javascript:toggleList('2.9.2.bug_fixes')">Bug Fixes</a>&nbsp;&nbsp;&nbsp;(5)
+    <ol id="2.9.2.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2144">LUCENE-2144</a>: Fix InstantiatedIndex to handle termDocs(null)
+correctly (enumerate all non-deleted docs).
+<br /><span class="attrib">(Karl Wettin via Mike
+McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2199">LUCENE-2199</a>: ShingleFilter skipped over tri-gram shingles if outputUnigram
+was set to false.
+<br /><span class="attrib">(Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2211">LUCENE-2211</a>: Fix missing clearAttributes() calls:
+ShingleMatrix, PrefixAware, compounds, NGramTokenFilter,
+EdgeNGramTokenFilter, Highlighter, and MemoryIndex.
+<br /><span class="attrib">(Uwe Schindler, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2207">LUCENE-2207</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-2219">LUCENE-2219</a>: Fix incorrect offset calculations in end() for
+CJKTokenizer, ChineseTokenizer, SmartChinese SentenceTokenizer,
+and WikipediaTokenizer.
+<br /><span class="attrib">(Koji Sekiguchi, Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2266">LUCENE-2266</a>: Fixed offset calculations in NGramTokenFilter and
+EdgeNGramTokenFilter.
+<br /><span class="attrib">(Joe Calderon, Robert Muir via Uwe Schindler)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.2.api_changes" href="javascript:toggleList('2.9.2.api_changes')">API Changes</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="2.9.2.api_changes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2108">LUCENE-2108</a>: Add SpellChecker.close, to close the underlying
+reader.
+<br /><span class="attrib">(Eirik Bjørsnøs via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2165">LUCENE-2165</a>: Add a constructor to SnowballAnalyzer that takes a Set of
+stopwords, and deprecate the String[] one.
+<br /><span class="attrib">(Nick Burch via Robert Muir)</span></li>
+    </ol>
+  </li>
+</ul>
+<h3><a id="3.0.0" href="javascript:toggleList('3.0.0')">Release 3.0.0  [2009-11-25]</a></h3>
+<ul id="3.0.0.list">
+  <li><a id="3.0.0.changes_in_backwards_compatibility_policy" href="javascript:toggleList('3.0.0.changes_in_backwards_compatibility_policy')">Changes in backwards compatibility policy</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.0.0.changes_in_backwards_compatibility_policy.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1257">LUCENE-1257</a>: Change some occurences of StringBuffer in public/protected
+APIs of contrib/surround to StringBuilder.
+<br /><span class="attrib">(Paul Elschot via Uwe Schindler)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.0.0.changes_in_runtime_behavior" href="javascript:toggleList('3.0.0.changes_in_runtime_behavior')">Changes in runtime behavior</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.0.0.changes_in_runtime_behavior.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1966">LUCENE-1966</a>: Modified and cleaned the default Arabic stopwords list used
+by ArabicAnalyzer. You'll need to fully re-index any previously created
+indexes.
+<br /><span class="attrib">(Basem Narmok via Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.0.0.api_changes" href="javascript:toggleList('3.0.0.api_changes')">API Changes</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="3.0.0.api_changes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1936">LUCENE-1936</a>: Deprecated RussianLowerCaseFilter, because it transforms
+text exactly the same as LowerCaseFilter. Please use LowerCaseFilter
+instead, which has the same functionality.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2051">LUCENE-2051</a>: Contrib Analyzer setters were deprecated and replaced
+with ctor arguments / Version number.  Also stop word lists
+were unified.
+<br /><span class="attrib">(Simon Willnauer)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.0.0.bug_fixes" href="javascript:toggleList('3.0.0.bug_fixes')">Bug fixes</a>&nbsp;&nbsp;&nbsp;(3)
+    <ol id="3.0.0.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1781">LUCENE-1781</a>: Fixed various issues with the lat/lng bounding box
+distance filter created for radius search in contrib/spatial.
+<br /><span class="attrib">(Bill Bell via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1939">LUCENE-1939</a>: IndexOutOfBoundsException at ShingleMatrixFilter's
+Iterator#hasNext method on exhausted streams.
+<br /><span class="attrib">(Patrick Jungermann via Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1359">LUCENE-1359</a>: French analyzer did not support null field names.
+<br /><span class="attrib">(Andrew Lynch via Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.0.0.new_features" href="javascript:toggleList('3.0.0.new_features')">New features</a>&nbsp;&nbsp;&nbsp;(3)
+    <ol id="3.0.0.new_features.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1924">LUCENE-1924</a>: Added BalancedSegmentMergePolicy to contrib/misc,
+which is a merge policy that tries to avoid doing very large
+segment merges to give better search performance in a mixed
+indexing/searching environment.
+<br /><span class="attrib">(John Wang via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1959">LUCENE-1959</a>: Add index splitting tools. The IndexSplitter tool works
+on multi-segment (non optimized) indexes and it can copy specific
+segments out of the index into a new index.  It can also list the
+segments in the index, and delete specified segments.  (Jason Rutherglen via
+Mike McCandless). MultiPassIndexSplitter can split any index into
+any number of output parts, at the cost of doing multiple passes over
+the input index.
+<br /><span class="attrib">(Andrzej Bialecki)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1993">LUCENE-1993</a>: Add maxDocFreq setting to MoreLikeThis, to exclude
+from consideration terms that match more than the specified number
+of documents.
+<br /><span class="attrib">(Christian Steinert via Mike McCandless)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.0.0.optimizations" href="javascript:toggleList('3.0.0.optimizations')">Optimizations</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.0.0.optimizations.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1965">LUCENE-1965</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-1962">LUCENE-1962</a>: Arabic-, Persian- and SmartChineseAnalyzer
+loads default stopwords only once if accessed for the first time.
+Previous versions were loading the stopword files each time a new
+instance was created. This might improve performance for applications
+creating lots of instances of these Analyzers.
+<br /><span class="attrib">(Simon Willnauer)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.0.0.documentation" href="javascript:toggleList('3.0.0.documentation')">Documentation</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="3.0.0.documentation.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1916">LUCENE-1916</a>: Translated documentation in the smartcn hhmm package.
+<br /><span class="attrib">(Patricia Peng via Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="3.0.0.build" href="javascript:toggleList('3.0.0.build')">Build</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="3.0.0.build.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1904">LUCENE-1904</a>: Moved wordnet-based synonym support from contrib/memory
+into contrib/wordnet.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2031">LUCENE-2031</a>: Moved PatternAnalyzer from contrib/memory into
+contrib/analyzers/common, under miscellaneous.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+</ul>
+<h3><a id="2.9.1" href="javascript:toggleList('2.9.1')">Release 2.9.1  [2009-11-06]</a></h3>
+<ul id="2.9.1.list">
+  <li><a id="2.9.1.changes_in_backwards_compatibility_policy" href="javascript:toggleList('2.9.1.changes_in_backwards_compatibility_policy')">Changes in backwards compatibility policy</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="2.9.1.changes_in_backwards_compatibility_policy.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2002">LUCENE-2002</a>: Add required Version matchVersion argument when
+constructing ComplexPhraseQueryParser and default (as of 2.9)
+enablePositionIncrements to true to match StandardAnalyzer's
+default.  Also added required matchVersion to most of the analyzers
+<br /><span class="attrib">(Uwe Schindler, Mike McCandless)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.1.changes_in_runtime_behavior" href="javascript:toggleList('2.9.1.changes_in_runtime_behavior')">Changes in runtime behavior</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="2.9.1.changes_in_runtime_behavior.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1963">LUCENE-1963</a>: ArabicAnalyzer now lowercases before checking the stopword
+list. This has no effect on Arabic text, but if you are using a custom
+stopword list that contains some non-Arabic words, you'll need to fully
+reindex.
+<br /><span class="attrib">(DM Smith via Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.1.bug_fixes" href="javascript:toggleList('2.9.1.bug_fixes')">Bug fixes</a>&nbsp;&nbsp;&nbsp;(7)
+    <ol id="2.9.1.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1953">LUCENE-1953</a>: FastVectorHighlighter: small fragCharSize can cause
+StringIndexOutOfBoundsException.
+<br /><span class="attrib">(Koji Sekiguchi)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1929">LUCENE-1929</a>: Highlighter throws exception on NumericRangeQuery and does not
+support deprecated RangeQuery.
+<br /><span class="attrib">(Mark Miller)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2001">LUCENE-2001</a>: Wordnet Syns2Index incorrectly parses synonyms that
+contain a single quote.
+<br /><span class="attrib">(Parag H. Dave via Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2003">LUCENE-2003</a>: Highlighter doesn't respect position increments other than 1 with
+PhraseQuerys.
+<br /><span class="attrib">(Uwe Schindler, Mark Miller)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1954">LUCENE-1954</a>: InstantiatedIndexWriter: Fixed ClassCastException with
+NumericField because of incorrect unchecked cast: Document.getFields()
+returns List&lt;Fieldable&gt;.
+<br /><span class="attrib">(Bernd Fondermann via Uwe Schindler)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2014">LUCENE-2014</a>: SmartChineseAnalyzer did not properly clear attributes
+in WordTokenFilter. If enablePositionIncrements is set for StopFilter,
+then this could create invalid position increments, causing IndexWriter
+to crash.
+<br /><span class="attrib">(Robert Muir, Uwe Schindler)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-2013">LUCENE-2013</a>: SpanRegexQuery does not work with QueryScorer.
+<br /><span class="attrib">(Benjamin Keil via Mark Miller)</span></li>
+    </ol>
+  </li>
+</ul>
+<h3><a id="2.9.0" href="javascript:toggleList('2.9.0')">Release 2.9.0  [2009-09-25]</a></h3>
+<ul id="2.9.0.list">
+  <li><a id="2.9.0.changes_in_runtime_behavior" href="javascript:toggleList('2.9.0.changes_in_runtime_behavior')">Changes in runtime behavior</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="2.9.0.changes_in_runtime_behavior.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1505">LUCENE-1505</a>: Local lucene now uses org.apache.lucene.util.NumericUtils for all
+ number conversion.  You'll need to fully re-index any previously created indexes.
+ This isn't a break in back-compatibility because local Lucene has not yet
+ been released.
+<br /><span class="attrib">(Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1758">LUCENE-1758</a>: ArabicAnalyzer now uses the light10 algorithm, has a refined
+ default stopword list, and lowercases non-Arabic text.
+ You'll need to fully re-index any previously created indexes. This isn't a
+ break in back-compatibility because ArabicAnalyzer has not yet been
+ released.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.0.api_changes" href="javascript:toggleList('2.9.0.api_changes')">API Changes</a>&nbsp;&nbsp;&nbsp;(5)
+    <ol id="2.9.0.api_changes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1695">LUCENE-1695</a>: Update the Highlighter to use the new TokenStream API. This issue breaks backwards
+ compatibility with some public classes. If you have implemented custom Fragmenters or Scorers,
+ you will need to adjust them to work with the new TokenStream API. Rather than getting passed a
+ Token at a time, you will be given a TokenStream to init your impl with - store the Attributes
+ you are interested in locally and access them on each call to the method that used to pass a new
+ Token. Look at the included updated impls for examples.
+<br /><span class="attrib">(Mark Miller)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1460">LUCENE-1460</a>: Change contrib TokenStreams/Filters to use the new
+ TokenStream API.
+<br /><span class="attrib">(Robert Muir, Michael Busch)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1775">LUCENE-1775</a>, <a href="http://issues.apache.org/jira/browse/LUCENE-1903">LUCENE-1903</a>: Change remaining TokenFilters (shingle, prefix-suffix)
+ to use the new TokenStream API. ShingleFilter is much more efficient now,
+ it clones much less often and computes the tokens mostly on the fly now.
+ Also added more tests.
+<br /><span class="attrib">(Robert Muir, Michael Busch, Uwe Schindler, Chris Harris)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1685">LUCENE-1685</a>: The position aware SpanScorer has become the default scorer
+ for Highlighting. The SpanScorer implementation has replaced QueryScorer
+ and the old term highlighting QueryScorer has been renamed to
+ QueryTermScorer. Multi-term queries are also now expanded by default. If
+ you were previously rewriting the query for multi-term query highlighting,
+ you should no longer do that (unless you switch to using QueryTermScorer).
+ The SpanScorer API (now QueryScorer) has also been improved to more closely
+ match the API of the previous QueryScorer implementation.
+<br /><span class="attrib">(Mark Miller)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1793">LUCENE-1793</a>: Deprecate the custom encoding support in the Greek and Russian
+ Analyzers. If you need to index text in these encodings, please use Java's
+ character set conversion facilities (InputStreamReader, etc) during I/O,
+ so that Lucene can analyze this text as Unicode instead.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.0.bug_fixes" href="javascript:toggleList('2.9.0.bug_fixes')">Bug fixes</a>&nbsp;&nbsp;&nbsp;(12)
+    <ol id="2.9.0.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1423">LUCENE-1423</a>: InstantiatedTermEnum#skipTo(Term) throws ArrayIndexOutOfBounds on empty index.
+<br /><span class="attrib">(Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1462">LUCENE-1462</a>: InstantiatedIndexWriter did not reset pre analyzed TokenStreams the
+ same way IndexWriter does. Parts of InstantiatedIndex was not Serializable.
+<br /><span class="attrib">(Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1510">LUCENE-1510</a>: InstantiatedIndexReader#norms methods throws NullPointerException on empty index.
+<br /><span class="attrib">(Karl Wettin, Robert Newson)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1514">LUCENE-1514</a>: ShingleMatrixFilter#next(Token) easily throws a StackOverflowException
+ due to recursive invocation.
+<br /><span class="attrib">(Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1548">LUCENE-1548</a>: Fix distance normalization in LevenshteinDistance to
+ not produce negative distances
+<br /><span class="attrib">(Thomas Morton via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1490">LUCENE-1490</a>: Fix latin1 conversion of HALFWIDTH_AND_FULLWIDTH_FORMS
+ characters to only apply to the correct subset
+<br /><span class="attrib">(Daniel Cheng via
+ Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1576">LUCENE-1576</a>: Fix BrazilianAnalyzer to downcase tokens after
+ StandardTokenizer so that stop words with mixed case are filtered
+ out.
+<br /><span class="attrib">(Rafael Cunha de Almeida, Douglas Campos via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1491">LUCENE-1491</a>: EdgeNGramTokenFilter no longer stops on tokens shorter than minimum n-gram size.
+<br /><span class="attrib">(Todd Teak via Otis Gospodnetic)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1683">LUCENE-1683</a>: Fixed JavaUtilRegexCapabilities (an impl used by
+ RegexQuery) to use Matcher.matches() not Matcher.lookingAt() so
+ that the regexp must match the entire string, not just a prefix.
+<br /><span class="attrib">(Trejkaz via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1792">LUCENE-1792</a>: Fix new query parser to set rewrite method for
+ multi-term queries.
+<br /><span class="attrib">(Luis Alves, Mike McCandless via Michael Busch)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1828">LUCENE-1828</a>: Fix memory index to call TokenStream.reset() and
+ TokenStream.end().
+<br /><span class="attrib">(Tim Smith via Michael Busch)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1912">LUCENE-1912</a>: Fix fast-vector-highlighter issue when two or more
+terms are concatenated
+<br /><span class="attrib">(Koji Sekiguchi via Mike McCandless)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.0.new_features" href="javascript:toggleList('2.9.0.new_features')">New features</a>&nbsp;&nbsp;&nbsp;(17)
+    <ol id="2.9.0.new_features.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1531">LUCENE-1531</a>: Added support for BoostingTermQuery to XML query parser.
+<br /><span class="attrib">(Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1435">LUCENE-1435</a>: Added contrib/collation, a CollationKeyFilter
+ allowing you to convert tokens into CollationKeys encoded using
+ IndexableBinaryStringTools.  This allows for faster RangeQuery when
+ a field needs to use a custom Collator.
+<br /><span class="attrib">(Steven Rowe via Mike
+ McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1591">LUCENE-1591</a>: EnWikiDocMaker, LineDocMaker, WriteLineDoc can now
+ read/write bz2 using Apache commons compress library.  This means
+ you can download the .bz2 export from http://wikipedia.org and
+ immediately index it.
+<br /><span class="attrib">(Shai Erera via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1629">LUCENE-1629</a>: Add SmartChineseAnalyzer to contrib/analyzers.  It
+ improves on CJKAnalyzer and ChineseAnalyzer by handling Chinese
+ sentences properly.  SmartChineseAnalyzer uses a Hidden Markov
+ Model to tokenize Chinese words in a more intelligent way.
+<br /><span class="attrib">(Xiaoping Gao via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1676">LUCENE-1676</a>: Added DelimitedPayloadTokenFilter class for automatically adding payloads "in-stream"
+<br /><span class="attrib">(Grant Ingersoll)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1578">LUCENE-1578</a>: Support for loading unoptimized readers to the
+ constructor of InstantiatedIndex.
+<br /><span class="attrib">(Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1704">LUCENE-1704</a>: Allow specifying the Tidy configuration file when
+ parsing HTML docs with contrib/ant.
+<br /><span class="attrib">(Keith Sprochi via Mike
+ McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1522">LUCENE-1522</a>: Added contrib/fast-vector-highlighter, a new alternative
+ highlighter.
+<br /><span class="attrib">(Koji Sekiguchi via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1740">LUCENE-1740</a>: Added "analyzer" command to Lucli, enabling changing
+ the analyzer from the default StandardAnalyzer.
+<br /><span class="attrib">(Bernd Fondermann
+ via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1272">LUCENE-1272</a>: Add get/setBoost to MoreLikeThis.
+<br /><span class="attrib">(Jonathan
+ Leibiusky via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1745">LUCENE-1745</a>: Added constructors to JakartaRegexpCapabilities and
+ JavaUtilRegexCapabilities as well as static flags to support
+ configuring a RegexCapabilities implementation with the
+ implementation-specific modifier flags. Allows for callers to
+ customize the RegexQuery using the implementation-specific options
+ and fine tune how regular expressions are compiled and
+ matched.
+<br /><span class="attrib">(Marc Zampetti zampettim@aim.com via Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1567">LUCENE-1567</a>: Added a new QueryParser framework, that allows
+ implementing a new query syntax in a flexible and efficient way.
+ This new QueryParser will be moved to Lucene's core in release
+ 3.0 and will then replace the current core QueryParser, which
+ has been deprecated with this patch.
+<br /><span class="attrib">(Luis Alves and Adriano Campos via Michael Busch)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1486">LUCENE-1486</a>: Added ComplexPhraseQueryParser, an extension of QueryParser
+ that allows a subset of the Lucene query language to be embedded in
+ PhraseQuerys. Wildcard, Range, and Fuzzy queries, as well as limited
+ boolean logic, can be used within quote operators with this parser, ie:
+ "(jo* -john) smyth~".
+<br /><span class="attrib">(Mark Harwood via Mark Miller)</span></li>
+      <li>Added web-based demo of functionality in contrib's XML Query Parser
+ packaged as War file
+<br /><span class="attrib">(Mark Harwood)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1406">LUCENE-1406</a>: Added Arabic analyzer.
+<br /><span class="attrib">(Robert Muir via Grant Ingersoll)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1628">LUCENE-1628</a>: Added Persian analyzer.
+<br /><span class="attrib">(Robert Muir)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1813">LUCENE-1813</a>: Add option to ReverseStringFilter to mark reversed tokens.
+<br /><span class="attrib">(Andrzej Bialecki via Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.0.optimizations" href="javascript:toggleList('2.9.0.optimizations')">Optimizations</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="2.9.0.optimizations.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1643">LUCENE-1643</a>: Re-use the collation key (RawCollationKey) for
+  better performance, in ICUCollationKeyFilter.
+<br /><span class="attrib">(Robert Muir via
+  Mike McCandless)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1794">LUCENE-1794</a>: Implement TokenStream reuse for contrib Analyzers,
+  and implement reset() for TokenStreams to support reuse.
+<br /><span class="attrib">(Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.0.documentation" href="javascript:toggleList('2.9.0.documentation')">Documentation</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="2.9.0.documentation.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1876">LUCENE-1876</a>: added missing package level documentation for numerous
+  contrib packages.
+<br /><span class="attrib">(Steven Rowe &amp; Robert Muir)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.0.build" href="javascript:toggleList('2.9.0.build')">Build</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="2.9.0.build.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1728">LUCENE-1728</a>: Split contrib/analyzers into common and smartcn modules.
+Contrib/analyzers now builds an additional lucene-smartcn Jar file. All
+smartcn classes are not included in the lucene-analyzers JAR file.
+<br /><span class="attrib">(Robert Muir via Simon Willnauer)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1829">LUCENE-1829</a>: Fix contrib query parser to properly create javacc files.
+<br /><span class="attrib">(Jan-Pascal and Luis Alves via Michael Busch)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.9.0.test_cases" href="javascript:toggleList('2.9.0.test_cases')">Test Cases</a>&nbsp;&nbsp;&nbsp;(none)
+    <ol id="2.9.0.test_cases.list">
+    </ol>
+  </li>
+</ul>
+<h3><a id="2.4.0" href="javascript:toggleList('2.4.0')">Release 2.4.0  [2008-10-08]</a></h3>
+<ul id="2.4.0.list">
+  <li><a id="2.4.0.changes_in_runtime_behavior" href="javascript:toggleList('2.4.0.changes_in_runtime_behavior')">Changes in runtime behavior</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="2.4.0.changes_in_runtime_behavior.list">
+      <li>
+<br /><span class="attrib">(None)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.4.0.api_changes" href="javascript:toggleList('2.4.0.api_changes')">API Changes</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="2.4.0.api_changes.list">
+      <li>1.
+</li>
+      <li>
+<br /><span class="attrib">(None)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.4.0.bug_fixes" href="javascript:toggleList('2.4.0.bug_fixes')">Bug fixes</a>&nbsp;&nbsp;&nbsp;(2)
+    <ol id="2.4.0.bug_fixes.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1312">LUCENE-1312</a>: Added full support for InstantiatedIndexReader#getFieldNames()
+and tests that assert that deleted documents behaves as they should (they did).
+<br /><span class="attrib">(Jason Rutherglen, Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1318">LUCENE-1318</a>: InstantiatedIndexReader.norms(String, b[], int) didn't treat
+the array offset right.
+<br /><span class="attrib">(Jason Rutherglen via Karl Wettin)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.4.0.new_features" href="javascript:toggleList('2.4.0.new_features')">New features</a>&nbsp;&nbsp;&nbsp;(3)
+    <ol id="2.4.0.new_features.list">
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1320">LUCENE-1320</a>: ShingleMatrixFilter, multidimensional shingle token filter.
+<br /><span class="attrib">(Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1142">LUCENE-1142</a>: Updated Snowball package, org.tartarus distribution revision 500.
+Introducing Hungarian, Turkish and Romanian support, updated older stemmers
+and optimized (reflectionless) SnowballFilter.
+IMPORTANT NOTICE ON BACKWARDS COMPATIBILITY: an index created using the 2.3.2 (or older)
+might not be compatible with these updated classes as some algorithms have changed.
+<br /><span class="attrib">(Karl Wettin)</span></li>
+      <li><a href="http://issues.apache.org/jira/browse/LUCENE-1016">LUCENE-1016</a>: TermVectorAccessor, transparent vector space access via stored vectors
+or by resolving the inverted index.
+<br /><span class="attrib">(Karl Wettin)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.4.0.documentation" href="javascript:toggleList('2.4.0.documentation')">Documentation</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="2.4.0.documentation.list">
+      <li>
+<br /><span class="attrib">(None)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.4.0.build" href="javascript:toggleList('2.4.0.build')">Build</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="2.4.0.build.list">
+      <li>
+<br /><span class="attrib">(None)</span></li>
+    </ol>
+  </li>
+  <li><a id="2.4.0.test_cases" href="javascript:toggleList('2.4.0.test_cases')">Test Cases</a>&nbsp;&nbsp;&nbsp;(1)
+    <ol id="2.4.0.test_cases.list">
+      <li>
+<br /><span class="attrib">(None)</span></li>
+    </ol>
+  </li>
+</ul>
+</ul>
+</body>
+</html>
