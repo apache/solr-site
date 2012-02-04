@@ -51,7 +51,7 @@ our @patterns = (
 	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance-simple.html" }],
 
 	# keep the general one last
-  [qr!lucene\/index\.mdtext$!, main => { template => "main.html"}],
+  [qr!\/index\.mdtext$!, main => { template => "main.html"}],
   [qr!\.mdtext$!, main => { template => "simple.html"	 }],
 ) ;
 
