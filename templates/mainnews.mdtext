@@ -1,4 +1,181 @@
 # News
+##27 November 2011 - Lucene Core 3.5.0 and Solr 3.5.0 Available</title>
+                The Lucene PMC is pleased to announce the availability of Apache Lucene 3.5.0 and Apache Solr 3.5.0.
+                
+Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
+
+Highlights of the Lucene release include:
+
+- Added a very substantial (3-5X) RAM reduction required to hold the
+terms index on opening an IndexReader. (<a href="https://issues.apache.org/jira/browse/LUCENE-2205">LUCENE-2205</a>)
+
+- Added IndexSearcher.searchAfter which returns results after a 
+specified ScoreDoc (e.g. last document on the previous page) to 
+support deep paging use cases. 
+(<a href="https://issues.apache.org/jira/browse/LUCENE-2215">LUCENE-2215</a>)
+
+- Added SearcherManager to manage sharing and reopening IndexSearchers
+across multiple search threads. Underlying IndexReader instances are 
+safely closed if not referenced anymore. 
+(<a href="https://issues.apache.org/jira/browse/LUCENE-3445">LUCENE-3445</a>, 
+<a href="https://issues.apache.org/jira/browse/LUCENE-3558">LUCENE-3558</a>)
+
+- Added SearcherLifetimeManager which safely provides a consistent 
+view of the index across multiple requests (e.g. paging/drilldown). 
+(<a href="https://issues.apache.org/jira/browse/LUCENE-3558">LUCENE-3558</a>, 
+<a href="https://issues.apache.org/jira/browse/LUCENE-3486">LUCENE-3486</a>)
+
+- Renamed IndexWriter.optimize to forceMerge to discourage use of 
+this method since it is horribly costly and rarely justified anymore. 
+(<a href="https://issues.apache.org/jira/browse/LUCENE-3454">LUCENE-3454</a>)
+
+- Added NGramPhraseQuery that speeds up phrase queries 30-50% when
+ n-gram analysis is used. (<a href="https://issues.apache.org/jira/browse/LUCENE-3426">LUCENE-3426</a>)
+
+- Added a new reopen API (IndexReader.openIfChanged) that returns 
+null instead of the old reader if there are no changes in the index. 
+(<a href="https://issues.apache.org/jira/browse/LUCENE-3464">LUCENE-3464</a>)
+
+- Improvements to vector highlighting: support for more queries 
+such as wildcards and boundary analysis for generated snippets. 
+(<a href="https://issues.apache.org/jira/browse/LUCENE-1824">LUCENE-1824</a>, 
+<a href="https://issues.apache.org/jira/browse/LUCENE-1889">LUCENE-1889</a>)
+
+- IndexSearcher and IndexReader now perform additional checks to 
+throw AlreadyClosedExceptions if searches are performed on a 
+closed IndexReader. Performing searches on already closed reader can 
+cause JVM crashes when invalid memory mapped files are referenced. 
+
+- Several bugfixes, including a bug where closing an NRT reader 
+after the writer was closed was incorrectly invoking the 
+DeletionPolicy. See CHANGES.txt entries for full details.
+
+Highlights of the Solr release include:
+
+- Bug fixes and improvements from Apache Lucene 3.5.0, including a
+    very substantial (3-5X) RAM reduction required to hold the terms
+    index on opening an <code>IndexReader</code>.
+    (<a href="https://issues.apache.org/jira/browse/LUCENE-2205">LUCENE-2205</a>)
+  
+- Added support for distributed result grouping.
+    (<a href="https://issues.apache.org/jira/browse/SOLR-2066">SOLR-2066</a>,
+    <a href="https://issues.apache.org/jira/browse/SOLR-2776">SOLR-2776</a>)
+  
+- Added support for Hunspell stemmer <code>TokenFilter</code> supporting
+    stemming for 99 languages.
+    (<a href="https://issues.apache.org/jira/browse/SOLR-2769">SOLR-2769</a>)
+  
+- A new contrib module "langid" adds language identification
+    capabilities as an Update Processor, using Tika's
+    <code>LanguageIdentifier</code> or Cybozu language-detection library
+    (<a href="https://issues.apache.org/jira/browse/SOLR-1979">SOLR-1979</a>)
+  
+- Numeric types including Trie and date types now support
+    <code>sortMissingFirst</code>/<code>Last</code>.
+    (<a href="https://issues.apache.org/jira/browse/SOLR-2881">SOLR-2881</a>)
+  
+- Added <code>hl.q</code> parameter. It is optional and if it is specified,
+    it overrides <code>q</code> parameter in <code>Highlighter</code>.
+    (<a href="https://issues.apache.org/jira/browse/SOLR-1926">SOLR-1926</a>)
+  
+- Several minor bugfixes like date parsing for years from 0001-1000, ignored
+    configurations when using <code>QueryAnalyzer</code> with
+    <code>SpellCheckComponent</code> and many more.
+    See CHANGES.txt entries for full details.
+  
+
+
+##26 October 2011 - Java 7u1 fixes index corruption and crash bugs in Apache Lucene Core and Apache Solr</title>
+  Oracle released <a href="http://www.oracle.com/technetwork/java/javase/7u1-relnotes-507962.html">Java 7u1</a> on October 19.
+  According to the release notes and tests done by the Lucene committers, all bugs reported on July 28 are fixed in this release,
+  so code using Porter stemmer no longer crashes with <code>SIGSEGV</code>. We were not able to experience any index corruption anymore,
+  so it is safe to use Java 7u1 with Lucene Core and Solr.
+  On the same day, Oracle released <a href="http://www.oracle.com/technetwork/java/javase/6u29-relnotes-507960.html">Java 6u29</a>
+  fixing the same problems occurring with Java 6, if the JVM switches <code>-XX:+AggressiveOpts</code>
+  or <code>-XX:+OptimizeStringConcat</code> were used. Of course, you should <strong>not</strong> use experimental JVM options like
+  <code>-XX:+AggressiveOpts</code> in production environments! We recommend everybody to upgrade to this latest version 6u29.
+  In case you upgrade to Java 7, remember that you may have to reindex, as the unicode
+  version shipped with Java 7 changed and tokenization behaves differently
+  (e.g. lowercasing). For more information, read <code>JRE_VERSION_MIGRATION.txt</code>
+  in your distribution package!
+
+
+##14 September 2011 - Lucene Core 3.4.0 and Solr 3.4.0 Available</title>
+                The Lucene PMC is pleased to announce the availability of Apache Lucene 3.4.0 and Apache Solr 3.4.0.
+                
+                Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
+
+If you are already using Apache Lucene 3.1, 3.2 or 3.3, we strongly recommend you upgrade to 3.4.0 because of the index corruption bug on OS or computer crash or power loss (<a href="https://issues.apache.org/jira/browse/LUCENE-3418">LUCENE-3418</a>), now fixed in 3.4.0.
+
+Highlights of the Lucene release include:
+
+- Fixed a major bug (<a href="https://issues.apache.org/jira/browse/LUCENE-3418">LUCENE-3418</a>) whereby a Lucene index could
+easily become corrupted if the OS or computer crashed or lost
+power.
+
+- Added a new faceting module (<code>contrib/facet</code>) for computing facet
+counts (both hierarchical and non-hierarchical) at search
+time (<a href="https://issues.apache.org/jira/browse/LUCENE-3079">LUCENE-3079</a>).
+
+- Added a new join module (<code>contrib/join</code>), enabling indexing and
+searching of nested (parent/child) documents using
+<code>BlockJoinQuery</code>/<code>Collector</code> (<a href="https://issues.apache.org/jira/browse/LUCENE-3171">LUCENE-3171</a>).
+
+- It is now possible to index documents with term frequencies
+included but without positions (<a href="https://issues.apache.org/jira/browse/LUCENE-2048">LUCENE-2048</a>); previously
+<code>omitTermFreqAndPositions</code> always omitted both.
+
+- The modular <code>QueryParser</code> (<code>contrib/queryparser</code>) can now create
+<code>NumericRangeQuery</code>.
+
+- Added SynonymFilter, in <code>contrib/analyzers</code>, to apply multi-word
+synonyms during indexing or querying, including parsers to read
+the wordnet and solr synonym formats (<a href="https://issues.apache.org/jira/browse/LUCENE-3233">LUCENE-3233</a>).
+
+- You can now control how documents that don't have a value on the
+sort field should sort (<a href="https://issues.apache.org/jira/browse/LUCENE-3390">LUCENE-3390</a>), using <code>SortField.setMissingValue</code>.
+
+- Fixed a case where term vectors could be silently deleted from the
+index after <code>addIndexes</code> (<a href="https://issues.apache.org/jira/browse/LUCENE-3402">LUCENE-3402</a>).
+
+
+Highlights of the Solr release include:
+
+
+
+- SolrJ client can now parse grouped and range facets results
+(<a href="https://issues.apache.org/jira/browse/SOLR-2523">SOLR-2523</a>).
+
+- A new <code>XsltUpdateRequestHandler</code> allows posting XML that's
+transformed by a provided XSLT into a valid Solr document
+(<a href="https://issues.apache.org/jira/browse/SOLR-2630">SOLR-2630</a>).
+
+- Post-group faceting option (<code>group.truncate</code>) can now compute
+facet counts for only the highest ranking documents per-group.
+(<a href="https://issues.apache.org/jira/browse/SOLR-2665">SOLR-2665</a>).
+
+- Add <code>commitWithin</code> update request parameter to all update handlers
+that were previously missing it.  This tells Solr to commit the
+change within the specified amount of time (<a href="https://issues.apache.org/jira/browse/SOLR-2540">SOLR-2540</a>).
+
+- You can now specify <code>NIOFSDirectory</code> (<a href="https://issues.apache.org/jira/browse/SOLR-2670">SOLR-2670</a>).
+
+- New parameter <code>hl.phraseLimit</code> speeds up <code>FastVectorHighlighter</code>
+(<a href="https://issues.apache.org/jira/browse/LUCENE-3234">LUCENE-3234</a>).
+
+- The query cache and filter cache can now be disabled per request.
+See <a href="http://wiki.apache.org/solr/CommonQueryParameters#Caching_of_filters">this wiki page</a>
+(<a href="https://issues.apache.org/jira/browse/SOLR-2429">SOLR-2429</a>).
+
+-  Improved memory usage, build time, and performance of 
+<code>SynonymFilterFactory</code> (<a href="https://issues.apache.org/jira/browse/LUCENE-3233">LUCENE-3233</a>).
+
+-  Added <code>omitPositions</code> to the schema, so you can omit position
+information while still indexing term frequencies (<a href="https://issues.apache.org/jira/browse/LUCENE-2048">LUCENE-2048</a>).
+
+- Various fixes for multi-threaded <code>DataImportHandler</code>.
+
+
 ##28 July 2011 - WARNING: Index corruption and crashes in Apache Lucene Core / Apache Solr with Java 7
 
 Oracle released <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 7</a> today.

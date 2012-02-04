@@ -1,5 +1,25 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-{% include "head.html" %}
-{% include "body.html" %}
-</html>
+{#
+ This is a work around to the fact that the CMS doesn't allow inheritance of depth
+        2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
+#}
+<!-- main.html -->
+{% extends "head.html" %}
+{% block css %}
+    <link href="./css/global.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="./scripts/prototype.js"></script>
+<script type="text/javascript" src="./scripts/effects.js"></script>
+<script type="text/javascript" src="./scripts/search.js"></script>
+<script type="text/javascript" src="./scripts/slides.js"></script>
+{% endblock %}
+{% block metakeys %}<meta name="keywords"
+        content="apache, apache lucene, apache solr, solr, lucene
+        search, information retrieval, spell checking, faceting, inverted index, open source"/>
+{% endblock %}
+{% endextends %}
+{% extends "body.html" %}
+{% block news %}
+<div>{% filter markdown %}{% include "mainnews.mdtext" %}{% endfilter %}</div>
+{% endblock %}
+{% endextends %}
