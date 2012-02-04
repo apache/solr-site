@@ -1,4 +1,43 @@
-{% extends "jcc.html" %}
+<!-- jcc.html -->
+{#
+This is a work around to the fact that the CMS doesn't allow inheritance of depth
+2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
+#}
+{% extends "head.html" %}
+{% block css %}
+    <link href="../css/global.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="../scripts/prototype.js"></script>
+<script type="text/javascript" src="../scripts/effects.js"></script>
+<script type="text/javascript" src="../scripts/search.js"></script>
+<script type="text/javascript" src="../scripts/slides.js"></script>
+{% endblock %}
+{% block metakeys %}<meta name="keywords"
+        content="apache, pylucene, jcc, lucene, apache pylucene, apache jcc,
+  apache lucene, search, python search, information retrieval, spell checking, faceting, inverted index, open source"/>
+{% endblock %}
+{% endextends %}
+
+{% extends "body.html" %}
+{% block logo %}
+<a href="index.html"><img border="0" src="../../images/lucene_logo_green_300.png" alt="Lucene Logo"/></a>
+{% endblock %}
+{% block nav %}
+<ul>
+  <li><a href="index.html">JCC</a></li>
+  <li><a href="https://issues.apache.org/jira/browse/PYLUCENE">Issue Tracker</a></li>
+  <li><a href="../mailing-lists.html">Discussion</a></li>
+  <li><a href="../index.html">PyLucene</a></li>
+  <li><a class="last" href="../../index.html">Lucene</a></li>
+</ul>
+{% endblock %}
 {% block news %}
+{% endblock %}
+
+{% block sidebar %}
+    <div id="sidebar">
+      {% filter markdown %}{% include "jccnav.mdtext" %}{% endfilter %}
+    </div>
 {% endblock %}
 {% endextends %}

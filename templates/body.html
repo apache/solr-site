@@ -88,7 +88,7 @@
 
       <div>{% block content %}{{ content|markdown }}{% endblock %}</div>
       {% block news %}
-        <div>{% filter markdown %}{% include "mainnews.mdtext" %}{% endfilter %}</div>
+        <div>{% filter markdown %}{% include "../content/mainnews.mdtext" %}{% endfilter %}</div>
       {% endblock news %}
 
       {% block asfboiler %}

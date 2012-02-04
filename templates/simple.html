@@ -2,11 +2,10 @@
  This is a work around to the fact that the CMS doesn't allow inheritance of depth
         2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
 #}
-<!-- main.html -->
+<!-- simple.html -->
 {% extends "head.html" %}
 {% block css %}
     <link href="./css/global.css" rel="stylesheet" type="text/css">
-    <link href="./css/solr.css" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block javascript %}
 <script type="text/javascript" src="./scripts/prototype.js"></script>
