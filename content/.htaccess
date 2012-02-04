@@ -1,0 +1,25 @@
+#
+# $HeadURL: https://svn.apache.org/repos/asf/lucene/site/publish/.htaccess $
+#
+#
+
+#Core is the new Java!
+Redirect Permanent /java(.*) http://lucene.apache.org/core/$1
+
+Redirect Permanent /nutch/docs/en/bot.html http://lucene.apache.org/nutch/bot.html
+
+# hadoop graduated to TLP
+RedirectMatch Permanent ^/hadoop(.*) http://hadoop.apache.org/core$1
+
+#mahout is TLP
+RedirectMatch Permanent ^/mahout(.*) http://mahout.apache.org/$1
+
+# promote Tika to TLP
+RedirectMatch Permanent ^/tika/(.*)$ http://tika.apache.org/$1 
+
+# promote Nutch to TLP
+RedirectMatch Permanent ^/nutch/(.*)$ http://nutch.apache.org/$1
+
+# Lucy has moved to the incubator, 
+# site strcuture has changed, do don't use $1 in redirect...
+RedirectMatch Permanent ^/lucy/(.*)$ http://incubator.apache.org/lucy/
