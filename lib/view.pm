@@ -1,5 +1,5 @@
 package view;
-
+#
 #
 # BUILD CONSTRAINT:  all views must return $content, $extension.
 # additional return values (as seen below) are optional.  However,
