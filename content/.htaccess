@@ -3,9 +3,15 @@
 #
 #
 
+# Pre-CMS site redirects
+RedirectMatch Permanent /who.html /whoweare.html
+
 #Core is the new Java!
 RedirectMatch Permanent /java/(.*) http://lucene.apache.org/core/$1
 
+### old subprojects
+
+# old nutch redirects
 Redirect Permanent /nutch/docs/en/bot.html http://lucene.apache.org/nutch/bot.html
 
 # hadoop graduated to TLP
