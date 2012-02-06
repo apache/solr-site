@@ -4,7 +4,7 @@
 #
 
 #Core is the new Java!
-Redirect Permanent /java/(.*) http://lucene.apache.org/core/$1
+RedirectMatch Permanent /java/(.*) http://lucene.apache.org/core/$1
 
 Redirect Permanent /nutch/docs/en/bot.html http://lucene.apache.org/nutch/bot.html
 
