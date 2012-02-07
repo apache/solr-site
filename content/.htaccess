@@ -8,12 +8,17 @@
 # page renames
 RedirectMatch Permanent /who.html /whoweare.html
 RedirectMatch Permanent /java/docs/irc.html /core/discussion.html#irc
+RedirectMatch Permanent /java/docs/mailinglists.html /core/discussion.html
+RedirectMatch Permanent /java/docs/systemrequirements.html /core/systemreqs.html
+
+# we no longer have a TLP mail.html page use 'core' for now
+RedirectMatch Permanent /mail.html /core/discussion.html
 
 # versioned core docs
-RedirectMatch Permanent /java/(\d+.*) http://lucene.apache.org/core/old_versioned_docs/versions/$1
+RedirectMatch Permanent /java/(\d+.*) /core/old_versioned_docs/versions/$1
 
 # Default catch for "java" - Core is the new Java!
-RedirectMatch Permanent /java/docs/(.*) http://lucene.apache.org/core/$1
+RedirectMatch Permanent /java/docs/(.*) /core/$1
 
 ### old subprojects
 
