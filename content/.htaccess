@@ -3,11 +3,17 @@
 #
 #
 
-# Pre-CMS site redirects
-RedirectMatch Permanent /who.html /whoweare.html
+### Pre-CMS site redirects
 
-#Core is the new Java!
-RedirectMatch Permanent /java/(.*) http://lucene.apache.org/core/$1
+# page renames
+RedirectMatch Permanent /who.html /whoweare.html
+RedirectMatch Permanent /java/docs/irc.html /core/discussion.html#irc
+
+# versioned core docs
+RedirectMatch Permanent /java/(\d+.*) http://lucene.apache.org/core/old_versioned_docs/versions/$1
+
+# Default catch for "java" - Core is the new Java!
+RedirectMatch Permanent /java/docs/(.*) http://lucene.apache.org/core/$1
 
 ### old subprojects
 
