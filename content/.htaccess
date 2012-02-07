@@ -21,6 +21,18 @@ RedirectMatch Permanent /java/(\d+.*) /core/old_versioned_docs/versions/$1
 # Default catch for "java" - Core is the new Java!
 RedirectMatch Permanent /java/docs/(.*) /core/$1
 
+# pylucene docs renamed
+RedirectMatch Permanent /pylucene/documentation/install.html /pylucene/install.html
+RedirectMatch Permanent /pylucene/documentation/readme.html /pylucene/features.html
+RedirectMatch Permanent /pylucene/resources/version_control.html /pylucene/mailing-lists.html
+
+# no page for this????
+RedirectMatch Permanent /pylucene/resources/version_control.html /pylucene/
+
+# when in doubt, assume they've moved up a dir
+RedirectMatch Permanent /pylucene/documentation/(.*) /pylucene/$1
+RedirectMatch Permanent /pylucene/jcc/documentation/(.*) /pylucene/jcc/$1
+
 ### old subprojects
 
 # old nutch redirects
