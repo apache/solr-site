@@ -51,7 +51,16 @@ our @patterns = (
 	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance-simple.html" }],
 
 	# keep the general one last
-  [qr!\/index\.mdtext$!, main => { template => "main.html"}],
+  [qr!\/index\.mdtext$!, main => { template => "main.html",
+    coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
+                                          limit => 3,
+                                          localMode => $localMode),
+    dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
+                                          limit => 3, localMode => $localMode),
+    solruser => ASF::Value::Mail->new(list => 'solr-user@lucene.apache.org',
+                                          limit => 3, localMode => $localMode),
+
+  }],
   [qr!\.mdtext$!, main => { template => "simple.html"	 }],
 ) ;
 
