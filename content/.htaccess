@@ -21,8 +21,8 @@ RedirectMatch Permanent /mail.html /core/discussion.html
 RedirectMatch Permanent /java/(\d+.*) /core/old_versioned_docs/versions/$1
 
 # Default catch for "java" - Core is the new Java!
-RedirectMatch Permanent /java/docs/(.*) /core/$1
-RedirectMatch Permanent /java/(.*) /core/$1
+RedirectMatch Permanent /java/docs(.*) /core$1
+RedirectMatch Permanent /java(.*) /core$1
 
 # pylucene docs renamed
 RedirectMatch Permanent /pylucene/documentation/install.html /pylucene/install.html
