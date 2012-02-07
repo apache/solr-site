@@ -33,6 +33,11 @@ RedirectMatch Permanent /pylucene/resources/version_control.html /pylucene/
 RedirectMatch Permanent /pylucene/documentation/(.*) /pylucene/$1
 RedirectMatch Permanent /pylucene/jcc/documentation/(.*) /pylucene/jcc/$1
 
+# this got added to the new site nav, even though it has never existed.
+# faster for now to put a redirect in then to try and figure out how to fix the nav
+RedirectMatch Permanent /solr/wiki.html http://wiki.apache.org/solr/
+
+
 ### old subprojects
 
 # old nutch redirects
