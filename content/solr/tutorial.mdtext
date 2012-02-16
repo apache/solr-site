@@ -244,7 +244,7 @@ that allows setting the various request parameters and is useful when trying out
 
   Complex functions may also be used to sort results...
 
-  - <a href="http://localhost:8983/solr/select/?indent=on&amp;q=*:*&amp;sort=div(popularity,add(price,1))+desc">q=video&amp;sort=div(popularity,add(price,1)) desc</a>
+  - <a href="http://localhost:8983/solr/select/?indent=on&amp;q=video&amp;sort=div(popularity,add(price,1))+desc">q=video&amp;sort=div(popularity,add(price,1)) desc</a>
 
   If no sort is specified, the default is <code class="inline">score desc</code> to return the matches having the highest relevancy.
 
@@ -278,7 +278,7 @@ The following example searches for all documents (<code class="inline">\*:\*</co
 requests counts by the category field <code class="inline">cat</code>.
 
 
-<a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=*:*&amp;fl=name&amp;facet=true&amp;facet.field=cat">...&amp;q=*:*&amp;facet=true&amp;facet.field=cat</a>
+<a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=*:*&amp;fl=name&amp;facet=true&amp;facet.field=cat">...&amp;q=\*:\*&amp;facet=true&amp;facet.field=cat</a>
 
 
 Notice that although only the first 10 documents are returned in the results list,
@@ -290,7 +290,7 @@ We can facet multiple ways at the same time.  The following example adds a facet
 boolean <code class="inline">inStock</code> field:
 
 
-<a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=*:*&amp;fl=name&amp;facet=true&amp;facet.field=cat&amp;facet.field=inStock">...&amp;q=*:*&amp;facet=true&amp;facet.field=cat&amp;facet.field=inStock</a>
+<a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=\*:\*&amp;fl=name&amp;facet=true&amp;facet.field=cat&amp;facet.field=inStock">...&amp;q=\*:\*&amp;facet=true&amp;facet.field=cat&amp;facet.field=inStock</a>
 
 Solr can also generate counts for arbitrary queries. The following example
 queries for <code class="inline">ipod</code> and shows prices below and above 100 by using
@@ -300,7 +300,7 @@ range queries on the price field.
 
 One can even facet by date ranges.  This example requests counts for the manufacture date (<code class="inline">manufacturedate_dt</code> field) for each year between 2004 and 2010.
 
-<a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=*:*&amp;fl=name,manufacturedate_dt&amp;facet=true&amp;facet.date=manufacturedate_dt&amp;facet.date.start=2004-01-01T00:00:00Z&amp;facet.date.end=2010-01-01T00:00:00Z&amp;facet.date.gap=%2b1YEAR">...&amp;q=*:*&amp;facet=true&amp;facet.date=manufacturedate_dt&amp;facet.date.start=2004-01-01T00:00:00Z&amp;facet.date.end=2010-01-01T00:00:00Z&amp;facet.date.gap=+1YEAR</a>
+<a href="http://localhost:8983/solr/select/?wt=json&amp;indent=on&amp;q=*:*&amp;fl=name,manufacturedate_dt&amp;facet=true&amp;facet.date=manufacturedate_dt&amp;facet.date.start=2004-01-01T00:00:00Z&amp;facet.date.end=2010-01-01T00:00:00Z&amp;facet.date.gap=%2b1YEAR">...&amp;q=\*:\*&amp;facet=true&amp;facet.date=manufacturedate_dt&amp;facet.date.start=2004-01-01T00:00:00Z&amp;facet.date.end=2010-01-01T00:00:00Z&amp;facet.date.gap=+1YEAR</a>
 
 More information on faceted search may be found on the 
 <a href="http://wiki.apache.org/solr/SolrFacetingOverview">faceting overview</a>
