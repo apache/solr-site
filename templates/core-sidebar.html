@@ -1,5 +1,12 @@
 {% block coreside %}
 <div id="sidebar">
+  <div class="button-wrapper">
+    <div class="button-green">
+      <a href="mirrors-core-redir.html">Download</a>
+      <div class="flap top">Click to begin</div>
+      <div class="flap bottom">of Apache Lucene</div>
+    </div>
+  </div>
   {% filter markdown %}{% include "corenav.mdtext" %}{% endfilter %}
   <div class="status">
     {% if svn %}
