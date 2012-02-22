@@ -8,6 +8,8 @@ $localMode = 0;
 our @patterns = (
   [qr!core\/mirrors-core-redir\.mdtext$!, main => { template => "mirrors-core-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
   [qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
+  [qr!core\/mirrors-core-latest-redir\.mdtext$!, main => { template => "mirrors-core-latest-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
+  [qr!solr\/mirrors-solr-latest-redir\.mdtext$!, main => { template => "mirrors-solr-latest-redir.html"	}],
   [qr!core\/index\.mdtext$!, main => { template => "core.html",
   	jira     => ASF::Value::Jira->new(limit => 5,
                                       url => "http://s.apache.org/corejira", localMode => $localMode),

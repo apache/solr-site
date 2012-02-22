@@ -949,13 +949,24 @@ code.inline{
 }
 
 
+/* DOWNLOAD BUTTONS */
+
+.download-desc {
+	margin-right: auto;
+	margin-left: auto;
+	color: gray;
+	font-size: 10px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
 .button-wrapper {
 	width: 200px;
   margin-top: 30px;
 	margin-bottom: 40px;
 }
 
-.button-red a {
+.button-orange a {
 	border: 2px solid black;
 	z-index: 1;
 	position: relative;
@@ -970,20 +981,20 @@ code.inline{
 	text-align: center;
 	text-transform: uppercase;
 	/*GRADIENT*/
-	background: #E60000; /* Old browsers */
-	background: -moz-linear-gradient(top, #FAA0A0 0%, #E60000 100%);
+	background: #E07F00; /* Old browsers */
+	background: -moz-linear-gradient(top, #FABB34 0%, #E07F00 100%);
 	/* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FC5353),
-		color-stop(100%, #E60000) ); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #FAA0A0 0%, #E60000 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FABB34),
+		color-stop(100%, #E07F00) ); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #FABB34 0%, #E07F00 100%);
 	/* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #FAA0A0 0%, #E60000 100%);
+	background: -o-linear-gradient(top, #FABB34 0%, #E07F00 100%);
 	/* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #FAA0A0 0%, #E60000 100%);
+	background: -ms-linear-gradient(top, #FABB34 0%, #E07F00 100%);
 	/* IE10+ */
-	background: linear-gradient(top, #FAA0A0 0%, #E60000 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#FAA0A0',
-		endColorstr='#E60000', GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #FABB34 0%, #E07F00 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#FABB34',
+		endColorstr='#E07F00', GradientType=0 ); /* IE6-9 */
 }
 
 .button-green a {
@@ -1017,7 +1028,7 @@ code.inline{
 		endColorstr='#1AA807', GradientType=0 ); /* IE6-9 */
 }
 
-.button-red a,.flap {
+.button-orange a,.flap {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -1057,7 +1068,7 @@ code.inline{
 }
 
 /*HOVER*/
-.button-red:hover .bottom {
+.button-orange:hover .bottom {
 	margin: -10px 0 0 10px;
 }
 
@@ -1065,7 +1076,7 @@ code.inline{
 	margin: -10px 0 0 10px;
 }
 
-.button-red:hover .top {
+.button-orange:hover .top {
 	margin: -80px 0 0 10px;
 	line-height: 35px;
 }
@@ -1076,41 +1087,15 @@ code.inline{
 }
 
 /*ACTIVE*/
-.button-red a:active {
-	background: #D60000; /* Old browsers */
-	background: -moz-linear-gradient(top, #D60000 36%, #009ec3 100%);
-	/* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(36%, #D60000),
-		color-stop(100%, #009ec3) ); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #D60000 36%, #009ec3 100%);
-	/* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #D60000 36%, #009ec3 100%);
-	/* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #D60000 36%, #009ec3 100%);
-	/* IE10+ */
-	background: linear-gradient(top, #D60000 36%, #009ec3 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#D60000',
-		endColorstr='#009ec3', GradientType=0 ); /* IE6-9 */
+.button-orange a:active {
+	background: #E07F00; /* Old browsers */
 }
 
 .button-green a:active {
 	background: #14A800; /* Old browsers */
-	background: -moz-linear-gradient(top, #D60000 36%, #14A800 100%);
-	/* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(36%, #D60000),
-		color-stop(100%, #14A800) ); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #D60000 36%, #14A800 100%);
-	/* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #D60000 36%, #14A800 100%);
-	/* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #D60000 36%, #14A800 100%);
-	/* IE10+ */
-	background: linear-gradient(top, #D60000 36%, #14A800 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#D60000',
-		endColorstr='#14A800', GradientType=0 ); /* IE6-9 */
 }
 
-.button-red:active .bottom {
+.button-orange:active .bottom {
 	margin: -20px 0 0 10px;
 }
 
@@ -1118,7 +1103,7 @@ code.inline{
 	margin: -20px 0 0 10px;
 }
 
-.button-red:active .top {
+.button-orange:active .top {
 	margin: -70px 0 0 10px;
 }
 
