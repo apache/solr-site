@@ -196,7 +196,7 @@ Here is an example of using delete-by-query to delete anything with
   <a href="http://localhost:8983/solr/select?q=name:DDR&amp;fl=name">DDR</a> in the name:
 
 <div class="cmd">
-java -Ddata=args -jar post.jar "&lt;delete&gt;&lt;query&lt;name:DDR&lt;/query&gt;&lt;/delete&gt;"
+java -Ddata=args -jar post.jar "&lt;delete&gt;&lt;query&gt;name:DDR&lt;/query&gt;&lt;/delete&gt;"
 </div>
 
 Commit can be an expensive operation so it's best to make many changes to an index in a batch and
@@ -387,7 +387,7 @@ analysis, and the Solr admin interface.  You're ready to start using Solr on
 your own project!  Continue on with the following steps:
 
 
-- Subscribe to the Solr <a href="mailing_lists.html">mailing lists</a>!
+- Subscribe to the Solr <a href="discussion.html">mailing lists</a>!
 - Make a copy of the Solr example directory as a template for your project.
 - Customize the schema and other config in solr/conf/ to meet your needs. 
 
