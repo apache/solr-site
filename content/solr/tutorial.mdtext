@@ -203,7 +203,7 @@ You can delete data by POSTing a delete command to the update URL and specifying
 Execute the following command to delete a document
 
 <div class="cmd">
-java -Ddata=args -Dcommit=no -jar post.jar "&lt;delete&gt;&lt;id&gt;SP2514N&lt;/id&lt;&gt;/delete&gt;"
+java -Ddata=args -Dcommit=no -jar post.jar "&lt;delete&gt;&lt;id&gt;SP2514N&lt;/id&gt;&lt;/delete&gt;"
 </div>
 
 Now if you go to the <a href="http://localhost:8983/solr/admin/stats.jsp">statistics</a> page and scroll down
