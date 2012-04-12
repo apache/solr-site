@@ -1,5 +1,43 @@
 # Solr News
 
+##12 April 2012 - Apache Solr 3.6.0 available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 3.6.0.
+
+Solr can be downloaded from <a href="http://lucene.apache.org/solr/mirrors-solr-latest-redir.html">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
+
+Highlights of the Solr release include:
+
+- New SolrJ client connector using Apache Http Components http client
+   (SOLR-2020)
+
+- Many analyzer factories are now "multi term query aware" allowing for things 
+   like field type aware lowercasing when building prefix & wildcard queries.
+   (SOLR-2438)
+
+- New Kuromoji morphological analyzer tokenizes Japanese text, producing
+   both compound words and their segmentation. (SOLR-3056)
+
+- Range Faceting (Dates & Numbers) is now supported in distributed search 
+   (SOLR-1709)
+
+- HTMLStripCharFilter has been completely re-implemented, fixing many bugs 
+   and greatly improving the performance (LUCENE-3690)
+
+- StreamingUpdateSolrServer now supports the javabin format (SOLR-1565)
+
+- New LFU Cache option for use in Solr's internal caches. (SOLR-2906)
+
+- Memory performance improvements to all FST based suggesters (SOLR-2888)
+
+- New WFSTLookupFactory suggester supports finer-grained ranking for 
+   suggestions. (LUCENE-3714)
+
+- New options for configuring the amount of concurrency used in distributed 
+   searches (SOLR-3221)
+
+- Many bug fixes
+
 ##27 November 2011 - Solr 3.5.0 Available
 
 The Lucene PMC is pleased to announce the availability
