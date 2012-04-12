@@ -3,6 +3,15 @@
 #
 #
 
+### Download URLs
+
+# these are HTML pages so that the browser triggers the google analytics 
+# for download counts, but that means they also get browser cached and what not
+# to try and mitigate wonkyness, w/o having URLs too ugly, append a query 
+# string (only if it doesn't have one -- no circular redirect)
+RedirectMatch (^.*mirrors-.*-redir.html)$ $1?
+
+
 ### Pre-CMS site redirects
 
 # page renames
