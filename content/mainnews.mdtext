@@ -1,4 +1,98 @@
 # News
+##12 April 2012 - Lucene Core 3.6.0 and Solr 3.6.0 Available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 3.6.0 and Apache Solr 3.6.0
+
+Lucene can be downloaded from <a href="http://lucene.apache.org/core/mirrors-core-latest-redir.html">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a> and Solr can be downloaded from <a href="http://lucene.apache.org/solr/mirrors-solr-latest-redir.html">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
+
+Highlights of the Lucene release include:
+
+- In addition to Java 5 and Java 6, this release has now
+    full Java 7 support (minimum JDK 7u1 required).
+
+- TypeTokenFilter filters tokens based on their TypeAttribute.
+
+- Fixed offset bugs in a number of CharFilters, Tokenizers and TokenFilters
+    that could lead to exceptions during highlighting.
+
+- Added phonetic encoders: Metaphone, Soundex, Caverphone,
+    Beider-Morse, etc.
+
+- CJKBigramFilter and CJKWidthFilter replace CJKTokenizer.
+
+- Kuromoji morphological analyzer tokenizes Japanese text, producing
+    both compound words and their segmentation.
+
+- Static index pruning (Carmel pruning) removes postings with low
+    within-document term frequency.
+
+- QueryParser now interprets '*' as an open end for range
+    queries.
+
+- FieldValueFilter excludes documents missing the specified field.
+
+- CheckIndex and IndexUpgrader allow you to specify the
+    specific FSDirectory implementation to use with the new -dir-impl
+    command-line option.
+
+- FSTs can now do reverse lookup (by output) in certain cases and
+    can be packed to reduce their size.  There is now a method to
+    retrieve top N shortest paths from a start node in an FST.
+  
+- New WFSTCompletionLookup suggester supports finer-grained
+    ranking for suggestions.
+
+- FST based suggesters now use an offline (disk-based) sort, instead
+    of in-memory sort, when pre-sorting the suggestions.
+
+- ToChildBlockJoinQuery joins in the opposite direction (parent down
+    to child documents).
+
+- New query-time joining is more flexible (but less performant) than
+    index-time joins.
+
+- Added HTMLStripCharFilter to strip HTML markup.
+  
+- Security fix: Better prevention of virtual machine SIGSEGVs when
+    using MMapDirectory: Code using cloned IndexInputs of already
+    closed indexes could possibly crash VM, allowing DoS attacks to
+    your application.
+
+- Many bug fixes.
+
+Highlights of the Solr release include:
+
+- New SolrJ client connector using Apache Http Components http client
+   (SOLR-2020)
+
+- Many analyzer factories are now "multi term query aware" allowing for things
+   like field type aware lowercasing when building prefix & wildcard queries.
+   (SOLR-2438)
+
+- New Kuromoji morphological analyzer tokenizes Japanese text, producing
+   both compound words and their segmentation. (SOLR-3056)
+
+- Range Faceting (Dates & Numbers) is now supported in distributed search
+   (SOLR-1709)
+
+- HTMLStripCharFilter has been completely re-implemented, fixing many bugs
+   and greatly improving the performance (LUCENE-3690)
+
+- StreamingUpdateSolrServer now supports the javabin format (SOLR-1565)
+
+- New LFU Cache option for use in Solr's internal caches. (SOLR-2906)
+
+- Memory performance improvements to all FST based suggesters (SOLR-2888)
+
+- New WFSTLookupFactory suggester supports finer-grained ranking for
+   suggestions. (LUCENE-3714)
+
+- New options for configuring the amount of concurrency used in distributed
+   searches (SOLR-3221)
+
+- Many bug fixes
+
 ##27 November 2011 - Lucene Core 3.5.0 and Solr 3.5.0 Available
 
 The Lucene PMC is pleased to announce the availability
