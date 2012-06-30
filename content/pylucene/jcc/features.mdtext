@@ -92,75 +92,75 @@ Python extension module.
 JCC's command-line arguments are best illustrated via the PyLucene
 example:
 
-<source>
+<pre><code>
 $ python -m jcc           # run JCC to wrap
---jar lucene.jar      # all public classes in the lucene jar file
---jar analyzers.jar   # and the lucene analyzers contrib package
---jar snowball.jar    # and the snowball contrib package
---jar highlighter.jar # and the highlighter contrib package
---jar regex.jar       # and the regex search contrib package
---jar queries.jar     # and the queries contrib package
---jar extensions.jar  # and the Python extensions package
---package java.lang   # including all dependencies found in the 
-                    # java.lang package
---package java.util   # and the java.util package
---package java.io     # and the java.io package
-java.lang.System    # and to explicitely wrap java.lang.System
-java.lang.Runtime   # as well as java.lang.Runtime
-java.lang.Boolean   # and java.lang.Boolean
-java.lang.Byte      # and java.lang.Byte
-java.lang.Character # and java.lang.Character
-java.lang.Integer   # and java.lang.Integer
-java.lang.Short     # and java.lang.Short
-java.lang.Long      # and java.lang.Long
-java.lang.Double    # and java.lang.Double
-java.lang.Float     # and java.lang.Float
-java.text.SimpleDateFormat
-                    # and java.text.SimpleDateFormat
-java.io.StringReader
-                    # and java.io.StringReader
-java.io.InputStreamReader
-                    # and java.io.InputStreamReader
-java.io.FileInputStream
-                    # and java.io.FileInputStream
-java.util.Arrays    # and java.util.Arrays
---exclude org.apache.lucene.queryParser.Token
-                    # while explicitely not wrapping
-                    # org.apache.lucene.queryParser.Token
---exclude org.apache.lucene.queryParser.TokenMgrError
-                    # nor org.apache.lucene.queryParser.TokenMgrError
---exclude org.apache.lucene.queryParser.ParseException
-                    # nor.apache.lucene.queryParser.ParseException
---python lucene       # generating Python wrappers into a module
-                    # called lucene
---version 2.4.0       # giving the Python extension egg version 2.4.0
---mapping org.apache.lucene.document.Document 
-        'get:(Ljava/lang/String;)Ljava/lang/String;' 
-                    # asking for a Python mapping protocol wrapper
-                    # for get access on the Document class by
-                    # calling its get method
---mapping java.util.Properties 
-        'getProperty:(Ljava/lang/String;)Ljava/lang/String;'
-                    # asking for a Python mapping protocol wrapper
-                    # for get access on the Properties class by
-                    # calling its getProperty method
---sequence org.apache.lucene.search.Hits
-         'length:()I' 
-         'doc:(I)Lorg/apache/lucene/document/Document;'
-                    # asking for a Python sequence protocol wrapper
-                    # for length and get access on the Hits class by
-                    # calling its length and doc methods
---files 2             # generating all C++ classes into about 2 .cpp
-                    # files
---build               # and finally compiling the generated C++ code
-                    # into a Python egg via setuptools - when
-                    # installed - or a regular Python extension via
-                    # distutils or setuptools otherwise 
---module collections.py
-                    # copying the collections.py module into the egg
---install             # installing it into Python's site-packages
-                    # directory.
-</source>
+    --jar lucene.jar      # all public classes in the lucene jar file
+    --jar analyzers.jar   # and the lucene analyzers contrib package
+    --jar snowball.jar    # and the snowball contrib package
+    --jar highlighter.jar # and the highlighter contrib package
+    --jar regex.jar       # and the regex search contrib package
+    --jar queries.jar     # and the queries contrib package
+    --jar extensions.jar  # and the Python extensions package
+    --package java.lang   # including all dependencies found in the 
+                          # java.lang package
+    --package java.util   # and the java.util package
+    --package java.io     # and the java.io package
+      java.lang.System    # and to explicitely wrap java.lang.System
+      java.lang.Runtime   # as well as java.lang.Runtime
+      java.lang.Boolean   # and java.lang.Boolean
+      java.lang.Byte      # and java.lang.Byte
+      java.lang.Character # and java.lang.Character
+      java.lang.Integer   # and java.lang.Integer
+      java.lang.Short     # and java.lang.Short
+      java.lang.Long      # and java.lang.Long
+      java.lang.Double    # and java.lang.Double
+      java.lang.Float     # and java.lang.Float
+      java.text.SimpleDateFormat
+                          # and java.text.SimpleDateFormat
+      java.io.StringReader
+                          # and java.io.StringReader
+      java.io.InputStreamReader
+                          # and java.io.InputStreamReader
+      java.io.FileInputStream
+                          # and java.io.FileInputStream
+      java.util.Arrays    # and java.util.Arrays
+    --exclude org.apache.lucene.queryParser.Token
+                          # while explicitely not wrapping
+                          # org.apache.lucene.queryParser.Token
+    --exclude org.apache.lucene.queryParser.TokenMgrError
+                          # nor org.apache.lucene.queryParser.TokenMgrError
+    --exclude org.apache.lucene.queryParser.ParseException
+                          # nor.apache.lucene.queryParser.ParseException
+    --python lucene       # generating Python wrappers into a module
+                          # called lucene
+    --version 2.4.0       # giving the Python extension egg version 2.4.0
+    --mapping org.apache.lucene.document.Document 
+              'get:(Ljava/lang/String;)Ljava/lang/String;' 
+                          # asking for a Python mapping protocol wrapper
+                          # for get access on the Document class by
+                          # calling its get method
+    --mapping java.util.Properties 
+              'getProperty:(Ljava/lang/String;)Ljava/lang/String;'
+                          # asking for a Python mapping protocol wrapper
+                          # for get access on the Properties class by
+                          # calling its getProperty method
+    --sequence org.apache.lucene.search.Hits
+               'length:()I' 
+               'doc:(I)Lorg/apache/lucene/document/Document;'
+                          # asking for a Python sequence protocol wrapper
+                          # for length and get access on the Hits class by
+                          # calling its length and doc methods
+    --files 2             # generating all C++ classes into about 2 .cpp
+                          # files
+    --build               # and finally compiling the generated C++ code
+                          # into a Python egg via setuptools - when
+                          # installed - or a regular Python extension via
+                          # distutils or setuptools otherwise 
+    --module collections.py
+                          # copying the collections.py module into the egg
+    --install             # installing it into Python's site-packages
+                          # directory.
+</code></pre>
 
 There are limits to both how many files can fit on the command line
 and how large a C++ file the C++ compiler can handle. By default,
@@ -254,7 +254,6 @@ Instead, the <code>initVM()</code> function must be called from the
 main thread before using any of the wrapped classes. It takes the
 following keyword arguments:
 
-
 - 
 <code>classpath</code><br/>
 A string containing one or more directories or jar files for the
@@ -266,22 +265,22 @@ invoked with the <code>--install</code> command line argument.
 This parameter is optional and defaults to the
 <code>CLASSPATH</code> string exported by the module
 <code>initVM</code> is imported from.
-<source>
-  >>> import lucene
-  >>> lucene.initVM(classpath=lucene.CLASSPATH)
-</source>
+<pre><code>
+    >>> import lucene
+    >>> lucene.initVM(classpath=lucene.CLASSPATH)
+</code></pre>
 
 - 
 <code>initialheap</code><br/>
 The initial amount of Java heap to start the Java VM with. This
 argument is a string that follows the same syntax as the
 similar <code>-Xms</code> java command line argument.
-<source>
-  >>> import lucene
-  >>> lucene.initVM(initialheap='32m')
-  >>> lucene.Runtime.getRuntime().totalMemory()
-  33357824L
-</source>
+<pre><code>
+    >>> import lucene
+    >>> lucene.initVM(initialheap='32m')
+    >>> lucene.Runtime.getRuntime().totalMemory()
+    33357824L
+</code></pre>
 
 - 
 <code>maxheap</code><br/>
@@ -299,11 +298,10 @@ similar <code>-Xss</code> java command line argument.
 <code>vmargs</code><br/>
 A string of comma separated additional options to pass to the VM
 startup rountine. These are passed through as-is. For example:
-<source>
-  >>> import lucene
-  >>> lucene.initVM(vmargs='-Xcheck:jni,-verbose:jni,-verbose:gc')
-</source>
-
+<pre><code>
+    >>> import lucene
+    >>> lucene.initVM(vmargs='-Xcheck:jni,-verbose:jni,-verbose:gc')
+</code></pre>
 
 
 The <code>initVM()</code> and <code>getVMEnv()</code> functions
@@ -342,19 +340,18 @@ classes that <code>Class.forName()</code> won't.
 
 For example:
 
-<source>
->>> from lucene import *
->>> initVM(CLASSPATH)
->>> findClass('org/apache/lucene/document/Document')
-&lt;Class: class org.apache.lucene.document.Document&gt;
->>> Class.forName('org.apache.lucene.document.Document')
-Traceback (most recent call last):
-File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-lucene.JavaError: java.lang.ClassNotFoundException:
-                org/apache/lucene/document/Document
->>> Class.forName('java.lang.Object')
-&lt;Class: class java.lang.Object&gt;
-</source>
+<pre><code>
+    >>> from lucene import *
+    >>> initVM(CLASSPATH)
+    >>> findClass('org/apache/lucene/document/Document')
+    &lt;Class: class org.apache.lucene.document.Document&gt;
+    >>> Class.forName('org.apache.lucene.document.Document')
+    Traceback (most recent call last):
+    File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+    lucene.JavaError: java.lang.ClassNotFoundException: org/apache/lucene/document/Document
+    &gt&gt&gt Class.forName('java.lang.Object')
+    &lt;Class: class java.lang.Object&gt;
+</code></pre>
 
 ##Type casting and instance checks
 
@@ -377,12 +374,12 @@ Similarly, each wrapped class has a class method
 called <code>instance_</code> that tests whether the wrapped java
 instance is of the given type. For example:
 
-<source>
-if BooleanQuery.instance_(query):
-  booleanQuery = BooleanQuery.cast_(query)
+<pre><code>
+    if BooleanQuery.instance_(query):
+        booleanQuery = BooleanQuery.cast_(query)
 
-print booleanQuery.getClauses()
-</source>
+    print booleanQuery.getClauses()
+</code></pre>
 
 ##Handling generic classes
 
@@ -410,35 +407,35 @@ hence accepts one parameter, a Python class, to use as type
 parameter for the return type of its <code>get()</code> method, among
 others: 
 
-<source>
->>> a = ArrayList().of_(Document)
->>> a
-&lt;ArrayList: []&gt;
->>> a.parameters_
-(&lt;type 'Document'&gt;,)
->>> a.add(Document())
-True
->>> a.get(0)
-&lt;Document: Document&lt;&gt;&gt;
-</source>
+<pre><code>
+    &gt&gt&gt a = ArrayList().of_(Document)
+    &gt&gt&gt a
+    &lt;ArrayList: []&gt;
+    &gt&gt&gt a.parameters_
+    (&lt;type 'Document'&gt;,)
+    >>> a.add(Document())
+    True
+    >>> a.get(0)
+    &lt;Document: Document&lt;&gt;&gt;
+</code></pre>
 
 The use of type parameters is, of course, optional. A generic Java
 class can still be used as before, without type parameters.
 Downcasting from <code>Object</code> is then necessary:  
 
-<source>
->>> a = ArrayList()
->>> a
-&lt;ArrayList: []&gt;
->>> a.parameters_
-(None,)
->>> a.add(Document())
-True
->>> a.get(0)
-&lt;Object: Document&lt;&gt;&gt;
->>> Document.cast_(a.get(0))
-&lt;Document: Document&lt;&gt;&gt;
-</source>
+<pre><code>
+    >>> a = ArrayList()
+    >>> a
+    &lt;ArrayList: []&gt;
+    >>> a.parameters_
+    (None,)
+    >>> a.add(Document())
+    True
+    >>> a.get(0)
+    &lt;Object: Document&lt;&gt;&gt;
+    >>> Document.cast_(a.get(0))
+    &lt;Document: Document&lt;&gt;&gt;
+</code></pre>
 
 ##Handling arrays
 
@@ -466,14 +463,14 @@ sequence object from python.
 To instantiate a Java array from Python, use one of the following
 forms:
 
-<source>
->>> array = JArray('int')(size)
-# the resulting Java int array is initialized with zeroes
+<pre><code>
+    >>> array = JArray('int')(size)
+    # the resulting Java int array is initialized with zeroes
 
->>> array = JArray('int')(sequence)
-# the sequence must only contain ints
-# the resulting Java int array contains the ints in the sequence
-</source>
+    >>> array = JArray('int')(sequence)
+    # the sequence must only contain ints
+    # the resulting Java int array contains the ints in the sequence
+</code></pre>
 
 Instead of <code>'int'</code>, you may also use one
 of <code>'object'</code>, <code>'string'</code>, <code>'bool'</code>,
@@ -496,43 +493,43 @@ nested arrays since there is no distinct Python type for every
 different java object array class - all java object arrays are
 wrapped by <code>JArray('object')</code>. For example:
 
-<source>
+<pre><code>
 # cast obj to an array of ints
 >>> JArray('int').cast_(obj)
 # cast obj to an array of Document
 >>> JArray('object').cast_(obj, Document)
-</source>
+</code></pre>
 
 In both cases, the java type of obj must be compatible with the
 array type it is being cast to.
 
-<source>
-# using nested array:
+<pre><code>
+    # using nested array:
 
->>> d = JArray('object')(1, Document)
->>> d[0] = Document()
->>> d
-JArray&lt;object&gt;[&lt;Document: Document&lt;>>]
->>> d[0]
-&lt;Document: Document&lt;&gt;&gt;
->>> a = JArray('object')(2)
->>> a[0] = d
->>> a[1] = JArray('int')([0, 1, 2])
->>> a
-JArray&lt;object&gt;[&lt;Object: [Lorg.apache.lucene.document.Document;@694f12&gt;, &lt;Object: [I@234265&gt;]
->>> a[0]
-&lt;Object: [Lorg.apache.lucene.document.Document;@694f12&gt;
->>> a[1]
-&lt;Object: [I@234265&gt;
->>> JArray('object').cast_(a[0])[0]
-&lt;Object: Document&lt;&gt;&gt;
->>> JArray('object').cast_(a[0], Document)[0]
-&lt;Document: Document&lt;&gt;&gt;
->>> JArray('int').cast_(a[1])
-JArray&lt;int&gt;[0, 1, 2]
->>> JArray('int').cast_(a[1])[0]
-0
-</source>
+    >>> d = JArray('object')(1, Document)
+    >>> d[0] = Document()
+    >>> d
+    JArray&lt;object&gt;[&lt;Document: Document&lt;>>]
+    >>> d[0]
+    &lt;Document: Document&lt;&gt;&gt;
+    >>> a = JArray('object')(2)
+    >>> a[0] = d
+    >>> a[1] = JArray('int')([0, 1, 2])
+    >>> a
+    JArray&lt;object&gt;[&lt;Object: [Lorg.apache.lucene.document.Document;@694f12&gt;, &lt;Object: [I@234265&gt;]
+    >>> a[0]
+    &lt;Object: [Lorg.apache.lucene.document.Document;@694f12&gt;
+    >>> a[1]
+    &lt;Object: [I@234265&gt;
+    >>> JArray('object').cast_(a[0])[0]
+    &lt;Object: Document&lt;&gt;&gt;
+    >>> JArray('object').cast_(a[0], Document)[0]
+    &lt;Document: Document&lt;&gt;&gt;
+    >>> JArray('int').cast_(a[1])
+    JArray&lt;int&gt;[0, 1, 2]
+    >>> JArray('int').cast_(a[1])[0]
+    0
+</code></pre>
 
 To verify that a Java object is of a given array type, use
 the <code>instance_()</code> method available on the array
@@ -540,27 +537,27 @@ type. This is not the same as verifying that it is assignable with
 elements of a given type. For example, using the arrays created
 above:
 
-<source>
-# is d array of Object ? are d's elements of type Object ?
->>> JArray('object').instance_(d)
-True
+<pre><code>
+    # is d array of Object ? are d's elements of type Object ?
+    >>> JArray('object').instance_(d)
+    True
+    
+    # can it receive Object instances ?
+    >>> JArray('object').assignable_(d)
+    False
 
-# can it receive Object instances ?
->>> JArray('object').assignable_(d)
-False
+    # is it array of Document ? are d's elements of type Document ?
+    >>> JArray('object').instance_(d, Document)
+    True
 
-# is it array of Document ? are d's elements of type Document ?
->>> JArray('object').instance_(d, Document)
-True
+    # is it array of Class ? are d's elements of type Class ?
+    >>> JArray('object').instance_(d, Class)
+    False
 
-# is it array of Class ? are d's elements of type Class ?
->>> JArray('object').instance_(d, Class)
-False
-
-# can it receive Document instances ?
->>> JArray('object').assignable_(d, Document)
-True
-</source>
+    # can it receive Document instances ?
+    >>> JArray('object').assignable_(d, Document)
+    True
+</code></pre>
 
 ##Exception reporting
 
@@ -605,7 +602,7 @@ in parameters and returning the result to the Java VM caller.
 For example, to implement a Lucene analyzer in Python, one would
 implement first such an extension class in Java:
 
-<source>
+<pre><code>
 package org.apache.pylucene.analysis;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -613,31 +610,31 @@ import org.apache.lucene.analysis.TokenStream;
 import java.io.Reader;
 
 public class PythonAnalyzer extends Analyzer {
-private long pythonObject;
+    private long pythonObject;
 
-public PythonAnalyzer()
-{
-}
+    public PythonAnalyzer()
+    {
+    }
 
-public void pythonExtension(long pythonObject)
-{
-  this.pythonObject = pythonObject;
-}
-public long pythonExtension()
-{
-  return this.pythonObject;
-}
+    public void pythonExtension(long pythonObject)
+    {
+        this.pythonObject = pythonObject;
+    }
+    public long pythonExtension()
+    {
+        return this.pythonObject;
+    }
 
-public void finalize()
-  throws Throwable
-{
-  pythonDecRef();
-}
+    public void finalize()
+        throws Throwable
+    {
+        pythonDecRef();
+    }
 
-public native void pythonDecRef();
-public native TokenStream tokenStream(String fieldName, Reader reader);
+    public native void pythonDecRef();
+    public native TokenStream tokenStream(String fieldName, Reader reader);
 }
-</source>
+</code></pre>
 
 The <code>pythonExtension()</code> methods is what makes this class
 recognized as an extension class by JCC. They should be included
@@ -662,7 +659,7 @@ the example above.
 
 The corresponding Python class(es) are implemented as follows:
 
-<source>
+<pre><code>
 class _analyzer(PythonAnalyzer):
   def tokenStream(_self, fieldName, reader):
       class _tokenStream(PythonTokenStream):
@@ -689,7 +686,7 @@ class _analyzer(PythonAnalyzer):
           def close(self_):
               pass
       return _tokenStream()
-</source>
+</code></pre>
 
 When an <code>__init__()</code> is declared, <code>super()</code>
 must be called or else the Java wrapper class will not know about
@@ -813,13 +810,13 @@ followed by ':' and its Java
 For example, <code>System.getProperties()['java.class.path']</code> is
 made possible by:
 
-<source>
+<pre><code>
 --mapping java.util.Properties 
         'getProperty:(Ljava/lang/String;)Ljava/lang/String;'
                     # asking for a Python mapping protocol wrapper
                     # for get access on the Properties class by
                     # calling its getProperty method
-</source>
+</code></pre>
 
 JCC generates Python sequence length and get methods for a class
 when requested to do so via the <code>--sequence</code> command line
@@ -828,17 +825,16 @@ sequence length and get for and the two java methods to use. The
 methods are specified with their name followed by ':' and their Java
 <a href="http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16432">signature</a>. For example:
 
-<source>
+<pre><code>
 for i in xrange(len(hits)): 
 doc = hits[i]
 ...
-</source>
+</code></pre>
 
 is made possible by:
-
-<source>
+<pre><code>
 --sequence org.apache.lucene.search.Hits
          'length:()I' 
          'doc:(I)Lorg/apache/lucene/document/Document;'
-</source>
+</code></pre>
 
