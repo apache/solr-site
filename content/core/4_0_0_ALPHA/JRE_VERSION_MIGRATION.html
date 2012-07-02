@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>JRE Version Migration Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h1>JRE Version Migration Guide</h1><p>If possible, use the same JRE major version at both index and search time. When upgrading to a different JRE major version, consider re-indexing. </p><p>Different JRE major versions may implement different versions of Unicode, which will change the way some parts of Lucene treat your text.</p><p>For example: with Java 1.4, <code>LetterTokenizer</code> will split around the character U+02C6, but with Java 5 it will not. This is because Java 1.4 implements Unicode 3, but Java 5 implements Unicode 4.</p><p>For reference, JRE major versions with their corresponding Unicode versions:</p>
+<ul>
+  <li>Java 1.4, Unicode 3.0</li>
+  <li>Java 5, Unicode 4.0</li>
+  <li>Java 6, Unicode 4.0</li>
+  <li>Java 7, Unicode 6.0</li>
+</ul><p>In general, whether or not you need to re-index largely depends upon the data that you are searching, and what was changed in any given Unicode version. For example, if you are completely sure that your content is limited to the "Basic Latin" range of Unicode, you can safely ignore this. </p><h2>Special Notes: LUCENE 2.9 TO 3.0, JAVA 1.4 TO JAVA 5 TRANSITION</h2>
+<ul>
+  <li><p><code>StandardAnalyzer</code> will return the same results under Java 5 as it did under Java 1.4. This is because it is largely independent of the runtime JRE for Unicode support, (with the exception of lowercasing). However, no changes to casing have occurred in Unicode 4.0 that affect StandardAnalyzer, so if you are using this Analyzer you are NOT affected.</p></li>
+  <li><p><code>SimpleAnalyzer</code>, <code>StopAnalyzer</code>, <code>LetterTokenizer</code>, <code>LowerCaseFilter</code>, and <code>LowerCaseTokenizer</code> may return different results, along with many other <code>Analyzer</code>s and <code>TokenStream</code>s in Lucene's analysis modules. If you are using one of these components, you may be affected.</p></li>
+</ul>
+</body>
+</html>
