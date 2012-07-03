@@ -15,14 +15,14 @@ Highlights of the Lucene release include:
 
 - Similarity has been decoupled from the vector space model (TF/IDF). Additional models
   such as BM25, Divergence from Randomness, Language Models, and Information-based models
-  are provided (see http://www.lucidimagination.com/blog/2011/09/12/flexible-ranking-in-lucene-4).
+  are provided (see <a href="http://www.lucidimagination.com/blog/2011/09/12/flexible-ranking-in-lucene-4">http://www.lucidimagination.com/blog/2011/09/12/flexible-ranking-in-lucene-4</a>).
 
 - Added support for per-document values (DocValues). DocValues can be used for custom
   scoring factors (accessible via Similarity), for pre-sorted Sort values, and more.
 
 - When indexing via multiple threads, each IndexWriter thread now flushes its own segment
   to disk concurrently, resulting in substantial performance improvements
-  (see http://blog.mikemccandless.com/2011/05/265-indexing-speedup-with-lucenes.html).
+  (see <a href="http://blog.mikemccandless.com/2011/05/265-indexing-speedup-with-lucenes.html">http://blog.mikemccandless.com/2011/05/265-indexing-speedup-with-lucenes.html</a>).
 
 - Per-document normalization factors ("norms") are no longer limited to a single byte.
   Similarity implementations can use any DocValues type to store norms.
@@ -30,7 +30,7 @@ Highlights of the Lucene release include:
 - Added index statistics such as the number of tokens for a term or field, number of postings
   for a field, and number of documents with a posting for a field: these support additional
   scoring models (see
-  http://blog.mikemccandless.com/2012/03/new-index-statistics-in-lucene-40.html).
+  <a href="http://blog.mikemccandless.com/2012/03/new-index-statistics-in-lucene-40.html">http://blog.mikemccandless.com/2012/03/new-index-statistics-in-lucene-40.html</a>).
 
 - Implemented a new default term dictionary/index (BlockTree) that indexes shared prefixes
   instead of every n'th term. This is not only more time- and space- efficient, but can
@@ -50,30 +50,30 @@ Highlights of the Lucene release include:
 - Added a number of alternative Codecs and components for different use-cases: "Appending"
   works with append-only filesystems (such as Hadoop DFS), "Memory" writes the entire
   terms+postings as an FST read into RAM (see
-  http://blog.mikemccandless.com/2011/06/primary-key-lookups-are-28x-faster-with.html),
+  <a href="http://blog.mikemccandless.com/2011/06/primary-key-lookups-are-28x-faster-with.html">http://blog.mikemccandless.com/2011/06/primary-key-lookups-are-28x-faster-with.html</a>),
   "Pulsing" inlines the postings for low-frequency terms into the term dictionary (see
-  http://blog.mikemccandless.com/2010/06/lucenes-pulsingcodec-on-primary-key.html),
+  <a href="http://blog.mikemccandless.com/2010/06/lucenes-pulsingcodec-on-primary-key.html">http://blog.mikemccandless.com/2010/06/lucenes-pulsingcodec-on-primary-key.html</a>),
   "SimpleText" writes all files in plain-text for easy debugging/transparency (see
-  http://blog.mikemccandless.com/2010/10/lucenes-simpletext-codec.html), among others.
+  <a href="http://blog.mikemccandless.com/2010/10/lucenes-simpletext-codec.html">http://blog.mikemccandless.com/2010/10/lucenes-simpletext-codec.html</a>), among others.
 
 - Term offsets can be optionally encoded into the postings lists and can be retrieved
   per-position.
 
 - A new AutomatonQuery returns all documents containing any term matching a provided
-  finite-state automaton (see http://www.slideshare.net/otisg/finite-state-queries-in-lucene).
+  finite-state automaton (see <a href="http://www.slideshare.net/otisg/finite-state-queries-in-lucene">http://www.slideshare.net/otisg/finite-state-queries-in-lucene</a>).
 
 - FuzzyQuery is 100-200 times faster than in past releases (see
-  http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html).
+  <a href="http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html">http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html</a>).
 
 - A new spell checker, DirectSpellChecker, finds possible corrections directly against the
   main search index without requiring a separate index.
 
 - Various in-memory data structures such as the term dictionary and FieldCache are represented
-  more efficiently with less object overhead (see http://blog.mikemccandless.com/2010/07/lucenes-ram-usage-for-searching.html).
+  more efficiently with less object overhead (see <a href="http://blog.mikemccandless.com/2010/07/lucenes-ram-usage-for-searching.html">http://blog.mikemccandless.com/2010/07/lucenes-ram-usage-for-searching.html</a>).
 
 - All search logic is now required to work per segment, IndexReader was therefore refactored to
   differentiate between atomic and composite readers
-  (see http://blog.thetaphi.de/2012/02/is-your-indexreader-atomic-major.html).
+  (see <a href="http://blog.thetaphi.de/2012/02/is-your-indexreader-atomic-major.html">http://blog.thetaphi.de/2012/02/is-your-indexreader-atomic-major.html</a>).
 
 - Lucene 4.0 provides a modular API, consolidating components such as Analyzers and Queries
   that were previously scattered across Lucene core, contrib, and Solr. These modules also
@@ -82,7 +82,7 @@ Highlights of the Lucene release include:
 
 Highlights of the Solr release include:
 
-The largest set of features goes by the development code-name “Solr Cloud” and involves bringing easy scalability to Solr.  See http://wiki.apache.org/solr/SolrCloud for more details.
+The largest set of features goes by the development code-name “Solr Cloud” and involves bringing easy scalability to Solr.  See <a href="http://wiki.apache.org/solr/SolrCloud">http://wiki.apache.org/solr/SolrCloud</a> for more details.
 
  - Distributed indexing designed from the ground up for near real-time (NRT) and NoSQL features such as realtime-get, optimistic locking, and durable updates.
 
