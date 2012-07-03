@@ -1014,18 +1014,18 @@ code.inline{
 	text-align: center;
 	text-transform: uppercase;
 	/*GRADIENT*/
-	background: #14A800; /* Old browsers */
-	background: -moz-linear-gradient(top, #89FA7A 0%, #1AA807 100%);
+	background: #14A800 !important; /* Old browsers */
+	background: -moz-linear-gradient(top, #89FA7A 0%, #1AA807 100%) !important;
 	/* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #89FA7A),
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #89FA7A) !important,
 		color-stop(100%, #1AA807) ); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #89FA7A 0%, #1AA807 100%);
+	background: -webkit-linear-gradient(top, #89FA7A 0%, #1AA807 100%) !important;
 	/* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #89FA7A 0%, #1AA807 100%);
+	background: -o-linear-gradient(top, #89FA7A 0%, #1AA807 100%) !important;
 	/* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #89FA7A 0%, #1AA807 100%);
+	background: -ms-linear-gradient(top, #89FA7A 0%, #1AA807 100%) !important;
 	/* IE10+ */
-	background: linear-gradient(top, #89FA7A 0%, #1AA807 100%); /* W3C */
+	background: linear-gradient(top, #89FA7A 0%, #1AA807 100%) !important; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient(  startColorstr='#14A800',
 		endColorstr='#1AA807', GradientType=0 ); /* IE6-9 */
 }
@@ -1090,11 +1090,11 @@ code.inline{
 
 /*ACTIVE*/
 .button-orange a:active {
-	background: #E07F00 !important; /* Old browsers */
+	background: #E07F00; /* Old browsers */
 }
 
 .button-green a:active {
-	background: #14A800 !important; /* Old browsers */
+	background: #14A800; /* Old browsers */
 }
 
 .button-orange:active .bottom {
