@@ -19,7 +19,7 @@ RedirectMatch Permanent /solr/issue_tracking.html https://issues.apache.org/jira
 # temporarily redirect all old links to the new 4.0 docs
 # really we should bring back the 3.6.0 docs, at an explicit path, and 
 # have /api redirect to then until 4.0 final comes out.
-RedirectMatch temp /solr/api(.*) /solr/api-4_0_0-ALPHA$1
+RedirectMatch temp /solr/api/(.*) /solr/api-4_0_0-ALPHA/$1
 
 
 # we no longer have a TLP mail.html page use 'core' for now
