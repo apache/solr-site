@@ -1,308 +1,100 @@
 # Lucene Core News
 
-##12 April 2012 - Lucene Core 3.6.0
+## 3 July 2012 - Lucene Core 4.0-ALPHA
 
-The Lucene PMC is pleased to announce the release of Apache Lucene 3.6.0.
+The Lucene PMC is pleased to announce the release of Apache Lucene 4.0-alpha
 
-Lucene can be downloaded from <a href="http://lucene.apache.org/core/mirrors-core-latest-redir.html">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a> and Solr can be downloaded from <a href="http://lucene.apache.org/solr/mirrors-solr-latest-redir.html">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
 
-Highlights of the Lucene release include:
+This release contains numerous bug fixes, optimizations, and
+improvements, some of which are highlighted below.  The release
+is available for immediate download at:
+   http://lucene.apache.org/core/mirrors-core-latest-redir.html
 
-- In addition to Java 5 and Java 6, this release has now
-    full Java 7 support (minimum JDK 7u1 required).
+See the CHANGES.txt file included with the release for a full list of
+details.
 
-- TypeTokenFilter filters tokens based on their TypeAttribute.
+Lucene 4.0-alpha Release Highlights:
 
-- Fixed offset bugs in a number of CharFilters, Tokenizers and TokenFilters
-    that could lead to exceptions during highlighting.
+- The index formats for terms, postings lists, stored fields, term vectors, etc 
+  are pluggable via the Codec api. You can select from the provided 
+  implementations or customize the index format with your own Codec to meet your needs.
 
-- Added phonetic encoders: Metaphone, Soundex, Caverphone,
-    Beider-Morse, etc.
+- Similarity has been decoupled from the vector space model (TF/IDF). Additional models
+  such as BM25, Divergence from Randomness, Language Models, and Information-based models
+  are provided (see http://www.lucidimagination.com/blog/2011/09/12/flexible-ranking-in-lucene-4).
 
-- CJKBigramFilter and CJKWidthFilter replace CJKTokenizer.
+- Added support for per-document values (DocValues). DocValues can be used for custom 
+  scoring factors (accessible via Similarity), for pre-sorted Sort values, and more.
 
-- Kuromoji morphological analyzer tokenizes Japanese text, producing
-    both compound words and their segmentation.
+- When indexing via multiple threads, each IndexWriter thread now flushes its own segment
+  to disk concurrently, resulting in substantial performance improvements
+  (see http://blog.mikemccandless.com/2011/05/265-indexing-speedup-with-lucenes.html).
 
-- Static index pruning (Carmel pruning) removes postings with low
-    within-document term frequency.
+- Per-document normalization factors ("norms") are no longer limited to a single byte.
+  Similarity implementations can use any DocValues type to store norms.
 
-- QueryParser now interprets '*' as an open end for range
-    queries.
+- Added index statistics such as the number of tokens for a term or field, number of postings
+  for a field, and number of documents with a posting for a field: these support additional
+  scoring models (see
+  http://blog.mikemccandless.com/2012/03/new-index-statistics-in-lucene-40.html). 
 
-- FieldValueFilter excludes documents missing the specified field.
+- Implemented a new default term dictionary/index (BlockTree) that indexes shared prefixes
+  instead of every n'th term. This is not only more time- and space- efficient, but can
+  also sometimes avoid going to disk at all for terms that do not exist. Alternative term
+  dictionary implementions are provided and pluggable via the Codec api.
 
-- CheckIndex and IndexUpgrader allow you to specify the
-    specific FSDirectory implementation to use with the new -dir-impl
-    command-line option.
+- Indexed terms are no longer UTF-16 char sequences, instead terms can be any binary
+  value encoded as byte arrays. By default, text terms are now encoded as UTF-8
+  bytes. Sort order of terms is now defined by their binary value, which is identical
+  to UTF-8 sort order.
 
-- FSTs can now do reverse lookup (by output) in certain cases and
-    can be packed to reduce their size.  There is now a method to
-    retrieve top N shortest paths from a start node in an FST.
-  
-- New WFSTCompletionLookup suggester supports finer-grained
-    ranking for suggestions.
+- Substantially faster performance when using a Filter during searching.
 
-- FST based suggesters now use an offline (disk-based) sort, instead
-    of in-memory sort, when pre-sorting the suggestions.
+- File-system based directories can rate-limit the IO (MB/sec) of merge
+  threads, to reduce IO contention between merging and searching threads.
 
-- ToChildBlockJoinQuery joins in the opposite direction (parent down
-    to child documents).
+- Added a number of alternative Codecs and components for different use-cases: "Appending"
+  works with append-only filesystems (such as Hadoop DFS), "Memory" writes the entire 
+  terms+postings as an FST read into RAM (see
+  http://blog.mikemccandless.com/2011/06/primary-key-lookups-are-28x-faster-with.html),
+  "Pulsing" inlines the postings for low-frequency terms into the term dictionary (see
+  http://blog.mikemccandless.com/2010/06/lucenes-pulsingcodec-on-primary-key.html),
+  "SimpleText" writes all files in plain-text for easy debugging/transparency (see
+  http://blog.mikemccandless.com/2010/10/lucenes-simpletext-codec.html), among others.
 
-- New query-time joining is more flexible (but less performant) than
-    index-time joins.
+- Term offsets can be optionally encoded into the postings lists and can be retrieved
+  per-position.
 
-- Added HTMLStripCharFilter to strip HTML markup.
-  
-- Security fix: Better prevention of virtual machine SIGSEGVs when
-    using MMapDirectory: Code using cloned IndexInputs of already
-    closed indexes could possibly crash VM, allowing DoS attacks to
-    your application.
+- A new AutomatonQuery returns all documents containing any term matching a provided
+  finite-state automaton (see http://www.slideshare.net/otisg/finite-state-queries-in-lucene).
 
-- Many bug fixes.
+- FuzzyQuery is 100-200 times faster than in past releases (see
+  http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html).
 
-##27 November 2011 - Lucene Core 3.5.0
+- A new spell checker, DirectSpellChecker, finds possible corrections directly against the
+  main search index without requiring a separate index.
 
-The Lucene PMC is pleased to announce the availability
-of Apache Lucene 3.5.0.
+- Various in-memory data structures such as the term dictionary and FieldCache are represented
+  more efficiently with less object overhead (see http://blog.mikemccandless.com/2010/07/lucenes-ram-usage-for-searching.html).
 
-Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
+- All search logic is now required to work per segment, IndexReader was therefore refactored to
+  differentiate between atomic and composite readers
+  (see http://blog.thetaphi.de/2012/02/is-your-indexreader-atomic-major.html).
 
-Highlights of the Lucene release include:
+- Lucene 4.0 provides a modular API, consolidating components such as Analyzers and Queries 
+  that were previously scattered across Lucene core, contrib, and Solr. These modules also
+  include additional functionality such as UIMA analyzer integration and a completely reworked 
+  spatial search implementation.
 
-- Added a very substantial (3-5X) RAM reduction required to hold the
-terms index on opening an IndexReader. (<a href="https://issues.apache.org/jira/browse/LUCENE-2205">LUCENE-2205</a>)
+Please read CHANGES.txt and MIGRATE.txt for a full list of new features and notes on upgrading. 
+Particularly, the new apis are not compatible with previous version of Lucene, however, file 
+format backwards compatibility is provided for indexes from the 3.0 series.
 
-- Added IndexSearcher.searchAfter which returns results after a
-specified ScoreDoc (e.g. last document on the previous page) to
-support deep paging use cases.
-(<a href="https://issues.apache.org/jira/browse/LUCENE-2215">LUCENE-2215</a>)
+This is an alpha release for early adopters. The guarantee for this alpha release is that the index 
+format will be the 4.0 index format, supported through the 5.x series of Apache Lucene, unless there 
+is a critical bug (e.g. that would cause index corruption) that would prevent this.
 
-- Added SearcherManager to manage sharing and reopening IndexSearchers
-across multiple search threads. Underlying IndexReader instances are
-safely closed if not referenced anymore.
-(<a href="https://issues.apache.org/jira/browse/LUCENE-3445">LUCENE-3445</a>,
-<a href="https://issues.apache.org/jira/browse/LUCENE-3558">LUCENE-3558</a>)
-
-- Added SearcherLifetimeManager which safely provides a consistent
-view of the index across multiple requests (e.g. paging/drilldown).
-(<a href="https://issues.apache.org/jira/browse/LUCENE-3558">LUCENE-3558</a>,
-<a href="https://issues.apache.org/jira/browse/LUCENE-3486">LUCENE-3486</a>)
-
-- Renamed IndexWriter.optimize to forceMerge to discourage use of
-this method since it is horribly costly and rarely justified anymore.
-(<a href="https://issues.apache.org/jira/browse/LUCENE-3454">LUCENE-3454</a>)
-
-- Added NGramPhraseQuery that speeds up phrase queries 30-50% when
- n-gram analysis is used. (<a href="https://issues.apache.org/jira/browse/LUCENE-3426">LUCENE-3426</a>)
-
-- Added a new reopen API (IndexReader.openIfChanged) that returns
-null instead of the old reader if there are no changes in the index.
-(<a href="https://issues.apache.org/jira/browse/LUCENE-3464">LUCENE-3464</a>)
-
-- Improvements to vector highlighting: support for more queries
-such as wildcards and boundary analysis for generated snippets.
-(<a href="https://issues.apache.org/jira/browse/LUCENE-1824">LUCENE-1824</a>,
-<a href="https://issues.apache.org/jira/browse/LUCENE-1889">LUCENE-1889</a>)
-
-- IndexSearcher and IndexReader now perform additional checks to
-throw AlreadyClosedExceptions if searches are performed on a
-closed IndexReader. Performing searches on already closed reader can
-cause JVM crashes when invalid memory mapped files are referenced.
-
-- Several bugfixes, including a bug where closing an NRT reader
-after the writer was closed was incorrectly invoking the
-DeletionPolicy. See CHANGES.txt entries for full details.
-
-
-##26 October 2011 - Java 7u1 fixes index corruption and crash bugs in Apache Lucene Core and Apache Solr</title>
-  Oracle released <a href="http://www.oracle.com/technetwork/java/javase/7u1-relnotes-507962.html">Java 7u1</a> on October 19.
-  According to the release notes and tests done by the Lucene committers, all bugs reported on July 28 are fixed in this release,
-  so code using Porter stemmer no longer crashes with <code  class="inline">SIGSEGV</code>. We were not able to experience any index corruption anymore,
-  so it is safe to use Java 7u1 with Lucene Core and Solr.
-  On the same day, Oracle released <a href="http://www.oracle.com/technetwork/java/javase/6u29-relnotes-507960.html">Java 6u29</a>
-  fixing the same problems occurring with Java 6, if the JVM switches <code  class="inline">-XX:+AggressiveOpts</code>
-  or <code  class="inline">-XX:+OptimizeStringConcat</code> were used. Of course, you should <strong>not</strong> use experimental JVM options like
-  <code  class="inline">-XX:+AggressiveOpts</code> in production environments! We recommend everybody to upgrade to this latest version 6u29.
-  In case you upgrade to Java 7, remember that you may have to reindex, as the unicode
-  version shipped with Java 7 changed and tokenization behaves differently
-  (e.g. lowercasing). For more information, read <code  class="inline">JRE_VERSION_MIGRATION.txt</code>
-  in your distribution package!
-
-
-##14 September 2011 - Lucene Core 3.4.0</title>
-The Lucene PMC is pleased to announce the availability
- of Apache Lucene 3.4.0.
-
-Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
-
-If you are already using Apache Lucene 3.1, 3.2 or 3.3, we strongly recommend you upgrade to 3.4.0 because of the index corruption bug on OS or computer crash or power loss (<a href="https://issues.apache.org/jira/browse/LUCENE-3418">LUCENE-3418</a>), now fixed in 3.4.0.
-
-Highlights of the Lucene release include:
-
-- Fixed a major bug (<a href="https://issues.apache.org/jira/browse/LUCENE-3418">LUCENE-3418</a>) whereby a Lucene index could
-easily become corrupted if the OS or computer crashed or lost
-power.
-
-- Added a new faceting module (<code  class="inline">contrib/facet</code>) for computing facet
-counts (both hierarchical and non-hierarchical) at search
-time (<a href="https://issues.apache.org/jira/browse/LUCENE-3079">LUCENE-3079</a>).
-
-- Added a new join module (<code  class="inline">contrib/join</code>), enabling indexing and
-searching of nested (parent/child) documents using
-<code  class="inline">BlockJoinQuery</code>/<code  class="inline">Collector</code> (<a href="https://issues.apache.org/jira/browse/LUCENE-3171">LUCENE-3171</a>).
-
-- It is now possible to index documents with term frequencies
-included but without positions (<a href="https://issues.apache.org/jira/browse/LUCENE-2048">LUCENE-2048</a>); previously
-<code  class="inline">omitTermFreqAndPositions</code> always omitted both.
-
-- The modular <code  class="inline">QueryParser</code> (<code  class="inline">contrib/queryparser</code>) can now create
-<code  class="inline">NumericRangeQuery</code>.
-
-- Added SynonymFilter, in <code  class="inline">contrib/analyzers</code>, to apply multi-word
-synonyms during indexing or querying, including parsers to read
-the wordnet and solr synonym formats (<a href="https://issues.apache.org/jira/browse/LUCENE-3233">LUCENE-3233</a>).
-
-- You can now control how documents that don't have a value on the
-sort field should sort (<a href="https://issues.apache.org/jira/browse/LUCENE-3390">LUCENE-3390</a>), using <code  class="inline">SortField.setMissingValue</code>.
-
-- Fixed a case where term vectors could be silently deleted from the
-index after <code  class="inline">addIndexes</code> (<a href="https://issues.apache.org/jira/browse/LUCENE-3402">LUCENE-3402</a>).
-
-
-##28 July 2011 - WARNING: Index corruption and crashes in Apache Lucene Core / Apache Solr with Java 7
-
-Oracle released <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 7</a> today.
-Unfortunately it contains hotspot compiler optimizations, which miscompile some loops.
-This can affect code of several Apache projects. Sometimes JVMs only crash, but in several cases,
-results calculated can be incorrect, leading to bugs in applications
-(see Hotspot bugs <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7070134">7070134</a>,
-<a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7044738">7044738</a>,
-<a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=7068051">7068051</a>).
-<strong>Apache Lucene Core</strong> and <strong>Apache Solr</strong> are two Apache projects,
-which are affected by these bugs, namely all versions released until today.
-Solr users with the default configuration will have
-Java crashing with <code  class="inline">SIGSEGV</code> as soon as they start to index documents, as one
-affected part is the well-known Porter stemmer
-(see <a href="https://issues.apache.org/jira/browse/LUCENE-3335">LUCENE-3335</a>).
-Other loops in Lucene may be miscompiled, too, leading to index corruption
-(especially on Lucene trunk with pulsing codec; other loops may be
-affected, too - <a href="https://issues.apache.org/jira/browse/LUCENE-3346">LUCENE-3346</a>).
-These problems were detected only 5 days before the official Java 7 release,
-so Oracle had no time to fix those bugs, affecting also many more applications.
-In response to our questions, they proposed to include the fixes into service
-release u2 (eventually into service release u1, see
-<a href="http://mail.openjdk.java.net/pipermail/hotspot-compiler-dev/2011-July/005971.html">this mail</a>).
-<strong>This means you cannot use Apache Lucene/Solr with Java 7 releases before Update 2!</strong>
-If you do, please don't open bug reports, it is not the committers' fault!
-At least disable loop optimizations using the <code  class="inline">-XX:-UseLoopPredicate</code> JVM option
-to not risk index corruptions.
-<em>Please note:</em> Also Java 6 users are affected, if they use one of those
-JVM options, which are <strong>not</strong> enabled by default: <code  class="inline">-XX:+OptimizeStringConcat</code>
-or <code  class="inline">-XX:+AggressiveOpts</code>.
-It is strongly recommended not to use any hotspot optimization switches in any Java
-version without extensive testing!
-In case you upgrade to Java 7, remember that you may have to reindex, as the unicode
-version shipped with Java 7 changed and tokenization behaves differently
-(e.g. lowercasing). For more information, read <code  class="inline">JRE_VERSION_MIGRATION.txt</code>
-in your distribution package!
-
-##1 July 2011 - Lucene Core 3.3
-
-The Lucene PMC is pleased to announce the availability
-of Apache Lucene 3.3.
-
-Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
-Highlights of the Lucene release include:
-
-
-   - The spellchecker module now includes suggest/auto-complete functionality,
-       with three implementations: Jaspell, Ternary Trie, and Finite State.
-   - Support for merging results from multiple shards, for both "normal"
-       search results (TopDocs.merge) as well as grouped results using the
-       grouping module (SearchGroup.merge, TopGroups.merge).
-   - An optimized implementation of KStem, a less aggressive stemmer
-       for English
-   - Single-pass grouping implementation based on block document indexing.
-   - Improvements to MMapDirectory (now also the default implementation
-       returned by FSDirectory.open on 64-bit Linux).
-   - NRTManager simplifies handling near-real-time search with multiple
-       search threads, allowing the application to control which indexing
-       changes must be visible to which search requests.
-   - TwoPhaseCommitTool facilitates performing a multi-resource
-       two-phased commit, including IndexWriter.
-   - The default merge policy, TieredMergePolicy, has a new method
-       (set/getReclaimDeletesWeight) to control how aggressively it
-       targets segments with deletions, and is now more aggressive than
-       before by default.
-   - PKIndexSplitter tool splits an index by a mid-point term.
-
-##4 June 2011 - Lucene Core 3.2
-The Lucene PMC is pleased to announce the availability of Apache Lucene 3.2.
-
-Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
-Highlights of the Lucene release include:
-
-
-   - A new grouping module, under lucene/contrib/grouping, enables
-       search results to be grouped by a single-valued indexed field
-   - A new IndexUpgrader tool fully converts an old index to the
-       current format.
-   - A new Directory implementation, NRTCachingDirectory, caches small
-       segments in RAM, to reduce the I/O load for applications with fast
-       NRT reopen rates.
-   - A new Collector implementation, CachingCollector, is able to
-       gather search hits (document IDs and optionally also scores) and
-       then replay them.  This is useful for Collectors that require two
-       or more passes to produce results.
-   - Index a document block using IndexWriter's new addDocuments or
-       updateDocuments methods.  These experimental APIs ensure that the
-       block of documents will forever remain contiguous in the index,
-       enabling interesting future features like grouping and joins.
-   - A new default merge policy, TieredMergePolicy, which is more
-       efficient due to being able to merge non-contiguous segments.
-       See <a href="http://s.apache.org/merging">http://s.apache.org/merging</a> for details.
-   - NumericField is now returned correctly when you load a stored
-       document (previously you received a normal Field back, with the
-       numeric value converted string).
-   - Deleted terms are now applied during flushing to the newly flushed
-       segment, which is more efficient than having to later initialize a
-       reader for that segment.
-
-##31 March 2011 - Lucene Core 3.1
-
-The Lucene PMC is pleased to announce the availability of Apache Lucene 3.1.
-
-Lucene can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/java/">http://www.apache.org/dyn/closer.cgi/lucene/java/</a> and Solr can be downloaded from <a href="http://www.apache.org/dyn/closer.cgi/lucene/solr/">http://www.apache.org/dyn/closer.cgi/lucene/solr/</a>
-Highlights of the Lucene release include:
-
-
-- Numerous performance improvements: faster exact PhraseQuery; merging
-favors segments with deletions; primary key lookup is faster;
-IndexWriter.addIndexes(Directory[]) uses file copy instead of
-merging; various Directory performance improvements; compound file
-is dynamically turned off for large segments; fully deleted segments
-are dropped on commit; faster snowball analyzers (in contrib);
-ConcurrentMergeScheduler is more careful about setting priority of
-merge threads.
-- ReusableAnalyzerBase makes it easier to reuse TokenStreams
-correctly.
-- Improved Analysis capabilities: Improved Unicode support, including
-Unicode 4, more friendly term handling (CharTermAttribute), easier
-object reuse and better support for protected words in lossy token
-filters (e.g. stemmers).
-- ConstantScoreQuery now allows directly wrapping a Query.
-- IndexWriter is now configured with a new separate builder API,
-IndexWriterConfig.  You can now control IndexWriter's previously
-fixed internal thread limit by calling setMaxThreadStates.
-- IndexWriter.getReader is replaced by IndexReader.open(IndexWriter).
-In addition you can now specify whether deletes should be resolved
-when you open an NRT reader.
-- MultiSearcher is deprecated; ParallelMultiSearcher has been
-absorbed directly into IndexSearcher.
-- On 64bit Windows and Solaris JVMs, MMapDirectory is now the
-default implementation (returned by FSDirectory.open).
-MMapDirectory also enables unmapping if the JVM supports it.
-- New TotalHitCountCollector just counts total number of hits.
-- ReaderFinishedListener API enables external caches to evict entries
-once a segment is finished.
+Please report any feedback to the mailing lists (http://lucene.apache.org/core/discussion.html)
