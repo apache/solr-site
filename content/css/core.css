@@ -124,19 +124,19 @@ html[xmlns] .clearfix {
 a,a:active,a:link {
 	text-decoration: none;
 	color: #29456b;
-	background: #E0FFEE;
+	background: #EEFFE0;
 	border: 1px solid #FFFFFF;
 }
 
 a:visited {
 	text-decoration: none;
-        background: #E0FFEE;
+        background: #EEFFE0;
 	border: 1px solid #FFFFFF;
 }
 
 a:hover {
 	color: #030d1c;
-        background: #E0FFEE;
+        background: #EEFFE0;
 	border: 1px solid #9DED9D;
 }
 
@@ -495,7 +495,11 @@ input.button {
 }
 
 #nav ul li a.last {
-	border:none;
+	border-right:none;
+}
+
+#nav ul li a.first {
+	border-left:none;
 }
 
 #nav ul li a:hover,#nav ul li a:active {
