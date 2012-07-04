@@ -124,14 +124,20 @@ html[xmlns] .clearfix {
 a,a:active,a:link {
 	text-decoration: none;
 	color: #29456b;
+	background: #FFF0D6;
+	border: 1px solid #FFFFF;
 }
 
 a:visited {
 	text-decoration: none;
+	background: #FFF0D6;
+	border: 1px solid #FFFFFF;
 }
 
 a:hover {
 	color: #030d1c;
+	background: #FFF0D6;
+	border: 1px solid #9DED9D;
 }
 
 h1,h2,h2 {
@@ -467,12 +473,14 @@ input.button {
     margin: 0;
     padding: 0;
     display: inline;
+    background:#444;
 }
 
 #nav ul li {
     display: inline;
     margin: 0;
     padding: 0;
+    background:#444;
 }
 
 #nav ul li a {
@@ -484,7 +492,9 @@ input.button {
     text-decoration: none;
     letter-spacing: 0.0px;
     color: #fff;
+    border: none;
 	border-right:1px inset #888;
+    background: #444;
 }
 
 #nav ul li a.last {
@@ -493,12 +503,12 @@ input.button {
 
 #nav ul li a:hover,#nav ul li a:active {
     color: #111;
-    background-image: url(../images/header_hot.jpg);
+    background-image: url(../images/header_hot.jpg) !important;
 }
 
 #nav ul li#current a {
     color: #333333;
-    background-image: url(../images/header_hot.jpg);
+    background-image: url(../images/header_hot.jpg) !important;
 }
 
 /******************************** 
