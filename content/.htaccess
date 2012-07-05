@@ -16,12 +16,16 @@ RedirectMatch Permanent /solr/mailing_lists.html /solr/discussion.html
 RedirectMatch Permanent /solr/issue_tracking.html https://issues.apache.org/jira/browse/SOLR
 
 # Legacy, unversioned Solr javadoc links
-# Can always be redirected to the "most current" released javadocs
 #
+# for the top level overview page, send to our CMS managed overview page
+RedirectMatch Permanent /solr/api$ /solr/documentation.html
+RedirectMatch Permanent /solr/api/$ /solr/documentation.html
+RedirectMatch Permanent /solr/api/index.html$ /solr/documentation.html
+#
+# Other pages can always be redirected to the "most current" released javadocs
 # using "temp" instead of permanent so crawlers know that they
 # might change again in the future
 RedirectMatch temp /solr/api/(.*) /solr/api-4_0_0-ALPHA/$1
-Redirect Permanent /solr/api /solr/api/
 
 # we no longer have a TLP mail.html page use 'core' for now
 RedirectMatch Permanent /mail.html /core/discussion.html
