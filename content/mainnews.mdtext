@@ -31,6 +31,18 @@ Lucene 3.6.1 Release Highlights:
   the Lucene package. This is a small backwards break, affecting a few
   users who implemented custom Scorers.
 
+- Various analyzer bugs where fixed: Kuromoji to not produce invalid
+  token graph due to UNK with punctuation being decompounded, invalid 
+  position length in SynonymFilter, loading of Hunspell dictionaries that
+  use aliasing, be consistent with closing streams when loading
+  Hunspell affix files.
+
+- Various bugs in FST components were fixed: Offline sorter minimum
+  buffer size, integer overflow in sorter, FSTCompletionLookup missed
+  to close its sorter.
+
+- Fixed a synchronization bug in handling taxonomies in facet module.
+
 - Various minor bugs were fixed: BytesRef/CharsRef copy methods
   with nonzero offsets and subSequence off-by-one, TieredMergePolicy
   returned wrong-scaled floor segment setting.
@@ -53,6 +65,8 @@ Solr 3.6.1 Release Highlights:
   result grouping with main=true and using wt=javabin.
 
 - Config file replication was made less error prone.
+
+- Data Import Handler threading fixes.
 
 - Various minor bugs were fixed.
 
