@@ -1,5 +1,57 @@
 # News
 
+## 22 July 2012 - Apache Lucene 3.6.1 and Apache Solr 3.6.1 available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 3.6.1 and Apache Solr 3.6.1.
+
+Lucene can be downloaded from <a href="http://lucene.apache.org/core/mirrors-core-3x-redir.html?">http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>
+and Solr can be downloaded from <a href="http://lucene.apache.org/solr/mirrors-solr-3x-redir.html?">http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>
+
+See the CHANGES.txt file included with the release for a full list of
+details.
+
+Lucene 3.6.1 Release Highlights:
+
+- The concurrency of MMapIndexInput.clone() was improved, which caused
+  a performance regression in comparison to Lucene 3.5.0.
+
+- MappingCharFilter was fixed to return correct final token positions.
+
+- QueryParser now supports +/- operators with any amount of whitespace.
+
+- DisjunctionMaxScorer now implements visitSubScorers().
+
+- Changed the visibility of Scorer#visitSubScorers() to
+  public, otherwise it's impossible to implement Scorers outside
+  the Lucene package. This is a small backwards break, affecting a few
+  users who implemented custom Scorers.
+
+- Various minor bugs were fixed: BytesRef/CharsRef copy methods
+  with nonzero offsets and subSequence off-by-one, TieredMergePolicy
+  returned wrong-scaled floor segment setting.
+
+Solr 3.6.1 Release Highlights:
+
+- The concurrency of MMapDirectory was improved, which caused
+  a performance regression in comparison to Solr 3.5.0. This affected
+  users with 64bit platforms (Linux, Solaris, Windows) or those
+  explicitely using MMapDirectoryFactory.
+
+- ReplicationHandler "maxNumberOfBackups" was fixed to work if backups are
+  triggered on commit.
+
+- Charset problems were fixed with HttpSolrServer, caused by an upgrade to
+  a new Commons HttpClient version in 3.6.0.
+
+- Grouping was fixed to return correct count when not all shards are
+  queried in the second pass. Solr no longer throws Exception when using
+  result grouping with main=true and using wt=javabin.
+
+- Config file replication was made less error prone.
+
+- Various minor bugs were fixed.
+
 ##3 July 2012 - Lucene Core 4.0-ALPHA and Solr 4.0-ALPHA Available
 
 The Lucene PMC is pleased to announce the availability
