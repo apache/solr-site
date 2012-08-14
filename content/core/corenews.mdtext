@@ -1,5 +1,62 @@
 # Lucene Core News
 
+## 13 August 2012 - Lucene Core 4.0-BETA
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and
+improvements, some of which are highlighted below.  The release
+is available for immediate download at:
+   <a href="/core/mirrors-core-latest-redir.html?">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a>
+
+See the <a href="http://lucene.apache.org/core/4_0_0-BETA/changes/Changes.html">CHANGES.txt</a> file included with the release for a full list of
+details.
+
+Highlights of changes since 4.0-alpha:
+
+- <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/index/IndexWriter.html#tryDeleteDocument%28org.apache.lucene.index.IndexReader,%20int%29">
+  IndexWriter.tryDeleteDocument</a> can sometimes delete by document ID, 
+  for higher performance in some applications.
+
+- New experimental postings formats: <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/codecs/bloom/BloomFilteringPostingsFormat.html">
+  BloomFilteringPostingsFormat</a> uses a bloom filter to sometimes avoid 
+  disk seeks when looking up terms,
+  <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/codecs/memory/DirectPostingsFormat.html">
+  DirectPostingsFormat</a> holds all postings as simple byte[] and int[] 
+  for very fast performance at the cost of very high RAM consumption.
+
+- CJK analysis improvements: <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-kuromoji/org/apache/lucene/analysis/ja/JapaneseIterationMarkCharFilter.html">
+  JapaneseIterationMarkCharFilter</a> normalizes Japanese iteration marks, 
+  added unigram+bigram support to <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/cjk/CJKBigramFilter.html">
+  CJKBigramFilter</a>.
+
+- Improvements to Scorer navigation API (<a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/search/Scorer.html#getChildren%28%29">
+  Scorer.getChildren</a>) to support all queries, useful for determining 
+  which portions of the query matched.
+
+- Analysis improvements: factories for creating <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/TokenizerFactory.html">
+  Tokenizer</a>, <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/TokenFilterFactory.html">
+  TokenFilter</a>, and <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/CharFilterFactory.html"> 
+  CharFilter</a> have been moved from Solr to Lucene's analysis module,
+  less memory overhead for StandardTokenizer and Snowball filters.
+
+- Improved highlighting for multi-valued fields.
+
+- Various other API changes, optimizations and bug fixes.
+
+Please read <a href="http://lucene.apache.org/core/4_0_0-BETA/changes/Changes.html">CHANGES.txt</a> and 
+<a href="http://lucene.apache.org/core/4_0_0-BETA/MIGRATE.html">MIGRATE.txt</a> for a full list of new features and notes on upgrading. 
+Particularly, the new apis are not compatible with previous version of Lucene, however, file 
+format backwards compatibility is provided for indexes from the 3.0 series and the 4.0-alpha release.
+
+This is a beta release for early adopters. The guarantee for this beta release is that the index 
+format will be the 4.0 index format, supported through the 5.x series of Apache Lucene, unless there 
+is a critical bug (e.g. that would cause index corruption) that would prevent this.
+
+Please report any feedback to the mailing lists (<a href="http://lucene.apache.org/core/discussion.html">http://lucene.apache.org/core/discussion.html</a>)
+
 ## 22 July 2012 - Apache Lucene 3.6.1
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 3.6.1.
