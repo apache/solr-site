@@ -1,5 +1,49 @@
 # Solr News
 
+## 14 August 2012 - Apache Solr 4.0-beta available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 4.0-beta.
+
+Solr is the popular, blazing fast, open source NoSQL search platform from 
+the Apache Lucene project. Its major features include powerful full-text 
+search, hit highlighting, faceted search, dynamic clustering, database 
+integration, rich document (e.g., Word, PDF) handling, and geospatial search. 
+Solr is highly scalable, providing fault tolerant distributed search and indexing,
+and powers the search and navigation features of many of the world's 
+largest internet sites.
+
+Solr 4.0-beta is available for immediate download at:
+  <a href="/solr/mirrors-solr-latest-redir.html?">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
+
+See the <a href="http://svn.apache.org/repos/asf/lucene/dev/tags/lucene_solr_4_0_0_BETA/solr/CHANGES.txt">
+CHANGES.txt</a> file included with the release for a full list of
+details.
+
+Highlights of changes since 4.0-alpha:
+
+- Added a Collection management API for <a href="http://wiki.apache.org/solr/SolrCloud/">Solr Cloud</a>.
+  
+- Solr Admin UI now clearly displays failures related to initializing SolrCores
+
+- Updatable documents can create a document if it doesn't already exist,
+  or you can force that the document must already exist.
+
+- Full delete-by-query support for Solr Cloud.
+
+- Default to <a href="http://lucene.apache.org/solr/api-4_0_0-BETA/org/apache/solr/core/NRTCachingDirectoryFactory.html">
+  NRTCachingDirectory</a> for improved near-realtime performance.
+
+- Improved <a href="http://wiki.apache.org/solr/Solrj">Solrj</a> client performance 
+  with Solr Cloud: updates are only sent to leaders by default.
+
+- Various other API changes, optimizations and bug fixes. 
+
+This is a beta for early adopters. The guarantee for this beta release is that the index 
+format will be the 4.0 index format, supported through the 5.x series of Lucene/Solr, unless there 
+is a critical bug (e.g. that would cause index corruption) that would prevent this.
+
+Please report any feedback to the mailing lists (<a href="http://lucene.apache.org/solr/discussion.html">http://lucene.apache.org/solr/discussion.html</a>)
+
 ## 22 July 2012 - Apache Solr 3.6.1 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 3.6.1.

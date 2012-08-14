@@ -1,5 +1,64 @@
 # News
 
+##14 August 2012 - Lucene Core 4.0-BETA and Solr 4.0-BETA Available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 4.0-BETA and Apache Solr 4.0-BETA
+
+Lucene can be downloaded from <a href="/core/mirrors-core-latest-redir.html?">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a>
+and Solr can be downloaded from <a href="/solr/mirrors-solr-latest-redir.html?">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
+
+Highlights of the Lucene release include:
+
+- <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/index/IndexWriter.html#tryDeleteDocument%28org.apache.lucene.index.IndexReader,%20int%29">
+  IndexWriter.tryDeleteDocument</a> can sometimes delete by document ID,
+  for higher performance in some applications.
+
+- New experimental postings formats: <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/codecs/bloom/BloomFilteringPostingsFormat.html">
+  BloomFilteringPostingsFormat</a> uses a bloom filter to sometimes avoid
+  disk seeks when looking up terms,
+  <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/codecs/memory/DirectPostingsFormat.html">
+  DirectPostingsFormat</a> holds all postings as simple byte[] and int[]
+  for very fast performance at the cost of very high RAM consumption.
+
+- CJK analysis improvements: <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-kuromoji/org/apache/lucene/analysis/ja/JapaneseIterationMarkCharFilter.html">
+  JapaneseIterationMarkCharFilter</a> normalizes Japanese iteration marks,
+  added unigram+bigram support to <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/cjk/CJKBigramFilter.html">
+  CJKBigramFilter</a>.
+
+- Improvements to Scorer navigation API (<a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/search/Scorer.html#getChildren%28%29">
+  Scorer.getChildren</a>) to support all queries, useful for determining
+  which portions of the query matched.
+
+- Analysis improvements: factories for creating <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/TokenizerFactory.html">
+  Tokenizer</a>, <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/TokenFilterFactory.html">
+  TokenFilter</a>, and <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/CharFilterFactory.html">
+  CharFilter</a> have been moved from Solr to Lucene's analysis module,
+  less memory overhead for StandardTokenizer and Snowball filters.
+
+- Improved highlighting for multi-valued fields.
+
+- Various other API changes, optimizations and bug fixes.
+
+Highlights of the Solr release include:
+
+- Added a Collection management API for <a href="http://wiki.apache.org/solr/SolrCloud/">Solr Cloud</a>.
+
+- Solr Admin UI now clearly displays failures related to initializing SolrCores
+
+- Updatable documents can create a document if it doesn't already exist,
+  or you can force that the document must already exist.
+
+- Full delete-by-query support for Solr Cloud.
+
+- Default to <a href="http://lucene.apache.org/solr/api-4_0_0-BETA/org/apache/solr/core/NRTCachingDirectoryFactory.html">
+  NRTCachingDirectory</a> for improved near-realtime performance.
+
+- Improved <a href="http://wiki.apache.org/solr/Solrj">Solrj</a> client performance
+  with Solr Cloud: updates are only sent to leaders by default.
+
+- Various other API changes, optimizations and bug fixes.
+
 ## 22 July 2012 - Apache Lucene 3.6.1 and Apache Solr 3.6.1 available
 
 The Lucene PMC is pleased to announce the availability
