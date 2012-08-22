@@ -1,6 +1,6 @@
 <warning>
 Before calling any PyLucene API that requires the Java VM, start it by
-calling _initVM(classpath, ...)_. 
+calling <i>initVM(classpath, ...)</i>. 
 More about this function in <a href="jcc/features.html">here</a>.
 </warning>
 
@@ -78,13 +78,13 @@ available from
 
 Before PyLucene APIs can be used from a thread other than the main
 thread that was not created by the Java Runtime, the
-_attachCurrentThread()_ method must be called on the
-_JCCEnv_ object returned by the _initVM()_
-or _getVMEnv()_ functions.
+<i>attachCurrentThread()</i> method must be called on the
+<i>JCCEnv</i> object returned by the <i>initVM()</i>
+or <i>getVMEnv()</i> functions.
 
 
 
-#Exception handling with lucene.JavaError
+##Exception handling with lucene.JavaError
 
 Java exceptions are caught at the language barrier and reported to
 Python by raising a JavaError instance whose args tuple contains the
@@ -94,7 +94,7 @@ actual Java Exception instance.
 
 ##Handling Java arrays
 
-Java arrays are returned to Python in a _JArray_
+Java arrays are returned to Python in a <i>JArray</i>
 wrapper instance that implements the Python sequence protocol. It
 is possible to change array elements but not to change the array
 size.
@@ -107,25 +107,25 @@ first.<br/>
 For example, accessing termDocs:
 
 <code>
-termDocs = reader.termDocs(Term("isbn", isbn))
-docs = JArray('int')(1)   # allocate an int[1] array
-freq = JArray('int')(1)   # allocate an int[1] array
-if termDocs.read(docs, freq) == 1:
-  bits.set(docs[0])     # access the array's first element
+termDocs = reader.termDocs(Term("isbn", isbn))<br/>
+docs = JArray('int')(1)   # allocate an int[1] array<br/>
+freq = JArray('int')(1)   # allocate an int[1] array<br/>
+if termDocs.read(docs, freq) == 1:<br/>
+  bits.set(docs[0])     # access the array's first element<br/>
 </code>
 
-In addition to _int_, the _JArray_
-function accepts _object_, _string_,
-_bool_, _byte_, _char_,
-_double_, _float_, _long_
-and _short_ to create an array of the corresponding
-type. The _JArray('object')_ constructor takes a second
+In addition to <i>int</i>, the <i>JArray</i>
+function accepts <i>object</i>, <i>string</i>,
+<i>bool</i>, <i>byte</i>, <i>char</i>,
+<i>double</i>, <i>float</i>, <i>long</i>
+and <i>short</i> to create an array of the corresponding
+type. The <i>JArray('object')</i> constructor takes a second
 argument denoting the class of the object elements. This argument
 is optional and defaults to Object.
 
 
 To convert a char array to a Python string use a
-_''.join(array)_ construct.
+<i>''.join(array)</i> construct.
 
 
 Instead of an integer denoting the size of the desired Java array,
@@ -134,8 +134,8 @@ in to the array constructor.<br/>
 For example:
 
 <code>
-# creating a Java array of double from the [1.5, 2.5] list
-JArray('double')([1.5, 2.5])
+\# creating a Java array of double from the [1.5, 2.5] list<br/>
+JArray('double')([1.5, 2.5])<br/>
 </code>
 
 All methods that expect an array also accept a sequence of Python
@@ -182,37 +182,37 @@ iteration, the zero-based number of the document in the Hits
 instance and the document instance itself.<br/>
 The Java loop:
 <code>
-  for (int i = 0; i &lt; hits.length(); i++) {
-      Document doc = hits.doc(i);
-      System.out.println(hits.score(i) + " : " + doc.get("title"));
-  }
+  for (int i = 0; i &lt; hits.length(); i++) {<br/>
+      Document doc = hits.doc(i);<br/>
+      System.out.println(hits.score(i) + " : " + doc.get("title"));<br/>
+  }<br/>
 </code>
 can be written in Python:
 <code>
- for hit in hits:
-     hit = Hit.cast_(hit)
-     print hit.getScore(), ':', hit.getDocument['title']
+ for hit in hits:<br/>
+     hit = Hit.cast_(hit)<br/>
+     print hit.getScore(), ':', hit.getDocument['title']<br/>
  </code>
 if hit.iterator()'s next() method were declared to return
-_Hit_ instead of _Object_, the above
+<i>Hit</i> instead of <i>Object</i>, the above
 cast_() call would not be unnecessary.<br/>
 The same java loop can also be written:
 <code>
-  for i xrange(len(hits)):
-      print hits.score(i), ':', hits[i]['title']
+  for i xrange(len(hits)):<br/>
+      print hits.score(i), ':', hits[i]['title']<br/>
 </code>
 
 - Hits instances partially implement the Python 'sequence'
 protocol.<br/>
 The Java expressions:
 <code>
-  hits.length()
-  doc = hits.get(i)
+  hits.length();<br/>
+  doc = hits.get(i);<br/>
 </code>
 are better written in Python:
 <code>
-  len(hits)
-  doc = hits[i]
+  len(hits)<br/>
+  doc = hits[i]<br/>
 </code>
 
 - Document instances have fields whose values can be accessed
@@ -229,17 +229,17 @@ is better written in Python:
 - Document instances can be iterated over for their fields.<br/>
 The Java loop:
 <code>
-  Enumeration fields = doc.getFields();
-  while (fields.hasMoreElements()) {
-      Field field = (Field) fields.nextElement();
-      ...
-  }
+  Enumeration fields = doc.getFields();<br/>
+  while (fields.hasMoreElements()) {<br/>
+      Field field = (Field) fields.nextElement();<br/>
+      ...<br/>
+  }<br/>
 </code>
 is better written in Python:
 <code>
-  for field in doc.getFields():
-      field = Field.cast_(field)
-      ...
+  for field in doc.getFields():<br/>
+      field = Field.cast_(field)<br/>
+      ...<br/>
 </code>
 Once JCC heeds Java 1.5 type parameters and once Java Lucene
 makes use of them, such casting should become unncessary.

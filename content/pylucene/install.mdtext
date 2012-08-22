@@ -22,15 +22,15 @@ instructions</a> for more information.
 
 ##For the Impatient Ones
 
-- _pushd jcc_
-- &lt;edit _setup.py_ to match your environment&gt;
-- _python setup.py build_
-- _sudo python setup.py install_
-- _popd_
-- &lt;edit _Makefile_ to match your environment&gt;
-- _make_
-- _sudo make install_
-- _make test_ (look for failures)
+- <b>pushd jcc</b>
+- <i>&lt;edit _setup.py_ to match your environment&gt;</i>
+- <b>python setup.py build</b>
+- <b>sudo python setup.py install</b>
+- <b>popd</b>
+- <i>&lt;edit _Makefile_ to match your environment&gt;</i>
+- <b>make</b>
+- <b>sudo make install</b>
+- <b>make test</b> (look for failures)
 
 
 ##For the Rest of Us
@@ -41,8 +41,8 @@ JCC's <a href="jcc/install.html">installation
 instructions</a> for building and installing it.
 
 Once JCC is built and installed, PyLucene is built
-via _make_ which invokes JCC. See PyLucene's
-_Makefile_ for configuration instructions.
+via <i>make</i> which invokes JCC. See PyLucene's
+<i>Makefile</i> for configuration instructions.
 
 There are limits to both how many files can fit on the command
 line and how large a C++ file the C++ compiler can handle.
@@ -66,13 +66,13 @@ tuned to workaround various limits, for example:
 ##Notes for Solaris
 
 PyLucene's Makefile is a GNU Makefile. Be sure to
-use _gmake_ instead of plain _make_.
+use <i>gmake</i> instead of plain <i>make</i>.
 
 
 Just as when building JCC, Python's distutils must be nudged a bit to
 invoke the correct compiler. Sun Studio's C compiler is
-called _cc_ while its C++ compiler is
-called _CC_.<br/>
+called <i>cc</i> while its C++ compiler is
+called <i>CC</i>.<br/>
 
 
 To build PyLucene, use the following shell command to ensure that
