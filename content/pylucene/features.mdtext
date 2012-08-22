@@ -107,11 +107,11 @@ first.<br/>
 For example, accessing termDocs:
 
 <code>
-    termDocs = reader.termDocs(Term("isbn", isbn))
-    docs = JArray('int')(1)   # allocate an int[1] array
-    freq = JArray('int')(1)   # allocate an int[1] array
-    if termDocs.read(docs, freq) == 1:
-      bits.set(docs[0])     # access the array's first element
+termDocs = reader.termDocs(Term("isbn", isbn))<br/>
+docs = JArray('int')(1)   # allocate an int[1] array<br/>
+freq = JArray('int')(1)   # allocate an int[1] array<br/>
+if termDocs.read(docs, freq) == 1:<br/>
+&nbsp;&nbsp;bits.set(docs[0])     # access the array's first element<br/>
 </code>
 
 In addition to <i>int</i>, the <i>JArray</i>
@@ -182,64 +182,64 @@ iteration, the zero-based number of the document in the Hits
 instance and the document instance itself.<br/>
 The Java loop:
 <code>
-  for (int i = 0; i &lt; hits.length(); i++) {<br/>
-      Document doc = hits.doc(i);<br/>
-      System.out.println(hits.score(i) + " : " + doc.get("title"));<br/>
-  }<br/>
+for (int i = 0; i &lt; hits.length(); i++) {<br/>
+&nbsp;&nbsp;Document doc = hits.doc(i);<br/>
+&nbsp;&nbsp;System.out.println(hits.score(i) + " : " + doc.get("title"));<br/>
+}<br/>
 </code>
 can be written in Python:
 <code>
- for hit in hits:<br/>
-     hit = Hit.cast_(hit)<br/>
-     print hit.getScore(), ':', hit.getDocument['title']<br/>
- </code>
+for hit in hits:<br/>
+&nbsp;&nbsp;hit = Hit.cast_(hit)<br/>
+&nbsp;&nbsp;print hit.getScore(), ':', hit.getDocument['title']<br/>
+</code>
 if hit.iterator()'s next() method were declared to return
 <i>Hit</i> instead of <i>Object</i>, the above
 cast_() call would not be unnecessary.<br/>
 The same java loop can also be written:
 <code>
-  for i xrange(len(hits)):<br/>
-      print hits.score(i), ':', hits[i]['title']<br/>
+for i xrange(len(hits)):<br/>
+&nbsp;&nbsp;print hits.score(i), ':', hits[i]['title']<br/>
 </code>
 
 - Hits instances partially implement the Python 'sequence'
 protocol.<br/>
 The Java expressions:
 <code>
-  hits.length();<br/>
-  doc = hits.get(i);<br/>
+hits.length();<br/>
+doc = hits.get(i);<br/>
 </code>
 are better written in Python:
 <code>
-  len(hits)<br/>
-  doc = hits[i]<br/>
+len(hits)<br/>
+doc = hits[i]<br/>
 </code>
 
 - Document instances have fields whose values can be accessed
 through the mapping protocol.<br/>
 The Java expression:
 <code>
-  doc.get("title")
+doc.get("title")
 </code>
 is better written in Python:
 <code>
-  doc['title']
+doc['title']
 </code>
 
 - Document instances can be iterated over for their fields.<br/>
 The Java loop:
 <code>
-  Enumeration fields = doc.getFields();<br/>
-  while (fields.hasMoreElements()) {<br/>
-      Field field = (Field) fields.nextElement();<br/>
-      ...<br/>
-  }<br/>
+Enumeration fields = doc.getFields();<br/>
+while (fields.hasMoreElements()) {<br/>
+&nbsp;&nbsp;Field field = (Field) fields.nextElement();<br/>
+&nbsp;&nbsp;...<br/>
+}<br/>
 </code>
 is better written in Python:
 <code>
-  for field in doc.getFields():<br/>
-      field = Field.cast_(field)<br/>
-      ...<br/>
+for field in doc.getFields():<br/>
+&nbsp;&nbsp;field = Field.cast_(field)<br/>
+&nbsp;&nbsp;...<br/>
 </code>
 Once JCC heeds Java 1.5 type parameters and once Java Lucene
 makes use of them, such casting should become unncessary.
