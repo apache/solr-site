@@ -15,7 +15,7 @@ This is a work around to the fact that the CMS doesn't allow inheritance of dept
 
 {% extends "body.html" %}
 {% block logo %}
-<a href="index.html"><img border="0" src="../../images/lucene_logo_green_300.png" alt="Lucene Logo"/></a>
+  {% include "py-logo.html" %}
 {% endblock %}
 {% block nav %}
 <ul>
