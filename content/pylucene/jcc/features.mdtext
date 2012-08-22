@@ -12,7 +12,7 @@ reflection APIs to do its work. It is built and installed
 via <code>distutils</code> or <code>setuptools</code>.
 
 
-See <a href="site:jcc/documentation/install">installation</a> for more
+See <a href="install.html">installation</a> for more
 information and operating system specific notes.
 
 ##Invoking JCC
@@ -580,7 +580,7 @@ Exceptions that occur in the Python VM and that escape to the Java
 VM, as for example can happen in Python extensions (see topic below)
 are reported to the Java VM as a <code>RuntimeException</code> or as
 a <code>PythonException</code> when using shared
-mode. See <a href="site:jcc/documentation/install">installation
+mode. See <a href="install.html">installation
 instructions</a> for more information about shared mode.
 
 
@@ -701,7 +701,7 @@ call <code>super()</code> on these methods from Python as well.
 
 There are a number of extension examples available in PyLucene's test
 <a href="http://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/test">suite</a>
-and <a href="site:documentation/readme">samples</a>.
+and <a href="http://svn.apache.org/viewvc/lucene/pylucene/trunk/samples">samples</a>.
 
 ##Embedding a Python VM in a Java VM
 
@@ -712,7 +712,7 @@ Following are the steps and constraints to follow to achieve this:
 
 - 
 JCC must be built in shared mode.  See
-<a href="site:jcc/documentation/install">installation
+<a href="install.html">installation
 instructions</a> for more information about shared mode.
 Note that for this use on Mac OS X, JCC must also be built
 with the link flags <code>"-framework", "Python"</code> in
