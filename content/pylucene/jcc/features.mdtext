@@ -1,7 +1,7 @@
 
 ## Warning    
 *Before calling any PyLucene API that requires the Java VM, start it by
-calling <code>initVM(classpath, ...)</code>. More about this function
+calling <i>initVM(classpath, ...)</i>. More about this function
 in <a href="#api">here</a>.*
 
 ##Installing JCC
@@ -9,7 +9,7 @@ in <a href="#api">here</a>.*
 JCC is a Python extension written in Python and C++. It requires a
 Java Runtime Environment (JRE) to operate as it uses Java's
 reflection APIs to do its work. It is built and installed
-via <code>distutils</code> or <code>setuptools</code>.
+via <i>distutils</i> or <i>setuptools</i>.
 
 
 See <a href="install.html">installation</a> for more
@@ -21,16 +21,13 @@ JCC is installed as a package and how to invoke it depends on the
 Python version used:
 
 
-- python 2.7: <code>python -m jcc</code>
-- python 2.6: <code>python -m jcc.__main__</code>
-- python 2.5: <code>python -m jcc</code>
+- python 2.7: <b>python -m jcc</b>
+- python 2.6: <b>python -m jcc.__main__</b>
+- python 2.5: <b>python -m jcc</b>
 - python 2.4:
-
-- no setuptools: <code>python </code><em><code>site-packages</code></em><code>/jcc/__init__.py</code>
-- with setuptools: <code>python </code><em><code>site-packages</code></em>/<em><code>jcc egg directory</code></em><code>/jcc/__init__.py</code>
-
-
-- python 2.3: <code>python </code><em><code>site-packages</code></em>/<em><code>jcc egg directory</code></em><code>/jcc/__init__.py</code>
+    - no setuptools: <b>python <i>site-packages</i>/jcc/__init__.py</b>
+    - with setuptools: <b>python <i>site-packages</i>/<i>jcc egg directory</i>/jcc/__init__.py</b>
+- python 2.3: <b>python <i>site-packages</i>/<i>jcc egg directory</i>/jcc/__init__.py</b>
 
 ##Generating C++ and Python wrappers with JCC
 
@@ -51,7 +48,7 @@ type</a>.
 
 
 JCC generates wrappers for all public classes that are requested by
-name on the command line or via the <code>--jar</code> command line
+name on the command line or via the <i>--jar</i> command line
 argument. It generates wrapper methods for all public methods and
 fields on these classes whose return type and parameter types are
 found in one of the following ways:
@@ -63,7 +60,7 @@ found in one of the following ways:
 interfaces 
 
 - the type is available from one of the packages listed via the
-<code>--package</code> command line argument
+<i>--package</i> command line argument
 
 
 
@@ -77,10 +74,10 @@ runaway transitive closures of type dependencies.
 
 
 JCC generates property accessors for a property
-called <em><code>field</code></em> when it finds Java methods
-named <code>set</code><em><code>Field</code></em><code>(value)</code>,
-<code>get</code><em><code>Field</code></em><code>()</code> or
-<code>is</code><em><code>Field</code></em><code>()</code>.
+called <i>field</i> when it finds Java methods
+named <i>setField(value)</i>,
+<i>getField()</i> or
+<i>isField()</i>.
 
 
 The C++ wrappers are declared in a C++ namespace structure that
@@ -168,7 +165,7 @@ JCC generates one large C++ file containing the source code for all
 wrapper classes.
 
 
-Using the <code>--files</code> command line argument, this behaviour
+Using the <i>--files</i> command line argument, this behaviour
 can be tuned to workaround various limits:<br/>
 for example:
 
@@ -183,26 +180,26 @@ for example:
 <code>--files separate</code>
 
 
-The <code>--prefix</code> and <code>--root</code> arguments are
-passed through to <code>distutils</code>' <code>setup()</code>.
+The <i>--prefix</i> and <i>--root</i> arguments are
+passed through to <i>distutils</i>' <i>setup()</i>.
 
 ##Classpath considerations
 
 When generating wrappers for Python, the JAR files passed to JCC
-via <code>--jar</code> are copied into the resulting Python extension
+via <i>--jar</i> are copied into the resulting Python extension
 egg as resources and added to the extension
-module's <code>CLASSPATH</code> variable. Classes or JAR files that
+module's <i>CLASSPATH</i> variable. Classes or JAR files that
 are required by the classes contained in the argument JAR files need
-to be made findable via JCC's <code>--classpath</code> command line
+to be made findable via JCC's <i>--classpath</code> command line
 argument. At runtime, these need to be appended to the
-extension's <code>CLASSPATH</code> variable before starting the VM
-with <code>initVM(CLASSPATH)</code>.
+extension's <i>CLASSPATH</i> variable before starting the VM
+with <i>initVM(CLASSPATH)</i>.
 
 
 To have such required jar files also automatically copied into
 resulting Python extension egg and added to the classpath at build
-and runtime, use the <code>--include</code> option. This option
-works like the <code>--jar</code> option except that no wrappers are
+and runtime, use the <i>--include</i> option. This option
+works like the <i>--jar</i> option except that no wrappers are
 generated for the classes contained in them unless they're
 explicitely named on the command line. 
 
@@ -211,31 +208,31 @@ When more than one JCC-built extension module is going to be used in
 the same Python VM and these extension modules share Java classes,
 only one extension module should be generated with wrappers for these
 shared classes. The other extension modules must be built by importing
-the one with the shared classes by using the <code>--import</code>
+the one with the shared classes by using the <i>--import</i>
 command line parameter. This ensures that only one copy of the
 wrappers for the shared classes are generated and that they are
 compatible among all extension modules sharing them.
 
 
-##Using <code>distutils</code> vs <code>setuptools</code>
+##Using <i>distutils</i> vs <i>setuptools</i>
 
 By default, when building a Python extension,
-if <code>setuptools</code> is found to be installed, it is used
-over <code>distutils</code>. If you want to force the use
-of <code>distutils</code> over <code>setuptools</code>, use
-the <code>--use-distutils</code> command line argument.
+if <i>setuptools</i> is found to be installed, it is used
+over <i>distutils</i>. If you want to force the use
+of <i>distutils</i> over <i>setuptools</i>, use
+the <i>--use-distutils</i> command line argument.
 
 
 ##Distributing an egg
 
-The <code>--bdist</code> option can be used to ask JCC to
-invoke <code>distutils</code> with <code>bdist</code>
-or <code>setuptools</code>
-with <code>bdist_egg</code>. If <code>setuptools</code> is used,
+The <i>--bdist</i> option can be used to ask JCC to
+invoke <i>distutils</i> with <i>bdist</i>
+or <i>setuptools</i>
+with <i>bdist_egg</i>. If <i>setuptools</i> is used,
 the resulting egg has to be installed with the
-<a href="http://peak.telecommunity.com/DevCenter/EasyInstall"><code>easy_install</code></a>
+<a href="http://peak.telecommunity.com/DevCenter/EasyInstall"><i>easy_install</i></a>
 installer which is normally part of a Python installation that
-includes <code>setuptools</code>.
+includes <i>setuptools</i>.
 
 
 ##JCC's runtime API functions
@@ -250,31 +247,31 @@ options, it is not automatically started when the resulting Python
 extension module is loaded into the Python interpreter.
 
 
-Instead, the <code>initVM()</code> function must be called from the
+Instead, the <i>initVM()</i> function must be called from the
 main thread before using any of the wrapped classes. It takes the
 following keyword arguments:
 
 - 
-<code>classpath</code><br/>
+<i>classpath</i><br/>
 A string containing one or more directories or jar files for the
 Java VM to search for classes. Every Python extension produced by
-JCC exports a <code>CLASSPATH</code> variable that is hardcoded to
+JCC exports a <i>CLASSPATH</i> variable that is hardcoded to
 the jar files that it was produced from. A copy of each jar file
 is installed as a resource file with the extension when JCC is
-invoked with the <code>--install</code> command line argument. 
+invoked with the <i>--install</i> command line argument. 
 This parameter is optional and defaults to the
-<code>CLASSPATH</code> string exported by the module
-<code>initVM</code> is imported from.
+<i>CLASSPATH</i> string exported by the module
+<i>initVM</i> is imported from.
 <pre><code>
     >>> import lucene
     >>> lucene.initVM(classpath=lucene.CLASSPATH)
 </code></pre>
 
 - 
-<code>initialheap</code><br/>
+<i>initialheap</i><br/>
 The initial amount of Java heap to start the Java VM with. This
 argument is a string that follows the same syntax as the
-similar <code>-Xms</code> java command line argument.
+similar <i>-Xms</i> java command line argument.
 <pre><code>
     >>> import lucene
     >>> lucene.initVM(initialheap='32m')
@@ -283,19 +280,19 @@ similar <code>-Xms</code> java command line argument.
 </code></pre>
 
 - 
-<code>maxheap</code><br/>
+<i>maxheap</i><br/>
 The maximum amount of Java heap that could become available to the
 Java VM. This argument is a string that follows the same syntax as
-the similar <code>-Xmx</code> java command line argument.
+the similar <i>-Xmx</i> java command line argument.
 
 - 
-<code>maxstack</code><br/>
+<i>maxstack</i><br/>
 The maximum amount of stack space that available to the Java
 VM. This argument is a string that follows the same syntax as the
-similar <code>-Xss</code> java command line argument.
+similar <i>-Xss</i> java command line argument.
 
 - 
-<code>vmargs</code><br/>
+<i>vmargs</i><br/>
 A string of comma separated additional options to pass to the VM
 startup rountine. These are passed through as-is. For example:
 <pre><code>
@@ -304,20 +301,20 @@ startup rountine. These are passed through as-is. For example:
 </code></pre>
 
 
-The <code>initVM()</code> and <code>getVMEnv()</code> functions
+The <i>initVM()</i> and <i>getVMEnv()</i> functions
 return a JCCEnv object that has a few utility methods on it:
 
 
 - 
-<code>attachCurrentThread(name, asDaemon)</code><br/>
+<i>attachCurrentThread(name, asDaemon)</i><br/>
 Before a thread created in Python or elsewhere but not in the Java
 VM can be used with the Java VM, this method needs to be
 invoked. The two arguments it takes are optional and
 self-explanatory.
 
 - 
-<code>detachCurrentThread()</code>
-The opposite of <code>attachCurrentThread()</code>. This method
+<i>detachCurrentThread()</i>
+The opposite of <i>attachCurrentThread()</i>. This method
 should be used with extreme caution as Python's and java VM's
 garbage collectors may use a thread detached too early causing a
 system crash. The utility of this method seems dubious at the
@@ -325,16 +322,16 @@ moment.
 
 
 
-There are several differences between JNI's <code>findClass()</code>
-and Java's <code>Class.forName()</code>:
+There are several differences between JNI's <i>findClass()</i>
+and Java's <i>Class.forName()</i>:
 
 
 - 
 className is a '/' separated string of names
 
 - 
-the class loaders are different, <code>findClass()</code> may find
-classes that <code>Class.forName()</code> won't.
+the class loaders are different, <i>findClass()</i> may find
+classes that <i>Class.forName()</i> won't.
 
 
 
@@ -358,7 +355,7 @@ For example:
 Many Java APIs are declared to return types that are less specific
 than the types actually returned. In Java 1.5, this is worked around
 with type parameters. JCC generates code to heed type parameters
-unless the <code>--no-generics</code> is used. See next section for
+unless the <i>--no-generics</i> is used. See next section for
 details on Java generics support.
 
 
@@ -367,11 +364,11 @@ regular C casting operator.
 
 
 In Python each wrapped class has a class method
-called <code>cast_</code> that implements the same functionality.
+called <i>cast_</i> that implements the same functionality.
 
 
 Similarly, each wrapped class has a class method
-called <code>instance_</code> that tests whether the wrapped java
+called <i>instance_</i> that tests whether the wrapped java
 instance is of the given type. For example:
 
 <pre><code>
@@ -384,27 +381,27 @@ instance is of the given type. For example:
 ##Handling generic classes
 
 Java 1.5 added support for parameterized types. JCC generates code
-to heed type parameters unless the <code>--no-generics</code>
+to heed type parameters unless the <i>--no-generics</i>
 command line parameter is used. Java type parameterization is a
 runtime feature. The same class is used for all its
 parameterizations. Similarly, JCC wrapper objects all use the same
 class but store type parameterizations on instances and make them
-accessible as a tuple via the <code>parameters_</code> property.
+accessible as a tuple via the <i>parameters_</i> property.
 
 
-For example, an <code>ArrayList&lt;Document&gt;</code> instance,
-has <code>(&lt;type 'Document'&gt;,)</code>
-for <code>parameters_</code> and its <code>get()</code> method uses
+For example, an <i>ArrayList&lt;Document&gt;</i> instance,
+has <i>(&lt;type 'Document'&gt;,)</i>
+for <i>parameters_</i> and its <i>get()</i> method uses
 that type parameter to wrap its return values.
 
 
 To allocate an instance of a generic Java class with specific type
-parameters use the <code>of_()</code> method. This method accepts
+parameters use the <i>of_()</i> method. This method accepts
 one or more Python wrapper classes to use as type parameters. For
-example, <code>java.util.ArrayList&lt;E&gt;</code> is declared to
-accept one type parameter. Its wrapper's <code>of_()</code> method
+example, <i>java.util.ArrayList&lt;E&gt;</i> is declared to
+accept one type parameter. Its wrapper's <i>of_()</i> method
 hence accepts one parameter, a Python class, to use as type
-parameter for the return type of its <code>get()</code> method, among
+parameter for the return type of its <i>get()</i> method, among
 others: 
 
 <pre><code>
@@ -421,7 +418,7 @@ others:
 
 The use of type parameters is, of course, optional. A generic Java
 class can still be used as before, without type parameters.
-Downcasting from <code>Object</code> is then necessary:  
+Downcasting from <i>Object</i> is then necessary:  
 
 <pre><code>
     >>> a = ArrayList()
@@ -440,20 +437,20 @@ Downcasting from <code>Object</code> is then necessary:
 ##Handling arrays
 
 Java arrays are wrapped with a C++ JArray
-template. The <code>[]</code> is available for read
-access. This template, <code>JArray&lt;T&gt;</code>, accomodates all
-java primitive types, <code>jstring</code>, <code>jobject</code> and
+template. The <i>[]</i> is available for read
+access. This template, <i>JArray&lt;T&gt;</i>, accomodates all
+java primitive types, <i>jstring</i>, <i>jobject</i> and
 wrapper class arrays.
 
 
-Java arrays are returned to Python in a <code>JArray</code> wrapper
+Java arrays are returned to Python in a <i>JArray</i> wrapper
 instance that implements the Python sequence protocol. It is
 possible to change an array's elements but not to change an array's
 size.
 
 
 To convert a char array to a Python string use
-a <code>''.join(array)</code> construct.
+a <i>''.join(array)</i> construct.
 
 
 Any Java method expecting an array can be called with the corresponding
@@ -472,26 +469,26 @@ forms:
     # the resulting Java int array contains the ints in the sequence
 </code></pre>
 
-Instead of <code>'int'</code>, you may also use one
-of <code>'object'</code>, <code>'string'</code>, <code>'bool'</code>,
-<code>'byte'</code>, <code>'char'</code>, <code>'double'</code>,
-<code>'float'</code>, <code>'long'</code> and <code>'short'</code>
+Instead of <i>'int'</i>, you may also use one
+of <i>'object'</i>, <i>'string'</i>, <i>'bool'</i>,
+<i>'byte'</i>, <i>'char'</i>, <i>'double'</i>,
+<i>'float'</i>, <i>'long'</i> and <i>'short'</i>
 to create an array of the corresponding type.
 
 
 Because there is only one wrapper class for object arrays,
-the <code>JArray('object')</code> type's constructor takes a second
+the <i>JArray('object')</i> type's constructor takes a second
 argument denoting the class of the object elements. This argument is
-optional and defaults to <code>Object</code>.
+optional and defaults to <i>Object</i>.
 
 
-As with the <code>Object</code> types, the <code>JArray</code> types
-also include a <code>cast_</code> method. This method becomes useful
+As with the <i>Object</i> types, the <i>JArray</i> types
+also include a <i>cast_</i> method. This method becomes useful
 when the array returned to Python is wrapped as a
-plain <code>Object</code>. This is the case, for example, with
+plain <i>Object</i>. This is the case, for example, with
 nested arrays since there is no distinct Python type for every
 different java object array class - all java object arrays are
-wrapped by <code>JArray('object')</code>. For example:
+wrapped by <i>JArray('object')</i>. For example:
 
 <pre><code>
 # cast obj to an array of ints
@@ -532,7 +529,7 @@ array type it is being cast to.
 </code></pre>
 
 To verify that a Java object is of a given array type, use
-the <code>instance_()</code> method available on the array
+the <i>instance_()</i> method available on the array
 type. This is not the same as verifying that it is assignable with
 elements of a given type. For example, using the arrays created
 above:
@@ -562,24 +559,24 @@ above:
 ##Exception reporting
 
 Exceptions that occur in the Java VM and that escape to C++ are
-reported as a <code>javaError</code> C++ exception. When using
+reported as a <i>javaError</i> C++ exception. When using
 Python wrappers, the C++ exceptions are handled and reported with
 Python exceptions. When using C++ only, failure to handle the
 exception in your C++ code will cause the process to crash.
 
 
 Exceptions that occur in the Java VM and that escape to the Python
-VM are reported with a <code>JavaError</code> python exception
-object. The <code>getJavaException()</code> method can be called
-on <code>JavaError</code> objects to obtain the original java
+VM are reported with a <i>JavaError</i> python exception
+object. The <i>getJavaException()</i> method can be called
+on <i>JavaError</i> objects to obtain the original java
 exception object wrapped as any other Java object. This Java object
 can be used to obtain a Java stack trace for the error, for example.
 
 
 Exceptions that occur in the Python VM and that escape to the Java
 VM, as for example can happen in Python extensions (see topic below)
-are reported to the Java VM as a <code>RuntimeException</code> or as
-a <code>PythonException</code> when using shared
+are reported to the Java VM as a <i>RuntimeException</i> or as
+a <i>PythonException</i> when using shared
 mode. See <a href="install.html">installation
 instructions</a> for more information about shared mode.
 
@@ -588,7 +585,7 @@ instructions</a> for more information about shared mode.
 
 JCC makes it relatively easy to extend a Java class from
 Python. This is done via an intermediary class written in Java that
-implements a special method called <code>pythonExtension()</code>
+implements a special method called <i>pythonExtension()</i>
 and that declares a number of native methods that are to be
 implemented by the actual Python extension.
 
@@ -636,24 +633,24 @@ public class PythonAnalyzer extends Analyzer {
 }
 </code></pre>
 
-The <code>pythonExtension()</code> methods is what makes this class
+The <i>pythonExtension()</i> methods is what makes this class
 recognized as an extension class by JCC. They should be included
 verbatim as above along with the declaration of
-the <code>pythonObject</code> instance variable.
+the <i>pythonObject</i> instance variable.
 
 
-The implementation of the native <code>pythonDecRef()</code> method
+The implementation of the native <i>pythonDecRef()</i> method
 is generated by JCC and is necessary because it seems
-that <code>finalize()</code> cannot itself be native. Since an
+that <i>finalize()</i> cannot itself be native. Since an
 extension class wraps the Python instance object it's going to be
 calling methods on, its ref count needs to be decremented when this
 Java wrapper class disappears. A declaration
-for <code>pythonDecRef()</code> and a <code>finalize()</code>
+for <i>pythonDecRef()</i> and a <i>finalize()</i>
 implementation should always be included verbatim as above.
 
 
 Really, the only non boilerplate user input is the constructor of the
-class and the other native methods, <code>tokenStream()</code> in
+class and the other native methods, <i>tokenStream()</i> in
 the example above.
 
 
@@ -688,7 +685,7 @@ class _analyzer(PythonAnalyzer):
       return _tokenStream()
 </code></pre>
 
-When an <code>__init__()</code> is declared, <code>super()</code>
+When an <i>__init__()</i> is declared, <i>super()</i>
 must be called or else the Java wrapper class will not know about
 the Python instance it needs to invoke.
 
@@ -696,7 +693,7 @@ the Python instance it needs to invoke.
 When a java extension class declares native methods for which there
 are public or protected equivalents available on the parent class,
 JCC generates code that makes it possible to
-call <code>super()</code> on these methods from Python as well.
+call <i>super()</i> on these methods from Python as well.
 
 
 There are a number of extension examples available in PyLucene's test
@@ -715,8 +712,8 @@ JCC must be built in shared mode.  See
 <a href="install.html">installation
 instructions</a> for more information about shared mode.
 Note that for this use on Mac OS X, JCC must also be built
-with the link flags <code>"-framework", "Python"</code> in
-the <code>LFLAGS</code> value.
+with the link flags <i>"-framework", "Python"</i> in
+the <i>LFLAGS</i> value.
 
 - 
 As described in the previous section, define one or more Java
@@ -726,41 +723,41 @@ of these classes implement the bridges into the Python VM from
 Java.
 
 - 
-The <code>org.apache.jcc.PythonVM</code> Java class is going be
+The <i>org.apache.jcc.PythonVM</i> Java class is going be
 used from the Java VM's main thread to initialize the embedded
 Python VM. This class is installed inside the JCC egg under the
-<code>jcc/classes</code> directory and the full path to this
-directory must be on the Java <code>CLASSPATH</code>.
+<i>jcc/classes</i> directory and the full path to this
+directory must be on the Java <i>CLASSPATH</i>.
 
 - 
 The JCC egg directory contains the JCC shared runtime library - not
 the JCC Python extension shared library - but a library
-called <code>libjcc.dylib</code> on Mac OS X, 
-<code>libjcc.so</code> on Linux or <code>jcc.dll</code> on Windows. 
+called <i>libjcc.dylib</i> on Mac OS X, 
+<i>libjcc.so</i> on Linux or <i>jcc.dll</i> on Windows. 
 This directory must be added to the Java VM's shared library path
-via the <code>-Djava.library.path</code> command line parameter.
+via the <i>-Djava.library.path</i> command line parameter.
 
 - 
 In the Java VM's main thread, initialize the Python VM by
-calling its static <code>start()</code> method passing it a
+calling its static <i>start()</i> method passing it a
 Python program name string and optional start-up arguments
 in a string array that will be made accessible in Python via
-<code>sys.argv</code>.  Note that the program name string is
+<i>sys.argv</i>.  Note that the program name string is
 purely informational, and is not used by the
-<code>start()</code> code other than to initialize that
+<i>start()</i> code other than to initialize that
 Python variable.  This method returns the singleton PythonVM
-instance to be used in this Java VM. <code>start()</code>
+instance to be used in this Java VM. <i>start()</i>
 may be called multiple times; it will always return the same
 singleton instance.  This instance may also be retrieved at any
-later time via the static <code>get()</code> method defined
-on the <code>org.apache.jcc.PythonVM</code> class.
+later time via the static <i>get()</i> method defined
+on the <i>org.apache.jcc.PythonVM</i> class.
 
 - 
 Any Java VM thread that is going to be calling into the Python VM
 should start with acquiring a reference to the Python thread state
-object by calling <code>acquireThreadState()</code> method on the
+object by calling <i>acquireThreadState()</i> method on the
 Python VM instance. It should then release the Python thread state
-before terminating by calling <code>releaseThreadState()</code>. 
+before terminating by calling <i>releaseThreadState()</i>. 
 Calling these methods is optional but strongly recommended as it
 ensures that Python is not creating and throwing away a thread
 state everytime the Python VM is entered and exited from a given
@@ -769,14 +766,14 @@ Java VM thread.
 - 
 Any Java VM thread may instantiate a Python object for which an
 extension class was defined in Java as described in the previous
-section by calling the <code>instantiate()</code> method on the 
+section by calling the <i>instantiate()</i> method on the 
 PythonVM instance. This method takes two string parameters, the
 name of the Python module and the name of the Python class to
-import and instantiate from it. The <code>__init__()</code>
+import and instantiate from it. The <i>__init__()</i>
 constructor on this class must be callable without any parameters
-and, if defined, must call <code>super()</code> in order to
-initialize the Java side. The <code>instantiate()</code> method is
-declared to return <code>java.lang.Object</code> but the return
+and, if defined, must call <i>super()</i> in order to
+initialize the Java side. The <i>instantiate()</i> method is
+declared to return <i>java.lang.Object</i> but the return
 value is actually an instance of the Java extension class used and
 must be downcast to it.
 
@@ -788,26 +785,26 @@ classes can be made iterable:
 
 - 
 When a class declares to
-implement <code>java.lang.Iterable</code>, JCC makes it iterable
+implement <i>java.lang.Iterable</i>, JCC makes it iterable
 from Python.
 
 - 
-When a Java class declares a method called <code>next()</code>
+When a Java class declares a method called <i>next()</i>
 with no arguments returning an object type, this class is made
-iterable. Its <code>next()</code> method is assumed to terminate
-iteration by returning <code>null</code>.
+iterable. Its <i>next()</i> method is assumed to terminate
+iteration by returning <i>null</i>.
 
 
 
 JCC generates a Python mapping get method for a class when requested
-to do so via the <code>--mapping</code> command line option which
+to do so via the <i>--mapping</i> command line option which
 takes two arguments, the class to generate the mapping get for and
 the Java method to use. The method is specified with its name
 followed by ':' and its Java
 <a href="http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16432">signature</a>.
 
 
-For example, <code>System.getProperties()['java.class.path']</code> is
+For example, <i>System.getProperties()['java.class.path']</i> is
 made possible by:
 
 <pre><code>
@@ -819,7 +816,7 @@ made possible by:
 </code></pre>
 
 JCC generates Python sequence length and get methods for a class
-when requested to do so via the <code>--sequence</code> command line
+when requested to do so via the <i>--sequence</i> command line
 option which takes three arguments, the class to generate the
 sequence length and get for and the two java methods to use. The
 methods are specified with their name followed by ':' and their Java
