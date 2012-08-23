@@ -22,12 +22,12 @@ Python version used:
 
 
 - python 2.7: <b>python -m jcc</b>
-- python 2.6: <b>python -m jcc.__main__</b>
+- python 2.6: <b>python -m jcc.\_\_main\_\_</b>
 - python 2.5: <b>python -m jcc</b>
 - python 2.4:
-    - no setuptools: <b>python <i>site-packages</i>/jcc/__init__.py</b>
-    - with setuptools: <b>python <i>site-packages</i>/<i>jcc egg directory</i>/jcc/__init__.py</b>
-- python 2.3: <b>python <i>site-packages</i>/<i>jcc egg directory</i>/jcc/__init__.py</b>
+    - no setuptools: <b>python <i>site-packages</i>/jcc/\_\_init\_\_.py</b>
+    - with setuptools: <b>python <i>site-packages</i>/<i>jcc egg directory</i>/jcc/\_\_init\_\_.py</b>
+- python 2.3: <b>python <i>site-packages</i>/<i>jcc egg directory</i>/jcc/\_\_init\_\_.py</b>
 
 ##Generating C++ and Python wrappers with JCC
 
@@ -190,7 +190,7 @@ via <i>--jar</i> are copied into the resulting Python extension
 egg as resources and added to the extension
 module's <i>CLASSPATH</i> variable. Classes or JAR files that
 are required by the classes contained in the argument JAR files need
-to be made findable via JCC's <i>--classpath</code> command line
+to be made findable via JCC's <i>--classpath</i> command line
 argument. At runtime, these need to be appended to the
 extension's <i>CLASSPATH</i> variable before starting the VM
 with <i>initVM(CLASSPATH)</i>.
@@ -685,7 +685,7 @@ class _analyzer(PythonAnalyzer):
       return _tokenStream()
 </code></pre>
 
-When an <i>__init__()</i> is declared, <i>super()</i>
+When an <i>\_\_init\_\_()</i> is declared, <i>super()</i>
 must be called or else the Java wrapper class will not know about
 the Python instance it needs to invoke.
 
@@ -769,7 +769,7 @@ extension class was defined in Java as described in the previous
 section by calling the <i>instantiate()</i> method on the 
 PythonVM instance. This method takes two string parameters, the
 name of the Python module and the name of the Python class to
-import and instantiate from it. The <i>__init__()</i>
+import and instantiate from it. The <i>\_\_init\_\_()</i>
 constructor on this class must be callable without any parameters
 and, if defined, must call <i>super()</i> in order to
 initialize the Java side. The <i>instantiate()</i> method is
