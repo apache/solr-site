@@ -87,6 +87,5 @@ RedirectMatch Permanent ^/tika/(.*)$ http://tika.apache.org/$1
 # promote Nutch to TLP
 RedirectMatch Permanent ^/nutch/(.*)$ http://nutch.apache.org/$1
 
-# Lucy has moved to the incubator, 
-# site strcuture has changed, do don't use $1 in redirect...
-RedirectMatch Permanent ^/lucy/(.*)$ http://incubator.apache.org/lucy/
+# Lucy has moved, site strcuture has changed, do don't use $1 in redirect...
+RedirectMatch Permanent ^/lucy/(.*)$ http://lucy.apache.org/
