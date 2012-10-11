@@ -1,5 +1,26 @@
 # News
 
+## 12 October 2012 - Lucene Core 4.0 and Solr 4.0 Available
+
+The Lucene PMC is pleased to announce the availability of Apache Lucene 4.0 and Apache Solr 4.0.
+
+Lucene can be downloaded from <a href="/core/mirrors-core-latest-redir.html">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a> and Solr can be downloaded from <a href="/solr/mirrors-solr-latest-redir.html">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
+
+Noteworthy changes since Lucene 4.0-BETA:
+ 
+* A new "Block" PostingsFormat offering improved search performance and index compression. This will likely become the default format in a future release.
+* All non-default codec implementations were moved to a separated codecs module. Just add lucene-codecs-4.0.0.jar to your classpath to test these out.
+* Payloads can be optionally stored on the term vectors.
+* Many bugfixes and optimizations.
+
+Noteworthy changes since Solr 4.0-BETA:
+
+* New spatial field types with polygon support.
+* Various Admin UI improvements.
+* SolrCloud related performance optimizations in writing the the transaction log, PeerSync recovery, Leader election, and ClusterState caching.
+* Numerous bug fixes and optimizations.
+
+
 ##14 August 2012 - Lucene Core 4.0-BETA and Solr 4.0-BETA Available
 
 The Lucene PMC is pleased to announce the availability
