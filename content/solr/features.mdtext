@@ -1,12 +1,13 @@
 #Features
-Solr is a standalone enterprise search server with a REST-like API. You put documents in it (called "indexing") via XML, JSON or binary over HTTP. You query it via HTTP GET and receive XML, JSON, or binary results.
+Solr is a standalone enterprise search server with a REST-like API. You put documents in it (called "indexing") via XML, JSON, CSV or binary over HTTP. You query it via HTTP GET and receive XML, JSON, CSV or binary results.
 
 -  Advanced Full-Text Search Capabilities
 -  Optimized for High Volume Web Traffic
 -  Standards Based Open Interfaces - XML,JSON and HTTP
 -  Comprehensive HTML Administration Interfaces
 -  Server statistics exposed over JMX for monitoring
--  Scalability - Efficient Replication to other Solr Search Servers
+-  Linearly scalable, auto index replication, auto failover and recovery
+-  Near Real-time indexing
 -  Flexible and Adaptable with XML configuration
 -  Extensible Plugin Architecture
 
@@ -15,14 +16,14 @@ Solr is a standalone enterprise search server with a REST-like API. You put docu
 -  A Real Data Schema, with Numeric Types, Dynamic Fields, Unique Keys
 -  Powerful Extensions to the Lucene Query Language
 -  Faceted Search and Filtering
--  Geospatial Search
+-  Geospatial Search with support for multiple points per document and geo polygons
 -  Advanced, Configurable Text Analysis
 -  Highly Configurable and User Extensible Caching
 -  Performance Optimizations
 -  External Configuration via XML
--  An Administration Interface
+-  An AJAX based administration interface
 -  Monitorable Logging
--  Fast Incremental Updates and Index Replication
+-  Fast near real-time incremental indexing and index replication
 -  Highly Scalable Distributed search with sharded index across multiple hosts
 -  JSON, XML, CSV/delimited-text, and binary update formats
 -  Easy ways to pull in data from databases and XML files from local disk and HTTP sources
@@ -42,14 +43,15 @@ Solr is a standalone enterprise search server with a REST-like API. You put docu
 - Explicit types eliminates the need for guessing types of fields
 - External file-based configuration of stopword lists, synonym lists, and protected word lists
 - Many additional text analysis components including word splitting, regex and sounds-like filters
+- Pluggable similarity model per field
 
 ###Query
 
-- HTTP interface with configurable response formats (XML/XSLT, JSON, Python, Ruby, PHP, Velocity, binary)
+- HTTP interface with configurable response formats (XML/XSLT, JSON, Python, Ruby, PHP, Velocity, CSV, binary)
 - Sort by any number of fields, and by complex functions of numeric fields
 - Advanced DisMax query parser for high relevancy results from user-entered queries
 - Highlighted context snippets
-- Faceted Searching based on unique field values, explicit queries, date ranges, and numeric ranges
+- Faceted Searching based on unique field values, explicit queries, date ranges, numeric ranges or pivot
 - Multi-Select Faceting by tagging and selectively excluding filters
 - Spelling suggestions for user queries
 - More Like This suggestions for given document
@@ -62,6 +64,7 @@ numeric fields or query relevancy scores.
 - Combine queries derived from different syntaxes
 - Auto-suggest functionality for completing user queries
 - Allow configuration of top results for a query, overriding normal scoring and sorting
+- Simple join capability between two document types
 - Performance Optimizations
 
 ###Core
@@ -92,25 +95,27 @@ numeric fields or query relevancy scores.
 - Fast/small filter implementation
 - User level caching with autowarming support
 
-###Replication
+###SolrCloud
 
-- Efficient distribution of index parts that have changed
-- Pull strategy allows for easy addition of searchers
-- Configurable distribution interval allows tradeoff between timeliness and cache utilization
-- Replication and automatic reloading of configuration files
+- Centralized Apache ZooKeeper based configuration
+- Automated distributed indexing/sharding - send documents to any node and it will be forwarded to correct shard
+- Near Real-Time indexing with immediate push-based replication (also support for slower pull-based replication)
+- Transaction log ensures no updates are lost even if the documents are not yet indexed to disk
+- Automated query failover, index leader election and recovery in case of failure
+- No single point of failure
 
 ###Admin Interface
 
 - Comprehensive statistics on cache utilization, updates, and queries
 - Interactive schema browser that includes index statistics
 - Replication monitoring
+- SolrCloud dashboard with graphical cluster node status
 - Full logging control
 - Text analysis debugger, showing result of every stage in an analyzer
 - Web Query Interface w/ debugging output
 - Parsed query output
 - Lucene explain() document score detailing
-- explain score for documents outside of the requested range to debug why a given document wasn't ranked higher.
-
+- Explain score for documents outside of the requested range to debug why a given document wasn't ranked higher.
 
 
 
