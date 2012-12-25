@@ -1,5 +1,48 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 25 December 2012 - Apache Lucene 3.6.2 and Apache Solr 3.6.2 available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 3.6.2 and Apache Solr 3.6.2.
+
+This release is a bug fix release for version 3.6.1. It contains numerous
+bug fixes, optimizations, and improvements, some of which are highlighted
+below.
+
+Lucene can be downloaded from <a href="/core/mirrors-core-3x-redir.html?">http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>
+and Solr can be downloaded from <a href="/solr/mirrors-solr-3x-redir.html?">http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>
+
+See the CHANGES.txt file included with the release for a full list of
+details.
+
+Lucene 3.6.2 Release Highlights:
+
+- Fixed ArrayIndexOutOfBoundsException when the in-memory terms index
+  requires more than 2.1GB of RAM (billions of terms).
+
+- Fixed a bug in contrib/queryparser's parsing of boolean queries.
+
+- Fixed BooleanScorer2 to return the correct freq() when using the scorer
+  visitor API.
+
+- Fixed IndexWriter RAM accounting bug that would cause it to flush too
+  early when using many different field names.
+
+- Several other minor bugfixes: scoring bugs when using a custom coord(),
+  a rare IndexWriter thread-safety issue, and fixes to the faceting and
+  highlighting modules.
+
+Solr 3.6.2 Release Highlights:
+
+- Fixed ConcurrentModificationException during highlighting, if all fields
+  were requested.
+
+- Fixed edismax queryparser to apply minShouldMatch to implicit boolean queries.
+
+- Several bugfixes to the DataImportHandler.
+
+- Bug fixes from Apache Lucene 3.6.2.
+
 ## 12 October 2012 - Lucene Core 4.0 and Solr<span style="vertical-align: super; font-size: xx-small">TM</span> 4.0 Available
 
 The Lucene PMC is pleased to announce the availability of Apache Lucene 4.0 and Apache Solr 4.0.
