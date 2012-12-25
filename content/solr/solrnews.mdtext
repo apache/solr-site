@@ -2,6 +2,38 @@
 
 # Solr<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 25 December 2012 - Apache Solr 3.6.2 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 3.6.2.
+
+Solr is the popular, blazing fast open source enterprise search platform
+from the Apache Lucene project. Its major features include powerful full-text
+search, hit highlighting, faceted search, dynamic clustering, database
+integration, rich document (e.g., Word, PDF) handling, and geospatial
+search.
+Solr is highly scalable, providing distributed search and index replication,
+and it powers the search and navigation features of many of the world's
+largest internet sites.
+
+This release is a bug fix release for version 3.6.1. It contains numerous
+bug fixes, optimizations, and improvements, some of which are highlighted
+below.  The release is available for immediate download at:
+  <a href="/solr/mirrors-solr-3x-redir.html?">http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>.
+
+See the CHANGES.txt file included with the release for a full list of
+details.
+
+Solr 3.6.2 Release Highlights:
+
+- Fixed ConcurrentModificationException during highlighting, if all fields
+  were requested.
+
+- Fixed edismax queryparser to apply minShouldMatch to implicit boolean queries.
+
+- Several bugfixes to the DataImportHandler.
+
+- Bug fixes from Apache Lucene 3.6.2.
+
 ## 12 October 2012 - Apache Solr 4.0 Available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 4.0. 
