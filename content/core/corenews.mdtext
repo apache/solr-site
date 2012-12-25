@@ -1,5 +1,38 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 25 December 2012 - Lucene Core 3.6.2 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 3.6.2.
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+This release is a bug fix release for version 3.6.1. It contains numerous
+bug fixes, optimizations, and improvements, some of which are highlighted
+below.  The release is available for immediate download at:
+   <a href="/core/mirrors-core-3x-redir.html?">http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>.
+
+See the CHANGES.txt file included with the release for a full list of
+details.
+
+Lucene 3.6.2 Release Highlights:
+
+- Fixed ArrayIndexOutOfBoundsException when the in-memory terms index 
+  requires more than 2.1GB of RAM (billions of terms).
+
+- Fixed a bug in contrib/queryparser's parsing of boolean queries.
+
+- Fixed BooleanScorer2 to return the correct freq() when using the scorer
+  visitor API.
+
+- Fixed IndexWriter RAM accounting bug that would cause it to flush too
+  early when using many different field names.
+
+- Several other minor bugfixes: scoring bugs when using a custom coord(),
+  a rare IndexWriter thread-safety issue, and fixes to the faceting and 
+  highlighting modules.
+
 ## 12 October 2012 - Lucene Core 4.0 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 4.0
