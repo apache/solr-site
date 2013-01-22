@@ -25,8 +25,8 @@ RedirectMatch Permanent /solr/api/index.html$ /solr/documentation.html
 # Other pages can always be redirected to the "most current" released javadocs
 # using "temp" instead of permanent so crawlers know that they
 # might change again in the future
-RedirectMatch temp /solr/api/org/(.*) /solr/4_0_0/solr-core/org/$1
-RedirectMatch temp /solr/api/(.*) /solr/4_0_0/$1
+RedirectMatch temp /solr/api/org/(.*) /solr/4_1_0/solr-core/org/$1
+RedirectMatch temp /solr/api/(.*) /solr/4_1_0/$1
 
 # we no longer have a TLP mail.html page use 'core' for now
 RedirectMatch Permanent /mail.html /core/discussion.html

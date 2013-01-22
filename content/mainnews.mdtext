@@ -1,5 +1,155 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 22 January 2013 - Apache Lucene 4.1 and Apache Solr<span style="vertical-align: super; font-size: xx-small">TM</span> 4.1 available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 4.1 and Apache Solr 4.1.
+
+Lucene can be downloaded from <a href="/core/mirrors-core-latest-redir.html?"
+>http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>
+and Solr can be downloaded from <a href="/solr/mirrors-solr-latest-redir.html?"
+>http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>
+
+See the <a href="/core/4_1_0/changes/Changes.html">Lucene CHANGES.txt</a> and
+<a href="/solr/4_1_0/changes/Changes.html">Solr CHANGES.txt</a> files included
+with the release for a full list of details.
+
+### Highlights of the Lucene release include:
+
+- Lucene 4.1 has a new default codec (Lucene41Codec) based on the
+  previously-experimental "Block" indexing format for improved
+  performance, but also incorporating the functionality of "Appending"
+  and "Pulsing".
+
+- The default codec incorporates the optimization of Pulsing: terms
+  that appear in only one document (such as primary key/id fields) just
+  store the document id in the term dictionary instead of a pointer to
+  this document id in a separate file.
+
+- The default codec incorporates an efficient compressed stored fields
+  implementation that compresses chunks of documents together with LZ4.
+  (see
+  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene"
+  >http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
+
+- Lucene no longer seeks when writing files (all fields are written in
+  an append-only way). This means it works by default with append-only
+  streams, hdfs, etc.
+
+- New suggest implementations: AnalyzingSuggester, where the underlying
+  form (computed from a lucene Analyzer) used for suggestions is
+  separate from the returned text (see
+  <a href="http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html"
+  >http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html</a>),
+  and FuzzySuggester, which additionally allows for inexact matching on
+  the input.
+
+- Near-realtime support was added to the facet module.
+  (see <a href="http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html"
+  >http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html</a>)
+
+- New Highlighter (postingshighlighter) added to the highlighter
+  module.  (see
+  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html"
+  >http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>)
+
+- Added FilterStrategy to FilteredQuery for more flexibility in
+  filtered query execution.
+
+- Added CommonTermsQuery to speed up queries with very highly frequent
+  terms.  Term frequencies are efficiently detected at query time - no
+  index time preparation required.
+
+- Several bugfixes and optimizations since the 4.0 release.
+
+### Highlights of the Solr release include:
+
+SolrCloud enhancements (see <a href="http://wiki.apache.org/solr/SolrCloud"
+>http://wiki.apache.org/solr/SolrCloud</a>):
+* Simple multi-tenancy through enhanced document routing:
+  - The "compositeId" router is the default for collections with hash
+    based routing (i.e. when numShards=N is specified on collection
+    creation).
+  - Documents with ids sharing the same domain/prefix, e.g.
+    'customerB!', will be routed to the same shard, allowing for
+    efficient querying.  At query time, one can specify a "shard.keys"
+    parameter that lists the domains, e.g. 'shard.keys=customerB!', and
+    controls what shards the query is routed to.
+  - Collections that do not specify numShards at collection creation
+    time use custom sharding and default to the "implicit" router.
+    Document updates received by a shard will be indexed to that shard,
+    unless a "_shard_" parameter or document field names a different
+    shard.
+* Short circuiting for distributed search if a request only needs
+  to query a single shard.
+* Allow creating more than one shard per instance with the Collection
+  API.
+* Allow access to the collections API through CloudSolrServer without
+  referencing an existing collection.
+* Collection API: Support for specifying a list of Solr addresses to
+  spread a new collection across.
+* New and improved auto host detection strategy.
+* Numerous bug fixes and general hardening - it's recommended that all
+  Solr 4.0 SolrCloud users upgrade to 4.1.
+
+New features:
+* The majority of Solr's features, including replication, now work with
+  custom Directory and DirectoryFactory implementations.
+* Indexed term offsets, specifiable via a 'storeOffsetsWithPositions'
+  flag on field definitions in the schema.  Useful for highlighters.
+* Solr QParsers may now be directly invoked in the lucene query syntax
+  via localParams and without the _query_ magic field hack.
+  Example: foo AND {!term f=myfield v=$qq}
+* Solr now parses request parameters (from URL or sent with POST using
+  content-type application/x-www-form-urlencoded) in its dispatcher code.
+  It no longer relies on special configuration settings in Tomcat or other
+  web containers to enable UTF-8 encoding, which is mandatory for correct
+  Solr behaviour. Solr now works out of the box with e.g. Tomcat, JBoss,...
+* Directory IO rate limiting based on the IO context.
+* Distributed search support for MoreLikeThis.
+* Multi-core: On-demand core loading and LRU-based core unloading after
+  reaching a user-specified maximum number.
+* The new Solr 4 spatial fields now work with the {!geofilt} and {!bbox}
+  query parsers. The score local-param works too.
+* Extra statistics to RequestHandlers - 5 & 15-minute reqs/sec rolling
+  averages; median, 75th, 95th, 99th, 99.9th percentile request times.
+* PostingsHighlighter support (see
+  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html"
+  >http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>) 
+
+Admin UI improvements:
+* Internet Explorer is now supported
+* Enhanced readability of XML query response display in Query UI
+* Many improvements to DataImportHandler UI
+* Core creation and deletion now updates the main/left list of cores
+* Admin Cores UI now redirects to newly created core details
+* Deleted documents are calculated/displayed
+* Allow multiple Items to stay open on Plugins-Page 
+
+Storage improvements (thanks to the new Lucene 4.1 codec):
+* Faster search, in particular for rare terms such as primary key/id
+  fields.
+* Stored fields are compressed. (See
+  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene"
+  >http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
+
+DataImportHandler contrib module backwards-compatibility breaks:
+* These default to the "root" Locale, rather than the JVM default locale 
+  as before.
+  - NumberFormatTransformer & DateFormatTransformer
+  - "formatDate" evaluator 
+  - "dataimport.properties" file "last_index_time" property
+* These default to UTF-8 encoding, rather than the JVM default encoding 
+  as before.
+  - FileDataSource & FieldReaderDataSource  
+* These may require code changes to custom plug-ins
+  - The EvaluatorBag class was eliminated and its public/protected methods 
+    were moved to the Evaluator abstract class.
+  - The experimental DIHPropertiesWriter interface was renamed DIHProperties,
+    changed to an abstract class and given new signature.
+
+Solr 4.1 also includes numerous optimizations and bugfixes.
+
 ## 25 December 2012 - Apache Lucene 3.6.2 and Apache Solr 3.6.2 available
 
 The Lucene PMC is pleased to announce the availability
@@ -43,7 +193,7 @@ Solr 3.6.2 Release Highlights:
 
 - Bug fixes from Apache Lucene 3.6.2.
 
-## 12 October 2012 - Lucene Core 4.0 and Solr<span style="vertical-align: super; font-size: xx-small">TM</span> 4.0 Available
+## 12 October 2012 - Lucene Core 4.0 and Solr 4.0 Available
 
 The Lucene PMC is pleased to announce the availability of Apache Lucene 4.0 and Apache Solr 4.0.
 
