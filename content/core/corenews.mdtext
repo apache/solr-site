@@ -11,27 +11,12 @@ any application that requires full-text search, especially cross-platform.
 This release contains numerous bug fixes, optimizations, and
 improvements, some of which are highlighted below. The release
 is available for immediate download at:
-   <a href="/core/mirrors-core-latest-redir.html">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a>
+   <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
 
-See the <a href="/core/4_1_0/changes/Changes.html">CHANGES.txt</a> file included with the
+See the [CHANGES.txt](/core/4_1_0/changes/Changes.html) file included with the
 release for a full list of details.
 
 ### Lucene 4.1 Release Highlights:
-
-- Lucene 4.1 has a new default codec (Lucene41Codec) based on the
-  previously-experimental "Block" indexing format for improved
-  performance, but also incorporating the functionality of "Appending"
-  and "Pulsing".
-
-- The default codec incorporates the optimization of Pulsing: terms
-  that appear in only one document (such as primary key/id fields) just
-  store the document id in the term dictionary instead of a pointer to
-  this document id in a separate file.
-
-- The default codec incorporates an efficient compressed stored fields
-  implementation that compresses chunks of documents together with LZ4.
-  (see
-  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene">http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
 
 - Lucene no longer seeks when writing files (all fields are written in
   an append-only way). This means it works by default with append-only
@@ -40,16 +25,16 @@ release for a full list of details.
 - New suggest implementations: AnalyzingSuggester, where the underlying
   form (computed from a lucene Analyzer) used for suggestions is
   separate from the returned text (see
-  <a href="http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html">http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html</a>),
+  <http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html>),
   and FuzzySuggester, which additionally allows for inexact matching on
   the input.
 
 - Near-realtime support was added to the facet module.
-  (see <a href="http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html">http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html</a>)
+  (see <http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html>)
 
 - New Highlighter (postingshighlighter) added to the highlighter
   module.  (see
-  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html">http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>)
+  <http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html>)
 
 - Added FilterStrategy to FilteredQuery for more flexibility in
   filtered query execution.
@@ -72,7 +57,7 @@ any application that requires full-text search, especially cross-platform.
 This release is a bug fix release for version 3.6.1. It contains numerous
 bug fixes, optimizations, and improvements, some of which are highlighted
 below.  The release is available for immediate download at:
-   <a href="/core/mirrors-core-3x-redir.html?">http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>.
+   <http://lucene.apache.org/core/mirrors-core-3x-redir.html>.
 
 See the CHANGES.txt file included with the release for a full list of
 details.

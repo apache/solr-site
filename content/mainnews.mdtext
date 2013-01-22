@@ -5,11 +5,11 @@
 The Lucene PMC is pleased to announce the availability
 of Apache Lucene 4.1 and Apache Solr 4.1.
 
-Lucene can be downloaded from <a href="/core/mirrors-core-latest-redir.html?">http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>
-and Solr can be downloaded from <a href="/solr/mirrors-solr-latest-redir.html?">http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>
+Lucene can be downloaded from <http://lucene.apache.org/core/mirrors-core-3x-redir.html>
+and Solr can be downloaded from <http://lucene.apache.org/solr/mirrors-solr-3x-redir.html>
 
-See the <a href="/core/4_1_0/changes/Changes.html">Lucene CHANGES.txt</a> and
-<a href="/solr/4_1_0/changes/Changes.html">Solr CHANGES.txt</a> files included
+See the [Lucene CHANGES.txt](/core/4_1_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/4_1_0/changes/Changes.html) files included
 with the release for a full list of details.
 
 ### Highlights of the Lucene release include:
@@ -27,7 +27,7 @@ with the release for a full list of details.
 - The default codec incorporates an efficient compressed stored fields
   implementation that compresses chunks of documents together with LZ4.
   (see
-  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene">http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
+  <http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene>)
 
 - Lucene no longer seeks when writing files (all fields are written in
   an append-only way). This means it works by default with append-only
@@ -36,16 +36,16 @@ with the release for a full list of details.
 - New suggest implementations: AnalyzingSuggester, where the underlying
   form (computed from a lucene Analyzer) used for suggestions is
   separate from the returned text (see
-  <a href="http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html">http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html</a>),
+  <http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html>),
   and FuzzySuggester, which additionally allows for inexact matching on
   the input.
 
 - Near-realtime support was added to the facet module.
-  (see <a href="http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html">http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html</a>)
+  (see <http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html>)
 
 - New Highlighter (postingshighlighter) added to the highlighter
   module.  (see
-  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html">http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>)
+  <http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html>)
 
 - Added FilterStrategy to FilteredQuery for more flexibility in
   filtered query execution.
@@ -58,21 +58,21 @@ with the release for a full list of details.
 
 ### Highlights of the Solr release include:
 
-SolrCloud enhancements (see <a href="http://wiki.apache.org/solr/SolrCloud">http://wiki.apache.org/solr/SolrCloud</a>):
+#### SolrCloud enhancements (see <http://wiki.apache.org/solr/SolrCloud>):
 * Simple multi-tenancy through enhanced document routing:
-  - The "compositeId" router is the default for collections with hash
-    based routing (i.e. when numShards=N is specified on collection
-    creation).
-  - Documents with ids sharing the same domain/prefix, e.g.
-    'customerB!', will be routed to the same shard, allowing for
-    efficient querying.  At query time, one can specify a "shard.keys"
-    parameter that lists the domains, e.g. 'shard.keys=customerB!', and
-    controls what shards the query is routed to.
-  - Collections that do not specify numShards at collection creation
-    time use custom sharding and default to the "implicit" router.
-    Document updates received by a shard will be indexed to that shard,
-    unless a "_shard_" parameter or document field names a different
-    shard.
+    - The "compositeId" router is the default for collections with hash
+      based routing (i.e. when numShards=N is specified on collection
+      creation).
+    - Documents with ids sharing the same domain/prefix, e.g.
+      'customerB!', will be routed to the same shard, allowing for
+      efficient querying.  At query time, one can specify a "shard.keys"
+      parameter that lists the domains, e.g. 'shard.keys=customerB!', and
+      controls what shards the query is routed to.
+    - Collections that do not specify numShards at collection creation
+      time use custom sharding and default to the "implicit" router.
+      Document updates received by a shard will be indexed to that shard,
+      unless a "_shard_" parameter or document field names a different
+      shard.
 * Short circuiting for distributed search if a request only needs
   to query a single shard.
 * Allow creating more than one shard per instance with the Collection
@@ -85,7 +85,7 @@ SolrCloud enhancements (see <a href="http://wiki.apache.org/solr/SolrCloud">http
 * Numerous bug fixes and general hardening - it's recommended that all
   Solr 4.0 SolrCloud users upgrade to 4.1.
 
-New features:
+#### New features:
 * The majority of Solr's features, including replication, now work with
   custom Directory and DirectoryFactory implementations.
 * Indexed term offsets, specifiable via a 'storeOffsetsWithPositions'
@@ -107,9 +107,9 @@ New features:
 * Extra statistics to RequestHandlers - 5 & 15-minute reqs/sec rolling
   averages; median, 75th, 95th, 99th, 99.9th percentile request times.
 * PostingsHighlighter support (see
-  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html">http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>) 
+  <http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html>) 
 
-Admin UI improvements:
+#### Admin UI improvements:
 * Internet Explorer is now supported
 * Enhanced readability of XML query response display in Query UI
 * Many improvements to DataImportHandler UI
@@ -118,26 +118,26 @@ Admin UI improvements:
 * Deleted documents are calculated/displayed
 * Allow multiple Items to stay open on Plugins-Page 
 
-Storage improvements (thanks to the new Lucene 4.1 codec):
+#### Storage improvements (thanks to the new Lucene 4.1 codec):
 * Faster search, in particular for rare terms such as primary key/id
   fields.
 * Stored fields are compressed. (See
-  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene">http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
+  <http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene>)
 
-DataImportHandler contrib module backwards-compatibility breaks:
+#### DataImportHandler contrib module backwards-compatibility breaks:
 * These default to the "root" Locale, rather than the JVM default locale 
   as before.
-  - NumberFormatTransformer & DateFormatTransformer
-  - "formatDate" evaluator 
-  - "dataimport.properties" file "last_index_time" property
+    - NumberFormatTransformer & DateFormatTransformer
+    - "formatDate" evaluator 
+    - "dataimport.properties" file "last_index_time" property
 * These default to UTF-8 encoding, rather than the JVM default encoding 
   as before.
-  - FileDataSource & FieldReaderDataSource  
+    - FileDataSource & FieldReaderDataSource  
 * These may require code changes to custom plug-ins
-  - The EvaluatorBag class was eliminated and its public/protected methods 
-    were moved to the Evaluator abstract class.
-  - The experimental DIHPropertiesWriter interface was renamed DIHProperties,
-    changed to an abstract class and given new signature.
+    - The EvaluatorBag class was eliminated and its public/protected methods 
+      were moved to the Evaluator abstract class.
+    - The experimental DIHPropertiesWriter interface was renamed DIHProperties,
+      changed to an abstract class and given new signature.
 
 Solr 4.1 also includes numerous optimizations and bugfixes.
 
