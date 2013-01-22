@@ -18,6 +18,21 @@ release for a full list of details.
 
 ### Lucene 4.1 Release Highlights:
 
+- Lucene 4.1 has a new default codec (Lucene41Codec) based on the
+  previously-experimental "Block" indexing format for improved
+  performance, but also incorporating the functionality of "Appending"
+  and "Pulsing".
+
+- The default codec incorporates the optimization of Pulsing: terms
+  that appear in only one document (such as primary key/id fields) just
+  store the document id in the term dictionary instead of a pointer to
+  this document id in a separate file.
+
+- The default codec incorporates an efficient compressed stored fields
+  implementation that compresses chunks of documents together with LZ4.
+  (see
+  <http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene>)
+
 - Lucene no longer seeks when writing files (all fields are written in
   an append-only way). This means it works by default with append-only
   streams, hdfs, etc.
