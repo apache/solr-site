@@ -5,10 +5,8 @@
 The Lucene PMC is pleased to announce the availability
 of Apache Lucene 4.1 and Apache Solr 4.1.
 
-Lucene can be downloaded from <a href="/core/mirrors-core-latest-redir.html?"
->http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>
-and Solr can be downloaded from <a href="/solr/mirrors-solr-latest-redir.html?"
->http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>
+Lucene can be downloaded from <a href="/core/mirrors-core-latest-redir.html?">http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>
+and Solr can be downloaded from <a href="/solr/mirrors-solr-latest-redir.html?">http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>
 
 See the <a href="/core/4_1_0/changes/Changes.html">Lucene CHANGES.txt</a> and
 <a href="/solr/4_1_0/changes/Changes.html">Solr CHANGES.txt</a> files included
@@ -29,8 +27,7 @@ with the release for a full list of details.
 - The default codec incorporates an efficient compressed stored fields
   implementation that compresses chunks of documents together with LZ4.
   (see
-  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene"
-  >http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
+  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene">http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
 
 - Lucene no longer seeks when writing files (all fields are written in
   an append-only way). This means it works by default with append-only
@@ -39,19 +36,16 @@ with the release for a full list of details.
 - New suggest implementations: AnalyzingSuggester, where the underlying
   form (computed from a lucene Analyzer) used for suggestions is
   separate from the returned text (see
-  <a href="http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html"
-  >http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html</a>),
+  <a href="http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html">http://blog.mikemccandless.com/2012/09/lucenes-new-analyzing-suggester.html</a>),
   and FuzzySuggester, which additionally allows for inexact matching on
   the input.
 
 - Near-realtime support was added to the facet module.
-  (see <a href="http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html"
-  >http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html</a>)
+  (see <a href="http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html">http://shaierera.blogspot.com/2012/11/lucene-facets-part-1.html</a>)
 
 - New Highlighter (postingshighlighter) added to the highlighter
   module.  (see
-  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html"
-  >http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>)
+  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html">http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>)
 
 - Added FilterStrategy to FilteredQuery for more flexibility in
   filtered query execution.
@@ -64,8 +58,7 @@ with the release for a full list of details.
 
 ### Highlights of the Solr release include:
 
-SolrCloud enhancements (see <a href="http://wiki.apache.org/solr/SolrCloud"
->http://wiki.apache.org/solr/SolrCloud</a>):
+SolrCloud enhancements (see <a href="http://wiki.apache.org/solr/SolrCloud">http://wiki.apache.org/solr/SolrCloud</a>):
 * Simple multi-tenancy through enhanced document routing:
   - The "compositeId" router is the default for collections with hash
     based routing (i.e. when numShards=N is specified on collection
@@ -114,8 +107,7 @@ New features:
 * Extra statistics to RequestHandlers - 5 & 15-minute reqs/sec rolling
   averages; median, 75th, 95th, 99th, 99.9th percentile request times.
 * PostingsHighlighter support (see
-  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html"
-  >http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>) 
+  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html">http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>) 
 
 Admin UI improvements:
 * Internet Explorer is now supported
@@ -130,8 +122,7 @@ Storage improvements (thanks to the new Lucene 4.1 codec):
 * Faster search, in particular for rare terms such as primary key/id
   fields.
 * Stored fields are compressed. (See
-  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene"
-  >http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
+  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene">http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
 
 DataImportHandler contrib module backwards-compatibility breaks:
 * These default to the "root" Locale, rather than the JVM default locale 

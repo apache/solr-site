@@ -4,7 +4,7 @@
 
 ## 22 January 2013 - Apache Solr 4.1.0 Available
 
-The Lucene PMC is pleased to announce the release of Apache Solr 4.1
+The Lucene PMC is pleased to announce the release of Apache Solr 4.1.
 
 Solr is the popular, blazing fast, open source NoSQL search platform
 from the Apache Lucene project. Its major features include powerful
@@ -15,8 +15,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 4.1 is available for immediate download at:
-   <a href="/solr/mirrors-solr-latest-redir.html"
-   >http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
+   <a href="/solr/mirrors-solr-latest-redir.html">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
 
 Note: starting with Solr 4.1, the "apache-" prefix has been removed
 from all artifact and distribution filenames.
@@ -26,8 +25,7 @@ included with the release for a full list of details.
 
 Solr 4.1 Release Highlights:
 
-SolrCloud enhancements (see <a href="http://wiki.apache.org/solr/SolrCloud"
->http://wiki.apache.org/solr/SolrCloud</a>):
+SolrCloud enhancements (see <a href="http://wiki.apache.org/solr/SolrCloud">http://wiki.apache.org/solr/SolrCloud</a>):
 * Simple multi-tenancy through enhanced document routing:
   - The "compositeId" router is the default for collections with hash
     based routing (i.e. when numShards=N is specified on collection
@@ -76,8 +74,7 @@ New features:
 * Extra statistics to RequestHandlers - 5 & 15-minute reqs/sec rolling
   averages; median, 75th, 95th, 99th, 99.9th percentile request times.
 * PostingsHighlighter support (see
-  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html"
-  >http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>) 
+  <a href="http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html">http://blog.mikemccandless.com/2012/12/a-new-lucene-highlighter-is-born.html</a>) 
 
 Admin UI improvements:
 * Internet Explorer is now supported
@@ -92,8 +89,7 @@ Storage improvements (thanks to the new Lucene 4.1 codec):
 * Faster search, in particular for rare terms such as primary key/id
   fields.
 * Stored fields are compressed. (See
-  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene"
-  >http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
+  <a href="http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene">http://blog.jpountz.net/post/33247161884/efficient-compressed-stored-fields-with-lucene</a>)
 
 DataImportHandler contrib module backwards-compatibility breaks:
 * These default to the "root" Locale, rather than the JVM default locale 
