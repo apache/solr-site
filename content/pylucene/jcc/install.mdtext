@@ -164,10 +164,10 @@ See earlier section about <a href="#shared">Shared Mode</a> for
 Linux support.
 
 
-##Notes for Solaris
+##Notes for Solaris 11 with Sun Studio C++ 12
 
-At this time, JCC has been built and tested only on Solaris 11 with Sun
-Studio C++ 12, Java 1.6 and Python 2.4.
+JCC has been built and tested on Solaris 11 with Sun Studio C++ 12, Java 1.6
+and Python 2.4.
 
 
 Because JCC is written in C++, Python's <i>distutils</i> must
@@ -183,6 +183,23 @@ $ CC=CC python setup.py build
 Shared mode is not currently implemented for
 Solaris, <i>setuptools</i> needs to be taught how to build
 plain shared libraries on Solaris first.
+
+
+##Notes for Solaris 11.1 with GCC 4.5
+
+JCC has been built and tested on Solaris 11.1 with gcc 4.5, Java 1.7 and
+Python 2.6. Make sure, you?ve already installed the following packages:
+gcc-4.5, jre-1.7, jdk-1.7, python-2.6, ant, gnu-make and subversion.
+
+Missing packages can be installed via <i>pkg install</i>.
+
+- Edit setup.py and do the following changes:                                  
+Inside JDK = { ? } change the entry for sunos5 to:
+<code>'sunos5': '/usr/jdk/instances/jdk1.7.0',</code>
+Inside CFLAGS= {?} change the entry for sunos5 to:
+<code>'sunos5': ['-fno-strict-aliasing', '-Wno-write-strings'],</code>
+- <code>python setup.py build</code>
+- <code>su python setup.py install</code>
 
 
 ##Notes for Windows
