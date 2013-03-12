@@ -16,8 +16,9 @@ with the release for a full list of details.
 
 - Lucene 4.2 has a new default codec (Lucene42Codec) with a more
   efficient docvalues format (sorted bytes in FST, less addressing
-  overhead, improved numeric compression) and LZ4-compressed term
-  vectors.
+  overhead, improved numeric compression) and smaller term
+  vectors (LZ4-compressed terms dictionaries and payloads, delta-encoded
+  positions and offsets using blocks of packed integers).
 
 - Doc values external and codec API and implementations have been
   simplified: the codec is no longer responsible for buffering doc
