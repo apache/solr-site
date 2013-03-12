@@ -1,5 +1,58 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 11 March 2013 - Lucene Core 4.2.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 4.2
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and
+improvements, some of which are highlighted below. The release
+is available for immediate download at:
+   <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+
+See the [CHANGES.txt](/core/4_2_0/changes/Changes.html) file included 
+with the release for a full list of details.
+
+### Lucene 4.2 Release Highlights:
+
+- Lucene 4.2 has a new default codec (Lucene42Codec) with a more
+  efficient docvalues format (sorted bytes in FST, less addressing
+  overhead, improved numeric compression) and LZ4-compressed term
+  vectors.
+
+- Doc values external and codec API and implementations have been
+  simplified: the codec is no longer responsible for buffering doc
+  values; the numerous types have been consolidated down to only
+  three (NUMERIC, BINARY, SORTED); PerFieldDocValuesFormat lets you
+  set a different format for each field, and the doc values and FieldCache
+  APIs were unified.
+
+- Significant refactoring and performance enhancements to the facet
+  module, resulting in overall ~3.8X speedup in one case (single Date
+  field faceting).
+
+- DrillDownQuery in the facet module now supports multi-select.
+
+- A new DrillSideways class enables counting facet labels and counts
+  for both hits and near-misses in a single query.  See
+  <http://blog.mikemccandless.com/2013/02/drill-sideways-faceting-with-lucene.html>
+
+- An additional docvalues type (SORTED_SET) was added that supports multiple
+  values.
+
+- FSTs are a bit smaller, and the FST package supports FSTs over 2GB
+  in size.
+
+- A new LiveFieldValues class lets you get live or real-time values
+  for any indexed doc / field.  See <http://blog.mikemccandless.com/2013/01/getting-real-time-field-values-in-lucene.html>
+
+- Added a new classification module.
+
+- Various bugfixes and optimizations since the 4.1 release.
+
 ## 22 January 2013 - Lucene Core 4.1.0 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 4.1
