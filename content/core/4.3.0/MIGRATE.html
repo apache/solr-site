@@ -1,0 +1,260 @@
+<html>
+<head>
+<title>Apache Lucene Migration Guide</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h1>Apache Lucene Migration Guide</h1><h2>Four-dimensional enumerations</h2><p>Flexible indexing changed the low level fields/terms/docs/positions enumeration APIs. Here are the major changes:</p>
+<ul>
+  <li><p>Terms are now binary in nature (arbitrary byte[]), represented by the BytesRef class (which provides an offset + length "slice" into an existing byte[]).</p></li>
+  <li><p>Fields are separately enumerated (Fields.iterator()) from the terms within each field (TermEnum). So instead of this:</p>
+  <pre><code>TermEnum termsEnum = ...;
+while(termsEnum.next()) {
+  Term t = termsEnum.term();
+  System.out.println(&quot;field=&quot; + t.field() + &quot;; text=&quot; + t.text());
+}
+</code></pre><p>Do this:</p>
+  <pre><code>for(String field : fields) {
+    Terms terms = fields.terms(field);
+    TermsEnum termsEnum = terms.iterator(null);
+    BytesRef text;
+    while((text = termsEnum.next()) != null) {
+      System.out.println(&quot;field=&quot; + field + &quot;; text=&quot; + text.utf8ToString());
+  }
+}
+</code></pre></li>
+  <li><p>TermDocs is renamed to DocsEnum. Instead of this:</p>
+  <pre><code>while(td.next()) {
+  int doc = td.doc();
+  ...
+}
+</code></pre><p>do this:</p>
+  <pre><code>int doc;
+while((doc = td.next()) != DocsEnum.NO_MORE_DOCS) {
+  ...
+}
+</code></pre><p>Instead of this:</p>
+  <pre><code>if (td.skipTo(target)) {
+  int doc = td.doc();
+  ...
+}
+</code></pre><p>do this:</p>
+  <pre><code>if ((doc=td.advance(target)) != DocsEnum.NO_MORE_DOCS) {
+  ...
+}
+</code></pre></li>
+  <li><p>TermPositions is renamed to DocsAndPositionsEnum, and no longer extends the docs only enumerator (DocsEnum).</p></li>
+  <li><p>Deleted docs are no longer implicitly filtered from docs/positions enums. Instead, you pass a Bits skipDocs (set bits are skipped) when obtaining the enums. Also, you can now ask a reader for its deleted docs.</p></li>
+  <li><p>The docs/positions enums cannot seek to a term. Instead, TermsEnum is able to seek, and then you request the docs/positions enum from that TermsEnum.</p></li>
+  <li><p>TermsEnum's seek method returns more information. So instead of this:</p>
+  <pre><code>Term t;
+TermEnum termEnum = reader.terms(t);
+if (t.equals(termEnum.term())) {
+  ...
+}
+</code></pre><p>do this:</p>
+  <pre><code>TermsEnum termsEnum = ...;
+BytesRef text;
+if (termsEnum.seek(text) == TermsEnum.SeekStatus.FOUND) {
+  ...
+}
+</code></pre><p>SeekStatus also contains END (enumerator is done) and NOT_FOUND (term was not found but enumerator is now positioned to the next term).</p></li>
+  <li><p>TermsEnum has an ord() method, returning the long numeric ordinal (ie, first term is 0, next is 1, and so on) for the term it's not positioned to. There is also a corresponding seek(long ord) method. Note that these methods are optional; in particular the MultiFields TermsEnum does not implement them.</p></li>
+</ul>
+<ul>
+  <li><p>How you obtain the enums has changed. The primary entry point is the Fields class. If you know your reader is a single segment reader, do this:</p>
+  <pre><code>Fields fields = reader.Fields();
+if (fields != null) {
+  ...
+}
+</code></pre><p>If the reader might be multi-segment, you must do this:</p>
+  <pre><code>Fields fields = MultiFields.getFields(reader);
+if (fields != null) {
+  ...
+}
+</code></pre><p>The fields may be null (eg if the reader has no fields).</p><p>Note that the MultiFields approach entails a performance hit on MultiReaders, as it must merge terms/docs/positions on the fly. It's generally better to instead get the sequential readers (use oal.util.ReaderUtil) and then step through those readers yourself, if you can (this is how Lucene drives searches).</p><p>If you pass a SegmentReader to MultiFields.fields it will simply return reader.fields(), so there is no performance hit in that case.</p><p>Once you have a non-null Fields you can do this:</p>
+  <pre><code>Terms terms = fields.terms(&quot;field&quot;);
+if (terms != null) {
+  ...
+}
+</code></pre><p>The terms may be null (eg if the field does not exist).</p><p>Once you have a non-null terms you can get an enum like this:</p>
+  <pre><code>TermsEnum termsEnum = terms.iterator();
+</code></pre><p>The returned TermsEnum will not be null.</p><p>You can then .next() through the TermsEnum, or seek. If you want a DocsEnum, do this:</p>
+  <pre><code>Bits liveDocs = reader.getLiveDocs();
+DocsEnum docsEnum = null;
+
+docsEnum = termsEnum.docs(liveDocs, docsEnum, needsFreqs);
+</code></pre><p>You can pass in a prior DocsEnum and it will be reused if possible.</p><p>Likewise for DocsAndPositionsEnum.</p><p>IndexReader has several sugar methods (which just go through the above steps, under the hood). Instead of:</p>
+  <pre><code>Term t;
+TermDocs termDocs = reader.termDocs();
+termDocs.seek(t);
+</code></pre><p>do this:</p>
+  <pre><code>Term t;
+DocsEnum docsEnum = reader.termDocsEnum(t);
+</code></pre><p>Likewise for DocsAndPositionsEnum.</p></li>
+</ul><h2><a href="https://issues.apache.org/jira/browse/LUCENE-2380">LUCENE-2380</a>: FieldCache.getStrings/Index &ndash;&gt; FieldCache.getDocTerms/Index</h2>
+<ul>
+  <li><p>The field values returned when sorting by SortField.STRING are now BytesRef. You can call value.utf8ToString() to convert back to string, if necessary.</p></li>
+  <li><p>In FieldCache, getStrings (returning String[]) has been replaced with getTerms (returning a FieldCache.DocTerms instance). DocTerms provides a getTerm method, taking a docID and a BytesRef to fill (which must not be null), and it fills it in with the reference to the bytes for that term.</p><p>If you had code like this before:</p>
+  <pre><code>String[] values = FieldCache.DEFAULT.getStrings(reader, field);
+...
+String aValue = values[docID];
+</code></pre><p>you can do this instead:</p>
+  <pre><code>DocTerms values = FieldCache.DEFAULT.getTerms(reader, field);
+...
+BytesRef term = new BytesRef();
+String aValue = values.getTerm(docID, term).utf8ToString();
+</code></pre><p>Note however that it can be costly to convert to String, so it's better to work directly with the BytesRef.</p></li>
+  <li><p>Similarly, in FieldCache, getStringIndex (returning a StringIndex instance, with direct arrays int[] order and String[] lookup) has been replaced with getTermsIndex (returning a FieldCache.DocTermsIndex instance). DocTermsIndex provides the getOrd(int docID) method to lookup the int order for a document, lookup(int ord, BytesRef reuse) to lookup the term from a given order, and the sugar method getTerm(int docID, BytesRef reuse) which internally calls getOrd and then lookup.</p><p>If you had code like this before:</p>
+  <pre><code>StringIndex idx = FieldCache.DEFAULT.getStringIndex(reader, field);
+...
+int ord = idx.order[docID];
+String aValue = idx.lookup[ord];
+</code></pre><p>you can do this instead:</p>
+  <pre><code>DocTermsIndex idx = FieldCache.DEFAULT.getTermsIndex(reader, field);
+...
+int ord = idx.getOrd(docID);
+BytesRef term = new BytesRef();
+String aValue = idx.lookup(ord, term).utf8ToString();
+</code></pre><p>Note however that it can be costly to convert to String, so it's better to work directly with the BytesRef.</p><p>DocTermsIndex also has a getTermsEnum() method, which returns an iterator (TermsEnum) over the term values in the index (ie, iterates ord = 0..numOrd()-1).</p></li>
+  <li><p>StringComparatorLocale is now more CPU costly than it was before (it was already very CPU costly since it does not compare using indexed collation keys; use CollationKeyFilter for better performance), since it converts BytesRef -&gt; String on the fly. Also, the field values returned when sorting by SortField.STRING are now BytesRef.</p></li>
+  <li><p>FieldComparator.StringOrdValComparator has been renamed to TermOrdValComparator, and now uses BytesRef for its values. Likewise for StringValComparator, renamed to TermValComparator. This means when sorting by SortField.STRING or SortField.STRING_VAL (or directly invoking these comparators) the values returned in the FieldDoc.fields array will be BytesRef not String. You can call the .utf8ToString() method on the BytesRef instances, if necessary.</p></li>
+</ul><h2><a href="https://issues.apache.org/jira/browse/LUCENE-2600">LUCENE-2600</a>: IndexReaders are now read-only</h2><p>Instead of IndexReader.isDeleted, do this:</p>
+<pre><code>  import org.apache.lucene.util.Bits;
+  import org.apache.lucene.index.MultiFields;
+
+  Bits liveDocs = MultiFields.getLiveDocs(indexReader);
+  if (liveDocs != null &amp;&amp; !liveDocs.get(docID)) {
+    // document is deleted...
+  }
+</code></pre><h2><a href="https://issues.apache.org/jira/browse/LUCENE-2858">LUCENE-2858</a>, <a href="https://issues.apache.org/jira/browse/LUCENE-3733">LUCENE-3733</a>: IndexReader &ndash;&gt; AtomicReader/CompositeReader/DirectoryReader refactoring</h2><p>The abstract class IndexReader has been refactored to expose only essential methods to access stored fields during display of search results. It is no longer possible to retrieve terms or postings data from the underlying index, not even deletions are visible anymore. You can still pass IndexReader as constructor parameter to IndexSearcher and execute your searches; Lucene will automatically delegate procedures like query rewriting and document collection atomic subreaders. </p><p>If you want to dive deeper into the index and want to write own queries, take a closer look at the new abstract sub-classes AtomicReader and CompositeReader: </p><p>AtomicReader instances are now the only source of Terms, Postings, DocValues and FieldCache. Queries are forced to execute on a Atomic reader on a per-segment basis and FieldCaches are keyed by AtomicReaders. </p><p>Its counterpart CompositeReader exposes a utility method to retrieve its composites. But watch out, composites are not necessarily atomic. Next to the added type-safety we also removed the notion of index-commits and version numbers from the abstract IndexReader, the associations with IndexWriter were pulled into a specialized DirectoryReader. To open Directory-based indexes use DirectoryReader.open(), the corresponding method in IndexReader is now deprecated for easier migration. Only DirectoryReader supports commits, versions, and reopening with openIfChanged(). Terms, postings, docvalues, and norms can from now on only be retrieved using AtomicReader; DirectoryReader and MultiReader extend CompositeReader, only offering stored fields and access to the sub-readers (which may be composite or atomic). </p><p>If you have more advanced code dealing with custom Filters, you might have noticed another new class hierarchy in Lucene (see <a href="https://issues.apache.org/jira/browse/LUCENE-2831">LUCENE-2831</a>): IndexReaderContext with corresponding Atomic-/CompositeReaderContext. </p><p>The move towards per-segment search Lucene 2.9 exposed lots of custom Queries and Filters that couldn't handle it. For example, some Filter implementations expected the IndexReader passed in is identical to the IndexReader passed to IndexSearcher with all its advantages like absolute document IDs etc. Obviously this "paradigm-shift" broke lots of applications and especially those that utilized cross-segment data structures (like Apache Solr). </p><p>In Lucene 4.0, we introduce IndexReaderContexts "searcher-private" reader hierarchy. During Query or Filter execution Lucene no longer passes raw readers down Queries, Filters or Collectors; instead components are provided an AtomicReaderContext (essentially a hierarchy leaf) holding relative properties like the document-basis in relation to the top-level reader. This allows Queries &amp; Filter to build up logic based on document IDs, albeit the per-segment orientation. </p><p>There are still valid use-cases where top-level readers ie. "atomic views" on the index are desirable. Let say you want to iterate all terms of a complete index for auto-completion or faceting, Lucene provides utility wrappers like SlowCompositeReaderWrapper (<a href="https://issues.apache.org/jira/browse/LUCENE-2597">LUCENE-2597</a>) emulating an AtomicReader. Note: using "atomicity emulators" can cause serious slowdowns due to the need to merge terms, postings, DocValues, and FieldCache, use them with care! </p><h2><a href="https://issues.apache.org/jira/browse/LUCENE-4306">LUCENE-4306</a>: getSequentialSubReaders(), ReaderUtil.Gather</h2><p>The method IndexReader#getSequentialSubReaders() was moved to CompositeReader (see <a href="https://issues.apache.org/jira/browse/LUCENE-2858">LUCENE-2858</a>, <a href="https://issues.apache.org/jira/browse/LUCENE-3733">LUCENE-3733</a>) and made protected. It is solely used by CompositeReader itself to build its reader tree. To get all atomic leaves of a reader, use IndexReader#leaves(), which also provides the doc base of each leave. Readers that are already atomic return itself as leaf with doc base 0. To emulate Lucene 3.x getSequentialSubReaders(), use getContext().children().</p><h2><a href="https://issues.apache.org/jira/browse/LUCENE-2413">LUCENE-2413</a>,<a href="https://issues.apache.org/jira/browse/LUCENE-3396">LUCENE-3396</a>: Analyzer package changes</h2><p>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis. During the refactoring some package names have changed, and ReusableAnalyzerBase was renamed to Analyzer:</p>
+<ul>
+  <li>o.a.l.analysis.KeywordAnalyzer -&gt; o.a.l.analysis.core.KeywordAnalyzer</li>
+  <li>o.a.l.analysis.KeywordTokenizer -&gt; o.a.l.analysis.core.KeywordTokenizer</li>
+  <li>o.a.l.analysis.LetterTokenizer -&gt; o.a.l.analysis.core.LetterTokenizer</li>
+  <li>o.a.l.analysis.LowerCaseFilter -&gt; o.a.l.analysis.core.LowerCaseFilter</li>
+  <li>o.a.l.analysis.LowerCaseTokenizer -&gt; o.a.l.analysis.core.LowerCaseTokenizer</li>
+  <li>o.a.l.analysis.SimpleAnalyzer -&gt; o.a.l.analysis.core.SimpleAnalyzer</li>
+  <li>o.a.l.analysis.StopAnalyzer -&gt; o.a.l.analysis.core.StopAnalyzer</li>
+  <li>o.a.l.analysis.StopFilter -&gt; o.a.l.analysis.core.StopFilter</li>
+  <li>o.a.l.analysis.WhitespaceAnalyzer -&gt; o.a.l.analysis.core.WhitespaceAnalyzer</li>
+  <li>o.a.l.analysis.WhitespaceTokenizer -&gt; o.a.l.analysis.core.WhitespaceTokenizer</li>
+  <li>o.a.l.analysis.PorterStemFilter -&gt; o.a.l.analysis.en.PorterStemFilter</li>
+  <li>o.a.l.analysis.ASCIIFoldingFilter -&gt; o.a.l.analysis.miscellaneous.ASCIIFoldingFilter</li>
+  <li>o.a.l.analysis.ISOLatin1AccentFilter -&gt; o.a.l.analysis.miscellaneous.ISOLatin1AccentFilter</li>
+  <li>o.a.l.analysis.KeywordMarkerFilter -&gt; o.a.l.analysis.miscellaneous.KeywordMarkerFilter</li>
+  <li>o.a.l.analysis.LengthFilter -&gt; o.a.l.analysis.miscellaneous.LengthFilter</li>
+  <li>o.a.l.analysis.PerFieldAnalyzerWrapper -&gt; o.a.l.analysis.miscellaneous.PerFieldAnalyzerWrapper</li>
+  <li>o.a.l.analysis.TeeSinkTokenFilter -&gt; o.a.l.analysis.sinks.TeeSinkTokenFilter</li>
+  <li>o.a.l.analysis.CharFilter -&gt; o.a.l.analysis.charfilter.CharFilter</li>
+  <li>o.a.l.analysis.BaseCharFilter -&gt; o.a.l.analysis.charfilter.BaseCharFilter</li>
+  <li>o.a.l.analysis.MappingCharFilter -&gt; o.a.l.analysis.charfilter.MappingCharFilter</li>
+  <li>o.a.l.analysis.NormalizeCharMap -&gt; o.a.l.analysis.charfilter.NormalizeCharMap</li>
+  <li>o.a.l.analysis.CharArraySet -&gt; o.a.l.analysis.util.CharArraySet</li>
+  <li>o.a.l.analysis.CharArrayMap -&gt; o.a.l.analysis.util.CharArrayMap</li>
+  <li>o.a.l.analysis.ReusableAnalyzerBase -&gt; o.a.l.analysis.Analyzer</li>
+  <li>o.a.l.analysis.StopwordAnalyzerBase -&gt; o.a.l.analysis.util.StopwordAnalyzerBase</li>
+  <li>o.a.l.analysis.WordListLoader -&gt; o.a.l.analysis.util.WordListLoader</li>
+  <li>o.a.l.analysis.CharTokenizer -&gt; o.a.l.analysis.util.CharTokenizer</li>
+  <li>o.a.l.util.CharacterUtils -&gt; o.a.l.analysis.util.CharacterUtils</li>
+</ul><h2><a href="https://issues.apache.org/jira/browse/LUCENE-2514">LUCENE-2514</a>: Collators</h2><p>The option to use a Collator's order (instead of binary order) for sorting and range queries has been moved to lucene/queries. The Collated TermRangeQuery/Filter has been moved to SlowCollatedTermRangeQuery/Filter, and the collated sorting has been moved to SlowCollatedStringComparator.</p><p>Note: this functionality isn't very scalable and if you are using it, consider indexing collation keys with the collation support in the analysis module instead.</p><p>To perform collated range queries, use a suitable collating analyzer: CollationKeyAnalyzer or ICUCollationKeyAnalyzer, and set qp.setAnalyzeRangeTerms(true).</p><p>TermRangeQuery and TermRangeFilter now work purely on bytes. Both have helper factory methods (newStringRange) similar to the NumericRange API, to easily perform range queries on Strings.</p><h2><a href="https://issues.apache.org/jira/browse/LUCENE-2883">LUCENE-2883</a>: ValueSource changes</h2><p>Lucene's o.a.l.search.function ValueSource based functionality, was consolidated into lucene/queries along with Solr's similar functionality. The following classes were moved:</p>
+<ul>
+  <li>o.a.l.search.function.CustomScoreQuery -&gt; o.a.l.queries.CustomScoreQuery</li>
+  <li>o.a.l.search.function.CustomScoreProvider -&gt; o.a.l.queries.CustomScoreProvider</li>
+  <li>o.a.l.search.function.NumericIndexDocValueSource -&gt; o.a.l.queries.function.valuesource.NumericIndexDocValueSource</li>
+</ul><p>The following lists the replacement classes for those removed:</p>
+<ul>
+  <li>o.a.l.search.function.ByteFieldSource -&gt; o.a.l.queries.function.valuesource.ByteFieldSource</li>
+  <li>o.a.l.search.function.DocValues -&gt; o.a.l.queries.function.DocValues</li>
+  <li>o.a.l.search.function.FieldCacheSource -&gt; o.a.l.queries.function.valuesource.FieldCacheSource</li>
+  <li>o.a.l.search.function.FieldScoreQuery -&gt;o.a.l.queries.function.FunctionQuery</li>
+  <li>o.a.l.search.function.FloatFieldSource -&gt; o.a.l.queries.function.valuesource.FloatFieldSource</li>
+  <li>o.a.l.search.function.IntFieldSource -&gt; o.a.l.queries.function.valuesource.IntFieldSource</li>
+  <li>o.a.l.search.function.OrdFieldSource -&gt; o.a.l.queries.function.valuesource.OrdFieldSource</li>
+  <li>o.a.l.search.function.ReverseOrdFieldSource -&gt; o.a.l.queries.function.valuesource.ReverseOrdFieldSource</li>
+  <li>o.a.l.search.function.ShortFieldSource -&gt; o.a.l.queries.function.valuesource.ShortFieldSource</li>
+  <li>o.a.l.search.function.ValueSource -&gt; o.a.l.queries.function.ValueSource</li>
+  <li>o.a.l.search.function.ValueSourceQuery -&gt; o.a.l.queries.function.FunctionQuery</li>
+</ul><p>DocValues are now named FunctionValues, to not confuse with Lucene's per-document values.</p><h2><a href="https://issues.apache.org/jira/browse/LUCENE-2392">LUCENE-2392</a>: Enable flexible scoring</h2><p>The existing "Similarity" api is now TFIDFSimilarity, if you were extending Similarity before, you should likely extend this instead.</p><p>Weight.normalize no longer takes a norm value that incorporates the top-level boost from outer queries such as BooleanQuery, instead it takes 2 parameters, the outer boost (topLevelBoost) and the norm. Weight.sumOfSquaredWeights has been renamed to Weight.getValueForNormalization().</p><p>The scorePayload method now takes a BytesRef. It is never null.</p><h2><a href="https://issues.apache.org/jira/browse/LUCENE-3283">LUCENE-3283</a>: Query parsers moved to separate module</h2><p>Lucene's core o.a.l.queryParser QueryParsers have been consolidated into lucene/queryparser, where other QueryParsers from the codebase will also be placed. The following classes were moved:</p>
+<ul>
+  <li>o.a.l.queryParser.CharStream -&gt; o.a.l.queryparser.classic.CharStream</li>
+  <li>o.a.l.queryParser.FastCharStream -&gt; o.a.l.queryparser.classic.FastCharStream</li>
+  <li>o.a.l.queryParser.MultiFieldQueryParser -&gt; o.a.l.queryparser.classic.MultiFieldQueryParser</li>
+  <li>o.a.l.queryParser.ParseException -&gt; o.a.l.queryparser.classic.ParseException</li>
+  <li>o.a.l.queryParser.QueryParser -&gt; o.a.l.queryparser.classic.QueryParser</li>
+  <li>o.a.l.queryParser.QueryParserBase -&gt; o.a.l.queryparser.classic.QueryParserBase</li>
+  <li>o.a.l.queryParser.QueryParserConstants -&gt; o.a.l.queryparser.classic.QueryParserConstants</li>
+  <li>o.a.l.queryParser.QueryParserTokenManager -&gt; o.a.l.queryparser.classic.QueryParserTokenManager</li>
+  <li>o.a.l.queryParser.QueryParserToken -&gt; o.a.l.queryparser.classic.Token</li>
+  <li>o.a.l.queryParser.QueryParserTokenMgrError -&gt; o.a.l.queryparser.classic.TokenMgrError</li>
+</ul><h2><a href="https://issues.apache.org/jira/browse/LUCENE-2308">LUCENE-2308</a>, <a href="https://issues.apache.org/jira/browse/LUCENE-3453">LUCENE-3453</a>: Separate IndexableFieldType from Field instances</h2><p>With this change, the indexing details (indexed, tokenized, norms, indexOptions, stored, etc.) are moved into a separate FieldType instance (rather than being stored directly on the Field).</p><p>This means you can create the FieldType instance once, up front, for a given field, and then re-use that instance whenever you instantiate the Field.</p><p>Certain field types are pre-defined since they are common cases:</p>
+<ul>
+  <li>StringField: indexes a String value as a single token (ie, does not tokenize). This field turns off norms and indexes only doc IDS (does not index term frequency nor positions). This field does not store its value, but exposes TYPE_STORED as well.</li>
+  <li>TextField: indexes and tokenizes a String, Reader or TokenStream value, without term vectors. This field does not store its value, but exposes TYPE_STORED as well.</li>
+  <li>StoredField: field that stores its value</li>
+  <li>DocValuesField: indexes the value as a DocValues field</li>
+  <li>NumericField: indexes the numeric value so that NumericRangeQuery can be used at search-time.</li>
+</ul><p>If your usage fits one of those common cases you can simply instantiate the above class. If you need to store the value, you can add a separate StoredField to the document, or you can use TYPE_STORED for the field:</p>
+<pre><code>Field f = new Field(&quot;field&quot;, &quot;value&quot;, StringField.TYPE_STORED);
+</code></pre><p>Alternatively, if an existing type is close to what you want but you need to make a few changes, you can copy that type and make changes:</p>
+<pre><code>FieldType bodyType = new FieldType(TextField.TYPE_STORED);
+bodyType.setStoreTermVectors(true);
+</code></pre><p>You can of course also create your own FieldType from scratch:</p>
+<pre><code>FieldType t = new FieldType();
+t.setIndexed(true);
+t.setStored(true);
+t.setOmitNorms(true);
+t.setIndexOptions(IndexOptions.DOCS_AND_FREQS);
+t.freeze();
+</code></pre><p>FieldType has a freeze() method to prevent further changes.</p><p>There is also a deprecated transition API, providing the same Index, Store, TermVector enums from 3.x, and Field constructors taking these enums.</p><p>When migrating from the 3.x API, if you did this before:</p>
+<pre><code>new Field(&quot;field&quot;, &quot;value&quot;, Field.Store.NO, Field.Indexed.NOT_ANALYZED_NO_NORMS)
+</code></pre><p>you can now do this:</p>
+<pre><code>new StringField(&quot;field&quot;, &quot;value&quot;)
+</code></pre><p>(though note that StringField indexes DOCS_ONLY).</p><p>If instead the value was stored:</p>
+<pre><code>new Field(&quot;field&quot;, &quot;value&quot;, Field.Store.YES, Field.Indexed.NOT_ANALYZED_NO_NORMS)
+</code></pre><p>you can now do this:</p>
+<pre><code>new Field(&quot;field&quot;, &quot;value&quot;, StringField.TYPE_STORED)
+</code></pre><p>If you didn't omit norms:</p>
+<pre><code>new Field(&quot;field&quot;, &quot;value&quot;, Field.Store.YES, Field.Indexed.NOT_ANALYZED)
+</code></pre><p>you can now do this:</p>
+<pre><code>FieldType ft = new FieldType(StringField.TYPE_STORED);
+ft.setOmitNorms(false);
+new Field(&quot;field&quot;, &quot;value&quot;, ft)
+</code></pre><p>If you did this before (value can be String or Reader):</p>
+<pre><code>new Field(&quot;field&quot;, value, Field.Store.NO, Field.Indexed.ANALYZED)
+</code></pre><p>you can now do this:</p>
+<pre><code>new TextField(&quot;field&quot;, value, Field.Store.NO)
+</code></pre><p>If instead the value was stored:</p>
+<pre><code>new Field(&quot;field&quot;, value, Field.Store.YES, Field.Indexed.ANALYZED)
+</code></pre><p>you can now do this:</p>
+<pre><code>new TextField(&quot;field&quot;, value, Field.Store.YES)
+</code></pre><p>If in addition you omit norms:</p>
+<pre><code>new Field(&quot;field&quot;, value, Field.Store.YES, Field.Indexed.ANALYZED_NO_NORMS)
+</code></pre><p>you can now do this:</p>
+<pre><code>FieldType ft = new FieldType(TextField.TYPE_STORED);
+ft.setOmitNorms(true);
+new Field(&quot;field&quot;, value, ft)
+</code></pre><p>If you did this before (bytes is a byte[]):</p>
+<pre><code>new Field(&quot;field&quot;, bytes)
+</code></pre><p>you can now do this:</p>
+<pre><code>new StoredField(&quot;field&quot;, bytes)
+</code></pre><p>If you previously used Document.setBoost, you must now pre-multiply the document boost into each Field.setBoost. If you have a multi-valued field, you should do this only for the first Field instance (ie, subsequent Field instance sharing the same field name should only include their per-field boost and not the document level boost) as the boost for multi-valued field instances are multiplied together by Lucene.</p><h2>Other changes</h2>
+<ul>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-2674">LUCENE-2674</a>:  A new idfExplain method was added to Similarity, that  accepts an incoming docFreq. If you subclass Similarity, make sure  you also override this method on upgrade, otherwise your  customizations won't run for certain MultiTermQuerys.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-2691">LUCENE-2691</a>: The near-real-time API has moved from IndexWriter to  DirectoryReader. Instead of IndexWriter.getReader(), call  DirectoryReader.open(IndexWriter) or DirectoryReader.openIfChanged(IndexWriter).</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-2690">LUCENE-2690</a>: MultiTermQuery boolean rewrites per segment.  Also MultiTermQuery.getTermsEnum() now takes an AttributeSource. FuzzyTermsEnum  is both consumer and producer of attributes: MTQ.BoostAttribute is  added to the FuzzyTermsEnum and MTQ's rewrite mode consumes it.  The other way round MTQ.TopTermsBooleanQueryRewrite supplies a  global AttributeSource to each segments TermsEnum. The TermsEnum is consumer  and gets the current minimum competitive boosts (MTQ.MaxNonCompetitiveBoostAttribute).</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-2374">LUCENE-2374</a>: The backwards layer in AttributeImpl was removed. To support correct  reflection of AttributeImpl instances, where the reflection was done using deprecated  toString() parsing, you have to now override reflectWith() to customize output.  toString() is no longer implemented by AttributeImpl, so if you have overridden  toString(), port your customization over to reflectWith(). reflectAsString() would  then return what toString() did before.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-2236">LUCENE-2236</a>, <a href="https://issues.apache.org/jira/browse/LUCENE-2912">LUCENE-2912</a>: DefaultSimilarity can no longer be set statically  (and dangerously) for the entire JVM.  Similarity can now be configured on a per-field basis (via PerFieldSimilarityWrapper)  Similarity has a lower-level API, if you want the higher-level vector-space API  like in previous Lucene releases, then look at TFIDFSimilarity.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-1076">LUCENE-1076</a>: TieredMergePolicy is now the default merge policy.  It's able to merge non-contiguous segments; this may cause problems  for applications that rely on Lucene's internal document ID  assignment. If so, you should instead use LogByteSize/DocMergePolicy  during indexing.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-3722">LUCENE-3722</a>: Similarity methods and collection/term statistics now take  long instead of int (to enable distributed scoring of &gt; 2B docs).  For example, in TFIDFSimilarity idf(int, int) is now idf(long, long). </p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-3559">LUCENE-3559</a>: The methods "docFreq" and "maxDoc" on IndexSearcher were removed,  as these are no longer used by the scoring system.  If you were using these casually in your code for reasons unrelated to scoring,  call them on the IndexSearcher's reader instead: getIndexReader().  If you were subclassing IndexSearcher and overriding these methods to alter  scoring, override IndexSearcher's termStatistics() and collectionStatistics()  methods instead.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-3396">LUCENE-3396</a>: Analyzer.tokenStream() and .reusableTokenStream() have been made final.  It is now necessary to use Analyzer.TokenStreamComponents to define an analysis process.  Analyzer also has its own way of managing the reuse of TokenStreamComponents (either  globally, or per-field). To define another Strategy, implement Analyzer.ReuseStrategy.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-3464">LUCENE-3464</a>: IndexReader.reopen has been renamed to  DirectoryReader.openIfChanged (a static method), and now returns null  (instead of the old reader) if there are no changes to the index, to  prevent the common pitfall of accidentally closing the old reader.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-3687">LUCENE-3687</a>: Similarity#computeNorm() now expects a Norm object to set the computed  norm value instead of returning a fixed single byte value. Custom similarities can now  set integer, float and byte values if a single byte is not sufficient.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-2621">LUCENE-2621</a>: Term vectors are now accessed via flexible indexing API.  If you used IndexReader.getTermFreqVector/s before, you should now  use IndexReader.getTermVectors. The new method returns a Fields  instance exposing the inverted index of the one document. From  Fields you can enumerate all fields, terms, positions, offsets.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-4227">LUCENE-4227</a>: If you were previously using Instantiated index, you  may want to use DirectPostingsFormat after upgrading: it stores all  postings in simple arrrays (byte[] for terms, int[] for docs, freqs,  positions, offsets). Note that this only covers postings, whereas  Instantiated covered all other parts of the index as well.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-3309">LUCENE-3309</a>: The expert FieldSelector API has been replaced with  StoredFieldVisitor. The idea is the same (you have full control  over which fields should be loaded). Instead of a single accept  method, StoredFieldVisitor has a needsField method: if that method  returns true then the field will be loaded and the appropriate  type-specific method will be invoked with that fields's value.</p></li>
+  <li><p><a href="https://issues.apache.org/jira/browse/LUCENE-4122">LUCENE-4122</a>: Removed the Payload class and replaced with BytesRef.  PayloadAttribute's name is unchanged, it just uses the BytesRef  class to refer to the payload bytes/start offset/end offset  (or null if there is no payload).</p></li>
+</ul>
+</body>
+</html>
