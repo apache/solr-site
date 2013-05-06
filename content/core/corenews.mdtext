@@ -1,8 +1,60 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 6 May 2013 - Lucene Core 4.3.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 4.3
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+This release contains a handful of bug fixes and optimizations,
+some of which are highlighted below. The release
+is available for immediate download at:
+   <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+
+See the [CHANGES.txt](/core/4_3_0/changes/Changes.html) file included 
+with the release for a full list of details.
+
+### Lucene 4.3.0 Release Highlights:
+
+- Significant performance improvements for minShouldMatch BooleanQuery due to
+  skipping resulting in up to 4000% faster queries.
+
+- A new SortingAtomicReader which allows sorting an index based on a sort criteria (e.g.
+  a numeric DocValues field), as well as SortingMergePolicy which sorts documents before
+  segments are merged.
+
+- DocIdSetIterator and Scorer now has a cost API that provides an upper bound
+  of the number of documents the iterator might match. This API allows optimisation
+  during query execution or how filters are applied.
+
+- Analyzing/FuzzySuggester now allow to record arbitrary byte[] as a payload. The suggesters
+  also use an ending offset to determine whether the last token was finished or not, so that
+  a query "i " will no longer suggest "Isla de Muerta" for example.
+
+- Lucene Spatial Module can now search for indexed shapes by Within, Contains, and Disjoint
+  relationships, in addition to typical Intersects.
+
+- PostingsHighlighter now allows custom passage scores, per-field BreakIterators and has been
+  detached from TopDocs. Additionally, subclasses can override where string values for highlighting
+  are pulled from alternatively to stored fields.
+
+- New SearcherTaxonomyManager manages near-real-time reopens of both IndexSearcher and
+  TaxonomyReader (for faceting).
+
+- Added new facet method to the facet module to compute facet counts using SortedSetDocValuesField,
+  without a separate taxonomy index.
+
+- DrillSideways class, for computing sideways facet counts, is now more flexible: it allows more
+  than one FacetRequest per dimension and now allows drilling down on dimensions that do not have a
+  facet request.
+
+- Various bugfixes and optimizations since the 4.2.1 release.
+
 ## 3 April 2013 - Lucene Core 4.2.1 Available
 
-The Lucene PMC is pleased to announce the release of Apache Lucene 4.2
+The Lucene PMC is pleased to announce the release of Apache Lucene 4.2.1
 
 Apache Lucene is a high-performance, full-featured text search engine
 library written entirely in Java. It is a technology suitable for nearly

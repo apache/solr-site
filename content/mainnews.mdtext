@@ -1,5 +1,84 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 6 May 2013 - Apache Lucene 4.3.0 and Apache Solr<span style="vertical-align: super; font-size: xx-small">TM</span> 4.3.0 available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 4.3.0 and Apache Solr 4.3.0.
+
+Lucene can be downloaded from <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+and Solr can be downloaded from <http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [Lucene CHANGES.txt](/core/4_3_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/4_3_0/changes/Changes.html) files included
+with the release for a full list of details.
+
+### Highlights of the Lucene release include:
+
+- Significant performance improvements for minShouldMatch BooleanQuery due to
+  skipping resulting in up to 4000% faster queries.
+
+- A new SortingAtomicReader which allows sorting an index based on a sort criteria (e.g.
+  a numeric DocValues field), as well as SortingMergePolicy which sorts documents before
+  segments are merged.
+
+- DocIdSetIterator and Scorer now has a cost API that provides an upper bound
+  of the number of documents the iterator might match. This API allows optimisation
+  during query execution or how filters are applied.
+
+- Analyzing/FuzzySuggester now allow to record arbitrary byte[] as a payload. The suggesters
+  also use an ending offset to determine whether the last token was finished or not, so that
+  a query "i " will no longer suggest "Isla de Muerta" for example.
+
+- Lucene Spatial Module can now search for indexed shapes by Within, Contains, and Disjoint
+  relationships, in addition to typical Intersects.
+
+- PostingsHighlighter now allows custom passage scores, per-field BreakIterators and has been
+  detached from TopDocs. Additionally, subclasses can override where string values for highlighting
+  are pulled from alternatively to stored fields.
+
+- New SearcherTaxonomyManager manages near-real-time reopens of both IndexSearcher and
+  TaxonomyReader (for faceting).
+
+- Added new facet method to the facet module to compute facet counts using SortedSetDocValuesField,
+  without a separate taxonomy index.
+
+- DrillSideways class, for computing sideways facet counts, is now more flexible: it allows more
+  than one FacetRequest per dimension and now allows drilling down on dimensions that do not have a
+  facet request.
+
+- Various bugfixes and optimizations since the 4.2.1 release.
+
+### Highlights of the Solr release include: 
+
+- Tired of maintaining core information in solr.xml? Now you can configure
+  Solr to automatically find cores by walking an arbitrary directory.
+
+- Shard Splitting: You can now split SolrCloud shards to expand your cluster as 
+  you grow.
+
+- The read side schema REST API has been improved and expanded upon: all schema
+  information is now available and the full live schema can now be returned in
+  json or xml.  Ground work is included for the upcoming write side of the 
+  schema REST API.
+
+- Spatial queries can now search for indexed shapes by "IsWithin", "Contains" and 
+  "IsDisjointTo" relationships, in addition to typical "Intersects".
+
+- Faceting now supports local parameters for faceting on the same field with 
+  different options.
+
+- Significant performance improvements for minShouldMatch (mm) queries due to
+  skipping resulting in up to 4000% faster queries.
+
+- Various new highlighting configuration parameters.
+
+- A new solr.xml format that is closer to that of solrconfig.xml. The example
+  still uses the old format, but 4.4 will ship with the new format.
+
+- Lucene 4.3.0 bug fixes and optimizations.
+
+Solr 4.3.0 also includes many other new features as well as numerous optimizations and bugfixes.
+
 ## 3 April 2013 - Apache Lucene 4.2.1 and Apache Solr<span style="vertical-align: super; font-size: xx-small">TM</span> 4.2.1 available
 
 The Lucene PMC is pleased to announce the availability
