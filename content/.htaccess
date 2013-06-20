@@ -35,24 +35,8 @@ RedirectMatch temp /solr/api/(.*) /solr/4_3_1/$1
 # we no longer have a TLP mail.html page use 'core' for now
 RedirectMatch Permanent /mail.html /core/discussion.html
 
-# versioned core docs
-# 
-# these are explicit: don't put any more releases under here.
-# this way newer releases redirect to core/<release>
-RedirectMatch Permanent /java/2_9_0 /core/old_versioned_docs/versions/2_9_0
-RedirectMatch Permanent /java/2_9_1 /core/old_versioned_docs/versions/2_9_1
-RedirectMatch Permanent /java/2_9_2 /core/old_versioned_docs/versions/2_9_2
-RedirectMatch Permanent /java/2_9_3 /core/old_versioned_docs/versions/2_9_3
-RedirectMatch Permanent /java/2_9_4 /core/old_versioned_docs/versions/2_9_4
-RedirectMatch Permanent /java/3_0_0 /core/old_versioned_docs/versions/3_0_0
-RedirectMatch Permanent /java/3_0_1 /core/old_versioned_docs/versions/3_0_1
-RedirectMatch Permanent /java/3_0_2 /core/old_versioned_docs/versions/3_0_2
-RedirectMatch Permanent /java/3_0_3 /core/old_versioned_docs/versions/3_0_3
-RedirectMatch Permanent /java/3_1_0 /core/old_versioned_docs/versions/3_1_0
-RedirectMatch Permanent /java/3_2_0 /core/old_versioned_docs/versions/3_2_0
-RedirectMatch Permanent /java/3_3_0 /core/old_versioned_docs/versions/3_3_0
-RedirectMatch Permanent /java/3_4_0 /core/old_versioned_docs/versions/3_4_0
-RedirectMatch Permanent /java/3_5_0 /core/old_versioned_docs/versions/3_5_0
+# this was a temporary solution:
+RedirectMatch Permanent /core/old_versioned_docs/versions/(.*) /core/$1
 
 # Default catch for "java" - Core is the new Java!
 RedirectMatch Permanent /java/docs(.*) /core$1
