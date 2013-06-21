@@ -42,6 +42,7 @@ RedirectMatch Permanent /core/old_versioned_docs/versions/(.*) /core/$1
 RedirectMatch Permanent /core/2_9_[0123](.*) /core/2_9_4$1
 RedirectMatch Permanent /core/3_0_[012](.*) /core/3_0_3$1
 RedirectMatch Permanent /core/4_0_0-(ALPHA|BETA)(.*) /core/4_0_0$2
+RedirectMatch Permanent /solr/4_0_0-(ALPHA|BETA)(.*) /solr/4_0_0$2
 RedirectMatch Permanent /solr/api-(.*) /solr/$1
 
 # Default catch for "java" - Core is the new Java!
