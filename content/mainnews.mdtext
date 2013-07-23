@@ -25,11 +25,11 @@ with the release for a full list of details.
   capture group in one or more Java regexes.
 
 - New Lucene Facet module features: 
-  - Added dynamic (no taxonomy index used) numeric range faceting (see
+  * Added dynamic (no taxonomy index used) numeric range faceting (see
     http://blog.mikemccandless.com/2013/05/dynamic-faceting-with-lucene.html )
-  - Arbitrary Querys are now allowed for per-dimension drill-down on
+  * Arbitrary Querys are now allowed for per-dimension drill-down on
     DrillDownQuery and DrillSideways, to support future dynamic faceting.
-  - New FacetResult.mergeHierarchies: merge multiple FacetResult of the
+  * New FacetResult.mergeHierarchies: merge multiple FacetResult of the
     same dimension into a single one with the reconstructed hierarchy.
 
 - FST's Builder can now handle more than 2.1 billion "tail nodes" while
