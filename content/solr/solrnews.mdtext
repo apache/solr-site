@@ -22,54 +22,54 @@ with the release for a full list of details.
 
 ### Solr 4.4 Release Highlights:
 
-- Solr indexes and transaction logs may stored in HDFS with full read/write
+* Solr indexes and transaction logs may stored in HDFS with full read/write
   capability.
 
-- Schemaless mode: Added support for a mode that requires no up-front schema
+* Schemaless mode: Added support for a mode that requires no up-front schema
   modifications, in which previously unknown fields' types are guessed based
   on the values in added/updated documents, and are then added to the schema
   prior to processing the update.  Note that the below-described features
   are also useful independently from schemaless mode operation.   
-  - New Parse{Date,Integer,Long,Float,Double,Boolean}UpdateProcessorFactory
-    classes parse/guess the field value class for String-valued and unknown
-    fields.
-  - New AddSchemaFieldsUpdateProcessor: Automatically add new fields to the
-    schema when adding/updating documents with unknown fields. Custom rules
-    map field value class(es) to schema fieldTypes.
-  - A new schemaless mode example configuration, using the above-described 
-    field-value-class-guessing and unknown-field-schema-addition features,
-    is provided at solr/example/example-schemaless/.
+    - New Parse{Date,Integer,Long,Float,Double,Boolean}UpdateProcessorFactory
+      classes parse/guess the field value class for String-valued and unknown
+      fields.
+    - New AddSchemaFieldsUpdateProcessor: Automatically add new fields to the
+      schema when adding/updating documents with unknown fields. Custom rules
+      map field value class(es) to schema fieldTypes.
+    - A new schemaless mode example configuration, using the above-described 
+      field-value-class-guessing and unknown-field-schema-addition features,
+      is provided at solr/example/example-schemaless/.
 
-- Core Discovery mode: A new solr.xml format which does not store core
+* Core Discovery mode: A new solr.xml format which does not store core
   information, but instead searches for files named 'core.properties' in
   the filesystem which tell Solr all the details about that core.  The main
   example and the schemaless example both use this new format.
 
-- Schema REST API: Add support for creating copy fields.
+* Schema REST API: Add support for creating copy fields.
 
-- A merged segment warmer may now be plugged into solrconfig.xml. 
+* A merged segment warmer may now be plugged into solrconfig.xml. 
 
-- New MaxScoreQParserPlugin: Return max() instead of sum() of terms.
+* New MaxScoreQParserPlugin: Return max() instead of sum() of terms.
 
-- Binary files are now supported in ZooKeeper.
+* Binary files are now supported in ZooKeeper.
 
-- SolrJ's SolrPing object has new methods for ping, enable, and disable.
+* SolrJ's SolrPing object has new methods for ping, enable, and disable.
 
-- The Admin UI now supports adding documents to Solr.
+* The Admin UI now supports adding documents to Solr.
 
-- Added a PUT command to the Solr ZkCli tool.
+* Added a PUT command to the Solr ZkCli tool.
 
-- New "deleteshard" collections API that unloads all replicas of a given
+* New "deleteshard" collections API that unloads all replicas of a given
   shard and then removes it from the cluster state. It will remove only
   those shards which are INACTIVE or have no range.
 
-- The Overseer can now optionally assign generic node names so that
+* The Overseer can now optionally assign generic node names so that
   new addresses can host shards without naming confusion.
 
-- The CSV Update Handler now supports optionally adding the line number/
+* The CSV Update Handler now supports optionally adding the line number/
   row id to a document.
 
-- Added a new system wide info admin handler that exposes the system info
+* Added a new system wide info admin handler that exposes the system info
   that could previously only be retrieved using a SolrCore.
 
 Solr 4.4 also includes many other new features as well as numerous
