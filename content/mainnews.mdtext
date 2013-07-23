@@ -25,12 +25,12 @@ with the release for a full list of details.
   capture group in one or more Java regexes.
 
 - New Lucene Facet module features: 
-  * Added dynamic (no taxonomy index used) numeric range faceting (see
-    http://blog.mikemccandless.com/2013/05/dynamic-faceting-with-lucene.html )
-  * Arbitrary Querys are now allowed for per-dimension drill-down on
-    DrillDownQuery and DrillSideways, to support future dynamic faceting.
-  * New FacetResult.mergeHierarchies: merge multiple FacetResult of the
-    same dimension into a single one with the reconstructed hierarchy.
+    * Added dynamic (no taxonomy index used) numeric range faceting (see
+      http://blog.mikemccandless.com/2013/05/dynamic-faceting-with-lucene.html )
+    * Arbitrary Querys are now allowed for per-dimension drill-down on
+      DrillDownQuery and DrillSideways, to support future dynamic faceting.
+    * New FacetResult.mergeHierarchies: merge multiple FacetResult of the
+      same dimension into a single one with the reconstructed hierarchy.
 
 - FST's Builder can now handle more than 2.1 billion "tail nodes" while
   building a minimal FST.
@@ -75,15 +75,15 @@ Lucene 4.4 also includes numerous optimizations and bugfixes.
   on the values in added/updated documents, and are then added to the schema
   prior to processing the update.  Note that the below-described features
   are also useful independently from schemaless mode operation.   
-  - New Parse{Date,Integer,Long,Float,Double,Boolean}UpdateProcessorFactory
-    classes parse/guess the field value class for String-valued and unknown
-    fields.
-  - New AddSchemaFieldsUpdateProcessor: Automatically add new fields to the
-    schema when adding/updating documents with unknown fields. Custom rules
-    map field value class(es) to schema fieldTypes.
-  - A new schemaless mode example configuration, using the above-described 
-    field-value-class-guessing and unknown-field-schema-addition features,
-    is provided at solr/example/example-schemaless/.
+    * New Parse{Date,Integer,Long,Float,Double,Boolean}UpdateProcessorFactory
+      classes parse/guess the field value class for String-valued and unknown
+      fields.
+    * New AddSchemaFieldsUpdateProcessor: Automatically add new fields to the
+      schema when adding/updating documents with unknown fields. Custom rules
+      map field value class(es) to schema fieldTypes.
+    * A new schemaless mode example configuration, using the above-described 
+      field-value-class-guessing and unknown-field-schema-addition features,
+      is provided at solr/example/example-schemaless/.
 
 - Core Discovery mode: A new solr.xml format which does not store core
   information, but instead searches for files named 'core.properties' in
