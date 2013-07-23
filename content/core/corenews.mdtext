@@ -1,5 +1,74 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 23 July 2013 - Lucene Core 4.4 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 4.4
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and
+improvements, some of which are highlighted below. The release
+is available for immediate download at:
+  http://lucene.apache.org/core/mirrors-core-latest-redir.html
+
+See the [CHANGES.txt](/core/4_4_0/changes/Changes.html) file included
+with the release for a full list of details.
+
+### Lucene 4.4 Release Highlights:
+
+- New Replicator module: replicate index revisions between server and
+  client. See http://shaierera.blogspot.com/2013/05/the-replicator.html
+
+- New AnalyzingInfixSuggester: finds suggestions based on matches to any
+  tokens in the suggestion, not just based on pure prefix matching.  See
+  http://blog.mikemccandless.com/2013/06/a-new-lucene-suggester-based-on-infix.html
+
+- New PatternCaptureGroupTokenFilter: emit multiple tokens, one for each 
+  capture group in one or more Java regexes.
+
+- New Lucene Facet module features: 
+  - Added dynamic (no taxonomy index used) numeric range faceting (see
+    http://blog.mikemccandless.com/2013/05/dynamic-faceting-with-lucene.html )
+  - Arbitrary Querys are now allowed for per-dimension drill-down on
+    DrillDownQuery and DrillSideways, to support future dynamic faceting.
+  - New FacetResult.mergeHierarchies: merge multiple FacetResult of the
+    same dimension into a single one with the reconstructed hierarchy.
+
+- FST's Builder can now handle more than 2.1 billion "tail nodes" while
+  building a minimal FST.
+
+- FieldCache Ints and Longs now use bit-packing to save memory. String fields
+  have more efficient compression if there are many unique terms.
+
+- Improved compression for NumericDocValues for dates and fields with very
+  small numbers of unique values.
+
+- New IndexWriter.hasUncommittedChanges(): returns true if there are changes
+  that have not been committed.
+
+- multiValuedSeparator in PostingsHighlighter is now configurable, for cases
+  where you want a different logical separator between field values.
+
+- NorwegianLightStemFilter and NorwegianMinimalStemFilter have been extended 
+  to handle "nynorsk".
+
+- New ScandinavianFoldingFilter and ScandinavianNormalizationFilter.
+
+- Easier compressed norms: Lucene42NormsFormat now takes an overhead
+  parameter, allowing for values other than PackedInts.FASTEST.
+  
+- Analyzer now has an additional tokenStream(String fieldName, String text)
+  method, so wrapping by StringReader for common use is no longer needed.
+
+- New SimpleMergedSegmentWarmer: just ensures that data structures
+  (terms, norms, docvalues, etc.) are initialized.
+
+- IndexWriter flushes segments to the compound file format by default.
+
+- Various bugfixes and optimizations since the 4.3.1 release.
+
 ## 18 June 2013 - Lucene Core 4.3.1 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 4.3.1
@@ -260,207 +329,3 @@ Noteworthy changes since 4.0-BETA:
 * All non-default codec implementations were moved to a separated codecs module. Just add lucene-codecs-4.0.0.jar to your classpath to test these out.
 * Payloads can be optionally stored on the term vectors.
 * Many bugfixes and optimizations.
-
-## 13 August 2012 - Lucene Core 4.0-BETA
-
-Apache Lucene is a high-performance, full-featured text search engine
-library written entirely in Java. It is a technology suitable for nearly
-any application that requires full-text search, especially cross-platform.
-
-This release contains numerous bug fixes, optimizations, and
-improvements, some of which are highlighted below.  The release
-is available for immediate download at:
-   <a href="/core/mirrors-core-latest-redir.html?">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a>
-
-See the <a href="http://lucene.apache.org/core/4_0_0-BETA/changes/Changes.html">CHANGES.txt</a> file included with the release for a full list of
-details.
-
-Highlights of changes since 4.0-alpha:
-
-- <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/index/IndexWriter.html#tryDeleteDocument%28org.apache.lucene.index.IndexReader,%20int%29">
-  IndexWriter.tryDeleteDocument</a> can sometimes delete by document ID, 
-  for higher performance in some applications.
-
-- New experimental postings formats: <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/codecs/bloom/BloomFilteringPostingsFormat.html">
-  BloomFilteringPostingsFormat</a> uses a bloom filter to sometimes avoid 
-  disk seeks when looking up terms,
-  <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/codecs/memory/DirectPostingsFormat.html">
-  DirectPostingsFormat</a> holds all postings as simple byte[] and int[] 
-  for very fast performance at the cost of very high RAM consumption.
-
-- CJK analysis improvements: <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-kuromoji/org/apache/lucene/analysis/ja/JapaneseIterationMarkCharFilter.html">
-  JapaneseIterationMarkCharFilter</a> normalizes Japanese iteration marks, 
-  added unigram+bigram support to <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/cjk/CJKBigramFilter.html">
-  CJKBigramFilter</a>.
-
-- Improvements to Scorer navigation API (<a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/search/Scorer.html#getChildren%28%29">
-  Scorer.getChildren</a>) to support all queries, useful for determining 
-  which portions of the query matched.
-
-- Analysis improvements: factories for creating <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/TokenizerFactory.html">
-  Tokenizer</a>, <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/TokenFilterFactory.html">
-  TokenFilter</a>, and <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/CharFilterFactory.html"> 
-  CharFilter</a> have been moved from Solr to Lucene's analysis module,
-  less memory overhead for StandardTokenizer and Snowball filters.
-
-- Improved highlighting for multi-valued fields.
-
-- Various other API changes, optimizations and bug fixes.
-
-Please read <a href="http://lucene.apache.org/core/4_0_0-BETA/changes/Changes.html">CHANGES.txt</a> and 
-<a href="http://lucene.apache.org/core/4_0_0-BETA/MIGRATE.html">MIGRATE.txt</a> for a full list of new features and notes on upgrading. 
-Particularly, the new apis are not compatible with previous version of Lucene, however, file 
-format backwards compatibility is provided for indexes from the 3.0 series and the 4.0-alpha release.
-
-This is a beta release for early adopters. The guarantee for this beta release is that the index 
-format will be the 4.0 index format, supported through the 5.x series of Apache Lucene, unless there 
-is a critical bug (e.g. that would cause index corruption) that would prevent this.
-
-Please report any feedback to the mailing lists (<a href="http://lucene.apache.org/core/discussion.html">http://lucene.apache.org/core/discussion.html</a>)
-
-## 22 July 2012 - Apache Lucene 3.6.1
-
-The Lucene PMC is pleased to announce the release of Apache Lucene 3.6.1.
-
-Apache Lucene is a high-performance, full-featured text search engine
-library written entirely in Java. It is a technology suitable for nearly
-any application that requires full-text search, especially cross-platform.
-
-This release is a bug fix release for version 3.6.0. It contains numerous
-bug fixes, optimizations, and improvements, some of which are highlighted
-below.  The release is available for immediate download at:
-   <a href="/core/mirrors-core-3x-redir.html?">http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>
-
-See the CHANGES.txt file included with the release for a full list of
-details.
-
-Lucene 3.6.1 Release Highlights:
-
-- The concurrency of MMapIndexInput.clone() was improved, which caused
-  a performance regression in comparison to Lucene 3.5.0.
-
-- MappingCharFilter was fixed to return correct final token positions.
-
-- QueryParser now supports +/- operators with any amount of whitespace.
-
-- DisjunctionMaxScorer now implements visitSubScorers().
-
-- Changed the visibility of Scorer#visitSubScorers() to
-  public, otherwise it's impossible to implement Scorers outside
-  the Lucene package. This is a small backwards break, affecting a few
-  users who implemented custom Scorers.
-
-- Various analyzer bugs where fixed: Kuromoji to not produce invalid
-  token graph due to UNK with punctuation being decompounded, invalid 
-  position length in SynonymFilter, loading of Hunspell dictionaries that
-  use aliasing, be consistent with closing streams when loading
-  Hunspell affix files.
-
-- Various bugs in FST components were fixed: Offline sorter minimum
-  buffer size, integer overflow in sorter, FSTCompletionLookup missed
-  to close its sorter.
-
-- Fixed a synchronization bug in handling taxonomies in facet module.
-
-- Various minor bugs were fixed: BytesRef/CharsRef copy methods
-  with nonzero offsets and subSequence off-by-one, TieredMergePolicy
-  returned wrong-scaled floor segment setting.
-
-## 3 July 2012 - Lucene Core 4.0-ALPHA
-
-The Lucene PMC is pleased to announce the release of Apache Lucene 4.0-alpha
-
-Apache Lucene is a high-performance, full-featured text search engine
-library written entirely in Java. It is a technology suitable for nearly
-any application that requires full-text search, especially cross-platform.
-
-This release contains numerous bug fixes, optimizations, and
-improvements, some of which are highlighted below.  The release
-is available for immediate download at:
-   <a href="/core/mirrors-core-latest-redir.html?">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a>
-
-See the CHANGES.txt file included with the release for a full list of
-details.
-
-Lucene 4.0-alpha Release Highlights:
-
-- The index formats for terms, postings lists, stored fields, term vectors, etc 
-  are pluggable via the Codec api. You can select from the provided 
-  implementations or customize the index format with your own Codec to meet your needs.
-
-- Similarity has been decoupled from the vector space model (TF/IDF). Additional models
-  such as BM25, Divergence from Randomness, Language Models, and Information-based models
-  are provided (see <a href="http://www.lucidimagination.com/blog/2011/09/12/flexible-ranking-in-lucene-4">http://www.lucidimagination.com/blog/2011/09/12/flexible-ranking-in-lucene-4</a>).
-
-- Added support for per-document values (DocValues). DocValues can be used for custom 
-  scoring factors (accessible via Similarity), for pre-sorted Sort values, and more.
-
-- When indexing via multiple threads, each IndexWriter thread now flushes its own segment
-  to disk concurrently, resulting in substantial performance improvements
-  (see <a href="http://blog.mikemccandless.com/2011/05/265-indexing-speedup-with-lucenes.html">http://blog.mikemccandless.com/2011/05/265-indexing-speedup-with-lucenes.html</a>).
-
-- Per-document normalization factors ("norms") are no longer limited to a single byte.
-  Similarity implementations can use any DocValues type to store norms.
-
-- Added index statistics such as the number of tokens for a term or field, number of postings
-  for a field, and number of documents with a posting for a field: these support additional
-  scoring models (see
-  <a href="http://blog.mikemccandless.com/2012/03/new-index-statistics-in-lucene-40.html">http://blog.mikemccandless.com/2012/03/new-index-statistics-in-lucene-40.html</a>). 
-
-- Implemented a new default term dictionary/index (BlockTree) that indexes shared prefixes
-  instead of every n'th term. This is not only more time- and space- efficient, but can
-  also sometimes avoid going to disk at all for terms that do not exist. Alternative term
-  dictionary implementions are provided and pluggable via the Codec api.
-
-- Indexed terms are no longer UTF-16 char sequences, instead terms can be any binary
-  value encoded as byte arrays. By default, text terms are now encoded as UTF-8
-  bytes. Sort order of terms is now defined by their binary value, which is identical
-  to UTF-8 sort order.
-
-- Substantially faster performance when using a Filter during searching.
-
-- File-system based directories can rate-limit the IO (MB/sec) of merge
-  threads, to reduce IO contention between merging and searching threads.
-
-- Added a number of alternative Codecs and components for different use-cases: "Appending"
-  works with append-only filesystems (such as Hadoop DFS), "Memory" writes the entire 
-  terms+postings as an FST read into RAM (see
-  <a href="http://blog.mikemccandless.com/2011/06/primary-key-lookups-are-28x-faster-with.html">http://blog.mikemccandless.com/2011/06/primary-key-lookups-are-28x-faster-with.html</a>),
-  "Pulsing" inlines the postings for low-frequency terms into the term dictionary (see
-  <a href="http://blog.mikemccandless.com/2010/06/lucenes-pulsingcodec-on-primary-key.html">http://blog.mikemccandless.com/2010/06/lucenes-pulsingcodec-on-primary-key.html</a>),
-  "SimpleText" writes all files in plain-text for easy debugging/transparency (see
-  <a href="http://blog.mikemccandless.com/2010/10/lucenes-simpletext-codec.html">http://blog.mikemccandless.com/2010/10/lucenes-simpletext-codec.html</a>), among others.
-
-- Term offsets can be optionally encoded into the postings lists and can be retrieved
-  per-position.
-
-- A new AutomatonQuery returns all documents containing any term matching a provided
-  finite-state automaton (see <a href="http://www.slideshare.net/otisg/finite-state-queries-in-lucene">http://www.slideshare.net/otisg/finite-state-queries-in-lucene</a>).
-
-- FuzzyQuery is 100-200 times faster than in past releases (see
-  <a href="http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html">http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html</a>).
-
-- A new spell checker, DirectSpellChecker, finds possible corrections directly against the
-  main search index without requiring a separate index.
-
-- Various in-memory data structures such as the term dictionary and FieldCache are represented
-  more efficiently with less object overhead (see <a href="http://blog.mikemccandless.com/2010/07/lucenes-ram-usage-for-searching.html">http://blog.mikemccandless.com/2010/07/lucenes-ram-usage-for-searching.html</a>).
-
-- All search logic is now required to work per segment, IndexReader was therefore refactored to
-  differentiate between atomic and composite readers
-  (see <a href="http://blog.thetaphi.de/2012/02/is-your-indexreader-atomic-major.html">http://blog.thetaphi.de/2012/02/is-your-indexreader-atomic-major.html</a>).
-
-- Lucene 4.0 provides a modular API, consolidating components such as Analyzers and Queries 
-  that were previously scattered across Lucene core, contrib, and Solr. These modules also
-  include additional functionality such as UIMA analyzer integration and a completely reworked 
-  spatial search implementation.
-
-Please read CHANGES.txt and MIGRATE.txt for a full list of new features and notes on upgrading. 
-Particularly, the new apis are not compatible with previous version of Lucene, however, file 
-format backwards compatibility is provided for indexes from the 3.0 series.
-
-This is an alpha release for early adopters. The guarantee for this alpha release is that the index 
-format will be the 4.0 index format, supported through the 5.x series of Apache Lucene, unless there 
-is a critical bug (e.g. that would cause index corruption) that would prevent this.
-
-Please report any feedback to the mailing lists (<a href="http://lucene.apache.org/core/discussion.html">http://lucene.apache.org/core/discussion.html</a>)

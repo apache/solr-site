@@ -1,6 +1,125 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
-## 18 June 2013 - Apache Lucene 4.3.1 and Apache Solr<span style="vertical-align: super; font-size: xx-small">TM</span> 4.3.1 available
+## 23 July 2013 - Apache Lucene 4.4 and Apache Solr<span style="vertical-align: super; font-size: xx-small">TM</span> 4.4 available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 4.4 and Apache Solr 4.4.
+
+Lucene can be downloaded from <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+and Solr can be downloaded from <http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [Lucene CHANGES.txt](/core/4_4_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/4_4_0/changes/Changes.html) files included
+with the release for a full list of details.
+
+### Highlights of the Lucene release include:
+
+- New Replicator module: replicate index revisions between server and
+  client. See http://shaierera.blogspot.com/2013/05/the-replicator.html
+
+- New AnalyzingInfixSuggester: finds suggestions based on matches to any
+  tokens in the suggestion, not just based on pure prefix matching.  See
+  http://blog.mikemccandless.com/2013/06/a-new-lucene-suggester-based-on-infix.html
+
+- New PatternCaptureGroupTokenFilter: emit multiple tokens, one for each 
+  capture group in one or more Java regexes.
+
+- New Lucene Facet module features: 
+  - Added dynamic (no taxonomy index used) numeric range faceting (see
+    http://blog.mikemccandless.com/2013/05/dynamic-faceting-with-lucene.html )
+  - Arbitrary Querys are now allowed for per-dimension drill-down on
+    DrillDownQuery and DrillSideways, to support future dynamic faceting.
+  - New FacetResult.mergeHierarchies: merge multiple FacetResult of the
+    same dimension into a single one with the reconstructed hierarchy.
+
+- FST's Builder can now handle more than 2.1 billion "tail nodes" while
+  building a minimal FST.
+
+- FieldCache Ints and Longs now use bit-packing to save memory. String fields
+  have more efficient compression if there are many unique terms.
+
+- Improved compression for NumericDocValues for dates and fields with very
+  small numbers of unique values.
+
+- New IndexWriter.hasUncommittedChanges(): returns true if there are changes
+  that have not been committed.
+
+- multiValuedSeparator in PostingsHighlighter is now configurable, for cases
+  where you want a different logical separator between field values.
+
+- NorwegianLightStemFilter and NorwegianMinimalStemFilter have been extended 
+  to handle "nynorsk".
+
+- New ScandinavianFoldingFilter and ScandinavianNormalizationFilter.
+
+- Easier compressed norms: Lucene42NormsFormat now takes an overhead
+  parameter, allowing for values other than PackedInts.FASTEST.
+  
+- Analyzer now has an additional tokenStream(String fieldName, String text)
+  method, so wrapping by StringReader for common use is no longer needed.
+
+- New SimpleMergedSegmentWarmer: just ensures that data structures
+  (terms, norms, docvalues, etc.) are initialized.
+
+- IndexWriter flushes segments to the compound file format by default.
+
+Lucene 4.4 also includes numerous optimizations and bugfixes.
+
+### Highlights of the Solr release include:
+
+- Solr indexes and transaction logs may stored in HDFS with full read/write
+  capability.
+
+- Schemaless mode: Added support for a mode that requires no up-front schema
+  modifications, in which previously unknown fields' types are guessed based
+  on the values in added/updated documents, and are then added to the schema
+  prior to processing the update.  Note that the below-described features
+  are also useful independently from schemaless mode operation.   
+  - New Parse{Date,Integer,Long,Float,Double,Boolean}UpdateProcessorFactory
+    classes parse/guess the field value class for String-valued and unknown
+    fields.
+  - New AddSchemaFieldsUpdateProcessor: Automatically add new fields to the
+    schema when adding/updating documents with unknown fields. Custom rules
+    map field value class(es) to schema fieldTypes.
+  - A new schemaless mode example configuration, using the above-described 
+    field-value-class-guessing and unknown-field-schema-addition features,
+    is provided at solr/example/example-schemaless/.
+
+- Core Discovery mode: A new solr.xml format which does not store core
+  information, but instead searches for files named 'core.properties' in
+  the filesystem which tell Solr all the details about that core.  The main
+  example and the schemaless example both use this new format.
+
+- Schema REST API: Add support for creating copy fields.
+
+- A merged segment warmer may now be plugged into solrconfig.xml. 
+
+- New MaxScoreQParserPlugin: Return max() instead of sum() of terms.
+
+- Binary files are now supported in ZooKeeper.
+
+- SolrJ's SolrPing object has new methods for ping, enable, and disable.
+
+- The Admin UI now supports adding documents to Solr.
+
+- Added a PUT command to the Solr ZkCli tool.
+
+- New "deleteshard" collections API that unloads all replicas of a given
+  shard and then removes it from the cluster state. It will remove only
+  those shards which are INACTIVE or have no range.
+
+- The Overseer can now optionally assign generic node names so that
+  new addresses can host shards without naming confusion.
+
+- The CSV Update Handler now supports optionally adding the line number/
+  row id to a document.
+
+- Added a new system wide info admin handler that exposes the system info
+  that could previously only be retrieved using a SolrCore.
+
+Solr 4.4 also includes numerous optimizations and bugfixes.
+
+## 18 June 2013 - Apache Lucene 4.3.1 and Apache Solr 4.3.1 available
 
 The Lucene PMC is pleased to announce the availability
 of Apache Lucene 4.3.1 and Apache Solr 4.3.1.
@@ -416,256 +535,3 @@ Noteworthy changes since Solr 4.0-BETA:
 * Various Admin UI improvements.
 * SolrCloud related performance optimizations in writing the the transaction log, PeerSync recovery, Leader election, and ClusterState caching.
 * Numerous bug fixes and optimizations.
-
-
-##14 August 2012 - Lucene Core 4.0-BETA and Solr 4.0-BETA Available
-
-The Lucene PMC is pleased to announce the availability
-of Apache Lucene 4.0-BETA and Apache Solr 4.0-BETA
-
-Lucene can be downloaded from <a href="/core/mirrors-core-latest-redir.html?">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a>
-and Solr can be downloaded from <a href="/solr/mirrors-solr-latest-redir.html?">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
-
-Highlights of the Lucene release include:
-
-- <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/index/IndexWriter.html#tryDeleteDocument%28org.apache.lucene.index.IndexReader,%20int%29">
-  IndexWriter.tryDeleteDocument</a> can sometimes delete by document ID,
-  for higher performance in some applications.
-
-- New experimental postings formats: <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/codecs/bloom/BloomFilteringPostingsFormat.html">
-  BloomFilteringPostingsFormat</a> uses a bloom filter to sometimes avoid
-  disk seeks when looking up terms,
-  <a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/codecs/memory/DirectPostingsFormat.html">
-  DirectPostingsFormat</a> holds all postings as simple byte[] and int[]
-  for very fast performance at the cost of very high RAM consumption.
-
-- CJK analysis improvements: <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-kuromoji/org/apache/lucene/analysis/ja/JapaneseIterationMarkCharFilter.html">
-  JapaneseIterationMarkCharFilter</a> normalizes Japanese iteration marks,
-  added unigram+bigram support to <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/cjk/CJKBigramFilter.html">
-  CJKBigramFilter</a>.
-
-- Improvements to Scorer navigation API (<a href="http://lucene.apache.org/core/4_0_0-BETA/core/org/apache/lucene/search/Scorer.html#getChildren%28%29">
-  Scorer.getChildren</a>) to support all queries, useful for determining
-  which portions of the query matched.
-
-- Analysis improvements: factories for creating <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/TokenizerFactory.html">
-  Tokenizer</a>, <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/TokenFilterFactory.html">
-  TokenFilter</a>, and <a href="http://lucene.apache.org/core/4_0_0-BETA/analyzers-common/org/apache/lucene/analysis/util/CharFilterFactory.html">
-  CharFilter</a> have been moved from Solr to Lucene's analysis module,
-  less memory overhead for StandardTokenizer and Snowball filters.
-
-- Improved highlighting for multi-valued fields.
-
-- Various other API changes, optimizations and bug fixes.
-
-Highlights of the Solr release include:
-
-- Added a Collection management API for <a href="http://wiki.apache.org/solr/SolrCloud/">Solr Cloud</a>.
-
-- Solr Admin UI now clearly displays failures related to initializing SolrCores
-
-- Updatable documents can create a document if it doesn't already exist,
-  or you can force that the document must already exist.
-
-- Full delete-by-query support for Solr Cloud.
-
-- Default to <a href="http://lucene.apache.org/solr/api-4_0_0-BETA/org/apache/solr/core/NRTCachingDirectoryFactory.html">
-  NRTCachingDirectory</a> for improved near-realtime performance.
-
-- Improved <a href="http://wiki.apache.org/solr/Solrj">Solrj</a> client performance
-  with Solr Cloud: updates are only sent to leaders by default.
-
-- Various other API changes, optimizations and bug fixes.
-
-## 22 July 2012 - Apache Lucene 3.6.1 and Apache Solr 3.6.1 available
-
-The Lucene PMC is pleased to announce the availability
-of Apache Lucene 3.6.1 and Apache Solr 3.6.1.
-
-This release is a bug fix release for version 3.6.0. It contains numerous
-bug fixes, optimizations, and improvements, some of which are highlighted
-below.
-
-Lucene can be downloaded from <a href="/core/mirrors-core-3x-redir.html?">http://lucene.apache.org/core/mirrors-core-3x-redir.html</a>
-and Solr can be downloaded from <a href="/solr/mirrors-solr-3x-redir.html?">http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>
-
-See the CHANGES.txt file included with the release for a full list of
-details.
-
-Lucene 3.6.1 Release Highlights:
-
-- The concurrency of MMapIndexInput.clone() was improved, which caused
-  a performance regression in comparison to Lucene 3.5.0.
-
-- MappingCharFilter was fixed to return correct final token positions.
-
-- QueryParser now supports +/- operators with any amount of whitespace.
-
-- DisjunctionMaxScorer now implements visitSubScorers().
-
-- Changed the visibility of Scorer#visitSubScorers() to
-  public, otherwise it's impossible to implement Scorers outside
-  the Lucene package. This is a small backwards break, affecting a few
-  users who implemented custom Scorers.
-
-- Various analyzer bugs where fixed: Kuromoji to not produce invalid
-  token graph due to UNK with punctuation being decompounded, invalid 
-  position length in SynonymFilter, loading of Hunspell dictionaries that
-  use aliasing, be consistent with closing streams when loading
-  Hunspell affix files.
-
-- Various bugs in FST components were fixed: Offline sorter minimum
-  buffer size, integer overflow in sorter, FSTCompletionLookup missed
-  to close its sorter.
-
-- Fixed a synchronization bug in handling taxonomies in facet module.
-
-- Various minor bugs were fixed: BytesRef/CharsRef copy methods
-  with nonzero offsets and subSequence off-by-one, TieredMergePolicy
-  returned wrong-scaled floor segment setting.
-
-Solr 3.6.1 Release Highlights:
-
-- The concurrency of MMapDirectory was improved, which caused
-  a performance regression in comparison to Solr 3.5.0. This affected
-  users with 64bit platforms (Linux, Solaris, Windows) or those
-  explicitely using MMapDirectoryFactory.
-
-- ReplicationHandler "maxNumberOfBackups" was fixed to work if backups are
-  triggered on commit.
-
-- Charset problems were fixed with HttpSolrServer, caused by an upgrade to
-  a new Commons HttpClient version in 3.6.0.
-
-- Grouping was fixed to return correct count when not all shards are
-  queried in the second pass. Solr no longer throws Exception when using
-  result grouping with main=true and using wt=javabin.
-
-- Config file replication was made less error prone.
-
-- Data Import Handler threading fixes.
-
-- Various minor bugs were fixed.
-
-##3 July 2012 - Lucene Core 4.0-ALPHA and Solr 4.0-ALPHA Available
-
-The Lucene PMC is pleased to announce the availability
-of Apache Lucene 4.0-ALPHA and Apache Solr 4.0-ALPHA
-
-Lucene can be downloaded from <a href="/core/mirrors-core-latest-redir.html?">http://lucene.apache.org/core/mirrors-core-latest-redir.html</a>
-and Solr can be downloaded from <a href="/solr/mirrors-solr-latest-redir.html?">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
-
-Highlights of the Lucene release include:
-
-- The index formats for terms, postings lists, stored fields, term vectors, etc
-  are pluggable via the Codec api. You can select from the provided
-  implementations or customize the index format with your own Codec to meet your needs.
-
-- Similarity has been decoupled from the vector space model (TF/IDF). Additional models
-  such as BM25, Divergence from Randomness, Language Models, and Information-based models
-  are provided (see <a href="http://www.lucidimagination.com/blog/2011/09/12/flexible-ranking-in-lucene-4">http://www.lucidimagination.com/blog/2011/09/12/flexible-ranking-in-lucene-4</a>).
-
-- Added support for per-document values (DocValues). DocValues can be used for custom
-  scoring factors (accessible via Similarity), for pre-sorted Sort values, and more.
-
-- When indexing via multiple threads, each IndexWriter thread now flushes its own segment
-  to disk concurrently, resulting in substantial performance improvements
-  (see <a href="http://blog.mikemccandless.com/2011/05/265-indexing-speedup-with-lucenes.html">http://blog.mikemccandless.com/2011/05/265-indexing-speedup-with-lucenes.html</a>).
-
-- Per-document normalization factors ("norms") are no longer limited to a single byte.
-  Similarity implementations can use any DocValues type to store norms.
-
-- Added index statistics such as the number of tokens for a term or field, number of postings
-  for a field, and number of documents with a posting for a field: these support additional
-  scoring models (see
-  <a href="http://blog.mikemccandless.com/2012/03/new-index-statistics-in-lucene-40.html">http://blog.mikemccandless.com/2012/03/new-index-statistics-in-lucene-40.html</a>).
-
-- Implemented a new default term dictionary/index (BlockTree) that indexes shared prefixes
-  instead of every n'th term. This is not only more time- and space- efficient, but can
-  also sometimes avoid going to disk at all for terms that do not exist. Alternative term
-  dictionary implementions are provided and pluggable via the Codec api.
-
-- Indexed terms are no longer UTF-16 char sequences, instead terms can be any binary
-  value encoded as byte arrays. By default, text terms are now encoded as UTF-8
-  bytes. Sort order of terms is now defined by their binary value, which is identical
-  to UTF-8 sort order.
-
-- Substantially faster performance when using a Filter during searching.
-
-- File-system based directories can rate-limit the IO (MB/sec) of merge
-  threads, to reduce IO contention between merging and searching threads.
-
-- Added a number of alternative Codecs and components for different use-cases: "Appending"
-  works with append-only filesystems (such as Hadoop DFS), "Memory" writes the entire
-  terms+postings as an FST read into RAM (see
-  <a href="http://blog.mikemccandless.com/2011/06/primary-key-lookups-are-28x-faster-with.html">http://blog.mikemccandless.com/2011/06/primary-key-lookups-are-28x-faster-with.html</a>),
-  "Pulsing" inlines the postings for low-frequency terms into the term dictionary (see
-  <a href="http://blog.mikemccandless.com/2010/06/lucenes-pulsingcodec-on-primary-key.html">http://blog.mikemccandless.com/2010/06/lucenes-pulsingcodec-on-primary-key.html</a>),
-  "SimpleText" writes all files in plain-text for easy debugging/transparency (see
-  <a href="http://blog.mikemccandless.com/2010/10/lucenes-simpletext-codec.html">http://blog.mikemccandless.com/2010/10/lucenes-simpletext-codec.html</a>), among others.
-
-- Term offsets can be optionally encoded into the postings lists and can be retrieved
-  per-position.
-
-- A new AutomatonQuery returns all documents containing any term matching a provided
-  finite-state automaton (see <a href="http://www.slideshare.net/otisg/finite-state-queries-in-lucene">http://www.slideshare.net/otisg/finite-state-queries-in-lucene</a>).
-
-- FuzzyQuery is 100-200 times faster than in past releases (see
-  <a href="http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html">http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html</a>).
-
-- A new spell checker, DirectSpellChecker, finds possible corrections directly against the
-  main search index without requiring a separate index.
-
-- Various in-memory data structures such as the term dictionary and FieldCache are represented
-  more efficiently with less object overhead (see <a href="http://blog.mikemccandless.com/2010/07/lucenes-ram-usage-for-searching.html">http://blog.mikemccandless.com/2010/07/lucenes-ram-usage-for-searching.html</a>).
-
-- All search logic is now required to work per segment, IndexReader was therefore refactored to
-  differentiate between atomic and composite readers
-  (see <a href="http://blog.thetaphi.de/2012/02/is-your-indexreader-atomic-major.html">http://blog.thetaphi.de/2012/02/is-your-indexreader-atomic-major.html</a>).
-
-- Lucene 4.0 provides a modular API, consolidating components such as Analyzers and Queries
-  that were previously scattered across Lucene core, contrib, and Solr. These modules also
-  include additional functionality such as UIMA analyzer integration and a completely reworked
-  spatial search implementation.
-
-Highlights of the Solr release include:
-
-The largest set of features goes by the development code-name “Solr Cloud” and involves bringing easy scalability to Solr.  See <a href="http://wiki.apache.org/solr/SolrCloud">http://wiki.apache.org/solr/SolrCloud</a> for more details.
-
- - Distributed indexing designed from the ground up for near real-time (NRT) and NoSQL features such as realtime-get, optimistic locking, and durable updates.
-
- - High availability with no single points of failure.
-
- - Apache Zookeeper integration for distributed coordination and cluster metadata and configuration storage.
-
- - Immunity to split-brain issues due to Zookeeper's Paxos distributed consensus protocols.
-
- - Updates sent to any node in the cluster and are automatically forwarded to the correct shard and replicated to multiple nodes for redundancy.
-
- - Queries sent to any node automatically perform a full distributed search across the cluster with load balancing and fail-over.
-
-Solr 4.0-alpha includes more NoSQL features for those using Solr as a primary data store:
-
- - Update durability – A transaction log ensures that even uncommitted documents are never lost.
-
- - Real-time Get – The ability to quickly retrieve the latest version of a document, without the need to commit or open a new searcher
-
- - Versioning and Optimistic Locking – combined with real-time get, this allows read-update-write functionality that ensures no conflicting changes were made concurrently by other clients.
-
- - Atomic updates -  the ability to add, remove, change, and increment fields of an existing document without having to send in the complete document again.
-
-There are many other features coming in Solr 4, such as
-
- - Pivot Faceting – Multi-level or hierarchical faceting where the top constraints for one field are found for each top constraint of a different field.
-
- - Pseudo-fields – The ability to alias fields, or to add metadata along with returned documents, such as function query values and results of spatial distance calculations.
-
- - A spell checker implementation that can work directly from the main index instead of creating a sidecar index.
-
- - Pseudo-Join functionality – The ability to select a set of documents based on their relationship to a second set of documents.
-
- - Function query enhancements including conditional function queries and relevancy functions.
-
- - New update processors to facilitate modifying documents prior to indexing.
-
- - A brand new web admin interface, including support for SolrCloud.

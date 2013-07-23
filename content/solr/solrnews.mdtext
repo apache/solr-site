@@ -2,6 +2,85 @@
 
 # Solr<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 23 July 2013 - Apache Solr 4.4 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 4.4
+
+Solr is the popular, blazing fast, open source NoSQL search platform
+from the Apache Lucene project. Its major features include powerful
+full-text search, hit highlighting, faceted search, dynamic
+clustering, database integration, rich document (e.g., Word, PDF)
+handling, and geospatial search.  Solr is highly scalable, providing
+fault tolerant distributed search and indexing, and powers the search
+and navigation features of many of the world's largest internet sites.
+
+Solr 4.4 is available for immediate download at:
+  http://lucene.apache.org/solr/mirrors-solr-latest-redir.html
+
+See the [CHANGES.txt](/solr/4_4_0/changes/Changes.html) file included
+with the release for a full list of details. 
+
+### Solr 4.4 Release Highlights:
+
+- Solr indexes and transaction logs may stored in HDFS with full read/write
+  capability.
+
+- Schemaless mode: Added support for a mode that requires no up-front schema
+  modifications, in which previously unknown fields' types are guessed based
+  on the values in added/updated documents, and are then added to the schema
+  prior to processing the update.  Note that the below-described features
+  are also useful independently from schemaless mode operation.   
+  - New Parse{Date,Integer,Long,Float,Double,Boolean}UpdateProcessorFactory
+    classes parse/guess the field value class for String-valued and unknown
+    fields.
+  - New AddSchemaFieldsUpdateProcessor: Automatically add new fields to the
+    schema when adding/updating documents with unknown fields. Custom rules
+    map field value class(es) to schema fieldTypes.
+  - A new schemaless mode example configuration, using the above-described 
+    field-value-class-guessing and unknown-field-schema-addition features,
+    is provided at solr/example/example-schemaless/.
+
+- Core Discovery mode: A new solr.xml format which does not store core
+  information, but instead searches for files named 'core.properties' in
+  the filesystem which tell Solr all the details about that core.  The main
+  example and the schemaless example both use this new format.
+
+- Schema REST API: Add support for creating copy fields.
+
+- A merged segment warmer may now be plugged into solrconfig.xml. 
+
+- New MaxScoreQParserPlugin: Return max() instead of sum() of terms.
+
+- Binary files are now supported in ZooKeeper.
+
+- SolrJ's SolrPing object has new methods for ping, enable, and disable.
+
+- The Admin UI now supports adding documents to Solr.
+
+- Added a PUT command to the Solr ZkCli tool.
+
+- New "deleteshard" collections API that unloads all replicas of a given
+  shard and then removes it from the cluster state. It will remove only
+  those shards which are INACTIVE or have no range.
+
+- The Overseer can now optionally assign generic node names so that
+  new addresses can host shards without naming confusion.
+
+- The CSV Update Handler now supports optionally adding the line number/
+  row id to a document.
+
+- Added a new system wide info admin handler that exposes the system info
+  that could previously only be retrieved using a SolrCore.
+
+Solr 4.4 also includes many other new features as well as numerous
+optimizations and bugfixes.
+
+In the coming days, we will also be announcing the first official Solr 
+Reference Guide available for download.  In the meantime, users are 
+encouraged to browse the online version and post comments and suggestions on 
+the documentation: 
+  https://cwiki.apache.org/confluence/display/solr/Apache+Solr+Reference+Guide
+
 ## 18 June 2013 - Apache Solr 4.3.1 Available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 4.3.1
@@ -309,158 +388,3 @@ Noteworthy changes since 4.0-BETA:
 * Various Admin UI improvements.
 * SolrCloud related performance optimizations in writing the the transaction log, PeerSync recovery, Leader election, and ClusterState caching.
 * Numerous bug fixes and optimizations.
-
-
-## 14 August 2012 - Apache Solr 4.0-beta available
-
-The Lucene PMC is pleased to announce the release of Apache Solr 4.0-beta.
-
-Solr is the popular, blazing fast, open source NoSQL search platform from 
-the Apache Lucene project. Its major features include powerful full-text 
-search, hit highlighting, faceted search, dynamic clustering, database 
-integration, rich document (e.g., Word, PDF) handling, and geospatial search. 
-Solr is highly scalable, providing fault tolerant distributed search and indexing,
-and powers the search and navigation features of many of the world's 
-largest internet sites.
-
-Solr 4.0-beta is available for immediate download at:
-  <a href="/solr/mirrors-solr-latest-redir.html?">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
-
-See the <a href="http://svn.apache.org/repos/asf/lucene/dev/tags/lucene_solr_4_0_0_BETA/solr/CHANGES.txt">
-CHANGES.txt</a> file included with the release for a full list of
-details.
-
-Highlights of changes since 4.0-alpha:
-
-- Added a Collection management API for <a href="http://wiki.apache.org/solr/SolrCloud/">Solr Cloud</a>.
-  
-- Solr Admin UI now clearly displays failures related to initializing SolrCores
-
-- Updatable documents can create a document if it doesn't already exist,
-  or you can force that the document must already exist.
-
-- Full delete-by-query support for Solr Cloud.
-
-- Default to <a href="http://lucene.apache.org/solr/api-4_0_0-BETA/org/apache/solr/core/NRTCachingDirectoryFactory.html">
-  NRTCachingDirectory</a> for improved near-realtime performance.
-
-- Improved <a href="http://wiki.apache.org/solr/Solrj">Solrj</a> client performance 
-  with Solr Cloud: updates are only sent to leaders by default.
-
-- Various other API changes, optimizations and bug fixes. 
-
-This is a beta for early adopters. The guarantee for this beta release is that the index 
-format will be the 4.0 index format, supported through the 5.x series of Lucene/Solr, unless there 
-is a critical bug (e.g. that would cause index corruption) that would prevent this.
-
-Please report any feedback to the mailing lists (<a href="http://lucene.apache.org/solr/discussion.html">http://lucene.apache.org/solr/discussion.html</a>)
-
-## 22 July 2012 - Apache Solr 3.6.1 available
-
-The Lucene PMC is pleased to announce the release of Apache Solr 3.6.1.
-
-Solr is the popular, blazing fast open source enterprise search platform from
-the Apache Lucene project. Its major features include powerful full-text
-search, hit highlighting, faceted search, dynamic clustering, database
-integration, rich document (e.g., Word, PDF) handling, and geospatial search.
-Solr is highly scalable, providing distributed search and index replication,
-and it powers the search and navigation features of many of the world's
-largest internet sites.
-
-This release is a bug fix release for version 3.6.0. It contains numerous
-bug fixes, optimizations, and improvements, some of which are highlighted
-below.  The release is available for immediate download at:
-   <a href="/solr/mirrors-solr-3x-redir.html?">http://lucene.apache.org/solr/mirrors-solr-3x-redir.html</a>
-
-See the CHANGES.txt file included with the release for a full list of
-details.
-
-Solr 3.6.1 Release Highlights:
-
-- The concurrency of MMapDirectory was improved, which caused
-  a performance regression in comparison to Solr 3.5.0. This affected
-  users with 64bit platforms (Linux, Solaris, Windows) or those
-  explicitely using MMapDirectoryFactory.
-
-- ReplicationHandler "maxNumberOfBackups" was fixed to work if backups are
-  triggered on commit.
-
-- Charset problems were fixed with HttpSolrServer, caused by an upgrade to
-  a new Commons HttpClient version in 3.6.0.
-
-- Grouping was fixed to return correct count when not all shards are
-  queried in the second pass. Solr no longer throws Exception when using
-  result grouping with main=true and using wt=javabin.
-
-- Config file replication was made less error prone.
-
-- Data Import Handler threading fixes.
-
-- Various minor bugs were fixed.
-
-##3 July 2012 - Apache Solr 4.0-ALPHA available
-
-The Lucene PMC is pleased to announce the release of Apache Solr 4.0-alpha.
-
-Solr is the popular, blazing fast, open source NoSQL search platform from 
-the Apache Lucene project. Its major features include powerful full-text 
-search, hit highlighting, faceted search, dynamic clustering, database 
-integration, rich document (e.g., Word, PDF) handling, and geospatial search. 
-Solr is highly scalable, providing fault tolerant distributed search and indexing,
-and powers the search and navigation features of many of the world's 
-largest internet sites.
-
-Solr 4.0-alpha is available for immediate download at:
-   <a href="/solr/mirrors-solr-latest-redir.html?">http://lucene.apache.org/solr/mirrors-solr-latest-redir.html</a>
-
-See the CHANGES.txt file included with the release for a full list of
-details.
-
-Solr 4.0-alpha Release Highlights:
-
-The largest set of features goes by the development code-name “Solr Cloud” and involves bringing easy scalability to Solr.  See <a href="http://wiki.apache.org/solr/SolrCloud">http://wiki.apache.org/solr/SolrCloud</a> for more details.
-
- - Distributed indexing designed from the ground up for near real-time (NRT) and NoSQL features such as realtime-get, optimistic locking, and durable updates.
-
- - High availability with no single points of failure.
-
- - Apache Zookeeper integration for distributed coordination and cluster metadata and configuration storage.
-
- - Immunity to split-brain issues due to Zookeeper's Paxos distributed consensus protocols.
-
- - Updates sent to any node in the cluster and are automatically forwarded to the correct shard and replicated to multiple nodes for redundancy.
-
- - Queries sent to any node automatically perform a full distributed search across the cluster with load balancing and fail-over.
-
-Solr 4.0-alpha includes more NoSQL features for those using Solr as a primary data store:
-
- - Update durability – A transaction log ensures that even uncommitted documents are never lost.
-
- - Real-time Get – The ability to quickly retrieve the latest version of a document, without the need to commit or open a new searcher
-
- - Versioning and Optimistic Locking – combined with real-time get, this allows read-update-write functionality that ensures no conflicting changes were made concurrently by other clients.
-
- - Atomic updates -  the ability to add, remove, change, and increment fields of an existing document without having to send in the complete document again.
-
-There are many other features coming in Solr 4, such as
-
- - Pivot Faceting – Multi-level or hierarchical faceting where the top constraints for one field are found for each top constraint of a different field.
-
- - Pseudo-fields – The ability to alias fields, or to add metadata along with returned documents, such as function query values and results of spatial distance calculations.
-
- - A spell checker implementation that can work directly from the main index instead of creating a sidecar index.
-
- - Pseudo-Join functionality – The ability to select a set of documents based on their relationship to a second set of documents.
-
- - Function query enhancements including conditional function queries and relevancy functions.
-
- - New update processors to facilitate modifying documents prior to indexing.
-
- - A brand new web admin interface, including support for SolrCloud.
-
-
-This is an alpha release for early adopters. The guarantee for this alpha release is that the index 
-format will be the 4.0 index format, supported through the 5.x series of Lucene/Solr, unless there 
-is a critical bug (e.g. that would cause index corruption) that would prevent this.
-
-Please report any feedback to the mailing lists (<a href="http://lucene.apache.org/solr/discussion.html">http://lucene.apache.org/solr/discussion.html</a>)
