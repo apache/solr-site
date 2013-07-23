@@ -15,18 +15,18 @@ with the release for a full list of details.
 ### Highlights of the Lucene release include:
 
 * New Replicator module: replicate index revisions between server and
-  client. See http://shaierera.blogspot.com/2013/05/the-replicator.html
+  client. See <http://shaierera.blogspot.com/2013/05/the-replicator.html>
 
 * New AnalyzingInfixSuggester: finds suggestions based on matches to any
   tokens in the suggestion, not just based on pure prefix matching.  See
-  http://blog.mikemccandless.com/2013/06/a-new-lucene-suggester-based-on-infix.html
+  <http://blog.mikemccandless.com/2013/06/a-new-lucene-suggester-based-on-infix.html>
 
 * New PatternCaptureGroupTokenFilter: emit multiple tokens, one for each 
   capture group in one or more Java regexes.
 
 * New Lucene Facet module features: 
     - Added dynamic (no taxonomy index used) numeric range faceting (see
-      http://blog.mikemccandless.com/2013/05/dynamic-faceting-with-lucene.html )
+      <http://blog.mikemccandless.com/2013/05/dynamic-faceting-with-lucene.html> )
     - Arbitrary Querys are now allowed for per-dimension drill-down on
       DrillDownQuery and DrillSideways, to support future dynamic faceting.
     - New FacetResult.mergeHierarchies: merge multiple FacetResult of the
