@@ -1,5 +1,43 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 5 October 2013 - Lucene Core 4.5 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 4.4
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and
+improvements, some of which are highlighted below. The release
+is available for immediate download at:
+  <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+
+See the [CHANGES.txt](/core/4_5_0/changes/Changes.html) file included
+with the release for a full list of details.
+
+### Lucene 4.5 Release Highlights:
+
+* Added support for missing values to DocValues fields through
+  AtomicReader.getDocsWithField.
+
+* Lucene 4.5 has a new Lucene45Codec with Lucene45DocValues, supporting
+  missing values and with most datastructures residing off-heap.
+
+* New in-memory DocIdSet implementations which are especially better than
+  FixedBitSet on small sets: WAH8DocIdSet, PFORDeltaDocIdSet and EliasFanoDocIdSet.
+
+* CachingWrapperFilter now caches filters with WAH8DocIdSet by default, which
+  has the same memory usage as FixedBitSet in the worst case but is smaller and
+  faster on small sets.
+
+* TokenStreams now set the position increment in end(), so we can handle
+  trailing holes.
+
+* IndexWriter no longer clones the given IndexWriterConfig.
+
+* Various bugfixes and optimizations since the 4.4 release.
+
 ## 23 July 2013 - Lucene Core 4.4 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 4.4
