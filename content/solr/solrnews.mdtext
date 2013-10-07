@@ -1,42 +1,45 @@
 # Solr<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
-## 5 October 2013 - Apache Solr 4.5 Available
+## 5 October 2013 - Apache Solr 4.5 and Apache Solr Reference Guide 4.5 Available
 
-The Lucene PMC is pleased to announce the release of Apache Solr 4.5
+The Lucene PMC is pleased to announce the release of
+Apache Solr 4.5 and the Apache Solr Reference Guide 4.5
 
-Solr is the popular, blazing fast, open source NoSQL search platform
-from the Apache Lucene project. Its major features include powerful
-full-text search, hit highlighting, faceted search, dynamic
-clustering, database integration, rich document (e.g., Word, PDF)
-handling, and geospatial search.  Solr is highly scalable, providing
-fault tolerant distributed search and indexing, and powers the search
-and navigation features of many of the world's largest internet sites.
+Solr is the popular, blazing fast, open source NoSQL search
+platform from the Apache Lucene project. Its major features
+include powerful full-text search, hit highlighting, faceted
+search, dynamic clustering, database integration, rich document
+(e.g., Word, PDF) handling, and geospatial search. Solr is highly
+scalable, providing fault tolerant distributed search and indexing,
+and powers the search and navigation features of many of the
+world's largest internet sites.
 
-Solr 4.5 is available for immediate download at:
-  <http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+Solr 4.5 is available for immediate download at: 
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
-See the [CHANGES.txt](/solr/4_5_0/changes/Changes.html) file included
-with the release for a full list of details.
+See the [CHANGES.txt](/solr/4_5_0/changes/Changes.html)
+file included with the release for a full list of details.
 
-### Solr 4.5 Release Highlights:
+The Solr Reference Guide, a 338 page PDF that serves as the
+definitive users manual for Solr 4.5, is available for download
+from the Apache mirror network:
+
+<https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/>
 
 Solr 4.5 Release Highlights:
 
 * Custom sharding support, including the ability to shard by field.
-
-* DocValue improvements: single valued fields no longer require a default
-  value, allowiing dynamicFields to contain doc values, as well as
-  sortMissingFirst and sortMissingLast on docValue fields.
-
+* DocValue improvements: single valued fields no longer require a
+  default value, allowing dynamicFields to contain doc values, as well
+  as sortMissingFirst and sortMissingLast on docValue fields.
 * Ability to store solr.xml in ZooKeeper.
-
 * Multithreaded faceting.
-
-* CloudSolrServer can now route updates directly to the appropriate shard
-  leader.
+* CloudSolrServer can now route updates directly to the appropriate
+ shard leader.
 
 Solr 4.5 also includes many other new features as well as numerous
-optimizations and bugfixes.
+ optimizations and bugfixes.
+
 
 ## 29 July 2013 - Apache Solr Reference Guide 4.4 Available
 
