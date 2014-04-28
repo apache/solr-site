@@ -1,5 +1,70 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 28 April 2014 - Apache Lucene™ 4.8.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 4.8.0
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and
+improvements, some of which are highlighted below. The release
+is available for immediate download at:
+  <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+
+See the [CHANGES.txt](/core/4_8_0/changes/Changes.html) file included
+with the release for a full list of details.
+
+### Lucene 4.8.0 Release Highlights:
+
+* Apache Lucene now requires Java 7 or greater (recommended is
+  Oracle Java 7 or OpenJDK 7, minimum update 55; earlier versions
+  have known JVM bugs affecting Lucene).
+
+* Apache Lucene is fully compatible with Java 8.
+
+* All index files now store end-to-end checksums, which are
+  now validated during merging and reading. This ensures that
+  corruptions caused by any bit-flipping hardware problems or bugs
+  in the JVM can be detected earlier.  For full detection be sure
+  to enable all checksums during merging (it's disabled by default).
+
+* Lucene has a new Rescorer/QueryRescorer API to perform second-pass
+  rescoring or reranking of search results using more expensive scoring
+  functions after first-pass hit collection.
+
+* AnalyzingInfixSuggester now supports near-real-time autosuggest.
+
+* Simplified impact-sorted postings (using SortingMergePolicy and
+  EarlyTerminatingCollector) to use Lucene's Sort class
+  to express the sort order.
+
+* Bulk scoring and normal iterator-based scoring were separated,
+  so some queries can do bulk scoring more effectively.
+
+* Switched to MurmurHash3 to hash terms during indexing.
+
+* IndexWriter now supports updating of binary doc value fields.
+
+* HunspellStemFilter now uses 10 to 100x less RAM. It also loads
+  all known OpenOffice dictionaries without error.
+
+* Lucene now also fsyncs the directory metadata on commits, if the
+  operating system and file system allow it (Linux, MacOSX are
+  known to work).
+
+* Lucene now uses Java 7 file system functions under the hood,
+  so index files can be deleted on Windows, even when readers are
+  still open.
+
+* A serious bug in NativeFSLockFactory was fixed, which could
+  allow multiple IndexWriters to acquire the same lock.  The
+  lock file is no longer deleted from the index directory
+  even when the lock is not held.
+
+* Various bugfixes and optimizations since the 4.7.2 release.
+
 ## 15 April 2014 - Lucene Core 4.7.2 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 4.7.2
@@ -513,7 +578,7 @@ below.  The release is available for immediate download at:
 See the CHANGES.txt file included with the release for a full list of
 details.
 
-Lucene 3.6.2 Release Highlights:
+### Lucene 3.6.2 Release Highlights:
 
 - Fixed ArrayIndexOutOfBoundsException when the in-memory terms index 
   requires more than 2.1GB of RAM (billions of terms).
