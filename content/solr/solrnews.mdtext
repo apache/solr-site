@@ -26,10 +26,10 @@ file included with the release for a full list of details.
 
 * Apache Solr is fully compatible with Java 8.
 
-* \<fields\> and \<types\> tags have been deprecated from schema.xml.
+* <code class="inline">&lt;fields&gt;</code> and <code class="inline">&lt;types&gt;</code> tags have been deprecated from schema.xml.
   There is no longer any reason to keep them in the schema file,
-  they may be safely removed. This allows intermixing of \<fieldType\>,
-  \<field\> and \<copyField\> definitions if desired.
+  they may be safely removed. This allows intermixing of <code class="inline">&lt;fieldType&gt;</code>,
+  <code class="inline">&lt;field&gt;</code> and <code class="inline">&lt;copyField&gt;</code> definitions if desired.
 
 * The new \{!complexphrase\} query parser supports wildcards, ORs etc.
   inside Phrase Queries. 
