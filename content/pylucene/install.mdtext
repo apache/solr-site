@@ -102,13 +102,15 @@ make.
                                                                                 
 - Edit Makefile and do the following changes:                                  
 Insert and enable a Solaris-Section with the following content
-
-    \# Solaris   (Solaris 11.1, Python 2.6, 32-bit, Java 1.7)
-    PREFIX_PYTHON=/usr
-    ANT=/usr/bin/ant
-    PYTHON=$(PREFIX_PYTHON)/bin/python
-    JCC=$(PYTHON) -m jcc.\__main\__ --reserved DEFAULT_TYPE
-    NUM_FILES=4
-
+<pre>
+<code>
+\# Solaris   (Solaris 11.1, Python 2.6, 32-bit, Java 1.7)
+PREFIX_PYTHON=/usr
+ANT=/usr/bin/ant
+PYTHON=$(PREFIX_PYTHON)/bin/python
+JCC=$(PYTHON) -m jcc.\__main\__ --reserved DEFAULT_TYPE
+NUM_FILES=4
+</code>
+</pre>
 - gmake
 - su gmake install
