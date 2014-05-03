@@ -12,6 +12,20 @@ and <a href="http://ant.apache.org">Ant</a> are required; use of the
 resulting PyLucene binaries requires only a Java Runtime Environment
 (JRE).
 
+<b>Attention:</b> Starting with release 4.8.0, Lucene requires Java 1.7 at
+the minimum; Java 1.6 is no longer supported.
+
+On Mac OS X, Java 6 is still a common default, please upgrade if you haven't 
+done so already. A common upgrade is <a href="http://docs.oracle.com/javase/7/docs/webnotes/install/mac/mac-jdk.html">Oracle Java 1.7 for Mac OS X</a>.
+
+On Mac OS X, once installed, a way to make Java 1.7 the default in your bash 
+shell is:<br/>
+ <code>  $ export JAVA_HOME=`/usr/libexec/java_home`</code>
+Be sure to verify that JAVA_HOME value.
+
+On any system, if you're upgrading your Java installation, please rebuild
+JCC as well. You must use the same version of Java for both JCC and PyLucene.
+
 
 The <a href="http://pypi.python.org/pypi/setuptools">setuptools</a>
 package is required to build and run PyLucene on Python 2.3.5. With
