@@ -1,5 +1,64 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 25 June 2014 - Apache Lucene 4.9.0 and Apache Solr 4.9.0 Available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 4.9.0 and Apache Solr 4.9.0.
+
+Lucene can be downloaded from <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+and Solr can be downloaded from <http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [Lucene CHANGES.txt](/core/4_9_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/4_9_0/changes/Changes.html) files included
+with the release for a full list of details.
+
+### Highlights of the Lucene release include:
+
+* New Terms.getMin/Max methods to retrieve the lowest and highest
+  terms per field.
+
+* New IDVersionPostingsFormat, optimized for ID lookups that associate
+  a monotonically increasing version per ID.
+
+* Atomic update of a set of doc values fields.
+
+* Numerous optimizations for doc values search-time performance.
+
+* New (default) Lucene49NormsFormat to better compress certain cases
+  such as very short fields.
+
+* New SORTED_NUMERIC docvalues type for efficient processing of
+  multi-valued numeric fields.
+
+* Indexer passes previous token stream for easier reuse.
+
+* MoreLikeThis accepts multiple values per field.
+
+* All classes that estimate their RAM usage now implement a new
+  Accountable interface.
+
+* Lucene files are now written by (File)OutputStream on all platforms,
+  completely disallowing seeking with simplified IO APIs.
+
+* Improve the confusing error message when MMapDirectory cannot create
+  a new map.
+
+### Highlights of the Solr release include:
+
+* Numerous optimizations for doc values search-time performance
+
+* Allow a client application to request the minium achieved replication
+  factor for an update request (single or batch) by sending an optional
+  parameter "min_rf".
+
+* Query re-ranking support with the new ReRankingQParserPlugin.
+
+* A new [child ...] DocTransformer for optionally including Block-Join
+  decendent documents inline in the results of a search.
+
+* A new (default) Lucene49NormsFormat to better compress certain cases
+  such as very short fields.
+
 ## 11 June 2014 - Open Relevance sub-project closed
 The Apache Lucene Project Management Committee decided in a vote,
 that the Apache Lucene sub-project "Open Relevance" will be discontinued. There was only modest activity during the last
