@@ -26,6 +26,7 @@ our @patterns = (
                                       }],
   [qr!solr\/index\.mdtext$!, main => {
     template => "solr.html",
+    preprocess => 1,
     svn      => ASF::Value::SVN->new(limit => 5, project => "/lucene/dev/trunk",
                                       localMode => $localMode),
     jira     => ASF::Value::Jira->new(limit => 5,
@@ -43,9 +44,6 @@ our @patterns = (
   [qr!openrelevance\/index\.mdtext$!, main => { template => "openrelevance.html" }],
 
   [qr!privacy\.mdtext$!, main => { template => "simple.html" }],
-
-  [qr!\/lucene\/index\.mdtext$!, main => { template => "main.html" }],
-
   [qr!core\/.*?\.mdtext$!, main => { template => "core-simple.html" }],
 
   [qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-simple.html"}],
