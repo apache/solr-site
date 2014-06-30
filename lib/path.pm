@@ -53,6 +53,7 @@ our @patterns = (
 
 	# keep the general one last
   [qr!\/index\.mdtext$!, main => { template => "main.html",
+    preprocess => 1,
     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
                                           limit => 3,
                                           localMode => $localMode),
