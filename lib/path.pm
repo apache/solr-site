@@ -38,21 +38,20 @@ our @patterns = (
     #solrtwitter  => ASF::Value::Twitter->new(search => '#solr', limit => 3,
     #                                    localMode => $localMode),
   }],
-	[qr!pylucene/jcc/index\.mdtext$!, main => { template => "jcc.html" }],
-	[qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html" }],
-	[qr!openrelevance\/index\.mdtext$!, main => { template => "openrelevance.html" }],
+  [qr!pylucene/jcc/index\.mdtext$!, main => { template => "jcc.html" }],
+  [qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html" }],
+  [qr!openrelevance\/index\.mdtext$!, main => { template => "openrelevance.html" }],
 
-	[qr!privacy\.mdtext$!, main => { template => "simple.html" }],
+  [qr!privacy\.mdtext$!, main => { template => "simple.html" }],
 
-	  [qr!\/lucene\/index\.mdtext$!, main => { template => "main.html" }],
+  [qr!\/lucene\/index\.mdtext$!, main => { template => "main.html" }],
 
-	 [qr!core\/.*?\.mdtext$!, main => { template => "core-simple.html"
-	}],
+  [qr!core\/.*?\.mdtext$!, main => { template => "core-simple.html" }],
 
-	[qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-simple.html"}],
-	[qr!pylucene/jcc/.*?\.mdtext$!, main => { template => "jcc-simple.html" }],
-	[qr!pylucene/.*?\.mdtext$!, main => { template => "pylucene-simple.html" }],
-	[qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance-simple.html" }],
+  [qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-simple.html"}],
+  [qr!pylucene/jcc/.*?\.mdtext$!, main => { template => "jcc-simple.html" }],
+  [qr!pylucene/.*?\.mdtext$!, main => { template => "pylucene-simple.html" }],
+  [qr!openrelevance\/.*?\.mdtext$!, main => { template => "openrelevance-simple.html" }],
 
 	# keep the general one last
   [qr!\/index\.mdtext$!, main => { template => "main.html",
@@ -70,9 +69,13 @@ our @patterns = (
 
 # for specifying interdependencies between files
 
-#our %dependencies = (
-#    "/lucene/sitemap.html" => [ grep s!^content!!, glob "content/lucene/*.mdtext" ],
-#);
+our %dependencies = (
+    "/core/index.mdtext" => [qw!/core/features.mdtext!],
+    "/index.mdtext"      => [qw!/mainnews.mdtext!],
+    "/openrelevance/index.mdtext" => [qw!/openrelevance/orpnews.mdtext!],
+    "/pylucene/index.mdtext"      => [qw!/pylucene/pynews.mdtext!],
+    "/solr/index.mdtext" => [qw!/solr/features.mdtext!],
+);
 
 1;
 
