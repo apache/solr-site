@@ -13,6 +13,7 @@ our @patterns = (
   [qr!core\/mirrors-core-3x-redir\.mdtext$!, main => { template => "mirrors-core-3x-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
   [qr!solr\/mirrors-solr-3x-redir\.mdtext$!, main => { template => "mirrors-solr-3x-redir.html"	}],
   [qr!core\/index\.mdtext$!, main => { template => "core.html",
+    preprocess => 1,
   	jira     => ASF::Value::Jira->new(limit => 5,
                                       url => "http://s.apache.org/corejira", localMode => $localMode),
     svn      => ASF::Value::SVN->new(limit => 5, project => "/lucene/dev/trunk",
@@ -40,8 +41,10 @@ our @patterns = (
     #                                    localMode => $localMode),
   }],
   [qr!pylucene/jcc/index\.mdtext$!, main => { template => "jcc.html" }],
-  [qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html" }],
-  [qr!openrelevance\/index\.mdtext$!, main => { template => "openrelevance.html" }],
+  [qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html",
+                                          preprocess => 1 }],
+  [qr!openrelevance\/index\.mdtext$!, main => { template => "openrelevance.html",
+                                                preprocess => 1 }],
 
   [qr!privacy\.mdtext$!, main => { template => "simple.html" }],
   [qr!core\/.*?\.mdtext$!, main => { template => "core-simple.html" }],
@@ -66,7 +69,7 @@ our @patterns = (
   [qr!\.mdtext$!, main => { template => "simple.html"	 }],
 ) ;
 
-# for specifying interdependencies between files
+# for specifying interdependencies between files - needs to be kept in sync w/ includes
 
 our %dependencies = (
     "/core/index.mdtext" => [qw!/core/features.mdtext!],
