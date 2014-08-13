@@ -29,8 +29,6 @@
       expires = "; expires=" + date.toGMTString();
       document.cookie = "searchProvider=" + provider + expires + "; path=/";
 
-      // replace some chars to not trigger XSS in external provider:
-      form.elements['q'].value = form.elements['q'].value.toString().replace(/[&"<>]+/g, " ");
       return true;
     }
   </script>
