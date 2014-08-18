@@ -1,5 +1,52 @@
 # Solr<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 18 August 2014 - Recommendation to update Apache POI in Apache Solr 4.8.0, 4.8.1, and 4.9.0 installations
+
+Apache Solr versions 4.8.0, 4.8.1, 4.9.0 bundle Apache POI 3.10-beta2 with its binary release tarball.
+This version (and all previous ones) of Apache POI are vulnerable to the following issues:
+CVE-2014-3529 *(XML External Entity (XXE) problem in Apache POI's OpenXML parser)*, 
+CVE-2014-3574 *(XML Entity Expansion (XEE) problem in Apache POI's OpenXML parser)*.
+
+The Apache POI PMC released a bugfix version (3.10.1) today.
+
+Solr users are affected by these issues, if they enable the "Apache Solr Content Extraction Library (Solr Cell)"
+contrib module from the folder "contrib/extraction" of the release tarball.
+
+Users of Apache Solr are strongly advised to keep the module disabled if they don't use it.
+Alternatively, users of Apache Solr 4.8.0, 4.8.1, or 4.9.0 can update the affected libraries by
+replacing the vulnerable JAR files in the distribution folder. Users of previous versions have
+to update their Solr release first, patching older versions is impossible.
+
+**To replace the vulnerable JAR files follow these steps:**
+
+1. Download the Apache POI 3.10.1 binary release: http://poi.apache.org/download.html#POI-3.10.1
+
+2. Unzip the archive
+
+3. Delete the following files in your "solr-4.X.X/contrib/extraction/lib" folder: 
+    * poi-3.10-beta2.jar
+    * poi-ooxml-3.10-beta2.jar
+    * poi-ooxml-schemas-3.10-beta2.jar
+    * poi-scratchpad-3.10-beta2.jar
+    * xmlbeans-2.3.0.jar
+  
+4. Copy the following files from the base folder of the Apache POI distribution to the "solr-4.X.X/contrib/extraction/lib" folder: 
+    * poi-3.10.1-20140818.jar
+    * poi-ooxml-3.10.1-20140818.jar
+    * poi-ooxml-schemas-3.10.1-20140818.jar
+    * poi-scratchpad-3.10.1-20140818.jar
+
+5. Copy "xmlbeans-2.6.0.jar" from POI's "ooxml-lib/" folder to the "solr-4.X.X/contrib/extraction/lib" folder.
+
+6. Verify that the "solr-4.X.X/contrib/extraction/lib" no longer contains any files with version number "3.10-beta2".
+
+7. Verify that the folder contains one xmlbeans JAR file with version 2.6.0.
+
+If you just want to disable extraction of Microsoft Office documents, delete the files above and don't replace them.
+"Solr Cell" will automatically detect this and disable Microsoft Office document extraction.
+
+Coming versions of Apache Solr will have the updated libraries bundled.
+
 ## 30 June 2014 - Apache Solr Ref Guide for 4.9 Available
 
 The Lucene PMC is pleased to announce that there is a new version 
