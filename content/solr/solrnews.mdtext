@@ -4,10 +4,21 @@
 
 Apache Solr versions 4.8.0, 4.8.1, 4.9.0 bundle Apache POI 3.10-beta2 with its binary release tarball.
 This version (and all previous ones) of Apache POI are vulnerable to the following issues:
-CVE-2014-3529 *(XML External Entity (XXE) problem in Apache POI's OpenXML parser)*, 
-CVE-2014-3574 *(XML Entity Expansion (XEE) problem in Apache POI's OpenXML parser)*.
 
-The Apache POI PMC released a bugfix version (3.10.1) today.
+### CVE-2014-3529: XML External Entity (XXE) problem in Apache POI's OpenXML parser
+
+*Information disclosure:* Apache POI uses Java's XML components to parse OpenXML files produced by Microsoft Office products (DOCX, XLSX, PPTX,...).
+Applications that accept such files from end-users are vulnerable to XML External Entity (XXE) attacks, which allows remote attackers to bypass
+security restrictions and read arbitrary files via a crafted OpenXML document that provides an XML external entity declaration in conjunction
+with an entity reference.
+
+### CVE-2014-3574: XML Entity Expansion (XEE) problem in Apache POI's OpenXML parser
+
+*Denial of service:* Apache POI uses Java's XML components and Apache Xmlbeans to parse OpenXML files produced by Microsoft Office products
+(DOCX, XLSX, PPTX,...). Applications that accept such files from end-users are vulnerable to XML Entity Expansion (XEE) attacks ("XML bombs"),
+which allows remote hackers to consume large amounts of CPU resources.
+
+**The Apache POI PMC released a bugfix version (3.10.1) today.**
 
 Solr users are affected by these issues, if they enable the "Apache Solr Content Extraction Library (Solr Cell)"
 contrib module from the folder "contrib/extraction" of the release tarball.
@@ -17,7 +28,7 @@ Alternatively, users of Apache Solr 4.8.0, 4.8.1, or 4.9.0 can update the affect
 replacing the vulnerable JAR files in the distribution folder. Users of previous versions have
 to update their Solr release first, patching older versions is impossible.
 
-**To replace the vulnerable JAR files follow these steps:**
+### To replace the vulnerable JAR files follow these steps:
 
 * Download the [Apache POI 3.10.1](http://poi.apache.org/download.html#POI-3.10.1) binary release.
 
