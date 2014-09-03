@@ -1,5 +1,37 @@
 # Solr<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 03 September 2014 - Apache Solr 4.10.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 4.10.0
+
+Solr is the popular, blazing fast, open source NoSQL search platform
+from the Apache Lucene project. Its major features include powerful
+full-text search, hit highlighting, faceted search, dynamic
+clustering, database integration, rich document (e.g., Word, PDF)
+handling, and geospatial search.  Solr is highly scalable, providing
+fault tolerant distributed search and indexing, and powers the search
+and navigation features of many of the world's largest internet sites.
+
+Solr 4.10.0 is available for immediate download at:
+  http://lucene.apache.org/solr/mirrors-solr-latest-redir.html
+
+See the [CHANGES.txt](/solr/4_10_0/changes/Changes.html)
+file included with the release for a full list of details.
+
+Solr 4.10.0 Release Highlights:
+
+* This release upgrades Solr Cell's (contrib/extraction) dependency
+  on Apache POI to mitigate 2 security vulnerabilities:
+    http://s.apache.org/solr-cell-security-notice
+
+* Scripts for starting, stopping, and running Solr examples
+
+* Distributed query support for facet.pivot
+
+* Interval Faceting for Doc Values fields
+
+* New "terms" QParser for efficiently filtering documents by a list of values
+
 ## 18 August 2014 - Recommendation to update Apache POI in Apache Solr 4.8.0, 4.8.1, and 4.9.0 installations
 
 Apache Solr versions 4.8.0, 4.8.1, 4.9.0 bundle Apache POI 3.10-beta2 with its binary release tarball.

@@ -1,5 +1,44 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 03 September 2014 - Apache Lucene 4.10.0 and Apache Solr 4.10.0 Available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 4.10.0 and Apache Solr 4.10.0.
+
+Lucene can be downloaded from <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+and Solr can be downloaded from <http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [Lucene CHANGES.txt](/core/4_10_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/4_10_0/changes/Changes.html) files included
+with the release for a full list of details.
+
+### Highlights of the Lucene release include:
+
+* New TermAutomatonQuery using an automaton for proximity queries.
+  http://blog.mikemccandless.com/2014/08/a-new-proximity-query-for-lucene-using.html
+
+* New OrdsBlockTree terms dictionary supporting ord lookup.
+
+* Simplified matchVersion handling for Analyzers with new setVersion method, as well as Analyzer constructors not requiring Version.
+
+* Fixed possible corruption when opening a 3.x index with NRT reader.
+
+* Fixed edge case in StandardTokenizer that caused extremely slow parsing times with long text which partially matched grammar rules.
+
+### Highlights of the Solr release include:
+
+* This release upgrades Solr Cell's (contrib/extraction) dependency
+  on Apache POI to mitigate 2 security vulnerabilities:
+    http://s.apache.org/solr-cell-security-notice
+
+* Scripts for starting, stopping, and running Solr examples
+
+* Distributed query support for facet.pivot
+
+* Interval Faceting for Doc Values fields
+
+* New "terms" QParser for efficiently filtering documents by a list of values
+
 ## 18 August 2014 - Recommendation to update Apache POI in Apache Solr 4.8.0, 4.8.1, and 4.9.0 installations
 
 Apache Solr versions 4.8.0, 4.8.1, 4.9.0 bundle Apache POI 3.10-beta2 with its binary release tarball.
