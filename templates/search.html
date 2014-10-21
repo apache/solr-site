@@ -7,7 +7,7 @@
       return true;
     }
 
-    function submitForm(form) {
+    function selectProvider(form) {
       provider = form.elements['searchProvider'].value;
       if (provider == "any") {
         if (Math.random() > 0.5) {
@@ -28,15 +28,14 @@
       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
       expires = "; expires=" + date.toGMTString();
       document.cookie = "searchProvider=" + provider + expires + "; path=/";
-
       return true;
     }
   </script>
-  <form id="quick-search" method="GET" onsubmit="return submitForm(this)"
+  <form id="quick-search" method="GET" onsubmit="return selectProvider(this)"
         action="http://search-lucene.com/lucene"
         name="searchform">
     <fieldset>
-      <input type="search" id="q" name="q" value="Search with Apache Solr..." class="class1 class2 hint" accesskey="q"
+      <input type="search" name="q" value="Search with Apache Solr..." class="class1 class2 hint" accesskey="q"
              onfocus="getBlank(this, 'Search with Apache Solr...')">
       <span style="color:white">@</span>
       <select name="searchProvider" id="searchProvider">

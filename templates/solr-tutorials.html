@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+  {% extends "_solr-head.html" %}
+    {% block javascript %}
+    <script src="/solr/assets/scripts/main.js"></script>
+    {% endblock %}
+    {% block metakeys %}<meta name="keywords"
+            content="apache, apache lucene, apache solr, solr, lucene
+            search, information retrieval, spell checking, faceting, inverted index, open source"/>
+    {% endblock %}
+  {% endextends %}
+
+  <body class="page tutorials" x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+
+    {% include "_solr-header.html" %}
+
+    <div class="container">
+
+    <div class="row">
+			<div class="medium-4 columns">
+			  {% block sidebar %}
+          
+
+          <ul class="side-nav">
+            {% include "_solr-search.html" %}
+            <li><a data-scroll href="#overview" class="active">Overview</a></li>
+            <li><a data-scroll href="#requirements">Requirements</a></li>
+            <li><a data-scroll href="#getting-started">Getting Started</a></li>
+            <li><a data-scroll href="#indexing-data">Indexing Data</a></li>
+            <li><a data-scroll href="#updating-data">Updating Data</a></li>
+            <li><a data-scroll href="#querying-data">Querying Data</a></li>
+            <li><a data-scroll href="#highlighting">Highlighting</a></li>
+            <li><a data-scroll href="#faceted-search">Faceted Search</a></li>
+            <li><a data-scroll href="#text-analysis">Text Analysis</a></li>
+            <li><a data-scroll href="#conclusion">Conclusion</a></li>
+          </ul>
+        {% endblock %}
+			</div>
+     	<div class="medium-8 columns">
+	      {% block content %}
+	        {{ content|markdown }}
+	      {% endblock %}
+	    </div>
+  	</div>
+
+  </div>
+    
+    {% include "_solr-footer.html" %}
+
+  </body>
+</html>

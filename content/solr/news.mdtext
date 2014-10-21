@@ -1,0 +1,165 @@
+Title: News
+
+<h1 class="news">News<br/>
+<small>The latest Solr news.</small></h1>
+
+***
+
+<span class="date">30 June 2014</span>
+
+## Apache Solr Ref Guide for 4.9 Available
+
+The Lucene PMC is pleased to announce that there is a new version of the Solr Reference Guide for Solr 4.9.
+
+The 408 page PDF serves as the definitive user's manual for Solr 4.9. It can be downloaded from the Apache mirror network:
+
+<https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/>
+
+***
+
+<span class="date">25 June 2014</span>
+
+## Apache Solr 4.9.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 4.9.0
+
+Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.
+
+Solr 4.9.0 is available for immediate download at: <http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [CHANGES.txt]() file included with the release for a full list of details.
+
+### Solr 4.9.0 Release Highlights:
+
+* Numerous optimizations for doc values search-time performance
+
+* Allow a client application to request the minium achieved replication factor for an update request (single or batch) by sending an optional parameter "min_rf".
+
+* Query re-ranking support with the new ReRankingQParserPlugin.
+
+* A new [child ...] DocTransformer for optionally including Block-Join decendent documents inline in the results of a search.
+
+* A new (default) Lucene49NormsFormat to better compress certain cases such as very short fields.
+
+***
+
+<span class="date">20 May 2014</span>
+
+## Apache Solr 4.8.1 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 4.8.1
+Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.
+
+Solr 4.8.1 is available for immediate download at:
+
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html]>
+
+Solr 4.8.1 includes 10 bug fixes, as well as Lucene 4.8.1 and its bug fixes.
+
+See the [CHANGES.txt]() file included with the release for a full list of details.
+
+***
+
+<span class="date">2 May 2014</span>
+## Apache Solr Ref Guide for 4.8 Available
+
+The Lucene PMC is pleased to announce that there is a new version of the Solr Reference Guide available for Solr 4.8. The 396 page PDF serves as the definitive user's manual for Solr 4.8. It can be downloaded from the Apache mirror network:
+
+<https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/>
+
+***
+
+<span class="date">28 April 2014</span>
+
+## Apache Solr 4.8.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 4.8.0
+Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.
+
+Solr 4.8.0 is available for immediate download at:
+
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [CHANGES.txt]() file included with the release for a full list of details.
+
+Solr 4.8.0 Release Highlights
+
+* Apache Solr now requires Java 7 or greater (recommended is Oracle Java 7 or OpenJDK 7, minimum update 55; earlier versions have known JVM bugs affecting Solr).
+
+* Apache Solr is fully compatible with Java 8.
+
+* <fields> and <types> tags have been deprecated from schema.xml. There is no longer any reason to keep them in the schema file, they may be safely removed. This allows intermixing of <fieldType>, <field> and <copyField> definitions if desired.
+
+* The new {!complexphrase} query parser supports wildcards, ORs etc. inside Phrase Queries.
+
+* New Collections API CLUSTERSTATUS action reports the status of collections, shards, and replicas, and also lists collection aliases and cluster properties.
+
+* Added managed synonym and stopword filter factories, which enable synonym and stopword lists to be dynamically managed via REST API.
+
+* JSON updates now support nested child documents, enabling {!child} and {!parent} block join queries.
+
+* Added ExpandComponent to expand results collapsed by the CollapsingQParserPlugin, as well as the parent/child relationship of nested child documents.
+
+* Long-running Collections API tasks can now be executed asynchronously; the new REQUESTSTATUS action provides status.
+
+* Added a hl.qparser parameter to allow you to define a query parser for hl.q highlight queries. o
+
+* In Solr single-node mode, cores can now be created using named configsets.
+
+* New DocExpirationUpdateProcessorFactory supports computing an expiration date for documents from the "TTL" expression, as well as automatically deleting expired documents on a periodic basis.
+
+* Solr 4.8.0 also includes many other new features as well as numerous optimizations and bugfixes of the corresponding [Apache Lucene]() release.
+
+***
+
+<span class="date">14 April 2014</span>
+
+## Apache Solr 4.7.2 Available
+
+Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.
+
+Solr 4.7.2 is available for immediate download at:
+
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+Solr 4.7.2 includes 2 bug fixes, as well as Lucene 4.7.2 and its bug fixes.
+
+See the [CHANGES.txt]() file included with the release for a full list of details.
+
+***
+
+<span class="date">02 April 2014</span>
+
+## Apache Solr 4.7.1 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 4.7.1
+Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.
+
+Solr 4.7.1 is available for immediate download at: 
+
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+Solr 4.7.1 includes 28 bug fixes and one new configuration setting, as well as Lucene 4.7.1 and its bug fixes.
+
+See the [CHANGES.txt]() file included with the release for a full list of details.
+
+***
+
+<span class="date">12 March 2014</span>
+
+## Apache Solr 4.8 will require Java 7
+
+The Apache Solr committers decided with a large majority on the vote to require Java 7 for the next minor release of Apache Solr (version 4.8)!
+
+The next release will also contain some improvements for Java 7:
+
+Better file handling (especially on Windows) in the directory implementations. Files can now be deleted on windows, although the index is still open - like it was always possible on Unix environments (delete on last close semantics).
+
+Speed improvements in sorting comparators: Sorting now uses Java 7's own comparators for integer and long sorts, which are highly optimized by the Hotspot VM.
+
+If you want to stay up-to-date with Lucene and Solr, you should upgrade your infrastructure to Java 7. Please be aware that you must use at least use Java 7u1. The recommended version at the moment is Java 7u25. Later versions like 7u40, 7u45,... have a bug causing index corrumption. Ideally use the Java 7u60 prerelease, which has fixed this bug. Once 7u60 is out, this will be the recommended version. In addition, there is no more Oracle/BEA JRockit available for Java 7, use the official Oracle Java 7. JRockit was never working correctly with Lucene/Solr (causing index corrumption), so this should not be an issue. Please also review our list of JVM bugs: <http://wiki.apache.org/lucene-java/JavaBugs>
+
+EDIT (as of 15 April 2014): The recently released Java 7u55 fixes the above bug causing index corrumption. This version is now the recommended version for running Apache Solr.
+
+***
+

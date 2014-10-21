@@ -1,0 +1,151 @@
+Title: Solr Tutorials
+
+<ul class="breadcrumbs">
+  <li><a href="/solr">Home</a></li>
+  <li><a href="/solr/tutorials.html">Tutorials</a></li>
+</ul>
+
+# Solr Tutorials
+
+***
+
+## Overview
+
+This document covers the basics of running Solr using an example schema, and some sample data.
+
+***
+
+## Requirements
+
+* [How Search Engines Work]()
+* [Indexing Documents]()
+* [Overview of Crawling]()
+
+To follow along with this tutorial, you will need...
+
+1. Java 1.7 or greater. Some places you can get it are from Oracle, Open JDK, or 			IBM.
+    * Running java -version at the command line should indicate a version number starting with 1.7.
+    * Gnu's GCJ is not supported and does not work with Solr.
+2. A Solr release.
+	
+***
+
+## Getting Started
+
+Please run the browser showing this tutorial and the Solr server on the same machine so tutorial links will correctly point to your Solr server.
+
+Begin by unzipping the Solr release and changing your working directory to be the "example" directory. (Note that the base directory name may vary with the version of Solr downloaded.) For example, with a shell in UNIX, Cygwin, or MacOS:
+
+	user:~solr$ ls
+	solr-nightly.zip
+	user:~solr$ unzip -q solr-nightly.zip
+	user:~solr$ cd solr-nightly/example/
+
+Solr can run in any Java Servlet Container of your choice, but to simplify this tutorial, the example index includes a small installation of Jetty.
+
+To launch Jetty with the Solr WAR, and the example configs, just run the `start.jar ...`
+
+	user:~/solr/example$ java -jar start.jar
+	2012-06-06 15:25:59.815:INFO:oejs.Server:jetty-8.1.2.v20120308
+	2012-06-06 15:25:59.834:INFO:oejdp.ScanningAppProvider:Deployment monitor .../solr/example/webapps at interval 0
+	2012-06-06 15:25:59.839:INFO:oejd.DeploymentManager:Deployable added: .../solr/example/webapps/solr.war
+	...
+	Jun 6, 2012 3:26:03 PM org.apache.solr.core.SolrCore registerSearcher
+	INFO: [collection1] Registered new searcher Searcher@7527e2ee main{StandardDirectoryReader(segments_1:1)}
+
+This will start up the Jetty application server on port 8983, and use your terminal to display the logging information from Solr.
+
+You can see that the Solr is running by loading  <http://localhost:8983/solr/>  in your web browser. This is the main starting point for Administering Solr.
+
+***
+
+<section class="orange">
+      <h1>That wasn't too hard!</h1>
+      <p>
+        You nailed step 1. Take a deep breath, maybe grab a beer before round 2 below.
+      </p>
+      <div class="down-arrow"><a data-scroll href="#indexing-data"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+</section>
+
+## Indexing Data
+
+Your Solr server is up and running, but it doesn't contain any data. You can modify a Solr index by POSTing commands to Solr to add (or update) documents, delete documents, and commit pending adds and deletes. These commands can be in a [variety of formats]().
+
+The exampledocs directory contains sample files showing of the types of commands Solr accepts, as well as a java utility for posting them from the command line (a post.sh shell script is also available, but for this tutorial we'll use the cross-platform Java client. Run “`java -jar post.jar -h`” so see it's various options).
+
+To try this, open a new terminal window, enter the exampledocs directory, and run "`java -jar post.jar`" on some of the XML files in that directory.
+
+	user:~/solr/example/exampledocs$ java -jar post.jar solr.xml monitor.xml
+	SimplePostTool: version 1.4
+	SimplePostTool: POSTing files to http://localhost:8983/solr/update..
+	SimplePostTool: POSTing file solr.xml
+	SimplePostTool: POSTing file monitor.xml
+	SimplePostTool: COMMITting Solr index changes..
+
+You have now indexed two documents in Solr, and committed these changes. You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result...
+
+<http://localhost:8983/solr/collection1/select?q=solr&wt=xml>
+
+You can index all of the sample data, using the following command (assuming your command line shell supports the *.xml notation):
+
+	user:~/solr/example/exampledocs$ java -jar post.jar *.xml
+	SimplePostTool: version 1.4
+	SimplePostTool: POSTing files to http://localhost:8983/solr/update..
+	SimplePostTool: POSTing file gb18030-example.xml
+	SimplePostTool: POSTing file hd.xml
+	SimplePostTool: POSTing file ipod_other.xml
+	SimplePostTool: POSTing file ipod_video.xml
+	...
+	SimplePostTool: POSTing file solr.xml
+	SimplePostTool: POSTing file utf8-example.xml
+	SimplePostTool: POSTing file vidcard.xml
+	SimplePostTool: COMMITting Solr index changes..
+
+...and now you can search for all sorts of things using the default [Solr Query Syntax]() (a superset of the Lucene query syntax)...
+
+* [video]()
+* [name:video]()
+* [+video +price:[* TO 400]]()
+
+There are many other different ways to import your data into Solr... one can
+
+* Import records from a database using the [Data Import Handler (DIH)]().
+	
+* [Load a CSV file]() (comma separated values), including those exported by Excel or MySQL.
+
+* [POST JSON documents]()
+
+* Index binary documents such as Word and PDF with [Solr Cell]() (ExtractingRequestHandler).
+
+* Use [SolrJ]() for Java or other Solr clients to programatically create documents to send to Solr.
+
+***
+
+## Updating Data
+
+You may have noticed that even though the file `solr.xml` has now been POSTed to the server twice, you still only get 1 result when searching for "solr". This is because the example `schema.xml` specifies a "`uniqueKey`" field called "id". Whenever you POST commands to Solr to add a document with the same value for the uniqueKey as an existing document, it automatically replaces it for you. You can see that that has happened by looking at the values for numDocs and maxDoc in the "CORE"/searcher section of the statistics page...
+
+<http://localhost:8983/solr/#/collection1/plugins/core?entry=searcher>
+
+numDocs represents the number of searchable documents in the index (and will be larger than the number of XML files since some files contained more than one <doc>). maxDoc may be larger as the maxDoc count includes logically deleted documents that have not yet been removed from the index. You can re-post the sample XML files over and over again as much as you want and numDocs will never increase, because the new documents will constantly be replacing the old.
+
+Go ahead and edit the existing XML files to change some of the data, and re-run the java -jar post.jar command, you'll see your changes reflected in subsequent searches.
+
+## Deleting Data
+
+You can delete data by POSTing a delete command to the update URL and specifying the value of the document's unique key field, or a query that matches multiple documents (be careful with that one!). Since these commands are smaller, we will specify them right on the command line rather than reference an XML file.
+
+Execute the following command to delete a specific document
+
+	java -Ddata=args -Dcommit=false -jar post.jar "<delete><id>SP2514N</id></delete>"
+
+***
+
+<section class="orange">
+      <h1>Way to go!!!</h1>
+      <p>
+        Round 2, check. Now get up and do some jumping jacks. Heck, go for a run and leave your house, you deserve it.
+      </p>
+      <div class="down-arrow"><a data-scroll href="#indexing-data"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+</section>
+

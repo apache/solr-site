@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+
+  {% extends "_solr-head.html" %}
+    {% block javascript %}
+    <script src="/solr/assets/scripts/main.js"></script>
+    {% endblock %}
+    {% block metakeys %}<meta name="keywords"
+            content="apache, apache lucene, apache solr, solr, lucene
+            search, information retrieval, spell checking, faceting, inverted index, open source"/>
+    {% endblock %}
+  {% endextends %}
+
+  <body class="page homepage" x-ng-app="page" x-ng-controller="page.controllers.main">
+
+    {% include "_solr-header.html" %}
+
+    <section class="hero alternate">
+      <div class="row">
+        <div class="large-10 large-offset-1 columns">
+          <div class="annotation">
+            Apache Solr 4.9
+          </div>
+          <h1>
+            Solr is the popular, blazing-fast, open source enterprise search platform built on Apache Lucene.
+          </h1>
+
+          <div class="down-arrow"><a class="smooth-scroll" href="#anchor-1" target="_self"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="gray col-4" id="anchor-1">
+      <div class="row">
+        <div class="large-10 large-offset-1 columns">
+          <div class="annotation">
+            &nbsp;
+          </div>
+          <h1>
+            Learn more about Solr.
+          </h1>
+          <p>
+            Solr is highly reliable, scalable and fault tolerant, providing distributed indexing, replication and load-balanced querying, automated failover and recovery, centralized configuration and more. Solr powers the search and navigation features of many of the world's largest internet sites.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
+          <li>
+            <a href="/solr/features.html">
+              <div class="box">
+                <div class="img"><img src="/solr/assets/images/icon-features.svg"/></div>
+                <div class="title">
+                  <h3>Features</h3>
+                </div>
+                <p>Hundreds of features make Solr incredibly versatile.</p>
+                <button>Learn More</button>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/solr/resources.html">
+              <div class="box">
+                <div class="img"><img src="/solr/assets/images/icon-resources.svg"/></div>
+                <div class="title">
+                  <h3>Resources</h3>
+                </div>
+                <p>From tutorials to in-depth documentation, you'll find it here.</p>
+                <button>Get Started</button>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="box">
+                <div class="img"><img src="/solr/assets/images/icon-scaling.svg"/></div>
+                <div class="title">
+                  <h3>Scaling with Solr</h3>
+                </div>
+                <p>Scale with confidence in data integrity and performance.</p>
+                <button>Scaling with Solr</button>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="box">
+                <div class="img"><img src="/solr/assets/images/icon-community.svg"/></div>
+                <div class="title">
+                  <h3>Solr Community</h3>
+                </div>
+                <p>Get support and give back. Contribute to the Solr project.</p>
+                <button>About the ASF</button>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="row">
+        <div class="large-12 columns text-center">
+          <div class="annotation">
+            Tested and proven
+          </div>
+          <h1 class="red">
+            Solr is trusted.
+          </h1>
+          <p>
+            Solr powers some of the heavily-trafficked sites on the web.
+          </p>
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-11 small-centered columns">
+          <div class="slider">
+            NEED LOGOS
+            <!--
+            <div><img src="/solr/assets/images/logo-cisco.png"/></div>
+            <div><img src="/solr/assets/images/logo-ford.png"/></div>
+            <div><img src="/solr/assets/images/logo-box.png"/></div>
+            <div><img src="/solr/assets/images/logo-allstate.png"/></div>
+            <div><img src="/solr/assets/images/logo-nike.png"/></div>
+            <div><img src="/solr/assets/images/logo-qualcomm.png"/></div>
+            -->
+          </div>
+      </div>
+    </section>
+
+    <section class="hero alternate">
+      <div class="row">
+        <div class="large-12 columns text-center">
+          <div class="annotation">
+            Take the first step
+          </div>
+          <h1>
+            Getting Started
+          </h1>
+          <p>
+            Power your global enterprise or your weekend project.
+          </p>
+          <div class="down-arrow "><a data-scroll href="#anchor-2"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gray col-3" id="anchor-2">
+      <div class="row">
+        <div class="large-4 columns">
+          <a href="/core/mirrors-core-latest-redir.html?">
+            <div class="box">
+              <div class="img"><img src="/solr/assets/images/icon-download-binary.svg"/></div>
+              <div class="title">
+                <h3>Download Binary</h3>
+              </div>
+                <p>Click here to download the Solr binary from the available mirrors.</p>
+              <button>Download Solr</button>
+            </div>
+          </a>
+        </div>
+        <div class="large-4 columns">
+          <a href="/solr/tutorials.html">
+            <div class="box">
+              <div class="img"><img src="/solr/assets/images/icon-run-install.svg"/></div>
+              <div class="title">
+                <h3>Run Through the Tutorial</h3>
+              </div>
+                <p>The Solr Getting Started tutorial will help you start working with Solr.</p>
+              <button>Read the Tutorial</button>
+            </div>
+          </a>
+        </div>
+        <div class="large-4 columns">
+          <a href="/solr/resources.html">
+            <div class="box">
+              <div class="img"><img src="/solr/assets/images/icon-check-out-tutorial.svg"/></div>
+              <div class="title">
+                <h3>Level Up</h3>
+              </div>
+                <p>Once you've completed the tutorial, continue your mastery with the Solr resource library.</p>
+              <button>More Resources</button>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero alternate">
+      <div class="row">
+        <div class="large-12 columns text-center">
+          <div class="annotation">
+            Solr News | 30 June 2014
+          </div>
+          <h1>
+            Apache Solr Ref Guide for 4.9 Available
+          </h1>
+          <p>
+            The Lucene PMC is pleased to announce that there is a new version of the Solr Reference Guide for Solr 4.9.
+          </p>
+          <a href="/solr/news.html"><button class="white">Read More News</button></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gray">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="annotation">
+            Deep expertise
+          </div>
+          <h1>
+            Solr Books<br/>
+            <small>The definitive in-depth resource library written by the world's Solr experts.</small>
+          </h1>
+          </p>
+          <hr/>
+          <ul class="books small-block-grid-2 medium-block-grid-3 large-block-grid-6">
+            <li><img src="/images/book_s4c.jpg"/></li>
+            <li><img src="/images/book_s4index.jpg"/></li>
+            <li><img src="/images/book_sia.jpg"/></li>
+            <li><img src="/images/book_as3ess.jpg"/></li>
+            <li><img src="/images/book_s14ess.jpg"/></li>
+            <li><img src="/images/book_s3c.jpg"/></li>
+          </ul>
+          <a class="btn" href="/solr/books.html">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="row">
+        <div class="large-12 columns text-center">
+          <h1>
+            The Apache Foundation
+          </h1>
+          <p>
+            The Apache Software Foundation provides support for the Apache community of open-source software projects. The Apache projects are defined by collaborative consensus based processes, an open, pragmatic software license and a desire to create high quality software that leads the way in its field. Apache Lucene, Apache Solr, Apache PyLucene, Apache Open Relevance Project and their respective logos are trademarks of The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {% include "_solr-footer.html" %}
+
+  </body>
+</html>

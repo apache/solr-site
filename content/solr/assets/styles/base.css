@@ -1,0 +1,786 @@
+html, body {
+  font-family: 'Helvetica Neue', sans-serif; /* substitute for proxima nova */
+  color: #333;
+}
+
+body {
+  overflow-x:hidden;
+}
+
+.alignleft {
+  float: left;
+}
+
+.alignright {
+  float: right;
+}
+
+.container {
+  padding: 40px 0;
+}
+
+code, pre {
+  font-family: Menlo, Consolas,"Liberation Mono",Courier,monospace;
+}
+
+/*
+ * Elements
+ */
+:focus {
+  outline: 0;
+}
+
+a.btn, button {
+  border: 1px solid #d1d3d4;
+  background-color:inherit;
+  text-transform: uppercase;
+  color:#000;
+  padding: 0.7em 1em;
+  font-weight: 500;
+  margin: 0;
+}
+
+a.btn:hover, a.btn:focus,
+button:hover, button:focus {
+  color:#ff833d;
+  background:inherit;
+}
+
+a.btn.white, 
+button.white {
+  color:#fff;
+}
+
+a.btn.white,
+button.white:hover {
+  color:#262130;
+  background:#fff;
+}
+
+/*
+ * Header
+ */
+
+.header-section {
+  position: fixed;
+  z-index: 999;
+  min-width: 100%;
+  background:#D9411E;
+}
+
+.header-fill {
+  padding-top: 90px;
+}
+
+.top-bar, .top-bar .name {
+  background:#D9411E;
+  height: 90px;
+}
+
+.top-bar .name .logo {
+  height: 100%;
+  position:relative;
+  left: 15px;
+  padding: 20px 0 25px 0;
+}
+
+.top-bar-section ul li, .top-bar-section li:not(.has-form) a:not(.button) {
+  background: #D9411E;
+}
+
+.top-bar-section li:not(.has-form) a:not(.btn):hover {
+  background:inherit;
+  color: #25202f;
+}
+
+.top-bar-section .navigation a.selected {
+  color: #25202f;
+}
+
+.top-bar-section li:not(.has-form) a.btn:hover, .top-bar-section li:not(.has-form) a.btn:focus {
+  background:#fff;
+  color: #25202f;
+}
+
+.top-bar-section ul li>a, 
+.top-bar-section ul li>a.btn, 
+.top-bar.shrink.expanded .top-bar-section ul li>a, 
+.top-bar.shrink.expanded .top-bar-section ul li>a.btn {
+  transition: all 0.1s ease;
+  text-transform:uppercase;
+  font-size:1rem;
+}
+
+.top-bar-section ul li>a.btn {
+  margin: 0;
+  background-color: transparent;
+  text-align:left;
+}
+
+.top-bar.expanded .toggle-topbar a {
+  color:#fff;
+}
+
+.top-bar.expanded .top-bar-section li:not(.has-form) a:not(.btn):hover {
+  background:#fff;
+}
+
+/* full-width nav styles */
+@media only screen and (min-width: 40.063em) {
+  .top-bar-section .navigation {
+    margin: 20px 20px 20px 0;
+  }
+  .top-bar .name .logo {
+    left: 15px;
+  }
+  .top-bar .btn {
+    padding-top: .65rem;
+    padding-bottom: .55rem;
+    top: 2px;
+    text-align:center;
+    border: 1px solid #fff;
+  }
+  .top-bar .btn:hover {
+    background:#fff;
+  }
+}
+
+/* shrink header styles */
+.top-bar.shrink, .top-bar.shrink .name, .top-bar.expanded .name {
+  height: 55px;
+}
+
+.top-bar.shrink.expanded {
+  height:auto;
+}
+
+.top-bar.shrink .name .logo, .top-bar.expanded .name .logo {
+  padding: 10px 0 15px 0;
+}
+
+.top-bar.shrink .top-bar-section ul li>a, .top-bar.shrink .top-bar-section ul li>a.btn {
+  font-size: 0.8em;
+}
+
+.top-bar.shrink .top-bar-section li:not(.has-form) a:not(.button) {
+  line-height: 35px;
+}
+
+.top-bar.shrink .navigation {
+  margin: 10px 15px 10px 0;
+}
+
+.top-bar.shrink.expanded .navigation {
+  margin: 0;
+}
+
+.top-bar.shrink.expanded .top-bar-section li:not(.has-form) a:not(.button) {
+  line-height: 1.6;
+}
+
+.top-bar.shrink .button {
+  padding: 10px 20px;
+}
+
+/*
+ * Global
+ */
+h1, h2, h3, h4, h5 {
+  font-family: 'Raleway', 'Helvetica Neue', sans-serif;
+  font-weight:300;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #d9411e;
+}
+
+h2 {
+  margin-bottom: 0.8em;
+  color: #D9411E;
+}
+
+h3 {
+  color: #666;
+}
+
+h4 {
+  color: #666;
+}
+
+h5 {
+  color: #999;
+}
+
+p {
+  line-height: 1.8em;
+  color:#262130;
+}
+
+.button {
+  background-color: #ff833d;
+  text-transform: uppercase;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+  background-color: #ff5c00;
+}
+
+.annotation {
+  color: #262130;
+  text-transform: uppercase;
+  margin-bottom: 0.8em;
+  font-weight:400;
+}
+
+/*
+ * PAGES
+ */
+
+.homepage h1.red {
+  color: #d9411e;;
+}
+
+.page h1, .page h2, .page h3 {
+  font-family: 'Raleway', 'Helvetica Neue', sans-serif;
+  color: #262130;
+}
+
+.page h1, .subnav h1 , h1.news {
+  font-weight:300;
+}
+
+.subnav h1 , h1.news {
+  margin-bottom: 30px;
+}
+
+.subnav h1 , h1.news {
+  line-height:0.8;
+}
+
+.page h1 small, .subnav h1 small, h1.news small {
+  font-size:0.4em;
+  color:#afb0ad;
+}
+
+.page h2, .page h3 {
+  font-weight:500;
+}
+
+.page h2 {
+  font-size:1.5em;
+}
+
+.page h3 {
+  font-size:1.4em;
+}
+
+.page p, .page ul li {
+  color:#afb0ad;
+}
+
+.page a {
+  color: #D9411E;
+}
+
+.page .date {
+  color: #D9411E;
+  text-transform:uppercase;
+  font-weight:500;
+}
+
+#resources {
+  text-align:center;
+}
+
+pre {
+  white-space:pre-wrap;
+  overflow:hidden;
+}
+
+/*
+ * Alternate styles (blue sections)
+ */
+.alternate .annotation {
+  color: #D9411E;
+}
+
+.alternate h1 {
+  font-weight: 100;
+  color: #212121;
+}
+
+.alternate h2 {
+  font-weight: 300;
+}
+
+hr {
+  margin-bottom: 2em;
+  color:#e4e2dd;
+}
+
+/*
+ * Small styles
+ */
+
+.small h1 {
+  font-size: 2em;
+}
+
+.small h2 {
+  font-size: 1.6em;
+}
+
+.small h3 {
+  font-size: 1.4em;
+}
+
+.small h4 {
+  font-size: 1.2em;
+}
+
+.small h5 {
+  font-size: 1em;
+}
+
+.small p {
+  font-size: 0.9em;
+}
+
+/*
+ * Section styles
+ */
+section {
+  padding: 40px 0;
+  color: #333;
+  text-align:center;
+}
+
+section.gray {
+  background-color: #f9f8f8;
+}
+
+section.orange {
+  background-color: #D9411E;
+  color: #fff;
+  padding:60px 0 80px 0;
+  margin-left: -100%;
+  margin-right: -100%;
+  text-align:center;
+  position:relative;
+}
+
+section.orange .annotation {
+  color:#fff;
+}
+
+section.orange h1 {
+  color: inherit;
+}
+
+section.orange h2 {
+  color: inherit;
+}
+
+section.orange p {
+  color:#fff;
+  font-weight: 300;
+  font=size:1.1em;
+}
+
+section.orange .down-arrow {
+  position: absolute;
+  left: 50%;
+}
+
+section.orange .down-arrow .red {
+  color: #ff833c;
+}
+
+section.orange .down-arrow a {
+  color:#fff;
+}
+
+/*
+ * Hero
+ */
+.hero {
+  background-color: #262130;
+  color: #fff;
+  position:relative;
+  padding: 100px 0;
+}
+
+.hero h1,
+.hero p {
+  color: #fff;
+}
+
+.hero p {
+  margin-bottom: 40px;
+  font-weight: 300;
+  font-size: 1.1em;
+}
+
+.hero .button {
+  background-color: #305cb3;
+}
+
+.hero .button:hover,
+.hero .button:focus,
+.hero .button:active {
+  background-color: #0045cd;
+}
+
+.hero .down-arrow {
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+}
+
+.hero .down-arrow .red {
+  color: #D9411E;
+}
+
+.hero .down-arrow a {
+  color:#fff;
+}
+
+/*
+ * Footer
+ */
+footer {
+  background-color: #262130;
+  color: #f9f8f8;
+  padding: 40px 0 20px 0;
+}
+
+footer h4 {
+  padding-bottom:15px;
+  text-transform:uppercase;
+  font-size: 1em;
+}
+
+footer h4, footer ul li a, .page footer ul li a  {
+  color: #f9f8f8;
+  font-family: 'Raleway', 'Helvetica Neue', sans-serif;
+}
+
+footer ul li a, .page footer ul li a {
+  font-weight:300;
+  font-size:0.9em;
+}
+
+footer ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+footer .copyright {
+  padding: 50px 0 40px 0;
+}
+
+footer .copyright p {
+  color: #afb0ad;
+  font-size:0.7em;
+  text-align:center;
+}
+
+/*
+ * Gray/white section styles
+ */
+
+.white h1 {
+  line-height:0.8;
+}
+
+.gray .annotation {
+  color: #262130;
+  font-size: 1em;
+}
+
+.gray h1 {
+  color: #d9411e;
+  line-height:0.8;
+}
+
+.gray .box h3 {
+  color:#000;
+  font-size:1.4em;
+  margin-bottom:20px;
+}
+
+.gray .box p {
+  font-size: 0.9em;
+  line-height: 1.3em;
+  color:#afb0ad;
+}
+
+.gray .box button {
+  font-size: 0.75em;
+  margin-bottom: 0;
+}
+
+.gray .box button:hover {
+  background-color:inherit;
+  color:#ff833d;
+}
+
+.gray .box:hover {
+  background:#fff;
+  border: 1px solid #afb0ad;
+  cursor:pointer;
+}
+
+.gray .box:hover button {
+  color:#ff833d;
+}
+
+.gray .box .img {
+  height:120px;
+}
+
+.gray .box .img img {
+  height:95px;
+}
+
+.full-width .gray .box {
+  padding:0;
+  border:none;
+}
+
+.full-width .gray .box:hover {
+  border:none;
+  cursor:default;
+  background:inherit;
+}
+
+/* box variants */
+.col-4 .box {
+  margin: 15px;
+  padding: 20px 15px;
+  border: solid 1px transparent
+}
+
+.col-4 .box .title {
+  height: 70px;
+}
+
+.col-3 .box {
+  margin: 15px;
+  padding: 50px 20px 30px 20px;
+  border: solid 1px transparent
+}
+
+.col-3 .box .title {
+  height: 70px;
+}
+
+[class*="block-grid-"] {
+  display: block;
+  padding: 0;
+  margin:0;
+}
+
+/*
+ * Solr books
+ */
+.books {
+  margin:40px 0;
+  overflow: hidden;
+}
+
+/*
+ * Slider
+ */
+.slider-prev {
+  left:-25px;
+  color:#ffa16b;
+}
+
+.slider-next {
+  right:-25px;
+  color:#ffa16b;
+}
+
+.slider-prev, .slider-next {
+  position: absolute;
+  display: block;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  top: 50%;
+  margin-top: -10px;
+}
+
+/*
+ * FEATURES PAGE
+ */
+section.list {
+  padding:80px 0;
+}
+
+section.list {
+  text-align:left;
+}
+
+section.list ul li {
+  font-family: 'Raleway', 'Helvetica Neue', sans-serif;
+  font-weight:300;
+  color: #D9411E;
+  font-size: 1.2em;
+  padding-right:20px;
+}
+
+section.list ul li p {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight:300;
+  color: #afb0ad;
+  margin-top: 10px;
+  font-size: 0.8em;
+}
+
+.anchor-fixed {
+  top: 57px;
+  z-index: 1000;
+  position: fixed;
+}
+
+/*
+ * Subnav style pages
+ */
+.sub-nav {
+  display:inline-block;
+  margin-bottom:0;
+}
+
+.sub-nav-container {
+  height: 100px;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.sub-nav-border {
+  padding: 20px 0;
+  background: white;
+  border-top: 1px solid #e4e2dd;
+  border-bottom: 1px solid #e4e2dd;
+  margin: 0 auto 30px auto;
+}
+
+.sub-nav dd {
+  margin-bottom: 0;
+}
+
+.sub-nav dd a {
+  padding-right: 30px;
+  padding-left: 15px;
+  border-right:1px solid #e4e2dd;
+}
+
+.codehilite {
+  padding: 30px 20px;
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+pre {
+  line-height:1.5;
+}
+
+ul.breadcrumbs {
+  background-color:transparent;
+  border: none;
+}
+
+/*
+ * Sidebar
+ */
+
+.side-nav {
+  padding:25px;
+  border:1px solid #e4e2dd;
+  margin-bottom:40px;
+}
+
+ul.side-nav > li {
+  border-top:1px solid #e4e2dd;
+  padding:10px 0 10px 10px;
+  margin:0;
+}
+
+.page .side-nav li a {
+  color:#25202f;
+  font-weight:300;
+  font-size: 1.3em;
+}
+
+.page .side-nav li a.active {
+  color:#D9411E;
+}
+
+.page .side-nav li a:hover {
+  color:#D9411E;
+}
+
+
+#search form, #search fieldset {
+  border:none;
+  padding:0;
+  margin:0;
+}
+
+#search input[type="search"] {
+  font-family: 'Raleway', 'Helvetica Neue', sans-serif;
+  font-weight:300;
+  height: 50px;
+  font-size: 25px;
+  border:none;
+  box-shadow:none;
+}
+
+.search-box {
+  display: inline-block;
+  margin-top: -3px;
+  margin-bottom: -5px;
+  padding-right: 1em;
+}
+
+.search-box input[type="search"] {
+  font-family: 'Raleway', 'Helvetica Neue', sans-serif;
+  font-weight:300;
+  font-size: 14px;
+  border:none;
+  box-shadow:none;
+}
+
+.search-button {
+  position:absolute;
+  top:30px;
+  right:30px;
+}
+
+.search-button img {
+  width:70%;
+}
+
+.nested-nav {
+
+}
+
+ul.breadcrumbs {
+  margin:0;
+  padding:0;
+}
+
+ul.breadcrumbs a {
+  text-transform:none;
+  font-size:1.2em;
+}
+
+.tutorials .orange {
+  margin-top: 40px;
+  margin-bottom:40px;
+}

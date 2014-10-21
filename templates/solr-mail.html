@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+  {% extends "_solr-head.html" %}
+    {% block javascript %}
+    <script src="/solr/assets/scripts/main.js"></script>
+    {% endblock %}
+    {% block metakeys %}<meta name="keywords"
+            content="apache, apache lucene, apache solr, solr, lucene
+            search, information retrieval, spell checking, faceting, inverted index, open source"/>
+    {% endblock %}
+  {% endextends %}
+
+  <body class="page subnav" x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+
+    {% include "_solr-header.html" %}
+
+  <div class="container">
+
+    <div class="row">
+      <div class="small-12 text-center columns">
+      	<h1>Solr Mailing Lists and IRC<br/>
+   		  <small>Stay in touch with us!</small></h1>
+   		</div>
+   	</div>
+   	<div class="row sub-nav-border">
+      <div class="small-12 text-center columns">
+				<dl class="sub-nav">
+					<dd><a data-scroll href="#mailing-list">Mailing List</a></dd>
+					<dd><a data-scroll href="#solr-user-list-solr-userlucene">Solr List</a></dd>
+					<dd><a data-scroll href="#developer-lists-devlucene">Developer List</a></dd>
+					<dd><a data-scroll href="#commit-notifications-commitsluene">Commit Notifications</a></dd>
+					<dd><a data-scroll href="#general-discussion-generallucene">General</a></dd>
+					<dd><a data-scroll href="#irc">IRC</a></dd>
+				</dl> 
+			</div>
+		</div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        {% block content %}
+          {{ content|markdown }}
+        {% endblock %}
+      </div>
+    </div>
+
+	</div>
+    
+    {% include "_solr-footer.html" %}
+
+  </body>
+</html>

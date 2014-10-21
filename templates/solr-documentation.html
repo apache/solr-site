@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+  {% extends "_solr-head.html" %}
+    {% block javascript %}
+    <script src="/solr/assets/scripts/main.js"></script>
+    {% endblock %}
+    {% block metakeys %}<meta name="keywords"
+            content="apache, apache lucene, apache solr, solr, lucene
+            search, information retrieval, spell checking, faceting, inverted index, open source"/>
+    {% endblock %}
+  {% endextends %}
+
+  <body class="page documentation" x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+
+    {% include "_solr-header.html" %}
+
+    <div class="container">
+
+    <div class="row">
+			<div class="medium-4 columns">
+			  {% block sidebar %}
+          <ul class="side-nav nested-nav">
+            {% include "_solr-search.html" %}
+            <li><a href="#">Collections and Indexes</a>
+              <ul>
+                <li>nested info</li>
+                <li>nested info</li>
+              </ul>
+            </li>
+            <li><a href="#">Crawling Content</a></li>
+            <li><a href="#">Query and Search Configuration</a></li>
+            <li><a href="#">Security and User Management</a></li>
+            <li><a href="#">Solr Direct Access</a></li>
+            <li><a href="#">Performance Tips</a></li>
+            <li><a href="#">Expanding Capacity</a></li>
+            <li><a href="#">Integrating Monitoring Services</a></li>
+          </ul>
+        {% endblock %}
+			</div>
+     	<div class="medium-8 columns">
+	      {% block content %}
+	        {{ content|markdown }}
+	      {% endblock %}
+	    </div>
+  	</div>
+
+  </div>
+    
+    {% include "_solr-footer.html" %}
+
+  </body>
+</html>
