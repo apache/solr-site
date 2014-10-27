@@ -30,6 +30,13 @@ code, pre {
   outline: 0;
 }
 
+.offset {
+  position: relative;
+  top: -150px;
+  padding-top: 150px;
+  margin-bottom: -120px;
+}
+
 a.btn, button {
   border: 1px solid #d1d3d4;
   background-color:inherit;
@@ -682,6 +689,8 @@ section.list ul li p {
   padding-right: 30px;
   padding-left: 15px;
   border-right:1px solid #e4e2dd;
+  position: relative;
+  z-index: 2000;
 }
 
 .codehilite {
