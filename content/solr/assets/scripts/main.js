@@ -48,7 +48,7 @@
       }
     ])
 
-    .directive('navigation', ['$location', function($location) {
+    .directive('navigation', [function() {
       return {
         restrict: 'C',
         scope: true,
