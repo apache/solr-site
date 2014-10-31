@@ -8,42 +8,48 @@
     }
 
     function selectProvider(form) {
+      lucidAction = "http://find.searchhub.org/p:lucene,solr";
+      searchLuceneAction = "http://search-lucene.com/lucene";
+
       provider = form.elements['searchProvider'].value;
-      if (provider == "any") {
+      if (provider == "lucid" || provider == "sl") {
+        if (provider == "lucid") {
+          form.action = lucidAction;
+        } else if (provider == "sl") {
+          form.action = searchLuceneAction;
+        }
+
+        // Only store provider preference cookie if the user selected it
+        days = 90; // cookie will be valid for 90 days
+        date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+        document.cookie = "searchProvider=" + provider + expires + "; path=/";
+      } else {
         if (Math.random() > 0.5) {
-          provider = "lucid";
+          form.action = lucidAction;
         } else {
-          provider = "sl";
+          form.action = searchLuceneAction;
         }
       }
-
-      if (provider == "lucid") {
-        form.action = "http://find.searchhub.org/p:lucene,solr";
-      } else if (provider == "sl") {
-        form.action = "http://search-lucene.com/lucene";
-      }
-
-      days = 90; // cookie will be valid for 90 days
-      date = new Date();
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-      expires = "; expires=" + date.toGMTString();
-      document.cookie = "searchProvider=" + provider + expires + "; path=/";
       return true;
     }
   </script>
   <form id="quick-search" method="GET" onsubmit="return selectProvider(this)"
-        action="http://search-lucene.com/lucene"
+        action="http://search-lucene.com//lucene"
         name="searchform">
     <fieldset>
-      <input type="search" name="q" placeholder="Search |" class="class1 class2 hint" accesskey="q"
-             onfocus="getBlank(this, 'Search with Apache Solr...')">
-      <a class="search-button" type="submit"><img src="/solr/assets/images/magnifying-glass.png"></a>
-      <!-- <span style="color:white">@</span>
-       <select name="searchProvider" id="searchProvider">
-        <option value="any">select provider</option>
-        <option value="lucid">Lucid Find</option>
-        <option value="sl">Search-Lucene</option>
-      </select> -->
+      <div ng-show="toggled" class="search-box">
+        <input type="search" name="q" placeholder="Search |" accesskey="q"
+               onfocus="getBlank(this, 'Search |');"/>
+        <a class="search-button" type="submit" 
+           onclick="form = document.getElementById('quick-search'); selectProvider(form); form.submit();"><img src="/solr/assets/images/magnifying-glass.png"/></a>
+        <select name="searchProvider" id="searchProvider" class="search-provider">
+          <option value="any"> - select provider - </option>
+          <option value="lucid">@ Lucid Find</option>
+          <option value="sl">@ Search-Lucene</option>
+        </select>
+      </div>
     </fieldset>
     <script type="text/javascript">
       if (document.cookie.length > 0) {
