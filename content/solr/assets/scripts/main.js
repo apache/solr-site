@@ -9,6 +9,7 @@
 
   $(function() {
     $('h2').addClass('offset');
+    $('h3').addClass('offset');
     $('.smooth-scroll').smoothScroll({ offset: 100 })
   });
 
