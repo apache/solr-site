@@ -7,12 +7,12 @@ $localMode = 0;
 # Patterns should go from more restrictive matches to less restrictive.
 our @patterns = (
 
-#  [qr!core\/mirrors-core-redir\.mdtext$!, main => { template => "mirrors-core-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
-#  [qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
-#  [qr!core\/mirrors-core-latest-redir\.mdtext$!, main => { template => "mirrors-core-latest-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
-#  [qr!solr\/mirrors-solr-latest-redir\.mdtext$!, main => { template => "mirrors-solr-latest-redir.html"	}],
-#  [qr!core\/mirrors-core-3x-redir\.mdtext$!, main => { template => "mirrors-core-3x-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
-#  [qr!solr\/mirrors-solr-3x-redir\.mdtext$!, main => { template => "mirrors-solr-3x-redir.html"	}],
+[qr!core\/mirrors-core-redir\.mdtext$!, main => { template => "mirrors-core-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
+[qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
+[qr!core\/mirrors-core-latest-redir\.mdtext$!, main => { template => "mirrors-core-latest-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
+[qr!solr\/mirrors-solr-latest-redir\.mdtext$!, main => { template => "mirrors-solr-latest-redir.html"	}],
+[qr!core\/mirrors-core-3x-redir\.mdtext$!, main => { template => "mirrors-core-3x-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
+[qr!solr\/mirrors-solr-3x-redir\.mdtext$!, main => { template => "mirrors-solr-3x-redir.html"	}],
 
   [qr!core\/index\.mdtext$!, main => { template => "core.html",
     preprocess => 1,

@@ -3,13 +3,13 @@
  This is a work around to the fact that the CMS doesn't allow inheritance of depth
         2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
 #}
-{% extends "head.html" %}
-{% block css %}
-    <meta http-equiv="refresh" content="1;url=http://www.apache.org/dyn/closer.cgi/lucene/solr/4.9.0">
+{% extends "_solr-head.html" %}
+  {% block css %}
+    <meta http-equiv="refresh" content="1;url=http://www.apache.org/dyn/closer.cgi/lucene/solr/4.10.2">
     <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
     <link href="../css/global.css" rel="stylesheet" type="text/css">
     <link href="../css/solr_old.css" rel="stylesheet" type="text/css">
-{% endblock %}
+  {% endblock %}
 {% endextends %}
-{% extends "solr_old.html" %}
+{% extends "solr-index.html" %}
 {% endextends %}
