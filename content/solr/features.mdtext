@@ -355,6 +355,16 @@ Title: Features
     </div>
     <div class="row">
       <div class="small-6 columns">
+        <li>Function queries provide powerful relevance tuning capabilities based off of your data
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Advanced relevance tuning options enable applications to fine tune results to fit their demanding needs
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
         <li>Solr supports multiple approaches to query parsing, making it easy to find your data
         <p>Dozens of query types (boolean, phrase, term, numeric, fielded and more) provide incredible power when searching</p>
         </li>
@@ -375,6 +385,22 @@ Title: Features
         </li>
       </div>
     </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Multiple scoring (similarity) approaches allow for easy experimentation and relevance tuning
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Well-defined APIs for capturing document and collection level statistics enable custom similarity models with little effort</li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Cursors (aka "deep paging") enables next generation NoSQL data storage and analysis options
+        </li>
+      </div>
+    </div>
+
   </ul>
 </section>
 <section class="orange">
@@ -383,7 +409,7 @@ Title: Features
       <div class="annotation">
         Detailed Features
       </div>
-      <h1>Faceting</h1>
+      <h1>Facets</h1>
       <p>
         Slice and dice your data six ways from Sunday
       </p>
@@ -441,7 +467,7 @@ Title: Features
       </div>
       <h1>Discovery</h1>
       <p>
-        Clustering, spellchecking, auto-complete and more make it easy to help users discover content!
+        Clustering, spellchecking, auto-complete and more make it easy to help users discover content
       </p>
       <div class="down-arrow"><a data-scroll href="#query"><i class="fa fa-angle-down fa-2x red"></i></a></div>
     </div>
@@ -452,21 +478,22 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
-        <li>Sort by any number of fields, and by complex functions of numeric fields
+        <li>Typeahead, autocomplete, auto-suggest, whatever you call it, Solr supports powerful and extensible mechanisms for providing suggestions to users
+         as they type in their queries
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Declarative Lucene Analyzer specification
+        <li>Integrated Carrot<sup>2</sup> features enable dynamic search results clustering
         </li>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Dynamic Fields enables on-the-fly addition of new fields
+        <li>Spelling suggestions are a breeze to enable to help users correct their queries for better results
         </li>
       </div>
       <div class="small-6 columns">
-        <li>CopyField functionality
+        <li>Configurable hit highlighting helps users focus in on exactly where matches occur
         </li>
       </div>
     </div>
@@ -509,37 +536,21 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
-        <li>Sort by any number of fields, and by complex functions of numeric fields
+        <li>Solr supports complex mathematical analysis on result sets, enabling next-generation search-based business intelligence
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Declarative Lucene Analyzer specification
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Dynamic Fields enables on-the-fly addition of new fields
-        </li>
-      </div>
-      <div class="small-6 columns">
-        <li>CopyField functionality
+        <li>Grouping, nesting and other approaches enable applications to represent complex relationships between content types
         </li>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Explicit types eliminates the need for guessing types of fields
+        <li>TODO: MORE HERE ON Expressions, stats, etc.
         </li>
       </div>
       <div class="small-6 columns">
-        <li>External file-based configuration of stopword lists, synonym lists, and protected word lists
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Many additional text analysis components including word splitting, regex and
+        <li>TODO
         </li>
       </div>
     </div>
@@ -566,37 +577,21 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
-        <li>Sort by any number of fields, and by complex functions of numeric fields
+        <li>Out of the box support for location-aware search (think mobile search) enables applications to find and filter content based on location
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Declarative Lucene Analyzer specification
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Dynamic Fields enables on-the-fly addition of new fields
-        </li>
-      </div>
-      <div class="small-6 columns">
-        <li>CopyField functionality
+        <li>Extensive support for representing complex spatial data like polygons, lat/lon and more
         </li>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Explicit types eliminates the need for guessing types of fields
+        <li>Advanced query capabilities allow for bounding box, polygonal and other complex querying capabilities
         </li>
       </div>
       <div class="small-6 columns">
-        <li>External file-based configuration of stopword lists, synonym lists, and protected word lists
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Many additional text analysis components including word splitting, regex and
+        <li>Integration with the Java Topological Suite library provides advanced spatial capabilities
         </li>
       </div>
     </div>
@@ -622,37 +617,21 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
-        <li>Sort by any number of fields, and by complex functions of numeric fields
+        <li>Integration with <a href="http://tika.apache.org">Apache Tika</a> enables the extraction and processing of rich content types without writing a single line of code
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Declarative Lucene Analyzer specification
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Dynamic Fields enables on-the-fly addition of new fields
-        </li>
-      </div>
-      <div class="small-6 columns">
-        <li>CopyField functionality
+        <li>Data not in JSON?  No problem.  Solr handles a variety of data types out of the box, including JSON, XML, many Office documents, CSV and more
         </li>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Explicit types eliminates the need for guessing types of fields
+        <li>Flexible and extensible Input and Output formats allow your application to talk with Solr the way you want to talk to it
         </li>
       </div>
       <div class="small-6 columns">
-        <li>External file-based configuration of stopword lists, synonym lists, and protected word lists
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Many additional text analysis components including word splitting, regex and
+        <li>Advanced processing options make it easy to control what extracted content is indexed and how it is indexed
         </li>
       </div>
     </div>
@@ -668,7 +647,7 @@ Title: Features
       </div>
       <h1>Performance</h1>
       <p>
-
+        Proven time and time again in world-class organizations, Solr performs and scales to handle the most demanding applications
       </p>
       <div class="down-arrow"><a data-scroll href="#performance"><i class="fa fa-angle-down fa-2x red"></i></a></div>
     </div>
@@ -679,28 +658,31 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
-        <li>Sort by any number of fields, and by complex functions of numeric fields
+        <li>Well tested defaults provide good performance out of the box with little tuning
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Declarative Lucene Analyzer specification
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Dynamic Fields enables on-the-fly addition of new fields
-        </li>
-      </div>
-      <div class="small-6 columns">
-        <li>CopyField functionality
-          <p>allows indexing a single field multiple ways, or combining multiple fields into a single searchable field </p>
+        <li>Advanced options give fine grained control over numerous performance options
         </li>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Explicit types eliminates the need for guessing types of fields
+        <li>Powerful single-node and distributed capabilities simplify the process of going from one node to many
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>A multitude of smart caching options enable exacting control over repetitive results a breeze
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Always built on the latest and greatest Lucene, Solr takes advantage of numerous Lucene performance enhancements
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Support for codecs, alternate Directory implementations and more provide for advanced performance tuning options
         </li>
       </div>
     </div>
@@ -713,10 +695,9 @@ Title: Features
       <div class="annotation">
         Detailed Features
       </div>
-      <h1>SolrCloud</h1>
+      <h1>Scaling</h1>
       <p>
-        HTTP interface with configurable response formats.
-        (XML/XSLT, JSON, Python, Ruby, PHP, Velocity, CSV, binary)
+        Highly scalable, fault tolerant distributed infrastructure built on Apache Zookeeper
       </p>
       <div class="down-arrow"><a data-scroll href="#solrcloud"><i class="fa fa-angle-down fa-2x red"></i></a></div>
     </div>
@@ -727,32 +708,33 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
-        <li>Sort by any number of fields, and by complex functions of numeric fields
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur </p>
+        <li>Add and remove compute capacity as needed, while letting Solr do the dirty work of load balancing and more
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Declarative Lucene Analyzer specification
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur </p>
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Dynamic Fields enables on-the-fly addition of new fields
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur </p>
-        </li>
-      </div>
-      <div class="small-6 columns">
-        <li>CopyField functionality
-          <p>allows indexing a single field multiple ways, or combining multiple fields into a single searchable field </p>
+        <li>Shard splitting makes it easy to incrementally add capacity without re-indexing your entire content
         </li>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Explicit types eliminates the need for guessing types of fields
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur </p>
+        <li>Built on tried and true Apache Zookeeper, Solr favors consistency and avoids hairy split brain issues common to other approaches
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Built-in User Interfafaces provide deep insight into cluster state
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Advanced transaction log, replication and failover capabilities help minimize data loss while still serving results
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Tested regularly at scale to handle hundreds to thousands of compute nodes and billions of documents with very high query volumes
         </li>
       </div>
     </div>
