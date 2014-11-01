@@ -32,53 +32,20 @@ Archives for all past versions of the Solr Reference Guide are available at the 
 Additional documentation can be found on the [Solr Community Wiki]() or the various [books published about Solr]().
 
 ***
-## Solr Version Control ##
-
-The Solr source code resides in the Apache [Subversion (SVN)]() repository. The command-line SVN client can be obtained [here]() or as an optional package for [cygwin](). The TortoiseSVN GUI client for Windows can be obtained here. There are also SVN plugins available for older versions of [Eclipse]() and [IntelliJ]() IDEA that don't have subversion support already included.
-
-### Web Access (read-only) ###
-
-The source code can be browsed via the Web at <http://svn.apache.org/viewcvs.cgi/lucene/dev/>. No SVN client software is required.
-
-### Anonymous Access (read-only)
-
-The SVN URL for anonymous users is <http://svn.apache.org/repos/asf/lucene/dev/>. Instructions for anonymous SVN access are here.
-
-### Committer Access (read-write) ###
-
-The SVN URL for committers is <https://svn.apache.org/repos/asf/lucene/dev/>. Instructions for committer SVN access are here.
-
-***
-## Screenshots ##
-
-### Admin UI ###
-
-Solr 4.0 comes with a revamped Admin UI featuring:
-
-* Visual bars showing memory, swap space, and JVM memory used and allocated.
-* Dump of JVM args so you can see how your JVM was started up.
-* Log dumps in easily readable, color-coded formats.
-* Core administration, including buttons for adding, renaming, swapping, reloading and optimizing.
-* Core stats including last modification date, doc counts, and status indicators for optimized, current and hasDeletions.
-* Query screen that, for me, replaces the /browse handler for debugging purposes
-Improved analysis debugging screens
-* Pretty schema browser
-* Data import status screen
-* and more...
-
-***
 ## Solr Books ##
+
+If you have a Solr book that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) via a JIRA with the appropriate content.
 
 ### Mastering Apache Solr ###
 
 <a href="http://mathieu-nayrolles.com">Mathieu Nayrolles</a> and <a href="http://www.inkstall.com/">Inkstall Publications</a> are proud to announce their latest book — [Mastering Apache Solr](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall).  This book will empower you to provide a world-class search experience to your end users through the discovery of the powerful mechanisms presented in it.
- 
-<a href="http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall" title="Mastering Apache Solr"><img alt="Mastering Apache Solr cover" class="float-right" src="/images/book_mas.jpg" /></a> 
+
+<a href="http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall" title="Mastering Apache Solr"><img alt="Mastering Apache Solr cover" class="float-right" src="/images/book_mas.jpg" /></a>
 **Mastering Apache Solr** is a short, focused, practical, hands-on guide containing crisp, relevant, systematically arranged, progressive chapters. These chapters contain a wealth of information presented in a direct and easy-to-understand manner. Highlighting Solr's supremacy over classical databases in full-text search, this book covers key technical concepts which will help you accelerate your progress in the Solr world.
- 
+
 **Mastering Apache Solr** starts with an introduction to Apache Solr, its underlying technologies, the main differences between the classical database engines, and gradually moves to more advance topics such as boosting performance. In this book, we will look under the hood of a large number of topics and discuss answers to pertinent questions such as why denormalize data, how to import classical databases' data inside Apache Solr, how to serve Solr through five different web servers, how to optimize them to serve Solr even faster. An important and major topic covered in this book is Solr's querying mechanism, which will prove to be a strong ally in our journey through this book. We then look at boosting performance and deploying Solr using several servlet servers. Finally, we cover how to communicate with Solr using different programming languages, before deploying it in a cloud-based environment.
- 
-**Mastering Apache Solr** is written lucidly and has a clear simple approach. From the first page to the last, the book remains practical and focuses on the most important topics used in the world of Apache Solr without neglecting important theoretical fundamentals that help you build a strong foundation. 
+
+**Mastering Apache Solr** is written lucidly and has a clear simple approach. From the first page to the last, the book remains practical and focuses on the most important topics used in the world of Apache Solr without neglecting important theoretical fundamentals that help you build a strong foundation.
 
 [Buy here](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall)
 
@@ -160,6 +127,63 @@ This cookbook will show you how to get the most out of your search engine. Each 
 
 ***
 
+## Presentations ##
+
+If you have a Solr presentation that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) via a JIRA with the appropriate content.
+
+### Slideshare ###
+
+[Search Slideshare](http://www.slideshare.net/search/slideshow?&q=solr)
+
 ## Videos ##
 
-TODO:  Link to Revolution, Meetups and other content
+If you have a Solr video that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) via a JIRA with the appropriate content.
+
+### Lucene/Solr Revolution ###
+
+<!-- TODO: WOULD BE NICE TO HAVE A SLIDER OR RANDOMLY PICKED VIDEO HERE -->
+
+[Videos from Past Events](http://lucenerevolution.org/past-events/) including Apache Eurocon
+
+### YouTube ###
+
+[Search YouTube for Solr](https://www.youtube.com/results?search_query=solr)
+
+### Vimeo ###
+
+[Search Vimeo for Solr](http://vimeo.com/search?q=solr)
+
+***
+## Solr Version Control ##
+
+The Solr source code resides in the Apache [Subversion (SVN)]() repository. The command-line SVN client can be obtained [here]() or as an optional package for [cygwin](). The TortoiseSVN GUI client for Windows can be obtained here. There are also SVN plugins available for older versions of [Eclipse]() and [IntelliJ]() IDEA that don't have subversion support already included.
+
+### Web Access (read-only) ###
+
+The source code can be browsed via the Web at <http://svn.apache.org/viewcvs.cgi/lucene/dev/>. No SVN client software is required.
+
+### Anonymous Access (read-only)
+
+The SVN URL for anonymous users is <http://svn.apache.org/repos/asf/lucene/dev/>. Instructions for anonymous SVN access are here.
+
+### Committer Access (read-write) ###
+
+The SVN URL for committers is <https://svn.apache.org/repos/asf/lucene/dev/>. Instructions for committer SVN access are here.
+
+***
+## Screenshots ##
+
+### Admin UI ###
+
+Solr 4.0 comes with a revamped Admin UI featuring:
+
+* Visual bars showing memory, swap space, and JVM memory used and allocated.
+* Dump of JVM args so you can see how your JVM was started up.
+* Log dumps in easily readable, color-coded formats.
+* Core administration, including buttons for adding, renaming, swapping, reloading and optimizing.
+* Core stats including last modification date, doc counts, and status indicators for optimized, current and hasDeletions.
+* Query screen that, for me, replaces the /browse handler for debugging purposes
+Improved analysis debugging screens
+* Pretty schema browser
+* Data import status screen
+* and more...
