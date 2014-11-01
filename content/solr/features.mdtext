@@ -270,9 +270,9 @@ Title: Features
       <div class="annotation">
         Detailed Features
       </div>
-      <h1>Schema</h1>
+      <h1>Data Handling</h1>
       <p>
-        Defines the field types, analysis processes and fields of documents
+        Schema or schemaless, easily define the field types, analysis processes and document structures to make your search application successful
       </p>
       <div class="down-arrow"><a data-scroll href="#schema"><i class="fa fa-angle-down fa-2x red"></i></a></div>
     </div>
@@ -283,12 +283,12 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
-        <li>Can drive more intelligent processing
-          <p>Optional more details go here.</p>
+        <li>Schemaless (data-driven schema) makes it easy to get started, while switching to a configured schema makes for a solid production environment.
+                  <p>Solr supports both schemaless and schema modes, depending on your goals</p>
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Declarative Lucene Analyzer specification
+        <li>Solr's Field Types make it easy to declaratively mix and match Lucene Analyzers without writing code
         </li>
       </div>
     </div>
@@ -298,13 +298,13 @@ Title: Features
         </li>
       </div>
       <div class="small-6 columns">
-        <li>CopyField functionality
+        <li>Easily analyze the same content in different ways using Solr's copy field capabilities
         </li>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Explicit types eliminates the need for guessing types of fields
+        <li>Explicit types eliminates the need for guessing types of fields and introducing noise
         </li>
       </div>
       <div class="small-6 columns">
@@ -314,11 +314,11 @@ Title: Features
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Many additional text analysis components including word splitting, regex and
+        <li>Many additional text analysis components including word splitting, regex, stemming and more
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Pluggable similarity model per field
+        <li>Extensible to allow for applications to easily handle proprietary formats and unsupported data types
         </li>
       </div>
     </div>
@@ -333,8 +333,7 @@ Title: Features
       </div>
       <h1>Query</h1>
       <p>
-        HTTP interface with configurable response formats.
-        (XML/XSLT, JSON, Python, Ruby, PHP, Velocity, CSV, binary)
+        HTTP interfaces with flexible IO formats and extensive query parsing support make adding and finding data a snap
       </p>
       <div class="down-arrow"><a data-scroll href="#query"><i class="fa fa-angle-down fa-2x red"></i></a></div>
     </div>
@@ -345,6 +344,114 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
+        <li>REST interfaces provide for easy integration with any language.
+        <p>Native clients are also available</p>
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Sort by any number of fields, and by complex functions of numeric fields
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Solr supports multiple approaches to query parsing, making it easy to find your data
+        <p>Dozens of query types (boolean, phrase, term, numeric, fielded and more) provide incredible power when searching</p>
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Extensive filtering features allow applications to control what content is searched and when
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Good out of the box defaults make getting good results easy, while extensive configuration options make it easy to fine tune
+        <p>Request handling can easily be configured to control how applications request results using invariants, defaults and appending parameters</p>
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Pluggable query parsers mean every application can provide a query interface that makes sense to it's users
+        </li>
+      </div>
+    </div>
+  </ul>
+</section>
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Faceting</h1>
+      <p>
+        Slice and dice your data six ways from Sunday
+      </p>
+      <div class="down-arrow"><a data-scroll href="#facets"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray list" id="facets">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Powerful faceting features support grouping and organizing your data in a multitude of ways
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Term, Query, Range, Date, Function and Pivot faceting implementations make data investigation simple and powerful
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Fine-grained performance controls make it possible to tradeoff competing CPU and memory resources during faceting
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Pivot faceting enables asking sophisticated "what if" questions
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Range faceting enables grouping time and numerical content in easy to understand buckets
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Query-based faceting makes it easy to facet by arbitrary queries
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Multi-select facet parameters enable exact control over how facets interact with the original result set
+        </li>
+      </div>
+    </div>
+  </ul>
+</section>
+
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Discovery</h1>
+      <p>
+        Clustering, spellchecking, auto-complete and more make it easy to help users discover content!
+      </p>
+      <div class="down-arrow"><a data-scroll href="#query"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray list" id="discovery">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
         <li>Sort by any number of fields, and by complex functions of numeric fields
         </li>
       </div>
@@ -382,23 +489,80 @@ Title: Features
   </ul>
 </section>
 
+
 <section class="orange">
   <div class="row">
     <div class="large-12 columns">
       <div class="annotation">
         Detailed Features
       </div>
-      <h1>Core</h1>
+      <h1>Statistics and Aggregations</h1>
       <p>
-        HTTP interface with configurable response formats.
-        (XML/XSLT, JSON, Python, Ruby, PHP, Velocity, CSV, binary)
+
+      </p>
+      <div class="down-arrow"><a data-scroll href="#stats"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray list" id="stats">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Sort by any number of fields, and by complex functions of numeric fields
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Declarative Lucene Analyzer specification
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Dynamic Fields enables on-the-fly addition of new fields
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>CopyField functionality
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Explicit types eliminates the need for guessing types of fields
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>External file-based configuration of stopword lists, synonym lists, and protected word lists
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Many additional text analysis components including word splitting, regex and
+        </li>
+      </div>
+    </div>
+  </ul>
+</section>
+
+
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Spatial</h1>
+      <p>
+        Location-aware search using advanced spatial integrations
       </p>
       <div class="down-arrow"><a data-scroll href="#core"><i class="fa fa-angle-down fa-2x red"></i></a></div>
     </div>
   </div>
 </section>
 
-<section class="gray list" id="core">
+<section class="gray list" id="spatial">
   <ul>
     <div class="row">
       <div class="small-6 columns">
@@ -445,17 +609,73 @@ Title: Features
       <div class="annotation">
         Detailed Features
       </div>
-      <h1>Caching</h1>
+      <h1>Rich Content</h1>
       <p>
-        HTTP interface with configurable response formats.
-        (XML/XSLT, JSON, Python, Ruby, PHP, Velocity, CSV, binary)
+        Your Data, your way.  PDF, Word, Powerpoint and more
       </p>
-      <div class="down-arrow"><a data-scroll href="#caching"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+      <div class="down-arrow"><a data-scroll href="#query"><i class="fa fa-angle-down fa-2x red"></i></a></div>
     </div>
   </div>
 </section>
 
-<section class="gray list" id="caching">
+<section class="gray list" id="rich-content">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Sort by any number of fields, and by complex functions of numeric fields
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Declarative Lucene Analyzer specification
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Dynamic Fields enables on-the-fly addition of new fields
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>CopyField functionality
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Explicit types eliminates the need for guessing types of fields
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>External file-based configuration of stopword lists, synonym lists, and protected word lists
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Many additional text analysis components including word splitting, regex and
+        </li>
+      </div>
+    </div>
+  </ul>
+</section>
+
+
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Performance</h1>
+      <p>
+
+      </p>
+      <div class="down-arrow"><a data-scroll href="#performance"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray list" id="performance">
   <ul>
     <div class="row">
       <div class="small-6 columns">
