@@ -11,15 +11,15 @@ Title: Tutorials
 
 ## Overview
 
+TODO: Where to mention (or not?) the Solr version number this is for?   It's intentionally embedded in the examples below, at least.
+
 This document covers the basics of running Solr using an example schema, and some sample data.
 
 ***
 
 ## Requirements
 
-* [How Search Engines Work]()
-* [Indexing Documents]()
-* [Overview of Crawling]()
+TODO: Replace this section with an include?  Or at least link to a common system requirements page rather than duplicating here.
 
 To follow along with this tutorial, you will need...
 
@@ -27,7 +27,7 @@ To follow along with this tutorial, you will need...
     * Running java -version at the command line should indicate a version number starting with 1.7.
     * Gnu's GCJ is not supported and does not work with Solr.
 2. A Solr release.
-	
+    
 ***
 
 ## Getting Started
@@ -36,33 +36,30 @@ Please run the browser showing this tutorial and the Solr server on the same mac
 
 Begin by unzipping the Solr release and changing your working directory to be the "example" directory. (Note that the base directory name may vary with the version of Solr downloaded.) For example, with a shell in UNIX, Cygwin, or MacOS:
 
-	user:~solr$ ls
-	solr-nightly.zip
-	user:~solr$ unzip -q solr-nightly.zip
-	user:~solr$ cd solr-nightly/example/
 
-Solr can run in any Java Servlet Container of your choice, but to simplify this tutorial, the example index includes a small installation of Jetty.
+    ~:$ ls solr*
+    solr-4.10.2.zip
+    ~:$ unzip -q solr-4.10.2.zip
+    ~:$ cd solr-4.10.2/
 
-To launch Jetty with the Solr WAR, and the example configs, just run the `start.jar ...`
+To launch Solr, run `bin/solr start`:
 
-	user:~/solr/example$ java -jar start.jar
-	2012-06-06 15:25:59.815:INFO:oejs.Server:jetty-8.1.2.v20120308
-	2012-06-06 15:25:59.834:INFO:oejdp.ScanningAppProvider:Deployment monitor .../solr/example/webapps at interval 0
-	2012-06-06 15:25:59.839:INFO:oejd.DeploymentManager:Deployable added: .../solr/example/webapps/solr.war
-	...
-	Jun 6, 2012 3:26:03 PM org.apache.solr.core.SolrCore registerSearcher
-	INFO: [collection1] Registered new searcher Searcher@7527e2ee main{StandardDirectoryReader(segments_1:1)}
+    ~/solr-4.10.2:$ bin/solr start
+    Waiting to see Solr listening on port 8983 [/]  
+    Started Solr server on port 8983 (pid=2850). Happy searching!
 
-This will start up the Jetty application server on port 8983, and use your terminal to display the logging information from Solr.
+    ~/solr-4.10.2:$ _
 
-You can see that the Solr is running by loading  <http://localhost:8983/solr/>  in your web browser. This is the main starting point for Administering Solr.
+Solr will now be running on port 8983 with an empty "collection1" ready for business. 
+
+You can see that the Solr is running by loading  <http://localhost:8983/solr/>  in your web browser. This is the main starting point for administering Solr.
 
 ***
 
 <section class="orange">
       <h1>That wasn't too hard!</h1>
       <p>
-        You nailed step 1. Take a deep breath, maybe grab a beer before round 2 below.
+        You nailed step 1. Take a deep breath, relax a bit before round 2 below.
       </p>
       <div class="down-arrow"><a data-scroll href="#indexing-data"><i class="fa fa-angle-down fa-2x red"></i></a></div>
 </section>
@@ -71,35 +68,59 @@ You can see that the Solr is running by loading  <http://localhost:8983/solr/>  
 
 Your Solr server is up and running, but it doesn't contain any data. You can modify a Solr index by POSTing commands to Solr to add (or update) documents, delete documents, and commit pending adds and deletes. These commands can be in a [variety of formats]().
 
-The exampledocs directory contains sample files showing of the types of commands Solr accepts, as well as a java utility for posting them from the command line (a post.sh shell script is also available, but for this tutorial we'll use the cross-platform Java client. Run “`java -jar post.jar -h`” so see it's various options).
+The install includes sample files, under `example/exampledocs`, demonstrating the types of commands and formats Solr accepts. Also included is a Java utility for posting them from the command line.
 
-To try this, open a new terminal window, enter the exampledocs directory, and run "`java -jar post.jar`" on some of the XML files in that directory.
+Let's first index local "rich" files (HTML, PDF, text, and many other supported formats).  The command-line is a bit hairy, and it will be described in detail below.  The command we'll use is:
 
-	user:~/solr/example/exampledocs$ java -jar post.jar solr.xml monitor.xml
-	SimplePostTool: version 1.4
-	SimplePostTool: POSTing files to http://localhost:8983/solr/update..
-	SimplePostTool: POSTing file solr.xml
-	SimplePostTool: POSTing file monitor.xml
-	SimplePostTool: COMMITting Solr index changes..
+    java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
 
-You have now indexed two documents in Solr, and committed these changes. You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result...
+Here's what it'll look like:
+
+    # TODO: does this command-line sound too hairy to put in here?   What's easier?   I like it, and will make at least Solr 5.x have it be 
+    # as simple `bin/post docs/` to do this same thing (see SOLR-6435)
+
+    ~/solr-4.10.2:$ java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
+    SimplePostTool version 1.5
+    Posting files to base url http://localhost:8983/solr/update..
+    Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
+    Entering recursive mode, max depth=999, delay=0s
+    Indexing directory docs (3 files, depth=0)
+    POSTing file index.html (text/html)
+    POSTing file SYSTEM_REQUIREMENTS.html (text/html)
+    POSTing file tutorial.html (text/html)
+    Indexing directory docs/changes (1 files, depth=1)
+    POSTing file Changes.html (text/html)
+    Indexing directory docs/solr-analysis-extras (8 files, depth=1)
+    ...
+    2945 files indexed.
+    COMMITting Solr index changes to http://localhost:8983/solr/update..
+    Time spent: 0:00:14.110
+
+# TODO: Should we break down this command-line like this?  Why not?  Maybe make it blocked off so it can be readily skipped for the copy/pasters.
+
+The command-line breaks down as follows:
+
+   * `-classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar`: the JAR file containing Solr's SimplePostTool
+   * `-Ddata=files -Dauto -Drecursive`: Settings for directory recursing with automatic content type detection
+   * `org.apache.solr.util.SimplePostTool`: The tool we are invoking here
+   * `docs/`: a relative path of the Solr install docs/ directory
+
+
+You have now indexed thousands of documents in Solr and committed these changes. You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result...
 
 <http://localhost:8983/solr/collection1/select?q=solr&wt=xml>
 
-You can index all of the sample data, using the following command (assuming your command line shell supports the *.xml notation):
+You can index all of the sample data, using the following command (assuming your command line shell supports the *.xml notation), this time making our command-line simpler by opening a terminal to the `example/exampledocs` directory and using post.jar.  Note: post.jar is a simple JAR file containing only the SimplePostTool used above.
 
-	user:~/solr/example/exampledocs$ java -jar post.jar *.xml
-	SimplePostTool: version 1.4
-	SimplePostTool: POSTing files to http://localhost:8983/solr/update..
-	SimplePostTool: POSTing file gb18030-example.xml
-	SimplePostTool: POSTing file hd.xml
-	SimplePostTool: POSTing file ipod_other.xml
-	SimplePostTool: POSTing file ipod_video.xml
-	...
-	SimplePostTool: POSTing file solr.xml
-	SimplePostTool: POSTing file utf8-example.xml
-	SimplePostTool: POSTing file vidcard.xml
-	SimplePostTool: COMMITting Solr index changes..
+    ~/solr-4.10.2/example/exampledocs:$ java -jar post.jar *.xml
+    SimplePostTool version 1.5
+    Posting files to base url http://localhost:8983/solr/update using content-type application/xml..
+    POSTing file gb18030-example.xml
+    POSTing file hd.xml
+    ...
+    14 files indexed.
+    COMMITting Solr index changes to http://localhost:8983/solr/update..
+    Time spent: 0:00:00.187
 
 ...and now you can search for all sorts of things using the default [Solr Query Syntax]() (a superset of the Lucene query syntax)...
 
@@ -110,7 +131,7 @@ You can index all of the sample data, using the following command (assuming your
 There are many other different ways to import your data into Solr... one can
 
 * Import records from a database using the [Data Import Handler (DIH)]().
-	
+    
 * [Load a CSV file]() (comma separated values), including those exported by Excel or MySQL.
 
 * [POST JSON documents]()
@@ -137,7 +158,7 @@ You can delete data by POSTing a delete command to the update URL and specifying
 
 Execute the following command to delete a specific document
 
-	java -Ddata=args -Dcommit=false -jar post.jar "<delete><id>SP2514N</id></delete>"
+    java -Ddata=args -Dcommit=false -jar post.jar "<delete><id>SP2514N</id></delete>"
 
 ***
 
