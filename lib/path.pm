@@ -53,9 +53,7 @@ our @patterns = (
   }],
   [qr!solr\/features\.mdtext$!, main => { template => "solr-full-width.html"}],
   [qr!solr\/resources\.mdtext$!, main => { template => "solr-resources.html"}],
-  [qr!solr\/documentation\.mdtext$!, main => { template => "solr-documentation.html"}],
   [qr!solr\/tutorials\.mdtext$!, main => { template => "solr-tutorials.html"}],  
-  [qr!solr\/mailing\.mdtext$!, main => { template => "solr-mail.html"}], 
     [qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-page.html"}],
 
   [qr!pylucene/jcc/.*?\.mdtext$!, main => { template => "jcc-simple.html" }],
