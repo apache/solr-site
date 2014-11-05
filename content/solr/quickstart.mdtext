@@ -132,26 +132,51 @@ The command-line breaks down as follows:
    * `org.apache.solr.util.SimplePostTool`: Our easy to use friend in this tutorial
    * `docs/`: a relative path of the Solr install docs/ directory
 
-You have now indexed thousands of documents into the "collection1" collection in Solr and committed these changes.   
 
+You have now indexed thousands of documents into the "collection1" collection in Solr and committed these changes.
+You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result.
 
+   <http://localhost:8983/solr/collection1/select?q=solr&wt=xml>
 
-You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result...
+NOTE: /browse call out (?)
+You can browse the documents indexed at <http://localhost:8983/solr/collection1/browse>.
+The `/browse` UI allows getting a feel for how Solr's technical capabilities can be
+worked with in a familiar, though a bit rough* and prototypical, interactive HTML view.  *The /browse views default to assuming the
+"collection1" schema and data are a catch-all mix of structured XML, JSON, CSV example data, and unstructured rich documents.
+Your own data may not look ideal at first, though the /browse templates are malleable as desired.
 
-<http://localhost:8983/solr/collection1/select?q=solr&wt=xml>
+For something probably immediately useful to you would be to re-run the directory indexing command pointed, rather, to your own directory of documents.  For example, on a Mac instead of "docs/" try `~/Documents` or `~/Desktop`!   You may want to start from a clean empty system again, rather than have your content in addition to the Solr docs/ directory.
+
+### Indexing Solr XML
+
+Solr supports indexing structured content in a variety of incoming formats.  The historically predominant format for getting structured content into Solr has been [Solr XML](link).  Many Solr indexers have been coded to process domain content into Solr XML output, generally HTTP POSTed directly to Solr's /update endpoint.
+
+Solr's install includes a handful of Solr XML formatted files with example data (mostly mocked tech product data).  
+
+Using `SimplePostTool`, index the example XML files:
 
 You can index all of the sample data, using the following command (assuming your command line shell supports the *.xml notation), this time making our command-line simpler by opening a terminal to the `example/exampledocs` directory and using post.jar.  Note: post.jar is a simple JAR file containing only the SimplePostTool used above.
 
-    /solr-4.10.2:$ cd example/exampledocs/
-    /solr-4.10.2/example/exampledocs:$ java -jar post.jar *.xml
+    /solr-4.10.2:$ java org.apache.solr.util.SimplePostTool example/exampledocs/*.xml
     SimplePostTool version 1.5
     Posting files to base url http://localhost:8983/solr/update using content-type application/xml..
     POSTing file gb18030-example.xml
     POSTing file hd.xml
-    ...
+    POSTing file ipod_other.xml
+    POSTing file ipod_video.xml
+    POSTing file manufacturers.xml
+    POSTing file mem.xml
+    POSTing file money.xml
+    POSTing file monitor.xml
+    POSTing file monitor2.xml
+    POSTing file mp500.xml
+    POSTing file sd500.xml
+    POSTing file solr.xml
+    POSTing file utf8-example.xml
+    POSTing file vidcard.xml
     14 files indexed.
     COMMITting Solr index changes to http://localhost:8983/solr/update..
-    Time spent: 0:00:00.187
+    Time spent: 0:00:00.453
 
 ...and now you can search for all sorts of things using the default [Solr Query Syntax]() (a superset of the Lucene query syntax)...
 
@@ -213,6 +238,7 @@ date ;
 bin/solr start -e cloud -noprompt ; 
    open http://localhost:8983/solr ;
    java -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/ ; 
+   java org.apache.solr.util.SimplePostTool example/exampledocs/*.xml ;
    open http://localhost:8983/solr/collection1/browse ;
 date ;
 
