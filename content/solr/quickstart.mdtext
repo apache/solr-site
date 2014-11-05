@@ -1,25 +1,30 @@
-Title: Tutorials
+Title: Quick Start
 
 <ul class="breadcrumbs">
   <li><a href="/solr">Home</a></li>
-  <li><a href="/solr/tutorials.html">Tutorials</a></li>
+  <li><a href="/solr/resources.html">Resources</a></li>
 </ul>
 
-# Solr Tutorials
+# Solr Quick Start
 
 ***
 
 ## Overview
 
-TODO: Where to mention (or not?) the Solr version number this is for?   It's intentionally embedded in the examples below, at least.
+<!--
+  TODO: Where to mention (or not?) the Solr version number this is for?   It's intentionally embedded in the examples below, at least.
 
-This document covers the basics of running Solr using an example schema, and some sample data.
+  4.10.2 was used to write this quick start guide
+-->
+
+This document covers getting Solr up and running, ingesting a variety of data sources into multiple collections, and getting a feel
+for the Solr administrative and search interfaces.
 
 ***
 
 ## Requirements
 
-TODO: Replace this section with an include?  Or at least link to a common system requirements page rather than duplicating here.
+<!-- TODO: Replace this section with an include?  Or at least link to a common system requirements page rather than duplicating here. -->
 
 To follow along with this tutorial, you will need...
 
@@ -37,22 +42,37 @@ Please run the browser showing this tutorial and the Solr server on the same mac
 Begin by unzipping the Solr release and changing your working directory to be the "example" directory. (Note that the base directory name may vary with the version of Solr downloaded.) For example, with a shell in UNIX, Cygwin, or MacOS:
 
 
-    ~:$ ls solr*
+    /:$ ls solr*
     solr-4.10.2.zip
-    ~:$ unzip -q solr-4.10.2.zip
-    ~:$ cd solr-4.10.2/
+    /:$ unzip -q solr-4.10.2.zip
+    /:$ cd solr-4.10.2/
 
-To launch Solr, run `bin/solr start`:
+To launch Solr, run `bin/solr start -e cloud -noprompt`:
 
-    ~/solr-4.10.2:$ bin/solr start
-    Waiting to see Solr listening on port 8983 [/]  
-    Started Solr server on port 8983 (pid=2850). Happy searching!
+    /solr-4.10.2:$ bin/solr start -e cloud -noprompt 
+    Welcome to the SolrCloud example!
 
-    ~/solr-4.10.2:$ _
 
-Solr will now be running on port 8983 with an empty "collection1" ready for business. 
+    Starting up 2 Solr nodes for your example SolrCloud cluster.
+    ...
 
-You can see that the Solr is running by loading  <http://localhost:8983/solr/>  in your web browser. This is the main starting point for administering Solr.
+    Started Solr server on port 8983 (pid=8404). Happy searching!
+    ...
+
+    Started Solr server on port 7574 (pid=8549). Happy searching!
+    ...
+
+    SolrCloud example running, please visit http://localhost:8983/solr 
+
+    /solr-4.10.2:$ 
+
+Solr will now be running two "nodes", one on port 7574 and one on port 8983.  There are two collections created automatically, "collection1" and "gettingstarted".
+These collections are different in a couple of ways: "collection1" is a single shard collection with two replicas and "gettingstarted" is a two shard
+collection, each with two replicas.  The "Cloud" tab in the admin console diagrams it nicely:
+
+  <!-- TODO: insert cloud diagram -->
+
+You can see that the Solr is running by loading <http://localhost:8983/solr/> in your web browser. This is the main starting point for administering Solr.
 
 ***
 
@@ -76,10 +96,12 @@ Let's first index local "rich" files (HTML, PDF, text, and many other supported 
 
 Here's what it'll look like:
 
+<!--
     # TODO: does this command-line sound too hairy to put in here?   What's easier?   I like it, and will make at least Solr 5.x have it be 
     # as simple `bin/post docs/` to do this same thing (see SOLR-6435)
+-->
 
-    ~/solr-4.10.2:$ java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
+    /solr-4.10.2:$ java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
     SimplePostTool version 1.5
     Posting files to base url http://localhost:8983/solr/update..
     Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
@@ -94,9 +116,9 @@ Here's what it'll look like:
     ...
     2945 files indexed.
     COMMITting Solr index changes to http://localhost:8983/solr/update..
-    Time spent: 0:00:14.110
+    Time spent: 0:00:37.537
 
-# TODO: Should we break down this command-line like this?  Why not?  Maybe make it blocked off so it can be readily skipped for the copy/pasters.
+<!-- TODO: Should we break down this command-line like this?  Why not?  Maybe make it blocked off so it can be readily skipped for the copy/pasters. -->
 
 The command-line breaks down as follows:
 
@@ -105,14 +127,14 @@ The command-line breaks down as follows:
    * `org.apache.solr.util.SimplePostTool`: The tool we are invoking here
    * `docs/`: a relative path of the Solr install docs/ directory
 
-
-You have now indexed thousands of documents in Solr and committed these changes. You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result...
+You have now indexed thousands of documents into the "collection1" collection in Solr and committed these changes. You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result...
 
 <http://localhost:8983/solr/collection1/select?q=solr&wt=xml>
 
 You can index all of the sample data, using the following command (assuming your command line shell supports the *.xml notation), this time making our command-line simpler by opening a terminal to the `example/exampledocs` directory and using post.jar.  Note: post.jar is a simple JAR file containing only the SimplePostTool used above.
 
-    ~/solr-4.10.2/example/exampledocs:$ java -jar post.jar *.xml
+    /solr-4.10.2:$ cd example/exampledocs/
+    /solr-4.10.2/example/exampledocs:$ java -jar post.jar *.xml
     SimplePostTool version 1.5
     Posting files to base url http://localhost:8983/solr/update using content-type application/xml..
     POSTing file gb18030-example.xml
@@ -169,4 +191,24 @@ Execute the following command to delete a specific document
       </p>
       <div class="down-arrow"><a data-scroll href="#indexing-data"><i class="fa fa-angle-down fa-2x red"></i></a></div>
 </section>
+
+
+Cleanup:
+   bin/solr stop -all ; rm -Rf node1/ node2/ 
+
+
+Full script and then console output:
+
+date ;
+bin/solr start -e cloud -noprompt ; 
+   open http://localhost:8983/solr ;
+   java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/ ; 
+   open http://localhost:8983/solr/collection1/browse ;
+date ;
+
+
+
+
+
+
 
