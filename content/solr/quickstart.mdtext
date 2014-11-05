@@ -86,22 +86,30 @@ You can see that the Solr is running by loading <http://localhost:8983/solr/> in
 
 ## Indexing Data
 
-Your Solr server is up and running, but it doesn't contain any data. You can modify a Solr index by POSTing commands to Solr to add (or update) documents, delete documents, and commit pending adds and deletes. These commands can be in a [variety of formats]().
+Your Solr server is up and running, but it doesn't contain any data.  The Solr install includes, literally, a `SimplePostTool`
+in order to facilitate getting various types of documents into Solr easy from the start.  We'll be using this tool for the indexing examples below.
 
-The install includes sample files, under `example/exampledocs`, demonstrating the types of commands and formats Solr accepts. Also included is a Java utility for posting them from the command line.
+You'll need a command shell to run these examples, rooted in the Solr install directory; the shell from where you launched Solr works just fine.
 
-Let's first index local "rich" files (HTML, PDF, text, and many other supported formats).  The command-line is a bit hairy, and it will be described in detail below.  The command we'll use is:
+Running the `SimplePostTool` can be made easier/cleaner to run by setting this in your environment:
 
-    java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
+    export CLASSPATH=example/solr-webapp/webapp/WEB-INF/lib/solr-core-4.10.2.jar
+
+Or if you prefer, you can make every java command start with `java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-4.10.2.jar...`.
+The examples provided below omit the -classpath argument and assume the CLASSPATH environment variable is set.
+
+
+### Indexing a directory of "rich" files
+
+Let's first index local "rich" files (HTML, PDF, text, and many other supported formats).  `SimplePostTool` features the ability to crawl a directory
+of files, optionally recursively even, sending the raw content of each file into Solr for extraction and indexing.   A Solr install includes a docs/
+subdirectory, so that makes a convenient set of (mostly) HTML files built-in to start with.
+
+    java -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
 
 Here's what it'll look like:
 
-<!--
-    # TODO: does this command-line sound too hairy to put in here?   What's easier?   I like it, and will make at least Solr 5.x have it be 
-    # as simple `bin/post docs/` to do this same thing (see SOLR-6435)
--->
-
-    /solr-4.10.2:$ java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
+    /solr-4.10.2:$ java -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
     SimplePostTool version 1.5
     Posting files to base url http://localhost:8983/solr/update..
     Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
@@ -118,16 +126,17 @@ Here's what it'll look like:
     COMMITting Solr index changes to http://localhost:8983/solr/update..
     Time spent: 0:00:37.537
 
-<!-- TODO: Should we break down this command-line like this?  Why not?  Maybe make it blocked off so it can be readily skipped for the copy/pasters. -->
-
 The command-line breaks down as follows:
 
-   * `-classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar`: the JAR file containing Solr's SimplePostTool
    * `-Ddata=files -Dauto -Drecursive`: Settings for directory recursing with automatic content type detection
-   * `org.apache.solr.util.SimplePostTool`: The tool we are invoking here
+   * `org.apache.solr.util.SimplePostTool`: Our easy to use friend in this tutorial
    * `docs/`: a relative path of the Solr install docs/ directory
 
-You have now indexed thousands of documents into the "collection1" collection in Solr and committed these changes. You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result...
+You have now indexed thousands of documents into the "collection1" collection in Solr and committed these changes.   
+
+
+
+You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result...
 
 <http://localhost:8983/solr/collection1/select?q=solr&wt=xml>
 
@@ -199,10 +208,11 @@ Cleanup:
 
 Full script and then console output:
 
+export CLASSPATH=dist/solr-core-4.10.2.jar
 date ;
 bin/solr start -e cloud -noprompt ; 
    open http://localhost:8983/solr ;
-   java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-*.jar -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/ ; 
+   java -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/ ; 
    open http://localhost:8983/solr/collection1/browse ;
 date ;
 
