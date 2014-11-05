@@ -51,10 +51,16 @@ our @patterns = (
     #solrtwitter  => ASF::Value::Twitter->new(search => '#solr', limit => 3,
     #                                    localMode => $localMode),
   }],
-  [qr!solr\/features\.mdtext$!, main => { template => "solr-full-width.html"}],
-  [qr!solr\/resources\.mdtext$!, main => { template => "solr-resources.html"}],
-  [qr!solr\/tutorials\.mdtext$!, main => { template => "solr-tutorials.html"}],  
-    [qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-page.html"}],
+  [qr!solr\/features\.mdtext$!, main => {
+    preprocess => 1,
+    template => "solr-full-width.html"}],
+  [qr!solr\/resources\.mdtext$!, main => {
+    preprocess => 1,
+    template => "solr-resources.html"}],
+  [qr!solr\/tutorials\.mdtext$!, main => {
+    preprocess => 1,
+    template => "solr-tutorials.html"}],
+  [qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-page.html"}],
 
   [qr!pylucene/jcc/.*?\.mdtext$!, main => { template => "jcc-simple.html" }],
   [qr!pylucene/.*?\.mdtext$!, main => { template => "pylucene-simple.html" }],
@@ -80,6 +86,7 @@ our @patterns = (
 our %dependencies = (
     "/core/index.mdtext" => [qw!/core/features.mdtext!],
     "/index.mdtext"      => [qw!/mainnews.mdtext!],
+    "/solr/resources.mdtext"  =>  [qw!/latestversion.mdtext!],
     "/openrelevance/index.mdtext" => [qw!/openrelevance/orpnews.mdtext!],
     "/pylucene/index.mdtext"      => [qw!/pylucene/pynews.mdtext!],
 );
