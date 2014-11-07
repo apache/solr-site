@@ -274,27 +274,32 @@ Title: Features
       <p>
         Schema or schemaless, easily define the field types, analysis processes and document structures to make your search application successful
       </p>
-      <div class="down-arrow"><a data-scroll href="#schema"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+      <div class="down-arrow"><a data-scroll href="#data-handling"><i class="fa fa-angle-down fa-2x red"></i></a></div>
     </div>
   </div>
 </section>
 
-<section class="gray list" id="schema">
+<section class="gray list" id="data-handling">
   <ul>
     <div class="row">
       <div class="small-6 columns">
         <li>Schemaless (data-driven schema) makes it easy to get started, while switching to a configured schema makes for a solid production environment.
-                  <p>Solr supports both schemaless and schema modes, depending on your goals</p>
+          <p>Solr supports both schemaless and schema modes, depending on your goals</p>
         </li>
       </div>
       <div class="small-6 columns">
         <li>Solr's Field Types make it easy to declaratively mix and match Lucene Analyzers without writing code
+          <ul>
+            <li>char filters edit the text prior to tokenization</li>
+            <li>tokenizers break the text up into terms</li>
+            <li>token filters transform the terms</li>
+          </ul>
         </li>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Dynamic Fields enables on-the-fly addition of new fields
+        <li>Dynamic Fields enable on-the-fly addition of new fields that auto-map to field types based on the field name 
         </li>
       </div>
       <div class="small-6 columns">
@@ -304,7 +309,7 @@ Title: Features
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Explicit types eliminates the need for guessing types of fields and introducing noise
+        <li>Explicit types eliminate the need for guessing types of fields and introducing noise
         </li>
       </div>
       <div class="small-6 columns">
@@ -321,6 +326,11 @@ Title: Features
         <li>Extensible to allow for applications to easily handle proprietary formats and unsupported data types
         </li>
       </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="btn1" href="https://cwiki.apache.org/confluence/display/solr/Documents%2C+Fields%2C+and+Schema+Design"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Docs, Fields, & Schema Design</a>
+      <div>
     </div>
   </ul>
 </section>
@@ -345,11 +355,12 @@ Title: Features
     <div class="row">
       <div class="small-6 columns">
         <li>REST interfaces provide for easy integration with any language.
-        <p>Native clients are also available</p>
+          <p>Native clients are also available</p>
         </li>
       </div>
       <div class="small-6 columns">
         <li>Sort by any number of fields, and by complex functions of numeric fields
+          <p>Documents with missing values can be configured to sort last (or first)  
         </li>
       </div>
     </div>
@@ -370,24 +381,24 @@ Title: Features
         </li>
       </div>
       <div class="small-6 columns">
+        <li>Good out of the box defaults make getting great results easy, while extensive configuration options make it easy to fine tune
+        <p>Request handling can easily be configured to provide server-side control and simplification of how applications request results</p>
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
         <li>Extensive filtering features allow applications to control what content is searched and when
         </li>
       </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Good out of the box defaults make getting good results easy, while extensive configuration options make it easy to fine tune
-        <p>Request handling can easily be configured to control how applications request results using invariants, defaults and appending parameters</p>
-        </li>
-      </div>
-      <div class="small-6 columns">
-        <li>Pluggable query parsers mean every application can provide a query interface that makes sense to it's users
-        </li>
-      </div>
-    </div>
-    <div class="row">
       <div class="small-6 columns">
         <li>Multiple scoring (similarity) approaches allow for easy experimentation and relevance tuning
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Pluggable query parsers mean every application can provide a query interface that makes sense to its users
         </li>
       </div>
       <div class="small-6 columns">
@@ -399,8 +410,15 @@ Title: Features
         <li>Cursors (aka "deep paging") enables next generation NoSQL data storage and analysis options
         </li>
       </div>
+      <div class="small-6 columns">
+        <li>Near Real Time (NRT) search allows access to document addition and updates almost immediately</li>
+      </div>
     </div>
-
+    <div class="row">
+      <div class="centered">
+        <a class="btn1" href="https://cwiki.apache.org/confluence/display/solr/Searching"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Searching</a>
+      <div>
+    </div>
   </ul>
 </section>
 <section class="orange">
@@ -426,7 +444,7 @@ Title: Features
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Term, Query, Range, Date, Function and Pivot faceting implementations make data investigation simple and powerful
+        <li>Pivot faceting enables asking sophisticated "what if" questions
         </li>
       </div>
     </div>
@@ -436,7 +454,7 @@ Title: Features
         </li>
       </div>
       <div class="small-6 columns">
-        <li>Pivot faceting enables asking sophisticated "what if" questions
+        <li>Term, Query, Range, Date, Function and Pivot faceting implementations make data investigation simple and powerful
         </li>
       </div>
     </div>
@@ -455,6 +473,11 @@ Title: Features
         <li>Multi-select facet parameters enable exact control over how facets interact with the original result set
         </li>
       </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="btn1" href="https://cwiki.apache.org/confluence/display/solr/Faceting"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Faceting</a>
+      <div>
     </div>
   </ul>
 </section>
@@ -478,39 +501,35 @@ Title: Features
   <ul>
     <div class="row">
       <div class="small-6 columns">
-        <li>Typeahead, autocomplete, auto-suggest, whatever you call it, Solr supports powerful and extensible mechanisms for providing suggestions to users
-         as they type in their queries
+        <li>Typeahead, autocomplete, auto-suggest, whatever you call it, Solr supports powerful and extensible mechanisms for providing suggestions to users as they type in their queries
         </li>
+        <div class="centered">
+          <a class="btn1" href="https://cwiki.apache.org/confluence/display/solr/Suggester"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Suggester</a>
+        </div>
+        <br />
       </div>
       <div class="small-6 columns">
         <li>Integrated Carrot<sup>2</sup> features enable dynamic search results clustering
         </li>
+        <div class="centered">
+          <a class="btn1" href="https://cwiki.apache.org/confluence/display/solr/Result+Clustering"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Result Clustering</a>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
         <li>Spelling suggestions are a breeze to enable to help users correct their queries for better results
         </li>
+        <div class="centered">
+          <a class="btn1" href="https://cwiki.apache.org/confluence/display/solr/Spell+Checking"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Spell Checking</a>
+        </div>
       </div>
       <div class="small-6 columns">
         <li>Configurable hit highlighting helps users focus in on exactly where matches occur
         </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Explicit types eliminates the need for guessing types of fields
-        </li>
-      </div>
-      <div class="small-6 columns">
-        <li>External file-based configuration of stopword lists, synonym lists, and protected word lists
-        </li>
-      </div>
-    </div>
-    <div class="row">
-      <div class="small-6 columns">
-        <li>Many additional text analysis components including word splitting, regex and
-        </li>
+        <div class="centered">
+          <a class="btn1" href="https://cwiki.apache.org/confluence/display/solr/Highlighting"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Highlighting</a>
+        </div>
       </div>
     </div>
   </ul>
@@ -545,13 +564,18 @@ Title: Features
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>An open source and open development approach, enabled by the Apache Software Foundation, make contributions to Solr well-defined and easy to do
+        <li>An open source and open development approach, enabled by the Apache Software Foundation, make contributions to Solr easy to do
         </li>
       </div>
       <div class="small-6 columns">
         <li>Don't like how Solr implements something? Found a bug?  Check out the code from SVN or Git and make changes as you see fit.  Patches welcome!
         </li>
       </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="btn1" href="http://wiki.apache.org/solr/HowToContribute">How to contribute</a>
+      <div>
     </div>
   </ul>
 </section>

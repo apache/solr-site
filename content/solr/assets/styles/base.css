@@ -64,12 +64,15 @@ code, pre {
   font-weight: 500;
   margin: 0;
 }
-.btn1:hover, .btn1:focus,
 .btn1:hover, .btn1:focus {
   color:#ff833d;
   background:inherit;
 }
 
+div.centered {
+  text-align: center;
+  padding-top: 40px;
+}
 
 a.btn, button {
   border: 1px solid #d1d3d4;
@@ -718,6 +721,19 @@ section.list ul li p {
   font-size: 0.8em;
 }
 
+section.list ul li ul {
+  padding-top: 10px;
+}
+
+section.list ul li ul li {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight:300;
+  color: #959693;
+  margin-top: 2px;
+  font-size: 0.96em;
+}
+
+
 .anchor-fixed {
   top: 57px;
   z-index: 1000;
@@ -895,4 +911,21 @@ img.float-right {
 
 .poweredby .list ul{
     list-style-type: none;
+}
+
+.ref-guide-badge {
+  background-color: #D9411E;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  font-size: 0.6em;
+  line-height: 1.1;
+  font-weight: 500;
+  vertical-align: middle;
+  padding: 1px 2px;
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+.btn1:hover .ref-guide-badge, .btn1:focus .ref-guide-badge {
+  background-color: #ff833d;
 }
