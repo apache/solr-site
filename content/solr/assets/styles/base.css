@@ -913,6 +913,23 @@ img.float-right {
     list-style-type: none;
 }
 
+.wrappable-btn {
+  border: 1px solid #d1d3d4;
+  background-color: inherit;
+  text-transform: uppercase;
+  color: #000;
+  padding: 0.25em 0.65em 0.15em 0.46em;
+  font-weight: 500;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+.wrappable-btn:hover, .wrappable-btn:focus {
+  color: #ff833d;
+  background: inherit;
+}
+
+
 .ref-guide-badge {
   background-color: #D9411E;
   color: #fff;
@@ -923,9 +940,10 @@ img.float-right {
   font-weight: 500;
   vertical-align: middle;
   padding: 1px 2px;
-  margin-bottom: 4px;
+  margin-bottom: 0.15em;
   margin-right: 4px;
+  margin-left: -4px;
 }
-.btn1:hover .ref-guide-badge, .btn1:focus .ref-guide-badge {
+.wrappable-btn:hover .ref-guide-badge, .wrappable-btn:focus .ref-guide-badge {
   background-color: #ff833d;
 }
