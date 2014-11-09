@@ -24,14 +24,12 @@ for the Solr administrative and search interfaces.
 
 ## Requirements
 
-<!-- TODO: Replace this section with an include?  Or at least link to a common system requirements page rather than duplicating here. -->
-
 To follow along with this tutorial, you will need...
 
 1. Java 1.7 or greater. Some places you can get it are from Oracle or Open JDK.
     * Running java -version at the command line should indicate a version number starting with 1.7.
     * Gnu's GCJ is not supported and does not work with Solr.
-2. A Solr release.
+2. An Apache Solr release.  This Quick Start was written using Apache Solr 4.10.2.  Some fiddly details will be different/clunkier for earlier versions and more streamlined in later versions.
     
 ***
 
@@ -39,7 +37,7 @@ To follow along with this tutorial, you will need...
 
 Please run the browser showing this tutorial and the Solr server on the same machine so tutorial links will correctly point to your Solr server.
 
-Begin by unzipping the Solr release and changing your working directory to be the "example" directory. (Note that the base directory name may vary with the version of Solr downloaded.) For example, with a shell in UNIX, Cygwin, or MacOS:
+Begin by unzipping the Solr release and changing your working directory to the subdirectory where Solr was installed.  Note that the base directory name may vary with the version of Solr downloaded.  For example, with a shell in UNIX, Cygwin, or MacOS:
 
 
     /:$ ls solr*
@@ -94,10 +92,9 @@ You'll need a command shell to run these examples, rooted in the Solr install di
 
 Running the `SimplePostTool` can be made easier/cleaner to run by setting this in your environment:
 
-    export CLASSPATH=example/solr-webapp/webapp/WEB-INF/lib/solr-core-4.10.2.jar
+    export CLASSPATH=dist/solr-core-4.10.2.jar
 
-Or if you prefer, you can make every java command start with `java -classpath example/solr-webapp/webapp/WEB-INF/lib/solr-core-4.10.2.jar...`.
-The examples provided below omit the -classpath argument and assume the CLASSPATH environment variable is set.
+Or if you prefer, you can make every java command start with `java -classpath dist/solr-core-4.10.2.jar...`.  The examples provided below omit the -classpath argument and assume the CLASSPATH environment variable is set.
 
 
 ### Indexing a directory of "rich" files
@@ -106,11 +103,11 @@ Let's first index local "rich" files (HTML, PDF, text, and many other supported 
 of files, optionally recursively even, sending the raw content of each file into Solr for extraction and indexing.   A Solr install includes a docs/
 subdirectory, so that makes a convenient set of (mostly) HTML files built-in to start with.
 
-    java -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
+    java -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
 
 Here's what it'll look like:
 
-    /solr-4.10.2:$ java -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
+    /solr-4.10.2:$ java -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
     SimplePostTool version 1.5
     Posting files to base url http://localhost:8983/solr/update..
     Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
@@ -129,28 +126,18 @@ Here's what it'll look like:
 
 The command-line breaks down as follows:
 
-   * `-Ddata=files -Dauto -Drecursive`: Settings for directory recursing with automatic content type detection
+   * `-Dauto -Drecursive`: Settings for directory recursing with automatic content type detection
    * `org.apache.solr.util.SimplePostTool`: Our easy to use friend in this tutorial
    * `docs/`: a relative path of the Solr install docs/ directory
 
-
 You have now indexed thousands of documents into the "collection1" collection in Solr and committed these changes.
-You can now search for "solr" by loading the "[Query]()" tab in the Admin interface, and entering "solr" in the "q" text box. Clicking the "Execute Query" button should display the following URL containing one result.
+You can now search for "solr" by loading the "[Query](http://localhost:8983/solr/#/collection1/query)" tab in the Admin interface, and enter "solr" in the "q" text box. 
 
-   <http://localhost:8983/solr/collection1/select?q=solr&wt=xml>
-
-NOTE: /browse call out (?)
-You can browse the documents indexed at <http://localhost:8983/solr/collection1/browse>.
-The `/browse` UI allows getting a feel for how Solr's technical capabilities can be
-worked with in a familiar, though a bit rough* and prototypical, interactive HTML view.  *The /browse views default to assuming the
-"collection1" schema and data are a catch-all mix of structured XML, JSON, CSV example data, and unstructured rich documents.
-Your own data may not look ideal at first, though the /browse templates are malleable as desired.
-
-For something probably immediately useful to you would be to re-run the directory indexing command pointed, rather, to your own directory of documents.  For example, on a Mac instead of "docs/" try `~/Documents` or `~/Desktop`!   You may want to start from a clean empty system again, rather than have your content in addition to the Solr docs/ directory.
+For something probably immediately useful to you would be to re-run the directory indexing command pointed, rather, to your own directory of documents.  For example, on a Mac instead of "docs/" try `~/Documents` or `~/Desktop`!   You may want to start from a clean, empty system again, rather than have your content in addition to the Solr docs/ directory; see below for how to get back to a clean starting point.
 
 ### Indexing Solr XML
 
-Solr supports indexing structured content in a variety of incoming formats.  The historically predominant format for getting structured content into Solr has been [Solr XML](link).  Many Solr indexers have been coded to process domain content into Solr XML output, generally HTTP POSTed directly to Solr's /update endpoint.
+Solr supports indexing structured content in a variety of incoming formats.  The historically predominant format for getting structured content into Solr has been [Solr XML](https://cwiki.apache.org/confluence/display/solr/Uploading+Data+with+Index+Handlers#UploadingDatawithIndexHandlers-XMLFormattedIndexUpdates).  Many Solr indexers have been coded to process domain content into Solr XML output, generally HTTP POSTed directly to Solr's /update endpoint.
 
 Solr's install includes a handful of Solr XML formatted files with example data (mostly mocked tech product data).  
 
@@ -181,17 +168,38 @@ You can index all of the sample data, using the following command (assuming your
 
 ...and now you can search for all sorts of things using the default [Solr Query Syntax]() (a superset of the Lucene query syntax)...
 
-* [video]()
-* [name:video]()
-* [+video +price:[* TO 400]]()
 
-There are many other different ways to import your data into Solr... one can
+NOTE:
+You can browse the documents indexed at <http://localhost:8983/solr/collection1/browse>.
+The `/browse` UI allows getting a feel for how Solr's technical capabilities can be
+worked with in a familiar, though a bit rough* and prototypical, interactive HTML view.  *The /browse view defaults to assuming the
+"collection1" schema and data are a catch-all mix of structured XML, JSON, CSV example data, and unstructured rich documents.
+Your own data may not look ideal at first, though the /browse templates are customizable.
+
+### Indexing JSON
+
+Solr supports indexing JSON, either arbitrary structured JSON or "Solr JSON" format which is similiar to Solr XML.  
+
+Solr includes a small sample Solr JSON file to illustrate this capability.  Again using `SimplePostTool`, index the sample JSON file:
+
+    /solr-4.10.2:$ java -Dauto org.apache.solr.util.SimplePostTool example/exampledocs/books.json
+    SimplePostTool version 1.5
+    Posting files to base url http://localhost:8983/solr/update..
+    Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
+    POSTing file books.json (application/json)
+    1 files indexed.
+    COMMITting Solr index changes to http://localhost:8983/solr/update..
+    Time spent: 0:00:00.084
+
+Because the SimplePostTool defaults to assuming files are in Solr XML format, the `-Dauto` switch is used to post JSON files so that it uses the appropriate content type.
+
+### Indexing CSV (Comma/Column Separated Values)
+
+
 
 * Import records from a database using the [Data Import Handler (DIH)]().
     
 * [Load a CSV file]() (comma separated values), including those exported by Excel or MySQL.
-
-* [POST JSON documents]()
 
 * Index binary documents such as Word and PDF with [Solr Cell]() (ExtractingRequestHandler).
 
@@ -240,7 +248,7 @@ export CLASSPATH=dist/solr-core-4.10.2.jar
 date ;
 bin/solr start -e cloud -noprompt ; 
    open http://localhost:8983/solr ;
-   java -Ddata=files -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/ ; 
+   java -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/ ; 
    java org.apache.solr.util.SimplePostTool example/exampledocs/*.xml ;
    open http://localhost:8983/solr/collection1/browse ;
 date ;
