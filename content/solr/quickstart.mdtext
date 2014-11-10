@@ -66,6 +66,8 @@ collection, each with two replicas.  The "Cloud" tab in the admin console diagra
 
 You can see that the Solr is running by loading <http://localhost:8983/solr/> in your web browser. This is the main starting point for administering Solr.
 
+We will only be using `collection1` in this guide; it makes things easier in part because the indexing commands default to using that collection.
+
 ***
 
 <section class="orange full-width">
@@ -251,7 +253,7 @@ If you've run the full set of commands in this quick start guide you have done t
 * Opened the admin console, used its query interface to get JSON formatted results
 * Opened the /browse interface to explore Solr's features in a more friendly and familiar interface
 
-Nice work!   The script (see below) to run all of these items took under one and half minutes! (your run time may vary, depending on your computers power and resources available)
+Nice work!   The script (see below) to run all of these items took under two minutes! (your run time may vary, depending on your computers power and resources available)
 
 Here's a full Unix script for convenient copying and pasting in order to run all of the commands for this quick start guide:
 
@@ -263,6 +265,7 @@ Here's a full Unix script for convenient copying and pasting in order to run all
        open http://localhost:8983/solr/collection1/browse ;
        java org.apache.solr.util.SimplePostTool example/exampledocs/*.xml ;
        java -Dauto org.apache.solr.util.SimplePostTool example/exampledocs/books.json ;
+       java -Dauto org.apache.solr.util.SimplePostTool example/exampledocs/books.csv ;
        java -Ddata=args org.apache.solr.util.SimplePostTool "<delete><id>SP2514N</id></delete>" ;
     date ;
 
