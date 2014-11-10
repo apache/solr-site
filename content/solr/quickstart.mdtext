@@ -172,6 +172,10 @@ Solr supports indexing JSON, either arbitrary structured JSON or "Solr JSON" (wh
 
 Solr includes a small sample Solr JSON file to illustrate this capability.  Again using `SimplePostTool`, index the sample JSON file:
 
+    java -Dauto org.apache.solr.util.SimplePostTool example/exampledocs/books.json
+
+You'll see:
+
     /solr-4.10.2:$ java -Dauto org.apache.solr.util.SimplePostTool example/exampledocs/books.json
     SimplePostTool version 1.5
     Posting files to base url http://localhost:8983/solr/update..
@@ -183,7 +187,7 @@ Solr includes a small sample Solr JSON file to illustrate this capability.  Agai
 
 Because the `SimplePostTool` defaults to assuming files are in Solr XML format, the `-Dauto` switch is used to post JSON files so that it uses the appropriate content type.
 
-To flatten and index arbitrary structured JSON, a topic beyond this quick start guide, check out [how to transform and flatten JSON](https://issues.apache.org/jira/browse/SOLR-6304).
+To flatten (and/or split) and index arbitrary structured JSON, a topic beyond this quick start guide, check out [Transforming and Indexing Custom JSON data](https://cwiki.apache.org/confluence/display/solr/Uploading+Data+with+Index+Handlers#UploadingDatawithIndexHandlers-TransformingandIndexingcustomJSONdata).
 
 ### Indexing CSV (Comma/Column Separated Values)
 
@@ -210,7 +214,7 @@ Using SimplePostTool and the included example CSV data file, index it:
 
 ## Updating Data
 
-You may notice that even if you index content in this guide more than once, it does not duplicate the results found. This is because the example `schema.xml` specifies a "`uniqueKey`" field called "id". Whenever you POST commands to Solr to add a document with the same value for the uniqueKey as an existing document, it automatically replaces it for you. You can see that that has happened by looking at the values for numDocs and maxDoc in the "CORE"/searcher section of the statistics page...
+You may notice that even if you index content in this guide more than once, it does not duplicate the results found. This is because the example `schema.xml` specifies a "`uniqueKey`" field called "id". Whenever you POST commands to Solr to add a document with the same value for the uniqueKey as an existing document, it automatically replaces it for you. You can see that that has happened by looking at the values for `numDocs` and `maxDoc` in the "CORE"/searcher section of the statistics page...
 
 <http://localhost:8983/solr/#/collection1/plugins/core?entry=searcher>
 
@@ -238,6 +242,17 @@ Execute the following command to delete a specific document
 
 
 ## Searching
+
+Solr can be queried via REST calls using cURL, wget, Chrome POSTMAN REST client, etc., in addition to native clients available.
+
+The Solr Admin UI includes a query builder interface see the `collection1` query screen at <http://localhost:8983/solr/#/collection1/query>.  If you click the `Execute Query` button without changing anything in the form, you'll get 10 random documents in JSON format:
+
+<img style="border:1px solid #ccc" src="/solr/assets/images/quickstart-query-screen.png" alt="Solr Quick Start: collection1 Query screen" class="float-right"/>
+
+The URL sent by the Admin UI to Solr is shown in the top right of the above screenshot - if you click on it, your browser will show you the raw response.  To get the same response via cURL, just give the same URL in quotes on the `curl` command line:
+
+    curl "http://localhost:8983/solr/collection1/select?q=*%3A*&wt=json&indent=true"
+
 
 ### Basics
 
