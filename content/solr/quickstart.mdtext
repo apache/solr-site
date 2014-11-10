@@ -224,7 +224,7 @@ You can delete data by POSTing a delete command to the update URL and specifying
 
 Execute the following command to delete a specific document
 
-    java -Ddata=args -jar post.jar "<delete><id>SP2514N</id></delete>"
+    java -Ddata=args org.apache.solr.util.SimplePostTool "<delete><id>SP2514N</id></delete>"
 
 ***
 
