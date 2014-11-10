@@ -21,7 +21,7 @@ for the Solr administrative and search interfaces.
 To follow along with this tutorial, you will need...
 
 1. Java 1.7 or greater. Some places you can get it are from Oracle or Open JDK.
-    * Running java -version at the command line should indicate a version number starting with 1.7.
+    * Running `java -version` at the command line should indicate a version number starting with 1.7.
     * Gnu's GCJ is not supported and does not work with Solr.
 2. An Apache Solr release.  This Quick Start was written using Apache Solr 4.10.2.  Some fiddly details will be different/clunkier for earlier versions and more streamlined in later versions.
     
@@ -33,13 +33,12 @@ Please run the browser showing this tutorial and the Solr server on the same mac
 
 Begin by unzipping the Solr release and changing your working directory to the subdirectory where Solr was installed.  Note that the base directory name may vary with the version of Solr downloaded.  For example, with a shell in UNIX, Cygwin, or MacOS:
 
-
     /:$ ls solr*
     solr-4.10.2.zip
     /:$ unzip -q solr-4.10.2.zip
     /:$ cd solr-4.10.2/
 
-To launch Solr, run `bin/solr start -e cloud -noprompt`:
+To launch Solr, run: `bin/solr start -e cloud -noprompt`
 
     /solr-4.10.2:$ bin/solr start -e cloud -noprompt 
     Welcome to the SolrCloud example!
@@ -58,31 +57,29 @@ To launch Solr, run `bin/solr start -e cloud -noprompt`:
 
     /solr-4.10.2:$ 
 
-Solr will now be running two "nodes", one on port 7574 and one on port 8983.  There are two collections created automatically, "collection1" and "gettingstarted".
-These collections are different in a couple of ways: "collection1" is a single shard collection with two replicas and "gettingstarted" is a two shard
-collection, each with two replicas.  The "Cloud" tab in the admin console diagrams it nicely:
+You can see that the Solr is running by loading the Solr Admin UI in your web browser: <http://localhost:8983/solr/>. This is the main starting point for administering Solr.
+
+Solr will now be running two "nodes", one on port 7574 and one on port 8983.  There are two collections created automatically, `collection1` and `gettingstarted`.  These collections are different in a couple of ways: `collection1` is a single shard collection with two replicas and `gettingstarted` is a two shard
+collection, each with two replicas. The [Cloud tab](http://localhost:8983/solr/#/~cloud) in the Admin UI diagrams the collection nicely:
 
 <img alt="Solr Quick Start: SolrCloud diagram" class="float-right" src="/solr/assets/images/quickstart-solrcloud.png" />
-
-You can see that the Solr is running by loading <http://localhost:8983/solr/> in your web browser. This is the main starting point for administering Solr.
 
 We will only be using `collection1` in this guide; it makes things easier in part because the indexing commands default to using that collection.
 
 ***
 
 <section class="orange full-width">
-      <h1>That wasn't too hard!</h1>
-      <p>
-        You nailed step 1. Take a deep breath, relax a bit before round 2 below.
-      </p>
-      <div class="down-arrow"><a data-scroll href="#indexing-data"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+  <h1>That wasn't too hard!</h1>
+  <p>
+    You nailed step 1. Take a deep breath, relax a bit before round 2 below.
+  </p>
+  <div class="down-arrow"><a data-scroll href="#indexing-data"><i class="fa fa-angle-down fa-2x red"></i></a></div>
 </section>
-<br />
+
 
 ## Indexing Data
 
-Your Solr server is up and running, but it doesn't contain any data.  The Solr install includes, literally, a `SimplePostTool`
-in order to facilitate getting various types of documents into Solr easy from the start.  We'll be using this tool for the indexing examples below.
+Your Solr server is up and running, but it doesn't contain any data.  The Solr install includes, literally, a `SimplePostTool` in order to facilitate getting various types of documents into Solr easy from the start.  We'll be using this tool for the indexing examples below.
 
 You'll need a command shell to run these examples, rooted in the Solr install directory; the shell from where you launched Solr works just fine.
 
@@ -90,12 +87,11 @@ Running the `SimplePostTool` can be made easier/cleaner to run by setting this i
 
     export CLASSPATH=dist/solr-core-4.10.2.jar
 
-Or if you prefer, you can make every java command start with `java -classpath dist/solr-core-4.10.2.jar...`.  The examples provided below omit the -classpath argument and assume the CLASSPATH environment variable is set.
-
+Or if you prefer, you can make every java command start with `java -classpath dist/solr-core-4.10.2.jar ...`&nbsp;&nbsp;&nbsp;  The examples provided below omit the `-classpath` argument and assume the `$CLASSPATH` environment variable is set.
 
 ### Indexing a directory of "rich" files
 
-Let's first index local "rich" files including HTML, PDF, Microsoft Office formats (such as MS Word), plain text and many other formats.  `SimplePostTool` features the ability to crawl a directory of files, optionally recursively even, sending the raw content of each file into Solr for extraction and indexing.   A Solr install includes a docs/ subdirectory, so that makes a convenient set of (mostly) HTML files built-in to start with.
+Let's first index local "rich" files including HTML, PDF, Microsoft Office formats (such as MS Word), plain text and many other formats.  `SimplePostTool` features the ability to crawl a directory of files, optionally recursively even, sending the raw content of each file into Solr for extraction and indexing.   A Solr install includes a `docs/` subdirectory, so that makes a convenient set of (mostly) HTML files built-in to start with.
 
     java -Dauto -Drecursive org.apache.solr.util.SimplePostTool docs/
 
@@ -120,14 +116,13 @@ Here's what it'll look like:
 
 The command-line breaks down as follows:
 
-   * `-Dauto -Drecursive`: Settings for directory recursing with automatic content type detection
-   * `org.apache.solr.util.SimplePostTool`: Our easy to use friend in this tutorial
-   * `docs/`: a relative path of the Solr install docs/ directory
+   * `-Dauto -Drecursive`: Settings for automatic content-type detection and directory recursing
+   * `org.apache.solr.util.SimplePostTool`: Our easy to use POSTing friend in this tutorial
+   * `docs/`: a relative path of the Solr install `docs/` directory
 
-You have now indexed thousands of documents into the "collection1" collection in Solr and committed these changes.
-You can now search for "solr" by loading the "[Query](http://localhost:8983/solr/#/collection1/query)" tab in the Admin interface, and enter "solr" in the "q" text box. 
+You have now indexed thousands of documents into the `collection1` collection in Solr and committed these changes.  You can search for "solr" by loading the Admin UI [Query tab](http://localhost:8983/solr/#/collection1/query), and enter "solr" in the "q" text box (replacing `*:*`, which matches all documents).  See the [Searching](#searching) section below for more information. 
 
-For something probably immediately useful to you would be to re-run the directory indexing command pointed, rather, to your own directory of documents.  For example, on a Mac instead of "docs/" try `~/Documents` or `~/Desktop`!   You may want to start from a clean, empty system again, rather than have your content in addition to the Solr docs/ directory; see below for how to get back to a clean starting point.
+To index your own data, re-run the directory indexing command pointed to your own directory of documents.  For example, on a Mac instead of `docs/` try `~/Documents/` or `~/Desktop/` !   You may want to start from a clean, empty system again, rather than have your content in addition to the Solr `docs/` directory; see the Cleanup section [below](#cleanup) for how to get back to a clean starting point.
 
 ### Indexing Solr XML
 
@@ -135,9 +130,11 @@ Solr supports indexing structured content in a variety of incoming formats.  The
 
 Solr's install includes a handful of Solr XML formatted files with example data (mostly mocked tech product data).  
 
-Using `SimplePostTool`, index the example XML files:
+Using `SimplePostTool`, index the example Solr XML files in `example/exampledocs/`:
 
-You can index all of the sample data, using the following command (assuming your command line shell supports the *.xml notation), this time making our command-line simpler by opening a terminal to the `example/exampledocs` directory and using post.jar.  Note: post.jar is a simple JAR file containing only the SimplePostTool used above.
+    java org.apache.solr.util.SimplePostTool example/exampledocs/*.xml
+
+Here's what you'll see:
 
     /solr-4.10.2:$ java org.apache.solr.util.SimplePostTool example/exampledocs/*.xml
     SimplePostTool version 1.5
@@ -162,7 +159,6 @@ You can index all of the sample data, using the following command (assuming your
 
 ...and now you can search for all sorts of things using the default [Solr Query Syntax](https://cwiki.apache.org/confluence/display/solr/The+Standard+Query+Parser#TheStandardQueryParser-SpecifyingTermsfortheStandardQueryParser) (a superset of the Lucene query syntax)...
 
-
 NOTE:
 You can browse the documents indexed at <http://localhost:8983/solr/collection1/browse>.
 The `/browse` UI allows getting a feel for how Solr's technical capabilities can be
@@ -185,7 +181,7 @@ Solr includes a small sample Solr JSON file to illustrate this capability.  Agai
     COMMITting Solr index changes to http://localhost:8983/solr/update..
     Time spent: 0:00:00.084
 
-Because the SimplePostTool defaults to assuming files are in Solr XML format, the `-Dauto` switch is used to post JSON files so that it uses the appropriate content type.
+Because the `SimplePostTool` defaults to assuming files are in Solr XML format, the `-Dauto` switch is used to post JSON files so that it uses the appropriate content type.
 
 To flatten and index arbitrary structured JSON, a topic beyond this quick start guide, check out [how to transform and flatten JSON](https://issues.apache.org/jira/browse/SOLR-6304).
 
@@ -237,9 +233,9 @@ Execute the following command to delete a specific document
       <p>
         Round 2, check. Now get up and do some jumping jacks. Heck, go for a run and leave your house, you deserve it.
       </p>
-      <div class="down-arrow"><a data-scroll href="#wrapping-up"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+      <div class="down-arrow"><a data-scroll href="#searching"><i class="fa fa-angle-down fa-2x red"></i></a></div>
 </section>
-<br />
+
 
 ## Searching
 
@@ -292,10 +288,5 @@ TODO: Links to ref guide, back to resources, etc.
 
 As you work through this guide, you may want to stop Solr and reset the environment back to the starting point.  The following command line will stop Solr and remove the directories for each of the two nodes that the start script created:
 
-   bin/solr stop -all ; rm -Rf node1/ node2/ 
-
-
-
-
-
+    bin/solr stop -all ; rm -Rf node1/ node2/ 
 
