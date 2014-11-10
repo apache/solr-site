@@ -241,6 +241,20 @@ Execute the following command to delete a specific document
 </section>
 <br />
 
+## Searching
+
+### Basics
+
+TODO: terms, phrases, boolean, learn more
+
+### Faceting
+
+TODO: field, range and pivot
+
+### Spatial
+
+TODO: simple point based search
+
 ## Wrapping up
 
 If you've run the full set of commands in this quick start guide you have done the following:
@@ -269,8 +283,12 @@ Here's a full Unix script for convenient copying and pasting in order to run all
        java -Ddata=args org.apache.solr.util.SimplePostTool "<delete><id>SP2514N</id></delete>" ;
     date ;
 
+## Where to next?
 
-### Cleanup:
+TODO: Links to ref guide, back to resources, etc.
+
+
+### Cleanup
 
 As you work through this guide, you may want to stop Solr and reset the environment back to the starting point.  The following command line will stop Solr and remove the directories for each of the two nodes that the start script created:
 
