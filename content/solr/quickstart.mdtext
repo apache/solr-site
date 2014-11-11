@@ -354,11 +354,9 @@ For more Solr search options, see the Solr Reference Guide's [Searching](https:/
 
 One of Solr's most popular features is faceting.  Faceting allows the search results to be arranged into subsets (or buckets or categories), providing a count for each subset.  There are several types of faceting: field values, numeric and date ranges, pivots (decison tree), and arbitrary query faceting.  
 
-For more information on Solr's faceting capabilities, see the Solr Reference Guide's [Faceting](https://cwiki.apache.org/confluence/display/solr/Faceting) section.
-
 #### Field facets
 
-In addition to providing search results, a Solr query can return facet counts: the number of documents that contain each unique value in the whole result set.
+In addition to providing search results, a Solr query can return the number of documents that contain each unique value in the whole result set.
 
 From the Admin UI [Query tab](http://localhost:8983/solr/#/collection1/query), if you check the "`facet`" checkbox, you'll see a few facet-related options appear:
 
@@ -408,7 +406,87 @@ In your terminal, you'll see:
 
 #### Range facets
 
+For numerics or dates, it's often desirable to partition the facet counts into ranges rather than discrete values.  A prime example of numeric range faceting, using the example product data, is `price`.  In the `/browse` UI, it looks like this:
+
+<img style="border:1px solid #ccc" src="/solr/assets/images/quickstart-range-facet.png" alt="Solr Quick Start: Range facets"/>
+
+The data for these price range facets can be seen in JSON format with this command:
+
+    curl http://localhost:8983/solr/collection1/select?q=*:*&wt=json&indent=on&rows=0&facet=true \
+                                                      &facet.range=price \
+                                                      &f.price.facet.range.start=0 \
+                                                      &f.price.facet.range.end=600 \
+                                                      &f.price.facet.range.gap=50 \
+                                                      &facet.range.other=after
+
+In your terminal you will see:
+
+    {
+      "responseHeader":{
+        "status":0,
+        "QTime":1,
+        "params":{
+          "facet.range.other":"after",
+          "facet":"true",
+          "indent":"on",
+          "q":"*:*",
+          "f.price.facet.range.gap":"50",
+          "facet.range":"price",
+          "f.price.facet.range.end":"600",
+          "wt":"json",
+          "f.price.facet.range.start":"0",
+          "rows":"0"}},
+      "response":{"numFound":2990,"start":0,"docs":[]
+      },
+      "facet_counts":{
+        "facet_queries":{},
+        "facet_fields":{},
+        "facet_dates":{},
+        "facet_ranges":{
+          "price":{
+            "counts":[
+              "0.0",19,
+              "50.0",1,
+              "100.0",0,
+              "150.0",2,
+              "200.0",0,
+              "250.0",1,
+              "300.0",1,
+              "350.0",2,
+              "400.0",0,
+              "450.0",1,
+              "500.0",0,
+              "550.0",0],
+            "gap":50.0,
+            "start":0.0,
+            "end":600.0,
+            "after":2}},
+        "facet_intervals":{}}}
+
 #### Pivot facets
+
+Another faceting type is pivot facets, also known as "decison trees", allowing two or more fields to be nested for all the various possible combinations.  Using the example technical product data, pivot facets can be used to see how many of the products in the "book" category (the `cat` field) are in stock or not in stock.  Here's how to get at the raw data for this scenario:
+
+    curl http://localhost:8983/solr/collection1/select?q=*:*&rows=0&wt=json&indent=on \
+                                                      &facet=on&facet.pivot=cat,inStock
+
+This results in the following response (trimmed to just the book category output), which says out of 14 items in the "book" category, 12 are in stock and 2 are not in stock:
+
+    ...
+    "facet_pivot":{
+      "cat,inStock":[{
+          "field":"cat",
+          "value":"book",
+          "count":14,
+          "pivot":[{
+              "field":"inStock",
+              "value":true,
+              "count":12},
+            {
+              "field":"inStock",
+              "value":false,
+              "count":2}]},
+    ...
 
 #### More faceting options
 
