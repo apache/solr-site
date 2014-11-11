@@ -356,7 +356,13 @@ TODO: field, range and pivot
 
 ### Spatial
 
-TODO: simple point based search
+Solr has sophisticated geospatial support, including searching within a specified distance range of a given location (or within a bounding box), sorting by distance, or even boosting results by the distance.  Some of the example tech product documents in `example/exampledocs/*.xml` have locations associated with them to illustrate the spatial capabilities.  Spatial queries can be combined with any other types of queries, such as in this example of querying for "ipod" within 10 kilometers from San Francisco:
+
+<img style="border:1px solid #ccc" src="/solr/assets/images/quickstart-spatial.png" alt="Solr Quick Start: spatial search" class="float-right"/>
+
+The URL to this example is <http://localhost:8983/solr/collection1/browse?q=ipod&pt=37.7752%2C-122.4232&d=10&sfield=store&fq=%7B%21bbox%7D&queryOpts=spatial&queryOpts=spatial>, leveraging the `/browse` UI.
+
+To learn more about Solr's spatial capabilities, see the Solr Reference Guide's [Spatial Search](https://cwiki.apache.org/confluence/display/solr/Spatial+Search) section.
 
 ## Wrapping up
 
@@ -392,6 +398,7 @@ Here's a full Unix script for convenient copying and pasting in order to run all
       curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=\"CAS+latency\"" ;
       curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=%2Bone+%2Bthree" ;
       curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=%2Btwo+-one" ;
+      bin/solr healthcheck -c collection1 ;
     date ;
 
 ## Where to next?
