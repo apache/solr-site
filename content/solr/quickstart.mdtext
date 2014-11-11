@@ -352,7 +352,9 @@ For more Solr search options, see the Solr Reference Guide's [Searching](https:/
 
 ### Faceting
 
-TODO: field, range and pivot
+One of Solr's most popular features is faceting.  Faceting allows the search results to be arranged into subsets (or buckets or categories), providing a count for each subset.  There are several types of faceting: field values, numeric and date ranges, pivots (decison tree), and arbitrary query faceting.  
+
+For more information on Solr's faceting capabilities, see the Solr Reference Guide's [Faceting](https://cwiki.apache.org/confluence/display/solr/Faceting) section.
 
 ### Spatial
 
@@ -360,7 +362,7 @@ Solr has sophisticated geospatial support, including searching within a specifie
 
 <img style="border:1px solid #ccc" src="/solr/assets/images/quickstart-spatial.png" alt="Solr Quick Start: spatial search" class="float-right"/>
 
-The URL to this example is <http://localhost:8983/solr/collection1/browse?q=ipod&pt=37.7752%2C-122.4232&d=10&sfield=store&fq=%7B%21bbox%7D&queryOpts=spatial&queryOpts=spatial>, leveraging the `/browse` UI.
+The URL to this example is <http://localhost:8983/solr/collection1/browse?q=ipod&pt=37.7752%2C-122.4232&d=10&sfield=store&fq=%7B%21bbox%7D&queryOpts=spatial&queryOpts=spatial>, leveraging the `/browse` UI to show a map for each item and allow easy selection of the location to search near.
 
 To learn more about Solr's spatial capabilities, see the Solr Reference Guide's [Spatial Search](https://cwiki.apache.org/confluence/display/solr/Spatial+Search) section.
 
