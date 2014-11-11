@@ -533,14 +533,18 @@ Here's a Unix script for convenient copying and pasting in order to run the key 
       bin/solr healthcheck -c collection1 ;
     date ;
 
-## Where to next?
-
-TODO: Links to ref guide, back to resources, etc.
-
-
-### Cleanup
+## Cleanup
 
 As you work through this guide, you may want to stop Solr and reset the environment back to the starting point.  The following command line will stop Solr and remove the directories for each of the two nodes that the start script created:
 
     bin/solr stop -all ; rm -Rf node1/ node2/ 
+
+## Where to next?
+
+For more information on Solr, check out the following resources:
+
+  * [Solr Reference Guide](https://cwiki.apache.org/confluence/display/solr/Apache+Solr+Reference+Guide) (ensure you match the version of the reference guide with your version of Solr)
+  * See also additional [Resources](/solr/resources.html)
+
+
 
