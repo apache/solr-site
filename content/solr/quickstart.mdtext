@@ -356,6 +356,65 @@ One of Solr's most popular features is faceting.  Faceting allows the search res
 
 For more information on Solr's faceting capabilities, see the Solr Reference Guide's [Faceting](https://cwiki.apache.org/confluence/display/solr/Faceting) section.
 
+#### Field facets
+
+In addition to providing search results, a Solr query can return facet counts: the number of documents that contain each unique value in the whole result set.
+
+From the Admin UI [Query tab](http://localhost:8983/solr/#/collection1/query), if you check the "`facet`" checkbox, you'll see a few facet-related options appear:
+
+<img style="border:1px solid #ccc" src="/solr/assets/images/quickstart-admin-ui-facet-options.png" alt="Solr Quick Start: Query tab facet options"/>
+
+To see facet counts from all documents (`q=*:*`): turn on faceting (`facet=true`), and specify the field to facet on via the `facet.field` param.  If you only want facets, and no document contents, specify `rows=0`.  The `curl` command below will return facet counts for the `manu_id_s` field:
+
+    curl http://localhost:8983/solr/collection1/select?&wt=json&indent=true&q=*:*&rows=0 \
+                                                       &facet=true&facet.field=manu_id_s
+
+In your terminal, you'll see:
+
+    {
+      "responseHeader":{
+        "status":0,
+        "QTime":3,
+        "params":{
+          "facet":"true",
+          "indent":"true",
+          "q":"*:*",
+          "facet.field":"manu_id_s",
+          "wt":"json",
+          "rows":"0"}},
+      "response":{"numFound":2990,"start":0,"docs":[]
+      },
+      "facet_counts":{
+        "facet_queries":{},
+        "facet_fields":{
+          "manu_id_s":[
+            "corsair",3,
+            "belkin",2,
+            "canon",2,
+            "apple",1,
+            "asus",1,
+            "ati",1,
+            "boa",1,
+            "dell",1,
+            "eu",1,
+            "maxtor",1,
+            "nor",1,
+            "uk",1,
+            "viewsonic",1,
+            "samsung",0]},
+        "facet_dates":{},
+        "facet_ranges":{},
+        "facet_intervals":{}}}
+
+#### Range facets
+
+#### Pivot facets
+
+#### More faceting options
+
+For the full scoop on Solr faceting, visit the Solr Reference Guide's [Faceting](https://cwiki.apache.org/confluence/display/solr/Faceting) section.
+
+
 ### Spatial
 
 Solr has sophisticated geospatial support, including searching within a specified distance range of a given location (or within a bounding box), sorting by distance, or even boosting results by the distance.  Some of the example tech product documents in `example/exampledocs/*.xml` have locations associated with them to illustrate the spatial capabilities.  Spatial queries can be combined with any other types of queries, such as in this example of querying for "ipod" within 10 kilometers from San Francisco:
