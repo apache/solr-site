@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+
+  {% extends "_solr-head.html" %}
+    {% block javascript %}
+    <script src="/solr/assets/scripts/main.js"></script>
+    {% endblock %}
+    {% block metakeys %}<meta name="keywords"
+            content="apache, apache lucene, apache solr, solr, lucene
+            search, information retrieval, spell checking, faceting, inverted index, open source"/>
+    {% endblock %}
+  {% endextends %}
+
+  <body class="page full-width" x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+
+    {% include "_solr-header.html" %}
+
+        {% block content %}
+          {{ content|markdown }}
+        {% endblock %}
+    
+    {% include "_solr-footer.html" %}
+
+  </body>
+</html>

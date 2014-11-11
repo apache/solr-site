@@ -1,0 +1,21 @@
+<ul class="navigation right">
+  <li>
+    <a href="/solr/news.html">News</a>
+  </li>
+  <li>
+    <a href="/solr/features.html">Features</a>
+  </li>
+  <li>
+    <a href="/solr/resources.html">Resources</a>
+  </li>
+  <li class="toggle">
+    <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+    {% include "_solr-search.html" %}
+  </li>
+  <li>
+    <a class="btn" href="/solr/mirrors-solr-latest-redir.html">download</a>
+  </li>
+  <li >
+    <a class="lucene-btn" href="/index.html">Lucene<br />&#8679; TLP</a>
+  </li>
+</ul>

@@ -1,126 +1,910 @@
-# Solr<span style="vertical-align: super; font-size: xx-small">TM</span> Features
+Title: Features
 
-Solr is a standalone enterprise search server with a REST-like API. You put documents in it (called "indexing")
-via XML, JSON, CSV or binary over HTTP. You query it via HTTP GET and receive XML, JSON, CSV or binary results.
+<section class="hero alternate">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Apache Solr<sup>&trade;</sup> {% include "../content/latestversion.mdtext" %}
+      </div>
+      <h1>
+        Solr Features
+      </h1>
+      <p>
+        Solr is a standalone enterprise search server with a REST-like API. You put 
+        documents in it (called "indexing") via JSON, XML, CSV or binary over HTTP. You query it via HTTP GET and receive JSON, XML, CSV or binary results.
+      </p>
+      <div class="down-arrow"><a data-scroll href="#top"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
--  Advanced Full-Text Search Capabilities
--  Optimized for High Volume Web Traffic
--  Standards Based Open Interfaces - XML, JSON and HTTP
--  Comprehensive HTML Administration Interfaces
--  Server statistics exposed over JMX for monitoring
--  Linearly scalable, auto index replication, auto failover and recovery
--  Near Real-time indexing
--  Flexible and Adaptable with XML configuration
--  Extensible Plugin Architecture
+<section class="gray col-4 offset-small" id="top">
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-3">
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_advanced_full-text_search.svg"/></div>
+          <div class="content">
+            <h3>Advanced Full-Text Search Capabilities</h3>
+            <p>Powered by Lucene<sup>&trade;</sup>, Solr enables powerful matching capabilities including phrases, wildcards, joins, grouping and much more across any data type</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_optimized_for_high_volume.svg"/></div>
+          <div class="content">
+            <h3>Optimized for High Volume Traffic</h3>
+            <p>Solr is proven at extremely large scales the world over</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_standards_based_open_interfaces.svg"/></div>
+          <div class="content">
+            <h3>Standards Based Open Interfaces - XML, JSON and HTTP</h3>
+            <p>Solr uses the tools you use to make application building a snap</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_comprehensive_html_admin.svg"/></div>
+          <div class="content">
+            <h3>Comprehensive Administration Interfaces</h3>
+            <p>Solr ships with a built-in, responsive administrative user interface to make it easy to control your Solr instances</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_server_statistics_exposed.svg"/></div>
+          <div class="content">
+            <h3>Easy Monitoring</h3>
+            <p>Need more insight into your instances? Solr publishes loads of metric data via JMX</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_highy_scalable.svg"/></div>
+          <div class="content">
+            <h3>Highly Scalable and Fault Tolerant</h3>
+            <p>Built on the battle-tested Apache Zookeeper, Solr makes it easy to scale up and down.  Solr bakes in replication, distribution, rebalancing and fault tolerance out of the box.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_flexible_and_adaptable.svg"/></div>
+          <div class="content">
+            <h3>Flexible and Adaptable with easy configuration</h3>
+            <p>Solr's is designed to adapt to your needs all while simplifying configuration</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_real-time.svg"/></div>
+          <div class="content">
+            <h3>Near Real-Time Indexing</h3>
+            <p>Want to see your updates now?  Solr takes advantage of Lucene's Near Real-Time Indexing capabilities to make sure you see your content when you want to see it</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_extensible_plugin.svg"/></div>
+          <div class="content">
+            <h3>Extensible Plugin Architecture</h3>
+            <p>Solr publishes many well-defined extension points that make it easy to plugin both index and query time plugins.  Of course, since it is Apache-licensed open source, you can change any code you want!</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
 
-##Solr Uses the Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Search Library and Extends it!
+<section class="hero alternate">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        More Features
+      </div>
+      <h1>
+        Everything but the kitchen sink.
+      </h1>
+      <p>
+        Solr uses the Lucene search library and extends it.
+      </p>
+      <div class="down-arrow"><a data-scroll href="#more"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
--  A Real Data Schema, with Numeric Types, Dynamic Fields, Unique Keys
--  Powerful Extensions to the Lucene Query Language
--  Faceted Search and Filtering
--  Geospatial Search with support for multiple points per document and geo polygons
--  Advanced, Configurable Text Analysis
--  Highly Configurable and User Extensible Caching
--  Performance Optimizations
--  External Configuration via XML
--  An AJAX based administration interface
--  Monitorable Logging
--  Fast near real-time incremental indexing and index replication
--  Highly Scalable Distributed search with sharded index across multiple hosts
--  JSON, XML, CSV/delimited-text, and binary update formats
--  Easy ways to pull in data from databases and XML files from local disk and HTTP sources
--  Rich Document Parsing and Indexing (PDF, Word, HTML, etc) using Apache Tika
--  Apache UIMA integration for configurable metadata extraction
--  Multiple search indices
+<section class="gray col-4 offset-small" id="more">
+  <div class="row">
+    <ul class="small-block-grid-2 medium-block-grid-3">
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_a_real_data_schema.svg"/></div>
+          <div class="content">
+            <h3>Schema when you want, schemaless when you don't</h3>
+            <p>Use Solr's data-driven schemaless mode when getting started and then lock it down when it's time for production.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_powerful_extensions.svg"/></div>
+          <div class="content">
+            <h3>Powerful Extensions</h3>
+            <p>Solr ships with optional plugins for indexing rich content (e.g. PDFs, Word), language detection, search results clustering and more</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_faceted_search.svg"/></div>
+          <div class="content">
+            <h3>Faceted Search and Filtering</h3>
+            <p>Slice and dice your data as you see fit using a large array of faceting algorithms</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_geospatial_search.svg"/></div>
+          <div class="content">
+            <h3>Geospatial Search</h3>
+            <p>Enabling location-based search is simple with Solr's built-in support for spatial search</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_advanced,_configurable_text.svg"/></div>
+          <div class="content">
+            <h3>Advanced Configurable Text Analysis</h3>
+            <p>Solr ships with support for most of the widely spoken languages in the world (English, Chinese, Japanese, German, French and many more) and many other analysis tools
+            designed to make indexing and querying your content as flexible as possible</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_highly_configurable.svg"/></div>
+          <div class="content">
+            <h3>Highly Configurable and User Extensible Caching</h3>
+            <p>Fine-grained controls on Solr's built-in caches make it easy to optimize performance</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_performance_optimizations.svg"/></div>
+          <div class="content">
+            <h3>Performance Optimizations</h3>
+            <p>Solr has been tuned to handle the world's largest sites</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_external_configuration.svg"/></div>
+          <div class="content">
+            <h3>External Configuration via XML</h3>
+            <p>Solr's configuration files make it easy to adjust and extend your setup without burying your configuration in code</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_an_ajax_based.svg"/></div>
+          <div class="content">
+            <h3>Advanced Storage Options</h3>
+            <p>Building on Lucene's advanced storage capabilities (codecs, directories and more), Solr makes it easy to tune
+            your data storage needs to fit your application</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_monitorable_logging.svg"/></div>
+          <div class="content">
+            <h3>Monitorable Logging</h3>
+            <p>Easily access Solr's log files from the admin interface</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_fast_near_real-time.svg"/></div>
+          <div class="content">
+            <h3>Query Suggestions, Spelling and More</h3>
+            <p>Solr ships with advanced capabilites for auto-complete (typeahead search), spell checking and more</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_easy_ways_to_pull_in_data.svg"/></div>
+          <div class="content">
+            <h3>Your Data, Your Way!</h3>
+            <p>JSON, CSV, XML and more are supported out of the box.  Don't waste precious time converting all your data to a common representation, just send it to Solr!</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_rich_document.svg"/></div>
+          <div class="content">
+            <h3>Rich Document Parsing</h3>
+            <p>Solr ships with Apache Tika built-in, making it easy to index rich content such as Adobe PDF, Microsoft Word and more.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_apache_uima.svg"/></div>
+          <div class="content">
+            <h3>Apache UIMA</h3>
+            <p>Ready to enhance your content with advanced annotation engines?  Solr integrates into Apache UIMA, making it easy to leverage NLP and other tools as part of your application.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="/solr/assets/images/Solr_Icons_multiple_search_indices.svg"/></div>
+          <div class="content">
+            <h3>Multiple search indices</h3>
+            <p>Solr supports multi-tenant architectures, making it easy to isolate users and content.</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
 
-##Detailed Features
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Data Handling</h1>
+      <p>
+        Schema or schemaless, easily define the field types, analysis processes and document structures to make your search application successful
+      </p>
+      <div class="down-arrow"><a data-scroll href="#data-handling"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
-###Schema
+<section class="gray list" id="data-handling">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Schemaless (data-driven schema) makes it easy to get started, while switching to a configured schema makes for a solid production environment.
+          <p>Solr supports both schemaless and schema modes, depending on your goals</p>
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Solr's Field Types make it easy to declaratively mix and match Lucene Analyzers without writing code
+          <ul>
+            <li>char filters edit the text prior to tokenization</li>
+            <li>tokenizers break the text up into terms</li>
+            <li>token filters transform the terms</li>
+          </ul>
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Dynamic Fields enable on-the-fly addition of new fields that auto-map to field types based on the field name 
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Easily analyze the same content in different ways using Solr's copy field capabilities
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Explicit types eliminate the need for guessing types of fields and introducing noise
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>External file-based configuration of stopword lists, synonym lists, and protected word lists
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Many additional text analysis components including word splitting, regex, stemming and more
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Extensible to allow for applications to easily handle proprietary formats and unsupported data types
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Documents%2C+Fields%2C+and+Schema+Design"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Docs, Fields &amp; Schema Design</a>
+      <div>
+    </div>
+  </ul>
+</section>
 
-- Defines the field types and fields of documents
-- Can drive more intelligent processing
-- Declarative Lucene Analyzer specification
-- Dynamic Fields enables on-the-fly addition of new fields
-- CopyField functionality allows indexing a single field multiple ways, or combining multiple fields into a single searchable field
-- Explicit types eliminates the need for guessing types of fields
-- External file-based configuration of stopword lists, synonym lists, and protected word lists
-- Many additional text analysis components including word splitting, regex and sounds-like filters
-- Pluggable similarity model per field
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Query</h1>
+      <p>
+        HTTP interfaces with flexible IO formats and extensive query parsing support make adding and finding data a snap
+      </p>
+      <div class="down-arrow"><a data-scroll href="#query"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
-###Query
+<section class="gray list" id="query">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>REST interfaces provide for easy integration with any language.
+          <p>Native clients are also available</p>
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Sort by any number of fields, and by complex functions of numeric fields
+          <p>Documents with missing values can be configured to sort last (or first)  
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Function queries provide powerful relevance tuning capabilities based off of your data
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Advanced relevance tuning options enable applications to fine tune results to fit their demanding needs
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Solr supports multiple approaches to query parsing, making it easy to find your data
+        <p>Dozens of query types (boolean, phrase, term, numeric, fielded and more) provide incredible power when searching</p>
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Good out of the box defaults make getting great results easy, while extensive configuration options make it easy to fine tune
+        <p>Request handling can easily be configured to provide server-side control and simplification of how applications request results</p>
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Extensive filtering features allow applications to control what content is searched and when
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Multiple scoring (similarity) approaches allow for easy experimentation and relevance tuning
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Pluggable query parsers mean every application can provide a query interface that makes sense to its users
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Well-defined APIs for capturing document and collection level statistics enable custom similarity models with little effort</li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Cursors (aka "deep paging") enables next generation NoSQL data storage and analysis options
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Near Real Time (NRT) search allows access to document addition and updates almost immediately</li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Searching"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Searching</a>
+      <div>
+    </div>
+  </ul>
+</section>
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Facets</h1>
+      <p>
+        Slice and dice your data six ways from Sunday
+      </p>
+      <div class="down-arrow"><a data-scroll href="#facets"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
-- HTTP interface with configurable response formats (XML/XSLT, JSON, Python, Ruby, PHP, Velocity, CSV, binary)
-- Sort by any number of fields, and by complex functions of numeric fields
-- Advanced DisMax query parser for high relevancy results from user-entered queries
-- Highlighted context snippets
-- Faceted Searching based on unique field values, explicit queries, date ranges, numeric ranges or pivot
-- Multi-Select Faceting by tagging and selectively excluding filters
-- Spelling suggestions for user queries
-- More Like This suggestions for given document
-- Function Query - influence the score by user specified complex functions of
-numeric fields or query relevancy scores.
-- Range filter over Function Query results
-- Date Math - specify dates relative to "NOW" in queries and updates
-- Dynamic search results clustering using Carrot2
-- Numeric field statistics such as min, max, average, standard deviation
-- Combine queries derived from different syntaxes
-- Auto-suggest functionality for completing user queries
-- Allow configuration of top results for a query, overriding normal scoring and sorting
-- Simple join capability between two document types
-- Performance Optimizations
+<section class="gray list" id="facets">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Powerful faceting features support grouping and organizing your data in a multitude of ways
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Pivot faceting enables asking sophisticated "what if" questions
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Fine-grained performance controls make it possible to tradeoff competing CPU and memory resources during faceting
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Term, Query, Range, Date and Pivot faceting implementations make data investigation simple and powerful
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Range faceting enables grouping time and numerical content in easy to understand buckets
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Query-based faceting makes it easy to facet by arbitrary queries
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Multi-select facet parameters enable exact control over how facets interact with the original result set
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Faceting"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Faceting</a>
+      <div>
+    </div>
+  </ul>
+</section>
 
-###Core
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Discovery</h1>
+      <p>
+        Clustering, spellchecking, auto-complete and more make it easy to help users discover content
+      </p>
+      <div class="down-arrow"><a data-scroll href="#discovery"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
-- Dynamically create and delete document collections without restarting
-- Pluggable query handlers and extensible XML data format
-- Pluggable user functions for Function Query
-- Customizable component based request handler with distributed search support
-- Document uniqueness enforcement based on unique key field
-- Duplicate document detection, including fuzzy near duplicates
-- Custom index processing chains, allowing document manipulation before indexing
-- User configurable commands triggered on index changes
-- Ability to control where docs with the sort field missing will be placed
-- "Luke" request handler for corpus information
+<section class="gray list" id="discovery">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Typeahead, autocomplete, auto-suggest, whatever you call it, Solr supports powerful and extensible mechanisms for providing suggestions to users as they type in their queries
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Integrated Carrot<sup>2</sup> features enable dynamic search results clustering
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Spelling suggestions are a breeze to enable to help users correct their queries for better results
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Configurable hit highlighting helps users focus in on exactly where matches occur
+        </li>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
+        <li>
+          <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Suggester"
+            ><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Suggester</a>
+        </li>
+        <li>
+          <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Result+Clustering"
+            ><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Clustering</a>
+        </li>
+        <li>
+          <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Spell+Checking"
+            ><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Spellcheck</a>
+        </li>
+        <li>
+          <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Highlighting"
+            ><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Highlighting</a>
+        </li>
+      </ul>
+    </div>
+  </ul>
+</section>
 
-###Caching
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Plugins and Extensions</h1>
+      <p>
+        Open source and well-documented make Solr highly extensible
+      </p>
+      <div class="down-arrow"><a data-scroll href="#plugins"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
-- Configurable Query Result, Filter, and Document cache instances
-- Pluggable Cache implementations, including a lock free, high concurrency implementation
-- Cache warming in background
--  When a new searcher is opened, configurable searches are run against
-  it in order to warm it up to avoid
-  slow first hits.  During warming, the current searcher handles live requests.
-- Autowarming in background
-- The most recently accessed items in the caches of the current
-  searcher are re-populated in the new searcher, enabling high cache hit
-  rates across index/searcher changes.
-- Fast/small filter implementation
-- User level caching with autowarming support
+<section class="gray list" id="plugins">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Plugins for language detection, clustering, data-import, UIMA, Apache Velocity and more provide optional functionality when needed
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Well-defined extension points for indexing, analysis, request handling, query parsing and more make focused extensions easy to write and enable
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>An open source and open development approach, enabled by the Apache Software Foundation, make contributions to Solr easy to do
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Don't like how Solr implements something? Found a bug?  Check out the code from SVN or Git and make changes as you see fit.  Patches welcome!
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="btn1" href="http://wiki.apache.org/solr/HowToContribute">How to contribute</a>
+      <div>
+    </div>
+  </ul>
+</section>
 
-###SolrCloud
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Statistics and Aggregations</h1>
+      <p>
 
-- Centralized Apache ZooKeeper based configuration
-- Automated distributed indexing/sharding - send documents to any node and it will be forwarded to correct shard
-- Near Real-Time indexing with immediate push-based replication (also support for slower pull-based replication)
-- Transaction log ensures no updates are lost even if the documents are not yet indexed to disk
-- Automated query failover, index leader election and recovery in case of failure
-- No single point of failure
+      </p>
+      <div class="down-arrow"><a data-scroll href="#stats"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
-###Admin Interface
+<section class="gray list" id="stats">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Solr supports complex mathematical analysis on result sets, enabling next-generation search-based business intelligence
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Grouping, nesting and other approaches enable applications to represent complex relationships between content types
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Function query results can be returned with hits, and used to sort or boost hits 
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Coming in Solr 5.0: Statistics over pivot facets
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>The stats component can compute min, max, sum, mean, distinct values, and more 
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/The+Stats+Component"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> The Stats Component</a>
+      <div>
+    </div>
+  </ul>
+</section>
 
-- Comprehensive statistics on cache utilization, updates, and queries
-- Interactive schema browser that includes index statistics
-- Replication monitoring
-- SolrCloud dashboard with graphical cluster node status
-- Full logging control
-- Text analysis debugger, showing result of every stage in an analyzer
-- Web Query Interface w/ debugging output
-- Parsed query output
-- Lucene explain() document score detailing
-- Explain score for documents outside of the requested range to debug why a given document wasn't ranked higher.
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Spatial</h1>
+      <p>
+        Location-aware search using advanced spatial integrations
+      </p>
+      <div class="down-arrow"><a data-scroll href="#spatial"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray list" id="spatial">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Out of the box support for location-aware search (think mobile search) enables applications to find and filter content based on location
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Extensive support for representing complex spatial data like polygons, lat/lon and more
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Advanced query capabilities allow for bounding box, polygonal and other complex querying capabilities
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Integration with the Java Topological Suite library provides advanced spatial capabilities
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Spatial+Search"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Spatial Search</a>
+      <div>
+    </div>
+  </ul>
+</section>
+
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Rich Content</h1>
+      <p>
+        Your Data, your way.  PDF, Word, Powerpoint and more
+      </p>
+      <div class="down-arrow"><a data-scroll href="#rich-content"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray list" id="rich-content">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Integration with <a href="http://tika.apache.org">Apache Tika</a> enables the extraction and processing of rich content types without writing a single line of code
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Data not in JSON?  No problem.  Solr handles a variety of data types out of the box, including JSON, XML, many Office documents, CSV and more
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Flexible and extensible Input and Output formats allow your application to talk with Solr the way you want to talk to it
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Advanced processing options make it easy to control what extracted content is indexed and how it is indexed
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Indexing+and+Basic+Data+Operations"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Indexing &amp; Basic Data Operations</a>
+      <div>
+    </div>
+  </ul>
+</section>
 
 
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Performance</h1>
+      <p>
+        Proven time and time again in world-class organizations, Solr performs and scales to handle the most demanding applications
+      </p>
+      <div class="down-arrow"><a data-scroll href="#performance"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
+<section class="gray list" id="performance">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Well tested defaults provide good performance out of the box with little tuning
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Advanced options give fine grained control over numerous performance aspects
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Powerful single-node and distributed capabilities simplify the process of going from one node to many
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>A multitude of smart caching options enable exacting control over repetitive results a breeze
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Always built on the latest and greatest Lucene, Solr takes advantage of numerous Lucene performance enhancements
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Support for codecs, alternate Directory implementations and more provide for advanced performance tuning options
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/The+Well-Configured+Solr+Instance"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> The Well-Configured Solr Instance</a>
+      <div>
+    </div>
+  </ul>
+</section>
 
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Scaling</h1>
+      <p>
+        Highly scalable, fault tolerant distributed infrastructure built on Apache Zookeeper
+      </p>
+      <div class="down-arrow"><a data-scroll href="#solrcloud"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
 
+<section class="gray list" id="solrcloud">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Add and remove compute capacity as needed, while letting Solr do the dirty work of load balancing and more
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Shard splitting makes it easy to incrementally add capacity without re-indexing your entire content
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Built on tried and true Apache Zookeeper, Solr favors consistency and avoids hairy split brain issues common to other approaches
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Built-in User Interfaces provide deep insight into cluster state
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Advanced transaction log, replication and failover capabilities help minimize data loss while still serving results
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Tested regularly at scale to handle hundreds to thousands of compute nodes and billions of documents with very high query volumes
+        </li>
+      </div>
+    </div>
+    <!-- TODO: LINK TO SOLR CLOUD TUTORIAL -->
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/SolrCloud"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> SolrCloud</a>
+      <div>
+    </div>
+  </ul>
+</section>
 
+<section class="orange">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Detailed Features
+      </div>
+      <h1>Admin Interface</h1>
+      <p>
+        A rich and powerful User Interface enables deep insight into Solr's state all without anything extra to install
+      </p>
+      <div class="down-arrow"><a data-scroll href="#admin-ui"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray list" id="admin-ui">
+  <ul>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Extensive reporting and control interfaces make it easy to understand and alter what is happening in Solr
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Modern, responsive Javascript-based implementation provides instant feedback
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Gain insight into cores, collections, shards and more
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Explore logs, threads and system properties without ever leaving the browser
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Want to explore alternate queries?  Try the query interface and instantly explore your data without having to write code
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Explore and debug your data and queries with advanced interfaces for analysis, data exploration and more
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <li>Index content directly from the browser, including rich content via file uploading
+        </li>
+      </div>
+      <div class="small-6 columns">
+        <li>Instantly review key performance metrics right in the browser
+        </li>
+      </div>
+    </div>
+    <div class="row">
+      <div class="centered">
+        <a class="wrappable-btn" href="https://cwiki.apache.org/confluence/display/solr/Using+the+Solr+Administration+User+Interface"><span class="ref-guide-badge">Solr<br />Ref<br />Guide</span> Using the Solr Admin UI</a>
+      <div>
+    </div>
+  </ul>
+</section>
