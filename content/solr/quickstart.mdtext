@@ -517,7 +517,7 @@ If you've run the full set of commands in this quick start guide you have done t
 
 Nice work!   The script (see below) to run all of these items took under two minutes! (Your run time may vary, depending on your computer's power and resources available.)
 
-Here's a full Unix script for convenient copying and pasting in order to run all of the commands for this quick start guide:
+Here's a Unix script for convenient copying and pasting in order to run the key commands for this quick start guide:
 
     export CLASSPATH=dist/solr-core-4.10.2.jar
     date ;
@@ -530,13 +530,6 @@ Here's a full Unix script for convenient copying and pasting in order to run all
       java -Dauto org.apache.solr.util.SimplePostTool example/exampledocs/books.csv ;
       open "http://localhost:8983/solr/#/collection1/plugins/core?entry=searcher" ;
       java -Ddata=args org.apache.solr.util.SimplePostTool "<delete><id>SP2514N</id></delete>" ;
-      curl "http://localhost:8983/solr/collection1/select?q=*:*&wt=json&indent=true" ;
-      curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=foundation" ;
-      curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=foundation&fl=id" ;
-      curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=name:foundation" ;
-      curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=\"CAS+latency\"" ;
-      curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=%2Bone+%2Bthree" ;
-      curl "http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=%2Btwo+-one" ;
       bin/solr healthcheck -c collection1 ;
     date ;
 
