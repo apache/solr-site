@@ -11,9 +11,22 @@ RedirectMatch Permanent /java/docs/irc.html /core/discussion.html#irc
 RedirectMatch Permanent /java/docs/mailinglists.html /core/discussion.html
 RedirectMatch Permanent /java/docs/systemrequirements.html /core/systemreqs.html
 RedirectMatch Permanent /java/docs/developer-resources.html /core/developer.html
-RedirectMatch Permanent /solr/version_control.html /solr/versioncontrol.html
-RedirectMatch Permanent /solr/mailing_lists.html /solr/discussion.html
 RedirectMatch Permanent /solr/issue_tracking.html https://issues.apache.org/jira/browse/SOLR
+
+# Solr site redesign
+# needs to use mod_rewrite because of the anchor fragments
+RewriteEngine on
+RewriteBase /
+RewriteRule solr/books.html solr/resources.html#solr-books                      [R=301,NE]
+RewriteRule solr/discussion.html solr/resources.html#community                  [R=301,NE]
+RewriteRule solr/documentation.html solr/resources.html#documentation           [R=301,NE]
+RewriteRule solr/screenshots.html solr/features.html                            [R=301,NE]
+RewriteRule solr/solrnews.html solr/news.html                                   [R=301,NE]
+RewriteRule solr/tutorial.html solr/resources.html#tutorials                    [R=301,NE]
+RewriteRule solr/versioncontrol.html solr/resources.html#solr-version-control   [R=301,NE]
+RewriteRule solr/version_control.html solr/resources.html#solr-version-control  [R=301,NE]
+RewriteRule solr/mailing_lists.html solr/resources.html#community               [R=301,NE]
+
 
 # Simple redirect to "directory", so later rules match
 RedirectMatch temp /core/api$ /core/api/
