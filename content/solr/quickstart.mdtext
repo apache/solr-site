@@ -364,8 +364,8 @@ From the Admin UI [Query tab](http://localhost:8983/solr/#/collection1/query), i
 
 To see facet counts from all documents (`q=*:*`): turn on faceting (`facet=true`), and specify the field to facet on via the `facet.field` param.  If you only want facets, and no document contents, specify `rows=0`.  The `curl` command below will return facet counts for the `manu_id_s` field:
 
-    curl http://localhost:8983/solr/collection1/select?&wt=json&indent=true&q=*:*&rows=0 \
-                                                       &facet=true&facet.field=manu_id_s
+    curl http://localhost:8983/solr/collection1/select?wt=json&indent=true&q=*:*&rows=0 \
+                                                      &facet=true&facet.field=manu_id_s
 
 In your terminal, you'll see:
 
