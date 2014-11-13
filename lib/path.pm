@@ -57,6 +57,9 @@ our @patterns = (
   [qr!solr\/resources\.mdtext$!, main => {
     preprocess => 1,
     template => "solr-resources.html"}],
+  [qr!solr\/logos-and-assets\.mdtext$!, main => {
+    preprocess => 1,
+    template => "solr-full-width.html"}],
   [qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-page.html"}],
 
   [qr!pylucene/jcc/.*?\.mdtext$!, main => { template => "jcc-simple.html" }],
