@@ -9,9 +9,9 @@
 
     function selectProvider(form) {
       lucidAction = "http://find.searchhub.org/p:lucene,solr";
-      searchLuceneAction = "http://search-lucene.com/lucene";
+      searchLuceneAction = "http://search-lucene.com/solr";
 
-      provider = form.elements['searchProvider'].value;
+      provider = document.getElementById('searchProvider').value;
       if (provider == "lucid" || provider == "sl") {
         if (provider == "lucid") {
           form.action = lucidAction;
@@ -36,7 +36,7 @@
     }
   </script>
   <form id="quick-search" method="GET" onsubmit="return selectProvider(this)"
-        action="http://search-lucene.com//lucene"
+        action="http://search-lucene.com/solr"
         name="searchform">
     <fieldset>
       <div ng-show="toggled" class="search-box">
@@ -44,7 +44,7 @@
                onfocus="getBlank(this, 'Search |');"/>
         <a class="search-button" type="submit" 
            onclick="form = document.getElementById('quick-search'); selectProvider(form); form.submit();"><img src="/solr/assets/images/magnifying-glass.png"/></a>
-        <select name="searchProvider" id="searchProvider" class="search-provider">
+        <select id="searchProvider" class="search-provider">
           <option value="any"> - select provider - </option>
           <option value="lucid">@ Lucid Find</option>
           <option value="sl">@ Search-Lucene</option>
@@ -61,7 +61,7 @@
             cEnd = document.cookie.length;
           }
           provider = unescape(document.cookie.substring(cStart, cEnd));
-          document.forms['searchform'].elements['searchProvider'].value = provider;
+          document.getElementById('searchProvider').value = provider;
         }
       }
     </script>
