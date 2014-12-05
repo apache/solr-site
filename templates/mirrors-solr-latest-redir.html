@@ -4,9 +4,28 @@
 #}
 {% extends "_solr-head.html" %}
   {% block css %}
-    <meta http-equiv="refresh" content="1;url=http://www.apache.org/dyn/closer.cgi/lucene/solr/4.10.2">
+    <meta http-equiv="refresh" content="3;url=http://www.apache.org/dyn/closer.cgi/lucene/solr/4.10.2">
     <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
   {% endblock %}
 {% endextends %}
-{% extends "solr-index.html" %}
-{% endextends %}
+
+<body class="page subnav" x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+
+  {% include "_solr-header.html" %}
+
+  <div class="container">
+    <div class="row">
+      <div class="large-12 columns">
+        {% block content %}
+          <p><i>&gt;&gt; Pausing for 3 seconds, then redirecting to <tt>http://www.apache.org/dyn/closer.cgi/lucene/solr/</tt></i></p>
+          {{ content|markdown }}
+        {% endblock %}
+      </div>
+    </div>
+
+  </div>
+
+  {% include "_solr-footer.html" %}
+
+</body>
+

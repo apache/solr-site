@@ -10,7 +10,7 @@ our @patterns = (
 [qr!core\/mirrors-core-redir\.mdtext$!, main => { template => "mirrors-core-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
 [qr!solr\/mirrors-solr-redir\.mdtext$!, main => { template => "mirrors-solr-redir.html"	}],
 [qr!core\/mirrors-core-latest-redir\.mdtext$!, main => { template => "mirrors-core-latest-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
-[qr!solr\/mirrors-solr-latest-redir\.mdtext$!, main => { template => "mirrors-solr-latest-redir.html"	}],
+[qr!solr\/mirrors-solr-latest-redir\.mdtext$!, main => { preprocess => 1, template => "mirrors-solr-latest-redir.html"	}],
 [qr!core\/mirrors-core-3x-redir\.mdtext$!, main => { template => "mirrors-core-3x-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
 [qr!solr\/mirrors-solr-3x-redir\.mdtext$!, main => { template => "mirrors-solr-3x-redir.html"	}],
 
@@ -60,6 +60,9 @@ our @patterns = (
   [qr!solr\/logos-and-assets\.mdtext$!, main => {
     preprocess => 1,
     template => "solr-full-width.html"}],
+  [qr!solr\/downloads.mdtext$!, main => { 
+    preprocess => 1, 
+    template => "solr-page.html" } ],
   [qr@solr\/(?!index).*?\.mdtext$@, main => { template => "solr-page.html"}],
 
   [qr!pylucene/jcc/.*?\.mdtext$!, main => { template => "jcc-simple.html" }],
