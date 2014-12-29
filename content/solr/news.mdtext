@@ -2,6 +2,37 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 29 December 2014 - Apache Solr 4.10.3 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 4.10.3
+
+Solr is the popular, blazing fast, open source NoSQL search platform
+from the Apache Lucene project. Its major features include powerful
+full-text search, hit highlighting, faceted search, dynamic
+clustering, database integration, rich document (e.g., Word, PDF)
+handling, and geospatial search. Solr is highly scalable, providing
+fault tolerant distributed search and indexing, and powers the search
+and navigation features of many of the world's largest internet sites.
+
+Solr 4.10.3 is available for immediate download at:
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html> 
+
+Solr 4.10.3 includes 21 bug fixes, 5 other changes,
+as well as Lucene 4.10.3 and its 12 bug fixes.
+
+This release fixes the following security vulnerability that has affected
+Solr since the Solr 4.0 Alpha release.
+
+CVE-2014-3628: Stored XSS vulnerability in Solr Admin UI.
+
+Information disclosure: The Solr Admin UI Plugin / Stats page does not escape
+data values which allows an attacker to execute javascript by executing a query
+that will be stored and displayed via the 'fieldvaluecache' object.
+
+See the [CHANGES.txt](/solr/4_10_3/changes/Changes.html)
+file included with the release for a full list of details, and Happy
+Holidays!
+
 ## 31 October 2014 - Apache Solr 4.10.2 Available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 4.10.2
