@@ -15,6 +15,7 @@ with the release for a full list of details.
 ### Highlights of the Lucene release include:
 
 Stronger index safety
+
 * All file access now uses Java’s NIO.2 APIs which give Lucene stronger index safety in terms of better error handling and safer commits.
 
 * Every Lucene segment now stores a unique id per-segment and per-commit to aid in accurate replication of index files.
@@ -22,6 +23,7 @@ Stronger index safety
 * During merging, IndexWriter now always checks the incoming segments for corruption before merging. This can mean, on upgrading to 5.0.0, that merging may uncover long-standing latent corruption in an older 4.x index.
 
 Reduced heap usage
+
 * Lucene now supports random-writable and advance-able sparse bitsets (RoaringDocIdSet and SparseFixedBitSet), so the heap required is in proportion to how many bits are set, not how many total documents exist in the index.
 
 * Heap usage during IndexWriter merging is also much lower with the new Lucene50Codec, since doc values and norms for the segments being merged are no longer fully loaded into heap for all fields; now they are loaded for the one field currently being merged, and then dropped.
@@ -31,6 +33,7 @@ Reduced heap usage
 * 5.0 has a new API to print a tree structure showing a recursive breakdown of which parts are using how much heap.
 
 Other features
+
 * FieldCache is gone (moved to a dedicated UninvertingReader in the misc module). This means when you intend to sort on a field, you should index that field using doc values, which is much faster and less heap consuming than FieldCache.
 
 * Tokenizers and Analyzers no longer require Reader on init.
@@ -68,9 +71,13 @@ Other features
 * Scripts to support installing and running Solr as a service on Linux.
 
 * Distributed IDF is now supported and can be enabled via the config. Currently, there are four supported implementations for the same:
+
   * LocalStatsCache: Local document stats.
+
   * ExactStatsCache: One time use aggregation
+
   * ExactSharedStatsCache: Stats shared across requests
+
   * LRUStatsCache: Stats shared in an LRU cache across requests
 
 * Solr will no longer ship a war file and instead be a downloadable application.
