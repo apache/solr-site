@@ -2,7 +2,7 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
-## 20 February 2015 - Apache Solr™ 5.0.0 and Reference Guide for 5.0 available
+## 20 February 2015 - Apache Solr 5.0.0 and Reference Guide for 5.0 available
 
 Solr is the popular, blazing fast, open source NoSQL search platform
 from the Apache Lucene project. Its major features include powerful
@@ -13,9 +13,9 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 5.0 is available for immediate download at:
-http://lucene.apache.org/solr/mirrors-solr-latest-redir.html
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
-See the CHANGES.txt file included with the release for a full list of
+See the [CHANGES.txt](/solr/5_0_0/changes/Changes.html) file included with the release for a full list of
 details.
 
 Solr 5.0 Release Highlights:
@@ -26,10 +26,10 @@ Solr 5.0 Release Highlights:
 
 * Distributed IDF is now supported and can be enabled via the config. Currently, there are four supported implementations for the same:
 
-** LocalStatsCache: Local document stats.
-** ExactStatsCache: One time use aggregation
-** ExactSharedStatsCache: Stats shared across requests
-** LRUStatsCache: Stats shared in an LRU cache across requests
+  * LocalStatsCache: Local document stats.
+  * ExactStatsCache: One time use aggregation
+  * ExactSharedStatsCache: Stats shared across requests
+  * LRUStatsCache: Stats shared in an LRU cache across requests
 
 * Solr will no longer ship a war file and instead be a downloadable application.
 
@@ -63,18 +63,15 @@ Solr 5.0 Release Highlights:
 * MoreLikeThis query parser allows requesting for documents similar to an existing document and also works in SolrCloud mode.
 
 * Logging improvements:
-** Transaction log replay status is now logged
-** Optional logging of slow requests.
+  * Transaction log replay status is now logged
+  * Optional logging of slow requests.
 
 Solr 5.0 also includes many other new features as well as numerous
 optimizations and bugfixes of the corresponding Apache Lucene release.
 
-Detailed change log:
-http://lucene.apache.org/solr/5_0_0/changes/Changes.html
-
 Also available is the Solr Reference Guide for Solr 5.0. This 535 page
 PDF serves as the definitive user's manual for Solr 5.0. It can be downloaded
-from the Apache mirror network: https://s.apache.org/Solr-Ref-Guide-PDF
+from the Apache mirror network: <https://s.apache.org/Solr-Ref-Guide-PDF>
 
 
 ## 29 December 2014 - Apache Solr 4.10.3 Available

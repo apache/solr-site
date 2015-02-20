@@ -1,6 +1,6 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
-## 20 February 2015 -Apache Lucene 5.0.0 and Apache Solr 5.0.0 Available
+## 20 February 2015 - Apache Lucene 5.0.0 and Apache Solr 5.0.0 Available
 
 The Lucene PMC is pleased to announce the availability
 of Apache Lucene 5.0.0 and Apache Solr 5.0.0.
@@ -68,10 +68,10 @@ Other features
 * Scripts to support installing and running Solr as a service on Linux.
 
 * Distributed IDF is now supported and can be enabled via the config. Currently, there are four supported implementations for the same:
-** LocalStatsCache: Local document stats.
-** ExactStatsCache: One time use aggregation
-** ExactSharedStatsCache: Stats shared across requests
-** LRUStatsCache: Stats shared in an LRU cache across requests
+  * LocalStatsCache: Local document stats.
+  * ExactStatsCache: One time use aggregation
+  * ExactSharedStatsCache: Stats shared across requests
+  * LRUStatsCache: Stats shared in an LRU cache across requests
 
 * Solr will no longer ship a war file and instead be a downloadable application.
 
@@ -105,8 +105,10 @@ Other features
 * MoreLikeThis query parser allows requesting for documents similar to an existing document and also works in SolrCloud mode.
 
 * Logging improvements:
-** Transaction log replay status is now logged
-** Optional logging of slow requests.
+
+  * Transaction log replay status is now logged
+
+  * Optional logging of slow requests.
 
 ## 29 December 2014 - Apache Lucene 4.10.3 and Apache Solr 4.10.3 Available
 
