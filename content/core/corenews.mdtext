@@ -1,5 +1,77 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 20 February 2015 - Lucene™ 5.0.0 core available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 5.0.
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and
+improvements, some of which are highlighted below. The release
+is available for immediate download at:
+http://lucene.apache.org/core/mirrors-core-latest-redir.html
+
+Lucene 5.0 Release Highlights:
+
+Stronger index safety
+
+* All file access now uses Java’s NIO.2 APIs which give Lucene stronger index safety in terms of better error handling and safer commits.
+
+* Every Lucene segment now stores a unique id per-segment and per-commit to aid in accurate replication of index files.
+
+* During merging, IndexWriter now always checks the incoming segments for corruption before merging. This can mean, on upgrading to 5.0.0, that merging may uncover long-standing latent corruption in an older 4.x index.
+
+Reduced heap usage
+
+* Lucene now supports random-writable and advance-able sparse bitsets (RoaringDocIdSet and SparseFixedBitSet), so the heap required is in proportion to how many bits are set, not how many total documents exist in the index.
+
+* Heap usage during IndexWriter merging is also much lower with the new Lucene50Codec, since doc values and norms for the segments being merged are no longer fully loaded into heap for all fields; now they are loaded for the one field currently being merged, and then dropped.
+
+* The default norms format now uses sparse encoding when appropriate, so indices that enable norms for many sparse fields will see a large reduction in required heap at search time.
+
+* 5.0 has a new API to print a tree structure showing a recursive breakdown of which parts are using how much heap.
+
+Other features
+
+* FieldCache is gone (moved to a dedicated UninvertingReader in the misc module). This means when you intend to sort on a field, you should index that field using doc values, which is much faster and less heap consuming than FieldCache.
+
+* Tokenizers and Analyzers no longer require Reader on init.
+
+* NormsFormat now gets its own dedicated NormsConsumer/Producer
+
+* SortedSetSortField, used to sort on a multi-valued field, is promoted from sandbox to Lucene's core.
+
+* PostingsFormat now uses a "pull" API when writing postings, just like doc values. This is powerful because you can do things in your postings format that require making more than one pass through the postings such as iterating over all postings for each term to decide which compression format it should use.
+
+* New DateRangeField type enables Indexing and searching of date ranges, particularly multi-valued ones.
+
+* A new ExitableDirectoryReader extends FilterDirectoryReader and enables exiting requests that take too long to enumerate over terms.
+
+* Suggesters from multi-valued field can now be built as DocumentDictionary now enumerates each value separately in a multi-valued field.
+
+* ConcurrentMergeScheduler detects whether the index is on SSD or not and does a better job defaulting its settings. This only works on Linux for now; other OS's will continue to use the previous defaults (tuned for spinning disks).
+
+* Auto-IO-throttling has been added to ConcurrentMergeScheduler, to rate limit IO writes for each merge depending on incoming merge rate.
+
+* CustomAnalyzer has been added that allows to configure analyzers like you do in Solr's index schema. This class has a builder API to configure Tokenizers, TokenFilters, and CharFilters based on their SPI names and parameters as documented by the corresponding factories.
+
+* Memory index now supports payloads.
+
+* Added a filter cache with a usage tracking policy that caches filters based on frequency of use.
+
+* The default codec has an option to control BEST_SPEED or BEST_COMPRESSION for stored fields.
+
+* Stored fields are merged more efficiently, especially when upgrading from previous versions or using SortingMergePolicy
+
+NOTE: Lucene 5 no longer supports the Lucene 3.x index format. Opening indexes will result in IndexFormatTooOldException. It is recommended to either reindex all your data, or upgrade the old indexes with the IndexUpgrader tool of latest Lucene 4 version (4.10.x). Those indexes can then be read (see next section) with Lucene 5.
+
+To read more about the changes, also see: http://blog.mikemccandless.com/2014/11/apache-lucene-500-is-coming.html
+
+Please read CHANGES.txt (https://lucene.apache.org/core/5_0_0/changes/Changes.html) and MIGRATE.txt for a full list of new features and notes on upgrading.
+
+
 ## 29 December 2014 - Lucene Core 4.10.3 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 4.10.3
@@ -337,106 +409,4 @@ with the release for a full list of details.
   geometry relationship calculations.
 
 * Various bugfixes and optimizations since the 4.6.1 release.
-
-## 28 January 2014 - Lucene Core 4.6.1 Available
-
-The Lucene PMC is pleased to announce the release of Apache Lucene 4.6.1
-
-Apache Lucene is a high-performance, full-featured text search engine
-library written entirely in Java. It is a technology suitable for nearly
-any application that requires full-text search, especially cross-platform.
-
-This release contains a handful of bug fixes. The release
-is available for immediate download at:
-   <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
-
-See the [CHANGES.txt](/core/4_6_1/changes/Changes.html) file included
-with the release for a full list of details.
-
-## 24 November 2013 - Lucene Core 4.6 Available
-
-The Lucene PMC is pleased to announce the release of Apache Lucene 4.6
-
-Apache Lucene is a high-performance, full-featured text search engine
-library written entirely in Java. It is a technology suitable for nearly
-any application that requires full-text search, especially cross-platform.
-
-This release contains numerous bug fixes, optimizations, and
-improvements, some of which are highlighted below. The release
-is available for immediate download at:
-  <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
-
-See the [CHANGES.txt](/core/4_6_0/changes/Changes.html) file included
-with the release for a full list of details.
-
-### Lucene 4.6 Release Highlights:
-
-* Added support for NumericDocValues field updates (without re-indexing the document) through IndexWriter.updateNumericDocValue(Term, String, Long).
-
-* New FreeTextSuggester can predict the next word using a simple ngram language model useful for "long tail" suggestions.
-
-* A new expression module allows for customized ranking with script-like syntax.
-
-* A new DirectDocValuesFormat can hold all doc values in heap as uncompressed java native arrays.
-
-* Term.hasFreqs can now determine if a given field indexed per-doc term frequencies.
-
-* Various bugfixes and optimizations since the 4.5.1 release.
-
-## 24 October 2013 - Lucene Core 4.5.1 Available
-
-The Lucene PMC is pleased to announce the release of Apache Lucene 4.5.1
-
-Apache Lucene is a high-performance, full-featured text search engine
-library written entirely in Java. It is a technology suitable for nearly
-any application that requires full-text search, especially cross-platform.
-
-This release contains a handful of bug fixes. The release
-is available for immediate download at:
-   <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
-
-See the [CHANGES.txt](/core/4_5_1/changes/Changes.html) file included
-with the release for a full list of details.
-
-### Lucene 4.5.1 Release Highlights:
-
-- Lucene 4.5.1 includes 8 bug fixes.
-
-## 5 October 2013 - Lucene Core 4.5 Available
-
-The Lucene PMC is pleased to announce the release of Apache Lucene 4.5
-
-Apache Lucene is a high-performance, full-featured text search engine
-library written entirely in Java. It is a technology suitable for nearly
-any application that requires full-text search, especially cross-platform.
-
-This release contains numerous bug fixes, optimizations, and
-improvements, some of which are highlighted below. The release
-is available for immediate download at:
-  <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
-
-See the [CHANGES.txt](/core/4_5_0/changes/Changes.html) file included
-with the release for a full list of details.
-
-### Lucene 4.5 Release Highlights:
-
-* Added support for missing values to DocValues fields through
-  AtomicReader.getDocsWithField.
-
-* Lucene 4.5 has a new Lucene45Codec with Lucene45DocValues, supporting
-  missing values and with most datastructures residing off-heap.
-
-* New in-memory DocIdSet implementations which are especially better than
-  FixedBitSet on small sets: WAH8DocIdSet, PFORDeltaDocIdSet and EliasFanoDocIdSet.
-
-* CachingWrapperFilter now caches filters with WAH8DocIdSet by default, which
-  has the same memory usage as FixedBitSet in the worst case but is smaller and
-  faster on small sets.
-
-* TokenStreams now set the position increment in end(), so we can handle
-  trailing holes.
-
-* IndexWriter no longer clones the given IndexWriterConfig.
-
-* Various bugfixes and optimizations since the 4.4 release.
 

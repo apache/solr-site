@@ -1,5 +1,113 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 20 February 2015 -Apache Lucene 5.0.0 and Apache Solr 5.0.0 Available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 5.0.0 and Apache Solr 5.0.0.
+
+Lucene can be downloaded from <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+and Solr can be downloaded from <http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [Lucene CHANGES.txt](/core/5_0_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/5_0_0/changes/Changes.html) files included
+with the release for a full list of details.
+
+### Highlights of the Lucene release include:
+
+Stronger index safety
+* All file access now uses Java’s NIO.2 APIs which give Lucene stronger index safety in terms of better error handling and safer commits.
+
+* Every Lucene segment now stores a unique id per-segment and per-commit to aid in accurate replication of index files.
+
+* During merging, IndexWriter now always checks the incoming segments for corruption before merging. This can mean, on upgrading to 5.0.0, that merging may uncover long-standing latent corruption in an older 4.x index.
+
+Reduced heap usage
+* Lucene now supports random-writable and advance-able sparse bitsets (RoaringDocIdSet and SparseFixedBitSet), so the heap required is in proportion to how many bits are set, not how many total documents exist in the index.
+
+* Heap usage during IndexWriter merging is also much lower with the new Lucene50Codec, since doc values and norms for the segments being merged are no longer fully loaded into heap for all fields; now they are loaded for the one field currently being merged, and then dropped.
+
+* The default norms format now uses sparse encoding when appropriate, so indices that enable norms for many sparse fields will see a large reduction in required heap at search time.
+
+* 5.0 has a new API to print a tree structure showing a recursive breakdown of which parts are using how much heap.
+
+Other features
+* FieldCache is gone (moved to a dedicated UninvertingReader in the misc module). This means when you intend to sort on a field, you should index that field using doc values, which is much faster and less heap consuming than FieldCache.
+
+* Tokenizers and Analyzers no longer require Reader on init.
+
+* NormsFormat now gets its own dedicated NormsConsumer/Producer
+
+* SortedSetSortField, used to sort on a multi-valued field, is promoted from sandbox to Lucene's core.
+
+* PostingsFormat now uses a "pull" API when writing postings, just like doc values. This is powerful because you can do things in your postings format that require making more than one pass through the postings such as iterating over all postings for each term to decide which compression format it should use.
+
+* New DateRangeField type enables Indexing and searching of date ranges, particularly multi-valued ones.
+
+* A new ExitableDirectoryReader extends FilterDirectoryReader and enables exiting requests that take too long to enumerate over terms.
+
+* Suggesters from multi-valued field can now be built as DocumentDictionary now enumerates each value separately in a multi-valued field.
+
+* ConcurrentMergeScheduler detects whether the index is on SSD or not and does a better job defaulting its settings. This only works on Linux for now; other OS's will continue to use the previous defaults (tuned for spinning disks).
+
+* Auto-IO-throttling has been added to ConcurrentMergeScheduler, to rate limit IO writes for each merge depending on incoming merge rate.
+
+* CustomAnalyzer has been added that allows to configure analyzers like you do in Solr's index schema. This class has a builder API to configure Tokenizers, TokenFilters, and CharFilters based on their SPI names and parameters as documented by the corresponding factories.
+
+* Memory index now supports payloads.
+
+* Added a filter cache with a usage tracking policy that caches filters based on frequency of use.
+
+* The default codec has an option to control BEST_SPEED or BEST_COMPRESSION for stored fields.
+
+* Stored fields are merged more efficiently, especially when upgrading from previous versions or using SortingMergePolicy
+
+### Highlights of the Solr release include:
+
+* Usability improvements that include improved bin scripts and new and restructured examples.
+
+* Scripts to support installing and running Solr as a service on Linux.
+
+* Distributed IDF is now supported and can be enabled via the config. Currently, there are four supported implementations for the same:
+** LocalStatsCache: Local document stats.
+** ExactStatsCache: One time use aggregation
+** ExactSharedStatsCache: Stats shared across requests
+** LRUStatsCache: Stats shared in an LRU cache across requests
+
+* Solr will no longer ship a war file and instead be a downloadable application.
+
+* SolrJ now has first class support for Collections API.
+
+* Implicit registration of replication,get and admin handlers.
+
+* Config API that supports paramsets for easily configuring solr parameters and configuring fields. This API also supports managing of pre-existing request handlers and editing common solrconfig.xml via overlay.
+
+* API for managing blobs allows uploading request handler jars and registering them via config API.
+
+* BALANCESHARDUNIQUE Collection API that allows for even distribution of custom replica properties.
+
+* There's now an option to not shuffle the nodeSet provided during collection creation.
+
+* Option to configure bandwidth usage by Replication handler to prevent it from using up all the bandwidth.
+
+* Splitting of clusterstate to per-collection enables scalability improvement in SolrCloud. This is also the default format for new Collections that would be created going forward.
+
+* timeAllowed is now used to prematurely terminate requests during query expansion and SolrClient request retry.
+
+* pivot.facet results can now include nested stats.field results constrained by those pivots.
+
+* stats.field can be used to generate stats over the results of arbitrary numeric functions.
+  It also allows for requesting for statistics for pivot facets using tags.
+
+* A new DateRangeField has been added for indexing date ranges, especially multi-valued ones.
+
+* Spatial fields that used to require units=degrees now take distanceUnits=degrees/kilometers miles instead.
+
+* MoreLikeThis query parser allows requesting for documents similar to an existing document and also works in SolrCloud mode.
+
+* Logging improvements:
+** Transaction log replay status is now logged
+** Optional logging of slow requests.
+
 ## 29 December 2014 - Apache Lucene 4.10.3 and Apache Solr 4.10.3 Available
 
 The Lucene PMC is pleased to announce the availability
