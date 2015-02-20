@@ -25,11 +25,10 @@ Solr 5.0 Release Highlights:
 * Scripts to support installing and running Solr as a service on Linux.
 
 * Distributed IDF is now supported and can be enabled via the config. Currently, there are four supported implementations for the same:
-
-  * LocalStatsCache: Local document stats.
-  * ExactStatsCache: One time use aggregation
-  * ExactSharedStatsCache: Stats shared across requests
-  * LRUStatsCache: Stats shared in an LRU cache across requests
+    * LocalStatsCache: Local document stats.
+    * ExactStatsCache: One time use aggregation
+    * ExactSharedStatsCache: Stats shared across requests
+    * LRUStatsCache: Stats shared in an LRU cache across requests
 
 * Solr will no longer ship a war file and instead be a downloadable application.
 
@@ -63,8 +62,8 @@ Solr 5.0 Release Highlights:
 * MoreLikeThis query parser allows requesting for documents similar to an existing document and also works in SolrCloud mode.
 
 * Logging improvements:
-  * Transaction log replay status is now logged
-  * Optional logging of slow requests.
+    * Transaction log replay status is now logged
+    * Optional logging of slow requests.
 
 Solr 5.0 also includes many other new features as well as numerous
 optimizations and bugfixes of the corresponding Apache Lucene release.
