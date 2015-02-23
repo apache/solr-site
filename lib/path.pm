@@ -2,7 +2,7 @@ package path;
 use ASF::Value;
   
 # taken from django's url.py
-$localMode = 0;
+$localMode = 0;  
  
 # Patterns should go from more restrictive matches to less restrictive.
 our @patterns = (
