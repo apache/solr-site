@@ -121,10 +121,11 @@ Solr's `/update` endpoint.
 
 <a name="techproducts"></a>
 Solr's install includes a handful of Solr XML formatted files with example data (mostly mocked tech product data).
-NOTE: This tech product data as a more domain-specific configuration, including schema and browse UI.  The `bin/solr`
+NOTE: This tech product data has a more domain-specific configuration, including schema and browse UI.  The `bin/solr`
 script includes built-in support for this by running `bin/solr start -e techproducts` which not only starts Solr but
 also then indexes this data too (be sure to `bin/solr stop -all` before trying it out).
-beforehand).
+beforehand).  However, the example below assumes Solr was started with `bin/solr start -e cloud` to stay consistent with all examples
+on this page, and thus the collection used is "gettingstarted", not "techproducts".
 
 Using `bin/post`, index the example Solr XML files in `example/exampledocs/`:
 
