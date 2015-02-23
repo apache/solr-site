@@ -26,7 +26,7 @@ our @patterns = (
     dev => ASF::Value::Mail->new(list => 'dev@lucene.apache.org',
                                           limit => 3, localMode => $localMode),
 
-                                      }],
+                                      }],  
   [qr!pylucene/jcc/index\.mdtext$!, main => { template => "jcc.html" }],
   [qr!pylucene/index\.mdtext$!, main => { template => "pylucene.html",
                                           preprocess => 1 }],
