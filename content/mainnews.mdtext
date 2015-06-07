@@ -1,4 +1,78 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
+## 7 June 2015 - Apache Lucene 5.2.0 and Apache Solr 5.2.0 Available
+
+The Lucene PMC is pleased to announce the availability
+of Apache Lucene 5.2.0 and Apache Solr 5.2.0.
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.cgi/lucene/java/5.2.0>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.cgi/lucene/solr/5.2.0>
+
+### Highlights of this Lucene release include:
+
+* Span queries now share document conjunction/intersection code with boolean queries, and use two-phased iterators for faster intersection by avoiding loading positions in certain cases.
+
+* Added two-phase support to SpanNotQuery, and SpanPositionCheckQuery and its subclasses: SpanPositionRangeQuery, SpanPayloadCheckQuery, SpanNearPayloadCheckQuery, SpanFirstQuery.
+
+* Added a new query time join to the join module that uses global ordinals, which is faster for subsequent joins between reopens.
+
+* New CompositeSpatialStrategy combines speed of RPT with accuracy of SDV. Includes optimized Intersect predicate to avoid many geometry checks. Uses TwoPhaseIterator.
+
+* New LimitTokenOffsetFilter that limits tokens to those before a configured maximum start offset.
+
+* New spatial PackedQuadPrefixTree, a generally more efficient choice than QuadPrefixTree, especially for high precision shapes. When used, you should typically disable RPT's pruneLeafyBranches option.
+
+* Expressions now support bindings keys that look like zero arg functions
+
+* Add SpanWithinQuery and SpanContainingQuery that return spans inside of / containing another spans.
+
+* New Spatial "Geo3d" API with partial Spatial4j integration. It is a set of shapes implemented using 3D planar geometry for calculating spatial relations on the surface of a sphere. Shapes include Point, BBox, Circle, Path (buffered line string), and Polygon.
+
+* Various bugfixes and optimizations since the 5.1.0 release.
+
+### Highlights of this Solr release include:
+
+* Restore API allows restoring a core from an index backup.
+ 
+* JSON Facet API
+    * unique() is now implemented for numeric and date fields
+    * Optional flatter form via a "type" parameter
+    * Added support for "mincount" parameter in range facets to suppress buckets less than that count
+    * Multi-select faceting support for the Facet Module via the "excludeTags" parameter which disregards any matching tagged filters for that facet.
+    * hll() facet function for distributed cardinality via HyperLogLog algorithm.
+    See examples at http://yonik.com/solr-count-distinct/
+
+* A new "facet.range.method" parameter to let users choose how to do range faceting between an implementation based on filters (previous algorithm, using "facet.range.method=filter") or DocValues ("facet.range.method=dv")
+
+* Rule-based Replica assignment during collection, shard, and replica creation.
+
+* Stats component:
+    * New 'cardinality' option for stats.field, uses HyperLogLog to efficiently estimate the cardinality of a field w/bounded RAM. Blog post: https://lucidworks.com/blog/hyperloglog-field-value-cardinality-stats/
+    * stats.field now supports individual local params for 'countDistinct' and 'distinctValues'. 'calcdistinct' is still supported as an alias for both options.
+
+* Solr security
+    * Authentication and Authorization frameworks that define interfaces, and mechanisms to create, load, and use authorization/authentication plugins have been added.
+    * A Kerberos authentication plugin which would allow running a Kerberized Solr setup.
+
+* Solr Streaming Expressions
+   See https://cwiki.apache.org/confluence/display/solr/Streaming+Expressions
+
+* bin/post (and SimplePostTool in -Dauto=yes mode) now sends rather than skips files without a known content type, as "application/octet-stream", provided it still is in the allowed filetypes setting.
+
+* HDFS transaction log replication factor is now configurable
+
+* A cluster-wide property can now be be added/edited/deleted using the zkcli script and doesn't require a running Solr instance.
+
+* New spatial RptWithGeometrySpatialField, based on CompositeSpatialStrategy, which blends RPT indexes for speed with serialized geometry for accuracy.  Includes a Lucene segment based in-memory shape cache.
+
+* Refactored Admin UI using AngularJS. It isn't the default, but a parallel UI interface in this release.
+
+* Solr has internally been upgraded to use Jetty 9.
+
+Both releases contain a number of new features, bug fixes, and optimizations.
+
+See the [Lucene CHANGES.txt](/core/5_2_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/5_2_0/changes/Changes.html) files included
+with the release for a full list of details.
 
 ## 14 April 2015 - Apache Lucene 5.1.0 and Apache Solr 5.1.0 Available
 
