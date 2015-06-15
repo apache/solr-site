@@ -2,6 +2,34 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 15 June 2015, Apache Solr 5.2.1 available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 5.2.1
+
+Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.
+
+This release contains various bug fixes and optimizations since the 5.2.0 release. The release is available for immediate download at:
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [CHANGES.txt](/solr/5_2_1/changes/Changes.html) file included with the release for a full list of details.
+
+Solr 5.2.1 includes 8 bug fixes and 2 other changes.
+
+Release Highlights:
+
+* Fix javascript bug introduced by SOLR-7409 that breaks the dataimport screen in the admin UI
+* Faceting on a numeric field with a unique() subfacet function on another numeric field can result in incorrect results or an exception
+* New Facet Module should respect shards.tolerant and process all non-failing shards instead of throwing an exception
+* A request with a json content type but no body caused a null pointer exception
+* SolrOutputFormat creates an invalid solr.xml in the solr home zip for MapReduceIndexerTool
+* Fix new (Angular-based) admin UI Cloud pane
+* The DefaultSolrHighlighter since 5.0 was determining if payloads were present in a way that was slow, especially when lots of fields were highlighted. It's now fast
+* Requests are not distributed evenly if the collection isn't present locally
+
+See the CHANGES.txt file included with the release for a full list of changes and further details.
+
+Please report any feedback to the [mailing lists](http://lucene.apache.org/solr/discussion.html)
+
 ## 7 June 2015 - Apache Solr 5.2.0 and Reference Guide for 5.2 available
 
 Solr is the popular, blazing fast, open source NoSQL search platform

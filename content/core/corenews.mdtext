@@ -1,4 +1,24 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
+## 15 June 2015, Apache Lucene™ 5.2.1 available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 5.2.1
+
+Apache Lucene is a high-performance, full-featured text search engine library written entirely in Java. It is a technology suitable for nearly any application that requires full-text search, especially cross-platform.
+
+This release contains various bug fixes and optimizations since the 5.2.0 release.
+
+The release is available for immediate download at:
+ <http://www.apache.org/dyn/closer.cgi/lucene/java/5.2.1>
+
+Lucene 5.2.1 includes 3 bug fixes:
+
+* Fix class loading deadlock relating to Codec initialization, default codec and SPI discovery.
+* NRT readers now reflect a new commit even if there is no change to the commit user data
+* Queries now get a dummy Similarity when scores are not needed in order to not load unnecessary information like norms
+
+See the [CHANGES.txt](/core/5_2_1/changes/Changes.html) file included with the
+release for a full list of changes and further details.
+
 ## 7 June 2015 - Lucene Core 5.2.0 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 5.2.0 
