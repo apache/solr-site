@@ -2,6 +2,125 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 25 August 2015 - Apache Solr 5.2.0 and Reference Guide for 5.3 available
+
+Solr is the popular, blazing fast, open source NoSQL search platform
+from the Apache Lucene project. Its major features include powerful
+full-text search, hit highlighting, faceted search, dynamic
+clustering, database integration, rich document (e.g., Word, PDF)
+handling, and geospatial search.  Solr is highly scalable, providing
+fault tolerant distributed search and indexing, and powers the search
+and navigation features of many of the world's largest internet sites.
+
+Solr 5.3.0 is available for immediate download at:
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+See the [CHANGES.txt](/solr/5_3_0/changes/Changes.html) file included with the release for a full list of details.
+
+Solr 5.3 Release Highlights:
+
+In built security plugins implementing Basic Auth
+In addition to many other improvements in the security framework, Solr now includes an AuthenticationPlugin implementing HTTP Basic Auth that stores credentials securely in ZooKeeper. This is a simple way to require a username and password for anyone accessing Solr’s admin screen or APIs.
+
+See the Basic Authentication Plugin section of the Solr ref guide under the Securing Solr section.
+
+
+Faceting Nested Documents
+The JSON Facet API can now change the domain for facet commands, essentially doing a block join and moving from parents to children, or children to parents before calculating the facet data.
+
+For example, if you indexed chapters with pages as nested child documents, then you could map from chapters to pages before faceting by adding the following parameter to the facet command:
+
+   domain : { blockChildren : "type:chapter" }
+Or if you started with pages, you could map to chapters with
+
+   domain : { blockParent : "type:chapter" }
+Note that in both cases, we provide the parent filter (how parent documents are defined) of “type:chapter” regardless of which direction we are mapping.
+
+See this Nested Objects tutorial for complete examples of combining faceting and block join / nested documents.
+
+
+
+Facet Performance Improvements
+Major improvements in performance of the new Facet Module / JSON Facet API.
+See the facet performance benchmarks for more details.
+
+
+
+Query and Range Facets under Pivot Facets
+Just like the JSON Facet API, pivot facets can how nest other facet types such as range and query facets.
+
+Example:
+<code>
+&facet=true
+&facet.range={!tag=r1}price
+&f.price.facet.range.start=0
+&f.price.facet.range.end=100
+&f.price.facet.range.gap=10
+&facet.query={!tag=q1}popularity:[8 TO 10]
+&facet.pivot={!range=r1 query=q1}category
+</code>
+The equivalent in the JSON Facet API would be:
+<code>
+json.facet={
+  categories : {
+    type : terms,
+    field : category,
+    facet : {
+      r1 : {
+        type : range,
+        start : 0,
+        end : 100,
+        gap : 10
+      },
+      q1 : { query : "popularity:[8 TO 10]" }
+    }
+  }
+}
+</code>
+More Like This Query Parser options
+The MoreLikeThis QParser mlt now supports all options provided by the MLT Handler.
+The query parser is much more versatile than the handler as it works in cloud mode as well as anywhere a normal query can be specified.
+
+Example (on techproducts index):
+
+q={!mlt qf=name mintf=1 mindf=1}SP2514N
+More documentation on the mlt parser can be found in the Solr Ref Guide
+
+
+Schema API support in SolrJ
+The new SchemaRequest Java class in SolrJ can be used to make requests to the Schema API.
+
+Also see the Solr Schema API itself in the ref guide.
+
+Scoring mode for query-time join and block join
+Solr’s pseudo-join query parser has a new optional attribute score that can be used specify the scores produced on the resulting documents. It’s value can be min, max,avg or total.
+
+Query-time join example:
+<code>
+q={!join from=author_id to=id score=total}blog_text:awesome
+</code>
+Block join example:
+<code>
+q={!parent of=type:author score=total}blog_text:awesome</code>
+See Nested Objects in Solr for more information on nested documents and block join.
+
+
+Query Comments
+Lucene/Solr query syntax (i.e. Solr’s dialect of the lucene syntax) now supports nested C-style comments.
+
++cat:electronics /* this is a comment */ +name:HDTV
+Smile data format
+Smile is a binary data interchange format that is very close to Solr’s own “javabin” (encoded sizes are very close). Adding wt=smile to a request will cause the response to come back in this format.
+
+min/max for multi-valued docValues fields
+A second parameter has been added to the field function to select the minimum or maximum value of a multi-valued field with docValues.
+
+Example:
+
+sort=field(my_dv_field,max) asc
+
+
+
 ## 15 June 2015, Apache Solr 5.2.1 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 5.2.1
