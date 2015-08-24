@@ -31,6 +31,9 @@ Copies of this documentation for the most recent release of each major branch un
 Beginning with Solr 4.4, a detailed reference guide is available online or as PDF downloads.
 <!-- 
 Do not add a version# to the text label for ref guide download unless there is a clear mechanism to maintain it.
+The template "{% include "content/latestversion.mdtext" %}" is tied directly to the code release version and so can not be
+used for ref guide release version unless we either 1. guarantee code and ref guide release to happen together, always or
+2. Make the change here explicitly as part of the ref guide release process to reflect ref guide .
 -->
 
 [Officially Released Reference Guide for Solr](https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/)
