@@ -38,10 +38,10 @@ and Solr can be downloaded from <http://www.apache.org/dyn/closer.cgi/lucene/sol
 * The JSON Facet API can now change the domain for facet commands, essentially doing a block join and moving from parents to children, or children to parents before calculating the facet data.
 * Major improvements in performance of the new Facet Module / JSON Facet API.
 * Query and Range Facets under Pivot Facets. Just like the JSON Facet API, pivot facets can how nest other facet types such as range and query facets.
-* More Like This Query Parser options. The MoreLikeThis QParser mlt now supports all options provided by the MLT Handler. The query parser is much more versatile than the handler as it works in cloud mode as well as anywhere a normal query can be specified.
-Schema API support in SolrJ
-* Scoring mode for query-time join and block join.
-* Smile response format
+* More Like This Query Parser options. The MoreLikeThis QParser now supports all options provided by the MLT Handler. The query parser is much more versatile than the handler as it works in cloud mode as well as anywhere a normal query can be specified.
+* Added Schema API support in SolrJ
+* Added Scoring mode for query-time join and block join.
+* Added Smile response format
 
 See the [Lucene CHANGES.txt](/core/5_3_0/changes/Changes.html) and
 [Solr CHANGES.txt](/solr/5_3_0/changes/Changes.html) files included
