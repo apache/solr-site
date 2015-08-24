@@ -33,8 +33,8 @@ and Solr can be downloaded from <http://www.apache.org/dyn/closer.cgi/lucene/sol
  * Various bugfixes and optimizations since the 5.2.0 release.
 
 ### Highlights of this Solr release include:
-* In built security plugins implementing Basic Auth
-* In addition to many other improvements in the security framework, Solr now includes an AuthenticationPlugin implementing HTTP Basic Auth that stores credentials securely in ZooKeeper. This is a simple way to require a username and password for anyone accessing Solr’s admin screen or APIs.
+* In built security plugins implementing Basic Auth . In addition to many other improvements in the security framework, Solr now includes an AuthenticationPlugin implementing HTTP Basic Auth that stores credentials securely in ZooKeeper. This is a simple way to require a username and password for anyone accessing Solr’s admin screen or APIs.
+* In built AuthorizationPlugin that provides fine grained control over implementing ACLs for various resources with permisssion rules which are stored in ZooKeeper.
 * The JSON Facet API can now change the domain for facet commands, essentially doing a block join and moving from parents to children, or children to parents before calculating the facet data.
 * Major improvements in performance of the new Facet Module / JSON Facet API.
 * Query and Range Facets under Pivot Facets. Just like the JSON Facet API, pivot facets can how nest other facet types such as range and query facets.
