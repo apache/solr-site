@@ -11,8 +11,6 @@ any application that requires full-text search, especially cross-platform.
 The release is available for immediate download at:
  <http://www.apache.org/dyn/closer.cgi/lucene/java/5.3.0>
 
-Lucene 5.3.0 release highlights:
-
 The Lucene PMC is pleased to announce the release of Apache Lucene 5.3.0
 
 Apache Lucene is a high-performance, full-featured text search engine
@@ -27,24 +25,28 @@ is available for immediate download at:
 Please read CHANGES.txt for a full list of new features and changes:
   https://lucene.apache.org/core/5_3_0/changes/Changes.html
 
-Lucene 5.3.0 Release Highlights:
+### Lucene 5.3.0 Release Highlights:
 
-API Changes
+### Highlights of this Lucene release include:
+#### API Changes
+
  * PhraseQuery and BooleanQuery are now immutable
 
-New features
+#### New features
+
  * Added a new org.apache.lucene.search.join.CheckJoinIndex class that can be used to validate that an index has an appropriate structure to run join queries
  * Added a new BlendedTermQuery to blend statistics across several terms
  * New common suggest API that mirrors Lucene's Query/IndexSearcher APIs for Document based suggester.
  * IndexWriter can now be initialized from an already open near-real-time or non-NRT reader
  * Add experimental range tree doc values format and queries, based on a 1D version of the spatial BKD tree, for a faster and smaller alternative to postings-based numeric and binary term filtering.  Range trees can also handle values larger than 64 bits.
 
-Geo-related features and improvements
+#### Geo-related features and improvements
+
  * Added GeoPointField, GeoPointInBBoxQuery, GeoPointInPolygonQuery for simple "indexed lat/lon point in bbox/shape" searching
  * Added experimental BKD geospatial tree doc values format and queries, for fast "bbox/polygon contains lat/lon points"
  * Use doc values to post-filter GeoPointField hits that fall in boundary cells, resulting in smaller index, faster searches and less heap used for each query
 
-Optimizations
+#### Optimizations
  * Reduce RAM usage of FieldInfos, and speed up lookup by number, by using an array instead of TreeMap except in very sparse cases
  * Faster intersection of the terms dictionary with very finite automata, which can be generated eg. by simple regexp queries
  * Various bugfixes and optimizations since the 5.2.0 release.
