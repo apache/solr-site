@@ -10,7 +10,7 @@ and getting a feel for the Solr administrative and search interfaces.
 To follow along with this tutorial, you will need...
 
 1. To meet the [system requirements](/solr/api/SYSTEM_REQUIREMENTS.html)
-2. An Apache Solr release.  This tutorial was written using Apache Solr 5.3.0.
+2. An Apache Solr release.  This tutorial was written using Apache Solr 5.3.1.
 
 ## Getting Started
 
@@ -22,13 +22,13 @@ Note that the base directory name may vary with the version of Solr downloaded. 
 Cygwin, or MacOS:
 
     /:$ ls solr*
-    solr-5.3.0.zip
-    /:$ unzip -q solr-5.3.0.zip
-    /:$ cd solr-5.3.0/
+    solr-5.3.1.zip
+    /:$ unzip -q solr-5.3.1.zip
+    /:$ cd solr-5.3.1/
 
 To launch Solr, run: `bin/solr start -e cloud -noprompt`
 
-    /solr-5.3.0:$ bin/solr start -e cloud -noprompt
+    /solr-5.3.1:$ bin/solr start -e cloud -noprompt
 
     Welcome to the SolrCloud example!
 
@@ -44,7 +44,7 @@ To launch Solr, run: `bin/solr start -e cloud -noprompt`
 
     SolrCloud example running, please visit http://localhost:8983/solr
 
-    /solr-5.3.0:$ _
+    /solr-5.3.1:$ _
 
 You can see that the Solr is running by loading the Solr Admin UI in your web browser: <http://localhost:8983/solr/>.
 This is the main starting point for administering Solr.
@@ -80,8 +80,8 @@ subdirectory, so that makes a convenient set of (mostly) HTML files built-in to 
 Here's what it'll look like:
 
     /solr-5.3.1:$ bin/post -c gettingstarted docs/
-    java -classpath /solr-5.3.0/dist/solr-core-5.3.1.jar -Dauto=yes -Dc=gettingstarted -Ddata=files -Drecursive=yes org.apache.solr.util.SimplePostTool docs/
-    SimplePostTool version 5.3.0
+    java -classpath /solr-5.3.1/dist/solr-core-5.3.1.jar -Dauto=yes -Dc=gettingstarted -Ddata=files -Drecursive=yes org.apache.solr.util.SimplePostTool docs/
+    SimplePostTool version 5.3.1
     Posting files to [base] url http://localhost:8983/solr/gettingstarted/update...
     Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
     Entering recursive mode, max depth=999, delay=0s
@@ -133,9 +133,9 @@ Using `bin/post`, index the example Solr XML files in `example/exampledocs/`:
 
 Here's what you'll see:
 
-    /solr-5.3.0:$ bin/post -c gettingstarted example/exampledocs/*.xml
-    java -classpath /solr-5.3.0/dist/solr-core-5.3.0-SNAPSHOT.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/gb18030-example.xml ...
-    SimplePostTool version 5.3.0
+    /solr-5.3.1:$ bin/post -c gettingstarted example/exampledocs/*.xml
+    java -classpath /solr-5.3.1/dist/solr-core-5.3.1-SNAPSHOT.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/gb18030-example.xml ...
+    SimplePostTool version 5.3.1
     Posting files to [base] url http://localhost:8983/solr/gettingstarted/update...
     Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
     POSTing file gb18030-example.xml (application/xml) to [base]
@@ -177,9 +177,9 @@ sample JSON file:
 
 You'll see:
 
-    /solr-5.3.0:$ bin/post -c gettingstarted example/exampledocs/books.json
-    java -classpath /solr-5.3.0/dist/solr-core-5.3.0-SNAPSHOT.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/books.json
-    SimplePostTool version 5.3.0
+    /solr-5.3.1:$ bin/post -c gettingstarted example/exampledocs/books.json
+    java -classpath /solr-5.3.1/dist/solr-core-5.3.1-SNAPSHOT.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/books.json
+    SimplePostTool version 5.3.1
     Posting files to [base] url http://localhost:8983/solr/gettingstarted/update...
     Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
     POSTing file books.json (application/json) to [base]
@@ -204,9 +204,9 @@ Using `bin/post` index the included example CSV file:
 
 In your terminal you'll see:
 
-    /solr-5.3.0:$ bin/post -c gettingstarted example/exampledocs/books.csv
-    java -classpath /solr-5.3.0/dist/solr-core-5.3.0.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/books.csv
-    SimplePostTool version 5.3.0
+    /solr-5.3.1:$ bin/post -c gettingstarted example/exampledocs/books.csv
+    java -classpath /solr-5.3.1/dist/solr-core-5.3.1.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/books.csv
+    SimplePostTool version 5.3.1
     Posting files to [base] url http://localhost:8983/solr/gettingstarted/update...
     Entering auto mode. File endings considered are xml,json,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
     POSTing file books.csv (text/csv) to [base]
@@ -289,7 +289,7 @@ with the term you want to find.  To search for "foundation":
 
 You'll see:
 
-    /solr-5.3.0$ curl "http://localhost:8983/solr/gettingstarted/select?wt=json&indent=true&q=foundation"
+    /solr-5.3.1$ curl "http://localhost:8983/solr/gettingstarted/select?wt=json&indent=true&q=foundation"
     {
       "responseHeader":{
         "status":0,
