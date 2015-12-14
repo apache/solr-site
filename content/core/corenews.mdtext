@@ -1,5 +1,32 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 14 December 2015 - Apache Lucene 5.4.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 5.4.0
+
+The release can be downloaded from <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+
+### Highlights of this Lucene release include:
+####API Changes
+* Query.getBoost and Query.setBoost are deprecated in favour of the new BoostQuery
+* The Filter class is deprecated in favour of FILTER clauses in a BooleanQuery
+* DefaultSimilarity has been renamed to ClassicSimilarity to prepare for the move to BM25 in Lucene 6
+
+####New features
+* New Serbian token filter
+* New DecimalDigitFilter, to fold unicode digits to latin digits
+* New UnicodeWhitespaceTokenizer, that uses Unicode's whitespace definition and splits on NBSP
+* New GeoPointDistanceRangeQuery to search for geo-points within a ring
+* Query caching is now enabled by default in IndexSearcher, use IndexSearcher.setQueryCache(null) to disable
+
+####Optimizations
+* MatchAllDocsQuery got faster
+* Doc values now use less memory for multi-valued fields and less disk in case of sparse fields
+* Two-phase iterators got a match cost API so that the costly bits can be checked last
+
+####Bug fixes
+* PatternTokenizer no longer hangs onto heap sized to the maximum input string it's ever seen.
+
 ## 24 September 2015 - Apache Lucene 5.3.1 and Apache Solr 5.3.1 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 5.3.1
