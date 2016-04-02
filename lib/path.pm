@@ -14,12 +14,11 @@ our @patterns = (
 [qr!core\/mirrors-core-3x-redir\.mdtext$!, main => { template => "mirrors-core-3x-redir.html"	}],# have downloads go to a redirect so that we can see how many people are actually clicking the link
 [qr!solr\/mirrors-solr-3x-redir\.mdtext$!, main => { template => "mirrors-solr-3x-redir.html"	}],
 
-  [qr!core\/index\.mdtext$!, main => { template => "core.html",
+  [qr!core\/index\.mdtext$!, main => {
+    template => "core.html",
     preprocess => 1,
-  	jira     => ASF::Value::Jira->new(limit => 5,
+    jira     => ASF::Value::Jira->new(limit => 5,
                                       url => "http://s.apache.org/corejira", localMode => $localMode),
-    svn      => ASF::Value::SVN->new(limit => 5, project => "/lucene/dev/trunk",
-                                      localMode => $localMode),
     coreuser => ASF::Value::Mail->new(list => 'java-user@lucene.apache.org',
                                           limit => 3,
                                           localMode => $localMode),
@@ -39,8 +38,6 @@ our @patterns = (
   [qr!solr\/index\.mdtext$!, main => {
     template => "solr-index.html",
     preprocess => 1,
-    svn      => ASF::Value::SVN->new(limit => 5, project => "/lucene/dev/trunk",
-                                      localMode => $localMode),
     jira     => ASF::Value::Jira->new(limit => 5,
                                       url => "http://s.apache.org/solrjira",
                                       localMode => $localMode),

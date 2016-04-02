@@ -10,23 +10,11 @@
   </div>
   <span class="sidenav">{% filter markdown %}{% include "solrnav.mdtext" %}{% endfilter %}
     <div class="status">
+      <!-- No SVN anymore; TODO: how to do Git? INFRA does not have a plugin!
       <div id="svn">
-        <h1>Latest SVN</h1>
-
-        {% if svn.list %}
-        <div class="status-item">
-          {% for e in svn.list %}
-          <div class="section-content">
-            <a class="svn" href="http://svn.apache.org/viewvc?revision={{ e.revision }};view=revision">r{{ e.revision }}</a>
-            {{ e.message|safe|truncatewords_html:20 }} ({{ e.projects|safe }}) &mdash;
-            <a href="http://people.apache.org/committer-index.html#{{ e.author }}">{{ e.author }}</a>
-          </div>
-          {% endfor %}
-        </div>
-        {% else if %}
-          <div class="status-item">Not Available</div>
-        {% endif %}
+        <h1>Latest Git</h1>
       </div>
+      -->
 
       <!--div id="solr-twitter">
         <h1>#solr</h1>
