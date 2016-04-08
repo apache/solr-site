@@ -10,7 +10,7 @@ Release Highlights:
 
   * Java 8 is the minimum Java version required.
 
-  * Dimensional points, replacing legacy numeric fields, provides fast and space-efficient support for both single- and multi-dimension range and shape filtering.  This includes numeric (int, float, long, double), InetAddress, BigInteger and binary range filtering, as well as geo-spatial shape search over indexed 2D LatLonPoints.  See https://www.elastic.co/blog/lucene-points-6.0 for details.  Dependent classes and modules (e.g., MemoryIndex, Spatial Strategies, Join module) have been refactored to use new point types.
+  * Dimensional points, replacing legacy numeric fields, provides fast and space-efficient support for both single- and multi-dimension range and shape filtering.  This includes numeric (int, float, long, double), InetAddress, BigInteger and binary range filtering, as well as geo-spatial shape search over indexed 2D LatLonPoints.  See [this blog post](https://www.elastic.co/blog/lucene-points-6.0) for details.  Dependent classes and modules (e.g., MemoryIndex, Spatial Strategies, Join module) have been refactored to use new point types.
 
   * Lucene classification module now works on Lucene Documents using a KNearestNeighborClassifier or SimpleNaiveBayesClassifier.
 
@@ -680,4 +680,3 @@ with the release for a full list of details.
   geometry relationship calculations.
 
 * Various bugfixes and optimizations since the 4.6.1 release.
-
