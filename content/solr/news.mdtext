@@ -2,6 +2,40 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 17 June 2016, Apache Solr 6.1.0 available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 6.1.0.
+
+Solr is the popular, blazing fast, open source NoSQL search platform
+from the Apache Lucene project. Its major features include powerful
+full-text search, hit highlighting, faceted search and analytics,
+rich document parsing, geospatial search, extensive REST APIs as well
+as parallel SQL. Solr is enterprise grade, secure and highly scalable,
+providing fault tolerant distributed search and indexing, and powers
+the search and navigation features of many of the world's largest
+internet sites.
+
+Solr 6.1.0 is available for immediate download at:
+
+  http://www.apache.org/dyn/closer.lua/lucene/solr/6.1.0
+
+Solr 6.1 Release Highlights:
+
+ * Added graph traversal support, and new "sort" and "random" streaming expressions. It's also now possible to create streaming expressions with the Solr Admin UI.
+
+ * Fixed the ENUM faceting method to not be unnecessarily rewritten to FCS, which was causing slowdowns.
+
+ * Reduced garbage creation when creating cache entries.
+
+ * New [subquery] document transformer to obtatin related documents per result doc.
+
+ * EmbeddedSolrServer allocates heap much wisely even with plain document list without callbacks.
+ 
+ * New GeoJSON response writer for encoding geographic data in query responses.
+
+See the [CHANGES.txt](https://lucene.apache.org/solr/6_1_0/changes/Changes.html)
+file included with the release for a detailed list of changes.
+
 ## 28 May 2016, Apache Solr 6.0.1 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 6.0.1
