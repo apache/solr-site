@@ -19,17 +19,25 @@ Please read CHANGES.txt for a full list of new features and changes:
 Lucene 6.1.0 Release Highlights:
 
 New features
+
   * Numerous improvements to LatLonPoint, for indexing a latitude/longitude point and searching by polygon, distance or box, or finding nearest neighbors
+
   * Geo3D now has simple APIs for creating common shape queries, matching LatLonPoint
 
 Optimizations
+
   * Faster indexing and searching of points.
+
   * Faster geo-spatial indexing and searching for LatLonPoint, Geo3D and GeoPoint (see http://home.apache.org/~mikemccand/geobench.html )
+
   * HardlinkCopyDirectoryWrapper optimizes file copies using hard links
+
   * In case of contention, the query cache now prefers returning an uncached Scorer rather than waiting on a lock.
 
 Bug fixes
+
   * BooleanQuery could sometimes assign too low scores to ranges of documents that matched a single clause.
+
   * Doc values updates could sometimes be applied in the wrong order.
 
 
