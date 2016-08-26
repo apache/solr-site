@@ -1,5 +1,93 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 25 August 2016 - Apache Lucene 6.2.0 and Apache Solr 6.2.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 6.2.0 and Apache Solr 6.2.0.
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/6.2.0>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/6.2.0>
+
+### Highlights of this Lucene release include:
+
+  * The CREATE_NEW flag is passed when creating a file to ensure Lucene is really write-once
+
+  * Index numeric ranges (min and max value in a single field) and search by overlapping range
+
+  * IndexWriter methods return a sequence number indicating effective order of operations across threads
+
+  * UkrainianMorfologikAnalyzer is a new dictionary based analyzer for the Ukrainian language
+
+  * The Polygon class can now be created from a GeoJSON string
+
+  * Compound file creation now verifies checksum of its component files
+
+  * Index time sorting is now a core feature, and supports dimensional points
+
+  * StandardAnalyzer is moved to core and is the default analyzer
+
+  * MatchNoDocsQuery now includes the reason it was created
+
+  * QueryParser can now be told to not pre-split on whitespace
+
+  * MMapDirectory tries harder to prevent SIGSEGV if buggy code tries to execute
+    searches after the index was closed, but it's still best effort
+
+  * MMapDirectory no longer allocates weak references to ease garbage collection
+
+  * Conjunction (MUST, FILTER) queries are faster
+
+  * Dimensional points have much faster (~40%) flush time and use less space in the index
+
+### Highlights of this Solr release include:
+
+DocValues, streaming, /export, machine learning
+
+  * DocValues can now be used with BoolFields
+
+  * Date and boolean support added to /export handler
+
+  * Add "scoreNodes" streaming graph expression
+
+  * Support parallel ETL with the "topic" expression
+
+  * Feature selection and logistic regression on text via new streaming expressions: "features" and "train"
+
+bin/solr script
+
+  * Add basic auth support to the bin/solr script
+
+  * File operations to/from Zookeeper are now supported
+
+SolrCloud
+
+  * New tag 'role' in replica placement rules, e.g. rule=role:!overseer keeps new repicas off overseer nodes
+
+  * CDCR: fall back to whole-index replication when tlogs are insufficient
+
+  * New REPLACENODE command to decommission an existing node and replace it with another new node
+
+  * New DELETENODE command to delete all replicas on a node
+
+Security
+
+  * Add Kerberos delegation token support
+
+  * Support secure impersonation / proxy user for Kerberos authentication
+
+Misc changes
+
+  * A large number of regressions were fixed in the new Admin UI
+
+  * New boolean comparison function queries comparing numeric arguments: gt, gte, lt, lte, eq
+
+  * Upgraded Extraction module to Apache Tika 1.13.
+
+  * Updated to Hadoop 2.7.2
+
+See the [Lucene CHANGES.txt](/core/6_2_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/6_2_0/changes/Changes.html) files included
+with the release for a full list of details.
+
 ## 25 June 2016 - Apache Lucene 5.5.2 and Apache Solr 5.5.2 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 5.5.2 and Apache Solr 5.5.2
