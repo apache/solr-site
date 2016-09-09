@@ -2,6 +2,30 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 09 September 2016, Apache Solr 5.5.3 available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 5.5.3
+
+Solr is the popular, blazing fast, open source NoSQL search platform
+from the Apache Lucene project. Its major features include powerful
+full-text search, hit highlighting, faceted search, dynamic
+clustering, database integration, rich document (e.g., Word, PDF)
+handling, and geospatial search. Solr is highly scalable, providing
+fault tolerant distributed search and indexing, and powers the search
+and navigation features of many of the world's largest internet sites.
+
+This release includes 5 bug fixes since the 5.5.2 release.
+
+This release specially contains 2 critical fixes:
+* The number of TCP connections in CLOSE_WAIT state do not spike during indexing,
+* PeerSync no longer fails on a node restart due to IndexFingerPrint mismatch.
+
+The release is available for immediate download at:
+<http://www.apache.org/dyn/closer.lua/lucene/solr/5.5.3>
+
+See the [CHANGES.txt](https://lucene.apache.org/solr/5_5_3/changes/Changes.html)
+file included with the release for a detailed list of changes.
+
 ## 25 August 2016, Apache Solr 6.2.0 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 6.2.0.
