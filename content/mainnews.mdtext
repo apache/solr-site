@@ -1,5 +1,18 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 20 September 2016 - Apache Lucene 6.2.1 and Apache Solr 6.2.1 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 6.2.1 and Apache Solr 6.2.1
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/6.2.1>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/6.2.1>
+
+Both releases contain a number of bug fixes.
+
+See the [Lucene CHANGES.txt](/core/6_2_1/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/6_2_1/changes/Changes.html) files included
+with the release for a full list of details.
+
 ## 09 September 2016 - Apache Lucene 5.5.3 and Apache Solr 5.5.3 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 5.5.3 and Apache Solr 5.5.3
@@ -308,7 +321,7 @@ The Lucene PMC is pleased to announce the release of Apache Lucene 5.4.1 and Apa
 Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/5.4.1>
 and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/5.4.1>
 
-This release contains an important fix for a corruption bug that was 
+This release contains an important fix for a corruption bug that was
 introduced in version 5.4.0. If you are on 5.4.0 and using BINARY,
 SORTED_NUMERIC or SORTED_SET doc values, upgrading to 5.4.1 is strongly
 recommended.
@@ -500,7 +513,7 @@ and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/sol
 ### Highlights of this Solr release include:
 
 * Restore API allows restoring a core from an index backup.
- 
+
 * JSON Facet API
     * unique() is now implemented for numeric and date fields
     * Optional flatter form via a "type" parameter
@@ -781,7 +794,7 @@ with the release for a full list of details.
 
 Apache Solr versions 4.8.0, 4.8.1, 4.9.0 bundle Apache POI 3.10-beta2 with its binary release tarball.
 This version (and all previous ones) of Apache POI are vulnerable to the following issues:
-CVE-2014-3529 *(XML External Entity (XXE) problem in Apache POI's OpenXML parser)*, 
+CVE-2014-3529 *(XML External Entity (XXE) problem in Apache POI's OpenXML parser)*,
 CVE-2014-3574 *(XML Entity Expansion (XEE) problem in Apache POI's OpenXML parser)*.
 
 The Apache POI PMC released a bugfix version (3.10.1) today.
@@ -940,17 +953,17 @@ with the release for a full list of details.
   <code class="inline">&lt;field&gt;</code> and <code class="inline">&lt;copyField&gt;</code> definitions if desired.
 
 * The new \{!complexphrase\} query parser supports wildcards, ORs etc.
-  inside Phrase Queries. 
+  inside Phrase Queries.
 
 * New Collections API CLUSTERSTATUS action reports the status of
   collections, shards, and replicas, and also lists collection
   aliases and cluster properties.
- 
+
 * Added managed synonym and stopword filter factories, which enable
   synonym and stopword lists to be dynamically managed via REST API.
 
 * JSON updates now support nested child documents, enabling \{!child\}
-  and \{!parent\} block join queries. 
+  and \{!parent\} block join queries.
 
 * Added ExpandComponent to expand results collapsed by the
   CollapsingQParserPlugin, as well as the parent/child relationship
@@ -967,8 +980,8 @@ with the release for a full list of details.
 
 * New DocExpirationUpdateProcessorFactory supports computing an
   expiration date for documents from the "TTL" expression, as well as
-  automatically deleting expired documents on a periodic basis. 
-  
+  automatically deleting expired documents on a periodic basis.
+
 
 ## 15 April 2014 - Apache Lucene 4.7.2 and Apache Solr 4.7.2 Available
 
@@ -1123,4 +1136,3 @@ Lucene 4.5 also includes numerous optimizations and bugfixes.
   leader.
 
 Solr 4.5 also includes numerous optimizations and bugfixes.
-
