@@ -1,5 +1,28 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 20 September 2016, Apache Lucene™ 6.2.1 available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 6.2.1
+
+Apache Lucene is a high-performance, full-featured text search engine
+library written entirely in Java. It is a technology suitable for nearly
+any application that requires full-text search, especially cross-platform.
+
+### Highlights of this Lucene release include:
+
+* LUCENE-7417: The standard Highlighter could throw an !IllegalArgumentException when trying to highlight a query containing a degenerate case of a !MultiPhraseQuery with one term.
+
+* LUCENE-7440: Document id skipping (!PostingsEnum.advance) could throw an !ArrayIndexOutOfBoundsException exception on large index segments (>1.8B docs) with large skips.
+
+* LUCENE-7318: Fix backwards compatibility issues around StandardAnalyzer and its components, introduced with Lucene 6.2.0. The moved classes were restored in their original packages: LowercaseFilter and StopFilter, as well as several utility classes.
+
+The release is available for immediate download at:
+
+  <http://www.apache.org/dyn/closer.lua/lucene/java/6.2.1>
+
+See the [CHANGES.txt](/core/6_2_1/changes/Changes.html) file included with the
+release for a full list of changes and further details.
+
 ## 09 September 2016 - Apache Lucene 5.5.3 available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 5.5.3
@@ -131,7 +154,7 @@ any application that requires full-text search, especially cross-platform.
 
 This release contains 10 bug fixes since the 6.0.0 release, and one new feature:
 
-  * Spatial-extras DateRangePrefixTree's Calendar is now configurable, to e.g. clear the Gregorian Change Date. Also, toString(cal) is now identical to DateTimeFormatter.ISO_INSTANT. 
+  * Spatial-extras DateRangePrefixTree's Calendar is now configurable, to e.g. clear the Gregorian Change Date. Also, toString(cal) is now identical to DateTimeFormatter.ISO_INSTANT.
 
 The release is available for immediate download at:
 
@@ -360,7 +383,7 @@ release for a full list of changes and further details.
 
 ## 7 June 2015 - Lucene Core 5.2.0 Available
 
-The Lucene PMC is pleased to announce the release of Apache Lucene 5.2.0 
+The Lucene PMC is pleased to announce the release of Apache Lucene 5.2.0
 
 Apache Lucene is a high-performance, full-featured text search engine
 library written entirely in Java. It is a technology suitable for nearly
@@ -396,7 +419,7 @@ release for a full list of changes and further details.
 
 ## 14 April 2015 - Lucene Core 5.1.0 Available
 
-The Lucene PMC is pleased to announce the release of Apache Lucene 5.1.0 
+The Lucene PMC is pleased to announce the release of Apache Lucene 5.1.0
 
 Apache Lucene is a high-performance, full-featured text search engine
 library written entirely in Java. It is a technology suitable for nearly
@@ -508,7 +531,7 @@ library written entirely in Java. It is a technology suitable for nearly
 any application that requires full-text search, especially cross-platform.
 
 The release is available for immediate download at:
- <http://lucene.apache.org/core/mirrors-core-latest-redir.html> 
+ <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
 
 Lucene 4.10.3 includes 12 bug fixes.
 
@@ -524,7 +547,7 @@ library written entirely in Java. It is a technology suitable for nearly
 any application that requires full-text search, especially cross-platform.
 
 The release is available for immediate download at:
- <http://lucene.apache.org/core/mirrors-core-latest-redir.html> 
+ <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
 
 Lucene 4.10.2 includes 2 bug fixes.
 
@@ -540,7 +563,7 @@ library written entirely in Java. It is a technology suitable for nearly
 any application that requires full-text search, especially cross-platform.
 
 The release is available for immediate download at:
- <http://lucene.apache.org/core/mirrors-core-latest-redir.html> 
+ <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
 
 Lucene 4.10.1 includes 7 bug fixes.
 
@@ -556,7 +579,7 @@ library written entirely in Java. It is a technology suitable for nearly
 any application that requires full-text search, especially cross-platform.
 
 The release is available for immediate download at:
- <http://lucene.apache.org/core/mirrors-core-latest-redir.html> 
+ <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
 
 Lucene 4.9.1 includes 7 bug fixes.
 
@@ -648,7 +671,7 @@ library written entirely in Java. It is a technology suitable for nearly
 any application that requires full-text search, especially cross-platform.
 
 The release is available for immediate download at:
- <http://lucene.apache.org/core/mirrors-core-latest-redir.html> 
+ <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
 
 Lucene 4.8.1 includes 15 bug fixes.
 
@@ -729,9 +752,9 @@ library written entirely in Java. It is a technology suitable for nearly
 any application that requires full-text search, especially cross-platform.
 
 The release is available for immediate download at:
- <http://lucene.apache.org/core/mirrors-core-latest-redir.html> 
+ <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
 
-Lucene 4.7.2 includes 2 bug fixes, including a possible index corruption 
+Lucene 4.7.2 includes 2 bug fixes, including a possible index corruption
 with near-realtime search.
 
 See the [CHANGES.txt](/core/4_7_2/changes/Changes.html) file included with the
@@ -747,7 +770,7 @@ library written entirely in Java. It is a technology suitable for nearly
 any application that requires full-text search, especially cross-platform.
 
 The release is available for immediate download at:
- <http://lucene.apache.org/core/mirrors-core-latest-redir.html> 
+ <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
 
 Lucene 4.7.1 includes 14 bug fixes; one build improvement; and one change in
 runtime behavior: AutomatonQuery.equals is no longer implemented as "accepts
@@ -795,7 +818,7 @@ with the release for a full list of details.
 
 ### Lucene 4.7 Release Highlights:
 
-* When sorting by String (SortField.STRING), you can now specify whether missing values should be sorted first (the default), or last. 
+* When sorting by String (SortField.STRING), you can now specify whether missing values should be sorted first (the default), or last.
 
 * Add two memory resident dictionaries (FST terms dictionary and FSTOrd
   terms dictionary) to improve primary key lookups. The
