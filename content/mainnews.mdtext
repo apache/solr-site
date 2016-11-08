@@ -1,5 +1,102 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 8 November 2016 - Apache Lucene 6.3.0 and Apache Solr 6.3.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 6.3.0 and Apache Solr 6.3.0.
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/6.3.0>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/6.3.0>
+
+### Highlights of this Lucene release include:
+
+  * A brand new "UnifiedHighlighter" derivative of the PostingsHighlighter that can consume offsets from postings, term vectors, or analysis. It can highlight phrases as accurately as the standard Highlighter. Light term vectors can be used with offsets in postings for fast wildcard (MultiTermQuery) highlighting.
+
+  * SimpleQueryParser now parses '*' to MatchAllDocsQuery
+
+  * FuzzyQuery now matches all terms within the specified edit distance, even if they are short terms
+
+  * Points do not store the implicit split dimension in the 1-dimension case. This saves between 6% memory for the largest types such an InetAddressPoint to 33% for the smaller types such as HalfFloatPoint.
+
+  * Many other changes and bug fixes
+
+### Highlights of this Solr release include:
+
+DocValues, streaming, /export, machine learning
+
+  * Optimize, store and deploy AI models in Solr
+
+  * Ability to add custom streaming expressions
+
+  * New streaming expressions such as "fetch", "executor", and "commit" added.
+
+  * Parallel SQL accepts <, >, =, etc., symbols.
+
+  * Support facet scoring with the scoreNodes expression
+
+  * Retrieving docValues as stored values was sped up by using the proper leaf reader rather than ask for a global view.  In extreme cases, this leads to a 100x speedup.
+
+Faceting:
+
+  * facet.method=enum can bypass exact counts calculation with facet.exists=true, it just returns 1 for terms which exists in result docset
+
+  * Add "overrequest" parameter to JSON Facet API to control amount of overrequest  on a distributed terms facet
+
+Logging:
+
+  * You can now set Solr's log level through environment variable SOLR_LOG_LEVEL
+
+  * GC logs are rotated by JVM to a max of 9 files, and backed up via bin/solr scripts
+
+  * Solr's logging verbosity at the INFO level has been greatly reduced by moving much logging to DEBUG level
+
+  * The solr-8983-console.log file now only logs STDOUT and STDERR output, not all log4j logs as before
+
+  * Solr's main log file, solr.log, is now written to SOLR_LOGS_DIR without changing log4j.properties
+
+Start scripts:
+
+  * Allow 180 seconds for shutdown before killing solr (configurable, old limit 5s) (Unix only)
+
+  * Start scripts now exits with informative message if using wrong Java version
+
+  * Fixed "bin/solr.cmd zk upconfig" command which was broken on windows
+
+  * You can now ask for DEBUG logging simply with '-v' option, and for WARN logging with '-q' option
+
+SolrCloud:
+
+  * The DELETEREPLICA API can accept a 'count' parameter and remove "count" number of replicas from each shard if the shard name is not provided
+
+  * The config API shows expanded useParams for request handlers inline
+
+  * Ability to create/delete/list snapshots at collection level
+
+  * The modify collection API now waits for the modified properties to show up in the cluster state before returning
+
+  * Many bug fixes related to SolrCloud recovery for data safety and faster recovery times.
+
+Security:
+
+  * SolrJ now supports Kerberos delegation tokens
+
+  * Pooled SSL connections were not being re-used. This is now fixed.
+
+  * Fix for the blockUnknown property which made inter-node communication impossible
+
+  * Support SOLR_AUTHENTICATION_OPTS and SOLR_AUTHENTICATION_CLIENT_CONFIGURER in windows bin/solr.cmd script
+
+  * New parameter -u <user:pass> in bin/post to pass basicauth credentials
+
+Misc changes:
+
+  * Optimizations to lower memory allocations when indexing JSON as well as for replication between solr cloud nodes.
+
+  * A new Excel workbook (.xlsx) response writer has been added. Use 'wt=xlsx' request parameter on a query request to enable.
+
+See the [Lucene CHANGES.txt](/core/6_3_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/6_3_0/changes/Changes.html) files included
+with the release for a full list of details.
+
 ## 20 September 2016 - Apache Lucene 6.2.1 and Apache Solr 6.2.1 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 6.2.1 and Apache Solr 6.2.1

@@ -4,6 +4,99 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 8 November 2016 - Apache Solr™ 6.3.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 6.3.0.
+
+Solr is the popular, blazing fast, open source NoSQL search platform
+from the Apache Lucene project. Its major features include powerful
+full-text search, hit highlighting, faceted search and analytics,
+rich document parsing, geospatial search, extensive REST APIs as well
+as parallel SQL. Solr is enterprise grade, secure and highly scalable,
+providing fault tolerant distributed search and indexing, and powers
+the search and navigation features of many of the world's largest
+internet sites.
+
+Solr 6.3.0 is available for immediate download at:
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+
+### Highlights of this Solr release include:
+
+DocValues, streaming, /export, machine learning
+
+  * Optimize, store and deploy AI models in Solr
+
+  * Ability to add custom streaming expressions
+
+  * New streaming expressions such as "fetch", "executor", and "commit" added.
+
+  * Parallel SQL accepts <, >, =, etc., symbols.
+
+  * Support facet scoring with the scoreNodes expression
+
+  * Retrieving docValues as stored values was sped up by using the proper leaf reader rather than ask for a global view.  In extreme cases, this leads to a 100x speedup.
+
+Faceting:
+
+  * facet.method=enum can bypass exact counts calculation with facet.exists=true, it just returns 1 for terms which exists in result docset
+
+  * Add "overrequest" parameter to JSON Facet API to control amount of overrequest  on a distributed terms facet
+
+Logging:
+
+  * You can now set Solr's log level through environment variable SOLR_LOG_LEVEL
+
+  * GC logs are rotated by JVM to a max of 9 files, and backed up via bin/solr scripts
+
+  * Solr's logging verbosity at the INFO level has been greatly reduced by moving much logging to DEBUG level
+
+  * The solr-8983-console.log file now only logs STDOUT and STDERR output, not all log4j logs as before
+
+  * Solr's main log file, solr.log, is now written to SOLR_LOGS_DIR without changing log4j.properties
+
+Start scripts:
+
+  * Allow 180 seconds for shutdown before killing solr (configurable, old limit 5s) (Unix only)
+
+  * Start scripts now exits with informative message if using wrong Java version
+
+  * Fixed "bin/solr.cmd zk upconfig" command which was broken on windows
+
+  * You can now ask for DEBUG logging simply with '-v' option, and for WARN logging with '-q' option
+
+SolrCloud:
+
+  * The DELETEREPLICA API can accept a 'count' parameter and remove "count" number of replicas from each shard if the shard name is not provided
+
+  * The config API shows expanded useParams for request handlers inline
+
+  * Ability to create/delete/list snapshots at collection level
+
+  * The modify collection API now waits for the modified properties to show up in the cluster state before returning
+
+  * Many bug fixes related to SolrCloud recovery for data safety and faster recovery times.
+
+Security:
+
+  * SolrJ now supports Kerberos delegation tokens
+
+  * Pooled SSL connections were not being re-used. This is now fixed.
+
+  * Fix for the blockUnknown property which made inter-node communication impossible
+
+  * Support SOLR_AUTHENTICATION_OPTS and SOLR_AUTHENTICATION_CLIENT_CONFIGURER in windows bin/solr.cmd script
+
+  * New parameter -u <user:pass> in bin/post to pass basicauth credentials
+
+Misc changes:
+
+  * Optimizations to lower memory allocations when indexing JSON as well as for replication between solr cloud nodes.
+
+  * A new Excel workbook (.xlsx) response writer has been added. Use 'wt=xlsx' request parameter on a query request to enable.
+
+See the [Solr CHANGES.txt](/solr/6_3_0/changes/Changes.html) files included
+with the release for a full list of details.
+
 ## 20 September 2016, Apache Solr™ 6.2.1 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 6.2.1
@@ -19,13 +112,13 @@ and navigation features of many of the world's largest internet sites.
 This release includes 11 bug fixes since the 6.2.0 release. Some of the major fixes are:
 
  * SOLR-9490: BoolField always returning false for non-DV fields when javabin involved (via solrj, or intra node communication)
- 
+
  * SOLR-9188: BlockUnknown property makes inter-node communication impossible
- 
+
  * SOLR-9389: HDFS Transaction logs stay open for writes which leaks Xceivers
- 
+
  * SOLR-9438: Shard split can fail to write commit data on shutdown leading to data loss
- 
+
 Furthermore, this release includes Apache Lucene 6.2.1 which includes 3 bug fixes since the 6.2.0 release.
 
 The release is available for immediate download at:
@@ -151,7 +244,7 @@ since the 5.5.1 release.
 The release is available for immediate download at:
 <http://www.apache.org/dyn/closer.lua/lucene/solr/5.5.2>
 
-See the [CHANGES.txt](https://lucene.apache.org/solr/5_5_2/changes/Changes.html) 
+See the [CHANGES.txt](https://lucene.apache.org/solr/5_5_2/changes/Changes.html)
 file included with the release for a detailed list of changes.
 
 ## 17 June 2016, Apache Solr 6.1.0 available
@@ -181,7 +274,7 @@ Solr 6.1 Release Highlights:
  * New [subquery] document transformer to obtatin related documents per result doc.
 
  * EmbeddedSolrServer allocates heap much wisely even with plain document list without callbacks.
- 
+
  * New GeoJSON response writer for encoding geographic data in query responses.
 
 See the [CHANGES.txt](https://lucene.apache.org/solr/6_1_0/changes/Changes.html)
@@ -205,7 +298,7 @@ since the 6.0.0 release.
 The release is available for immediate download at:
 <http://www.apache.org/dyn/closer.lua/lucene/solr/6.0.1>
 
-See the [CHANGES.txt](https://lucene.apache.org/solr/6_0_1/changes/Changes.html) 
+See the [CHANGES.txt](https://lucene.apache.org/solr/6_0_1/changes/Changes.html)
 file included with the release for a detailed list of changes.
 
 ## 5 May 2016 - Apache Solr 5.5.1 Available
@@ -260,7 +353,7 @@ Solr 6.0 Release Highlights:
 
   * Deprecated GET methods for schema are now accessible through the bulk API. The output has less details and is not backward compatible.
 
-  * Users should set useDocValuesAsStored="false" to preserve sort order on multi-valued fields that have both stored="true" and docValues="true". 
+  * Users should set useDocValuesAsStored="false" to preserve sort order on multi-valued fields that have both stored="true" and docValues="true".
 
   * Formatted date-times are more consistent with ISO-8601. BC dates are now better supported since they are now formatted with a leading '-'. AD years after 9999 have a leading '+'. Parse exceptions have been improved.
 
@@ -334,13 +427,13 @@ Also available is the Solr Reference Guide for Solr 5.5. This PDF serves as the 
 
 ## 8 February 2016 - Apache Lucene/Solr development moves to GIT
 
-As of January 23rd 2016, Lucene/Solr source code is hosted in Apache's GIT repository. 
+As of January 23rd 2016, Lucene/Solr source code is hosted in Apache's GIT repository.
 This means that the old SVN repository is now stale and should not be used.
-For information on working with git, please consult 
+For information on working with git, please consult
 [the Solr web site](http://lucene.apache.org/solr/resources.html#solr-version-control)
 and the [wiki](https://wiki.apache.org/solr/Git%20commit%20process).
 
-The [GitHub mirror](https://github.com/apache/lucene-solr/) remains at 
+The [GitHub mirror](https://github.com/apache/lucene-solr/) remains at
 the same location as before, but the contents have changed. We now have
 one unified repo preserving the full history of both Lucene and Solr.
 If you had a GitHub fork, you will find
@@ -526,7 +619,7 @@ See the [CHANGES.txt](/solr/5_2_0/changes/Changes.html) file included with the r
 Solr 5.2.0 Release Highlights:
 
 * Restore API allows restoring a core from an index backup.
- 
+
 * JSON Facet API
     * unique() is now implemented for numeric and date fields
     * Optional flatter form via a "type" parameter
@@ -701,7 +794,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 4.10.3 is available for immediate download at:
-<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html> 
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
 Solr 4.10.3 includes 21 bug fixes, 5 other changes,
 as well as Lucene 4.10.3 and its 12 bug fixes.
@@ -732,7 +825,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 4.10.2 is available for immediate download at:
-<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html> 
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
 Solr 4.10.2 includes 10 bug fixes,
 as well as Lucene 4.10.2 and its 2 bug fixes.
@@ -754,7 +847,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 4.10.1 is available for immediate download at:
-<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html> 
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
 Solr 4.10.1 includes 6 bug fixes,
 as well as Lucene 4.10.1 and its 7 bug fixes.
@@ -775,7 +868,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 4.9.1 is available for immediate download at:
-<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html> 
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
 Solr 4.9.1 includes 2 bug fixes,
 as well as Lucene 4.9.1 and its 7 bug fixes.
@@ -785,11 +878,11 @@ file included with the release for a full list of details.
 
 ## 7 September 2014 - Apache Solr Ref Guide for 4.10 Available
 
-The Lucene PMC is pleased to announce that there is a new version of the 
+The Lucene PMC is pleased to announce that there is a new version of the
 Solr Reference Guide for Solr 4.10.
 
-The 511 page PDF serves as the definitive user's manual for Solr 4.10. It 
-can be downloaded from the Apache mirror network: 
+The 511 page PDF serves as the definitive user's manual for Solr 4.10. It
+can be downloaded from the Apache mirror network:
 [https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][1].
 
 ## 03 September 2014 - Apache Solr 4.10.0 Available
@@ -858,14 +951,14 @@ to update their Solr release first, patching older versions is impossible.
 
 * Unzip the archive.
 
-* Delete the following files in your "solr-4.X.X/contrib/extraction/lib" folder: 
+* Delete the following files in your "solr-4.X.X/contrib/extraction/lib" folder:
     * poi-3.10-beta2.jar
     * poi-ooxml-3.10-beta2.jar
     * poi-ooxml-schemas-3.10-beta2.jar
     * poi-scratchpad-3.10-beta2.jar
     * xmlbeans-2.3.0.jar
-  
-* Copy the following files from the base folder of the Apache POI distribution to the "solr-4.X.X/contrib/extraction/lib" folder: 
+
+* Copy the following files from the base folder of the Apache POI distribution to the "solr-4.X.X/contrib/extraction/lib" folder:
     * poi-3.10.1-20140818.jar
     * poi-ooxml-3.10.1-20140818.jar
     * poi-ooxml-schemas-3.10.1-20140818.jar
@@ -884,10 +977,10 @@ Coming versions of Apache Solr will have the updated libraries bundled.
 
 ## 30 June 2014 - Apache Solr Ref Guide for 4.9 Available
 
-The Lucene PMC is pleased to announce that there is a new version 
+The Lucene PMC is pleased to announce that there is a new version
 of the Solr Reference Guide for Solr 4.9.
 
-The 408 page PDF serves as the definitive user's manual for Solr 4.9. 
+The 408 page PDF serves as the definitive user's manual for Solr 4.9.
 It can be downloaded from the Apache mirror network:
 [https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][1].
 
@@ -913,13 +1006,13 @@ Solr 4.9.0 Release Highlights:
 
 * Numerous optimizations for doc values search-time performance
 
-* Allow a client application to request the minium achieved replication 
-  factor for an update request (single or batch) by sending an optional 
+* Allow a client application to request the minium achieved replication
+  factor for an update request (single or batch) by sending an optional
   parameter "min_rf".
 
 * Query re-ranking support with the new ReRankingQParserPlugin.
 
-* A new [child ...] DocTransformer for optionally including Block-Join 
+* A new [child ...] DocTransformer for optionally including Block-Join
   decendent documents inline in the results of a search.
 
 * A new (default) Lucene49NormsFormat to better compress certain cases
@@ -938,7 +1031,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 4.8.1 is available for immediate download at:
-<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html> 
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
 Solr 4.8.1 includes 10 bug fixes,
 as well as Lucene 4.8.1 and its bug fixes.
@@ -948,10 +1041,10 @@ file included with the release for a full list of details.
 
 ## 2 May 2014 - Apache Solr Ref Guide for 4.8 Available
 
-The Lucene PMC is pleased to announce that there is a new version 
+The Lucene PMC is pleased to announce that there is a new version
 of the Solr Reference Guide available for Solr 4.8.
 
-The 396 page PDF serves as the definitive user's manual for Solr 4.8. 
+The 396 page PDF serves as the definitive user's manual for Solr 4.8.
 It can be downloaded from the Apache mirror network:
 [https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][1]
 
@@ -987,17 +1080,17 @@ file included with the release for a full list of details.
   <code class="inline">&lt;field&gt;</code> and <code class="inline">&lt;copyField&gt;</code> definitions if desired.
 
 * The new \{!complexphrase\} query parser supports wildcards, ORs etc.
-  inside Phrase Queries. 
+  inside Phrase Queries.
 
 * New Collections API CLUSTERSTATUS action reports the status of
   collections, shards, and replicas, and also lists collection
   aliases and cluster properties.
- 
+
 * Added managed synonym and stopword filter factories, which enable
   synonym and stopword lists to be dynamically managed via REST API.
 
 * JSON updates now support nested child documents, enabling \{!child\}
-  and \{!parent\} block join queries. 
+  and \{!parent\} block join queries.
 
 * Added ExpandComponent to expand results collapsed by the
   CollapsingQParserPlugin, as well as the parent/child relationship
@@ -1014,7 +1107,7 @@ file included with the release for a full list of details.
 
 * New DocExpirationUpdateProcessorFactory supports computing an
   expiration date for documents from the "TTL" expression, as well as
-  automatically deleting expired documents on a periodic basis. 
+  automatically deleting expired documents on a periodic basis.
 
 Solr 4.8.0 also includes many other new features as well as numerous
 optimizations and bugfixes of the corresponding
@@ -1033,7 +1126,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 4.7.2 is available for immediate download at:
-<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html> 
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
 Solr 4.7.2 includes 2 bug fixes,
 as well as Lucene 4.7.2 and its bug fixes.
@@ -1054,7 +1147,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 4.7.1 is available for immediate download at:
-<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html> 
+<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
 Solr 4.7.1 includes 28 bug fixes and one new configuration setting,
 as well as Lucene 4.7.1 and its bug fixes.
@@ -1114,7 +1207,7 @@ file included with the release for a full list of details.
   into another collection.
 
 * Added support for tri-level compositeId routing.
-  
+
 * Admin UI - Added a new Files conf directory browser/file viewer.
 
 * Add a QParserPlugin for Lucene's SimpleQueryParser.
