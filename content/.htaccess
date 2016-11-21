@@ -5,6 +5,10 @@
 
 ### Pre-CMS site redirects
 
+# DOAP file redirects to source repository
+RedirectMatch Permanent /core/doap.rdf https://git-wip-us.apache.org/repos/asf?p=lucene-solr.git;a=blob_plain;f=dev-tools/doap/lucene.rdf;hb=HEAD
+RedirectMatch Permanent /solr/doap.rdf https://git-wip-us.apache.org/repos/asf?p=lucene-solr.git;a=blob_plain;f=dev-tools/doap/solr.rdf;hb=HEAD
+
 # page renames
 RedirectMatch Permanent /who.html /whoweare.html
 RedirectMatch Permanent /java/docs/irc.html /core/discussion.html#irc
