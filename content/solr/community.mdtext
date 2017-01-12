@@ -31,11 +31,14 @@ here. There are also a number of external companies and professionals ready to h
 #### About versions ####
 
 Apache Solr is under active development with frequent feature releases on the current major version (e.g. 6.x).
-The previous major version (e.g. 5.5) may still receives security- and bug fixes as point releases, thus taking the role 
+The previous major version (e.g. 5.5) may still receive security- and bug fixes as point releases, thus taking the role 
 of the LTS (Long Term Support) version.
-Older versions are considered EOL (End Of Life) and will not be further updated.
-A new major Solr version will be able to read the index of the previous major version, but not from older versions. 
-Large or braking changes are only added to the "master" branch to be released as the the next major version (e.g. 7.0).
+Older versions are considered EOL (End Of Life) and will not be further
+updated. Because there can be no further changes, it may also be
+difficult to obtain community support for the older versions.
+Large changes or changes that break compatibility with existing
+functionality are normally made only in the "master" branch, which will
+be released as the the next major version (e.g. 7.0).
 For more about versions and upgrading Solr, see the 
 [Reference Guide chapter “Upgrading Solr”](https://cwiki.apache.org/confluence/display/solr/Upgrading+Solr).
 
