@@ -35,15 +35,13 @@ JCC started as a C++ code generator for hiding the gory details of
 accessing methods and fields on Java classes via
 Java's <a href="http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/invocation.html">Native Invocation Interface</a>.
 These C++ wrappers make it possible to access a Java object as if it
-was a regular C++ object very much like GCJ's
-<a href="http://gcc.gnu.org/onlinedocs/gcj/About-CNI.html">CNI
-interface</a>.
+was a regular C++ object.
 
 
 It then became apparent that JCC could also generate the C++
 wrappers for making these classes available to Python. Every class
-that gets thus wrapped becomes a
-<a href="http://docs.python.org/ext/defining-new-types.html">CPython
+that gets thus wrapped becomes a 
+<a href="https://docs.python.org/2/extending/newtypes.html">CPython
 type</a>.
 
 
