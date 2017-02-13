@@ -61,7 +61,7 @@ Python extensions).
 
 
 Currently, shared mode is supported with <i>setuptools
-0.6c7</i> and above out of the box on Mac OS X and Windows. On
+0.6c7</i> and above out of the box on macOS and Windows. On
 Linux, a patch to <i>setuptools</i> needs to be applied
 first. This patch is included in the JCC source distribution in
 the <i>jcc/patches</i> directory, <i>patch.43</i>. This
@@ -103,7 +103,7 @@ There are two defaults to consider here:
 
 - Is JCC built with shared mode support or not ?
 
-    - By default, on Mac OS X and Windows this is the case.
+    - By default, on macOS and Windows this is the case.
 
     - By default, on Linux, this is the case.
       if <i>setuptools</i> is patched.
@@ -119,16 +119,16 @@ There are two defaults to consider here:
 
 
 
-##Notes for Mac OS X
+##Notes for Mac macOS
 
-On Mac OS X, Java is installed by Apple's setup as a framework. The
+On macOS, Java is installed by Apple's setup as a framework. The
 values in <i>setup.py</i> for <i>INCLUDES</i>
 and <i>LFLAGS</i> for <i>darwin</i> should be correct
 and ready to use.
 
 
   However, if you intend to use the 'system' Python from a Java VM
-  on Mac OS X -- Python embedded in Java --
+  on macOS -- Python embedded in Java --
   you will need to add the flags <i>"-framework", "Python"</i>
   to the <i>LFLAGS</i> value.
 
