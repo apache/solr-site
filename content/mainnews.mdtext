@@ -1,5 +1,110 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 27 March 2017 - Apache Lucene 6.5.0 and Apache Solr 6.5.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 6.5.0 and Apache Solr 6.5.0.
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/6.5.0>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/6.5.0>
+
+### Highlights of this Lucene release include:
+
+ * It is now possible filter out duplicates in the NRT suggester
+
+ * SimpleQueryString now supports default fuziness
+
+ * IndexWriter can return the list of visible field names
+
+ * DisjunctionScorer now supports returning the matching children clauses
+
+ * A new FunctionScoreQuery that modifies the internal query's score using the per-document values
+
+ * A new FunctionMatchQuery that returns any documents with a value that matches a predicate
+
+ * A new WordDelimiterGraphFilter that outputs a correct graph structure for multi-token expansion at query time
+
+ * A new PatternTokenizer that uses Lucene's RegExp implementation
+
+ * RangeFieldQuery now supports CROSSES relation
+
+ * A new IndexOrDocValuesQuery that uses either an index (points or terms) or doc values in order to run a (range, geo box and distance) query, depending which one is more efficient
+
+ * index-time boosts are deprecated
+
+ * Term filters are no longer cached
+
+ * Compound filters are cached earlier than regular queries
+
+ * BKDReader now calls grow on larger increments
+
+ * LatLonPointInPolygonQuery are faster
+
+ * LatLonPointDistanceQuery now skips distance computations more often
+
+ * To-parent block joins now implements two-phase iteration
+
+ * Point ranges that match most documents are faster
+
+ * PointValues#estimatePointCount is faster with Relation.CELL_INSIDE_QUERY
+
+ * Segments are now also sorted during flush, and merging on a sorted index is substantially faster by using some of the same bulk merge optimizations that non-sorted merging uses
+
+### Highlights of this Solr release include:
+
+ * PointFields (fixed-width multi-dimensional numeric & binary types enabling fast range search) are now supported
+
+ * In-place updates to numeric docValues fields (single valued, non-stored, non-indexed) supported using atomic update syntax
+
+ * A new LatLonPointSpatialField that uses points or doc values for query
+
+ * It is now possible to declare a field as "large" in order to bypass the document cache
+
+ * New sow=false request param (split-on-whitespace) for edismax & standard query parsers enables query-time multi-term synonyms
+
+ * XML QueryParser (defType=xmlparser) now supports span queries
+
+ * hl.maxAnalyzedChars now have consistent default across highlighters
+
+ * UnifiedSolrHighlighter and PostingsSolrHighlighter now support CustomSeparatorBreakIterator
+
+ * Scoring formula is adjusted for the scoreNodes function
+
+ * Calcite Planner now applies constant Reduction Rules to optimize plans
+
+ * A new significantTerms Streaming Expression that is able to extract the significant terms in an index
+
+ * StreamHandler is now able to use runtimeLib jars
+
+ * Arithmetic operations are added to the SelectStream
+
+ * Added modernized self-documenting /v2 API
+
+ * The .system collection is now created on first request if it does not exist
+
+ * Admin UI: Added shard deletion button
+
+ * Metrics API now supports non-numeric metrics (version, disk type, component state, system properties...)
+
+ * The disk free and aggregated disk free metrics are now reported
+
+ * The DirectUpdateHandler2 now implements MetricsProducer and exposes stats via the metrics api and configured reporters.
+
+ * BlockCache is faster due to less failures when caching a new block
+
+ * MMapDirectoryFactory now supports "preload" option to ask mapped pages to be loaded into physical memory on init
+
+ * Security: BasicAuthPlugin now supports standalone mode
+
+ * Arbitrary java system properties can be passed to zkcli
+
+ * SolrHttpClientBuilder can be configured via java system property
+
+ * Javadocs and Changes.html are no longer included in the binary distribution, but are hosted online
+
+See the [Lucene CHANGES.txt](/core/6_5_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/6_5_0/changes/Changes.html) files included
+with the release for a full list of details.
+
 ## 7 March 2017 - Apache Lucene 6.4.2 and Apache Solr 6.4.2 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 6.4.2 and Apache Solr 6.4.2.
@@ -19,7 +124,7 @@ and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/sol
 
   * Fixed: NullPointerException in CloudSolrClient when reading stale alias
 
-  * Fixed: UnifiedHighlighter and PostingsHighlighter bug in PrefixQuery and TermRangeQuery for multi-byte text 
+  * Fixed: UnifiedHighlighter and PostingsHighlighter bug in PrefixQuery and TermRangeQuery for multi-byte text
 
 See the [Lucene CHANGES.txt](/core/6_4_2/changes/Changes.html) and
 [Solr CHANGES.txt](/solr/6_4_2/changes/Changes.html) files included
@@ -66,7 +171,7 @@ and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/sol
 
   * Fixed native memory leak when the codec is configured with the BEST_COMPRESSION option
 
-  * AnalyzingInfixSuggester now only opens an IndexWriter when changes need to be applied 
+  * AnalyzingInfixSuggester now only opens an IndexWriter when changes need to be applied
 
 ### Highlights of this Solr release include:
 
