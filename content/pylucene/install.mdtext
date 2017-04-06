@@ -12,11 +12,10 @@ resulting PyLucene binaries requires only a Java Runtime Environment
 (JRE).
 
 <b>Attention:</b> Starting with release 6.x, Lucene requires Java 1.8.
-If you build release 4.8.x, the minimum requirement is Java 1.7.
 
 On macOS, you will need to install Oracle Java 8, and due to a 
-[bug](https://bugs.openjdk.java.net/browse/JDK-7131356) in the JDK for macOS, you will **also** need
-to install Apple's Java 1.6.
+[bug](https://bugs.openjdk.java.net/browse/JDK-7131356) in the JDK for macOS,
+you will **also** need to install Apple's Java 1.6.
 
 On macOS, once installed, a way to make Java 1.8 the default in your bash 
 shell is:<br/>
@@ -27,11 +26,9 @@ On any system, if you're upgrading your Java installation, please rebuild
 JCC as well. You must use the same version of Java for both JCC and PyLucene.
 
 
-The <a href="http://pypi.python.org/pypi/setuptools">setuptools</a>
-package is required to build and run PyLucene on Python 2.3.5. With
-later versions of Python, setuptools is only required for shared
-mode. See JCC's <a href="jcc/install.html">installation
-instructions</a> for more information.
+A modern version of setuptools is required for building JCC in shared mode.
+See JCC's <a href="jcc/install.html">installation instructions</a> for more
+information.
 
 
 ##For the Impatient Ones

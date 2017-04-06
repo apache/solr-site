@@ -103,10 +103,8 @@ There are two defaults to consider here:
 
 - Is JCC built with shared mode support or not ?
 
-    - By default, on macOS and Windows this is the case.
-
-    - By default, on Linux, this is the case.
-      if <i>setuptools</i> is patched.
+    - By default, on macOS, Linux or Windows, this is the case when using a
+      modern version of <i>setuptools</i>
 
     - On other operating systems shared mode support is off by
       default - not supported - because shared mode depends on
