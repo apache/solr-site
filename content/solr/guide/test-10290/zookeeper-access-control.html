@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>ZooKeeper Access Control | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="ZooKeeper Access Control">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='zookeeper-access-control.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='zookeeper-access-control.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='zookeeper-access-control.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">ZooKeeper Access Control</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes using ZooKeeper access control lists (ACLs) with Solr. For information about ZooKeeper ACLs, see the ZooKeeper documentation at <a href="http://zookeeper.apache.org/doc/r3.4.6/zookeeperProgrammers.html#sc_ZooKeeperAccessControl" class="bare">http://zookeeper.apache.org/doc/r3.4.6/zookeeperProgrammers.html#sc_ZooKeeperAccessControl</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZooKeeperAccessControl-AboutZooKeeperACLs">About ZooKeeper ACLs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SolrCloud uses ZooKeeper for shared information and for coordination.</p>
+</div>
+<div class="paragraph">
+<p>This section describes how to configure Solr to add more restrictive ACLs to the ZooKeeper content it creates, and how to tell Solr about the credentials required to access the content in ZooKeeper. If you want to use ACLs in your ZooKeeper nodes, you will have to activate this functionality; by default, Solr behavior is open-unsafe ACL everywhere and uses no credentials.</p>
+</div>
+<div class="paragraph">
+<p>Content stored in ZooKeeper is critical to the operation of a SolrCloud cluster. Open access to SolrCloud content on ZooKeeper could lead to a variety of problems. For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Changing configuration might cause Solr to fail or behave in an unintended way.</p>
+</li>
+<li>
+<p>Changing cluster state information into something wrong or inconsistent might very well make a SolrCloud cluster behave strangely.</p>
+</li>
+<li>
+<p>Adding a delete-collection job to be carried out by the Overseer will cause data to be deleted from the cluster.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You may want to enable ZooKeeper ACLs with Solr if you grant access to your ZooKeeper ensemble to entities you do not trust, or if you want to reduce risk of bad actions resulting from, e.g.:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Malware that found its way into your system.</p>
+</li>
+<li>
+<p>Other systems using the same ZooKeeper ensemble (a "bad thing" might be done by accident).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You might even want to limit read-access, if you think there is stuff in ZooKeeper that not everyone should know about. Or you might just in general work on a need-to-know basis.</p>
+</div>
+<div class="paragraph">
+<p>Protecting ZooKeeper itself could mean many different things. <strong>This section is about protecting Solr content in ZooKeeper</strong>. ZooKeeper content basically lives persisted on disk and (partly) in memory of the ZooKeeper processes. <strong>This section is not about protecting ZooKeeper data at storage or ZooKeeper process levels</strong> - that&#8217;s for ZooKeeper to deal with.</p>
+</div>
+<div class="paragraph">
+<p>But this content is also available to "the outside" via the ZooKeeper API. Outside processes can connect to ZooKeeper and create/update/delete/read content; for example, a Solr node in a SolrCloud cluster wants to create/update/delete/read, and a SolrJ client wants to read from the cluster. It is the responsibility of the outside processes that create/update content to setup ACLs on the content. ACLs describe who is allowed to read, update, delete, create, etc. Each piece of information (znode/content) in ZooKeeper has its own set of ACLs, and inheritance or sharing is not possible. The default behavior in Solr is to add one ACL on all the content it creates - one ACL that gives anyone the permission to do anything (in ZooKeeper terms this is called "the open-unsafe ACL").</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZooKeeperAccessControl-HowtoEnableACLs">How to Enable ACLs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We want to be able to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Control the credentials Solr uses for its ZooKeeper connections. The credentials are used to get permission to perform operations in ZooKeeper.</p>
+</li>
+<li>
+<p>Control which ACLs Solr will add to znodes (ZooKeeper files/folders) it creates in ZooKeeper.</p>
+</li>
+<li>
+<p>Control it "from the outside", so that you do not have to modify and/or recompile Solr code to turn this on.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Solr nodes, clients and tools (e.g. ZkCLI) always use a java class called <a href="https://lucene.apache.org/solr/7_0_0//solr-solrj/org/apache/solr/common/cloud/SolrZkClient.html"><code>SolrZkClient</code></a> to deal with their ZooKeeper stuff. The implementation of the solution described here is all about changing <code>SolrZkClient</code>. If you use <code>SolrZkClient</code> in your application, the descriptions below will be true for your application too.</p>
+</div>
+<div class="sect2">
+<h3 id="ZooKeeperAccessControl-ControllingCredentials">Controlling Credentials</h3>
+<div class="paragraph">
+<p>You control which credentials provider will be used by configuring the <code>zkCredentialsProvider</code> property in <code>solr.xml&#8217;s `&lt;solrcloud&gt;</code> section to the name of a class (on the classpath) implementing the <a href="https://lucene.apache.org/solr/7_0_0//solr-solrj/org/apache/solr/common/cloud/ZkCredentialsProvider"><code>ZkCredentialsProvider</code></a> interface. <code>server/solr/solr.xml</code> in the Solr distribution defines the <code>zkCredentialsProvider</code> such that it will take on the value of the same-named <code>zkCredentialsProvider</code> system property if it is defined (e.g. by uncommenting the <code>SOLR_ZK_CREDS_AND_ACLS</code> environment variable definition in <code>solr.in.sh/.cmd</code> - see below), or if not, default to the <code>DefaultZkCredentialsProvider</code> implementation.</p>
+</div>
+<div class="paragraph">
+<p><strong>Out of the Box Implementations</strong></p>
+</div>
+<div class="paragraph">
+<p>You can always make you own implementation, but Solr comes with two implementations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>org.apache.solr.common.cloud.DefaultZkCredentialsProvider</code>: Its <code>getCredentials()</code> returns a list of length zero, or "no credentials used". This is the default.</p>
+</li>
+<li>
+<p><code>org.apache.solr.common.cloud.VMParamsSingleSetCredentialsDigestZkCredentialsProvider</code>: This lets you define your credentials using system properties. It supports at most one set of credentials.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The schema is "digest". The username and password are defined by system properties &#8220;<code>zkDigestUsername</code>&#8221; and &#8220;<code>zkDigestPassword</code>&#8221;, respectively. This set of credentials will be added to the list of credentials returned by <code>getCredentials()</code> if both username and password are provided.</p>
+</li>
+<li>
+<p>If the one set of credentials above is not added to the list, this implementation will fall back to default behavior and use the (empty) credentials list from <code>DefaultZkCredentialsProvider</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ZooKeeperAccessControl-ControllingACLs">Controlling ACLs</h3>
+<div class="paragraph">
+<p>You control which ACLs will be added by configuring <code>zkACLProvider</code> property in <code>solr.xml&#8217;s `&lt;solrcloud&gt;</code> section to the name of a class (on the classpath) implementing the <a href="https://lucene.apache.org/solr/7_0_0///solr-solrj/org/apache/solr/common/cloud/ZkACLProvider"><code>ZkACLProvider</code></a> interface. <code>server/solr/solr.xml</code> in the Solr distribution defines the <code>zkACLProvider</code> such that it will take on the value of the same-named <code>zkACLProvider</code> system property if it is defined (e.g. by uncommenting the <code>SOLR_ZK_CREDS_AND_ACLS</code> environment variable definition in <code>solr.in.sh/.cmd</code> - see below), or if not, default to the <code>DefaultZkACLProvider</code> implementation.</p>
+</div>
+<div class="sect3">
+<h4 id="ZooKeeperAccessControl-OutoftheBoxImplementations">Out of the Box Implementations</h4>
+<div class="paragraph">
+<p>You can always make you own implementation, but Solr comes with:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>org.apache.solr.common.cloud.DefaultZkACLProvider: `It returns a list of length one for all `zNodePath</code>-s. The single ACL entry in the list is "open-unsafe". This is the default.</p>
+</li>
+<li>
+<p><code>org.apache.solr.common.cloud.VMParamsAllAndReadonlyDigestZkACLProvider:</code> This lets you define your ACLs using system properties. Its <code>getACLsToAdd()</code> implementation does not use <code>zNodePath</code> for anything, so all znodes will get the same set of ACLs. It supports adding one or both of these options:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A user that is allowed to do everything.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The permission is &#8220;<code>ALL</code>&#8221; (corresponding to all of <code>CREATE</code>, <code>READ</code>, <code>WRITE</code>, <code>DELETE</code>, and <code>ADMIN</code>), and the schema is "digest".</p>
+</li>
+<li>
+<p>The username and password are defined by system properties &#8220;<code>zkDigestUsername</code>&#8221; and &#8220;<code>zkDigestPassword</code>&#8221;, respectively.</p>
+</li>
+<li>
+<p>This ACL will not be added to the list of ACLs unless both username and password are provided.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>A user that is only allowed to perform read operations.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The permission is &#8220;<code>READ</code>&#8221; and the schema is "digest".</p>
+</li>
+<li>
+<p>The username and password are defined by system properties &#8220;<code>zkDigestReadonlyUsername</code>&#8221; and &#8220;<code>zkDigestReadonlyPassword</code>&#8221;, respectively.</p>
+</li>
+<li>
+<p>This ACL will not be added to the list of ACLs unless both username and password are provided.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>org.apache.solr.common.cloud.SaslZkACLProvider:</code> Requires SASL authentication. Gives all permissions for the user specified in system property <code>solr.authorization.superuser</code> (default: <code>solr</code>) when using SASL, and gives read permissions for anyone else. Designed for a setup where configurations have already been set up and will not be modified, or where configuration changes are controlled via Solr APIs. This provider will be useful for administration in a kerberos environment. In such an environment, the administrator wants Solr to authenticate to ZooKeeper using SASL, since this is only way to authenticate with ZooKeeper via Kerberos.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If none of the above ACLs is added to the list, the (empty) ACL list of <code>DefaultZkACLProvider</code> will be used by default.</p>
+</div>
+<div class="paragraph">
+<p>Notice the overlap in system property names with credentials provider <code>VMParamsSingleSetCredentialsDigestZkCredentialsProvider</code> (described above). This is to let the two providers collaborate in a nice and perhaps common way: we always protect access to content by limiting to two users - an admin-user and a readonly-user - AND we always connect with credentials corresponding to this same admin-user, basically so that we can do anything to the content/znodes we create ourselves.</p>
+</div>
+<div class="paragraph">
+<p>You can give the readonly credentials to "clients" of your SolrCloud cluster - e.g. to be used by SolrJ clients. They will be able to read whatever is necessary to run a functioning SolrJ client, but they will not be able to modify any content in ZooKeeper.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ZooKeeperAccessControl-bin_solr_solr.cmd_server_scripts_cloud-scripts_zkcli.sh_zkcli.bat"><code>bin/solr</code> &amp; <code>solr.cmd</code>,` server/scripts/cloud-scripts/zkcli.sh` &amp;` zkcli.bat`</h3>
+<div class="paragraph">
+<p>These Solr scripts can enable use of ZK ACLs by setting the appropriate system properties: uncomment the following and replace the passwords with ones you choose to enable the above-described VM parameters ACL and credentials providers in the following files:</p>
+</div>
+<div class="paragraph">
+<p><strong>solr.in.sh</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># Settings for ZK ACL</span>
+<span style="color: #408080; font-style: italic">#SOLR_ZK_CREDS_AND_ACLS=&quot;-DzkACLProvider=org.apache.solr.common.cloud.VMParamsAllAndReadonlyDigestZkACLProvider \</span>
+<span style="color: #408080; font-style: italic">#  -DzkCredentialsProvider=org.apache.solr.common.cloud.VMParamsSingleSetCredentialsDigestZkCredentialsProvider \</span>
+<span style="color: #408080; font-style: italic">#  -DzkDigestUsername=admin-user -DzkDigestPassword=CHANGEME-ADMIN-PASSWORD \</span>
+<span style="color: #408080; font-style: italic">#  -DzkDigestReadonlyUsername=readonly-user -DzkDigestReadonlyPassword=CHANGEME-READONLY-PASSWORD&quot;</span>
+<span style="color: #408080; font-style: italic">#SOLR_OPTS=&quot;$SOLR_OPTS $SOLR_ZK_CREDS_AND_ACLS&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>solr.in.cmd</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="powershell">REM Settings <span style="color: #008000; font-weight: bold">for</span> ZK ACL
+REM set SOLR_ZK_CREDS_AND_ACLS=-DzkACLProvider=org.apache.solr.common.cloud.VMParamsAllAndReadonlyDigestZkACLProvider ^
+REM  -DzkCredentialsProvider=org.apache.solr.common.cloud.VMParamsSingleSetCredentialsDigestZkCredentialsProvider ^
+REM  -DzkDigestUsername=admin-user -DzkDigestPassword=CHANGEME-ADMIN-PASSWORD ^
+REM  -DzkDigestReadonlyUsername=readonly-user -DzkDigestReadonlyPassword=CHANGEME-READONLY-PASSWORD
+REM set SOLR_OPTS=<span style="color: #008000; font-weight: bold">%</span>SOLR_OPTS% <span style="color: #008000; font-weight: bold">%</span>SOLR_ZK_CREDS_AND_ACLS%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>zkcli.sh</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># Settings for ZK ACL</span>
+<span style="color: #408080; font-style: italic">#SOLR_ZK_CREDS_AND_ACLS=&quot;-DzkACLProvider=org.apache.solr.common.cloud.VMParamsAllAndReadonlyDigestZkACLProvider \</span>
+<span style="color: #408080; font-style: italic">#  -DzkCredentialsProvider=org.apache.solr.common.cloud.VMParamsSingleSetCredentialsDigestZkCredentialsProvider \</span>
+<span style="color: #408080; font-style: italic">#  -DzkDigestUsername=admin-user -DzkDigestPassword=CHANGEME-ADMIN-PASSWORD \</span>
+<span style="color: #408080; font-style: italic">#  -DzkDigestReadonlyUsername=readonly-user -DzkDigestReadonlyPassword=CHANGEME-READONLY-PASSWORD&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>zkcli.bat</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="powershell">REM Settings <span style="color: #008000; font-weight: bold">for</span> ZK ACL
+REM set SOLR_ZK_CREDS_AND_ACLS=-DzkACLProvider=org.apache.solr.common.cloud.VMParamsAllAndReadonlyDigestZkACLProvider ^
+REM  -DzkCredentialsProvider=org.apache.solr.common.cloud.VMParamsSingleSetCredentialsDigestZkCredentialsProvider ^
+REM  -DzkDigestUsername=admin-user -DzkDigestPassword=CHANGEME-ADMIN-PASSWORD ^
+REM  -DzkDigestReadonlyUsername=readonly-user -DzkDigestReadonlyPassword=CHANGEME-READONLY-PASSWORD</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ZooKeeperAccessControl-ChangingACLSchemes">Changing ACL Schemes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Over the lifetime of operating your Solr cluster, you may decide to move from an unsecured ZooKeeper to a secured instance. Changing the configured <code>zkACLProvider</code> in <code>solr.xml</code> will ensure that newly created nodes are secure, but will not protect the already existing data. To modify all existing ACLs, you can use the <code>updateacls</code> command with Solr&#8217;s ZkCLI. First uncomment the <code>SOLR_ZK_CREDS_AND_ACLS</code> environment variable definition in <code>server/scripts/cloud-scripts/zkcli.sh</code> (or <code>zkcli.bat</code> on Windows) and fill in the passwords for the admin-user and the readonly-user - see above - then run <code>server/scripts/cloud-scripts/zkcli.sh -cmd updateacls /zk-path</code>, or on Windows run <code>server\scripts\cloud-scripts\zkcli.bat cmd updateacls /zk-path</code>.</p>
+</div>
+<div class="paragraph">
+<p>Changing ACLs in ZK should only be done while your SolrCloud cluster is stopped. Attempting to do so while Solr is running may result in inconsistent state and some nodes becoming inaccessible.</p>
+</div>
+<div class="paragraph">
+<p>The VM properties <code>zkACLProvider</code> and` zkCredentialsProvider`, included in the <code>SOLR_ZK_CREDS_AND_ACLS</code> environment variable in <code>zkcli.sh/.bat</code>, control the conversion:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The Credentials Provider must be one that has current admin privileges on the nodes. When omitted, the process will use no credentials (suitable for an unsecure configuration).</p>
+</li>
+<li>
+<p>The ACL Provider will be used to compute the new ACLs. When omitted, the process will set all permissions to all users, removing any security present.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The uncommented <code>SOLR_ZK_CREDS_AND_ACLS</code> environment variable in` zkcli.sh/.bat` sets the credentials and ACL providers to the <code>VMParamsSingleSetCredentialsDigestZkCredentialsProvider</code> and <code>VMParamsAllAndReadonlyDigestZkACLProvider</code> implementations, described earlier in the page.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+      
+      
+      <a class="btn btn-primary next" href="collections-api.html">Collections API</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=zookeeper-access-control" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=zookeeper-access-control"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

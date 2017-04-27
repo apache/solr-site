@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>The Terms Component | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="The Terms Component">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='the-terms-component.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='the-terms-component.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='the-terms-component.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">The Terms Component</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Terms Component provides access to the indexed terms in a field and the number of documents that match each term. This can be useful for building an auto-suggest feature or any other feature that operates at the term level instead of the search or document level. Retrieving terms in index order is very fast since the implementation directly uses Lucene&#8217;s TermEnum to iterate over the term dictionary.</p>
+</div>
+<div class="paragraph">
+<p>In a sense, this search component provides fast field-faceting over the whole index, not restricted by the base query or any filters. The document frequencies returned are the number of documents that match the term, including any documents that have been marked for deletion but not yet removed from the index.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="TheTermsComponent-ConfiguringtheTermsComponent">Configuring the Terms Component</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, the Terms Component is already configured in <code>solrconfig.xml</code> for each collection.</p>
+</div>
+<div class="sect2">
+<h3 id="TheTermsComponent-DefiningtheTermsComponent">Defining the Terms Component</h3>
+<div class="paragraph">
+<p>Defining the Terms search component is straightforward: simply give it a name and use the class <code>solr.TermsComponent</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;searchComponent</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;terms&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TermsComponent&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This makes the component available for use, but by itself will not be useable until included with a request handler.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="TheTermsComponent-UsingtheTermsComponentinaRequestHandler">Using the Terms Component in a Request Handler</h3>
+<div class="paragraph">
+<p>The terms component is included with the <code>/terms</code> request handler, which is among Solr&#8217;s out-of-the-box request handlers - see <a href="implicit-requesthandlers.html#implicit-requesthandlers">Implicit RequestHandlers</a>.</p>
+</div>
+<div class="paragraph">
+<p>Note that the defaults for this request handler set the parameter "terms" to true, which allows terms to be returned on request. The parameter "distrib" is set to false, which allows this handler to be used only on a single Solr core.</p>
+</div>
+<div class="paragraph">
+<p>You could add this component to another handler if you wanted to, and pass "terms=true" in the HTTP request in order to get terms back. If it is only defined in a separate handler, you must use that handler when querying in order to get terms and not regular documents as results.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="TheTermsComponent-TermsComponentParameters">Terms Component Parameters</h3>
+<div class="paragraph">
+<p>The parameters below allow you to control what terms are returned. You can also configure any of these with the request handler if you&#8217;d like to set them permanently. Or, you can add them to the query request. These parameters are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>If set to true, enables the Terms Component. By default, the Terms Component is off.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms=true</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.fl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies the field from which to retrieve terms.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.fl=title</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Fetches the document frequency for a comma delimited list of terms. Terms are always returned in index order. If &#8216;terms.ttf&#8217; is set to true, also returns their total term frequency. If multiple &#8216;terms.fl&#8217; are defined, these statistics will be returned for each term in each requested field.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.list=termA,termB,termC</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.limit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies the maximum number of terms to return. The default is 10. If the limit is set to a number less than 0, then no maximum limit is enforced. Although this is not required, either this parameter or <code>terms.upper</code> must be defined.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.limit=20</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.lower</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">empty string</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies the term at which to start. If not specified, the empty string is used, causing Solr to start at the beginning of the field.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.lower=orange</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.lower.incl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>If set to true, includes the lower-bound term (specified with <code>terms.lower</code> in the result set.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.lower.incl=false</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.mincount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies the minimum document frequency to return in order for a term to be included in a query response. Results are inclusive of the mincount (that is, &gt;= mincount).</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.mincount=5</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.maxcount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies the maximum document frequency a term must have in order to be included in a query response. The default setting is -1, which sets no upper bound. Results are inclusive of the maxcount (that is, &#8656; maxcount).</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.maxcount=25</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.prefix</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Restricts matches to terms that begin with the specified string.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.prefix=inter</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.raw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>If set to true, returns the raw characters of the indexed term, regardless of whether it is human-readable. For instance, the indexed form of numeric numbers is not human-readable.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.raw=true</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.regex</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Restricts matches to terms that match the regular expression.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.regex=.*pedist</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.regex.flag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Defines a Java regex flag to use when evaluating the regular expression defined with <code>terms.regex</code>. See <a href="http://docs.oracle.com/javase/tutorial/essential/regex/pattern.html" class="bare">http://docs.oracle.com/javase/tutorial/essential/regex/pattern.html</a> for details of each flag. Valid options are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>case_insensitive</p>
+</li>
+<li>
+<p>comments</p>
+</li>
+<li>
+<p>multiline</p>
+</li>
+<li>
+<p>literal</p>
+</li>
+<li>
+<p>dotall</p>
+</li>
+<li>
+<p>unicode_case</p>
+</li>
+<li>
+<p>canon_eq</p>
+</li>
+<li>
+<p>unix_lines</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.regex.flag=case_insensitive</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.stats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Include index statistics in the results. Currently returns only the <strong>numDocs</strong> for a collection. When combined with terms.list it provides enough information to compute idf for a list of terms.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.sort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Defines how to sort the terms returned. Valid options are <strong>count</strong>, which sorts by the term frequency, with the highest term frequency first, or <strong>index</strong>, which sorts in index order.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.sort=index</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.ttf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>If set to true, returns both 'df' (docFreq) and 'ttf' (totalTermFreq) statistics for each requested term in &#8216;terms.list&#8217;. In this case, the response format is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;terms&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;field&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;termA&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;long</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;df&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>22<span style="color: #008000; font-weight: bold">&lt;/long&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;long</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ttf&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>73<span style="color: #008000; font-weight: bold">&lt;/long&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span></code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.upper</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Specifies the term to stop at. Although this parameter is not required, either this parameter or <code>terms.limit</code> must be defined.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.upper=plum</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terms.upper.incl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>If set to true, the upper bound term is included in the result set. The default is false.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>terms.upper.incl=true</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The output is a list of the terms and their document frequency values. See below for examples.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="TheTermsComponent-Examples">Examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All of the following sample queries work with Solr&#8217;s &#8220;bin/solr -e techproducts&#8221; example.</p>
+</div>
+<div class="sect2">
+<h3 id="TheTermsComponent-GetTop10Terms">Get Top 10 Terms</h3>
+<div class="paragraph">
+<p>This query requests the first ten terms in the name field: <code><a href="http://localhost:8983/solr/techproducts/terms?terms.fl=name" class="bare">http://localhost:8983/solr/techproducts/terms?terms.fl=name</a></code></p>
+</div>
+<div class="paragraph">
+<p>Results:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;response&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;status&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>2<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;terms&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;one&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>5<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;184&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;1gb&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;3200&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;400&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ddr&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;gb&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ipod&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;memory&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;pc&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/response&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="TheTermsComponent-GetFirst10TermsStartingwithLetter_a_">Get First 10 Terms Starting with Letter 'a'</h3>
+<div class="paragraph">
+<p>This query requests the first ten terms in the name field, in index order (instead of the top 10 results by document count): <code><a href="http://localhost:8983/solr/techproducts/terms?terms.fl=name&amp;terms.lower=a&amp;terms.sort=index" class="bare">http://localhost:8983/solr/techproducts/terms?terms.fl=name&amp;terms.lower=a&amp;terms.sort=index</a></code></p>
+</div>
+<div class="paragraph">
+<p>Results:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;response&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;status&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;terms&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;a&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;all&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;apple&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;asus&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ata&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ati&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;belkin&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;black&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;british&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;cable&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/response&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="TheTermsComponent-SolrJinvocation">SolrJ invocation</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">    SolrQuery query <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> SolrQuery<span style="color: #666666">();</span>
+    query<span style="color: #666666">.</span><span style="color: #7D9029">setRequestHandler</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;/terms&quot;</span><span style="color: #666666">);</span>
+    query<span style="color: #666666">.</span><span style="color: #7D9029">setTerms</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">);</span>
+    query<span style="color: #666666">.</span><span style="color: #7D9029">setTermsLimit</span><span style="color: #666666">(5);</span>
+    query<span style="color: #666666">.</span><span style="color: #7D9029">setTermsLower</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;s&quot;</span><span style="color: #666666">);</span>
+    query<span style="color: #666666">.</span><span style="color: #7D9029">setTermsPrefix</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;s&quot;</span><span style="color: #666666">);</span>
+    query<span style="color: #666666">.</span><span style="color: #7D9029">addTermsField</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;terms_s&quot;</span><span style="color: #666666">);</span>
+    query<span style="color: #666666">.</span><span style="color: #7D9029">setTermsMinCount</span><span style="color: #666666">(1);</span>
+
+    QueryRequest request <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> QueryRequest<span style="color: #666666">(</span>query<span style="color: #666666">);</span>
+    List<span style="color: #666666">&lt;</span>Term<span style="color: #666666">&gt;</span> terms <span style="color: #666666">=</span> request<span style="color: #666666">.</span><span style="color: #7D9029">process</span><span style="color: #666666">(</span>getSolrClient<span style="color: #666666">()).</span><span style="color: #7D9029">getTermsResponse</span><span style="color: #666666">().</span><span style="color: #7D9029">getTerms</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;terms_s&quot;</span><span style="color: #666666">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="TheTermsComponent-UsingtheTermsComponentforanAuto-SuggestFeature">Using the Terms Component for an Auto-Suggest Feature</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If the <a href="suggester.html#suggester">Suggester</a> doesn&#8217;t suit your needs, you can use the Terms component in Solr to build a similar feature for your own search application. Simply submit a query specifying whatever characters the user has typed so far as a prefix. For example, if the user has typed "at", the search engine&#8217;s interface would submit the following query:</p>
+</div>
+<div class="paragraph">
+<p><code><a href="http://localhost:8983/solr/techproducts/terms?terms.fl=name&amp;terms.prefix=at" class="bare">http://localhost:8983/solr/techproducts/terms?terms.fl=name&amp;terms.prefix=at</a></code></p>
+</div>
+<div class="paragraph">
+<p>Result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;response&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;status&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;terms&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ata&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ati&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/response&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can use the parameter <code>omitHeader=true</code> to omit the response header from the query response, like in this example, which also returns the response in JSON format: <code><a href="http://localhost:8983/solr/techproducts/terms?terms.fl=name&amp;terms.prefix=at&amp;indent=true&amp;wt=json&amp;omitHeader=true" class="bare">http://localhost:8983/solr/techproducts/terms?terms.fl=name&amp;terms.prefix=at&amp;indent=true&amp;wt=json&amp;omitHeader=true</a></code></p>
+</div>
+<div class="paragraph">
+<p>Result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">{
+  &quot;terms&quot;: {
+    &quot;name&quot;: [
+      &quot;ata&quot;,
+      1,
+      &quot;ati&quot;,
+      1
+    ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="TheTermsComponent-DistributedSearchSupport">Distributed Search Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The TermsComponent also supports distributed indexes. For the <code>/terms</code> request handler, you must provide the following two parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shards</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the shards in your distributed indexing configuration. For more information about distributed indexing, see <a href="distributed-search-with-index-sharding.html#distributed-search-with-index-sharding">Distributed Search with Index Sharding</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shards.qt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the request handler Solr uses for requests to shards.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="TheTermsComponent-MoreResources">More Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://wiki.apache.org/solr/TermsComponent">TermsComponent wiki page</a></p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/handler/component/TermsComponent.html">TermsComponent javadoc</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="spatial-search.html">Spatial Search</a>
+      
+      
+      <a class="btn btn-primary next" href="the-term-vector-component.html">The Term Vector Component</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=the-terms-component" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=the-terms-component"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

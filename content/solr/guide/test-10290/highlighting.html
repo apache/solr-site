@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Highlighting | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Highlighting">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='highlighting.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='highlighting.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='highlighting.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Highlighting</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Highlighting in Solr allows fragments of documents that match the user&#8217;s query to be included with the query response. The fragments are included in a special section of the response (the <code>highlighting</code> section), and the client uses the formatting clues also included to determine how to present the snippets to users. Fragments are a portion of a document field that contains matches from the query and are sometimes also referred to as snippets or passages. Highlighting is extremely configurable, perhaps more than any other part of Solr. There are many parameters each for fragment sizing, formatting, ordering, backup/alternate behavior, and more options that are hard to categorize. Nonetheless, highlighting is very simple to use.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Highlighting-Usage">Usage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You only need to set the <code>hl</code> and often <code>hl.fl</code> parameters to get results. The following table documents these and some other supported parameters. Note that many highlighting parameters support per-field overrides, such as: <code>f.<em>title_txt</em>.hl.snippets</code></p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use this parameter to enable or disable highlighting.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.method</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">original</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The highlighting implementation to use. Acceptable values are: <code>unified</code>, <code>original</code>, <code>fastVector</code>, and <code>postings</code>. See the <a href="#Highlighting-ChoosingaHighlighter">Choosing a Highlighter</a> section below for more details on the differences between the available highlighters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.fl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(df=)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a list of fields to highlight. Accepts a comma- or space-delimited list of fields for which Solr should generate highlighted snippets. A wildcard of &#8216;<strong>&#8217; (asterisk) can be used to match field globs, such as 'text_</strong>' or even '<strong>' to highlight on all fields where highlighting is possible. When using '</strong>', consider adding <code>hl.requireFieldMatch=true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.q</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(q=)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A query to use for highlighting. This parameter allows you to highlight different terms than those being used to retrieve documents.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.qparser</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(defType=)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The query parser to use for the <code>hl.q</code> query.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.requireFieldMatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>By default, <strong>false</strong>, all query terms will be highlighted for each field to be highlighted (<code>hl.fl</code>) no matter what fields the parsed query refer to. If set to <strong>true</strong>, only query terms aligning with the field being highlighted will in turn be highlighted.</p>
+</div>
+<div class="paragraph">
+<p>note: if the query references fields different from the field being highlighted and they have different text analysis, the query may not highlight query terms it should have and vice versa. The analysis used is that of the field being highlighted (<code>hl.fl</code>), not the query fields.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.usePhraseHighlighter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set to <strong>true</strong>, Solr will highlight phrase queries (and other advanced position-sensitive queries) accurately – as phrases. If <strong>false</strong>, the parts of the phrase will be highlighted everywhere instead of only when it forms the given phrase.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.highlightMultiTerm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set to <strong>true</strong>, Solr will highlight wildcard queries (and other <code>MultiTermQuery</code> subclasses). If <strong>false</strong>, they won&#8217;t be highlighted at all.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.snippets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies maximum number of highlighted snippets to generate per field. It is possible for any number of snippets from zero to this value to be generated.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.fragsize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the approximate size, in characters, of fragments to consider for highlighting. <strong>0</strong> indicates that no fragmenting should be considered and the whole field value should be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.tag.pre</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;em&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(<code>hl.simple.pre</code> for the Original Highlighter) Specifies the “tag” to use before a highlighted term. This can be any string, but is most often an HTML or XML tag.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.tag.post</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;/em&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(<code>hl.simple.post</code> for the Original Highlighter) Specifies the “tag” to use after a highlighted term. This can be any string, but is most often an HTML or XML tag.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.encoder</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If blank, the default, then the stored text will be returned without any escaping/encoding performed by the highlighter. If set to <strong>html</strong> then special HMTL/XML characters will be encoded (e.g. <code>&amp;</code> becomes <code>&amp;</code>). The pre/post snippet characters are never encoded.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.maxAnalyzedChars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">51200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The character limit to look for highlights, after which no highlighting will be done. This is mostly only a performance concern for an <em>analysis</em> based offset source since it&#8217;s the slowest. See <a href="#Highlighting-SchemaOptionsandPerformanceConsiderations">Schema Options and Performance Considerations</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>There are more parameters supported as well depending on the highlighter (via <code>hl.method</code>) chosen.</p>
+</div>
+<div class="sect2">
+<h3 id="Highlighting-HighlightingintheQueryResponse">Highlighting in the Query Response</h3>
+<div class="paragraph">
+<p>In the response to a query, Solr includes highlighting data in a section separate from the documents. It is up to a client to determine how to process this response and display the highlights to users.</p>
+</div>
+<div class="paragraph">
+<p>Using the example documents included with Solr, we can see how this might work:</p>
+</div>
+<div class="paragraph">
+<p>In response to a query such as <code><a href="http://localhost:8983/solr/gettingstarted/select?hl=on&amp;q=apple&amp;wt=json&amp;hl.fl=manu&amp;fl=id,name,manu,cat" class="bare">http://localhost:8983/solr/gettingstarted/select?hl=on&amp;q=apple&amp;wt=json&amp;hl.fl=manu&amp;fl=id,name,manu,cat</a></code>, we get a response such as this (truncated slightly for space):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="json">{
+    <span style="color: #008000; font-weight: bold">&quot;responseHeader&quot;</span>: {
+        <span style="border: 1px solid #FF0000">...</span>
+        }
+    }<span style="border: 1px solid #FF0000">,</span>
+    <span style="color: #BA2121">&quot;response&quot;</span><span style="border: 1px solid #FF0000">:</span> {
+        <span style="color: #008000; font-weight: bold">&quot;numFound&quot;</span>: <span style="color: #666666">1</span>,
+        <span style="color: #008000; font-weight: bold">&quot;start&quot;</span>: <span style="color: #666666">0</span>,
+        <span style="color: #008000; font-weight: bold">&quot;docs&quot;</span>: [{
+            <span style="color: #008000; font-weight: bold">&quot;id&quot;</span>: <span style="color: #BA2121">&quot;MA147LL/A&quot;</span>,
+            <span style="color: #008000; font-weight: bold">&quot;name&quot;</span>: <span style="color: #BA2121">&quot;Apple 60 GB iPod with Video Playback Black&quot;</span>,
+            <span style="color: #008000; font-weight: bold">&quot;manu&quot;</span>: <span style="color: #BA2121">&quot;Apple Computer Inc.&quot;</span>,
+            <span style="color: #008000; font-weight: bold">&quot;cat&quot;</span>: [
+                <span style="color: #BA2121">&quot;electronics&quot;</span>,
+                <span style="color: #BA2121">&quot;music&quot;</span>
+            ]
+        }]
+    }<span style="border: 1px solid #FF0000">,</span>
+    <span style="color: #BA2121">&quot;highlighting&quot;</span><span style="border: 1px solid #FF0000">:</span> {
+        <span style="color: #008000; font-weight: bold">&quot;MA147LL/A&quot;</span>: {
+            <span style="color: #008000; font-weight: bold">&quot;manu&quot;</span>: [
+                <span style="color: #BA2121">&quot;&lt;em&gt;Apple&lt;/em&gt; Computer Inc.&quot;</span>
+            ]
+        }
+    }
+<span style="border: 1px solid #FF0000">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note the two sections <code>docs</code> and <code>highlighting</code>. The <code>docs</code> section contains the fields of the document requested with the <code>fl</code> parameter of the query (only "id", "name", "manu", and "cat"). The <code>highlighting</code> section includes the ID of each document, and the field that contains the highlighted portion. In this example, we used the <code>hl.fl</code> parameter to say we wanted query terms highlighted in the "manu" field. When there is a match to the query term in that field, it will be included for each document ID in the list.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Highlighting-ChoosingaHighlighter">Choosing a Highlighter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Solr provides a <code>HighlightComponent</code> (a <code>SearchComponent</code>) and it&#8217;s in the default list of components for search handlers. It offers a somewhat unified API over multiple actual highlighting implementations (or simply "highlighters") that do the business of highlighting. There are many parameters supported by more than one highlighter, and sometimes the implementation details and semantics will be a bit different, so don&#8217;t expect identical results when switching highlighters. You should use the <code>hl.method</code> parameter to choose a highlighter but it&#8217;s also possible to explicitly configure an implementation by class name in <code>solrconfig.xml</code>.</p>
+</div>
+<div class="paragraph">
+<p>There are four highlighters available that can be chosen at runtime with the <code>hl.method</code> parameter, in order of general recommendation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><a href="#Highlighting-TheUnifiedHighlighter">Unified Highlighter</a></strong> : (<code>hl.method=unified</code>) The Unified Highlighter is the newest highlighter (as of Solr 6.4), which stands out as the most flexible and performant of the options. We recommend that you try this highlighter even though it isn&#8217;t the default (yet). It supports the most common highlighting parameters and can handle just about any query accurately, even SpanQueries (e.g. as seen from the <code>surround</code> parser). A strong benefit to this highlighter is that you can opt to configure Solr to put more information in the underlying index to speed up highlighting of large documents; multiple configurations are supported, even on a per-field basis. There is little or no such flexibility for the other highlighters. More on this below.</p>
+</li>
+<li>
+<p><strong><a href="#Highlighting-TheOriginalHighlighter">Original Highlighter</a></strong> : (<code>hl.method=original</code>, the default) The Original Highlighter, sometimes called the "Standard Highlighter" or "Default Highlighter", is Lucene&#8217;s original highlighter – a venerable option with a high degree of customization options. Its ability to highlight just about any query accurately is a strength shared with the Unified Highlighter (they share some code for this in fact). The Original Highlighter will normally analyze stored text on the fly in order to highlight. It will use full term vectors if available, however in this mode it isn&#8217;t as fast as the Unified Highlighter or FastVector Highlighter. This highlighter is a good choice for a wide variety of search use-cases. Where it falls short is performance; it&#8217;s often twice as slow as the Unified Highlighter. And despite being the most customizable, it doesn&#8217;t have a BreakIterator based fragmenter (all the others do), which could pose a challenge for some languages.</p>
+</li>
+<li>
+<p><strong><a href="#Highlighting-TheFastVectorHighlighter">FastVector Highlighter</a></strong> : (<code>hl.method=fastVector</code>) The FastVector Highlighter <em>requires</em> full term vector options (<code>termVectors</code>, <code>termPositions</code>, and <code>termOffsets</code>) on the field, and is optimized with that in mind. Its nearly as configurable as the Original Highlighter with some variability. It notably supports multi-colored highlighting such that different query words can be denoted in the fragment with different marking, usually expressed as an HTML tag with a unique color. Its query-representation is less advanced than the Original or Unified Highlighters: for example it will not work well with the <code>surround</code> parser, and there are multiple reported bugs pertaining to queries with stop-words. Note that both the FastVector and Original Highlighters can be used in conjunction in a search request to highlight some fields with one and some the other. In contrast, the other highlighters can only be chosen exclusively.</p>
+</li>
+<li>
+<p><strong><a href="#Highlighting-ThePostingsHighlighter">Postings Highlighter</a></strong> : (<code>hl.method=postings</code>) The Postings Highlighter is the ancestor of the Unified Highlighter, supporting a subset of its options and none of its index configuration flexibility - it <em>requires</em> <code>storeOffsetsWithPositions</code> on all fields to highlight. This option is here for backwards compatibility; if you find you need it, please share your experience with the Solr community.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Unified Highlighter and Postings Highlighter from which it derives, are exclusively configured via search parameters. In contrast, some settings for the Original and FastVector Highlighters are set in <code>solrconfig.xml</code>. There&#8217;s a robust example of the latter in the &#8220;<code>techproducts</code>&#8221; configset.</p>
+</div>
+<div class="paragraph">
+<p>In addition to further information below, more information can be found in the <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/highlight/package-summary.html">javadocs</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="Highlighting-SchemaOptionsandPerformanceConsiderations">Schema Options and Performance Considerations</h3>
+<div class="paragraph">
+<p>Fundamental to the internals of highlighting are detecting the <em>offsets</em> of the individual words that match the query. Some of the highlighters can run the stored text through the analysis chain defined in the schema, some can look them up from <em>postings</em>, and some can look them up from <em>term vectors.</em> These choices have different trade-offs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Analysis</strong>: Supported by the Unified and Original Highlighters. If you don&#8217;t go out of your way to configure the other options below, the highlighter will analyze the stored text on the fly (during highlighting) to calculate offsets. The benefit of this approach is that your index won&#8217;t grow larger with any extra data that isn&#8217;t strictly necessary for highlighting. The down side is that highlighting speed is roughly linear with the amount of text to process, with a large factor being the complexity of your analysis chain. For "short" text, this is a good choice. Or maybe it&#8217;s not short but you&#8217;re prioritizing a smaller index and indexing speed over highlighting performance.</p>
+</li>
+<li>
+<p><strong>Postings</strong>: Supported by the Unified and Postings Highlighters. Set <code>storeOffsetsWithPositions</code> to <code>true</code>. This adds a moderate amount of extra data to the index but it speeds up highlighting tremendously, especially compared to analysis with longer text fields. However, wildcard queries will fall back to analysis unless "light" term vectors are added.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>with Term Vectors (light)</strong>: Supported only by the Unified Highlighter. To enable this mode set <code>termVectors</code> to <code>true</code> but no other term vector related options on the field being highlighted. This adds even more data to the index than just <code>storeOffsetsWithPositions</code> but not as much as enabling all the extra term vector options. Term Vectors are only accessed by the highlighter when a wildcard query is used and will prevent a fall back to analysis of the stored text. This is definitely the fastest option for highlighting wildcard queries on large text fields.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Term Vectors (full)</strong>: Supported by the Unified, FastVector, and Original Highlighters. Set <code>termVectors</code>, <code>termPositions</code>, and <code>termOffsets</code> to <code>true</code>, and potentially <code>termPayloads</code> for advanced use cases. This adds substantial weight to the index – similar in size to the compressed stored text. If you are using the Unified Highlighter then this is not a recommended configuration since it&#8217;s slower and heavier than postings with light term vectors. However, this could make sense if full term vectors are already needed for another use-case.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Highlighting-TheUnifiedHighlighter">The Unified Highlighter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Unified Highlighter supports these following additional parameters to the ones listed earlier:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.offsetSource</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">By default, the Unified Highlighter will usually pick the right offset source (see above). However it may be ambiguous such as during a migration from one offset source to another that hasn&#8217;t completed. The offset source can be explicitly configured to one of: <strong>ANALYSIS,</strong> <strong>POSTINGS</strong>, <strong>POSTINGS_WITH_TERM_VECTORS, *TERM_VECTORS</strong>*</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.tag.ellipsis</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">By default, each snippet is returned as a separate value (as is done with the other highlighters). Set this parameter to instead return one string with this text as the delimiter. <em>Note: this is likely to be removed in the future.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.defaultSummary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <strong>true</strong>, use the leading portion of the text as a snippet if a proper highlighted snippet can&#8217;t otherwise be generated.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.score.k1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies BM25 term frequency normalization parameter 'k1'. For example, it can be set to "0" to rank passages solely based on the number of query terms that match.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.score.b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.75</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies BM25 length normalization parameter 'b'. For example, it can be set to "0" to ignore the length of passages entirely when ranking.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.score.pivot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">87</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies BM25 average passage length in characters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.bs.language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the breakiterator language for dividing the document into passages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.bs.country</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the breakiterator country for dividing the document into passages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.bs.variant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the breakiterator variant for dividing the document into passages.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.bs.type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SENTENCE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the breakiterator type for dividing the document into passages. Can be <strong>SEPARATOR</strong>, <strong>SENTENCE</strong>, <strong>WORD</strong>, <strong>CHARACTER</strong>, <strong>LINE</strong>, or <strong>WHOLE</strong>. SEPARATOR is special value that splits text on a user-provided character in <code>hl.bs.separator</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.bs.separator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates which character to break the text on. Requires <code>hl.bs.type=SEPARATOR</code>. This is useful when the text has already been manipulated in advance to have a special delineation character at desired highlight passage boundaries. This character will still appear in the text as the last character of a passage.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="Highlighting-ThePostingsHighlighter">The Postings Highlighter</h3>
+<div class="paragraph">
+<p>The Postings Highlighter is the ancestor of the Unified Highlighter, supporting a subset of it&#8217;s options and sometimes with different default settings for some common parameters. Viewed from the perspective of the Unified Highlighter, these settings are effectively non-settings and fixed as-such: <code>hl.offsetSource=POSTINGS</code>, <code>hl.requireFieldMatch=true</code>, <code>hl.usePhraseHighlighter=false</code>, <code>hl.fragsize=-1</code> (none). It has these different default settings: <code>hl.defaultSummary=true</code>, <code>hl.tag.ellipsis="&#8230;&#8203; "</code>. In addition, it has a setting <code>hl.multiValuedSeparatorChar=" "</code> (space). This highlighter never returns separate snippets as separate values; they are always joined by <code>hl.tag.ellipsis</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Highlighting-TheOriginalHighlighter">The Original Highlighter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Original Highlighter supports these following additional parameters to the ones listed earlier:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.mergeContiguous</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instructs Solr to collapse contiguous fragments into a single fragment. A value of <strong>true</strong> indicates contiguous fragments will be collapsed into single fragment. The default value, <strong>false</strong>, is also the backward-compatible setting.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.maxMultiValuedToExamine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Integer.MAX_VALUE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the maximum number of entries in a multi-valued field to examine before stopping. This can potentially return zero results if the limit is reached before any matches are found. If used with the <code>maxMultiValuedToMatch</code>, whichever limit is reached first will determine when to stop looking.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.maxMultiValuedToMatch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Integer.MAX_VALUE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the maximum number of matches in a multi-valued field that are found before stopping. If <code>hl.maxMultiValuedToExamine</code> is also defined, whichever limit is reached first will determine when to stop looking.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.alternateField</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a field to be used as a backup default summary if Solr cannot generate a snippet (i.e., because no terms match).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.maxAlternateFieldLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(unlimited)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the maximum number of characters of the field to return. Any value less than or equal to 0 means the field&#8217;s length is unlimited. This parameter is only used in conjunction with the <code>hl.alternateField</code> parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.highlightAlternate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set to <strong>true</strong>, and <code>hl.alternateFieldName</code> is active, Solr will show the entire alternate field, with highlighting of occurrences. If <code>hl.maxAlternateFieldLength=N</code> is used, Solr returns max <code>N</code> characters surrounding the best matching fragment. If set to <strong>false</strong>, or if there is no match in the alternate field either, the alternate field will be shown without highlighting.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.formatter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">simple</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selects a formatter for the highlighted output. Currently the only legal value is <strong>simple</strong>, which surrounds a highlighted term with a customizable pre- and post-text snippet.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.simple.prehl.simple.post</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;em&gt; and &lt;/em&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the text that should appear before (<code>hl.simple.pre</code>) and after (<code>hl.simple.post</code>) a highlighted term, when using the simple formatter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.fragmenter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a text snippet generator for highlighted text. The standard fragmenter is <strong>gap</strong>, which creates fixed-sized fragments with gaps for multi-valued fields. Another option is <strong>regex</strong>, which tries to create fragments that resemble a specified regular expression.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.regex.slop</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When using the regex fragmenter (<code>hl.fragmenter=regex</code>), this parameter defines the factor by which the fragmenter can stray from the ideal fragment size (given by <code>hl.fragsize</code>) to accommodate a regular expression. For instance, a slop of 0.2 with <code>hl.fragsize=100</code> should yield fragments between 80 and 120 characters in length. It is usually good to provide a slightly smaller <code>hl.fragsize</code> value when using the regex fragmenter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.regex.pattern</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(blank)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the regular expression for fragmenting. This could be used to extract sentences.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.regex.maxAnalyzedChars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instructs Solr to analyze only this many characters from a field when using the regex fragmenter (after which, the fragmenter produces fixed-sized fragments). Applying a complicated regex to a huge field is computationally expensive.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.preserveMulti</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <strong>true</strong>, multi-valued fields will return all values in the order they were saved in the index. If <strong>false</strong>, only values that match the highlight request will be returned.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.payloads</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(automatic)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>hl.usePhraseHighlighter</code> is true and the indexed field has payloads but not term vectors (generally quite rare), the index&#8217;s payloads will be read into the highlighter&#8217;s memory index along with the postings. If this may happen and you know you don&#8217;t need them for highlighting (i.e. your queries don&#8217;t filter by payload) then you can save a little memory by setting this to false.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The Original Highlighter has a plugin architecture that enables new functionality to be registered in <code>solrconfig.xml</code>. The &#8220;<code>techproducts</code>&#8221; configset shows most of these settings explicitly. You can use it as a guide to provide your own components to include a <code>SolrFormatter</code>, <code>SolrEncoder</code>, and <code>SolrFragmenter.</code></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Highlighting-TheFastVectorHighlighter">The FastVector Highlighter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The FastVector Highlighter (FVH) can be used in conjunction with the Original Highlighter if not all fields should be highlighted with the FVH. In such a mode, set <code>hl.method=original</code> and <code>f.yourTermVecField.hl.method=fastVector</code> for all fields that should use the FVH. One annoyance to keep in mind is that the Original Highlighter uses <code>hl.simple.pre</code> whereas the FVH (and other highlighters) use <code>hl.tag.pre</code>.</p>
+</div>
+<div class="paragraph">
+<p>In addition to the initial listed parameters, the following parameters documented for the Original Highlighter above are also supported by the FVH:</p>
+</div>
+<div class="paragraph">
+<p><code>hl.alternateField</code>, <code>hl.maxAlternateFieldLength</code>, <code>hl.highlightAlternate</code></p>
+</div>
+<div class="paragraph">
+<p>And here are additional parameters supported by the FVH:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.fragListBuilder</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">weighted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The snippet fragmenting algorithm. The <strong>weighted</strong> fragListBuilder uses IDF-weights to order fragments. Other options are <strong>single</strong>, which returns the entire field contents as one snippet, or <strong>simple</strong>. You can select a fragListBuilder with this parameter, or modify an existing implementation in <code>solrconfig.xml</code> to be the default by adding "default=true".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.fragmentsBuilder</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">default</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The fragments builder is responsible for formatting the fragments, which uses &lt;em&gt; and &lt;/em&gt; markup (if <code>hl.tag.pre</code> and <code>hl.tag.post</code> are not defined). Another pre-configured choice is <strong>colored</strong>, which is an example of how to use the fragments builder to insert HTML into the snippets for colored highlights if you choose. You can also implement your own if you&#8217;d like. You can select a fragments builder with this parameter, or modify an existing implementation in <code>solrconfig.xml</code> to be the default by adding "default=true".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.boundaryScanner</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see below</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.bs.*</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see below</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.phraseLimit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of phrases to analyze when searching for the highest-scoring phrase.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hl.multiValuedSeparatorChar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">" " <em>(space)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Text to use to separate one value from the next for a multi-valued field.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="Highlighting-UsingBoundaryScannerswiththeFastVectorHighlighter">Using Boundary Scanners with the FastVector Highlighter</h3>
+<div class="paragraph">
+<p>The FastVector Highlighter will occasionally truncate highlighted words. To prevent this, implement a boundary scanner in <code>solrconfig.xml</code>, then use the <code>hl.boundaryScanner</code> parameter to specify the boundary scanner for highlighting.</p>
+</div>
+<div class="paragraph">
+<p>Solr supports two boundary scanners: <code>breakIterator</code> and <code>simple</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="Highlighting-ThebreakIteratorBoundaryScanner">The <code>breakIterator</code> Boundary Scanner</h4>
+<div class="paragraph">
+<p>The <code>breakIterator</code> boundary scanner offers excellent performance right out of the box by taking locale and boundary type into account. In most cases you will want to use the <code>breakIterator</code> boundary scanner. To implement the <code>breakIterator</code> boundary scanner, add this code to the <code>highlighting</code> section of your <code>solrconfig.xml</code> file, adjusting the type, language, and country values as appropriate to your application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;boundaryScanner</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;breakIterator&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.highlight.BreakIteratorBoundaryScanner&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+   <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+     <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;hl.bs.type&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>WORD<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+     <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;hl.bs.language&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>en<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+     <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;hl.bs.country&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>US<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+   <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/boundaryScanner&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Possible values for the <code>hl.bs.type</code> parameter are WORD, LINE, SENTENCE, and CHARACTER.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Highlighting-ThesimpleBoundaryScanner">The <code>simple</code> Boundary Scanner</h4>
+<div class="paragraph">
+<p>The <code>simple</code> boundary scanner scans term boundaries for a specified maximum character value (<code>hl.bs.maxScan</code>) and for common delimiters such as punctuation marks (<code>hl.bs.chars</code>). The <code>simple</code> boundary scanner may be useful for some custom To implement the <code>simple</code> boundary scanner, add this code to the <code>highlighting</code> section of your <code>solrconfig.xml</code> file, adjusting the values as appropriate to your application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;boundaryScanner</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;simple&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.highlight.SimpleBoundaryScanner&quot;</span> <span style="color: #7D9029">default=</span><span style="color: #BA2121">&quot;true&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+   <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+     <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;hl.bs.maxScan&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>10<span style="color: #008000; font-weight: bold">&lt;/str &gt;</span>
+     <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;hl.bs.chars&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>.,!?\t\n<span style="color: #008000; font-weight: bold">&lt;/str &gt;</span>
+   <span style="color: #008000; font-weight: bold">&lt;/lst &gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/boundaryScanner&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="blockjoin-faceting.html">BlockJoin Faceting</a>
+      
+      
+      <a class="btn btn-primary next" href="spell-checking.html">Spell Checking</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=highlighting" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=highlighting"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

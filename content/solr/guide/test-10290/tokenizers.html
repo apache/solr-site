@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Tokenizers | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Tokenizers">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='tokenizers.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='tokenizers.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='tokenizers.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Tokenizers</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You configure the tokenizer for a text field type in <code>schema.xml</code> with a <code>&lt;tokenizer&gt;</code> element, as a child of <code>&lt;analyzer&gt;</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;fieldType</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;text&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TextField&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/fieldType&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The class attribute names a factory class that will instantiate a tokenizer object when needed. Tokenizer factory classes implement the <code>org.apache.solr.analysis.TokenizerFactory</code>. A TokenizerFactory&#8217;s <code>create()</code> method accepts a Reader and returns a TokenStream. When Solr creates the tokenizer it passes a Reader object that provides the content of the text field.</p>
+</div>
+<div class="paragraph">
+<p>Arguments may be passed to tokenizer factories by setting attributes on the <code>&lt;tokenizer&gt;</code> element.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;fieldType</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;semicolonDelimited&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TextField&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternTokenizerFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;; &quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/fieldType&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sections describe the tokenizer factory classes included in this release of Solr.</p>
+</div>
+<div class="paragraph">
+<p>For user tips about Solr&#8217;s tokenizers, see <a href="http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters" class="bare">http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-StandardTokenizer">Standard Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer splits the text field into tokens, treating whitespace and punctuation as delimiters. Delimiter characters are discarded, with the following exceptions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Periods (dots) that are not followed by whitespace are kept as part of the token, including Internet domain names.</p>
+</li>
+<li>
+<p>The "@" character is among the set of token-splitting punctuation, so email addresses are <strong>not</strong> preserved as single tokens.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that words are split at hyphens.</p>
+</div>
+<div class="paragraph">
+<p>The Standard Tokenizer supports <a href="http://unicode.org/reports/tr29/#Word_Boundaries">Unicode standard annex UAX#29</a> word boundaries with the following token types: <code>&lt;ALPHANUM&gt;</code>, <code>&lt;NUM&gt;</code>, <code>&lt;SOUTHEAST_ASIAN&gt;</code>, <code>&lt;IDEOGRAPHIC&gt;</code>, and <code>&lt;HIRAGANA&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.StandardTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxTokenLength</code>: (integer, default 255) Solr ignores tokens that exceed the number of characters specified by <code>maxTokenLength</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Please, email <a href="mailto:john.doe@foo.com">john.doe@foo.com</a> by 03-09, re: m37-xq."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Please", "email", "john.doe", "foo.com", "by", "03", "09", "re", "m37", "xq"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-ClassicTokenizer">Classic Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Classic Tokenizer preserves the same behavior as the Standard Tokenizer of Solr versions 3.1 and previous. It does not use the <a href="http://unicode.org/reports/tr29/#Word_Boundaries">Unicode standard annex UAX#29</a> word boundary rules that the Standard Tokenizer uses. This tokenizer splits the text field into tokens, treating whitespace and punctuation as delimiters. Delimiter characters are discarded, with the following exceptions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Periods (dots) that are not followed by whitespace are kept as part of the token.</p>
+</li>
+<li>
+<p>Words are split at hyphens, unless there is a number in the word, in which case the token is not split and the numbers and hyphen(s) are preserved.</p>
+</li>
+<li>
+<p>Recognizes Internet domain names and email addresses and preserves them as a single token.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ClassicTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxTokenLength</code>: (integer, default 255) Solr ignores tokens that exceed the number of characters specified by <code>maxTokenLength</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ClassicTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Please, email <a href="mailto:john.doe@foo.com">john.doe@foo.com</a> by 03-09, re: m37-xq."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Please", "email", "<a href="mailto:john.doe@foo.com">john.doe@foo.com</a>", "by", "03-09", "re", "m37-xq"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-KeywordTokenizer">Keyword Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer treats the entire text field as a single token.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.KeywordTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.KeywordTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Please, email <a href="mailto:john.doe@foo.com">john.doe@foo.com</a> by 03-09, re: m37-xq."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Please, email <a href="mailto:john.doe@foo.com">john.doe@foo.com</a> by 03-09, re: m37-xq."</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-LetterTokenizer">Letter Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer creates tokens from strings of contiguous letters, discarding all non-letter characters.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LetterTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LetterTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "I can&#8217;t."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "I", "can", "t"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-LowerCaseTokenizer">Lower Case Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tokenizes the input stream by delimiting at non-letters and then converting all letters to lowercase. Whitespace and non-letters are discarded.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LowerCaseTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LowerCaseTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "I just <strong>LOVE</strong> my iPhone!"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "i", "just", "love", "my", "iphone"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-N-GramTokenizer">N-Gram Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Reads the field text and generates n-gram tokens of sizes in the given range.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.NGramTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>minGramSize</code>: (integer, default 1) The minimum n-gram size, must be &gt; 0.</p>
+</div>
+<div class="paragraph">
+<p><code>maxGramSize</code>: (integer, default 2) The maximum n-gram size, must be &gt;= <code>minGramSize</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior. Note that this tokenizer operates over the whole field. It does not break the field at whitespace. As a result, the space character is included in the encoding.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.NGramTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "hey man"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "h", "e", "y", " ", "m", "a", "n", "he", "ey", "y ", " m", "ma", "an"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>With an n-gram size range of 4 to 5:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.NGramTokenizerFactory&quot;</span> <span style="color: #7D9029">minGramSize=</span><span style="color: #BA2121">&quot;4&quot;</span> <span style="color: #7D9029">maxGramSize=</span><span style="color: #BA2121">&quot;5&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "bicycle"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "bicy", "bicyc", "icyc", "icycl", "cycl", "cycle", "ycle"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-EdgeN-GramTokenizer">Edge N-Gram Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Reads the field text and generates edge n-gram tokens of sizes in the given range.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.EdgeNGramTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>minGramSize</code>: (integer, default is 1) The minimum n-gram size, must be &gt; 0.</p>
+</div>
+<div class="paragraph">
+<p><code>maxGramSize</code>: (integer, default is 1) The maximum n-gram size, must be &gt;= <code>minGramSize</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>side</code>: ("front" or "back", default is "front") Whether to compute the n-grams from the beginning (front) of the text or from the end (back).</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior (min and max default to 1):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EdgeNGramTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "babaloo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "b"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Edge n-gram range of 2 to 5</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EdgeNGramTokenizerFactory&quot;</span> <span style="color: #7D9029">minGramSize=</span><span style="color: #BA2121">&quot;2&quot;</span> <span style="color: #7D9029">maxGramSize=</span><span style="color: #BA2121">&quot;5&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "babaloo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong>"ba", "bab", "baba", "babal"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Edge n-gram range of 2 to 5, from the back side:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EdgeNGramTokenizerFactory&quot;</span> <span style="color: #7D9029">minGramSize=</span><span style="color: #BA2121">&quot;2&quot;</span> <span style="color: #7D9029">maxGramSize=</span><span style="color: #BA2121">&quot;5&quot;</span> <span style="color: #7D9029">side=</span><span style="color: #BA2121">&quot;back&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "babaloo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "oo", "loo", "aloo", "baloo"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-ICUTokenizer">ICU Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer processes multilingual text and tokenizes it appropriately based on its script attribute.</p>
+</div>
+<div class="paragraph">
+<p>You can customize this tokenizer&#8217;s behavior by specifying <a href="http://userguide.icu-project.org/boundaryanalysis#TOC-RBBI-Rules">per-script rule files</a>. To add per-script rules, add a <code>rulefiles</code> argument, which should contain a comma-separated list of <code>code:rulefile</code> pairs in the following format: four-letter ISO 15924 script code, followed by a colon, then a resource path. For example, to specify rules for Latin (script code "Latn") and Cyrillic (script code "Cyrl"), you would enter <code>Latn:my.Latin.rules.rbbi,Cyrl:my.Cyrillic.rules.rbbi</code>.</p>
+</div>
+<div class="paragraph">
+<p>The default <code>solr.ICUTokenizerFactory</code> provides UAX#29 word break rules tokenization (like <code>solr.StandardTokenizer</code>), but also includes custom tailorings for Hebrew (specializing handling of double and single quotation marks), and for syllable tokenization for Khmer, Lao, and Myanmar.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ICUTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>rulefile</code>: a comma-separated list of <code>code:rulefile</code> pairs in the following format: four-letter ISO 15924 script code, followed by a colon, then a resource path.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #408080; font-style: italic">&lt;!-- no customization --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ICUTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ICUTokenizerFactory&quot;</span>
+             <span style="color: #7D9029">rulefiles=</span><span style="color: #BA2121">&quot;Latn:my.Latin.rules.rbbi,Cyrl:my.Cyrillic.rules.rbbi&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To use this tokenizer, you must add additional .jars to Solr&#8217;s classpath (as described in the section <a href="lib-directives-in-solrconfig.html#lib-directives-in-solrconfig">Lib Directives in SolrConfig</a>). See the <code>solr/contrib/analysis-extras/README.txt</code> for information on which jars you need to add to your <code>SOLR_HOME/lib</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-PathHierarchyTokenizer">Path Hierarchy Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer creates synonyms from file path hierarchies.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.PathHierarchyTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>delimiter</code>: (character, no default) You can specify the file path delimiter and replace it with a delimiter you provide. This can be useful for working with backslash delimiters.</p>
+</div>
+<div class="paragraph">
+<p><code>replace</code>: (character, no default) Specifies the delimiter character Solr uses in the tokenized output.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;fieldType</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;text_path&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TextField&quot;</span> <span style="color: #7D9029">positionIncrementGap=</span><span style="color: #BA2121">&quot;100&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PathHierarchyTokenizerFactory&quot;</span> <span style="color: #7D9029">delimiter=</span><span style="color: #BA2121">&quot;\&quot;</span> <span style="color: #7D9029">replace=</span><span style="color: #BA2121">&quot;/&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/fieldType&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "c:\usr\local\apache"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "c:", "c:/usr", "c:/usr/local", "c:/usr/local/apache"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-RegularExpressionPatternTokenizer">Regular Expression Pattern Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer uses a Java regular expression to break the input text stream into tokens. The expression provided by the pattern argument can be interpreted either as a delimiter that separates tokens, or to match patterns that should be extracted from the text as tokens.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="http://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">the Javadocs for <code>java.util.regex.Pattern</code></a> for more information on Java regular expression syntax.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.PatternTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>pattern</code>: (Required) The regular expression, as defined by in <code>java.util.regex.Pattern</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>group</code>: (Optional, default -1) Specifies which regex group to extract as the token(s). The value -1 means the regex should be treated as a delimiter that separates tokens. Non-negative group numbers (&gt;= 0) indicate that character sequences matching that regex group should be converted to tokens. Group zero refers to the entire regex, groups greater than zero refer to parenthesized sub-expressions of the regex, counted from left to right.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>A comma separated list. Tokens are separated by a sequence of zero or more spaces, a comma, and zero or more spaces.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternTokenizerFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;\s*,\s*&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "fee,fie, foe , fum, foo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "fee", "fie", "foe", "fum", "foo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Extract simple, capitalized words. A sequence of at least one capital letter followed by zero or more letters of either case is extracted as a token.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternTokenizerFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;[A-Z][A-Za-z]*&quot;</span> <span style="color: #7D9029">group=</span><span style="color: #BA2121">&quot;0&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Hello. My name is Inigo Montoya. You killed my father. Prepare to die."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Hello", "My", "Inigo", "Montoya", "You", "Prepare"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Extract part numbers which are preceded by "SKU", "Part" or "Part Number", case sensitive, with an optional semi-colon separator. Part numbers must be all numeric digits, with an optional hyphen. Regex capture groups are numbered by counting left parenthesis from left to right. Group 3 is the subexpression "[0-9-]+", which matches one or more digits or hyphens.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternTokenizerFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;(SKU|Part(\sNumber)?):?\s(\[0-9-\]+)&quot;</span> <span style="color: #7D9029">group=</span><span style="color: #BA2121">&quot;3&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "SKU: 1234, Part Number 5678, Part: 126-987"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "1234", "5678", "126-987"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-SimplifiedRegularExpressionPatternTokenizer">Simplified Regular Expression Pattern Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer is similar to the <code>PatternTokenizerFactory</code> described above, but uses Lucene <a href="https://lucene.apache.org/core/7_0_0//core/org/apache/lucene/util/automaton/RegExp.html"><code>RegExp</code></a> pattern matching to construct distinct tokens for the input stream. The syntax is more limited than <code>PatternTokenizerFactory</code>, but the tokenization is quite a bit faster.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.SimplePatternTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>pattern</code>: (Required) The regular expression, as defined by in the <a href="https://lucene.apache.org/core/7_0_0//core/org/apache/lucene/util/automaton/RegExp.html"><code>RegExp</code></a> javadocs, identifying the characters to include in tokens. The matching is greedy such that the longest token matching at a given point is created. Empty tokens are never created.</p>
+</div>
+<div class="paragraph">
+<p><code>maxDeterminizedStates</code>: (Optional, default 10000) the limit on total state count for the determined automaton computed from the regexp.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>To match tokens delimited by simple whitespace characters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SimplePatternTokenizerFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;[^ \t\r\n]+&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-SimplifiedRegularExpressionPatternSplittingTokenizer">Simplified Regular Expression Pattern Splitting Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer is similar to the <code>SimplePatternTokenizerFactory</code> described above, but uses Lucene <a href="https://lucene.apache.org/core/7_0_0//core/org/apache/lucene/util/automaton/RegExp.html"><code>RegExp</code></a> pattern matching to identify sequences of characters that should be used to split tokens. The syntax is more limited than <code>PatternTokenizerFactory</code>, but the tokenization is quite a bit faster.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.SimplePatternSplitTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>pattern</code>: (Required) The regular expression, as defined by in the <a href="https://lucene.apache.org/core/7_0_0//core/org/apache/lucene/util/automaton/RegExp.html"><code>RegExp</code></a> javadocs, identifying the characters that should split tokens. The matching is greedy such that the longest token separator matching at a given point is matched. Empty tokens are never created.</p>
+</div>
+<div class="paragraph">
+<p><code>maxDeterminizedStates</code>: (Optional, default 10000) the limit on total state count for the determined automaton computed from the regexp.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>To match tokens delimited by simple whitespace characters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SimplePatternSplitTokenizerFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;[ \t\r\n]+&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-UAX29URLEmailTokenizer">UAX29 URL Email Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tokenizer splits the text field into tokens, treating whitespace and punctuation as delimiters. Delimiter characters are discarded, with the following exceptions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Periods (dots) that are not followed by whitespace are kept as part of the token.</p>
+</li>
+<li>
+<p>Words are split at hyphens, unless there is a number in the word, in which case the token is not split and the numbers and hyphen(s) are preserved.</p>
+</li>
+<li>
+<p>Recognizes and preserves as single tokens the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Internet domain names containing top-level domains validated against the white list in the <a href="http://www.internic.net/zones/root.zone">IANA Root Zone Database</a> when the tokenizer was generated</p>
+</li>
+<li>
+<p>email addresses</p>
+</li>
+<li>
+<p><code>file://</code>, <code>http(s)://</code>, and <code>ftp://</code> URLs</p>
+</li>
+<li>
+<p>IPv4 and IPv6 addresses</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The UAX29 URL Email Tokenizer supports <a href="http://unicode.org/reports/tr29/#Word_Boundaries">Unicode standard annex UAX#29</a> word boundaries with the following token types: <code>&lt;ALPHANUM&gt;</code>, <code>&lt;NUM&gt;</code>, <code>&lt;URL&gt;</code>, <code>&lt;EMAIL&gt;</code>, <code>&lt;SOUTHEAST_ASIAN&gt;</code>, <code>&lt;IDEOGRAPHIC&gt;</code>, and <code>&lt;HIRAGANA&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.UAX29URLEmailTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxTokenLength</code>: (integer, default 255) Solr ignores tokens that exceed the number of characters specified by <code>maxTokenLength</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.UAX29URLEmailTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Visit <a href="http://accarol.com/contact.htm?from=external&amp;a=10" class="bare">http://accarol.com/contact.htm?from=external&amp;a=10</a> or e-mail <a href="mailto:bob.cratchet@accarol.com">bob.cratchet@accarol.com</a>"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Visit", "http://accarol.com/contact.htm?from=external&amp;a=10", "or", "e", "mail", "<a href="mailto:bob.cratchet@accarol.com">bob.cratchet@accarol.com</a>"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Tokenizers-WhiteSpaceTokenizer">White Space Tokenizer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Simple tokenizer that splits the text stream on whitespace and returns sequences of non-whitespace characters as tokens. Note that any punctuation <em>will</em> be included in the tokens.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.WhitespaceTokenizerFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> <code>rule</code> : Specifies how to define whitespace for the purpose of tokenization. Valid values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>java</code>: (Default) Uses <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Character.html#isWhitespace-int-">Character.isWhitespace(int)</a></p>
+</li>
+<li>
+<p><code>unicode</code>: Uses Unicode&#8217;s WHITESPACE property</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span> <span style="color: #7D9029">rule=</span><span style="color: #BA2121">&quot;java&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "To be, or what?"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "To", "be,", "or", "what?"</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="about-filters.html">About Filters</a>
+      
+      
+      <a class="btn btn-primary next" href="filter-descriptions.html">Filter Descriptions</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=tokenizers" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=tokenizers"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

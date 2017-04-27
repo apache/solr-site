@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Uploading Data with Solr Cell using Apache Tika | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Uploading Data with Solr Cell using Apache Tika">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='uploading-data-with-solr-cell-using-apache-tika.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='uploading-data-with-solr-cell-using-apache-tika.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='uploading-data-with-solr-cell-using-apache-tika.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Uploading Data with Solr Cell using Apache Tika</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Solr uses code from the <a href="http://lucene.apache.org/tika/">Apache Tika</a> project to provide a framework for incorporating many different file-format parsers such as <a href="http://incubator.apache.org/pdfbox/">Apache PDFBox</a> and <a href="http://poi.apache.org/index.html">Apache POI</a> into Solr itself. Working with this framework, Solr&#8217;s <code>ExtractingRequestHandler</code> can use Tika to support uploading binary files, including files in popular formats such as Word and PDF, for data extraction and indexing.</p>
+</div>
+<div class="paragraph">
+<p>When this framework was under development, it was called the Solr Content Extraction Library or CEL; from that abbreviation came this framework&#8217;s name: Solr Cell.</p>
+</div>
+<div class="paragraph">
+<p>If you want to supply your own <code>ContentHandler</code> for Solr to use, you can extend the <code>ExtractingRequestHandler</code> and override the <code>createFactory()</code> method. This factory is responsible for constructing the <code>SolrContentHandler</code> that interacts with Tika, and allows literals to override Tika-parsed values. Set the parameter <code>literalsOverride</code>, which normally defaults to *true, to *false" to append Tika-parsed values to literal values.</p>
+</div>
+<div class="paragraph">
+<p>For more information on Solr&#8217;s Extracting Request Handler, see <a href="https://wiki.apache.org/solr/ExtractingRequestHandler" class="bare">https://wiki.apache.org/solr/ExtractingRequestHandler</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-KeyConcepts">Key Concepts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When using the Solr Cell framework, it is helpful to keep the following in mind:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tika will automatically attempt to determine the input document type (Word, PDF, HTML) and extract the content appropriately. If you like, you can explicitly specify a MIME type for Tika with the <code>stream.type</code> parameter.</p>
+</li>
+<li>
+<p>Tika works by producing an XHTML stream that it feeds to a SAX ContentHandler. SAX is a common interface implemented for many different XML parsers. For more information, see <a href="http://www.saxproject.org/quickstart.html" class="bare">http://www.saxproject.org/quickstart.html</a>.</p>
+</li>
+<li>
+<p>Solr then responds to Tika&#8217;s SAX events and creates the fields to index.</p>
+</li>
+<li>
+<p>Tika produces metadata such as Title, Subject, and Author according to specifications such as the DublinCore. See <a href="http://tika.apache.org/1.7/formats.html" class="bare">http://tika.apache.org/1.7/formats.html</a> for the file types supported.</p>
+</li>
+<li>
+<p>Tika adds all the extracted text to the <code>content</code> field.</p>
+</li>
+<li>
+<p>You can map Tika&#8217;s metadata fields to Solr fields.</p>
+</li>
+<li>
+<p>You can pass in literals for field values. Literals will override Tika-parsed values, including fields in the Tika metadata object, the Tika content field, and any "captured content" fields.</p>
+</li>
+<li>
+<p>You can apply an XPath expression to the Tika XHTML to restrict the content that is produced.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While Apache Tika is quite powerful, it is not perfect and fails on some files. PDF files are particularly problematic, mostly due to the PDF format itself. In case of a failure processing any file, the <code>ExtractingRequestHandler</code> does not have a secondary mechanism to try to extract some text from the file; it will throw an exception and fail.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-TryingoutTikawiththeSolrtechproductsExample">Trying out Tika with the Solr <code>techproducts</code> Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can try out the Tika framework using the <code>techproducts</code> example included in Solr.</p>
+</div>
+<div class="paragraph">
+<p>Start the example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">bin/solr -e techproducts</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can now use curl to send a sample PDF file via HTTP POST:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl <span style="color: #BA2121">&#39;http://localhost:8983/solr/techproducts/update/extract?literal.id=doc1&amp;commit=true&#39;</span> -F <span style="color: #BA2121">&quot;myfile=@example/exampledocs/solr-word.pdf&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The URL above calls the Extracting Request Handler, uploads the file <code>solr-word.pdf</code> and assigns it the unique ID <code>doc1</code>. Here&#8217;s a closer look at the components of this command:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>literal.id=doc1</code> parameter provides the necessary unique ID for the document being indexed.</p>
+</li>
+<li>
+<p>The <code>commit=true parameter</code> causes Solr to perform a commit after indexing the document, making it immediately searchable. For optimum performance when loading many documents, don&#8217;t call the commit command until you are done.</p>
+</li>
+<li>
+<p>The <code>-F</code> flag instructs curl to POST data using the Content-Type <code>multipart/form-data</code> and supports the uploading of binary files. The @ symbol instructs curl to upload the attached file.</p>
+</li>
+<li>
+<p>The argument <code>myfile=@tutorial.html</code> needs a valid path, which can be absolute or relative.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can also use <code>bin/post</code> to send a PDF file into Solr (without the params, the literal.id parameter would be set to the absolute path to the file):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">bin/post -c techproducts example/exampledocs/solr-word.pdf -params &quot;literal.id=a&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you should be able to execute a query and find that document. You can make a request like <code><a href="http://localhost:8983/solr/techproducts/select?q=pdf" class="bare">http://localhost:8983/solr/techproducts/select?q=pdf</a></code> .</p>
+</div>
+<div class="paragraph">
+<p>You may notice that although the content of the sample document has been indexed and stored, there are not a lot of metadata fields associated with this document. This is because unknown fields are ignored according to the default parameters configured for the <code>/update/extract</code> handler in <code>solrconfig.xml</code>, and this behavior can be easily changed or overridden. For example, to store and see all metadata and content, execute the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">bin/post -c techproducts example/exampledocs/solr-word.pdf -params &quot;literal.id=doc1&amp;uprefix=attr_&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this command, the <code>uprefix=attr_</code> parameter causes all generated fields that aren&#8217;t defined in the schema to be prefixed with <code>attr_</code>, which is a dynamic field that is stored and indexed.</p>
+</div>
+<div class="paragraph">
+<p>This command allows you to query the document using an attribute, as in: <code><a href="http://localhost:8983/solr/techproducts/select?q=attr_meta:microsoft" class="bare">http://localhost:8983/solr/techproducts/select?q=attr_meta:microsoft</a></code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-InputParameters">Input Parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The table below describes the parameters accepted by the Extracting Request Handler.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">capture</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Captures XHTML elements with the specified name for a supplementary addition to the Solr document. This parameter can be useful for copying chunks of the XHTML into a separate field. For instance, it could be used to grab paragraphs (<code>&lt;p&gt;</code>) and index them into a separate field. Note that content is still also captured into the overall "content" field.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">captureAttr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indexes attributes of the Tika XHTML elements into separate fields, named after the element. If set to true, for example, when extracting from HTML, Tika can return the href attributes in &lt;a&gt; tags as fields named "a". See the examples below.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">commitWithin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add the document within the specified number of milliseconds.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">date.formats</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the date format patterns to identify in the documents.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defaultField</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the uprefix parameter (see below) is not specified and a field cannot be determined, the default field will be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extractOnly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default is false. If true, returns the extracted content from Tika without indexing the document. This literally includes the extracted XHTML as a string in the response. When viewing manually, it may be useful to use a response format other than XML to aid in viewing the embedded XHTML tags.For an example, see <a href="http://wiki.apache.org/solr/TikaExtractOnlyExampleOutput" class="bare">http://wiki.apache.org/solr/TikaExtractOnlyExampleOutput</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extractFormat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default is "xml", but the other option is "text". Controls the serialization format of the extract content. The xml format is actually XHTML, the same format that results from passing the <code>-x</code> command to the Tika command line application, while the text format is like that produced by Tika&#8217;s <code>-t</code> command. This parameter is valid only if <code>extractOnly</code> is set to true.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fmap.&lt;<em>source_field</em>&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maps (moves) one field name to another. The <code>source_field</code> must be a field in incoming documents, and the value is the Solr field to map to. Example: <code>fmap.content=text</code> causes the data in the <code>content</code> field generated by Tika to be moved to the Solr&#8217;s <code>text</code> field.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ignoreTikaException</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If true, exceptions found during processing will be skipped. Any metadata available, however, will be indexed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">literal.&lt;<em>fieldname</em>&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Populates a field with the name supplied with the specified value for each document. The data can be multivalued if the field is multivalued.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">literalsOverride</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If true (the default), literal field values will override other values with the same field name. If false, literal values defined with <code>literal.&lt;<em>fieldname</em>&gt;</code> will be appended to data already in the fields extracted from Tika. If setting <code>literalsOverride</code> to "false", the field must be multivalued.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lowernames</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Values are "true" or "false". If true, all field names will be mapped to lowercase with underscores, if needed. For example, "Content-Type" would be mapped to "content_type."</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">multipartUploadLimitInKB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Useful if uploading very large documents, this defines the KB size of documents to allow.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">passwordsFile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines a file path and name for a file of file name to password mappings.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource.name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the optional name of the file. Tika can use it as a hint for detecting a file&#8217;s MIME type.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resource.password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines a password to use for a password-protected PDF or OOXML file</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tika.config</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines a file path and name to a customized Tika configuration file. This is only required if you have customized your Tika implementation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uprefix</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prefixes all fields that are not defined in the schema with the given prefix. This is very useful when combined with dynamic field definitions. Example: <code>uprefix=ignored_</code> would effectively ignore all unknown fields generated by Tika given the example schema contains <code>&lt;dynamicField name="ignored_*" type="ignored"/&gt;</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">xpath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When extracting, only return Tika XHTML content that satisfies the given XPath expression. See <a href="http://tika.apache.org/1.7/index.html" class="bare">http://tika.apache.org/1.7/index.html</a> for details on the format of Tika XHTML. See also <a href="http://wiki.apache.org/solr/TikaExtractOnlyExampleOutput" class="bare">http://wiki.apache.org/solr/TikaExtractOnlyExampleOutput</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-OrderofOperations">Order of Operations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here is the order in which the Solr Cell framework, using the Extracting Request Handler and Tika, processes its input.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Tika generates fields or passes them in as literals specified by <code>literal.&lt;fieldname&gt;=&lt;value&gt;</code>. If <code>literalsOverride=false</code>, literals will be appended as multi-value to the Tika-generated field.</p>
+</li>
+<li>
+<p>If <code>lowernames=true</code>, Tika maps fields to lowercase.</p>
+</li>
+<li>
+<p>Tika applies the mapping rules specified by <code>fmap.</code> <code><em>source</em></code> <code>=</code> <code><em>target</em></code> parameters.</p>
+</li>
+<li>
+<p>If <code>uprefix</code> is specified, any unknown field names are prefixed with that value, else if <code>defaultField</code> is specified, any unknown fields are copied to the default field.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-ConfiguringtheSolrExtractingRequestHandler">Configuring the Solr <code>ExtractingRequestHandler</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are not working with the supplied <code>sample_techproducts_configs `or</code> data_driven_schema_configs` <a href="config-sets.html#config-sets">config set</a>, you must configure your own <code>solrconfig.xml</code> to know about the Jar&#8217;s containing the <code>ExtractingRequestHandler</code> and its dependencies:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml">  <span style="color: #008000; font-weight: bold">&lt;lib</span> <span style="color: #7D9029">dir=</span><span style="color: #BA2121">&quot;${solr.install.dir:../../..}/contrib/extraction/lib&quot;</span> <span style="color: #7D9029">regex=</span><span style="color: #BA2121">&quot;.*\.jar&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lib</span> <span style="color: #7D9029">dir=</span><span style="color: #BA2121">&quot;${solr.install.dir:../../..}/dist/&quot;</span> <span style="color: #7D9029">regex=</span><span style="color: #BA2121">&quot;solr-cell-\d.*\.jar&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can then configure the <code>ExtractingRequestHandler</code> in <code>solrconfig.xml</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;requestHandler</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;/update/extract&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;org.apache.solr.handler.extraction.ExtractingRequestHandler&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;fmap.Last-Modified&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>last_modified<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;uprefix&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>ignored_<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #408080; font-style: italic">&lt;!--Optional.  Specify a path to a tika configuration file. See the Tika docs for details.--&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;tika.config&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>/my/path/to/tika.config<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #408080; font-style: italic">&lt;!-- Optional. Specify one or more date formats to parse. See DateUtil.DEFAULT_DATE_FORMATS</span>
+<span style="color: #408080; font-style: italic">       for default date formats --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;date.formats&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>yyyy-MM-dd<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #408080; font-style: italic">&lt;!-- Optional. Specify an external file containing parser-specific properties.</span>
+<span style="color: #408080; font-style: italic">       This file is located in the same directory as solrconfig.xml by default.--&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;parseContext.config&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>parseContext.xml<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/requestHandler&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the defaults section, we are mapping Tika&#8217;s Last-Modified Metadata attribute to a field named <code>last_modified</code>. We are also telling it to ignore undeclared fields. These are all overridden parameters.</p>
+</div>
+<div class="paragraph">
+<p>The <code>tika.config</code> entry points to a file containing a Tika configuration. The <code>date.formats</code> allows you to specify various <code>java.text.SimpleDateFormats</code> date formats for working with transforming extracted input to a Date. Solr comes configured with the following date formats (see the <code>DateUtil</code> in Solr):</p>
+</div>
+<div class="paragraph">
+<p><code>yyyy-MM-dd&#8217;T&#8217;HH:mm:ss&#8217;Z'</code> <code>yyyy-MM-dd&#8217;T&#8217;HH:mm:ss</code> <code>yyyy-MM-dd</code> <code>yyyy-MM-dd hh:mm:ss</code> <code>yyyy-MM-dd HH:mm:ss</code> <code>EEE MMM d hh:mm:ss z yyyy</code> <code>EEE, dd MMM yyyy HH:mm:ss zzz</code> <code>EEEE, dd-MMM-yy HH:mm:ss zzz</code> <code>EEE MMM d HH:mm:ss yyyy</code></p>
+</div>
+<div class="paragraph">
+<p>You may also need to adjust the <code>multipartUploadLimitInKB</code> attribute as follows if you are submitting very large documents.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;requestDispatcher</span> <span style="color: #7D9029">handleSelect=</span><span style="color: #BA2121">&quot;true&quot;</span> <span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;requestParsers</span> <span style="color: #7D9029">enableRemoteStreaming=</span><span style="color: #BA2121">&quot;false&quot;</span> <span style="color: #7D9029">multipartUploadLimitInKB=</span><span style="color: #BA2121">&quot;20480&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+  ...</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UploadingDatawithSolrCellusingApacheTika-Parserspecificproperties">Parser specific properties</h3>
+<div class="paragraph">
+<p>Parsers used by Tika may have specific properties to govern how data is extracted. For instance, when using the Tika library from a Java program, the PDFParserConfig class has a method setSortByPosition(boolean) that can extract vertically oriented text. To access that method via configuration with the ExtractingRequestHandler, one can add the parseContext.config property to the solrconfig.xml file (see above) and then set properties in Tika&#8217;s PDFParserConfig as below. Consult the Tika Java API documentation for configuration parameters that can be set for any particular parsers that require this level of control.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;entries&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;entry</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;org.apache.tika.parser.pdf.PDFParserConfig&quot;</span> <span style="color: #7D9029">impl=</span><span style="color: #BA2121">&quot;org.apache.tika.parser.pdf.PDFParserConfig&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;property</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;extractInlineImages&quot;</span> <span style="color: #7D9029">value=</span><span style="color: #BA2121">&quot;true&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;property</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;sortByPosition&quot;</span> <span style="color: #7D9029">value=</span><span style="color: #BA2121">&quot;true&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/entry&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;entry&gt;</span>...<span style="color: #008000; font-weight: bold">&lt;/entry&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/entries&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UploadingDatawithSolrCellusingApacheTika-Multi-CoreConfiguration">Multi-Core Configuration</h3>
+<div class="paragraph">
+<p>For a multi-core configuration, you can specify <code>sharedLib='lib'</code> in the <code>&lt;solr/&gt;</code> section of <code>solr.xml</code> and place the necessary jar files there.</p>
+</div>
+<div class="paragraph">
+<p>For more information about Solr cores, see <a href="the-well-configured-solr-instance.html#the-well-configured-solr-instance">The Well-Configured Solr Instance</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-IndexingEncryptedDocumentswiththeExtractingUpdateRequestHandler">Indexing Encrypted Documents with the ExtractingUpdateRequestHandler</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The ExtractingRequestHandler will decrypt encrypted files and index their content if you supply a password in either <code>resource.password</code> on the request, or in a <code>passwordsFile</code> file.</p>
+</div>
+<div class="paragraph">
+<p>In the case of <code>passwordsFile</code>, the file supplied must be formatted so there is one line per rule. Each rule contains a file name regular expression, followed by "=", then the password in clear-text. Because the passwords are in clear-text, the file should have strict access restrictions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain"># This is a comment
+myFileName = myPassword
+.*\.docx$ = myWordPassword
+.*\.pdf$ = myPdfPassword</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-Examples">Examples</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="UploadingDatawithSolrCellusingApacheTika-Metadata">Metadata</h3>
+<div class="paragraph">
+<p>As mentioned before, Tika produces metadata about the document. Metadata describes different aspects of a document, such as the author&#8217;s name, the number of pages, the file size, and so on. The metadata produced depends on the type of document submitted. For instance, PDFs have different metadata than Word documents do.</p>
+</div>
+<div class="paragraph">
+<p>In addition to Tika&#8217;s metadata, Solr adds the following metadata (defined in <code>ExtractingMetadataConstants</code>):</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Solr Metadata</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stream_name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the Content Stream as uploaded to Solr. Depending on how the file is uploaded, this may or may not be set</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stream_source_info</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any source info about the stream. (See the section on Content Streams later in this section.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stream_size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The size of the stream in bytes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stream_content_type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The content type of the stream, if available.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>We recommend that you try using the <code>extractOnly</code> option to discover which values Solr is setting for these metadata elements.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UploadingDatawithSolrCellusingApacheTika-ExamplesofUploadsUsingtheExtractingRequestHandler">Examples of Uploads Using the Extracting Request Handler</h3>
+<div class="sect3">
+<h4 id="UploadingDatawithSolrCellusingApacheTika-CaptureandMapping">Capture and Mapping</h4>
+<div class="paragraph">
+<p>The command below captures <code>&lt;div&gt;</code> tags separately, and then maps all the instances of that field to a dynamic field named <code>foo_t</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml">bin/post -c techproducts example/exampledocs/sample.html -params &quot;literal.id=doc2<span style="border: 1px solid #FF0000">&amp;</span>captureAttr=true<span style="border: 1px solid #FF0000">&amp;</span>defaultField=_text_<span style="border: 1px solid #FF0000">&amp;</span>fmap.div=foo_t<span style="border: 1px solid #FF0000">&amp;</span>capture=div&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="UploadingDatawithSolrCellusingApacheTika-Capture_Mapping">Capture &amp; Mapping</h4>
+<div class="paragraph">
+<p>The command below captures <code>&lt;div&gt;</code> tags separately and maps the field to a dynamic field named <code>foo_t</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">bin/post -c techproducts example/exampledocs/sample.html -params &quot;literal.id=doc3&amp;captureAttr=true&amp;defaultField=_text_&amp;capture=div&amp;fmap.div=foo_t&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="UploadingDatawithSolrCellusingApacheTika-UsingLiteralstoDefineYourOwnMetadata">Using Literals to Define Your Own Metadata</h4>
+<div class="paragraph">
+<p>To add in your own metadata, pass in the literal parameter along with the file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">bin/post -c techproducts -params &quot;literal.id=doc4&amp;captureAttr=true&amp;defaultField=text&amp;capture=div&amp;fmap.div=foo_t&amp;literal.blah_s=Bah&quot; example/exampledocs/sample.html</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="UploadingDatawithSolrCellusingApacheTika-XPath">XPath</h4>
+<div class="paragraph">
+<p>The example below passes in an XPath expression to restrict the XHTML returned by Tika:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">bin/post -c techproducts -params &quot;literal.id=doc5&amp;captureAttr=true&amp;defaultField=text&amp;capture=div&amp;fmap.div=foo_t&amp;xpath=/xhtml:html/xhtml:body/xhtml:div//node()&quot; example/exampledocs/sample.html</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UploadingDatawithSolrCellusingApacheTika-ExtractingDatawithoutIndexingIt">Extracting Data without Indexing It</h3>
+<div class="paragraph">
+<p>Solr allows you to extract data without indexing. You might want to do this if you&#8217;re using Solr solely as an extraction server or if you&#8217;re interested in testing Solr extraction.</p>
+</div>
+<div class="paragraph">
+<p>The example below sets the <code>extractOnly=true</code> parameter to extract data without indexing it.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl <span style="color: #BA2121">&quot;http://localhost:8983/solr/techproducts/update/extract?&amp;extractOnly=true&quot;</span> --data-binary @example/exampledocs/sample.html -H <span style="color: #BA2121">&#39;Content-type:text/html&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output includes XML generated by Tika (and further escaped by Solr&#8217;s XML) using a different output format to make it more readable (<code>-out yes</code> instructs the tool to echo Solr&#8217;s output to the console):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml">bin/post -c techproducts -params &quot;extractOnly=true<span style="border: 1px solid #FF0000">&amp;</span>wt=ruby<span style="border: 1px solid #FF0000">&amp;</span>indent=true&quot; -out yes example/exampledocs/sample.html</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-SendingDocumentstoSolrwithaPOST">Sending Documents to Solr with a POST</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The example below streams the file as the body of the POST, which does not, then, provide information to Solr about the name of the file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl <span style="color: #BA2121">&quot;http://localhost:8983/solr/techproducts/update/extract?literal.id=doc6&amp;defaultField=text&amp;commit=true&quot;</span> --data-binary @example/exampledocs/sample.html -H <span style="color: #BA2121">&#39;Content-type:text/html&#39;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-SendingDocumentstoSolrwithSolrCellandSolrJ">Sending Documents to Solr with Solr Cell and SolrJ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>SolrJ is a Java client that you can use to add documents to the index, update the index, or query the index. You&#8217;ll find more information on SolrJ in <a href="client-apis.html#client-apis">Client APIs</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example of using Solr Cell and SolrJ to add documents to a Solr index.</p>
+</div>
+<div class="paragraph">
+<p>First, let&#8217;s use SolrJ to create a new SolrClient, then we&#8217;ll construct a request containing a ContentStream (essentially a wrapper around a file) and sent it to Solr:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">SolrCellRequestDemo</span> <span style="color: #666666">{</span>
+  <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">static</span> <span style="color: #B00040">void</span> <span style="color: #0000FF">main</span> <span style="color: #666666">(</span>String<span style="color: #666666">[]</span> args<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> IOException<span style="color: #666666">,</span> SolrServerException <span style="color: #666666">{</span>
+    SolrClient client <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> HttpSolrClient<span style="color: #666666">.</span><span style="color: #7D9029">Builder</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;http://localhost:8983/solr/my_collection&quot;</span><span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
+    ContentStreamUpdateRequest req <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> ContentStreamUpdateRequest<span style="color: #666666">(</span><span style="color: #BA2121">&quot;/update/extract&quot;</span><span style="color: #666666">);</span>
+    req<span style="color: #666666">.</span><span style="color: #7D9029">addFile</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> File<span style="color: #666666">(</span><span style="color: #BA2121">&quot;my-file.pdf&quot;</span><span style="color: #666666">));</span>
+    req<span style="color: #666666">.</span><span style="color: #7D9029">setParam</span><span style="color: #666666">(</span>ExtractingParams<span style="color: #666666">.</span><span style="color: #7D9029">EXTRACT_ONLY</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;true&quot;</span><span style="color: #666666">);</span>
+    NamedList<span style="color: #666666">&lt;</span>Object<span style="color: #666666">&gt;</span> result <span style="color: #666666">=</span> client<span style="color: #666666">.</span><span style="color: #7D9029">request</span><span style="color: #666666">(</span>req<span style="color: #666666">);</span>
+    System<span style="color: #666666">.</span><span style="color: #7D9029">out</span><span style="color: #666666">.</span><span style="color: #7D9029">println</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;Result: &quot;</span> <span style="color: #666666">+</span> result<span style="color: #666666">);</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This operation streams the file <code>my-file.pdf</code> into the Solr index for <code>my_collection</code>.</p>
+</div>
+<div class="paragraph">
+<p>The sample code above calls the extract command, but you can easily substitute other commands that are supported by Solr Cell. The key class to use is the <code>ContentStreamUpdateRequest</code>, which makes sure the ContentStreams are set properly. SolrJ takes care of the rest.</p>
+</div>
+<div class="paragraph">
+<p>Note that the <code>ContentStreamUpdateRequest</code> is not just specific to Solr Cell. You can send CSV to the CSV Update handler and to any other Request Handler that works with Content Streams for updates.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UploadingDatawithSolrCellusingApacheTika-RelatedTopics">Related Topics</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://wiki.apache.org/solr/ExtractingRequestHandler">ExtractingRequestHandler</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+      
+      
+      <a class="btn btn-primary next" href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=uploading-data-with-solr-cell-using-apache-tika" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=uploading-data-with-solr-cell-using-apache-tika"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

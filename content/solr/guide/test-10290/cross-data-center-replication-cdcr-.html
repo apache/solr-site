@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Cross Data Center Replication (CDCR) | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Cross Data Center Replication (CDCR)">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='cross-data-center-replication-cdcr-.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='cross-data-center-replication-cdcr-.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='cross-data-center-replication-cdcr-.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Cross Data Center Replication (CDCR)</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="solrcloud.html#solrcloud">SolrCloud</a> architecture is not particularly well suited for situations where a single SolrCloud cluster consists of nodes in separated data clusters connected by an expensive pipe. The root problem is that SolrCloud is designed to support <a href="near-real-time-searching.html#near-real-time-searching">Near Real Time Searching</a> by immediately forwarding updates between nodes in the cluster on a per-shard basis. "CDCR" features exist to help mitigate the risk of an entire Data Center outage.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-WhatisCDCR_">What is CDCR?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The goal of the project is to replicate data to multiple Data Centers. The initial version of the solution will cover the active-passive scenario where data updates are replicated from a Source Data Center to one or more Target Data Centers. The Target Data Center(s) will not propagate updates to the Source Data Center and updates should <em>not</em> be sent to any of the Target Data Center(s). Data updates include adds, updates and deletes. Source and Target Data Centers can serve search queries when CDCR is operating. The Target Data Centers will have slightly stale views of the corpus due to propagation delays, but this is minimal (perhaps a few seconds).</p>
+</div>
+<div class="paragraph">
+<p>Data changes on the Source Data Center are replicated to the Target Data Center only after they are persisted to disk. The data changes can be replicated in real-time (with a small delay) or could be scheduled to be sent in intervals to the Target Data Center. This solution pre-supposes that the Source and Target data centers begin with the same documents indexed. Of course the indexes may be empty to start.</p>
+</div>
+<div class="paragraph">
+<p>Each shard leader in the Source Data Center will be responsible for replicating its updates to the corresponding leader in the Target Data Center. When receiving updates from the Source Data Center, shard leaders in the Target Data Center will replicate the changes to their own replicas.</p>
+</div>
+<div class="paragraph">
+<p>This replication model is designed to tolerate some degradation in connectivity, accommodate limited bandwidth, and support batch updates to optimize communication.</p>
+</div>
+<div class="paragraph">
+<p>Replication supports both a new empty index and pre-built indexes. In the scenario where the replication is set up on a pre-built index, CDCR will ensure consistency of the replication of the updates, but cannot ensure consistency on the full index. Therefore any index created before CDCR was set up will have to be replicated by other means (described in the section <a href="#CrossDataCenterReplication_CDCR_-InitialStartup">Initial Startup</a>) in order that Source and Target indexes be fully consistent.</p>
+</div>
+<div class="paragraph">
+<p>The active-passive nature of the initial implementation implies a "push" model from the Source collection to the Target collection. Therefore, the Source configuration must be able to "see" the ZooKeeper ensemble in the Target cluster. The ZooKeeper ensemble is provided configured in the Source&#8217;s <code>solrconfig.xml</code> file.</p>
+</div>
+<div class="paragraph">
+<p>CDCR is configured to replicate from collections in the Source cluster to collections in the Target cluster on a collection-by-collection basis. Since CDCR is configured in <code>solrconfig.xml</code> (on both Source and Target clusters), the settings can be tailored for the needs of each collection.</p>
+</div>
+<div class="paragraph">
+<p>CDCR can be configured to replicate from one collection to a second collection <em>within the same cluster</em>. That is a specialized scenario not covered in this document.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-Glossary">Glossary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Terms used in this document include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Node</strong>: A JVM instance running Solr; a server.</p>
+</li>
+<li>
+<p><strong>Cluster</strong>: A set of Solr nodes managed as a single unit by a ZooKeeper ensemble, hosting one or more Collections.</p>
+</li>
+<li>
+<p><strong>Data Center:</strong> A group of networked servers hosting a Solr cluster. In this document, the terms <em>Cluster</em> and <em>Data Center</em> are interchangeable as we assume that each Solr cluster is hosted in a different group of networked servers.</p>
+</li>
+<li>
+<p><strong>Shard</strong>: A sub-index of a single logical collection. This may be spread across multiple nodes of the cluster. Each shard can have as many replicas as needed.</p>
+</li>
+<li>
+<p><strong>Leader</strong>: Each shard has one node identified as its leader. All the writes for documents belonging to a shard are routed through the leader.</p>
+</li>
+<li>
+<p><strong>Replica</strong>: A copy of a shard for use in failover or load balancing. Replicas comprising a shard can either be leaders or non-leaders.</p>
+</li>
+<li>
+<p><strong>Follower:</strong> A convenience term for a replica that is <em>not</em> the leader of a shard.</p>
+</li>
+<li>
+<p><strong>Collection</strong>: Multiple documents that make up one logical index. A cluster can have multiple collections.</p>
+</li>
+<li>
+<p><strong>Updates Log</strong>: An append-only log of write operations maintained by each node.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-Architecture">Architecture</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here is a picture of the data flow.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/cross-data-center-replication-cdcr-/CDCR_arch.png" alt="image" width="700" height="525">
+</div>
+</div>
+<div class="paragraph">
+<p>Updates and deletes are first written to the Source cluster, then forwarded to the Target cluster. The data flow sequence is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A shard leader receives a new data update that is processed by its Update Processor.</p>
+</li>
+<li>
+<p>The data update is first applied to the local index.</p>
+</li>
+<li>
+<p>Upon successful application of the data update on the local index, the data update is added to the Updates Log queue.</p>
+</li>
+<li>
+<p>After the data update is persisted to disk, the data update is sent to the replicas within the Data Center.</p>
+</li>
+<li>
+<p>After Step 4 is successful CDCR reads the data update from the Updates Log and pushes it to the corresponding collection in the Target Data Center. This is necessary in order to ensure consistency between the Source and Target Data Centers.</p>
+</li>
+<li>
+<p>The leader on the Target data center writes the data locally and forwards it to all its followers.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Steps 1, 2, 3 and 4 are performed synchronously by SolrCloud; Step 5 is performed asynchronously by a background thread. Given that CDCR replication is performed asynchronously, it becomes possible to push batch updates in order to minimize network communication overhead. Also, if CDCR is unable to push the update at a given time&#8201;&#8212;&#8201;for example, due to a degradation in connectivity&#8201;&#8212;&#8201;it can retry later without any impact on the Source Data Center.</p>
+</div>
+<div class="paragraph">
+<p>One implication of the architecture is that the leaders in the Source cluster must be able to "see" the leaders in the Target cluster. Since leaders may change, this effectively means that all nodes in the Source cluster must be able to "see" all Solr nodes in the Target cluster so firewalls, ACL rules, etc. must be configured with care.</p>
+</div>
+<div class="paragraph">
+<p>The current design works most robustly if both the Source and Target clusters have the same number of shards. There is no requirement that the shards in the Source and Target collection have the same number of replicas.</p>
+</div>
+<div class="paragraph">
+<p>Having different numbers of shards on the Source and Target cluster is possible, but is also an "expert" configuration as that option imposes certain constraints and is not recommended. Most of the scenarios where having differing numbers of shards are contemplated are better accomplished by hosting multiple shards on each Target Solr instance.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-MajorComponents">Major Components</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are a number of key features and components in CDCR’s architecture:</p>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-CDCRConfiguration">CDCR Configuration</h3>
+<div class="paragraph">
+<p>In order to configure CDCR, the Source Data Center requires the host address of the ZooKeeper cluster associated with the Target Data Center. The ZooKeeper host address is the only information needed by CDCR to instantiate the communication with the Target Solr cluster. The CDCR configuration file on the Source cluster will therefore contain a list of ZooKeeper hosts. The CDCR configuration file might also contain secondary/optional configuration, such as the number of CDC Replicator threads, batch updates related settings, etc.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-CDCRInitialization">CDCR Initialization</h3>
+<div class="paragraph">
+<p>CDCR supports incremental updates to either new or existing collections. CDCR may not be able to keep up with very high volume updates, especially if there are significant communications latencies due to a slow "pipe" between the data centers. Some scenarios:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There is an initial bulk load of a corpus followed by lower volume incremental updates. In this case, one can do the initial bulk load and then enable CDCR. See the section <a href="#CrossDataCenterReplication_CDCR_-InitialStartup">Initial Startup</a> for more information.</p>
+</li>
+<li>
+<p>The index is being built up from scratch, without a significant initial bulk load. CDCR can be set up on empty collections and keep them synchronized from the start.</p>
+</li>
+<li>
+<p>The index is always being updated at a volume too high for CDCR to keep up. This is especially possible in situations where the connection between the Source and Target data centers is poor. This scenario is unsuitable for CDCR in its current form.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-Inter-DataCenterCommunication">Inter-Data Center Communication</h3>
+<div class="paragraph">
+<p>Communication between Data Centers will be achieved through HTTP and the Solr REST API using the SolrJ client. The SolrJ client will be instantiated with the ZooKeeper host of the Target Data Center. SolrJ will manage the shard leader discovery process.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-UpdatesTracking_Pushing">Updates Tracking &amp; Pushing</h3>
+<div class="paragraph">
+<p>CDCR replicates data updates from the Source to the Target Data Center by leveraging the Updates Log.</p>
+</div>
+<div class="paragraph">
+<p>A background thread regularly checks the Updates Log for new entries, and then forwards them to the Target Data Center. The thread therefore needs to keep a checkpoint in the form of a pointer to the last update successfully processed in the Updates Log. Upon acknowledgement from the Target Data Center that updates have been successfully processed, the Updates Log pointer is updated to reflect the current checkpoint.</p>
+</div>
+<div class="paragraph">
+<p>This pointer must be synchronized across all the replicas. In the case where the leader goes down and a new leader is elected, the new leader will be able to resume replication from the last update by using this synchronized pointer. The strategy to synchronize such a pointer across replicas will be explained next.</p>
+</div>
+<div class="paragraph">
+<p>If for some reason, the Target Data Center is offline or fails to process the updates, the thread will periodically try to contact the Target Data Center and push the updates.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-SynchronizationofUpdateCheckpoints">Synchronization of Update Checkpoints</h3>
+<div class="paragraph">
+<p>A reliable synchronization of the update checkpoints between the shard leader and shard replicas is critical to avoid introducing inconsistency between the Source and Target Data Centers. Another important requirement is that the synchronization must be performed with minimal network traffic to maximize scalability.</p>
+</div>
+<div class="paragraph">
+<p>In order to achieve this, the strategy is to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Uniquely identify each update operation. This unique identifier will serve as pointer.</p>
+</li>
+<li>
+<p>Rely on two storages: an ephemeral storage on the Source shard leader, and a persistent storage on the Target cluster.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The shard leader in the Source cluster will be in charge of generating a unique identifier for each update operation, and will keep a copy of the identifier of the last processed updates in memory. The identifier will be sent to the Target cluster as part of the update request. On the Target Data Center side, the shard leader will receive the update request, store it along with the unique identifier in the Updates Log, and replicate it to the other shards.</p>
+</div>
+<div class="paragraph">
+<p>SolrCloud is already providing a unique identifier for each update operation, i.e., a “version” number. This version number is generated using a time-based lmport clock which is incremented for each update operation sent. This provides an “happened-before” ordering of the update operations that will be leveraged in (1) the initialization of the update checkpoint on the Source cluster, and in (2) the maintenance strategy of the Updates Log.</p>
+</div>
+<div class="paragraph">
+<p>The persistent storage on the Target cluster is used only during the election of a new shard leader on the Source cluster. If a shard leader goes down on the Source cluster and a new leader is elected, the new leader will contact the Target cluster to retrieve the last update checkpoint and instantiate its ephemeral pointer. On such a request, the Target cluster will retrieve the latest identifier received across all the shards, and send it back to the Source cluster. To retrieve the latest identifier, every shard leader will look up the identifier of the first entry in its Update Logs and send it back to a coordinator. The coordinator will have to select the highest among them.</p>
+</div>
+<div class="paragraph">
+<p>This strategy does not require any additional network traffic and ensures reliable pointer synchronization. Consistency is principally achieved by leveraging SolrCloud. The update workflow of SolrCloud ensures that every update is applied to the leader but also to any of the replicas. If the leader goes down, a new leader is elected. During the leader election, a synchronization is performed between the new leader and the other replicas. As a result, this ensures that the new leader has a consistent Update Logs with the previous leader. Having a consistent Updates Log means that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the Source cluster, the update checkpoint can be reused by the new leader.</p>
+</li>
+<li>
+<p>On the Target cluster, the update checkpoint will be consistent between the previous and new leader. This ensures the correctness of the update checkpoint sent by a newly elected leader from the Target cluster.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-MaintenanceofUpdatesLog">Maintenance of Updates Log</h3>
+<div class="paragraph">
+<p>The CDCR replication logic requires modification to the maintenance logic of the Updates Log on the Source Data Center. Initially, the Updates Log acts as a fixed size queue, limited to 100 update entries. In the CDCR scenario, the Update Logs must act as a queue of variable size as they need to keep track of all the updates up through the last processed update by the Target Data Center. Entries in the Update Logs are removed only when all pointers (one pointer per Target Data Center) are after them.</p>
+</div>
+<div class="paragraph">
+<p>If the communication with one of the Target Data Center is slow, the Updates Log on the Source Data Center can grow to a substantial size. In such a scenario, it is necessary for the Updates Log to be able to efficiently find a given update operation given its identifier. Given that its identifier is an incremental number, it is possible to implement an efficient search strategy. Each transaction log file contains as part of its filename the version number of the first element. This is used to quickly traverse all the transaction log files and find the transaction log file containing one specific version number.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-Monitoring">Monitoring</h3>
+<div class="paragraph">
+<p>CDCR provides the following monitoring capabilities over the replication operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Monitoring of the outgoing and incoming replications, with information such as the Source and Target nodes, their status, etc.</p>
+</li>
+<li>
+<p>Statistics about the replication, with information such as operations (add/delete) per second, number of documents in the queue, etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Information about the lifecycle and statistics will be provided on a per-shard basis by the CDC Replicator thread. The CDCR API can then aggregate this information an a collection level.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-CDCReplicator">CDC Replicator</h3>
+<div class="paragraph">
+<p>The CDC Replicator is a background thread that is responsible for replicating updates from a Source Data Center to one or more Target Data Centers. It will also be responsible in providing monitoring information on a per-shard basis. As there can be a large number of collections and shards in a cluster, we will use a fixed-size pool of CDC Replicator threads that will be shared across shards.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-Limitations">Limitations</h3>
+<div class="paragraph">
+<p>The current design of CDCR has some limitations. CDCR will continue to evolve over time and many of these limitations will be addressed. Among them are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>CDCR is unlikely to be satisfactory for bulk-load situations where the update rate is high, especially if the bandwidth between the Source and Target clusters is restricted. In this scenario, the initial bulk load should be performed, the Source and Target data centers synchronized and CDCR be utilized for incremental updates.</p>
+</li>
+<li>
+<p>CDCR is currently only active-passive; data is pushed from the Source cluster to the Target cluster. There is active work being done in this area in the 6x code line to remove this limitation.</p>
+</li>
+<li>
+<p>CDCR works most robustly with the same number of shards in the Source and Target collection. The shards in the two collections may have different numbers of replicas.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-Configuration">Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Source and Target configurations differ in the case of the data centers being in separate clusters. "Cluster" here means separate ZooKeeper ensembles controlling disjoint Solr instances. Whether these data centers are physically separated or not is immaterial for this discussion.</p>
+</div>
+<div id="CrossDataCenterReplication_CDCR_-Configuration" class="paragraph">
+<p>===</p>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-SourceConfiguration">Source Configuration</h3>
+<div class="paragraph">
+<p>Here is a sample of a Source configuration file, a section in <code>solrconfig.xml</code>. The presence of the &lt;replica&gt; section causes CDCR to use this cluster as the Source and should not be present in the Target collections in the cluster-to-cluster case. Details about each setting are after the two examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;requestHandler</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;/cdcr&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.CdcrRequestHandler&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;replica&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;zkHost&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>10.240.18.211:2181<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;source&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>collection1<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;target&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>collection1<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;replicator&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;threadPoolSize&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>8<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;schedule&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1000<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;batchSize&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>128<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;updateLogSynchronizer&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;schedule&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1000<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/requestHandler&gt;</span>
+
+<span style="color: #408080; font-style: italic">&lt;!-- Modify the &lt;updateLog&gt; section of your existing &lt;updateHandler&gt;</span>
+<span style="color: #408080; font-style: italic">     in your config as below --&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;updateHandler</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.DirectUpdateHandler2&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;updateLog</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.CdcrUpdateLog&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;dir&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>${solr.ulog.dir:}<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #408080; font-style: italic">&lt;!--Any parameters from the original &lt;updateLog&gt; section --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/updateLog&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/updateHandler&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-TargetConfiguration">Target Configuration</h3>
+<div class="paragraph">
+<p>Here is a typical Target configuration.</p>
+</div>
+<div class="paragraph">
+<p>Target instance must configure an update processor chain that is specific to CDCR. The update processor chain must include the <strong>CdcrUpdateProcessorFactory</strong>. The task of this processor is to ensure that the version numbers attached to update requests coming from a CDCR Source SolrCloud are reused and not overwritten by the Target. A properly configured Target configuration looks similar to this.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;requestHandler</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;/cdcr&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.CdcrRequestHandler&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;buffer&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;defaultState&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>disabled<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/requestHandler&gt;</span>
+
+<span style="color: #008000; font-weight: bold">&lt;requestHandler</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;/update&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.UpdateRequestHandler&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;update.chain&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>cdcr-processor-chain<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/requestHandler&gt;</span>
+
+<span style="color: #008000; font-weight: bold">&lt;updateRequestProcessorChain</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;cdcr-processor-chain&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;processor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.CdcrUpdateProcessorFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;processor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.RunUpdateProcessorFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/updateRequestProcessorChain&gt;</span>
+
+<span style="color: #408080; font-style: italic">&lt;!-- Modify the &lt;updateLog&gt; section of your existing &lt;updateHandler&gt; in your</span>
+<span style="color: #408080; font-style: italic">    config as below --&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;updateHandler</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.DirectUpdateHandler2&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;updateLog</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.CdcrUpdateLog&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;dir&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>${solr.ulog.dir:}<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #408080; font-style: italic">&lt;!--Any parameters from the original &lt;updateLog&gt; section --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/updateLog&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/updateHandler&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-ConfigurationDetails">Configuration Details</h3>
+<div class="paragraph">
+<p>The configuration details, defaults and options are as follows:</p>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-TheReplicaElement">The Replica Element</h4>
+<div class="paragraph">
+<p>CDCR can be configured to forward update requests to one or more replicas. A replica is defined with a “replica” list as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">zkHost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The host address for ZooKeeper of the Target SolrCloud. Usually this is a comma-separated list of addresses to each node in the Target ZooKeeper ensemble.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the collection on the Source SolrCloud to be replicated.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Target</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the collection on the Target SolrCloud to which updates will be forwarded.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-TheReplicatorElement">The Replicator Element</h4>
+<div class="paragraph">
+<p>The CDC Replicator is the component in charge of forwarding updates to the replicas. The replicator will monitor the update logs of the Source collection and will forward any new updates to the Target collection. The replicator uses a fixed thread pool to forward updates to multiple replicas in parallel. If more than one replica is configured, one thread will forward a batch of updates from one replica at a time in a round-robin fashion. The replicator can be configured with a “replicator” list as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">threadPoolSize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of threads to use for forwarding updates. One thread per replica is recommended.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">schedule</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The delay in milliseconds for the monitoring the update log(s).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">batchSize</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of updates to send in one batch. The optimal size depends on the size of the documents. Large batches of large documents can increase your memory usage significantly.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-TheupdateLogSynchronizerElement">The updateLogSynchronizer Element</h4>
+<div class="paragraph">
+<p>Expert: Non-leader nodes need to synchronize their update logs with their leader node from time to time in order to clean deprecated transaction log files. By default, such a synchronization process is performed every minute. The schedule of the synchronization can be modified with a “updateLogSynchronizer” list as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">schedule</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">60000</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The delay in milliseconds for synchronizing the updates log.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-TheBufferElement">The Buffer Element</h4>
+<div class="paragraph">
+<p>CDCR is configured by default to buffer any new incoming updates. When buffering updates, the updates log will store all the updates indefinitely. Replicas do not need to buffer updates, and it is recommended to disable buffer on the Target SolrCloud. The buffer can be disabled at startup with a “buffer” list and the parameter “defaultState” as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defaultState</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The state of the buffer at startup.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-CDCRAPI">CDCR API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The CDCR API is used to control and monitor the replication process. Control actions are performed at a collection level, i.e., by using the following base URL for API calls: <code><a href="http://&lt;hostname&gt;:&lt;port&gt;/solr/&lt;collection&gt" class="bare">http://&lt;hostname&gt;:&lt;port&gt;/solr/&lt;collection&gt</a>;</code>. Monitor actions are performed at a core level, i.e., by using the following base URL for API calls: <code><a href="http://&lt;hostname&gt;:&lt;port&gt;/solr/&lt;collection&gt" class="bare">http://&lt;hostname&gt;:&lt;port&gt;/solr/&lt;collection&gt</a>;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Currently, none of the CDCR API calls have parameters.</p>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-APIEntryPoints_Control_">API Entry Points (Control)</h3>
+<div class="paragraph">
+<p><code>collection/cdcr?action=STATUS</code>: <a href="#CrossDataCenterReplication_CDCR_-STATUS">Returns the current state</a> of CDCR. <code>collection/cdcr?action=START</code>: <a href="#CrossDataCenterReplication_CDCR_-START">Starts CDCR</a> replication <code>collection/cdcr?action=STOP</code>: <a href="#CrossDataCenterReplication_CDCR_-STOP">Stops CDCR</a> replication. <code>collection/cdcr?action=ENABLEBUFFER</code>: <a href="#CrossDataCenterReplication_CDCR_-ENABLEBUFFER">Enables the buffering</a> of updates. <code>collection/cdcr?action=DISABLEBUFFER</code>: <a href="#CrossDataCenterReplication_CDCR_-DISABLEBUFFER">Disables the buffering</a> of updates.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-APIEntryPoints_Monitoring_">API Entry Points (Monitoring)</h3>
+<div class="paragraph">
+<p><code>core/cdcr?action=QUEUES</code>: <a href="#CrossDataCenterReplication_CDCR_-QUEUES">Fetches statistics about the queue</a> for each replica and about the update logs. <code>core/cdcr?action=OPS</code>: <a href="#CrossDataCenterReplication_CDCR_-OPS">Fetches statistics about the replication performance</a> (operations per second) for each replica <code>core/cdcr?action=ERRORS</code>: <a href="#CrossDataCenterReplication_CDCR_-ERRORS">Fetches statistics and other information about replication errors</a> for each replica.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-ControlCommands">Control Commands</h3>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-STATUS">STATUS</h4>
+<div class="paragraph">
+<p><code>/collection/cdcr?action=STATUS</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Query Parameters:</strong> There are no parameters to this command.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Output Content</strong></p>
+</div>
+<div class="paragraph">
+<p>The current state of the CDCR, which includes the state of the replication process and the state of the buffer.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong>: There are no parameters to this command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//host:8983/solr/&lt;collection_name&gt;/cdcr?action=STATUS</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0,</span>
+  <span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0</span>
+  <span style="color: #666666">},</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;process&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;stopped&quot;</span><span style="color: #666666">,</span>
+  <span style="color: #BA2121">&quot;buffer&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;enabled&quot;</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-ENABLEBUFFER">ENABLEBUFFER</h4>
+<div class="paragraph">
+<p><code>/collection/cdcr?action=ENABLEBUFFER</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Query Parameters:</strong> There are no parameters to this command.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Output Content</strong></p>
+</div>
+<div class="paragraph">
+<p>The status of the process and an indication of whether the buffer is enabled</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong> This command enables the buffer, there are no parameters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//host:8983/solr/&lt;collection_name&gt;/cdcr?action=ENABLEBUFFER</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0,</span>
+  <span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0</span>
+  <span style="color: #666666">},</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;process&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;started&quot;</span><span style="color: #666666">,</span>
+  <span style="color: #BA2121">&quot;buffer&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;enabled&quot;</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-DISABLEBUFFER">DISABLEBUFFER</h4>
+<div class="paragraph">
+<p><code>/collection/cdcr?action=DISABLEBUFFER</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Query Parameters:</strong> There are no parameters to this command</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Output Content:</strong> The status of CDCR and an indication that the buffer is disabled.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Input:</strong> This command disables buffering</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//host:8983/solr/&lt;collection_name&gt;/cdcr?action=DISABLEBUFFER</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Output:</strong> The status of CDCR and an indication that the buffer is disabled.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0,</span>
+  <span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0</span>
+  <span style="color: #666666">},</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;process&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;started&quot;</span><span style="color: #666666">,</span>
+  <span style="color: #BA2121">&quot;buffer&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;disabled&quot;</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-START">START</h4>
+<div class="paragraph">
+<p><code>/collection/cdcr?action=START</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Query Parameters:</strong> There are no parameters for this action</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Output Content:</strong> Confirmation that CDCR is started and the status of buffering</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//host:8983/solr/&lt;collection_name&gt;/cdcr?action=START</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0,</span>
+  <span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0</span>
+  <span style="color: #666666">},</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;process&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;started&quot;</span><span style="color: #666666">,</span>
+  <span style="color: #BA2121">&quot;buffer&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;enabled&quot;</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-STOP">STOP</h4>
+<div class="paragraph">
+<p><code>/collection/cdcr?action=STOP</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Query Parameters:</strong> There are no parameters for this command.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Output Content:</strong> The status of CDCR, including the confirmation that CDCR is stopped</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//host:8983/solr/&lt;collection_name&gt;/cdcr?action=STOP</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0,</span>
+  <span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">0</span>
+  <span style="color: #666666">},</span>
+  <span style="color: #BA2121">&quot;status&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+  <span style="color: #BA2121">&quot;process&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;stopped&quot;</span><span style="color: #666666">,</span>
+  <span style="color: #BA2121">&quot;buffer&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;enabled&quot;</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossDataCenterReplication_CDCR_-Monitoringcommands">Monitoring commands</h3>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-QUEUES">QUEUES</h4>
+<div class="paragraph">
+<p><code>/core/cdcr?action=QUEUES</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Query Parameters:</strong> There are no parameters for this command</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Output Content</strong></p>
+</div>
+<div class="paragraph">
+<p>The output is composed of a list “queues” which contains a list of (ZooKeeper) Target hosts, themselves containing a list of Target collections. For each collection, the current size of the queue and the timestamp of the last update operation successfully processed is provided. The timestamp of the update operation is the original timestamp, i.e., the time this operation was processed on the Source SolrCloud. This allows an estimate the latency of the replication process.</p>
+</div>
+<div class="paragraph">
+<p>The “queues” object also contains information about the updates log, such as the size (in bytes) of the updates log on disk (“tlogTotalSize”), the number of transaction log files (“tlogTotalCount”) and the status of the updates log synchronizer (“updateLogSynchronizer”).</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//host:8983/solr/&lt;replica_name&gt;/cdcr?action=QUEUES</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{</span>
+  responseHeader<span style="color: #666666">={</span>
+    status<span style="color: #666666">=0,</span>
+    QTime<span style="color: #666666">=1</span>
+  <span style="color: #666666">},</span>
+  queues<span style="color: #666666">={</span>
+    <span style="color: #666666">127.0.0.1:</span> <span style="color: #666666">40342/</span>solr<span style="color: #666666">={</span>
+    Target_collection<span style="color: #666666">={</span>
+        queueSize<span style="color: #666666">=104,</span>
+        lastTimestamp<span style="color: #666666">=2014-12-02</span>T10<span style="color: #666666">:</span> <span style="color: #666666">32:</span> <span style="color: #666666">15.879</span>Z
+      <span style="color: #666666">}</span>
+    <span style="color: #666666">}</span>
+  <span style="color: #666666">},</span>
+  tlogTotalSize<span style="color: #666666">=3817,</span>
+  tlogTotalCount<span style="color: #666666">=1,</span>
+  updateLogSynchronizer<span style="color: #666666">=</span>stopped
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-OPS">OPS</h4>
+<div class="paragraph">
+<p><code>/core/cdcr?action=OPS</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Query Parameters:</strong> There are no parameters for this command.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Output Content:</strong> The output is composed of a list “operationsPerSecond” which contains a list of (ZooKeeper) Target hosts, themselves containing a list of Target collections. For each collection, the average number of processed operations per second since the start of the replication process is provided. The operations are further broken down into two groups: add and delete operations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//host:8983/solr/&lt;collection_name&gt;/cdcr?action=OPS</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{</span>
+  responseHeader<span style="color: #666666">={</span>
+    status<span style="color: #666666">=0,</span>
+    QTime<span style="color: #666666">=1</span>
+  <span style="color: #666666">},</span>
+  operationsPerSecond<span style="color: #666666">={</span>
+    <span style="color: #666666">127.0.0.1:</span> <span style="color: #666666">59661/</span>solr<span style="color: #666666">={</span>
+      Target_collection<span style="color: #666666">={</span>
+          all<span style="color: #666666">=297.102944952749052,</span>
+          adds<span style="color: #666666">=297.102944952749052,</span>
+          deletes<span style="color: #666666">=0.0</span>
+      <span style="color: #666666">}</span>
+    <span style="color: #666666">}</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="CrossDataCenterReplication_CDCR_-ERRORS">ERRORS</h4>
+<div class="paragraph">
+<p><code>/core/cdcr?action=ERRORS</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Query Parameters:</strong> There are no parameters for this command.</p>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Output Content:</strong> The output is composed of a list “errors” which contains a list of (ZooKeeper) Target hosts, themselves containing a list of Target collections. For each collection, information about errors encountered during the replication is provided, such as the number of consecutive errors encountered by the replicator thread, the number of bad requests or internal errors since the start of the replication process, and a list of the last errors encountered ordered by timestamp.</p>
+</div>
+<div class="paragraph">
+<p><strong>Examples</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Input</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//host:8983/solr/&lt;collection_name&gt;/cdcr?action=ERRORS</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Output</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{</span>
+  responseHeader<span style="color: #666666">={</span>
+    status<span style="color: #666666">=0,</span>
+    QTime<span style="color: #666666">=2</span>
+  <span style="color: #666666">},</span>
+  errors<span style="color: #666666">={</span>
+    <span style="color: #666666">127.0.0.1:</span> <span style="color: #666666">36872/</span>solr<span style="color: #666666">={</span>
+      Target_collection<span style="color: #666666">={</span>
+        consecutiveErrors<span style="color: #666666">=3,</span>
+        bad_request<span style="color: #666666">=0,</span>
+        internal<span style="color: #666666">=3,</span>
+        last<span style="color: #666666">={</span>
+          <span style="color: #666666">2014-12-02</span>T11<span style="color: #666666">:</span> <span style="color: #666666">04:</span> <span style="color: #666666">42.523</span>Z<span style="color: #666666">=</span>internal<span style="color: #666666">,</span>
+          <span style="color: #666666">2014-12-02</span>T11<span style="color: #666666">:</span> <span style="color: #666666">04:</span> <span style="color: #666666">39.223</span>Z<span style="color: #666666">=</span>internal<span style="color: #666666">,</span>
+          <span style="color: #666666">2014-12-02</span>T11<span style="color: #666666">:</span> <span style="color: #666666">04:</span> <span style="color: #666666">38.22</span>Z<span style="color: #666666">=</span>internal
+        <span style="color: #666666">}</span>
+      <span style="color: #666666">}</span>
+    <span style="color: #666666">}</span>
+  <span style="color: #666666">}</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-FirstTime">Initial Startup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a general approach for initializing CDCR in a production environment based upon an approach taken by the initial working installation of CDCR and generously contributed to illustrate a "real world" scenario. NOTE: The configuration snippets below illustrate specific points of configuration.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Customer uses the CDCR approach to keep a remote DR instance available for production backup. This is an active-passive solution.</p>
+</li>
+<li>
+<p>Customer has 26 clouds with 200 million assets per cloud (15GB indexes). Total document count is over 4.8 billion.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Source and Target clouds were synched in 2-3 hour maintenance windows to establish the base index for the Targets.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tip: As usual, it is good to start small. Sync a single cloud and monitor for a period of time before doing the others. You may need to adjust your settings several times before finding the right balance.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Before starting, stop or pause the indexers. This is best done during a small maintenance window.</p>
+</li>
+<li>
+<p>Stop the SolrCloud instances at the Source</p>
+</li>
+<li>
+<p>Include the cdcr request handler configuration in <code>solrconfig.xml</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//localhost:898</span>
+<span style="color: #666666">&lt;</span>requestHandler name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;/cdcr&quot;</span> class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solr.CdcrRequestHandler&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;replica&quot;</span><span style="color: #666666">&gt;</span>
+      <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;zkHost&quot;</span><span style="color: #666666">&gt;</span>$<span style="color: #666666">{</span>TargetZk<span style="color: #666666">}&lt;/</span>str<span style="color: #666666">&gt;</span>
+      <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;Source&quot;</span><span style="color: #666666">&gt;</span>$<span style="color: #666666">{</span>SourceCollection<span style="color: #666666">}&lt;/</span>str<span style="color: #666666">&gt;</span>
+      <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;Target&quot;</span><span style="color: #666666">&gt;</span>$<span style="color: #666666">{</span>TargetCollection<span style="color: #666666">}&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;replicator&quot;</span><span style="color: #666666">&gt;</span>
+      <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;threadPoolSize&quot;</span><span style="color: #666666">&gt;8&lt;/</span>str<span style="color: #666666">&gt;</span>
+      <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;schedule&quot;</span><span style="color: #666666">&gt;10&lt;/</span>str<span style="color: #666666">&gt;</span>
+      <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;batchSize&quot;</span><span style="color: #666666">&gt;2000&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;updateLogSynchronizer&quot;</span><span style="color: #666666">&gt;</span>
+      <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;schedule&quot;</span><span style="color: #666666">&gt;1000&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;/</span>requestHandler<span style="color: #666666">&gt;</span>
+
+  <span style="color: #666666">&lt;</span>updateRequestProcessorChain name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;cdcr-processor-chain&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>processor class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solr.CdcrUpdateProcessorFactory&quot;</span> <span style="color: #666666">/&gt;</span>
+    <span style="color: #666666">&lt;</span>processor class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solr.RunUpdateProcessorFactory&quot;</span> <span style="color: #666666">/&gt;</span>
+  <span style="color: #666666">&lt;/</span>updateRequestProcessorChain<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>** Upload the modified <code>solrconfig.xml</code> to ZooKeeper on both Source and Target</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Sync the index directories from the Source collection to Target collection across to the corresponding shard nodes.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Tip: rsync works well for this.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example: if there are 2 shards on collection1 with 2 replicas for each shard, copy the corresponding index directories from</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shard1replica1Source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shard1replica1Target</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shard1replica2Source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shard1replica2Target</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shard2replica1Source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shard2replica1Target</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shard2replica2Source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shard2replica2Target</p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p>** Start the ZooKeeper on the Target (DR) side</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Start the SolrCloud on the Target (DR) side</p>
+</li>
+<li>
+<p>Start the ZooKeeper on the Source side</p>
+</li>
+<li>
+<p>Start the SolrCloud on the Source side. As a general rule, the Target (DR) side of the SolrCloud should be started before the Source side.</p>
+</li>
+<li>
+<p>Activate the CDCR on Source instance using the CDCR API: <code><a href="http://host:port/solr/collection_name/cdcr?action=START" class="bare">http://host:port/solr/collection_name/cdcr?action=START</a></code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//host:port/solr/&lt;collection_name&gt;/cdcr?action=START</span></code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>* There is no need to run the /cdcr?action=START command on the Target</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Disable the buffer on the Target</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//host:port/solr/collection_name/cdcr?action=DISABLEBUFFER</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>** Renable indexing</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-Monitoring.1">Monitoring</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Network and disk space monitoring are essential. Ensure that the system has plenty of available storage to queue up changes if there is a disconnect between the Source and Target. A network outage between the two data centers can cause your disk usage to grow.</p>
+</li>
+<li>
+<p>Tip: Set a monitor for your disks to send alerts when the disk gets over a certain percentage (eg. 70%)</p>
+</li>
+<li>
+<p>Tip: Run a test. With moderate indexing, how long can the system queue changes before you run out of disk space?</p>
+</li>
+<li>
+<p>Create a simple way to check the counts between the Source and the Target.</p>
+</li>
+<li>
+<p>Keep in mind that if indexing is running, the Source and Target may not match document for document. Set an alert to fire if the difference is greater than some percentage of the overall cloud size.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-ZooKeepersettings">ZooKeeper settings</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>With CDCR, the Target ZooKeepers will have connections from the Target clouds and the Source clouds. You may need to increase the maxClientCnxns setting in the zoo.cfg.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="border: 1px solid #FF0000">##</span> set numbers of connection to <span style="color: #666666">200</span> from client
+<span style="border: 1px solid #FF0000">##</span> is maxClientCnxns<span style="color: #666666">=0</span> that means no limit
+maxClientCnxns<span style="color: #666666">=800</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-UpgradingandPatchingProduction">Upgrading and Patching Production</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When rolling in upgrades to your indexer or application, you should shutdown the Source (production) and the Target (DR). Depending on your setup, you may want to pause/stop indexing. Deploy the release or patch and renable indexing. Then start the Target (DR).</p>
+</li>
+<li>
+<p>Tip: There is no need to reissue the DISABLEBUFFERS or START commands. These are persisted.</p>
+</li>
+<li>
+<p>Tip: After starting the Target, run a simple test. Add a test document to each of the Source clouds. Then check for it on the Target.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="border: 1px solid #FF0000">#</span>send to the Source
+curl http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//&lt;Source&gt;/solr/cloud1/update -H &#39;Content-type:application/json&#39; -d &#39;[{&quot;SKU&quot;:&quot;ABC&quot;}]&#39;</span>
+
+
+<span style="border: 1px solid #FF0000">#</span>check the Target
+curl <span style="color: #BA2121">&quot;http://&lt;Target&gt;:8983/solr/&lt;collection_name&gt;/select?q=SKU:ABC&amp;wt=json&amp;indent=true&quot;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="CrossDataCenterReplication_CDCR_-Limitations.1">Limitations</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Running CDCR with the indexes on HDFS is not currently supported, see: <a href="https://issues.apache.org/jira/browse/SOLR-9861">Solr CDCR over HDFS</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+      
+      
+      <a class="btn btn-primary next" href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=cross-data-center-replication-cdcr-" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=cross-data-center-replication-cdcr-"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

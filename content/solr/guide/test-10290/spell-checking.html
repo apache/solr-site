@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Spell Checking | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Spell Checking">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='spell-checking.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='spell-checking.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='spell-checking.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Spell Checking</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The SpellCheck component is designed to provide inline query suggestions based on other, similar, terms. The basis for these suggestions can be terms in a field in Solr, externally created text files, or fields in other Lucene indexes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SpellChecking-ConfiguringtheSpellCheckComponent">Configuring the SpellCheckComponent</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="SpellChecking-DefineSpellCheckinsolrconfig.xml">Define Spell Check in <code>solrconfig.xml</code></h3>
+<div class="paragraph">
+<p>The first step is to specify the source of terms in <code>solrconfig.xml</code>. There are three approaches to spell checking in Solr, discussed below.</p>
+</div>
+<div class="sect3">
+<h4 id="SpellChecking-IndexBasedSpellChecker">IndexBasedSpellChecker</h4>
+<div class="paragraph">
+<p>The <code>IndexBasedSpellChecker</code> uses a Solr index as the basis for a parallel index used for spell checking. It requires defining a field as the basis for the index terms; a common practice is to copy terms from some fields (such as <code>title</code>, <code>body</code>, etc.) to another field created for spell checking. Here is a simple example of configuring <code>solrconfig.xml</code> with the <code>IndexBasedSpellChecker</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>searchComponent name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheck&quot;</span> class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solr.SpellCheckComponent&quot;</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellchecker&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;classname&quot;</span><span style="color: #666666">&gt;</span>solr<span style="color: #666666">.</span><span style="color: #7D9029">IndexBasedSpellChecker</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheckIndexDir&quot;</span><span style="color: #666666">&gt;./</span>spellchecker<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">&gt;</span>content<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;buildOnCommit&quot;</span><span style="color: #666666">&gt;</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;!--</span> optional elements with defaults
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;distanceMeasure&quot;</span><span style="color: #666666">&gt;</span>org<span style="color: #666666">.</span><span style="color: #7D9029">apache</span><span style="color: #666666">.</span><span style="color: #7D9029">lucene</span><span style="color: #666666">.</span><span style="color: #7D9029">search</span><span style="color: #666666">.</span><span style="color: #7D9029">spell</span><span style="color: #666666">.</span><span style="color: #7D9029">LevensteinDistance</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;accuracy&quot;</span><span style="color: #666666">&gt;0.5&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">--&gt;</span>
+ <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;/</span>searchComponent<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first element defines the <code>searchComponent</code> to use the <code>solr.SpellCheckComponent</code>. The <code>classname</code> is the specific implementation of the SpellCheckComponent, in this case <code>solr.IndexBasedSpellChecker</code>. Defining the <code>classname</code> is optional; if not defined, it will default to <code>IndexBasedSpellChecker</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>spellcheckIndexDir</code> defines the location of the directory that holds the spellcheck index, while the <code>field</code> defines the source field (defined in the Schema) for spell check terms. When choosing a field for the spellcheck index, it&#8217;s best to avoid a heavily processed field to get more accurate results. If the field has many word variations from processing synonyms and/or stemming, the dictionary will be created with those variations in addition to more valid spelling data.</p>
+</div>
+<div class="paragraph">
+<p>Finally, <em>buildOnCommit</em> defines whether to build the spell check index at every commit (that is, every time new documents are added to the index). It is optional, and can be omitted if you would rather set it to <code>false</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="SpellChecking-DirectSolrSpellChecker">DirectSolrSpellChecker</h4>
+<div class="paragraph">
+<p>The <code>DirectSolrSpellChecker</code> uses terms from the Solr index without building a parallel index like the <code>IndexBasedSpellChecker</code>. This spell checker has the benefit of not having to be built regularly, meaning that the terms are always up-to-date with terms in the index. Here is how this might be configured in <code>solrconfig.xml</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>searchComponent name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheck&quot;</span> class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solr.SpellCheckComponent&quot;</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellchecker&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #666666">&gt;</span><span style="color: #008000; font-weight: bold">default</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">&gt;</span>name<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;classname&quot;</span><span style="color: #666666">&gt;</span>solr<span style="color: #666666">.</span><span style="color: #7D9029">DirectSolrSpellChecker</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;distanceMeasure&quot;</span><span style="color: #666666">&gt;</span>internal<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span><span style="color: #B00040">float</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;accuracy&quot;</span><span style="color: #666666">&gt;0.5&lt;/</span><span style="color: #B00040">float</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span><span style="color: #B00040">int</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;maxEdits&quot;</span><span style="color: #666666">&gt;2&lt;/</span><span style="color: #B00040">int</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span><span style="color: #B00040">int</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;minPrefix&quot;</span><span style="color: #666666">&gt;1&lt;/</span><span style="color: #B00040">int</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span><span style="color: #B00040">int</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;maxInspections&quot;</span><span style="color: #666666">&gt;5&lt;/</span><span style="color: #B00040">int</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span><span style="color: #B00040">int</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;minQueryLength&quot;</span><span style="color: #666666">&gt;4&lt;/</span><span style="color: #B00040">int</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span><span style="color: #B00040">float</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;maxQueryFrequency&quot;</span><span style="color: #666666">&gt;0.01&lt;/</span><span style="color: #B00040">float</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span><span style="color: #B00040">float</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;thresholdTokenFrequency&quot;</span><span style="color: #666666">&gt;.01&lt;/</span><span style="color: #B00040">float</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;/</span>searchComponent<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When choosing a <code>field</code> to query for this spell checker, you want one which has relatively little analysis performed on it (particularly analysis such as stemming). Note that you need to specify a field to use for the suggestions, so like the <code>IndexBasedSpellChecker</code>, you may want to copy data from fields like <code>title</code>, <code>body</code>, etc., to a field dedicated to providing spelling suggestions.</p>
+</div>
+<div class="paragraph">
+<p>Many of the parameters relate to how this spell checker should query the index for term suggestions. The <code>distanceMeasure</code> defines the metric to use during the spell check query. The value "internal" uses the default Levenshtein metric, which is the same metric used with the other spell checker implementations.</p>
+</div>
+<div class="paragraph">
+<p>Because this spell checker is querying the main index, you may want to limit how often it queries the index to be sure to avoid any performance conflicts with user queries. The <code>accuracy</code> setting defines the threshold for a valid suggestion, while <code>maxEdits</code> defines the number of changes to the term to allow. Since most spelling mistakes are only 1 letter off, setting this to 1 will reduce the number of possible suggestions (the default, however, is 2); the value can only be 1 or 2. <code>minPrefix</code> defines the minimum number of characters the terms should share. Setting this to 1 means that the spelling suggestions will all start with the same letter, for example.</p>
+</div>
+<div class="paragraph">
+<p>The <code>maxInspections</code> parameter defines the maximum number of possible matches to review before returning results; the default is 5. <code>minQueryLength</code> defines how many characters must be in the query before suggestions are provided; the default is 4.</p>
+</div>
+<div class="paragraph">
+<p>At first, spellchecker analyses incoming query words by looking up them in the index. Only query words, which are absent in index or too rare ones (below <code>maxQueryFrequency</code> ) are considered as misspelled and used for finding suggestions. Words which are frequent than <code>maxQueryFrequency</code> bypass spellchecker unchanged. After suggestions for every misspelled word are found they are filtered for enough frequency with <code>thresholdTokenFrequency</code> as boundary value. These parameters (<code>maxQueryFrequency</code> and <code>thresholdTokenFrequency</code>) can be a percentage (such as .01, or 1%) or an absolute value (such as 4).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="SpellChecking-FileBasedSpellChecker">FileBasedSpellChecker</h4>
+<div class="paragraph">
+<p>The <code>FileBasedSpellChecker</code> uses an external file as a spelling dictionary. This can be useful if using Solr as a spelling server, or if spelling suggestions don&#8217;t need to be based on actual terms in the index. In <code>solrconfig.xml</code>, you would define the searchComponent as so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>searchComponent name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheck&quot;</span> class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solr.SpellCheckComponent&quot;</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellchecker&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;classname&quot;</span><span style="color: #666666">&gt;</span>solr<span style="color: #666666">.</span><span style="color: #7D9029">FileBasedSpellChecker</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #666666">&gt;</span>file<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;sourceLocation&quot;</span><span style="color: #666666">&gt;</span>spellings<span style="color: #666666">.</span><span style="color: #7D9029">txt</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;characterEncoding&quot;</span><span style="color: #666666">&gt;</span>UTF<span style="color: #666666">-8&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheckIndexDir&quot;</span><span style="color: #666666">&gt;./</span>spellcheckerFile<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;!--</span> optional elements with defaults
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;distanceMeasure&quot;</span><span style="color: #666666">&gt;</span>org<span style="color: #666666">.</span><span style="color: #7D9029">apache</span><span style="color: #666666">.</span><span style="color: #7D9029">lucene</span><span style="color: #666666">.</span><span style="color: #7D9029">search</span><span style="color: #666666">.</span><span style="color: #7D9029">spell</span><span style="color: #666666">.</span><span style="color: #7D9029">LevensteinDistance</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;accuracy&quot;</span><span style="color: #666666">&gt;0.5&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">--&gt;</span>
+ <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;/</span>searchComponent<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The differences here are the use of the <code>sourceLocation</code> to define the location of the file of terms and the use of <code>characterEncoding</code> to define the encoding of the terms file.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the previous example, <em>name</em> is used to name this specific definition of the spellchecker. Multiple definitions can co-exist in a single <code>solrconfig.xml</code>, and the <em>name</em> helps to differentiate them. If only defining one spellchecker, no name is required.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="SpellChecking-WordBreakSolrSpellChecker">WordBreakSolrSpellChecker</h4>
+<div class="paragraph">
+<p><code>WordBreakSolrSpellChecker</code> offers suggestions by combining adjacent query terms and/or breaking terms into multiple words. It is a <code>SpellCheckComponent</code> enhancement, leveraging Lucene&#8217;s <code>WordBreakSpellChecker</code>. It can detect spelling errors resulting from misplaced whitespace without the use of shingle-based dictionaries and provides collation support for word-break errors, including cases where the user has a mix of single-word spelling errors and word-break errors in the same query. It also provides shard support.</p>
+</div>
+<div class="paragraph">
+<p>Here is how it might be configured in <code>solrconfig.xml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>searchComponent name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheck&quot;</span> class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solr.SpellCheckComponent&quot;</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellchecker&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #666666">&gt;</span>wordbreak<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;classname&quot;</span><span style="color: #666666">&gt;</span>solr<span style="color: #666666">.</span><span style="color: #7D9029">WordBreakSolrSpellChecker</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">&gt;</span>lowerfilt<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;combineWords&quot;</span><span style="color: #666666">&gt;</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;breakWords&quot;</span><span style="color: #666666">&gt;</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span><span style="color: #B00040">int</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;maxChanges&quot;</span><span style="color: #666666">&gt;10&lt;/</span><span style="color: #B00040">int</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;/</span>searchComponent<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Some of the parameters will be familiar from the discussion of the other spell checkers, such as <code>name</code>, <code>classname</code>, and <code>field</code>. New for this spell checker is <code>combineWords</code>, which defines whether words should be combined in a dictionary search (default is true); <code>breakWords</code>, which defines if words should be broken during a dictionary search (default is true); and <code>maxChanges</code>, an integer which defines how many times the spell checker should check collation possibilities against the index (default is 10).</p>
+</div>
+<div class="paragraph">
+<p>The spellchecker can be configured with a traditional checker (ie: <code>DirectSolrSpellChecker</code>). The results are combined and collations can contain a mix of corrections from both spellcheckers.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-AddIttoaRequestHandler">Add It to a Request Handler</h3>
+<div class="paragraph">
+<p>Queries will be sent to a <a href="query-syntax-and-parsing.html#query-syntax-and-parsing">RequestHandler</a>. If every request should generate a suggestion, then you would add the following to the <code>requestHandler</code> that you are using:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheck&quot;</span><span style="color: #666666">&gt;</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>One of the possible parameters is the <code>spellcheck.dictionary</code> to use, and multiples can be defined. With multiple dictionaries, all specified dictionaries are consulted and results are interleaved. Collations are created with combinations from the different spellcheckers, with care taken that multiple overlapping corrections do not occur in the same collation.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example with multiple dictionaries:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>requestHandler name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellCheckWithWordbreak&quot;</span> class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;org.apache.solr.handler.component.SearchHandler&quot;</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheck.dictionary&quot;</span><span style="color: #666666">&gt;</span><span style="color: #008000; font-weight: bold">default</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheck.dictionary&quot;</span><span style="color: #666666">&gt;</span>wordbreak<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;spellcheck.count&quot;</span><span style="color: #666666">&gt;20&lt;/</span>str<span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>arr name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;last-components&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str<span style="color: #666666">&gt;</span>spellcheck<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;/</span>arr<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;/</span>requestHandler<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SpellChecking-SpellCheckParameters">Spell Check Parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The SpellCheck component accepts the parameters described in the table below.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-ThespellcheckParameter">spellcheck</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Turns on or off SpellCheck suggestions for the request. If <strong>true</strong>, then spelling suggestions will be generated.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.qorqParameter">spellcheck.q or q</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selects the query to be spellchecked.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.buildParameter">spellcheck.build</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instructs Solr to build a dictionary for use in spellchecking.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.collateParameter">spellcheck.collate</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Causes Solr to build a new query based on the best suggestion for each term in the submitted query.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.maxCollationsParameter">spellcheck.maxCollations</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This parameter specifies the maximum number of collations to return.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.maxCollationTriesParameter">spellcheck.maxCollationTries</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This parameter specifies the number of collation possibilities for Solr to try before giving up.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.maxCollationEvaluationsParameter">spellcheck.maxCollationEvaluations</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This parameter specifies the maximum number of word correction combinations to rank and evaluate prior to deciding which collation candidates to test against the index.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.collateExtendedResultsParameter">spellcheck.collateExtendedResults</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If true, returns an expanded response detailing the collations found. If <code>spellcheck.collate</code> is false, this parameter will be ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.collateMaxCollectDocsParameter">spellcheck.collateMaxCollectDocs</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of documents to collect when testing potential Collations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.collateParam._ParameterPrefix">spellcheck.collateParam.*</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies param=value pairs that can be used to override normal query params when validating collations</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.countParameter">spellcheck.count</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the maximum number of spelling suggestions to be returned.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.dictionaryParameter">spellcheck.dictionary</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the dictionary that should be used for spellchecking.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.extendedResultsParameter">spellcheck.extendedResults</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Causes Solr to return additional information about spellcheck results, such as the frequency of each original term in the index (origFreq) as well as the frequency of each suggestion in the index (frequency). Note that this result format differs from the non-extended one as the returned suggestion for a word is actually an array of lists, where each list holds the suggested term and its frequency.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.onlyMorePopularParameter">spellcheck.onlyMorePopular</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limits spellcheck responses to queries that are more popular than the original query.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.maxResultsForSuggestParameter">spellcheck.maxResultsForSuggest</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of hits the request can return in order to both generate spelling suggestions and set the "correctlySpelled" element to "false".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.alternativeTermCountParameter">spellcheck.alternativeTermCount</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The count of suggestions to return for each query term existing in the index and/or dictionary.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.reloadParameter">spellcheck.reload</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reloads the spellchecker.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.accuracyParameter">spellcheck.accuracy</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies an accuracy value to help decide whether a result is worthwhile.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#SpellChecking-Thespellcheck.%3CDICT_NAME%3E.keyParameter">spellcheck.&lt;DICT_NAME&gt;.key</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a key/value pair for the implementation handling a given dictionary.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="SpellChecking-ThespellcheckParameter">The <code>spellcheck</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter turns on SpellCheck suggestions for the request. If <strong>true</strong>, then spelling suggestions will be generated.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.qorqParameter">The <code>spellcheck.q</code> or <code>q</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter specifies the query to spellcheck. If <code>spellcheck.q</code> is defined, then it is used; otherwise the original input query is used. The <code>spellcheck.q</code> parameter is intended to be the original query, minus any extra markup like field names, boosts, and so on. If the <code>q</code> parameter is specified, then the <code>SpellingQueryConverter</code> class is used to parse it into tokens; otherwise the <a href="tokenizers.html#Tokenizers-WhiteSpaceTokenizer"><code>WhitespaceTokenizer</code></a> is used. The choice of which one to use is up to the application. Essentially, if you have a spelling "ready" version in your application, then it is probably better to use <code>spellcheck.q</code>. Otherwise, if you just want Solr to do the job, use the <code>q</code> parameter.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The SpellingQueryConverter class does not deal properly with non-ASCII characters. In this case, you have either to use <code>spellcheck.q</code>, or implement your own QueryConverter.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.buildParameter">The <code>spellcheck.build</code> Parameter</h3>
+<div class="paragraph">
+<p>If set to <strong>true</strong>, this parameter creates the dictionary that the SolrSpellChecker will use for spell-checking. In a typical search application, you will need to build the dictionary before using the SolrSpellChecker. However, it&#8217;s not always necessary to build a dictionary first. For example, you can configure the spellchecker to use a dictionary that already exists.</p>
+</div>
+<div class="paragraph">
+<p>The dictionary will take some time to build, so this parameter should not be sent with every request.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.reloadParameter">The <code>spellcheck.reload</code> Parameter</h3>
+<div class="paragraph">
+<p>If set to true, this parameter reloads the spellchecker. The results depend on the implementation of <code>SolrSpellChecker.reload()</code>. In a typical implementation, reloading the spellchecker means reloading the dictionary.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.countParameter">The <code>spellcheck.count</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter specifies the maximum number of suggestions that the spellchecker should return for a term. If this parameter isn&#8217;t set, the value defaults to 1. If the parameter is set but not assigned a number, the value defaults to 5. If the parameter is set to a positive integer, that number becomes the maximum number of suggestions returned by the spellchecker.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.onlyMorePopularParameter">The <code>spellcheck.onlyMorePopular</code> Parameter</h3>
+<div class="paragraph">
+<p>If <strong>true</strong>, Solr will to return suggestions that result in more hits for the query than the existing query. Note that this will return more popular suggestions even when the given query term is present in the index and considered "correct".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.maxResultsForSuggestParameter">The <code>spellcheck.maxResultsForSuggest</code> Parameter</h3>
+<div class="paragraph">
+<p>For example, if this is set to 5 and the user&#8217;s query returns 5 or fewer results, the spellchecker will report "correctlySpelled=false" and also offer suggestions (and collations if requested). Setting this greater than zero is useful for creating "did-you-mean?" suggestions for queries that return a low number of hits.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.alternativeTermCountParameter">The <code>spellcheck.alternativeTermCount</code> Parameter</h3>
+<div class="paragraph">
+<p>Specify the number of suggestions to return for each query term existing in the index and/or dictionary. Presumably, users will want fewer suggestions for words with docFrequency&gt;0. Also setting this value turns "on" context-sensitive spell suggestions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.extendedResultsParameter">The <code>spellcheck.extendedResults</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter causes to Solr to include additional information about the suggestion, such as the frequency in the index.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.collateParameter">The <code>spellcheck.collate</code> Parameter</h3>
+<div class="paragraph">
+<p>If <strong>true</strong>, this parameter directs Solr to take the best suggestion for each token (if one exists) and construct a new query from the suggestions. For example, if the input query was "jawa class lording" and the best suggestion for "jawa" was "java" and "lording" was "loading", then the resulting collation would be "java class loading".</p>
+</div>
+<div class="paragraph">
+<p>The spellcheck.collate parameter only returns collations that are guaranteed to result in hits if re-queried, even when applying original <code>fq</code> parameters. This is especially helpful when there is more than one correction per query.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This only returns a query to be used. It does not actually run the suggested query.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.maxCollationsParameter">The <code>spellcheck.maxCollations</code> Parameter</h3>
+<div class="paragraph">
+<p>The maximum number of collations to return. The default is <strong>1</strong>. This parameter is ignored if <code>spellcheck.collate</code> is false.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.maxCollationTriesParameter">The <code>spellcheck.maxCollationTries</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter specifies the number of collation possibilities for Solr to try before giving up. Lower values ensure better performance. Higher values may be necessary to find a collation that can return results. The default value is <code>0</code>, which maintains backwards-compatible (Solr 1.4) behavior (do not check collations). This parameter is ignored if <code>spellcheck.collate</code> is false.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.maxCollationEvaluationsParameter">The <code>spellcheck.maxCollationEvaluations</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter specifies the maximum number of word correction combinations to rank and evaluate prior to deciding which collation candidates to test against the index. This is a performance safety-net in case a user enters a query with many misspelled words. The default is <strong>10,000</strong> combinations, which should work well in most situations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.collateExtendedResultsParameter">The <code>spellcheck.collateExtendedResults</code> Parameter</h3>
+<div class="paragraph">
+<p>If <strong>true</strong>, this parameter returns an expanded response format detailing the collations Solr found. The default value is <strong>false</strong> and this is ignored if <code>spellcheck.collate</code> is false.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.collateMaxCollectDocsParameter">The <code>spellcheck.collateMaxCollectDocs</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter specifies the maximum number of documents that should be collect when testing potential collations against the index. A value of <strong>0</strong> indicates that all documents should be collected, resulting in exact hit-counts. Otherwise an estimation is provided as a performance optimization in cases where exact hit-counts are unnecessary – the higher the value specified, the more precise the estimation.</p>
+</div>
+<div class="paragraph">
+<p>The default value for this parameter is <strong>0</strong>, but when <code>spellcheck.collateExtendedResults</code> is <strong>false</strong>, the optimization is always used as if a <strong>1</strong> had been specified.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.collateParam._ParameterPrefix">The <code>spellcheck.collateParam.*</code> Parameter Prefix</h3>
+<div class="paragraph">
+<p>This parameter prefix can be used to specify any additional parameters that you wish to the Spellchecker to use when internally validating collation queries. For example, even if your regular search results allow for loose matching of one or more query terms via parameters like <code>"q.op=OR</code>&amp;`mm=20%`" you can specify override params such as &#8220;spellcheck.collateParam.q.op=AND&amp;spellcheck.collateParam.mm=100%&#8221; to require that only collations consisting of words that are all found in at least one document may be returned.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.dictionaryParameter">The <code>spellcheck.dictionary</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter causes Solr to use the dictionary named in the parameter&#8217;s argument. The default setting is "default". This parameter can be used to invoke a specific spellchecker on a per request basis.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck.accuracyParameter">The <code>spellcheck.accuracy</code> Parameter</h3>
+<div class="paragraph">
+<p>Specifies an accuracy value to be used by the spell checking implementation to decide whether a result is worthwhile or not. The value is a float between 0 and 1. Defaults to <code>Float.MIN_VALUE</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Thespellcheck._DICT_NAME_.keyParameter">The <code>spellcheck.&lt;DICT_NAME&gt;.key</code> Parameter</h3>
+<div class="paragraph">
+<p>Specifies a key/value pair for the implementation handling a given dictionary. The value that is passed through is just <code>key=value</code> (<code>spellcheck.&lt;DICT_NAME&gt;.</code> is stripped off.</p>
+</div>
+<div class="paragraph">
+<p>For example, given a dictionary called <code>foo</code>, <code>spellcheck.foo.myKey=myValue</code> would result in <code>myKey=myValue</code> being passed through to the implementation handling the dictionary <code>foo</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SpellChecking-Example">Example</h3>
+<div class="paragraph">
+<p>Using Solr&#8217;s &#8220;bin/solr -e techproducts&#8221; example, this query shows the results of a simple request that defines a query using the <code>spellcheck.q</code> parameter, and forces the collations to require all input terms must match:</p>
+</div>
+<div class="paragraph">
+<p>` <a href="http://localhost:8983/solr/techproducts/spell?df=text&amp;spellcheck.q=delll+ultra+sharp&amp;spellcheck=true&amp;spellcheck.collateParam.q.op=AND" class="bare">http://localhost:8983/solr/techproducts/spell?df=text&amp;spellcheck.q=delll+ultra+sharp&amp;spellcheck=true&amp;spellcheck.collateParam.q.op=AND</a> `</p>
+</div>
+<div class="paragraph">
+<p>Results:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;spellcheck&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;suggestions&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;delll&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;numFound&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;startOffset&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;endOffset&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>5<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;origFreq&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;suggestion&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;lst&gt;</span>
+          <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;word&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>dell<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+          <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;freq&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ultra sharp&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;numFound&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;startOffset&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>6<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;endOffset&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>17<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;origFreq&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;suggestion&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;lst&gt;</span>
+          <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;word&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>ultrasharp<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+          <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;freq&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;correctlySpelled&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>false<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;collations&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;collation&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;collationQuery&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>dell ultrasharp<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;hits&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;misspellingsAndCorrections&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;delll&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>dell<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;ultra sharp&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>ultrasharp<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SpellChecking-DistributedSpellCheck">Distributed SpellCheck</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>SpellCheckComponent</code> also supports spellchecking on distributed indexes. If you are using the SpellCheckComponent on a request handler other than "/select", you must provide the following two parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shards</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the shards in your distributed indexing configuration. For more information about distributed indexing, see <a href="distributed-search-with-index-sharding.html#distributed-search-with-index-sharding">Distributed Search with Index Sharding</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shards.qt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the request handler Solr uses for requests to shards. This parameter is not required for the <code>/select</code> request handler.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For example: <code><a href="http://localhost:8983/solr/techproducts/spell?spellcheck=true&amp;spellcheck.build=true&amp;spellcheck.q=toyata&amp;shards.qt=/spell&amp;shards=solr-shard1:8983/solr/techproducts,solr-shard2:8983/solr/techproducts" class="bare">http://localhost:8983/solr/techproducts/spell?spellcheck=true&amp;spellcheck.build=true&amp;spellcheck.q=toyata&amp;shards.qt=/spell&amp;shards=solr-shard1:8983/solr/techproducts,solr-shard2:8983/solr/techproducts</a></code></p>
+</div>
+<div class="paragraph">
+<p>In case of a distributed request to the SpellCheckComponent, the shards are requested for at least five suggestions even if the <code>spellcheck.count</code> parameter value is less than five. Once the suggestions are collected, they are ranked by the configured distance measure (Levenstein Distance by default) and then by aggregate frequency.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="highlighting.html">Highlighting</a>
+      
+      
+      <a class="btn btn-primary next" href="query-re-ranking.html">Query Re-Ranking</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=spell-checking" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=spell-checking"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

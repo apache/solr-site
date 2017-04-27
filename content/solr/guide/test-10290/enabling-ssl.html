@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Enabling SSL | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Enabling SSL">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='enabling-ssl.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='enabling-ssl.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='enabling-ssl.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Enabling SSL</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Both SolrCloud and single-node Solr can encrypt communications to and from clients, and in SolrCloud between nodes, with SSL. This section describes enabling SSL with the example Jetty server using a self-signed certificate.</p>
+</div>
+<div class="paragraph">
+<p>For background on SSL certificates and keys, see <a href="http://www.tldp.org/HOWTO/SSL-Certificates-HOWTO/" class="bare">http://www.tldp.org/HOWTO/SSL-Certificates-HOWTO/</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="EnablingSSL-BasicSSLSetup">Basic SSL Setup</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="EnablingSSL-Generateaself-signedcertificateandakey">Generate a self-signed certificate and a key</h3>
+<div class="paragraph">
+<p>To generate a self-signed certificate and a single key that will be used to authenticate both the server and the client, we&#8217;ll use the JDK <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html"><code>keytool</code></a> command and create a separate keystore. This keystore will also be used as a truststore below. It&#8217;s possible to use the keystore that comes with the JDK for these purposes, and to use a separate truststore, but those options aren&#8217;t covered here.</p>
+</div>
+<div class="paragraph">
+<p>Run the commands below in the <code>server/etc/</code> directory in the binary Solr distribution. It&#8217;s assumed that you have the JDK <code>keytool</code> utility on your <code>PATH</code>, and that <code>openssl</code> is also on your <code>PATH</code>. See <a href="https://www.openssl.org/related/binaries.html" class="bare">https://www.openssl.org/related/binaries.html</a> for OpenSSL binaries for Windows and Solaris.</p>
+</div>
+<div class="paragraph">
+<p>The &#8220;-ext SAN=&#8230;&#8203;&#8221; <code>keytool</code> option allows you to specify all the DNS names and/or IP addresses that will be allowed during hostname verification (but see below for how to skip hostname verification between Solr nodes so that you don&#8217;t have to specify all hosts here). In addition to <code>localhost</code> and <code>127.0.0.1</code>, this example includes a LAN IP address <code>192.168.1.3</code> for the machine the Solr nodes will be running on:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">keytool -genkeypair -alias solr-ssl -keyalg RSA -keysize 2048 -keypass secret -storepass secret -validity 9999 -keystore solr-ssl.keystore.jks -ext SAN=DNS:localhost,IP:192.168.1.3,IP:127.0.0.1 -dname &quot;CN=localhost, OU=Organizational Unit, O=Organization, L=Location, ST=State, C=Country&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above command will create a keystore file named <code>solr-ssl.keystore.jks</code> in the current directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-ConvertthecertificateandkeytoPEMformatforusewithcURL">Convert the certificate and key to PEM format for use with cURL</h3>
+<div class="paragraph">
+<p>cURL isn&#8217;t capable of using JKS formatted keystores, so the JKS keystore needs to be converted to PEM format, which cURL understands.</p>
+</div>
+<div class="paragraph">
+<p>First convert the JKS keystore into PKCS12 format using <code>keytool</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">keytool -importkeystore -srckeystore solr-ssl.keystore.jks -destkeystore solr-ssl.keystore.p12 -srcstoretype jks -deststoretype pkcs12</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The keytool application will prompt you to create a destination keystore password and for the source keystore password, which was set when creating the keystore ("secret" in the example shown above).</p>
+</div>
+<div class="paragraph">
+<p>Next convert the PKCS12 format keystore, including both the certificate and the key, into PEM format using the <a href="http://www.openssl.org"><code>openssl</code></a> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">openssl pkcs12 -in solr-ssl.keystore.p12 -out solr-ssl.pem</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to use cURL on OS X Yosemite (10.10), you&#8217;ll need to create a certificate-only version of the PEM format, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">openssl pkcs12 -nokeys -in solr-ssl.keystore.p12 -out solr-ssl.cacert.pem</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-SetcommonSSLrelatedsystemproperties">Set common SSL related system properties</h3>
+<div class="paragraph">
+<p>The Solr Control Script is already setup to pass SSL-related Java system properties to the JVM. To activate the SSL settings, uncomment and update the set of properties beginning with SOLR_SSL_* in <code>bin/solr.in.sh</code>. (or <code>bin\solr.in.cmd</code> on Windows). Note, if you setup Solr as a service on Linux using the steps outlined in <a href="taking-solr-to-production.html#taking-solr-to-production">Taking Solr to Production</a>, then make these changes in <code>/var/solr/solr.in.sh</code> instead.</p>
+</div>
+<div class="paragraph">
+<p><strong>bin/solr.in.sh example SOLR_SSL_</strong> configuration*</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">SOLR_SSL_KEY_STORE=etc/solr-ssl.keystore.jks
+SOLR_SSL_KEY_STORE_PASSWORD=secret
+SOLR_SSL_TRUST_STORE=etc/solr-ssl.keystore.jks
+SOLR_SSL_TRUST_STORE_PASSWORD=secret
+# Require clients to authenticate
+SOLR_SSL_NEED_CLIENT_AUTH=false
+# Enable clients to authenticate (but not require)
+SOLR_SSL_WANT_CLIENT_AUTH=false
+# Define Key Store type if necessary
+SOLR_SSL_KEY_STORE_TYPE=JKS
+SOLR_SSL_TRUST_STORE_TYPE=JKS</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you start Solr, the <code>bin/solr</code> script includes the settings in <code>bin/solr.in.sh</code> and will pass these SSL-related system properties to the JVM.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Client Authentication Settings</div>
+<div class="paragraph">
+<p>Enable either SOLR_SSL_NEED_CLIENT_AUTH or SOLR_SSL_WANT_CLIENT_AUTH but not both at the same time. They are mutually exclusive and Jetty will select one of them which may not be what you expect.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Similarly, when you start Solr on Windows, the <code>bin\solr.cmd</code> script includes the settings in <code>bin\solr.in.cmd</code> - uncomment and update the set of properties beginning with <code>SOLR_SSL_*</code> to pass these SSL-related system properties to the JVM:</p>
+</div>
+<div class="paragraph">
+<p><strong>bin\solr.in.cmd example SOLR_SSL_</strong> configuration*</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">set SOLR_SSL_KEY_STORE=etc/solr-ssl.keystore.jks
+set SOLR_SSL_KEY_STORE_PASSWORD=secret
+set SOLR_SSL_TRUST_STORE=etc/solr-ssl.keystore.jks
+set SOLR_SSL_TRUST_STORE_PASSWORD=secret
+REM Require clients to authenticate
+set SOLR_SSL_NEED_CLIENT_AUTH=false
+REM Enable clients to authenticate (but not require)
+set SOLR_SSL_WANT_CLIENT_AUTH=false</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-RunSingleNodeSolrusingSSL">Run Single Node Solr using SSL</h3>
+<div class="paragraph">
+<p>Start Solr using the command shown below; by default clients will not be required to authenticate:</p>
+</div>
+<div class="paragraph">
+<p><strong>*nix command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin/solr -p 8984</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Windows command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin\solr.cmd -p 8984</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="EnablingSSL-SolrCloud">SolrCloud</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes how to run a two-node SolrCloud cluster with no initial collections and a single-node external ZooKeeper. The commands below assume you have already created the keystore described above.</p>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-ConfigureZooKeeper">Configure ZooKeeper</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>ZooKeeper does not support encrypted communication with clients like Solr. There are several related JIRA tickets where SSL support is being planned/worked on: <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-235">ZOOKEEPER-235</a>; <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-236">ZOOKEEPER-236</a>; <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-1000">ZOOKEEPER-1000</a>; and <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2120">ZOOKEEPER-2120</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Before you start any SolrCloud nodes, you must configure your solr cluster properties in ZooKeeper, so that Solr nodes know to communicate via SSL.</p>
+</div>
+<div class="paragraph">
+<p>This section assumes you have created and started a single-node external ZooKeeper on port 2181 on localhost - see <a href="setting-up-an-external-zookeeper-ensemble.html#setting-up-an-external-zookeeper-ensemble">Setting Up an External ZooKeeper Ensemble</a></p>
+</div>
+<div class="paragraph">
+<p>The <code>urlScheme</code> cluster-wide property needs to be set to <code>https</code> before any Solr node starts up. The example below uses the <code>zkcli</code> tool that comes with the binary Solr distribution to do this:</p>
+</div>
+<div class="paragraph">
+<p><strong>*nix command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">server/scripts/cloud-scripts/zkcli.sh -zkhost localhost:2181 -cmd clusterprop -name urlScheme -val https</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Windows command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">server\scripts\cloud-scripts\zkcli.bat -zkhost localhost:2181 -cmd clusterprop -name urlScheme -val https</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you have set up your ZooKeeper cluster to use a <a href="taking-solr-to-production.html#TakingSolrtoProduction-ZooKeeperchroot">chroot for Solr</a> , make sure you use the correct <code>zkhost</code> string with <code>zkcli</code>, e.g. <code>-zkhost localhost:2181/solr</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-RunSolrCloudwithSSL">Run SolrCloud with SSL</h3>
+<div class="sect3">
+<h4 id="EnablingSSL-CreateSolrhomedirectoriesfortwonodes">Create Solr home directories for two nodes</h4>
+<div class="paragraph">
+<p>Create two copies of the <code>server/solr/</code> directory which will serve as the Solr home directories for each of your two SolrCloud nodes:</p>
+</div>
+<div class="paragraph">
+<p><strong>*nix commands</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">mkdir cloud
+cp -r server/solr cloud/node1
+cp -r server/solr cloud/node2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Windows commands</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">mkdir cloud
+xcopy /E server\solr cloud\node1\
+xcopy /E server\solr cloud\node2\</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="EnablingSSL-StartthefirstSolrnode">Start the first Solr node</h4>
+<div class="paragraph">
+<p>Next, start the first Solr node on port 8984. Be sure to stop the standalone server first if you started it when working through the previous section on this page.</p>
+</div>
+<div class="paragraph">
+<p><strong>*nix command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin/solr -cloud -s cloud/node1 -z localhost:2181 -p 8984</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Windows command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin\solr.cmd -cloud -s cloud\node1 -z localhost:2181 -p 8984</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice the use of the <code>-s</code> option to set the location of the Solr home directory for node1.</p>
+</div>
+<div class="paragraph">
+<p>If you created your SSL key without all DNS names/IP addresses on which Solr nodes will run, you can tell Solr to skip hostname verification for inter-Solr-node communications by setting the <code>solr.ssl.checkPeerName</code> system property to <code>false</code>:</p>
+</div>
+<div class="paragraph">
+<p><strong>*nix command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin/solr -cloud -s cloud/node1 -z localhost:2181 -p 8984 -Dsolr.ssl.checkPeerName=false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Windows command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin\solr.cmd -cloud -s cloud\node1 -z localhost:2181 -p 8984 -Dsolr.ssl.checkPeerName=false</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="EnablingSSL-StartthesecondSolrnode">Start the second Solr node</h4>
+<div class="paragraph">
+<p>Finally, start the second Solr node on port 7574 - again, to skip hostname verification, add <code>-Dsolr.ssl.checkPeerName=false</code>;</p>
+</div>
+<div class="paragraph">
+<p><strong>*nix command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin/solr -cloud -s cloud/node2 -z localhost:2181 -p 7574</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Windows command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin\solr.cmd -cloud -s cloud\node2 -z localhost:2181 -p 7574</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="EnablingSSL-ExampleClientActions">Example Client Actions</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>cURL on OS X Mavericks (10.9) has degraded SSL support. For more information and workarounds to allow 1-way SSL, see <a href="http://curl.haxx.se/mail/archive-2013-10/0036.html" class="bare">http://curl.haxx.se/mail/archive-2013-10/0036.html</a> . cURL on OS X Yosemite (10.10) is improved - 2-way SSL is possible - see <a href="http://curl.haxx.se/mail/archive-2014-10/0053.html" class="bare">http://curl.haxx.se/mail/archive-2014-10/0053.html</a> .</p>
+</div>
+<div class="paragraph">
+<p>The cURL commands in the following sections will not work with the system <code>curl</code> on OS X Yosemite (10.10). Instead, the certificate supplied with the <code>-E</code> param must be in PKCS12 format, and the file supplied with the <code>--cacert</code> param must contain only the CA certificate, and no key (see <a href="#EnablingSSL-ConvertthecertificateandkeytoPEMformatforusewithcURL">above</a> for instructions on creating this file):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl -E solr-ssl.keystore.p12:secret --cacert solr-ssl.cacert.pem ...</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If your operating system does not include cURL, you can download binaries here: <a href="http://curl.haxx.se/download.html" class="bare">http://curl.haxx.se/download.html</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-CreateaSolrCloudcollectionusingbin_solr">Create a SolrCloud collection using <code>bin/solr</code></h3>
+<div class="paragraph">
+<p>Create a 2-shard, replicationFactor=1 collection named mycollection using the default configset (data_driven_schema_configs):</p>
+</div>
+<div class="paragraph">
+<p><strong>*nix command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin/solr create -c mycollection -shards 2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Windows command</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">bin\solr.cmd create -c mycollection -shards 2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>create</code> action will pass the <code>SOLR_SSL_*</code> properties set in your include file to the SolrJ code used to create the collection.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-RetrieveSolrCloudclusterstatususingcURL">Retrieve SolrCloud cluster status using cURL</h3>
+<div class="paragraph">
+<p>To get the resulting cluster status (again, if you have not enabled client authentication, remove the <code>-E solr-ssl.pem:secret</code> option):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl -E solr-ssl.pem:secret --cacert solr-ssl.pem <span style="color: #BA2121">&quot;https://localhost:8984/solr/admin/collections?action=CLUSTERSTATUS&amp;wt=json&amp;indent=on&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should get a response that looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="json">{
+  <span style="color: #008000; font-weight: bold">&quot;responseHeader&quot;</span>:{
+    <span style="color: #008000; font-weight: bold">&quot;status&quot;</span>:<span style="color: #666666">0</span>,
+    <span style="color: #008000; font-weight: bold">&quot;QTime&quot;</span>:<span style="color: #666666">2041</span>},
+  <span style="color: #008000; font-weight: bold">&quot;cluster&quot;</span>:{
+    <span style="color: #008000; font-weight: bold">&quot;collections&quot;</span>:{
+      <span style="color: #008000; font-weight: bold">&quot;mycollection&quot;</span>:{
+        <span style="color: #008000; font-weight: bold">&quot;shards&quot;</span>:{
+          <span style="color: #008000; font-weight: bold">&quot;shard1&quot;</span>:{
+            <span style="color: #008000; font-weight: bold">&quot;range&quot;</span>:<span style="color: #BA2121">&quot;80000000-ffffffff&quot;</span>,
+            <span style="color: #008000; font-weight: bold">&quot;state&quot;</span>:<span style="color: #BA2121">&quot;active&quot;</span>,
+            <span style="color: #008000; font-weight: bold">&quot;replicas&quot;</span>:{<span style="color: #008000; font-weight: bold">&quot;core_node1&quot;</span>:{
+                <span style="color: #008000; font-weight: bold">&quot;state&quot;</span>:<span style="color: #BA2121">&quot;active&quot;</span>,
+                <span style="color: #008000; font-weight: bold">&quot;base_url&quot;</span>:<span style="color: #BA2121">&quot;https://127.0.0.1:8984/solr&quot;</span>,
+                <span style="color: #008000; font-weight: bold">&quot;core&quot;</span>:<span style="color: #BA2121">&quot;mycollection_shard1_replica1&quot;</span>,
+                <span style="color: #008000; font-weight: bold">&quot;node_name&quot;</span>:<span style="color: #BA2121">&quot;127.0.0.1:8984_solr&quot;</span>,
+                <span style="color: #008000; font-weight: bold">&quot;leader&quot;</span>:<span style="color: #BA2121">&quot;true&quot;</span>}}},
+          <span style="color: #008000; font-weight: bold">&quot;shard2&quot;</span>:{
+            <span style="color: #008000; font-weight: bold">&quot;range&quot;</span>:<span style="color: #BA2121">&quot;0-7fffffff&quot;</span>,
+            <span style="color: #008000; font-weight: bold">&quot;state&quot;</span>:<span style="color: #BA2121">&quot;active&quot;</span>,
+            <span style="color: #008000; font-weight: bold">&quot;replicas&quot;</span>:{<span style="color: #008000; font-weight: bold">&quot;core_node2&quot;</span>:{
+                <span style="color: #008000; font-weight: bold">&quot;state&quot;</span>:<span style="color: #BA2121">&quot;active&quot;</span>,
+                <span style="color: #008000; font-weight: bold">&quot;base_url&quot;</span>:<span style="color: #BA2121">&quot;https://127.0.0.1:7574/solr&quot;</span>,
+                <span style="color: #008000; font-weight: bold">&quot;core&quot;</span>:<span style="color: #BA2121">&quot;mycollection_shard2_replica1&quot;</span>,
+                <span style="color: #008000; font-weight: bold">&quot;node_name&quot;</span>:<span style="color: #BA2121">&quot;127.0.0.1:7574_solr&quot;</span>,
+                <span style="color: #008000; font-weight: bold">&quot;leader&quot;</span>:<span style="color: #BA2121">&quot;true&quot;</span>}}}},
+        <span style="color: #008000; font-weight: bold">&quot;maxShardsPerNode&quot;</span>:<span style="color: #BA2121">&quot;1&quot;</span>,
+        <span style="color: #008000; font-weight: bold">&quot;router&quot;</span>:{<span style="color: #008000; font-weight: bold">&quot;name&quot;</span>:<span style="color: #BA2121">&quot;compositeId&quot;</span>},
+        <span style="color: #008000; font-weight: bold">&quot;replicationFactor&quot;</span>:<span style="color: #BA2121">&quot;1&quot;</span>}},
+    <span style="color: #008000; font-weight: bold">&quot;properties&quot;</span>:{<span style="color: #008000; font-weight: bold">&quot;urlScheme&quot;</span>:<span style="color: #BA2121">&quot;https&quot;</span>}}}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-Indexdocumentsusingpost.jar">Index documents using <code>post.jar</code></h3>
+<div class="paragraph">
+<p>Use <code>post.jar</code> to index some example documents to the SolrCloud collection created above:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text">cd example/exampledocs
+java -Djavax.net.ssl.keyStorePassword=secret -Djavax.net.ssl.keyStore=../../server/etc/solr-ssl.keystore.jks -Djavax.net.ssl.trustStore=../../server/etc/solr-ssl.keystore.jks -Djavax.net.ssl.trustStorePassword=secret -Durl=https://localhost:8984/solr/mycollection/update -jar post.jar *.xml</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-QueryusingcURL">Query using cURL</h3>
+<div class="paragraph">
+<p>Use cURL to query the SolrCloud collection created above, from a directory containing the PEM formatted certificate and key created above (e.g. <code>example/etc/</code>) - if you have not enabled client authentication (system property <code>-Djetty.ssl.clientAuth=true)</code>, then you can remove the <code>-E solr-ssl.pem:secret</code> option:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl -E solr-ssl.pem:secret --cacert solr-ssl.pem <span style="color: #BA2121">&quot;https://localhost:8984/solr/mycollection/select?q=*:*&amp;wt=json&amp;indent=on&quot;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="EnablingSSL-IndexadocumentusingCloudSolrClient">Index a document using <code>CloudSolrClient</code></h3>
+<div class="paragraph">
+<p>From a java client using Solrj, index a document. In the code below, the <code>javax.net.ssl.*</code> system properties are set programmatically, but you could instead specify them on the java command line, as in the <code>post.jar</code> example above:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">System<span style="color: #666666">.</span><span style="color: #7D9029">setProperty</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;javax.net.ssl.keyStore&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;/path/to/solr-ssl.keystore.jks&quot;</span><span style="color: #666666">);</span>
+System<span style="color: #666666">.</span><span style="color: #7D9029">setProperty</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;javax.net.ssl.keyStorePassword&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;secret&quot;</span><span style="color: #666666">);</span>
+System<span style="color: #666666">.</span><span style="color: #7D9029">setProperty</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;javax.net.ssl.trustStore&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;/path/to/solr-ssl.keystore.jks&quot;</span><span style="color: #666666">);</span>
+System<span style="color: #666666">.</span><span style="color: #7D9029">setProperty</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;javax.net.ssl.trustStorePassword&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;secret&quot;</span><span style="color: #666666">);</span>
+String zkHost <span style="color: #666666">=</span> <span style="color: #BA2121">&quot;127.0.0.1:2181&quot;</span><span style="color: #666666">;</span>
+CloudSolrClient client <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> CloudSolrClient<span style="color: #666666">.</span><span style="color: #7D9029">Builder</span><span style="color: #666666">().</span><span style="color: #7D9029">withZkHost</span><span style="color: #666666">(</span>zkHost<span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span>
+client<span style="color: #666666">.</span><span style="color: #7D9029">setDefaultCollection</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;mycollection&quot;</span><span style="color: #666666">);</span>
+SolrInputDocument doc <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> SolrInputDocument<span style="color: #666666">();</span>
+doc<span style="color: #666666">.</span><span style="color: #7D9029">addField</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;1234&quot;</span><span style="color: #666666">);</span>
+doc<span style="color: #666666">.</span><span style="color: #7D9029">addField</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;A lovely summer holiday&quot;</span><span style="color: #666666">);</span>
+client<span style="color: #666666">.</span><span style="color: #7D9029">add</span><span style="color: #666666">(</span>doc<span style="color: #666666">);</span>
+client<span style="color: #666666">.</span><span style="color: #7D9029">commit</span><span style="color: #666666">();</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+      
+      
+      <a class="btn btn-primary next" href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=enabling-ssl" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=enabling-ssl"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,2434 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Faceting | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Faceting">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='faceting.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='faceting.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='faceting.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Faceting</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>As described in the section <a href="overview-of-searching-in-solr.html#overview-of-searching-in-solr">Overview of Searching in Solr</a>, faceting is the arrangement of search results into categories based on indexed terms. Searchers are presented with the indexed terms, along with numerical counts of how many matching documents were found were each term. Faceting makes it easy for users to explore search results, narrowing in on exactly the results they are looking for.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Faceting-GeneralParameters">General Parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The table below summarizes the general parameters for controlling faceting.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-ThefacetParameter">facet</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If set to true, enables faceting.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.queryParameter">facet.query</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a Lucene query to generate a facet count.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>These parameters are described in the sections below.</p>
+</div>
+<div class="sect2">
+<h3 id="Faceting-ThefacetParameter">The <code>facet</code> Parameter</h3>
+<div class="paragraph">
+<p>If set to "true," this parameter enables facet counts in the query response. If set to "false" to a blank or missing value, this parameter disables faceting. None of the other parameters listed below will have any effect unless this parameter is set to "true." The default value is blank.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.queryParameter">The <code>facet.query</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter allows you to specify an arbitrary query in the Lucene default syntax to generate a facet count. By default, Solr&#8217;s faceting feature automatically determines the unique terms for a field and returns a count for each of those terms. Using <code>facet.query</code>, you can override this default behavior and select exactly which terms or expressions you would like to see counted. In a typical implementation of faceting, you will specify a number of <code>facet.query</code> parameters. This parameter can be particularly useful for numeric-range-based facets or prefix-based facets.</p>
+</div>
+<div class="paragraph">
+<p>You can set the <code>facet.query</code> parameter multiple times to indicate that multiple queries should be used as separate facet constraints.</p>
+</div>
+<div class="paragraph">
+<p>To use facet queries in a syntax other than the default syntax, prefix the facet query with the name of the query notation. For example, to use the hypothetical <code>myfunc</code> query parser, you could set the <code>facet.query</code> parameter like so:</p>
+</div>
+<div class="paragraph">
+<p><code>facet.query={!myfunc}name~fred</code></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Faceting-Field-ValueFacetingParameters">Field-Value Faceting Parameters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Several parameters can be used to trigger faceting based on the indexed terms in a field.</p>
+</div>
+<div class="paragraph">
+<p>When using this parameter, it is important to remember that "term" is a very specific concept in Lucene: it relates to the literal field/value pairs that are indexed after any analysis occurs. For text fields that include stemming, lowercasing, or word splitting, the resulting terms may not be what you expect. If you want Solr to perform both analysis (for searching) and faceting on the full literal strings, use the <code>copyField</code> directive in your Schema to create two versions of the field: one Text and one String. Make sure both are <code>indexed="true"</code>. (For more information about the <code>copyField</code> directive, see <a href="documents-fields-and-schema-design.html#documents-fields-and-schema-design">Documents, Fields, and Schema Design</a>.)</p>
+</div>
+<div class="paragraph">
+<p>The table below summarizes Solr&#8217;s field value faceting parameters.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.fieldParameter">facet.field</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identifies a field to be treated as a facet.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.prefixParameter">facet.prefix</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limits the terms used for faceting to those that begin with the specified prefix.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.containsParameter">facet.contains</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limits the terms used for faceting to those that contain the specified substring.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.contains.ignoreCaseParameter">facet.contains.ignoreCase</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If facet.contains is used, ignore case when searching for the specified substring.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.sortParameter">facet.sort</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Controls how faceted results are sorted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.limitParameter">facet.limit</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Controls how many constraints should be returned for each facet.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.offsetParameter">facet.offset</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies an offset into the facet results at which to begin displaying facets.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.mincountParameter">facet.mincount</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the minimum counts required for a facet field to be included in the response.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.missingParameter">facet.missing</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Controls whether Solr should compute a count of all matching results which have no value for the field, in addition to the term-based constraints of a facet field.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.methodParameter">facet.method</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selects the algorithm or method Solr should use when faceting a field.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.existsParameter">facet.exists</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Caps facet counts by one. Available only for <code>facet.method=enum</code> as performance optimization.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.excludeTermsParameter">facet.excludeTerms</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removes specific terms from facet counts. This allows you to exclude certain terms from faceting, while maintaining the terms in the index for general queries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.enum.cache.minDfParameter">facet.enum.cache.minDf</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Advanced) Specifies the minimum document frequency (the number of documents matching a term) for which the <code>filterCache</code> should be used when determining the constraint count for that term.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Over-RequestParameters">facet.overrequest.count</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Advanced) A number of documents, beyond the effective <code>facet.limit</code> to request from each shard in a distributed search</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Over-RequestParameters">facet.overrequest.ratio</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Advanced) A multiplier of the effective <code>facet.limit</code> to request from each shard in a distributed search</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.threadsParameter">facet.threads</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Advanced) Controls parallel execution of field faceting</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>These parameters are described in the sections below.</p>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.fieldParameter">The <code>facet.field</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.field</code> parameter identifies a field that should be treated as a facet. It iterates over each Term in the field and generate a facet count using that Term as the constraint. This parameter can be specified multiple times in a query to select multiple facet fields.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you do not set this parameter to at least one field in the schema, none of the other parameters described in this section will have any effect.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.prefixParameter">The <code>facet.prefix</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.prefix</code> parameter limits the terms on which to facet to those starting with the given string prefix. This does not limit the query in any way, only the facets that would be returned in response to the query.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.prefix</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.containsParameter">The <code>facet.contains</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.contains</code> parameter limits the terms on which to facet to those containing the given substring. This does not limit the query in any way, only the facets that would be returned in response to the query.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.contains</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.contains.ignoreCaseParameter">The <code>facet.contains.ignoreCase</code> Parameter</h3>
+<div class="paragraph">
+<p>If <code>facet.contains</code> is used, the <code>facet.contains.ignoreCase</code> parameter causes case to be ignored when matching the given substring against candidate facet terms.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.contains.ignoreCase</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.sortParameter">The <code>facet.sort</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter determines the ordering of the facet field constraints.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><code>facet.sort</code> Setting</th>
+<th class="tableblock halign-left valign-top">Results</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sort the constraints by count (highest count first).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">index</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the constraints sorted in their index order (lexicographic by indexed term). For terms in the ASCII range, this will be alphabetically sorted.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The default is <code>count</code> if <code>facet.limit</code> is greater than 0, otherwise, the default is <code>index</code>.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.sort</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.limitParameter">The <code>facet.limit</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter specifies the maximum number of constraint counts (essentially, the number of facets for a field that are returned) that should be returned for the facet fields. A negative value means that Solr will return unlimited number of constraint counts.</p>
+</div>
+<div class="paragraph">
+<p>The default value is 100.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis to apply a distinct limit to each field with the syntax of <code>f.&lt;fieldname&gt;.facet.limit</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.offsetParameter">The <code>facet.offset</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.offset</code> parameter indicates an offset into the list of constraints to allow paging.</p>
+</div>
+<div class="paragraph">
+<p>The default value is 0.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.offset</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.mincountParameter">The <code>facet.mincount</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.mincount</code> parameter specifies the minimum counts required for a facet field to be included in the response. If a field&#8217;s counts are below the minimum, the field&#8217;s facet is not returned.</p>
+</div>
+<div class="paragraph">
+<p>The default value is 0.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.mincount</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.missingParameter">The <code>facet.missing</code> Parameter</h3>
+<div class="paragraph">
+<p>If set to true, this parameter indicates that, in addition to the Term-based constraints of a facet field, a count of all results that match the query but which have no facet value for the field should be computed and returned in the response.</p>
+</div>
+<div class="paragraph">
+<p>The default value is false.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.missing</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.methodParameter">The <code>facet.method</code> Parameter</h3>
+<div class="paragraph">
+<p>The facet.method parameter selects the type of algorithm or method Solr should use when faceting a field.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Setting</th>
+<th class="tableblock halign-left valign-top">Results</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enumerates all terms in a field, calculating the set intersection of documents that match the term with documents that match the query. This method is recommended for faceting multi-valued fields that have only a few distinct values. The average number of values per document does not matter. For example, faceting on a field with U.S. States such as <code>Alabama, Alaska, &#8230;&#8203; Wyoming</code> would lead to fifty cached filters which would be used over and over again. The <code>filterCache</code> should be large enough to hold all the cached filters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calculates facet counts by iterating over documents that match the query and summing the terms that appear in each document. This is currently implemented using an <code>UnInvertedField</code> cache if the field either is multi-valued or is tokenized (according to <code>FieldType.isTokened()</code>). Each document is looked up in the cache to see what terms/values it contains, and a tally is incremented for each value. This method is excellent for situations where the number of indexed values for the field is high, but the number of values per document is low. For multi-valued fields, a hybrid approach is used that uses term filters from the <code>filterCache</code> for terms that match many documents. The letters <code>fc</code> stand for field cache.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fcs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Per-segment field faceting for single-valued string fields. Enable with <code>facet.method=fcs</code> and control the number of threads used with the <code>threads</code> local parameter. This parameter allows faceting to be faster in the presence of rapid index changes.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The default value is <code>fc</code> (except for fields using the <code>BoolField</code> field type and when facet.exists=true is requsted) since it tends to use less memory and is faster when a field has many unique terms in the index.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.method</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.enum.cache.minDfParameter">The <code>facet.enum.cache.minDf</code> Parameter</h3>
+<div class="paragraph">
+<p>This parameter indicates the minimum document frequency (the number of documents matching a term) for which the filterCache should be used when determining the constraint count for that term. This is only used with the <code>facet.method=enum</code> method of faceting.</p>
+</div>
+<div class="paragraph">
+<p>A value greater than zero decreases the filterCache&#8217;s memory usage, but increases the time required for the query to be processed. If you are faceting on a field with a very large number of terms, and you wish to decrease memory usage, try setting this parameter to a value between 25 and 50, and run a few tests. Then, optimize the parameter setting as necessary.</p>
+</div>
+<div class="paragraph">
+<p>The default value is 0, causing the filterCache to be used for all terms in the field.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.enum.cache.minDf</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.existsParameter">The <code>facet.exists</code> Parameter</h3>
+<div class="paragraph">
+<p>To cap facet counts by 1 specify facet.exists=true. It can be used with facet.method=enum or when it&#8217;s omitted. It can be used only on non-trie fields i.e. strings. It may speed up facet counting on large indices and/or high-cardinality facet values..</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.exists</code> or via local parameter` facet.field={!facet.method=enum facet.exists=true}size`.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.excludeTermsParameter">The <code>facet.excludeTerms</code> Parameter</h3>
+<div class="paragraph">
+<p>If you want to remove terms from facet counts but keep them in the index, the <code>facet.excludeTerms</code> parameter allows you to do that.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Over-RequestParameters">Over-Request Parameters</h3>
+<div class="paragraph">
+<p>In some situations, the accuracy in selecting the "top" constraints returned for a facet in a distributed Solr query can be improved by "Over Requesting" the number of desired constraints (ie: <code>facet.limit</code>) from each of the individual Shards. In these situations, each shard is by default asked for the top &#8220;10 + (1.5 * facet.limit)&#8221; constraints.</p>
+</div>
+<div class="paragraph">
+<p>In some situations, depending on how your docs are partitioned across your shards, and what <code>facet.limit</code> value you used, you may find it advantageous to increase or decrease the amount of over-requesting Solr does. This can be achieved by setting the <code>facet.overrequest.count</code> (defaults to 10) and <code>facet.overrequest.ratio</code> (defaults to 1.5) parameters.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.threadsParameter">The <code>facet.threads</code> Parameter</h3>
+<div class="paragraph">
+<p>This param will cause loading the underlying fields used in faceting to be executed in parallel with the number of threads specified. Specify as <code>facet.threads=N</code> where <code>N</code> is the maximum number of threads used. Omitting this parameter or specifying the thread count as 0 will not spawn any threads, and only the main request thread will be used. Specifying a negative number of threads will create up to Integer.MAX_VALUE threads.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Faceting-RangeFaceting">Range Faceting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use Range Faceting on any date field or any numeric field that supports range queries. This is particularly useful for stitching together a series of range queries (as facet by query) for things like prices. As of Solr 3.1, Range Faceting is preferred over <a href="#Faceting-DateFacetingParameters">Date Faceting</a> (described below).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.rangeParameter">facet.range</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the field to facet by range.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.range.startParameter">facet.range.start</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the start of the facet range.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.range.endParameter">facet.range.end</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the end of the facet range.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.range.gapParameter">facet.range.gap</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the span of the range as a value to be added to the lower bound.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.range.hardendParameter">facet.range.hardend</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A boolean parameter that specifies how Solr handles a range gap that cannot be evenly divided between the range start and end values. If true, the last range constraint will have the <code>facet.range.end</code> value an upper bound. If false, the last range will have the smallest possible upper bound greater then <code>facet.range.end</code> such that the range is the exact width of the specified range gap. The default value for this parameter is false.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.range.includeParameter">facet.range.include</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies inclusion and exclusion preferences for the upper and lower bounds of the range. See the <code>facet.range.include</code> topic for more detailed information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.range.otherParameter">facet.range.other</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies counts for Solr to compute in addition to the counts for each facet range constraint.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.range.methodParameter">facet.range.method</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the algorithm or method to use for calculating facets.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.rangeParameter">The <code>facet.range</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.range</code> parameter defines the field for which Solr should create range facets. For example:</p>
+</div>
+<div class="paragraph">
+<p><code>facet.range=price&amp;facet.range=age</code></p>
+</div>
+<div class="paragraph">
+<p><code>facet.range=lastModified_dt</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.range.startParameter">The <code>facet.range.start</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.range.start</code> parameter specifies the lower bound of the ranges. You can specify this parameter on a per field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.range.start</code>. For example:</p>
+</div>
+<div class="paragraph">
+<p><code>f.price.facet.range.start=0.0&amp;f.age.facet.range.start=10</code></p>
+</div>
+<div class="paragraph">
+<p><code>f.lastModified_dt.facet.range.start=NOW/DAY-30DAYS</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.range.endParameter">The <code>facet.range.end</code> Parameter</h3>
+<div class="paragraph">
+<p>The facet.range.end specifies the upper bound of the ranges. You can specify this parameter on a per field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.range.end</code>. For example:</p>
+</div>
+<div class="paragraph">
+<p><code>f.price.facet.range.end=1000.0&amp;f.age.facet.range.start=99</code></p>
+</div>
+<div class="paragraph">
+<p><code>f.lastModified_dt.facet.range.end=NOW/DAY+30DAYS</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.range.gapParameter">The <code>facet.range.gap</code> Parameter</h3>
+<div class="paragraph">
+<p>The span of each range expressed as a value to be added to the lower bound. For date fields, this should be expressed using the <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/util/DateMathParser.html"><code>DateMathParser</code> syntax</a> (such as, <code>facet.range.gap=%2B1DAY &#8230;&#8203; '+1DAY'</code>). You can specify this parameter on a per-field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.range.gap</code>. For example:</p>
+</div>
+<div class="paragraph">
+<p><code>f.price.facet.range.gap=100&amp;f.age.facet.range.gap=10</code></p>
+</div>
+<div class="paragraph">
+<p><code>f.lastModified_dt.facet.range.gap=+1DAY</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.range.hardendParameter">The <code>facet.range.hardend</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.range.hardend</code> parameter is a Boolean parameter that specifies how Solr should handle cases where the <code>facet.range.gap</code> does not divide evenly between <code>facet.range.start</code> and <code>facet.range.end</code>. If <strong>true</strong>, the last range constraint will have the <code>facet.range.end</code> value as an upper bound. If <strong>false</strong>, the last range will have the smallest possible upper bound greater then <code>facet.range.end</code> such that the range is the exact width of the specified range gap. The default value for this parameter is false.</p>
+</div>
+<div class="paragraph">
+<p>This parameter can be specified on a per field basis with the syntax <code>f.&lt;fieldname&gt;.facet.range.hardend</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.range.includeParameter">The <code>facet.range.include</code> Parameter</h3>
+<div class="paragraph">
+<p>By default, the ranges used to compute range faceting between <code>facet.range.start</code> and <code>facet.range.end</code> are inclusive of their lower bounds and exclusive of the upper bounds. The "before" range defined with the <code>facet.range.other</code> parameter is exclusive and the "after" range is inclusive. This default, equivalent to "lower" below, will not result in double counting at the boundaries. You can use the <code>facet.range.include</code> parameter to modify this behavior using the following options:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lower</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All gap-based ranges include their lower bound.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">upper</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All gap-based ranges include their upper bound.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edge</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The first and last gap ranges include their edge bounds (lower for the first one, upper for the last one) even if the corresponding upper/lower option is not specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">outer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The "before" and "after" ranges will be inclusive of their bounds, even if the first or last ranges already include those boundaries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Includes all options: lower, upper, edge, outer.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You can specify this parameter on a per field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.range.include</code>, and you can specify it multiple times to indicate multiple choices.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To ensure you avoid double-counting, do not choose both <code>lower</code> and <code>upper</code>, do not choose <code>outer</code>, and do not choose <code>all</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.range.otherParameter">The <code>facet.range.other</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.range.other</code> parameter specifies that in addition to the counts for each range constraint between <code>facet.range.start</code> and <code>facet.range.end</code>, counts should also be computed for these options:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">before</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All records with field values lower then lower bound of the first range.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">after</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All records with field values greater then the upper bound of the last range.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">between</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All records with field values between the start and end bounds of all ranges.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Do not compute any counts.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compute counts for before, between, and after.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>This parameter can be specified on a per field basis with the syntax of <code>f.&lt;fieldname&gt;.facet.range.other</code>. In addition to the <code>all</code> option, this parameter can be specified multiple times to indicate multiple choices, but <code>none</code> will override all other options.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.range.methodParameter">The <code>facet.range.method</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>facet.range.method</code> parameter selects the type of algorithm or method Solr should use for range faceting. Both methods produce the same results, but performance may vary.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Method</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">filter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This method generates the ranges based on other facet.range parameters, and for each of them executes a filter that later intersects with the main query resultset to get the count. It will make use of the filterCache, so it will benefit of a cache large enough to contain all ranges.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dv</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This method iterates the documents that match the main query, and for each of them finds the correct range for the value. This method will make use of <a href="docvalues.html#docvalues">docValues</a> (if enabled for the field) or fieldCache. "dv" method is not supported for field type DateRangeField or when using <a href="result-grouping.html#result-grouping">group.facets</a>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Default value for this parameter is "filter".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.mincountParameterinRangeFaceting">The facet.mincount Parameter in Range Faceting</h3>
+<div class="paragraph">
+<p>The <code>facet.mincount</code> parameter, the same one as used in field faceting is also applied to range faceting. When used, no ranges with a count below the minimum will be included in the response.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Date Ranges &amp; Time Zones</div>
+<div class="paragraph">
+<p>Range faceting on date fields is a common situation where the <a href="working-with-dates.html#WorkingwithDates-TZ"><code>TZ</code></a> parameter can be useful to ensure that the "facet counts per day" or "facet counts per month" are based on a meaningful definition of when a given day/month "starts" relative to a particular TimeZone.</p>
+</div>
+<div class="paragraph">
+<p>For more information, see the examples in the <a href="working-with-dates.html#working-with-dates">Working with Dates</a> section.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Faceting-Pivot_DecisionTree_Faceting">Pivot (Decision Tree) Faceting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pivoting is a summarization tool that lets you automatically sort, count, total or average data stored in a table. The results are typically displayed in a second table showing the summarized data. Pivot faceting lets you create a summary table of the results from a faceting documents by multiple fields.</p>
+</div>
+<div class="paragraph">
+<p>Another way to look at it is that the query produces a Decision Tree, in that Solr tells you "for facet A, the constraints/counts are X/N, Y/M, etc. If you were to constrain A by X, then the constraint counts for B would be S/P, T/Q, etc.". In other words, it tells you in advance what the "next" set of facet results would be for a field if you apply a constraint from the current facet results.</p>
+</div>
+<div class="sect2">
+<h3 id="Faceting-facet.pivot">facet.pivot</h3>
+<div class="paragraph">
+<p>The <code>facet.pivot</code> parameter defines the fields to use for the pivot. Multiple <code>facet.pivot</code> values will create multiple "facet_pivot" sections in the response. Separate each list of fields with a comma.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-facet.pivot.mincount">facet.pivot.mincount</h3>
+<div class="paragraph">
+<p>The <code>facet.pivot.mincount</code> parameter defines the minimum number of documents that need to match in order for the facet to be included in results. The default is 1.</p>
+</div>
+<div class="paragraph">
+<p>Using the &#8220;bin/solr -e techproducts&#8221; example, A query URL like this one will return the data below, with the pivot faceting results found in the section "facet_pivot":</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/techproducts/select?q=*:*&amp;facet.pivot=cat,popularity,inStock</span>
+   <span style="color: #666666">&amp;</span>facet<span style="color: #666666">.</span><span style="color: #7D9029">pivot</span><span style="color: #666666">=</span>popularity<span style="color: #666666">,</span>cat<span style="color: #666666">&amp;</span>facet<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">&amp;</span>facet<span style="color: #666666">.</span><span style="color: #7D9029">field</span><span style="color: #666666">=</span>cat<span style="color: #666666">&amp;</span>facet<span style="color: #666666">.</span><span style="color: #7D9029">limit</span><span style="color: #666666">=5</span>
+   <span style="color: #666666">&amp;</span>rows<span style="color: #666666">=0&amp;</span>wt<span style="color: #666666">=</span>json<span style="color: #666666">&amp;</span>indent<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">&amp;</span>facet<span style="color: #666666">.</span><span style="color: #7D9029">pivot</span><span style="color: #666666">.</span><span style="color: #7D9029">mincount</span><span style="color: #666666">=2</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="json">  <span style="color: #BA2121">&quot;facet_counts&quot;</span><span style="border: 1px solid #FF0000">:</span>{
+    <span style="color: #008000; font-weight: bold">&quot;facet_queries&quot;</span>:{},
+    <span style="color: #008000; font-weight: bold">&quot;facet_fields&quot;</span>:{
+      <span style="color: #008000; font-weight: bold">&quot;cat&quot;</span>:[
+        <span style="color: #BA2121">&quot;electronics&quot;</span>,<span style="color: #666666">14</span>,
+        <span style="color: #BA2121">&quot;currency&quot;</span>,<span style="color: #666666">4</span>,
+        <span style="color: #BA2121">&quot;memory&quot;</span>,<span style="color: #666666">3</span>,
+        <span style="color: #BA2121">&quot;connector&quot;</span>,<span style="color: #666666">2</span>,
+        <span style="color: #BA2121">&quot;graphics card&quot;</span>,<span style="color: #666666">2</span>]},
+    <span style="color: #008000; font-weight: bold">&quot;facet_dates&quot;</span>:{},
+    <span style="color: #008000; font-weight: bold">&quot;facet_ranges&quot;</span>:{},
+    <span style="color: #008000; font-weight: bold">&quot;facet_pivot&quot;</span>:{
+      <span style="color: #008000; font-weight: bold">&quot;cat,popularity,inStock&quot;</span>:[{
+          <span style="color: #008000; font-weight: bold">&quot;field&quot;</span>:<span style="color: #BA2121">&quot;cat&quot;</span>,
+          <span style="color: #008000; font-weight: bold">&quot;value&quot;</span>:<span style="color: #BA2121">&quot;electronics&quot;</span>,
+          <span style="color: #008000; font-weight: bold">&quot;count&quot;</span>:<span style="color: #666666">14</span>,
+          <span style="color: #008000; font-weight: bold">&quot;pivot&quot;</span>:[{
+              <span style="color: #008000; font-weight: bold">&quot;field&quot;</span>:<span style="color: #BA2121">&quot;popularity&quot;</span>,
+              <span style="color: #008000; font-weight: bold">&quot;value&quot;</span>:<span style="color: #666666">6</span>,
+              <span style="color: #008000; font-weight: bold">&quot;count&quot;</span>:<span style="color: #666666">5</span>,
+              <span style="color: #008000; font-weight: bold">&quot;pivot&quot;</span>:[{
+                  <span style="color: #008000; font-weight: bold">&quot;field&quot;</span>:<span style="color: #BA2121">&quot;inStock&quot;</span>,
+                  <span style="color: #008000; font-weight: bold">&quot;value&quot;</span>:<span style="color: #008000; font-weight: bold">true</span>,
+                  <span style="color: #008000; font-weight: bold">&quot;count&quot;</span>:<span style="color: #666666">5</span>}]},
+<span style="border: 1px solid #FF0000">...</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-CombiningStatsComponentWithPivots">Combining Stats Component With Pivots</h3>
+<div class="paragraph">
+<p>In addition to some of the <a href="#Faceting-LocalParametersforFaceting">general local parameters</a> supported by other types of faceting, a <code>stats</code> local parameters can be used with <code>facet.pivot</code> to refer to <a href="the-stats-component.html#the-stats-component"><code>stats.field</code></a> instances (by tag) that you would like to have computed for each Pivot Constraint.</p>
+</div>
+<div class="paragraph">
+<p>In the example below, two different (overlapping) sets of statistics are computed for each of the facet.pivot result hierarchies:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">stats<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+stats<span style="color: #666666">.</span><span style="color: #7D9029">field</span><span style="color: #666666">={!</span>tag<span style="color: #666666">=</span>piv1<span style="color: #666666">,</span>piv2 min<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span> max<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">}</span>price
+stats<span style="color: #666666">.</span><span style="color: #7D9029">field</span><span style="color: #666666">={!</span>tag<span style="color: #666666">=</span>piv2 mean<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">}</span>popularity
+facet<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+facet<span style="color: #666666">.</span><span style="color: #7D9029">pivot</span><span style="color: #666666">={!</span>stats<span style="color: #666666">=</span>piv1<span style="color: #666666">}</span>cat<span style="color: #666666">,</span>inStock
+facet<span style="color: #666666">.</span><span style="color: #7D9029">pivot</span><span style="color: #666666">={!</span>stats<span style="color: #666666">=</span>piv2<span style="color: #666666">}</span>manu<span style="color: #666666">,</span>inStock</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Results:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #BA2121">&quot;facet_pivot&quot;</span><span style="color: #666666">:{</span>
+  <span style="color: #BA2121">&quot;cat,inStock&quot;</span><span style="color: #666666">:[{</span>
+      <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;cat&quot;</span><span style="color: #666666">,</span>
+      <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;electronics&quot;</span><span style="color: #666666">,</span>
+      <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:12,</span>
+      <span style="color: #BA2121">&quot;pivot&quot;</span><span style="color: #666666">:[{</span>
+          <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;inStock&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:8,</span>
+          <span style="color: #BA2121">&quot;stats&quot;</span><span style="color: #666666">:{</span>
+            <span style="color: #BA2121">&quot;stats_fields&quot;</span><span style="color: #666666">:{</span>
+              <span style="color: #BA2121">&quot;price&quot;</span><span style="color: #666666">:{</span>
+                <span style="color: #BA2121">&quot;min&quot;</span><span style="color: #666666">:74.98999786376953,</span>
+                <span style="color: #BA2121">&quot;max&quot;</span><span style="color: #666666">:399.0}}}},</span>
+        <span style="color: #666666">{</span>
+          <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;inStock&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">false</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:4,</span>
+          <span style="color: #BA2121">&quot;stats&quot;</span><span style="color: #666666">:{</span>
+            <span style="color: #BA2121">&quot;stats_fields&quot;</span><span style="color: #666666">:{</span>
+              <span style="color: #BA2121">&quot;price&quot;</span><span style="color: #666666">:{</span>
+                <span style="color: #BA2121">&quot;min&quot;</span><span style="color: #666666">:11.5,</span>
+                <span style="color: #BA2121">&quot;max&quot;</span><span style="color: #666666">:649.989990234375}}}}],</span>
+      <span style="color: #BA2121">&quot;stats&quot;</span><span style="color: #666666">:{</span>
+        <span style="color: #BA2121">&quot;stats_fields&quot;</span><span style="color: #666666">:{</span>
+          <span style="color: #BA2121">&quot;price&quot;</span><span style="color: #666666">:{</span>
+            <span style="color: #BA2121">&quot;min&quot;</span><span style="color: #666666">:11.5,</span>
+            <span style="color: #BA2121">&quot;max&quot;</span><span style="color: #666666">:649.989990234375}}}},</span>
+    <span style="color: #666666">{</span>
+      <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;cat&quot;</span><span style="color: #666666">,</span>
+      <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;currency&quot;</span><span style="color: #666666">,</span>
+      <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:4,</span>
+      <span style="color: #BA2121">&quot;pivot&quot;</span><span style="color: #666666">:[{</span>
+          <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;inStock&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:4,</span>
+          <span style="color: #BA2121">&quot;stats&quot;</span><span style="color: #666666">:{</span>
+            <span style="color: #BA2121">&quot;stats_fields&quot;</span><span style="color: #666666">:{</span>
+              <span style="color: #BA2121">&quot;price&quot;</span><span style="color: #666666">:{</span>
+                <span style="color: #666666">...</span>
+  <span style="color: #BA2121">&quot;manu,inStock&quot;</span><span style="color: #666666">:[{</span>
+      <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;manu&quot;</span><span style="color: #666666">,</span>
+      <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;inc&quot;</span><span style="color: #666666">,</span>
+      <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:8,</span>
+      <span style="color: #BA2121">&quot;pivot&quot;</span><span style="color: #666666">:[{</span>
+          <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;inStock&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:7,</span>
+          <span style="color: #BA2121">&quot;stats&quot;</span><span style="color: #666666">:{</span>
+            <span style="color: #BA2121">&quot;stats_fields&quot;</span><span style="color: #666666">:{</span>
+              <span style="color: #BA2121">&quot;price&quot;</span><span style="color: #666666">:{</span>
+                <span style="color: #BA2121">&quot;min&quot;</span><span style="color: #666666">:74.98999786376953,</span>
+                <span style="color: #BA2121">&quot;max&quot;</span><span style="color: #666666">:2199.0},</span>
+              <span style="color: #BA2121">&quot;popularity&quot;</span><span style="color: #666666">:{</span>
+                <span style="color: #BA2121">&quot;mean&quot;</span><span style="color: #666666">:5.857142857142857}}}},</span>
+        <span style="color: #666666">{</span>
+          <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;inStock&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">false</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:1,</span>
+          <span style="color: #BA2121">&quot;stats&quot;</span><span style="color: #666666">:{</span>
+            <span style="color: #BA2121">&quot;stats_fields&quot;</span><span style="color: #666666">:{</span>
+              <span style="color: #BA2121">&quot;price&quot;</span><span style="color: #666666">:{</span>
+                <span style="color: #BA2121">&quot;min&quot;</span><span style="color: #666666">:479.95001220703125,</span>
+                <span style="color: #BA2121">&quot;max&quot;</span><span style="color: #666666">:479.95001220703125},</span>
+              <span style="color: #BA2121">&quot;popularity&quot;</span><span style="color: #666666">:{</span>
+                <span style="color: #BA2121">&quot;mean&quot;</span><span style="color: #666666">:7.0}}}}],</span>
+      <span style="color: #666666">...</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-CombiningFacetQueriesAndFacetRangesWithPivotFacets">Combining Facet Queries And Facet Ranges With Pivot Facets</h3>
+<div class="paragraph">
+<p>A <code>query</code> local parameter can be used with <code>facet.pivot</code> to refer to <code>facet.query</code> instances (by tag) that should be computed for each pivot constraint. Similarly, a <code>range</code> local parameter can be used with <code>facet.pivot</code> to refer to <code>facet.range</code> instances.</p>
+</div>
+<div class="paragraph">
+<p>In the example below, two query facets are computed for h of the <code>facet.pivot</code> result hierarchies:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">facet<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+facet<span style="color: #666666">.</span><span style="color: #7D9029">query</span><span style="color: #666666">={!</span>tag<span style="color: #666666">=</span>q1<span style="color: #666666">}</span>manufacturedate_dt<span style="color: #666666">:[2006-01-01</span>T00<span style="color: #666666">:00:00</span>Z TO NOW<span style="color: #666666">]</span>
+facet<span style="color: #666666">.</span><span style="color: #7D9029">query</span><span style="color: #666666">={!</span>tag<span style="color: #666666">=</span>q1<span style="color: #666666">}</span>price<span style="color: #666666">:[0</span> TO <span style="color: #666666">100]</span>
+facet<span style="color: #666666">.</span><span style="color: #7D9029">pivot</span><span style="color: #666666">={!</span>query<span style="color: #666666">=</span>q1<span style="color: #666666">}</span>cat<span style="color: #666666">,</span>inStock</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> <span style="color: #BA2121">&quot;facet_counts&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+    <span style="color: #BA2121">&quot;facet_queries&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+      <span style="color: #BA2121">&quot;{!tag=q1}manufacturedate_dt:[2006-01-01T00:00:00Z TO NOW]&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">9,</span>
+      <span style="color: #BA2121">&quot;{!tag=q1}price:[0 TO 100]&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">7</span>
+    <span style="color: #666666">},</span>
+    <span style="color: #BA2121">&quot;facet_fields&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{},</span>
+    <span style="color: #BA2121">&quot;facet_dates&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{},</span>
+    <span style="color: #BA2121">&quot;facet_ranges&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{},</span>
+    <span style="color: #BA2121">&quot;facet_intervals&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{},</span>
+    <span style="color: #BA2121">&quot;facet_heatmaps&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{},</span>
+    <span style="color: #BA2121">&quot;facet_pivot&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+      <span style="color: #BA2121">&quot;cat,inStock&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">[</span>
+        <span style="color: #666666">{</span>
+          <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;cat&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;electronics&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">12,</span>
+          <span style="color: #BA2121">&quot;queries&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+            <span style="color: #BA2121">&quot;{!tag=q1}manufacturedate_dt:[2006-01-01T00:00:00Z TO NOW]&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">9,</span>
+            <span style="color: #BA2121">&quot;{!tag=q1}price:[0 TO 100]&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">4</span>
+          <span style="color: #666666">},</span>
+          <span style="color: #BA2121">&quot;pivot&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">[</span>
+            <span style="color: #666666">{</span>
+              <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&quot;inStock&quot;</span><span style="color: #666666">,</span>
+              <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span> <span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">,</span>
+              <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">8,</span>
+              <span style="color: #BA2121">&quot;queries&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">{</span>
+                <span style="color: #BA2121">&quot;{!tag=q1}manufacturedate_dt:[2006-01-01T00:00:00Z TO NOW]&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">6,</span>
+                <span style="color: #BA2121">&quot;{!tag=q1}price:[0 TO 100]&quot;</span><span style="color: #666666">:</span> <span style="color: #666666">2</span>
+              <span style="color: #666666">}</span>
+            <span style="color: #666666">},</span>
+            <span style="color: #666666">...</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In a similar way, in the example below, two range facets are computed for each of the <code>facet.pivot</code> result hierarchies:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">facet<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+facet<span style="color: #666666">.</span><span style="color: #7D9029">range</span><span style="color: #666666">={!</span>tag<span style="color: #666666">=</span>r1<span style="color: #666666">}</span>manufacturedate_dt
+facet<span style="color: #666666">.</span><span style="color: #7D9029">range</span><span style="color: #666666">.</span><span style="color: #7D9029">start</span><span style="color: #666666">=2006-01-01</span>T00<span style="color: #666666">:00:00</span>Z
+facet<span style="color: #666666">.</span><span style="color: #7D9029">range</span><span style="color: #666666">.</span><span style="color: #7D9029">end</span><span style="color: #666666">=</span>NOW<span style="color: #666666">/</span>YEAR
+facet<span style="color: #666666">.</span><span style="color: #7D9029">range</span><span style="color: #666666">.</span><span style="color: #7D9029">gap</span><span style="color: #666666">=+1</span>YEAR
+facet<span style="color: #666666">.</span><span style="color: #7D9029">pivot</span><span style="color: #666666">={!</span>range<span style="color: #666666">=</span>r1<span style="color: #666666">}</span>cat<span style="color: #666666">,</span>inStock</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">  <span style="color: #BA2121">&quot;facet_counts&quot;</span><span style="color: #666666">:{</span>
+    <span style="color: #BA2121">&quot;facet_queries&quot;</span><span style="color: #666666">:{},</span>
+    <span style="color: #BA2121">&quot;facet_fields&quot;</span><span style="color: #666666">:{},</span>
+    <span style="color: #BA2121">&quot;facet_dates&quot;</span><span style="color: #666666">:{},</span>
+    <span style="color: #BA2121">&quot;facet_ranges&quot;</span><span style="color: #666666">:{</span>
+      <span style="color: #BA2121">&quot;manufacturedate_dt&quot;</span><span style="color: #666666">:{</span>
+        <span style="color: #BA2121">&quot;counts&quot;</span><span style="color: #666666">:[</span>
+          <span style="color: #BA2121">&quot;2006-01-01T00:00:00Z&quot;</span><span style="color: #666666">,9,</span>
+          <span style="color: #BA2121">&quot;2007-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+          <span style="color: #BA2121">&quot;2008-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+          <span style="color: #BA2121">&quot;2009-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+          <span style="color: #BA2121">&quot;2010-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+          <span style="color: #BA2121">&quot;2011-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+          <span style="color: #BA2121">&quot;2012-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+          <span style="color: #BA2121">&quot;2013-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+          <span style="color: #BA2121">&quot;2014-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0],</span>
+        <span style="color: #BA2121">&quot;gap&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;+1YEAR&quot;</span><span style="color: #666666">,</span>
+        <span style="color: #BA2121">&quot;start&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;2006-01-01T00:00:00Z&quot;</span><span style="color: #666666">,</span>
+        <span style="color: #BA2121">&quot;end&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;2015-01-01T00:00:00Z&quot;</span><span style="color: #666666">}},</span>
+    <span style="color: #BA2121">&quot;facet_intervals&quot;</span><span style="color: #666666">:{},</span>
+    <span style="color: #BA2121">&quot;facet_heatmaps&quot;</span><span style="color: #666666">:{},</span>
+    <span style="color: #BA2121">&quot;facet_pivot&quot;</span><span style="color: #666666">:{</span>
+      <span style="color: #BA2121">&quot;cat,inStock&quot;</span><span style="color: #666666">:[{</span>
+          <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;cat&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;electronics&quot;</span><span style="color: #666666">,</span>
+          <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:12,</span>
+          <span style="color: #BA2121">&quot;ranges&quot;</span><span style="color: #666666">:{</span>
+            <span style="color: #BA2121">&quot;manufacturedate_dt&quot;</span><span style="color: #666666">:{</span>
+              <span style="color: #BA2121">&quot;counts&quot;</span><span style="color: #666666">:[</span>
+                <span style="color: #BA2121">&quot;2006-01-01T00:00:00Z&quot;</span><span style="color: #666666">,9,</span>
+                <span style="color: #BA2121">&quot;2007-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                <span style="color: #BA2121">&quot;2008-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                <span style="color: #BA2121">&quot;2009-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                <span style="color: #BA2121">&quot;2010-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                <span style="color: #BA2121">&quot;2011-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                <span style="color: #BA2121">&quot;2012-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                <span style="color: #BA2121">&quot;2013-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                <span style="color: #BA2121">&quot;2014-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0],</span>
+              <span style="color: #BA2121">&quot;gap&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;+1YEAR&quot;</span><span style="color: #666666">,</span>
+              <span style="color: #BA2121">&quot;start&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;2006-01-01T00:00:00Z&quot;</span><span style="color: #666666">,</span>
+              <span style="color: #BA2121">&quot;end&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;2015-01-01T00:00:00Z&quot;</span><span style="color: #666666">}},</span>
+          <span style="color: #BA2121">&quot;pivot&quot;</span><span style="color: #666666">:[{</span>
+              <span style="color: #BA2121">&quot;field&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;inStock&quot;</span><span style="color: #666666">,</span>
+              <span style="color: #BA2121">&quot;value&quot;</span><span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">,</span>
+              <span style="color: #BA2121">&quot;count&quot;</span><span style="color: #666666">:8,</span>
+              <span style="color: #BA2121">&quot;ranges&quot;</span><span style="color: #666666">:{</span>
+                <span style="color: #BA2121">&quot;manufacturedate_dt&quot;</span><span style="color: #666666">:{</span>
+                  <span style="color: #BA2121">&quot;counts&quot;</span><span style="color: #666666">:[</span>
+                    <span style="color: #BA2121">&quot;2006-01-01T00:00:00Z&quot;</span><span style="color: #666666">,6,</span>
+                    <span style="color: #BA2121">&quot;2007-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                    <span style="color: #BA2121">&quot;2008-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                    <span style="color: #BA2121">&quot;2009-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                    <span style="color: #BA2121">&quot;2010-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                    <span style="color: #BA2121">&quot;2011-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                    <span style="color: #BA2121">&quot;2012-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                    <span style="color: #BA2121">&quot;2013-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0,</span>
+                    <span style="color: #BA2121">&quot;2014-01-01T00:00:00Z&quot;</span><span style="color: #666666">,0],</span>
+                  <span style="color: #BA2121">&quot;gap&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;+1YEAR&quot;</span><span style="color: #666666">,</span>
+                  <span style="color: #BA2121">&quot;start&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;2006-01-01T00:00:00Z&quot;</span><span style="color: #666666">,</span>
+                  <span style="color: #BA2121">&quot;end&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;2015-01-01T00:00:00Z&quot;</span><span style="color: #666666">}}},</span>
+                  <span style="color: #666666">...</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-AdditionalPivotParameters">Additional Pivot Parameters</h3>
+<div class="paragraph">
+<p>Although <code>facet.pivot.mincount</code> deviates in name from the <code>facet.mincount</code> parameter used by field faceting, many other Field faceting parameters described above can also be used with pivot faceting:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>` facet.limit `</p>
+</li>
+<li>
+<p>` facet.offset `</p>
+</li>
+<li>
+<p><code>facet.sort</code> <a href="#Faceting-Thefacet.sortParameter">The facet.sort Parameter</a></p>
+</li>
+<li>
+<p>` facet.overrequest.count `</p>
+</li>
+<li>
+<p>` facet.overrequest.ratio `</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Faceting-IntervalFaceting">Interval Faceting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Another supported form of faceting is interval faceting. This sounds similar to range faceting, but the functionality is really closer to doing facet queries with range queries. Interval faceting allows you to set variable intervals and count the number of documents that have values within those intervals in the specified field.</p>
+</div>
+<div class="paragraph">
+<p>Even though the same functionality can be achieved by using a facet query with range queries, the implementation of these two methods is very different and will provide different performance depending on the context. If you are concerned about the performance of your searches you should test with both options. Interval faceting tends to be better with multiple intervals for the same fields, while facet query tend to be better in environments where filter cache is more effective (static indexes for example). This method will use <a href="docvalues.html#docvalues">docValues</a> if they are enabled for the field, will use fieldCache otherwise.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>What it does</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.intervalparameter">facet.interval</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the field to facet by interval.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#Faceting-Thefacet.interval.setparameter">facet.interval.set</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the intervals for the field.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.intervalparameter">The <code>facet.interval</code> parameter</h3>
+<div class="paragraph">
+<p>This parameter Indicates the field where interval faceting must be applied. It can be used multiple times in the same request to indicate multiple fields.</p>
+</div>
+<div class="paragraph">
+<p><code>facet.interval=price&amp;facet.interval=size</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Thefacet.interval.setparameter">The <code>facet.interval.set</code> parameter</h3>
+<div class="paragraph">
+<p>This parameter is used to set the intervals for the field, it can be specified multiple times to indicate multiple intervals. This parameter is global, which means that it will be used for all fields indicated with <code>facet.interval</code> unless there is an override for a specific field. To override this parameter on a specific field you can use: <code>f.&lt;fieldname&gt;.facet.interval.set</code>, for example:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>f.price.facet.interval.set=[0,10]&amp;f.price.facet.interval.set=(10,100]</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-IntervalSyntax">Interval Syntax</h3>
+<div class="paragraph">
+<p>Intervals must begin with either '(' or '[', be followed by the start value, then a comma (','), the end value, and finally a closing ')' or ']’.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>(1,10) &#8594; will include values greater than 1 and lower than 10</p>
+</li>
+<li>
+<p>[1,10) &#8594; will include values greater or equal to 1 and lower than 10</p>
+</li>
+<li>
+<p>[1,10] &#8594; will include values greater or equal to 1 and lower or equal to 10</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The initial and end values cannot be empty. If the interval needs to be unbounded, the special character '<strong>' can be used for both, start and end limit. When using '</strong>', '(' and '[', and ')' and ']' will be treated equal. [<strong>,</strong>] will include all documents with a value in the field. The interval limits may be strings but there is no need to add quotes. All the text until the comma will be treated as the start limit, and the text after that will be the end limit. For example: [Buenos Aires,New York]. Keep in mind that a string-like comparison will be done to match documents in string intervals (case-sensitive). The comparator can&#8217;t be changed.</p>
+</div>
+<div class="paragraph">
+<p>Commas, brackets and square brackets can be escaped by using '\' in front of them. Whitespaces before and after the values will be omitted. The start limit can&#8217;t be grater than the end limit. Equal limits are allowed, this allows you to indicate the specific values that you want to count, like [A,A], [B,B] and [C,Z].</p>
+</div>
+<div class="paragraph">
+<p>Interval faceting supports output key replacement described below. Output keys can be replaced in both the <code>facet.interval parameter</code> and in the <code>facet.interval.set parameter</code>. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&amp;</span>facet<span style="color: #666666">.</span><span style="color: #7D9029">interval</span><span style="color: #666666">={!</span>key<span style="color: #666666">=</span>popularity<span style="color: #666666">}</span>some_field
+<span style="color: #666666">&amp;</span>facet<span style="color: #666666">.</span><span style="color: #7D9029">interval</span><span style="color: #666666">.</span><span style="color: #7D9029">set</span><span style="color: #666666">={!</span>key<span style="color: #666666">=</span>bad<span style="color: #666666">}[0,5]</span>
+<span style="color: #666666">&amp;</span>facet<span style="color: #666666">.</span><span style="color: #7D9029">interval</span><span style="color: #666666">.</span><span style="color: #7D9029">set</span><span style="color: #666666">={!</span>key<span style="color: #666666">=</span>good<span style="color: #666666">}[5,*]</span>
+<span style="color: #666666">&amp;</span>facet<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Faceting-LocalParametersforFaceting">Local Parameters for Faceting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="local-parameters-in-queries.html#local-parameters-in-queries">LocalParams syntax</a> allows overriding global settings. It can also provide a method of adding metadata to other parameter values, much like XML attributes.</p>
+</div>
+<div class="sect2">
+<h3 id="Faceting-TaggingandExcludingFilters">Tagging and Excluding Filters</h3>
+<div class="paragraph">
+<p>You can tag specific filters and exclude those filters when faceting. This is useful when doing multi-select faceting.</p>
+</div>
+<div class="paragraph">
+<p>Consider the following example query with faceting:</p>
+</div>
+<div class="paragraph">
+<p><code>q=mainquery&amp;fq=status:public&amp;fq=doctype:pdf&amp;facet=true&amp;facet.field=doctype</code></p>
+</div>
+<div class="paragraph">
+<p>Because everything is already constrained by the filter <code>doctype:pdf</code>, the <code>facet.field=doctype</code> facet command is currently redundant and will return 0 counts for everything except <code>doctype:pdf</code>.</p>
+</div>
+<div class="paragraph">
+<p>To implement a multi-select facet for doctype, a GUI may want to still display the other doctype values and their associated counts, as if the <a href="http://doctypepdf"><code>doctype:pdf</code></a> constraint had not yet been applied. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">===</span> Document Type <span style="color: #666666">===</span>
+  <span style="color: #666666">[</span> <span style="color: #666666">]</span> Word <span style="color: #666666">(42)</span>
+  <span style="color: #666666">[</span>x<span style="color: #666666">]</span> <span style="color: #0000FF">PDF</span>  <span style="color: #666666">(96)</span>
+  <span style="color: #666666">[</span> <span style="color: #666666">]</span> Excel<span style="color: #666666">(11)</span>
+  <span style="color: #666666">[</span> <span style="color: #666666">]</span> HTML <span style="color: #666666">(63)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To return counts for doctype values that are currently not selected, tag filters that directly constrain doctype, and exclude those filters when faceting on doctype.</p>
+</div>
+<div class="paragraph">
+<p><code>q=mainquery&amp;fq=status:public&amp;fq={!tag=dt}doctype:pdf&amp;facet=true&amp;facet.field={!ex=dt}doctype</code></p>
+</div>
+<div class="paragraph">
+<p>Filter exclusion is supported for all types of facets. Both the <code>tag</code> and <code>ex</code> local parameters may specify multiple values by separating them with commas.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-ChangingtheOutputKey">Changing the Output Key</h3>
+<div class="paragraph">
+<p>To change the output key for a faceting command, specify a new name with the <code>key</code> local parameter. For example:</p>
+</div>
+<div class="paragraph">
+<p><code>facet.field={!ex=dt key=mylabel}doctype</code></p>
+</div>
+<div class="paragraph">
+<p>The parameter setting above causes the field facet results for the "doctype" field to be returned using the key "mylabel" rather than "doctype" in the response. This can be helpful when faceting on the same field multiple times with different exclusions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Faceting-Limitingfacetwithcertainterms">Limiting facet with certain terms</h3>
+<div class="paragraph">
+<p>To limit field facet with certain terms specify them comma separated with <code>terms</code> local parameter. Commas and quotes in terms can be escaped with backslash, as in <code>\,</code>. In this case facet is calculated on a way similar to <code>facet.method=enum</code> , but ignores <code>facet.enum.cache.minDf</code>. For example:</p>
+</div>
+<div class="paragraph">
+<p>`  facet.field={!terms='alfa,betta,with\,with\',with space'}symbol  `</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Faceting-RelatedTopics">Related Topics</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="spatial-search.html#spatial-search">Heatmap Faceting (Spatial)</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="other-parsers.html">Other Parsers</a>
+      
+      
+      <a class="btn btn-primary next" href="blockjoin-faceting.html">BlockJoin Faceting</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=faceting" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=faceting"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

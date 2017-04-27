@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Other Parsers | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Other Parsers">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='other-parsers.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='other-parsers.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='other-parsers.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Other Parsers</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to the main query parsers discussed earlier, there are several other query parsers that can be used instead of or in conjunction with the main parsers for specific purposes. This section details the other parsers, and gives examples for how they might be used.</p>
+</div>
+<div class="paragraph">
+<p>Many of these parsers are expressed the same way as <a href="local-parameters-in-queries.html#local-parameters-in-queries">Local Parameters in Queries</a>.</p>
+</div>
+<div class="paragraph">
+<p>Query parsers discussed in this section:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#OtherParsers-BlockJoinQueryParsers">Block Join Query Parsers</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-BoostQueryParser">Boost Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-CollapsingQueryParser">Collapsing Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-ComplexPhraseQueryParser">Complex Phrase Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-FieldQueryParser">Field Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-FunctionQueryParser">Function Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-FunctionRangeQueryParser">Function Range Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-GraphQueryParser">Graph Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-JoinQueryParser">Join Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-LearningToRankQueryParser">Learning To Rank Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-LuceneQueryParser">Lucene Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-MaxScoreQueryParser">Max Score Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-MoreLikeThisQueryParser">More Like This Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-NestedQueryParser">Nested Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-OldLuceneQueryParser">Old Lucene Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-PrefixQueryParser">Prefix Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-RawQueryParser">Raw Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-Re-RankingQueryParser">Re-Ranking Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-SimpleQueryParser">Simple Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-SpatialQueryParsers">Spatial Query Parsers</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-SurroundQueryParser">Surround Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-SwitchQueryParser">Switch Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-TermQueryParser">Term Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-TermsQueryParser">Terms Query Parser</a></p>
+</li>
+<li>
+<p><a href="#OtherParsers-XMLQueryParser">XML Query Parser</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-BlockJoinQueryParsers">Block Join Query Parsers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are two query parsers that support block joins. These parsers allow indexing and searching for relational content that has been<a href="uploading-data-with-index-handlers.html#uploading-data-with-index-handlers">indexed as nested documents</a>.</p>
+</div>
+<div class="paragraph">
+<p>The example usage of the query parsers below assumes these two documents and each of their child documents have been indexed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;add&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;doc&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;title&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>Solr has block join support<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;content_type&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>parentDocument<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;doc&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>2<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;comments&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>SolrCloud supports it too!<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/doc&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/doc&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;doc&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;title&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>New Lucene and Solr release<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;content_type&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>parentDocument<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;doc&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>4<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;field</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;comments&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>Lots of new features<span style="color: #008000; font-weight: bold">&lt;/field&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/doc&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/doc&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/add&gt;</span></code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-BlockJoinChildrenQueryParser">Block Join Children Query Parser</h3>
+<div class="paragraph">
+<p>This parser takes a query that matches some parent documents and returns their children. The syntax for this parser is: <code>q={!child of=&lt;allParents&gt;}&lt;someParents&gt;</code>. The parameter <code>allParents</code> is a filter that matches <strong>only parent documents</strong>; here you would define the field and value that you used to identify <strong>all parent documents</strong>. The parameter <code>someParents</code> identifies a query that will match some of the parent documents. The output is the children.</p>
+</div>
+<div class="paragraph">
+<p>Using the example documents above, we can construct a query such as <code>q={!child of="content_type:parentDocument"}title:lucene</code>. We only get one document in response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;result</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;response&quot;</span> <span style="color: #7D9029">numFound=</span><span style="color: #BA2121">&quot;1&quot;</span> <span style="color: #7D9029">start=</span><span style="color: #BA2121">&quot;0&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;doc&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>4<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;comments&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>Lots of new features<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/doc&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/result&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the query for <code>someParents</code> should match only parent documents passed by <code>allParents</code> or you may get an exception: _Parent query must not match any docs besides parent filter. Combine them as must () and must-not (-) clauses to find a problem doc._ or in older version it's: __Parent query yields document which is not matched by parents filter__. As it's said, you can search for `q=(someParents) -(allParents)` to find a cause .</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-BlockJoinParentQueryParser">Block Join Parent Query Parser</h3>
+<div class="paragraph">
+<p>This parser takes a query that matches child documents and returns their parents. The syntax for this parser is similar: <code>q={!parent which=&lt;allParents&gt;}&lt;someChildren&gt;</code>. The parameter <code>allParents</code> is a filter that matches <strong>only parent documents</strong>; here you would define the field and value that you used to identify <strong>all parent documents</strong>. The parameter <code>someChildren</code> is a query that matches some or all of the child documents. Note that the query for <code>someChildren</code> should match only child documents or you may get an exception: _Child query must not match same docs with parent filter. Combine them as must clauses () to find a problem doc._ or in older version it's: __child query must only match non-parent docs__. As it's said, you can search for `q=(parentFilter) +(someChildren)` to find a cause .</p>
+</div>
+<div class="paragraph">
+<p>Again using the example documents above, we can construct a query such as <code>q={!parent which="content_type:parentDocument"}comments:SolrCloud</code>. We get this document in response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;result</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;response&quot;</span> <span style="color: #7D9029">numFound=</span><span style="color: #BA2121">&quot;1&quot;</span> <span style="color: #7D9029">start=</span><span style="color: #BA2121">&quot;0&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;doc&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;title&quot;</span><span style="color: #008000; font-weight: bold">&gt;&lt;str&gt;</span>Solr has block join support<span style="color: #008000; font-weight: bold">&lt;/str&gt;&lt;/arr&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;content_type&quot;</span><span style="color: #008000; font-weight: bold">&gt;&lt;str&gt;</span>parentDocument<span style="color: #008000; font-weight: bold">&lt;/str&gt;&lt;/arr&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/doc&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/result&gt;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Using which</div>
+<div class="paragraph">
+<p>A common mistake is to try to filter parents with a <code>which</code> filter, as in this bad example:</p>
+</div>
+<div class="paragraph">
+<p><code>q={!parent which="<strong>title:join</strong>"}comments:SolrCloud</code></p>
+</div>
+<div class="paragraph">
+<p>Instead, you should use a sibling mandatory clause as a filter:</p>
+</div>
+<div class="paragraph">
+<p><code>q= <strong>+title:join</strong> +{!parent which="<strong>content_type:parentDocument</strong>"}comments:SolrCloud</code></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-Scoring">Scoring</h3>
+<div class="paragraph">
+<p>You can optionally use the <code>score</code> local parameter to return scores of the subordinate query. The values to use for this parameter define the type of aggregation, which are <code>avg</code> (average), <code>max</code> (maximum), <code>min</code> (minimum), <code>total (sum)</code>. Implicit default is <code>none</code> which returns <code>0.0</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-BoostQueryParser">Boost Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>BoostQParser</code> extends the <code>QParserPlugin</code> and creates a boosted query from the input value. The main value is the query to be boosted. Parameter <code>b</code> is the function query to use as the boost. The query to be boosted may be of any type.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>Creates a query "foo" which is boosted (scores are multiplied) by the function query <code>log(popularity)</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>boost b<span style="color: #666666">=</span>log<span style="color: #666666">(</span>popularity<span style="color: #666666">)}</span>foo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Creates a query "foo" which is boosted by the date boosting function referenced in <code>ReciprocalFloatFunction</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>boost b<span style="color: #666666">=</span>recip<span style="color: #666666">(</span>ms<span style="color: #666666">(</span>NOW<span style="color: #666666">,</span>mydatefield<span style="color: #666666">),3.16e-11,1,1)}</span>foo</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-CollapsingQueryParser">Collapsing Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>CollapsingQParser</code> is really a <em>post filter</em> that provides more performant field collapsing than Solr&#8217;s standard approach when the number of distinct groups in the result set is high. This parser collapses the result set to a single document per group before it forwards the result set to the rest of the search components. So all downstream components (faceting, highlighting, etc&#8230;&#8203;) will work with the collapsed result set.</p>
+</div>
+<div class="paragraph">
+<p>Details about using the <code>CollapsingQParser</code> can be found in the section <a href="collapse-and-expand-results.html#collapse-and-expand-results">Collapse and Expand Results</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-ComplexPhraseQueryParser">Complex Phrase Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>ComplexPhraseQParser</code> provides support for wildcards, ORs, etc., inside phrase queries using Lucene&#8217;s <a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/complexPhrase/ComplexPhraseQueryParser.html"><code>ComplexPhraseQueryParser</code></a> . Under the covers, this query parser makes use of the Span group of queries, e.g., spanNear, spanOr, etc., and is subject to the same limitations as that family or parsers.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>inOrder</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true to force phrase queries to match terms in the order specified. Default: <strong>true</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>df</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The default search field.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>complexphrase inOrder<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">}</span>name<span style="color: #666666">:</span><span style="color: #BA2121">&quot;Jo* Smith&quot;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>complexphrase inOrder<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">false</span><span style="color: #666666">}</span>name<span style="color: #666666">:</span><span style="color: #BA2121">&quot;(john jon jonathan~) peters*&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A mix of ordered and unordered complex phrase queries:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">+</span>_query_<span style="color: #666666">:</span><span style="color: #BA2121">&quot;{!complexphrase inOrder=true}manu:\&quot;a* c*\&quot;&quot;</span> <span style="color: #666666">+</span>_query_<span style="color: #666666">:</span><span style="color: #BA2121">&quot;{!complexphrase inOrder=false df=name}\&quot;bla* pla*\&quot;&quot;</span></code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-Limitations">Limitations</h3>
+<div class="paragraph">
+<p>Performance is sensitive to the number of unique terms that are associated with a pattern. For instance, searching for "a*" will form a large OR clause (technically a SpanOr with many terms) for all of the terms in your index for the indicated field that start with the single letter 'a'. It may be prudent to restrict wildcards to at least two or preferably three letters as a prefix. Allowing very short prefixes may result in to many low-quality documents being returned.</p>
+</div>
+<div class="paragraph">
+<p>Notice that it also supports leading wildcards "*a" as well with consequent performance implications. Applying <a href="#/confluence/pages/createpage.action?spaceKey=solr&amp;title=AnalyzersTokenizersTokenFilters&amp;linkCreation=true&amp;fromPageId=32604257">ReversedWildcardFilterFactory</a> in index-time analysis is usually a good idea.</p>
+</div>
+<div class="sect3">
+<h4 id="OtherParsers-MaxBooleanClauses">MaxBooleanClauses</h4>
+<div class="paragraph">
+<p>You may need to increase MaxBooleanClauses in <code>solrconfig.xml</code> as a result of the term expansion above:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>maxBooleanClauses<span style="color: #666666">&gt;4096&lt;/</span>maxBooleanClauses<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This property is described in more detail in the section <a href="query-settings-in-solrconfig.html#QuerySettingsinSolrConfig-QuerySizingandWarming">Query Sizing and Warming</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="OtherParsers-Stopwords">Stopwords</h4>
+<div class="paragraph">
+<p>It is recommended not to use stopword elimination with this query parser. Lets say we add <strong>the</strong>, <strong>up</strong>, <strong>to</strong> to <code>stopwords.txt</code> for your collection, and index a document containing the text <em>"Stores up to 15,000 songs, 25,00 photos, or 150 yours of video"</em> in a field named "features".</p>
+</div>
+<div class="paragraph">
+<p>While the query below does not use this parser:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> q<span style="color: #666666">=</span>features<span style="color: #666666">:</span><span style="color: #BA2121">&quot;Stores up to 15,000&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the document is returned. The next query that <em>does</em> use the Complex Phrase Query Parser, as in this query:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> q<span style="color: #666666">=</span>features<span style="color: #666666">:</span><span style="color: #BA2121">&quot;sto* up to 15*&quot;</span><span style="color: #666666">&amp;</span>defType<span style="color: #666666">=</span>complexphrase</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>does <em>not</em> return that document because SpanNearQuery has no good way to handle stopwords in a way analogous to PhraseQuery. If you must remove stopwords for your use case, use a custom filter factory or perhaps a customized synonyms filter that reduces given stopwords to some impossible token.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="OtherParsers-Escaping">Escaping</h4>
+<div class="paragraph">
+<p>Special care has to be given when escaping: clauses between double quotes (usually whole query) is parsed twice, these parts have to be escaped as twice. eg <code>"foo\\: bar\\^"</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-FieldQueryParser">Field Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>FieldQParser</code> extends the <code>QParserPlugin</code> and creates a field query from the input value, applying text analysis and constructing a phrase query if appropriate. The parameter <code>f</code> is the field to be queried.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>field f<span style="color: #666666">=</span>myfield<span style="color: #666666">}</span>Foo Bar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example creates a phrase query with "foo" followed by "bar" (assuming the analyzer for <code>myfield</code> is a text field with an analyzer that splits on whitespace and lowercase terms). This is generally equivalent to the Lucene query parser expression <code>myfield:"Foo Bar"</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-FunctionQueryParser">Function Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>FunctionQParser</code> extends the <code>QParserPlugin</code> and creates a function query from the input value. This is only one way to use function queries in Solr; for another, more integrated, approach, see the section on <a href="function-queries.html#function-queries">Function Queries</a>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>func<span style="color: #666666">}</span>log<span style="color: #666666">(</span>foo<span style="color: #666666">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-FunctionRangeQueryParser">Function Range Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>FunctionRangeQParser</code> extends the <code>QParserPlugin</code> and creates a range query over a function. This is also referred to as <code>frange</code>, as seen in the examples below.</p>
+</div>
+<div class="paragraph">
+<p>Other parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">l</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The lower bound, optional</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">u</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The upper bound, optional</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">incl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Include the lower bound: true/false, optional, default=true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">incu</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Include the upper bound: true/false, optional, default=true</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>frange l<span style="color: #666666">=1000</span> u<span style="color: #666666">=50000}</span>myfield</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"> fq<span style="color: #666666">={!</span>frange l<span style="color: #666666">=0</span> u<span style="color: #666666">=2.2}</span> sum<span style="color: #666666">(</span>user_ranking<span style="color: #666666">,</span>editor_ranking<span style="color: #666666">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Both of these examples are restricting the results by a range of values found in a declared field or a function query. In the second example, we&#8217;re doing a sum calculation, and then defining only values between 0 and 2.2 should be returned to the user.</p>
+</div>
+<div class="paragraph">
+<p>For more information about range queries over functions, see Yonik Seeley&#8217;s introductory blog post <a href="http://searchhub.org/2009/07/06/ranges-over-functions-in-solr-14/">Ranges over Functions in Solr 1.4</a>, hosted at SearchHub.org.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-GraphQueryParser">Graph Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>graph</code> query parser does a breadth first, cyclic aware, graph traversal of all documents that are "reachable" from a starting set of root documents identified by a wrapped query. The graph is built according to linkages between documents based on the terms found in &#8220;<code>from</code>&#8221; and &#8220;<code>to</code>&#8221; fields that you specify as part of the query</p>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-Parameters">Parameters</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field name of matching documents to inspect to identify outgoing edges for graph traversal. Defaults to <code>edge_ids</code> .</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">from</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field name to of candidate documents to inspect to identify incoming graph edges. Defaults to <code>node_id</code> .</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">traversalFilter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional query that can be supplied to limit the scope of documents that are traversed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxDepth</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer specifying how deep the breadth first search of the graph should go begining with the initial query. Defaults to -1 (unlimited)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">returnRoot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean to indicate if the documents that matched the original query (to define the starting points for graph) should be included in the final results. Defaults to true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">returnOnlyLeaf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean that indicates if the results of the query should be filtered so that only documents with no outgoing edges are returned. Defaults to false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">useAutn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean that indicates if an Automatons should be compiled for each iteration of the breadth first search, which may be faster for some graphs. Defaults to false.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-Limitations.1">Limitations</h3>
+<div class="paragraph">
+<p>The <code>graph</code> parser only works in single node Solr installations, or with <a href="solrcloud.html#solrcloud">SolrCloud</a> collections that use exactly 1 shard.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-Examples">Examples</h3>
+<div class="paragraph">
+<p>To understand how the graph parser works, consider the following Directed Cyclic Graph, containing 8 nodes (A to H) and 9 edges (1 to 9):</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/other-parsers/graph_qparser_example.png" alt="image" height="400">
+</div>
+</div>
+<div class="paragraph">
+<p>One way to model this graph as Solr documents, would be to create one document per node, with mutivalued fields identifying the incoming and outgoing edges for each node:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl -H <span style="color: #BA2121">&#39;Content-Type: application/json&#39;</span> <span style="color: #BA2121">&#39;http://localhost:8983/solr/my_graph/update?commit=true&#39;</span> --data-binary <span style="color: #BA2121">&#39;[</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;A&quot;,&quot;foo&quot;:  7, &quot;out_edge&quot;:[&quot;1&quot;,&quot;9&quot;],  &quot;in_edge&quot;:[&quot;4&quot;,&quot;2&quot;]  },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;B&quot;,&quot;foo&quot;: 12, &quot;out_edge&quot;:[&quot;3&quot;,&quot;6&quot;],  &quot;in_edge&quot;:[&quot;1&quot;]      },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;C&quot;,&quot;foo&quot;: 10, &quot;out_edge&quot;:[&quot;5&quot;,&quot;2&quot;],  &quot;in_edge&quot;:[&quot;9&quot;]      },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;D&quot;,&quot;foo&quot;: 20, &quot;out_edge&quot;:[&quot;4&quot;,&quot;7&quot;],  &quot;in_edge&quot;:[&quot;3&quot;,&quot;5&quot;]  },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;E&quot;,&quot;foo&quot;: 17, &quot;out_edge&quot;:[],         &quot;in_edge&quot;:[&quot;6&quot;]      },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;F&quot;,&quot;foo&quot;: 11, &quot;out_edge&quot;:[],         &quot;in_edge&quot;:[&quot;7&quot;]      },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;G&quot;,&quot;foo&quot;:  7, &quot;out_edge&quot;:[&quot;8&quot;],      &quot;in_edge&quot;:[]         },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;H&quot;,&quot;foo&quot;: 10, &quot;out_edge&quot;:[],         &quot;in_edge&quot;:[&quot;8&quot;]      }</span>
+<span style="color: #BA2121">]&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With the model shown above, the following query demonstrates a simple traversal of all nodes reachable from node A:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/my_graph/query?fl=id&amp;q={!graph+from=in_edge+to=out_edge}id:A</span>
+<span style="color: #666666">...</span>
+<span style="color: #BA2121">&quot;response&quot;</span><span style="color: #666666">:{</span><span style="color: #BA2121">&quot;numFound&quot;</span><span style="color: #666666">:6,</span><span style="color: #BA2121">&quot;start&quot;</span><span style="color: #666666">:0,</span><span style="color: #BA2121">&quot;docs&quot;</span><span style="color: #666666">:[</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;A&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;B&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;C&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;D&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;E&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;F&quot;</span> <span style="color: #666666">}</span> <span style="color: #666666">]</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can also use the <code>traversalFilter</code> to limit the graph traversal to only nodes with maximum value of 15 in the <code>foo</code> field. In this case that means D, E, and F are excluded – F has a value of <code>foo=11</code>, but it is unreachable because the traversal skipped D:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/my_graph/query?fl=id&amp;q={!graph+from=in_edge+to=out_edge+traversalFilter=&#39;foo:[*+TO+15]&#39;}id:A</span>
+<span style="color: #666666">...</span>
+<span style="color: #BA2121">&quot;response&quot;</span><span style="color: #666666">:{</span><span style="color: #BA2121">&quot;numFound&quot;</span><span style="color: #666666">:3,</span><span style="color: #BA2121">&quot;start&quot;</span><span style="color: #666666">:0,</span><span style="color: #BA2121">&quot;docs&quot;</span><span style="color: #666666">:[</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;A&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;B&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;C&quot;</span> <span style="color: #666666">}</span> <span style="color: #666666">]</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The examples shown so far have all used a query for a single document (<code>"id:A"</code>) as the root node for the graph traversal, but any query can be used to identify multiple documents to use as root nodes. The next example demonstrates using the <code>maxDepth</code> param to find all nodes that are at most one edge away from an root node with a value in the <code>foo</code> field less then or equal to 10:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/my_graph/query?fl=id&amp;q={!graph+from=in_edge+to=out_edge+maxDepth=1}foo:[*+TO+10]</span>
+<span style="color: #666666">...</span>
+<span style="color: #BA2121">&quot;response&quot;</span><span style="color: #666666">:{</span><span style="color: #BA2121">&quot;numFound&quot;</span><span style="color: #666666">:6,</span><span style="color: #BA2121">&quot;start&quot;</span><span style="color: #666666">:0,</span><span style="color: #BA2121">&quot;docs&quot;</span><span style="color: #666666">:[</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;A&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;B&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;C&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;D&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;G&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;H&quot;</span> <span style="color: #666666">}</span> <span style="color: #666666">]</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-SimplifiedModels">Simplified Models</h3>
+<div class="paragraph">
+<p>The Document &amp; Field modelling used in the above examples enumerated all of the outgoing and income edges for each node explicitly, to help demonstrate exactly how the "from" and "to" params work, and to give you an idea of what is possible. With multiple sets of fields like these for identifying incoming and outgoing edges, it&#8217;s possible to model many independent Directed Graphs that contain some or all of the documents in your collection.</p>
+</div>
+<div class="paragraph">
+<p>But in many cases it can also be possible to drastically simplify the model used.</p>
+</div>
+<div class="paragraph">
+<p>For Example: The same graph shown in the diagram above can be modelled by Solr Documents that represent each node and know only the ids of the nodes they link to, with out knowing anything about the incoming links:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl -H <span style="color: #BA2121">&#39;Content-Type: application/json&#39;</span> <span style="color: #BA2121">&#39;http://localhost:8983/solr/alt_graph/update?commit=true&#39;</span> --data-binary <span style="color: #BA2121">&#39;[</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;A&quot;,&quot;foo&quot;:  7, &quot;out_edge&quot;:[&quot;B&quot;,&quot;C&quot;] },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;B&quot;,&quot;foo&quot;: 12, &quot;out_edge&quot;:[&quot;E&quot;,&quot;D&quot;] },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;C&quot;,&quot;foo&quot;: 10, &quot;out_edge&quot;:[&quot;A&quot;,&quot;D&quot;] },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;D&quot;,&quot;foo&quot;: 20, &quot;out_edge&quot;:[&quot;A&quot;,&quot;F&quot;] },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;E&quot;,&quot;foo&quot;: 17, &quot;out_edge&quot;:[]        },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;F&quot;,&quot;foo&quot;: 11, &quot;out_edge&quot;:[]        },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;G&quot;,&quot;foo&quot;:  7, &quot;out_edge&quot;:[&quot;H&quot;]     },</span>
+<span style="color: #BA2121">  {&quot;id&quot;:&quot;H&quot;,&quot;foo&quot;: 10, &quot;out_edge&quot;:[]        }</span>
+<span style="color: #BA2121">  ]&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With this alternative document model, all of the same queries demonstrated above can still be executed, simply by changing the &#8220;<code>from</code>&#8221; param to replace the &#8220;<code>in_edge</code>&#8221; field with the &#8220;<code>id</code>&#8221; field:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/alt_graph/query?fl=id&amp;q={!graph+from=id+to=out_edge+maxDepth=1}foo:[*+TO+10]</span>
+<span style="color: #666666">...</span>
+<span style="color: #BA2121">&quot;response&quot;</span><span style="color: #666666">:{</span><span style="color: #BA2121">&quot;numFound&quot;</span><span style="color: #666666">:6,</span><span style="color: #BA2121">&quot;start&quot;</span><span style="color: #666666">:0,</span><span style="color: #BA2121">&quot;docs&quot;</span><span style="color: #666666">:[</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;A&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;B&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;C&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;D&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;G&quot;</span> <span style="color: #666666">},</span>
+   <span style="color: #666666">{</span> <span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">:</span><span style="color: #BA2121">&quot;H&quot;</span> <span style="color: #666666">}</span> <span style="color: #666666">]</span>
+<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-JoinQueryParser">Join Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>JoinQParser</code> extends the <code>QParserPlugin</code>. It allows normalizing relationships between documents with a join operation. This is different from the concept of a join in a relational database because no information is being truly joined. An appropriate SQL analogy would be an "inner query".</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>Find all products containing the word "ipod", join them against manufacturer docs and return the list of manufacturers:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>join from<span style="color: #666666">=</span>manu_id_s to<span style="color: #666666">=</span>id<span style="color: #666666">}</span>ipod</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Find all manufacturer docs named "belkin", join them against product docs, and filter the list to only products with a price less than $12:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">q  <span style="color: #666666">=</span> <span style="color: #666666">{!</span>join from<span style="color: #666666">=</span>id to<span style="color: #666666">=</span>manu_id_s<span style="color: #666666">}</span>compName_s<span style="color: #666666">:</span>Belkin
+fq <span style="color: #666666">=</span> price<span style="color: #666666">:[*</span> TO <span style="color: #666666">12]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The join operation is done on a term basis, so the "from" and "to" fields must use compatible field types. For example: joining between a <code>StrField</code> and a <code>TrieIntField</code> will not work, likewise joining between a <code>StrField</code> and a <code>TextField</code> that uses <code>LowerCaseFilterFactory</code> will only work for values that are already lower cased in the string field.</p>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-Scoring.1">Scoring</h3>
+<div class="paragraph">
+<p>You can optionally use the <code>score</code> parameter to return scores of the subordinate query. The values to use for this parameter define the type of aggregation, which are <code>avg</code> (average), <code>max</code> (maximum), <code>min</code> (minimum) <code>total</code>, or <code>none</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Score parameter and single value numerics</div>
+<div class="paragraph">
+<p>Specifying <code>score</code> local parameter switches the join algorithm. This might have performance implication on large indices, but it&#8217;s more important that this algorithm won&#8217;t work for single value numeric field starting from 7.0. Users are encouraged to change field types to string and rebuild indexes during migration.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="OtherParsers-JoiningAcrossCollections">Joining Across Collections</h3>
+<div class="paragraph">
+<p>You can also specify a <code>fromIndex</code> parameter to join with a field from another core or collection. If running in SolrCloud mode, then the collection specified in the <code>fromIndex</code> parameter must have a single shard and a replica on all Solr nodes where the collection you&#8217;re joining to has a replica.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s consider an example where you want to use a Solr join query to filter movies by directors that have won an Oscar. Specifically, imagine we have two collections with the following fields:</p>
+</div>
+<div class="paragraph">
+<p><strong>movies</strong>: id, title, director_id, &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p><strong>movie_directors</strong>: id, name, has_oscar, &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>To filter movies by directors that have won an Oscar using a Solr join on the <strong>movie_directors</strong> collection, you can send the following filter query to the <strong>movies</strong> collection:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">fq<span style="color: #666666">={!</span>join from<span style="color: #666666">=</span>id fromIndex<span style="color: #666666">=</span>movie_directors to<span style="color: #666666">=</span>director_id<span style="color: #666666">}</span>has_oscar<span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">true</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the query criteria of the filter (<code>has_oscar:true</code>) is based on a field in the collection specified using <code>fromIndex</code>. Keep in mind that you cannot return fields from the <code>fromIndex</code> collection using join queries, you can only use the fields for filtering results in the "to" collection (movies).</p>
+</div>
+<div class="paragraph">
+<p>Next, let&#8217;s understand how these collections need to be deployed in your cluster. Imagine the <strong>movies</strong> collection is deployed to a four node SolrCloud cluster and has two shards with a replication factor of two. Specifically, the <strong>movies</strong> collection has replicas on the following four nodes:</p>
+</div>
+<div class="paragraph">
+<p>node 1: movies_shard1_replica1</p>
+</div>
+<div class="paragraph">
+<p>node 2: movies_shard1_replica2</p>
+</div>
+<div class="paragraph">
+<p>node 3: movies_shard2_replica1</p>
+</div>
+<div class="paragraph">
+<p>node 4: movies_shard2_replica2</p>
+</div>
+<div class="paragraph">
+<p>To use the <strong>movie_directors</strong> collection in Solr join queries with the <strong>movies</strong> collection, it needs to have a replica on each of the four nodes. In other words, <strong>movie_directors</strong> must have one shard and replication factor of four:</p>
+</div>
+<div class="paragraph">
+<p>node 1: movie_directors_shard1_replica1</p>
+</div>
+<div class="paragraph">
+<p>node 2: movie_directors_shard1_replica2</p>
+</div>
+<div class="paragraph">
+<p>node 3: movie_directors_shard1_replica3</p>
+</div>
+<div class="paragraph">
+<p>node 4: movie_directors_shard1_replica4</p>
+</div>
+<div class="paragraph">
+<p>At query time, the <code>JoinQParser</code> will access the local replica of the <strong>movie_directors</strong> collection to perform the join. If a local replica is not available or active, then the query will fail. At this point, it should be clear that since you&#8217;re limited to a single shard and the data must be replicated across all nodes where it is needed, this approach works better with smaller data sets where there is a one-to-many relationship between the from collection and the to collection. Moreover, if you add a replica to the to collection, then you also need to add a replica for the from collection.</p>
+</div>
+<div class="paragraph">
+<p>For more information about join queries, see the Solr Wiki page on <a href="http://wiki.apache.org/solr/Join">Joins</a>. Erick Erickson has also written a blog post about join performance called <a href="http://searchhub.org/2012/06/20/solr-and-joins/">Solr and Joins</a>, hosted by SearchHub.org.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-LuceneQueryParser">Lucene Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>LuceneQParser</code> extends the <code>QParserPlugin</code> by parsing Solr&#8217;s variant on the Lucene QueryParser syntax. This is effectively the same query parser that is used in Lucene. It uses the operators <code>q.op</code>, the default operator ("OR" or "AND") and <code>df</code>, the default field name.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>lucene q<span style="color: #666666">.</span><span style="color: #7D9029">op</span><span style="color: #666666">=</span>AND df<span style="color: #666666">=</span>text<span style="color: #666666">}</span>myfield<span style="color: #666666">:</span>foo <span style="color: #666666">+</span>bar <span style="color: #666666">-</span>baz</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information about the syntax for the Lucene Query Parser, see the <a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/classic/package-summary.html">Classic QueryParser javadocs</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-LearningToRankQueryParser">Learning To Rank Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>LTRQParserPlugin</code> is a special purpose parser for reranking the top results of a simple query using a more complex ranking query which is based on a machine learnt model.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>ltr model<span style="color: #666666">=</span>myModel reRankDocs<span style="color: #666666">=100}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Details about using the <code>LTRQParserPlugin</code> can be found in the <a href="learning-to-rank.html#learning-to-rank">Learning To Rank</a> section.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-MaxScoreQueryParser">Max Score Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>MaxScoreQParser</code> extends the <code>LuceneQParser</code> but returns the Max score from the clauses. It does this by wrapping all <code>SHOULD</code> clauses in a <code>DisjunctionMaxQuery</code> with tie=1.0. Any <code>MUST</code> or <code>PROHIBITED</code> clauses are passed through as-is. Non-boolean queries, e.g. NumericRange falls-through to the <code>LuceneQParser</code> parser behavior.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>maxscore tie<span style="color: #666666">=0.01}</span>C <span style="color: #0000FF">OR</span> <span style="color: #666666">(</span>D AND E<span style="color: #666666">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-MoreLikeThisQueryParser">More Like This Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>MLTQParser</code> enables retrieving documents that are similar to a given document. It uses Lucene&#8217;s existing <code>MoreLikeThis</code> logic and also works in SolrCloud mode. The document identifier used here is the unique id value and not the Lucene internal document id. The list of returned documents excludes the queried document.</p>
+</div>
+<div class="paragraph">
+<p>This query parser takes the following parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the fields to use for similarity.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mintf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the Minimum Term Frequency, the frequency below which terms will be ignored in the source document.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mindf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the Minimum Document Frequency, the frequency at which words will be ignored when they do not occur in at least this many documents.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxdf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the Maximum Document Frequency, the frequency at which words will be ignored when they occur in more than this many documents.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minwl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the minimum word length below which words will be ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxwl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the maximum word length above which words will be ignored.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxqt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the maximum number of query terms that will be included in any generated query.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxntp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the maximum number of tokens to parse in each example document field that is not stored with TermVector support.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies if the query will be boosted by the interesting term relevance. It can be either "true" or "false".</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p>Find documents like the document with id=1 and using the <code>name</code> field for similarity.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>mlt qf<span style="color: #666666">=</span>name<span style="color: #666666">}1</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Adding more constraints to what qualifies as similar using mintf and mindf.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>mlt qf<span style="color: #666666">=</span>name mintf<span style="color: #666666">=2</span> mindf<span style="color: #666666">=3}1</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-NestedQueryParser">Nested Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>NestedParser</code> extends the <code>QParserPlugin</code> and creates a nested query, with the ability for that query to redefine its type via local parameters. This is useful in specifying defaults in configuration and letting clients indirectly reference them.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>query defType<span style="color: #666666">=</span>func v<span style="color: #666666">=</span>$q1<span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the <code>q1</code> parameter is price, then the query would be a function query on the price field. If the <code>q1</code> parameter is \{!lucene}inStock:true}} then a term query is created from the Lucene syntax string that matches documents with <code>inStock=true</code>. These parameters would be defined in <code>solrconfig.xml</code>, in the <code>defaults</code> section:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;q1&quot;</span><span style="color: #666666">&gt;{!</span>lucene<span style="color: #666666">}</span>inStock<span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">true</span><span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information about the possibilities of nested queries, see Yonik Seeley&#8217;s blog post <a href="http://searchhub.org/2009/03/31/nested-queries-in-solr/">Nested Queries in Solr</a>, hosted by SearchHub.org.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-OldLuceneQueryParser">Old Lucene Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>OldLuceneQParser</code> extends the <code>QParserPlugin</code> by parsing Solr&#8217;s variant of Lucene&#8217;s QueryParser syntax, including the deprecated sort specification after the query.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>lucenePlusSort<span style="color: #666666">}</span> myfield<span style="color: #666666">:</span>foo <span style="color: #666666">+</span>bar <span style="color: #666666">-</span>baz<span style="color: #666666">;</span>price asc</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-PrefixQueryParser">Prefix Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>PrefixQParser</code> extends the <code>QParserPlugin</code> by creating a prefix query from the input value. Currently no analysis or value transformation is done to create this prefix query. The parameter is <code>f</code>, the field. The string after the prefix declaration is treated as a wildcard query.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>prefix f<span style="color: #666666">=</span>myfield<span style="color: #666666">}</span>foo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This would be generally equivalent to the Lucene query parser expression <code>myfield:foo*</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-RawQueryParser">Raw Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>RawQParser</code> extends the <code>QParserPlugin</code> by creating a term query from the input value without any text analysis or transformation. This is useful in debugging, or when raw terms are returned from the terms component (this is not the default). The only parameter is <code>f</code>, which defines the field to search.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>raw f<span style="color: #666666">=</span>myfield<span style="color: #666666">}</span>Foo Bar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example constructs the query: <code>TermQuery(Term("myfield","Foo Bar"))</code>.</p>
+</div>
+<div class="paragraph">
+<p>For easy filter construction to drill down in faceting, the <a href="#OtherParsers-TermQueryParser">TermQParserPlugin</a> is recommended. For full analysis on all fields, including text fields, you may want to use the <a href="#OtherParsers-FieldQueryParser">FieldQParserPlugin</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-Re-RankingQueryParser">Re-Ranking Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>ReRankQParserPlugin</code> is a special purpose parser for Re-Ranking the top results of a simple query using a more complex ranking query.</p>
+</div>
+<div class="paragraph">
+<p>Details about using the <code>ReRankQParserPlugin</code> can be found in the <a href="query-re-ranking.html#query-re-ranking">Query Re-Ranking</a> section.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-SimpleQueryParser">Simple Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Simple query parser in Solr is based on Lucene&#8217;s SimpleQueryParser. This query parser is designed to allow users to enter queries however they want, and it will do its best to interpret the query and return results.</p>
+</div>
+<div class="paragraph">
+<p>This parser takes the following parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">q.operators</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Comma-separated list of names of parsing operators to enable. By default, all operations are enabled, and this parameter can be used to effectively disable specific operators as needed, by excluding them from the list. Passing an empty string with this parameter disables all operators.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>|Name |Operator |Description |Example query
+|<code>AND</code> |<code>+</code> |Specifies AND |<code>token1+token2</code>
+|<code>OR</code> |<code>|</code> |Specifies OR |<code>token1|token2</code>
+|<code>NOT</code> |<code>-</code> |Specifies NOT |<code>-token3</code>
+|<code>PREFIX</code> |<code><strong></code> |Specifies a prefix query |<code>term</strong></code>
+|<code>PHRASE</code> |<code>"</code> |Creates a phrase |<code>"term1 term2"</code>
+|<code>PRECEDENCE</code> |<code>( )</code> |Specifies precedence; tokens inside the parenthesis will be analyzed first. Otherwise, normal order is left to right. |<code>token1 + (token2 | token3)</code>
+|<code>ESCAPE</code> |<code>\</code> |Put it in front of operators to match them literally |<code>C\\</code>
+|<code>WHITESPACE</code> |space or` [\r\t\n]` |Delimits tokens on whitespace. If not enabled, whitespace splitting will not be performed prior to analysis – usually most desirable. Not splitting whitespace is a unique feature of this parser that enables multi-word synonyms to work. However, it probably actually won&#8217;t unless synonyms are configured to normalize instead of expand to all that match a given synonym. Such a configuration requires normalizing synonyms at both index time and query time. Solr&#8217;s analysis screen can help here. |<code>term1 term2</code>
+|<code>FUZZY</code> a|
+<code>~</code></p>
+</div>
+<div class="paragraph">
+<p><code>~N</code></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> a|
+At the end of terms, specifies a fuzzy query.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>"N" is optional and may be either "1" or "2" (the default)</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre> |`term~1`
+|`NEAR` |`~N` |At the end of phrases, specifies a NEAR query |`"term1 term2"~5`</pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">q.op</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the default operator to use if none is defined by the user. Allowed values are <code>AND</code> and <code>OR</code>. <code>OR</code> is used if none is specified.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A list of query fields and boosts to use when building the query.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">df</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the default field if none is defined in the Schema, or overrides the default field if it is already defined.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Any errors in syntax are ignored and the query parser will interpret queries as best it can. However, this can lead to odd results in some cases.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-SpatialQueryParsers">Spatial Query Parsers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are two spatial QParsers in Solr: <code>geofilt</code> and <code>bbox</code>. But there are other ways to query spatially: using the <code>frange</code> parser with a distance function, using the standard (lucene) query parser with the range syntax to pick the corners of a rectangle, or with RPT and BBoxField you can use the standard query parser but use a special syntax within quotes that allows you to pick the spatial predicate.</p>
+</div>
+<div class="paragraph">
+<p>All these things are documented further in the section <a href="spatial-search.html#spatial-search">Spatial Search</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-SurroundQueryParser">Surround Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The` SurroundQParser` enables the Surround query syntax, which provides proximity search functionality. There are two positional operators: <strong><code>w</code></strong> creates an ordered span query and <strong><code>n</code></strong> creates an unordered one. Both operators take a numeric value to indicate distance between two terms. The default is 1, and the maximum is 99.</p>
+</div>
+<div class="paragraph">
+<p>Note that the query string is not analyzed in any way.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>surround<span style="color: #666666">}</span> <span style="color: #666666">3</span>w<span style="color: #666666">(</span>foo<span style="color: #666666">,</span> bar<span style="color: #666666">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example would find documents where the terms "foo" and "bar" were no more than 3 terms away from each other (i.e., no more than 2 terms between them).</p>
+</div>
+<div class="paragraph">
+<p>This query parser will also accept boolean operators (<code>AND</code>, <code>OR</code>, and <code>NOT</code>, in either upper- or lowercase), wildcards, quoting for phrase searches, and boosting. The <code>w</code> and <code>n</code> operators can also be expressed in upper- or lowercase.</p>
+</div>
+<div class="paragraph">
+<p>The non-unary operators (everything but <code>NOT</code>) support both infix <code>(a AND b AND c)</code> and prefix <code>AND(a, b,</code> ` c)` notation.</p>
+</div>
+<div class="paragraph">
+<p>More information about Surround queries can be found at <a href="http://wiki.apache.org/solr/SurroundQueryParser" class="bare">http://wiki.apache.org/solr/SurroundQueryParser</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-SwitchQueryParser">Switch Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>SwitchQParser</code> is a <code>QParserPlugin</code> that acts like a "switch" or "case" statement.</p>
+</div>
+<div class="paragraph">
+<p>The primary input string is trimmed and then prefixed with <code>case.</code> for use as a key to lookup a "switch case" in the parser&#8217;s local params. If a matching local param is found the resulting param value will then be parsed as a subquery, and returned as the parse result.</p>
+</div>
+<div class="paragraph">
+<p>The <code>case</code> local param can be optionally be specified as a switch case to match missing (or blank) input strings. The <code>default</code> local param can optionally be specified as a default case to use if the input string does not match any other switch case local params. If default is not specified, then any input which does not match a switch case local param will result in a syntax error.</p>
+</div>
+<div class="paragraph">
+<p>In the examples below, the result of each query is "XXX":</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span><span style="color: #008000; font-weight: bold">switch</span> <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">foo</span><span style="color: #666666">=</span>XXX <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">bar</span><span style="color: #666666">=</span>zzz <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">yak</span><span style="color: #666666">=</span>qqq<span style="color: #666666">}</span>foo</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span><span style="color: #008000; font-weight: bold">switch</span> <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">foo</span><span style="color: #666666">=</span>qqq <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">bar</span><span style="color: #666666">=</span>XXX <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">yak</span><span style="color: #666666">=</span>zzz<span style="color: #666666">}</span> bar  <span style="color: #408080; font-style: italic">// extra whitespace is trimmed</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span><span style="color: #008000; font-weight: bold">switch</span> <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">foo</span><span style="color: #666666">=</span>qqq <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">bar</span><span style="color: #666666">=</span>zzz <span style="color: #008000; font-weight: bold">default</span><span style="color: #666666">=</span>XXX<span style="color: #666666">}</span>asdf   <span style="color: #408080; font-style: italic">// fallback to the default</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span><span style="color: #008000; font-weight: bold">switch</span> <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">=</span>XXX <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">bar</span><span style="color: #666666">=</span>zzz <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">yak</span><span style="color: #666666">=</span>qqq<span style="color: #666666">}</span>          <span style="color: #408080; font-style: italic">// blank input uses &#39;case&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A practical usage of this <code>QParsePlugin</code>, is in specifying <code>appends</code> fq params in the configuration of a SearchHandler, to provide a fixed set of filter options for clients using custom parameter names. Using the example configuration below, clients can optionally specify the custom parameters <code>in_stock</code> and <code>shipping</code> to override the default filtering behavior, but are limited to the specific set of legal values (shipping=any|free, in_stock=yes|no|all).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>requestHandler name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;/select&quot;</span> class<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solr.SearchHandler&quot;</span><span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;in_stock&quot;</span><span style="color: #666666">&gt;</span>yes<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;shipping&quot;</span><span style="color: #666666">&gt;</span>any<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;</span>lst name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;appends&quot;</span><span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;fq&quot;</span><span style="color: #666666">&gt;{!</span><span style="color: #008000; font-weight: bold">switch</span> <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">all</span><span style="color: #666666">=</span><span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">*:*</span><span style="border: 1px solid #FF0000">&#39;</span>
+                            <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">yes</span><span style="color: #666666">=</span><span style="border: 1px solid #FF0000">&#39;</span>inStock<span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">true</span><span style="border: 1px solid #FF0000">&#39;</span>
+                            <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">no</span><span style="color: #666666">=</span><span style="border: 1px solid #FF0000">&#39;</span>inStock<span style="color: #666666">:</span><span style="color: #008000; font-weight: bold">false</span><span style="border: 1px solid #FF0000">&#39;</span>
+                            v<span style="color: #666666">=</span>$in_stock<span style="color: #666666">}&lt;/</span>str<span style="color: #666666">&gt;</span>
+    <span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;fq&quot;</span><span style="color: #666666">&gt;{!</span><span style="color: #008000; font-weight: bold">switch</span> <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">any</span><span style="color: #666666">=</span><span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">*:*</span><span style="border: 1px solid #FF0000">&#39;</span>
+                            <span style="color: #008000; font-weight: bold">case</span><span style="color: #666666">.</span><span style="color: #7D9029">free</span><span style="color: #666666">=</span><span style="border: 1px solid #FF0000">&#39;</span>shipping_cost<span style="color: #666666">:0.0</span><span style="border: 1px solid #FF0000">&#39;</span>
+                            v<span style="color: #666666">=</span>$shipping<span style="color: #666666">}&lt;/</span>str<span style="color: #666666">&gt;</span>
+  <span style="color: #666666">&lt;/</span>lst<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;/</span>requestHandler<span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-TermQueryParser">Term Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>TermQParser</code> extends the <code>QParserPlugin</code> by creating a single term query from the input value equivalent to <code>readableToIndexed()</code>. This is useful for generating filter queries from the external human readable terms returned by the faceting or terms components. The only parameter is <code>f</code>, for the field.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>term f<span style="color: #666666">=</span>weight<span style="color: #666666">}1.5</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For text fields, no analysis is done since raw terms are already returned from the faceting and terms components. To apply analysis to text fields as well, see the <a href="#OtherParsers-FieldQueryParser">Field Query Parser</a>, above.</p>
+</div>
+<div class="paragraph">
+<p>If no analysis or transformation is desired for any type of field, see the <a href="#OtherParsers-RawQueryParser">Raw Query Parser</a>, above.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-TermsQueryParser">Terms Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>TermsQParser</code>, functions similarly to the <a href="#OtherParsers-TermQueryParser">Term Query Parser</a> but takes in multiple values separated by commas and returns documents matching any of the specified values. This can be useful for generating filter queries from the external human readable terms returned by the faceting or terms components, and may be more efficient in some cases than using the <a href="the-standard-query-parser.html#the-standard-query-parser">Standard Query Parser</a> to generate an boolean query since the default implementation &#8220;<code>method</code>&#8221; avoids scoring.</p>
+</div>
+<div class="paragraph">
+<p>This query parser takes the following parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field on which to search. Required.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">separator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Separator to use when parsing the input. If set to " " (a single blank space), will trim additional white space from the input terms. Defaults to &#8220;,&#8221;.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">method</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The internal query-building implementation: <code>termsFilter</code>, <code>booleanQuery</code>, <code>automaton</code>, or <code>docValuesTermsFilter</code>. Defaults to &#8220;<code>termsFilter</code>&#8221;.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>terms f<span style="color: #666666">=</span>tags<span style="color: #666666">}</span>software<span style="color: #666666">,</span>apache<span style="color: #666666">,</span>solr<span style="color: #666666">,</span>lucene</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">{!</span>terms f<span style="color: #666666">=</span>categoryId method<span style="color: #666666">=</span>booleanQuery separator<span style="color: #666666">=</span><span style="color: #BA2121">&quot; &quot;</span><span style="color: #666666">}8</span> <span style="color: #666666">6</span> <span style="color: #666666">7</span> <span style="color: #666666">5309</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="OtherParsers-XMLQueryParser">XML Query Parser</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/search/XmlQParserPlugin.html">XmlQParserPlugin</a> extends the <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/search/QParserPlugin.html">QParserPlugin</a> and supports the creation of queries from XML. Example:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>xmlparser</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">q</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;BooleanQuery fieldName="description"&gt; &lt;Clause occurs="must"&gt; &lt;TermQuery&gt;shirt&lt;/TermQuery&gt; &lt;/Clause&gt; &lt;Clause occurs="mustnot"&gt; &lt;TermQuery&gt;plain&lt;/TermQuery&gt; &lt;/Clause&gt; &lt;Clause occurs="should"&gt; &lt;TermQuery&gt;cotton&lt;/TermQuery&gt; &lt;/Clause&gt; &lt;Clause occurs="must"&gt; &lt;BooleanQuery fieldName="size"&gt; &lt;Clause occurs="should"&gt; &lt;TermsQuery&gt;S M L&lt;/TermsQuery&gt; &lt;/Clause&gt; &lt;/BooleanQuery&gt; &lt;/Clause&gt; &lt;/BooleanQuery&gt;</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The XmlQParser implementation uses the <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/search/SolrCoreParser.html">SolrCoreParser</a> class which extends Lucene&#8217;s <a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/CoreParser.html">CoreParser</a> class. XML elements are mapped to <a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/QueryBuilder.html">QueryBuilder</a> classes as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">XML element</th>
+<th class="tableblock halign-left valign-top">QueryBuilder class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;BooleanQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/BooleanQueryBuilder.html">BooleanQueryBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;BoostingTermQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/BoostingTermBuilder.html">BoostingTermBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;ConstantScoreQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/ConstantScoreQueryBuilder.html">ConstantScoreQueryBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;DisjunctionMaxQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/DisjunctionMaxQueryBuilder.html">DisjunctionMaxQueryBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;MatchAllDocsQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/MatchAllDocsQueryBuilder.html">MatchAllDocsQueryBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;RangeQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/RangeQueryBuilder.html">RangeQueryBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;SpanFirst&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/SpanFirstBuilder.html">SpanFirstBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;SpanNear&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/SpanNearBuilder.html">SpanNearBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;SpanNot&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/SpanNotBuilder.html">SpanNotBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;SpanOr&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/SpanOrBuilder.html">SpanOrBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;SpanOrTerms&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/SpanOrTermsBuilder.html">SpanOrTermsBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;SpanTerm&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/SpanTermBuilder.html">SpanTermBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;TermQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/TermQueryBuilder.html">TermQueryBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;TermsQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/TermsQueryBuilder.html">TermsQueryBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;UserQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://lucene.apache.org/core/7_0_0//queryparser/org/apache/lucene/queryparser/xml/builders/UserInputQueryBuilder.html">UserInputQueryBuilder</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;LegacyNumericRangeQuery&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LegacyNumericRangeQuery(Builder) is deprecated</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="OtherParsers-CustomizingXMLQueryParser">Customizing XML Query Parser</h3>
+<div class="paragraph">
+<p>You can configure your own custom query builders for additional XML elements. The custom builders need to extend the <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/search/SolrQueryBuilder.html">SolrQueryBuilder</a> or the <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/search/SolrSpanQueryBuilder.html">SolrSpanQueryBuilder</a> class. Example solrconfig.xml snippet:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;queryParser</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;xmlparser&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;XmlQParserPlugin&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;MyCustomQuery&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>com.mycompany.solr.search.MyCustomQueryBuilder<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/queryParser&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+      
+      
+      <a class="btn btn-primary next" href="faceting.html">Faceting</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=other-parsers" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=other-parsers"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

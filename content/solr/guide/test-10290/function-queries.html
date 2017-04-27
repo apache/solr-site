@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Function Queries | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Function Queries">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='function-queries.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='function-queries.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='function-queries.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Function Queries</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Function queries enable you to generate a relevancy score using the actual value of one or more numeric fields. Function queries are supported by the <a href="the-dismax-query-parser.html#the-dismax-query-parser">DisMax</a>, <a href="the-extended-dismax-query-parser.html#the-extended-dismax-query-parser">Extended DisMax</a>, and <a href="the-standard-query-parser.html#the-standard-query-parser">standard</a> query parsers.</p>
+</div>
+<div class="paragraph">
+<p>Function queries use <em>functions</em>. The functions can be a constant (numeric or string literal), a field, another function or a parameter substitution argument. You can use these functions to modify the ranking of results for users. These could be used to change the ranking of results based on a user&#8217;s location, or some other calculation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FunctionQueries-UsingFunctionQuery">Using Function Query</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Functions must be expressed as function calls (for example, <code>sum(a,b)</code> instead of simply <code>a+b</code>).</p>
+</div>
+<div class="paragraph">
+<p>There are several ways of using function queries in a Solr query:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Via an explicit QParser that expects function arguments, such <a href="other-parsers.html#OtherParsers-FunctionQueryParser"><code>func</code></a> or <a href="other-parsers.html#OtherParsers-FunctionRangeQueryParser"><code>frange</code></a> . For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">q<span style="color: #666666">={!</span>func<span style="color: #666666">}</span>div<span style="color: #666666">(</span>popularity<span style="color: #666666">,</span>price<span style="color: #666666">)&amp;</span>fq<span style="color: #666666">={!</span>frange l<span style="color: #666666">=1000}</span>customer_ratings</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In a Sort expression. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">sort<span style="color: #666666">=</span>div<span style="color: #666666">(</span>popularity<span style="color: #666666">,</span>price<span style="color: #666666">)</span> desc<span style="color: #666666">,</span> score desc</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add the results of functions as psuedo-fields to documents in query results. For instance, for:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&amp;</span>fl<span style="color: #666666">=</span>sum<span style="color: #666666">(</span>x<span style="color: #666666">,</span> y<span style="color: #666666">),</span>id<span style="color: #666666">,</span>a<span style="color: #666666">,</span>b<span style="color: #666666">,</span>c<span style="color: #666666">,</span>score</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the output would be:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">...</span>
+<span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">&gt;</span>foo<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;</span><span style="color: #B00040">float</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;sum(x,y)&quot;</span><span style="color: #666666">&gt;40&lt;/</span><span style="color: #B00040">float</span><span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;</span><span style="color: #B00040">float</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;score&quot;</span><span style="color: #666666">&gt;0.343&lt;/</span><span style="color: #B00040">float</span><span style="color: #666666">&gt;</span>
+<span style="color: #666666">...</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use in a parameter that is explicitly for specifying functions, such as the EDisMax query parser&#8217;s <a href="the-extended-dismax-query-parser.html#the-extended-dismax-query-parser"><code>boost</code></a> param, or DisMax query parser&#8217;s <a href="the-dismax-query-parser.html#TheDisMaxQueryParser-Thebf_BoostFunctions_Parameter"><code>bf</code> (boost function) parameter</a>. (Note that the <code>bf</code> parameter actually takes a list of function queries separated by white space and each with an optional boost. Make sure you eliminate any internal white space in single function queries when using <code>bf</code>). For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">q<span style="color: #666666">=</span>dismax<span style="color: #666666">&amp;</span>bf<span style="color: #666666">=</span><span style="color: #BA2121">&quot;ord(popularity)^0.5 recip(rord(price),1,1000,1000)^0.3&quot;</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Introduce a function query inline in the lucene QParser with the <code><em>val</em></code> keyword. For example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">q<span style="color: #666666">=</span>_val_<span style="color: #666666">:</span>mynumericfield _val_<span style="color: #666666">:</span><span style="color: #BA2121">&quot;recip(rord(myfield),1,2,3)&quot;</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Only functions with fast random access are recommended.</p>
+</div>
+<div class="paragraph">
+<p><a href="#main">Back to Top</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FunctionQueries-AvailableFunctions">Available Functions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The table below summarizes the functions available for function queries.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Syntax Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">abs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the absolute value of the specified value or function.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>abs(x)</code> <code>abs(-5)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"constant"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies a floating point constant.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1.5</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">def</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>def</code> is short for default. Returns the value of field "field", or if the field does not exist, returns the default value specified. and yields the first value where <code>exists()==true</code>.)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>def(rating,5):</code> This <code>def()</code> function returns the rating, or if no rating specified in the doc, returns 5 <code>def(myfield, 1.0):</code> equivalent to <code>if(exists(myfield),myfield,1.0)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">div</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Divides one value or function by another. div(x,y) divides x by y.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>div(1,y)</code> <code>div(sum(x,100),max(y,1))</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Return the distance between two vectors (points) in an n-dimensional space. Takes in the power, plus two or more ValueSource instances and calculates the distances between the two vectors. Each ValueSource must be a number. There must be an even number of ValueSource instances passed in and the method assumes that the first half represent the first vector and the second half represent the second vector.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dist(2, x, y, 0, 0):</code> calculates the Euclidean distance between (0,0) and (x,y) for each document <code>dist(1, x, y, 0, 0)</code>: calculates the Manhattan (taxicab) distance between (0,0) and (x,y) for each document <code>dist(2, x,y,z,0,0,0):</code> Euclidean distance between (0,0,0) and (x,y,z) for each document. <code>dist(1,x,y,z,e,f,g)</code>: Manhattan distance between (x,y,z) and (e,f,g) where each letter is a field name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docfreq(field,val)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of documents that contain the term in the field. This is a constant (the same value for all documents in the index). You can quote the term if it&#8217;s more complex, or do parameter substitution for the term value.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>docfreq(text,'solr')</code> <code>&#8230;&#8203;&amp;defType=func</code> <code>&amp;q=docfreq(text,$myterm)&amp;myterm=solr</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">field<a id="FunctionQueries-field"></a></p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Returns the numeric docValues or indexed value of the field with the specified name. In its simplest (single argument) form, this function can only be used on single valued fields, and can be called using the name of the field as a string, or for most conventional field names simply use the field name by itself with out using the <code>field(&#8230;&#8203;)</code> syntax.</p>
+</div>
+<div class="paragraph">
+<p>When using docValues, an optional 2nd argument can be specified to select the &#8220;min"` or "<code>`max</code>&#8221; value of multivalued fields.</p>
+</div>
+<div class="paragraph">
+<p>0 is returned for documents without a value in the field.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>These 3 examples are all equivalent:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>myFloatFieldName</code></p>
+</li>
+<li>
+<p><code>field(myFloatFieldName)</code></p>
+</li>
+<li>
+<p><code>field("myFloatFieldName")</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The last form is convinient when your field name is atypical:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>field("my complex float fieldName")</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For multivalued docValues fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>field(myMultiValuedFloatField,min)</code></p>
+</li>
+<li>
+<p><code>field(myMultiValuedFloatField,max)</code></p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hsin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Haversine distance calculates the distance between two points on a sphere when traveling along the sphere. The values must be in radians. <code>hsin</code> also take a Boolean argument to specify whether the function should convert its output to radians.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hsin(2, true, x, y, 0, 0)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">idf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inverse document frequency; a measure of whether the term is common or rare across all documents. Obtained by dividing the total number of documents by the number of documents containing the term, and then taking the logarithm of that quotient. See also <code>tf</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>idf(fieldName,'solr')</code>: measures the inverse of the frequency of the occurrence of the term <code>'solr'</code> in` fieldName`.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">if</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Enables conditional function queries. In <code>if(test,value1,value2)</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>test</code> is or refers to a logical value or expression that returns a logical value (TRUE or FALSE).</p>
+</li>
+<li>
+<p><code>value1</code> is the value that is returned by the function if <code>test</code> yields TRUE.</p>
+</li>
+<li>
+<p><code>value2</code> is the value that is returned by the function if <code>test</code> yields FALSE.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An expression can be any function which outputs boolean values, or even functions returning numeric values, in which case value 0 will be interpreted as false, or strings, in which case empty string is interpreted as false.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>if(termfreq</code> <code>(cat,'electronics'),</code> <code>popularity,42)</code> : This function checks each document for the to see if it contains the term &#8220;<code>electronics</code>&#8221; in the <code>cat</code> field. If it does, then the value of the <code>popularity</code> field is returned, otherwise the value of <code>42</code> is returned.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">linear</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implements <code>m*x+c</code> where <code>m</code> and <code>c</code> are constants and <code>x</code> is an arbitrary function. This is equivalent to <code>sum(product(m,x),c)</code>, but slightly more efficient as it is implemented as a single function.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>linear(x,m,c)</code> <code>linear(x,2,4)</code> returns <code>2*x+4</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">log</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the log base 10 of the specified function.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>log(x)</code></p>
+</div>
+<div class="paragraph">
+<p><code>log(sum(x,100))</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maps any values of an input function x that fall within min and max inclusive to the specified target. The arguments min and max must be constants. The arguments <code>target</code> and <code>default</code> can be constants or functions. If the value of x does not fall between min and max, then either the value of x is returned, or a default value is returned if specified as a 5th argument.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>map(x,min,max,target)</code> <code>map(x,0,0,1)</code> - changes any values of 0 to 1. This can be useful in handling default 0 values.</p>
+</div>
+<div class="paragraph">
+<p><code>map(x,min,max,target,default)</code> <code>map(x,0,100,1,-1)</code> - changes any values between <code>0</code> and <code>100</code> to <code>1</code>, and all other values to` -1`.</p>
+</div>
+<div class="paragraph">
+<p><code>map(x,0,100,</code> <code>sum(x,599),</code> <code>docfreq(text,solr))</code> - changes any values between <code>0</code> and <code>100</code> to x+599, and all other values to frequency of the term 'solr' in the field text.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Returns the maximum numeric value of multiple nested functions or constants, which are specified as arguments: <code>max(x,y,&#8230;&#8203;)</code>. The max function can also be useful for "bottoming out" another function or field at some specified constant.</p>
+</div>
+<div class="paragraph">
+<p>(Use the <code>field(myfield,max)</code> syntax for <a href="#FunctionQueries-field">selecting the maximum value of a single multivalued field</a>)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>max(myfield,myotherfield,0)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxdoc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of documents in the index, including those that are marked as deleted but have not yet been purged. This is a constant (the same value for all documents in the index).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxdoc()</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Returns the minimum numeric value of multiple nested functions of constants, which are specified as arguments: <code>min(x,y,&#8230;&#8203;)</code>. The min function can also be useful for providing an "upper bound" on a function using a constant.</p>
+</div>
+<div class="paragraph">
+<p>(Use the <code>field(myfield,min)</code> <a href="#FunctionQueries-field">syntax for selecting the minimum value of a single multivalued field</a>)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>min(myfield,myotherfield,0)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ms</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Returns milliseconds of difference between its arguments. Dates are relative to the Unix or POSIX time epoch, midnight, January 1, 1970 UTC. Arguments may be the name of an indexed <code>TrieDateField</code>, or date math based on a <a href="working-with-dates.html#working-with-dates">constant date or <code>NOW</code></a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ms()</code>: Equivalent to <code>ms(NOW)</code>, number of milliseconds since the epoch.</p>
+</li>
+<li>
+<p><code>ms(a):</code> Returns the number of milliseconds since the epoch that the argument represents.</p>
+</li>
+<li>
+<p><code>ms(a,b)</code> : Returns the number of milliseconds that b occurs before a (that is, a - b)</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ms(NOW/DAY)</code> <code>ms(2000-01-01T00:00:00Z)</code> <code>ms(mydatefield)</code> <code>ms(NOW,mydatefield)</code> <code>ms(mydatefield,</code> <code>2000-01-01T00:00:00Z)</code> <code>ms(datefield1,</code> <code>datefield2)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">norm(<em>field</em>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the "norm" stored in the index for the specified field. This is the product of the index time boost and the length normalization factor, according to the <a href="https://lucene.apache.org/core/7_0_0//core/org/apache/lucene/search/similarities/Similarity.html">Similarity</a> for the field.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>norm(fieldName)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numdocs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of documents in the index, not including those that are marked as deleted but have not yet been purged. This is a constant (the same value for all documents in the index).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>numdocs()</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ord</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Returns the ordinal of the indexed field value within the indexed list of terms for that field in Lucene index order (lexicographically ordered by unicode value), starting at 1. In other words, for a given field, all values are ordered lexicographically; this function then returns the offset of a particular value in that ordering. The field must have a maximum of one value per document (not multi-valued). 0 is returned for documents without a value in the field.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>ord()</code> depends on the position in an index and can change when other documents are inserted or deleted.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>See also <code>rord</code> below.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ord(myIndexedField)</code> Example: If there were only three values ("apple","banana","pear") for a particular field X, then: `ord(X) `would be 1 for documents containing "apple", 2 for documnts containing "banana", etc&#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Raises the specified base to the specified power. <code>pow(x,y)</code> raises x to the power of y.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pow(x,y)</code> <code>pow(x,log(y))</code> <code>pow(x,0.5):</code> the same as <code>sqrt</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">product</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the product of multiple values or functions, which are specified in a comma-separated list. <code>mul(&#8230;&#8203;)</code> may also be used as an alias for this function.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product(x,y,&#8230;&#8203;)</code> <code>product(x,2)</code> <code>product(x,y)mul(x,y)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the score for the given subquery, or the default value for documents not matching the query. Any type of subquery is supported through either parameter de-referencing <code>$otherparam</code> or direct specification of the query string in the <a href="local-parameters-in-queries.html#local-parameters-in-queries">Local Parameters</a> through the <code>v</code> key.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query(subquery, default)</code> <code>q=product</code> <code>(popularity,</code> ` query({!dismax v='solr rocks'})<code>: returns the product of the popularity and the score of the DisMax query. `q=product</code> <code>(popularity,</code> ` query($qq))&amp;qq={!dismax}solr rocks`: equivalent to the previous query, using parameter de-referencing. <code>q=product</code> <code>(popularity,</code> ` query($qq,0.1))` <code>&amp;qq={!dismax}</code> <code>solr rocks</code>: specifies a default score of 0.1 for documents that don&#8217;t match the DisMax query.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">recip</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Performs a reciprocal function with <code>recip(x,m,a,b)</code> implementing <code>a/(m*x+b)</code> where <code>m,a,b</code> are constants, and <code>x</code> is any arbitrarily complex function.</p>
+</div>
+<div class="paragraph">
+<p>When a and b are equal, and x&gt;=0, this function has a maximum value of 1 that drops as x increases. Increasing the value of a and b together results in a movement of the entire function to a flatter part of the curve. These properties can make this an ideal function for boosting more recent documents when x is <code>rord(datefield)</code>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>recip(myfield,m,a,b)</code> <code>recip(rord</code> <code>(creationDate),</code> <code>1,1000,1000)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rord</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the reverse ordering of that returned by <code>ord</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rord(myDateField)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scale</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Scales values of the function x such that they fall between the specified <code>minTarget</code> and <code>maxTarget</code> inclusive. The current implementation traverses all of the function values to obtain the min and max, so it can pick the correct scale.</p>
+</div>
+<div class="paragraph">
+<p>The current implementation cannot distinguish when documents have been deleted or documents that have no value. It uses 0.0 values for these cases. This means that if values are normally all greater than 0.0, one can still end up with 0.0 as the min value to map from. In these cases, an appropriate map() function could be used as a workaround to change 0.0 to a value in the real range, as shown here: scale(map(x,0,0,5),1,2)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scale(x,</code> <code>minTarget,</code> <code>maxTarget)</code> <code>scale(x,1,2)</code>: scales the values of x such that all values will be between 1 and 2 inclusive.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sqedist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Square Euclidean distance calculates the 2-norm (Euclidean distance) but does not take the square root, thus saving a fairly expensive operation. It is often the case that applications that care about Euclidean distance do not need the actual distance, but instead can use the square of the distance. There must be an even number of ValueSource instances passed in and the method assumes that the first half represent the first vector and the second half represent the second vector.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sqedist(x_td, y_td, 0, 0)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sqrt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the square root of the specified value or function.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sqrt(x)sqrt(100)sqrt(sum(x,100))</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">strdist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calculate the distance between two strings. Uses the Lucene spell checker <code>StringDistance</code> interface and supports all of the implementations available in that package, plus allows applications to plug in their own via Solr&#8217;s resource loading capabilities. <code>strdist</code> takes (string1, string2, distance measure). Possible values for distance measure are: jw: Jaro-Winkler edit: Levenstein or Edit distance ngram: The NGramDistance, if specified, can optionally pass in the ngram size too. Default is 2. FQN: Fully Qualified class Name for an implementation of the StringDistance interface. Must have a no-arg constructor.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>strdist("SOLR",id,edit)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sub</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns x-y from sub(x,y).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sub(myfield,myfield2)</code> <code>sub(100,</code> <code>sqrt(myfield))</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the sum of multiple values or functions, which are specified in a comma-separated list. <code>add(&#8230;&#8203;)</code> may be used as an alias for this function</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sum(x,y,&#8230;&#8203;) sum(x,1)</code> <code>sum(x,y)</code> <code>sum(sqrt(x),log(y),z,0.5)add(x,y)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sumtotaltermfreq</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the sum of <code>totaltermfreq</code> values for all terms in the field in the entire index (i.e., the number of indexed tokens for that field). (Aliases <code>sumtotaltermfreq</code> to <code>sttf</code>.)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If doc1:(fieldX:A B C) and doc2:(fieldX:A A A A): <code>docFreq(fieldX:A)</code> = 2 (A appears in 2 docs) <code>freq(doc1, fieldX:A)</code> = 4 (A appears 4 times in doc 2) <code>totalTermFreq(fieldX:A)</code> = 5 (A appears 5 times across all docs) <code>sumTotalTermFreq(fieldX)</code> = 7 in <code>fieldX</code>, there are 5 As, 1 B, 1 C</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">termfreq</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of times the term appears in the field for that document.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>termfreq(text,'memory')</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Term frequency; returns the term frequency factor for the given term, using the <a href="https://lucene.apache.org/core/7_0_0//core/org/apache/lucene/search/similarities/Similarity.html">Similarity</a> for the field. The <code>tf-idf</code> value increases proportionally to the number of times a word appears in the document, but is offset by the frequency of the word in the document, which helps to control for the fact that some words are generally more common than others. See also <code>idf</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tf(text,'solr')</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">top</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Causes the function query argument to derive its values from the top-level IndexReader containing all parts of an index. For example, the ordinal of a value in a single segment will be different from the ordinal of that same value in the complete index.</p>
+</div>
+<div class="paragraph">
+<p>The <code>ord()</code> and <code>rord()</code> functions implicitly use <code>top()</code>, and hence <code>ord(foo)</code> is equivalent to <code>top(ord(foo))</code>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">totaltermfreq</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns the number of times the term appears in the field in the entire index. (Aliases <code>totaltermfreq</code> to <code>ttf</code>.)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ttf(text,'memory')</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The following functions are boolean – they return true or false. They are mostly useful as the first argument of the <code>if</code> function, and some of these can be combined. If used somewhere else, it will yield a '1' or '0'.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Syntax Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">and</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns a value of true if and only if all of its operands evaluate to true.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>and(not</code> <code>(exists</code> <code>(popularity)),</code> <code>exists</code> <code>(price)):</code> returns <code>true</code> for any document which has a value in the <code>price</code> field, but does not have a value in the <code>popularity</code> field</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">or</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A logical disjunction.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>or(value1,value2):</code> TRUE if either <code>value1</code> or <code>value2</code> is true.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">xor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Logical exclusive disjunction, or one or the other but not both.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>xor(field1,field2)</code> returns TRUE if either <code>field1</code> or <code>field2</code> is true; FALSE if both are true.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">not</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The logically negated value of the wrapped function.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>not(exists(author))</code>: TRUE only when <code>exists(author)</code> is false.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exists</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Returns TRUE if any member of the field exists.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exists(author)</code> returns TRUE for any document has a value in the "author" field. <code>exists(query(price:5.00))</code> returns TRUE if "price" matches "5.00".</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gt, gte, lt, lte, eq</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5 comparison functions: Greater Than, Greater Than or Equal, Less Than, Less Than or Equal, Equal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>if(lt(ms(mydatefield),315569259747),0.8,1)</code> translates to this pseudocode: <code>if mydatefield &lt; 315569259747 then 0.8 else 1</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><a href="#main">Back to Top</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FunctionQueries-ExampleFunctionQueries">Example Function Queries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To give you a better understanding of how function queries can be used in Solr, suppose an index stores the dimensions in meters x,y,z of some hypothetical boxes with arbitrary names stored in field <code>boxname</code>. Suppose we want to search for box matching name <code>findbox</code> but ranked according to volumes of boxes. The query parameters would be:</p>
+</div>
+<div class="paragraph">
+<p><code>q=boxname:findbox <em>val</em>:"product(x,y,z)"</code></p>
+</div>
+<div class="paragraph">
+<p>This query will rank the results based on volumes. In order to get the computed volume, you will need to request the <code>score</code>, which will contain the resultant volume:</p>
+</div>
+<div class="paragraph">
+<p><code>&amp;fl=*, score</code></p>
+</div>
+<div class="paragraph">
+<p>Suppose that you also have a field storing the weight of the box as <code>weight</code>. To sort by the density of the box and return the value of the density in score, you would submit the following query:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/collection_name/select?q=boxname:findbox _val_:&quot;div(weight,product(x,y,z))&quot;&amp;fl=boxname x y z weight score</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#main">Back to Top</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FunctionQueries-SortByFunction">Sort By Function</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can sort your query results by the output of a function. For example, to sort results by distance, you could enter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #A0A000">http:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/collection_name/select?q=*:*&amp;sort=dist(2, point1, point2) desc</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sort by function also supports pseudo-fields: fields can be generated dynamically and return results as though it was normal field in the index. For example,</p>
+</div>
+<div class="paragraph">
+<p><code>&amp;fl=id,sum(x, y),score</code></p>
+</div>
+<div class="paragraph">
+<p>would return:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #666666">&lt;</span>str name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #666666">&gt;</span>foo<span style="color: #666666">&lt;/</span>str<span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;</span><span style="color: #B00040">float</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;sum(x,y)&quot;</span><span style="color: #666666">&gt;40&lt;/</span><span style="color: #B00040">float</span><span style="color: #666666">&gt;</span>
+<span style="color: #666666">&lt;</span><span style="color: #B00040">float</span> name<span style="color: #666666">=</span><span style="color: #BA2121">&quot;score&quot;</span><span style="color: #666666">&gt;0.343&lt;/</span><span style="color: #B00040">float</span><span style="color: #666666">&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#main">Back to Top</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FunctionQueries-RelatedTopics">Related Topics</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://wiki.apache.org/solr/FunctionQuery">FunctionQuery</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+      
+      
+      <a class="btn btn-primary next" href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=function-queries" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=function-queries"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

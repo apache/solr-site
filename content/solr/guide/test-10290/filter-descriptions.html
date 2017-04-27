@@ -1,0 +1,3784 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Filter Descriptions | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Filter Descriptions">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='filter-descriptions.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='filter-descriptions.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='filter-descriptions.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Filter Descriptions</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You configure each filter with a <code>&lt;filter&gt;</code> element in <code>schema.xml</code> as a child of <code>&lt;analyzer&gt;</code>, following the <code>&lt;tokenizer&gt;</code> element. Filter definitions should follow a tokenizer or another filter definition because they take a <code>TokenStream</code> as input. For example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;fieldType</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;text&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TextField&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LowerCaseFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>...
+  <span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/fieldType&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The class attribute names a factory class that will instantiate a filter object as needed. Filter factory classes must implement the <code>org.apache.solr.analysis.TokenFilterFactory</code> interface. Like tokenizers, filters are also instances of TokenStream and thus are producers of tokens. Unlike tokenizers, filters also consume tokens from a TokenStream. This allows you to mix and match filters, in any order you prefer, downstream of a tokenizer.</p>
+</div>
+<div class="paragraph">
+<p>Arguments may be passed to tokenizer factories to modify their behavior by setting attributes on the <code>&lt;filter&gt;</code> element. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;fieldType</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;semicolonDelimited&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TextField&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternTokenizerFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;; &quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LengthFilterFactory&quot;</span> <span style="color: #7D9029">min=</span><span style="color: #BA2121">&quot;2&quot;</span> <span style="color: #7D9029">max=</span><span style="color: #BA2121">&quot;7&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/fieldType&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sections describe the filter factories that are included in this release of Solr.</p>
+</div>
+<div class="paragraph">
+<p>For user tips about Solr&#8217;s filters, see <a href="http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters" class="bare">http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ASCIIFoldingFilter">ASCII Folding Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter converts alphabetic, numeric, and symbolic Unicode characters which are not in the Basic Latin Unicode block (the first 127 ASCII characters) to their ASCII equivalents, if one exists. This filter converts characters from the following Unicode blocks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U0080.pdf">C1 Controls and Latin-1 Supplement</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U0100.pdf">Latin Extended-A</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U0180.pdf">Latin Extended-B</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U1E00.pdf">Latin Extended Additional</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U2C60.pdf">Latin Extended-C</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/UA720.pdf">Latin Extended-D</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U0250.pdf">IPA Extensions</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U1D00.pdf">Phonetic Extensions</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U1D80.pdf">Phonetic Extensions Supplement</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U2000.pdf">General Punctuation</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U2070.pdf">Superscripts and Subscripts</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U2460.pdf">Enclosed Alphanumerics</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U2700.pdf">Dingbats</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/U2E00.pdf">Supplemental Punctuation</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/UFB00.pdf">Alphabetic Presentation Forms</a> (PDF)</p>
+</li>
+<li>
+<p><a href="http://www.unicode.org/charts/PDF/UFF00.pdf">Halfwidth and Fullwidth Forms</a> (PDF)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ASCIIFoldingFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>preserveOriginal</code>: (boolean, default false) If true, the original token is preserved: "thé" &#8594; "the", "thé"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizer&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ASCIIFoldingFilterFactory&quot;</span> <span style="color: #7D9029">preserveOriginal=</span><span style="color: #BA2121">&quot;false&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "á" (Unicode character 00E1)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "a" (ASCII character 97)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-Beider-MorseFilter">Beider-Morse Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Implements the Beider-Morse Phonetic Matching (BMPM) algorithm, which allows identification of similar names, even if they are spelled differently or in different languages. More information about how this works is available in the section on <a href="phonetic-matching.html#PhoneticMatching-Beider-MorsePhoneticMatching_BMPM_">Phonetic Matching</a>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>BeiderMorseFilter changed its behavior in Solr 5.0 due to an update to version 3.04 of the BMPM algorithm. Older version of Solr implemented BMPM version 3.00 (see <a href="http://stevemorse.org/phoneticinfo.htm" class="bare">http://stevemorse.org/phoneticinfo.htm</a>). Any index built using this filter with earlier versions of Solr will need to be rebuilt.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.BeiderMorseFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>nameType</code>: Types of names. Valid values are GENERIC, ASHKENAZI, or SEPHARDIC. If not processing Ashkenazi or Sephardic names, use GENERIC.</p>
+</div>
+<div class="paragraph">
+<p><code>ruleType</code>: Types of rules to apply. Valid values are APPROX or EXACT.</p>
+</div>
+<div class="paragraph">
+<p><code>concat</code>: Defines if multiple possible matches should be combined with a pipe ("|").</p>
+</div>
+<div class="paragraph">
+<p><code>languageSet</code>: The language set to use. The value "auto" will allow the Filter to identify the language, or a comma-separated list can be supplied.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.BeiderMorseFilterFactory&quot;</span> <span style="color: #7D9029">nameType=</span><span style="color: #BA2121">&quot;GENERIC&quot;</span> <span style="color: #7D9029">ruleType=</span><span style="color: #BA2121">&quot;APPROX&quot;</span>
+          <span style="color: #7D9029">concat=</span><span style="color: #BA2121">&quot;true&quot;</span> <span style="color: #7D9029">languageSet=</span><span style="color: #BA2121">&quot;auto&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/filter&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ClassicFilter">Classic Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter takes the output of the <a href="tokenizers.html#Tokenizers-ClassicTokenizer">Classic Tokenizer</a> and strips periods from acronyms and "'s" from possessives.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ClassicFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ClassicTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ClassicFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "I.B.M. cat&#8217;s can&#8217;t"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "I.B.M", "cat&#8217;s", "can&#8217;t"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "IBM", "cat", "can&#8217;t"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-CommonGramsFilter">Common Grams Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter creates word shingles by combining common tokens such as stop words with regular tokens. This is useful for creating phrase queries containing common words, such as "the cat." Solr normally ignores stop words in queried phrases, so searching for "the cat" would return all matches for the word "cat."</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.CommonGramsFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>words</code>: (a common word file in .txt format) Provide the name of a common word file, such as <code>stopwords.txt</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>format</code>: (optional) If the stopwords list has been formatted for Snowball, you can specify <code>format="snowball"</code> so Solr can read the stopwords file.</p>
+</div>
+<div class="paragraph">
+<p><code>ignoreCase</code>: (boolean) If true, the filter ignores the case of words when comparing them to the common word file. The default is false.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.CommonGramsFilterFactory&quot;</span> <span style="color: #7D9029">words=</span><span style="color: #BA2121">&quot;stopwords.txt&quot;</span> <span style="color: #7D9029">ignoreCase=</span><span style="color: #BA2121">&quot;true&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "the Cat"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "the", "Cat"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "the_cat"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-CollationKeyFilter">Collation Key Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Collation allows sorting of text in a language-sensitive way. It is usually used for sorting, but can also be used with advanced searches. We&#8217;ve covered this in much more detail in the section on <a href="language-analysis.html#LanguageAnalysis-UnicodeCollation">Unicode Collation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-Daitch-MokotoffSoundexFilter">Daitch-Mokotoff Soundex Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Implements the Daitch-Mokotoff Soundex algorithm, which allows identification of similar names, even if they are spelled differently. More information about how this works is available in the section on <a href="phonetic-matching.html#phonetic-matching">Phonetic Matching</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.DaitchMokotoffSoundexFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>inject</code> : (true/false) If true (the default), then new phonetic tokens are added to the stream. Otherwise, tokens are replaced with the phonetic equivalent. Setting this to false will enable phonetic matching, but the exact spelling of the target word may not match.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.DaitchMokotoffSoundexFilterFactory&quot;</span> <span style="color: #7D9029">inject=</span><span style="color: #BA2121">&quot;true&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-DoubleMetaphoneFilter">Double Metaphone Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter creates tokens using the <a href="http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/DoubleMetaphone.html"><code>DoubleMetaphone</code></a> encoding algorithm from commons-codec. For more information, see the <a href="phonetic-matching.html#phonetic-matching">Phonetic Matching</a> section.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.DoubleMetaphoneFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>inject</code>: (true/false) If true (the default), then new phonetic tokens are added to the stream. Otherwise, tokens are replaced with the phonetic equivalent. Setting this to false will enable phonetic matching, but the exact spelling of the target word may not match.</p>
+</div>
+<div class="paragraph">
+<p><code>maxCodeLength</code>: (integer) The maximum length of the code to be generated.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior for inject (true): keep the original token and add phonetic token(s) at the same position.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.DoubleMetaphoneFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score and Kuczewski"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four"(1), "score"(2), "and"(3), "Kuczewski"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "four"(1), "FR"(1), "score"(2), "SKR"(2), "and"(3), "ANT"(3), "Kuczewski"(4), "KSSK"(4), "KXFS"(4)</p>
+</div>
+<div class="paragraph">
+<p>The phonetic tokens have a position increment of 0, which indicates that they are at the same position as the token they were derived from (immediately preceding). Note that "Kuczewski" has two encodings, which are added at the same position.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Discard original token (<code>inject="false"</code>).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.DoubleMetaphoneFilterFactory&quot;</span> <span style="color: #7D9029">inject=</span><span style="color: #BA2121">&quot;false&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score and Kuczewski"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four"(1), "score"(2), "and"(3), "Kuczewski"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "FR"(1), "SKR"(2), "ANT"(3), "KSSK"(4), "KXFS"(4)</p>
+</div>
+<div class="paragraph">
+<p>Note that "Kuczewski" has two encodings, which are added at the same position.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-EdgeN-GramFilter">Edge N-Gram Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter generates edge n-gram tokens of sizes within the given range.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.EdgeNGramFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>minGramSize</code>: (integer, default 1) The minimum gram size.</p>
+</div>
+<div class="paragraph">
+<p><code>maxGramSize</code>: (integer, default 1) The maximum gram size.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EdgeNGramFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score and twenty"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four", "score", "and", "twenty"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "f", "s", "a", "t"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>A range of 1 to 4.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EdgeNGramFilterFactory&quot;</span> <span style="color: #7D9029">minGramSize=</span><span style="color: #BA2121">&quot;1&quot;</span> <span style="color: #7D9029">maxGramSize=</span><span style="color: #BA2121">&quot;4&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four", "score"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "f", "fo", "fou", "four", "s", "sc", "sco", "scor"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>A range of 4 to 6.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EdgeNGramFilterFactory&quot;</span> <span style="color: #7D9029">minGramSize=</span><span style="color: #BA2121">&quot;4&quot;</span> <span style="color: #7D9029">maxGramSize=</span><span style="color: #BA2121">&quot;6&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score and twenty"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four", "score", "and", "twenty"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "four", "scor", "score", "twen", "twent", "twenty"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-EnglishMinimalStemFilter">English Minimal Stem Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter stems plural English words to their singular form.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.EnglishMinimalStemFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EnglishMinimalStemFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "dogs cats"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "dogs", "cats"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "dog", "cat"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-EnglishPossessiveFilter">English Possessive Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter removes singular possessives (trailing <strong>'s</strong>) from words. Note that plural possessives, e.g. the <strong>s'</strong> in "divers' snorkels", are not removed by this filter.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.EnglishPossessiveFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EnglishPossessiveFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Man&#8217;s dog bites dogs' man"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "Man&#8217;s", "dog", "bites", "dogs'", "man"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Man", "dog", "bites", "dogs'", "man"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-FingerprintFilter">Fingerprint Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter outputs a single token which is a concatenation of the sorted and de-duplicated set of input tokens. This can be useful for clustering/linking use cases.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.FingerprintFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>separator</code>: The character used to separate tokens combined into the single output token. Defaults to " " (a space character).</p>
+</div>
+<div class="paragraph">
+<p><code>maxOutputTokenSize</code>: The maximum length of the summarized output token. If exceeded, no output token is emitted. Defaults to 1024.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.FingerprintFilterFactory&quot;</span> <span style="color: #7D9029">separator=</span><span style="color: #BA2121">&quot;_&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "the quick brown fox jumped over the lazy dog"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "brown_dog_fox_jumped_lazy_over_quick_the"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-FlattenGraphFilter">Flatten Graph Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter must be included on index-time analyzer specifications that include at least one graph-aware filter, including Synonym Graph Filter and Word Delimiter Graph Filter.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.FlattenGraphFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p>See the examples on Synonym Graph Filter and Word Delimiter Graph Filter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-HunspellStemFilter">Hunspell Stem Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>Hunspell Stem Filter</code> provides support for several languages. You must provide the dictionary (<code>.dic</code>) and rules (<code>.aff</code>) files for each language you wish to use with the Hunspell Stem Filter. You can download those language files <a href="http://wiki.services.openoffice.org/wiki/Dictionaries">here</a>. Be aware that your results will vary widely based on the quality of the provided dictionary and rules files. For example, some languages have only a minimal word list with no morphological information. On the other hand, for languages that have no stemmer but do have an extensive dictionary file, the Hunspell stemmer may be a good choice.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.HunspellStemFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>dictionary</code>: (required) The path of a dictionary file.</p>
+</div>
+<div class="paragraph">
+<p><code>affix</code>: (required) The path of a rules file.</p>
+</div>
+<div class="paragraph">
+<p><code>ignoreCase</code>: (boolean) controls whether matching is case sensitive or not. The default is false.</p>
+</div>
+<div class="paragraph">
+<p><code>strictAffixParsing</code>: (boolean) controls whether the affix parsing is strict or not. If true, an error while reading an affix rule causes a ParseException, otherwise is ignored. The default is true.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.HunspellStemFilterFactory&quot;</span>
+    <span style="color: #7D9029">dictionary=</span><span style="color: #BA2121">&quot;en_GB.dic&quot;</span>
+    <span style="color: #7D9029">affix=</span><span style="color: #BA2121">&quot;en_GB.aff&quot;</span>
+    <span style="color: #7D9029">ignoreCase=</span><span style="color: #BA2121">&quot;true&quot;</span>
+    <span style="color: #7D9029">strictAffixParsing=</span><span style="color: #BA2121">&quot;true&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "jump jumping jumped"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "jump", "jumping", "jumped"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "jump", "jump", "jump"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-HyphenatedWordsFilter">Hyphenated Words Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter reconstructs hyphenated words that have been tokenized as two tokens because of a line break or other intervening whitespace in the field test. If a token ends with a hyphen, it is joined with the following token and the hyphen is discarded. Note that for this filter to work properly, the upstream tokenizer must not remove trailing hyphen characters. This filter is generally only useful at index time.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.HyphenatedWordsFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.HyphenatedWordsFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "A hyphen- ated word"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "A", "hyphen-", "ated", "word"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "A", "hyphenated", "word"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ICUFoldingFilter">ICU Folding Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter is a custom Unicode normalization form that applies the foldings specified in <a href="http://www.unicode.org/reports/tr30/tr30-4.html">Unicode Technical Report 30</a> in addition to the <code>NFKC_Casefold</code> normalization form as described in <a href="#FilterDescriptions-ICUNormalizer2Filter">ICU Normalizer 2 Filter</a>. This filter is a better substitute for the combined behavior of the <a href="#FilterDescriptions-ASCIIFoldingFilter">ASCII Folding Filter</a>, <a href="#FilterDescriptions-LowerCaseFilter">Lower Case Filter</a>, and <a href="#FilterDescriptions-ICUNormalizer2Filter">ICU Normalizer 2 Filter</a>.</p>
+</div>
+<div class="paragraph">
+<p>To use this filter, see <code>solr/contrib/analysis-extras/README.txt</code> for instructions on which jars you need to add to your <code>solr_home/lib</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ICUFoldingFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ICUFoldingFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For detailed information on this normalization form, see <a href="http://www.unicode.org/reports/tr30/tr30-4.html" class="bare">http://www.unicode.org/reports/tr30/tr30-4.html</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ICUNormalizer2Filter">ICU Normalizer 2 Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter factory normalizes text according to one of five Unicode Normalization Forms as described in <a href="http://unicode.org/reports/tr15/">Unicode Standard Annex #15</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>NFC: (name="nfc" mode="compose") Normalization Form C, canonical decomposition</p>
+</li>
+<li>
+<p>NFD: (name="nfc" mode="decompose") Normalization Form D, canonical decomposition, followed by canonical composition</p>
+</li>
+<li>
+<p>NFKC: (name="nfkc" mode="compose") Normalization Form KC, compatibility decomposition</p>
+</li>
+<li>
+<p>NFKD: (name="nfkc" mode="decompose") Normalization Form KD, compatibility decomposition, followed by canonical composition</p>
+</li>
+<li>
+<p>NFKC_Casefold: (name="nfkc_cf" mode="compose") Normalization Form KC, with additional Unicode case folding. Using the ICU Normalizer 2 Filter is a better-performing substitution for the <a href="#FilterDescriptions-LowerCaseFilter">Lower Case Filter</a> and NFKC normalization.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ICUNormalizer2FilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>name</code>: (string) The name of the normalization form; <code>nfc</code>, <code>nfd</code>, <code>nfkc</code>, <code>nfkd</code>, <code>nfkc_cf</code></p>
+</div>
+<div class="paragraph">
+<p><code>mode</code>: (string) The mode of Unicode character composition and decomposition; <code>compose</code> or <code>decompose</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ICUNormalizer2FilterFactory&quot;</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;nfkc_cf&quot;</span> <span style="color: #7D9029">mode=</span><span style="color: #BA2121">&quot;compose&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For detailed information about these Unicode Normalization Forms, see <a href="http://unicode.org/reports/tr15/" class="bare">http://unicode.org/reports/tr15/</a>.</p>
+</div>
+<div class="paragraph">
+<p>To use this filter, see <code>solr/contrib/analysis-extras/README.txt</code> for instructions on which jars you need to add to your <code>solr_home/lib</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ICUTransformFilter">ICU Transform Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter applies <a href="http://userguide.icu-project.org/transforms/general">ICU Tranforms</a> to text. This filter supports only ICU System Transforms. Custom rule sets are not supported.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ICUTransformFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>id</code>: (string) The identifier for the ICU System Transform you wish to apply with this filter. For a full list of ICU System Transforms, see <a href="http://demo.icu-project.org/icu-bin/translit?TEMPLATE_FILE=data/translit_rule_main.html" class="bare">http://demo.icu-project.org/icu-bin/translit?TEMPLATE_FILE=data/translit_rule_main.html</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ICUTransformFilterFactory&quot;</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&quot;Traditional-Simplified&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For detailed information about ICU Transforms, see <a href="http://userguide.icu-project.org/transforms/general" class="bare">http://userguide.icu-project.org/transforms/general</a>.</p>
+</div>
+<div class="paragraph">
+<p>To use this filter, see <code>solr/contrib/analysis-extras/README.txt</code> for instructions on which jars you need to add to your <code>solr_home/lib</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-KeepWordFilter">Keep Word Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter discards all tokens except those that are listed in the given word list. This is the inverse of the Stop Words Filter. This filter can be useful for building specialized indices for a constrained set of terms.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.KeepWordFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>words</code>: (required) Path of a text file containing the list of keep words, one per line. Blank lines and lines that begin with "#" are ignored. This may be an absolute path, or a simple filename in the Solr config directory.</p>
+</div>
+<div class="paragraph">
+<p><code>ignoreCase</code>: (true/false) If <strong>true</strong> then comparisons are done case-insensitively. If this argument is true, then the words file is assumed to contain only lowercase words. The default is <strong>false</strong>.</p>
+</div>
+<div class="paragraph">
+<p><code>enablePositionIncrements</code>: if <code>luceneMatchVersion</code> is <code>4.3</code> or earlier and <code>enablePositionIncrements="false"</code>, no position holes will be left by this filter when it removes tokens. <strong>This argument is invalid if <code>luceneMatchVersion</code> is <code>5.0</code> or later.</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Where <code>keepwords.txt</code> contains:</p>
+</div>
+<div class="paragraph">
+<p><code>happy funny silly</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.KeepWordFilterFactory&quot;</span> <span style="color: #7D9029">words=</span><span style="color: #BA2121">&quot;keepwords.txt&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Happy, sad or funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "Happy", "sad", "or", "funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Same <code>keepwords.txt</code>, case insensitive:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.KeepWordFilterFactory&quot;</span> <span style="color: #7D9029">words=</span><span style="color: #BA2121">&quot;keepwords.txt&quot;</span> <span style="color: #7D9029">ignoreCase=</span><span style="color: #BA2121">&quot;true&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Happy, sad or funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "Happy", "sad", "or", "funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Happy", "funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Using LowerCaseFilterFactory before filtering for keep words, no <code>ignoreCase</code> flag.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LowerCaseFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.KeepWordFilterFactory&quot;</span> <span style="color: #7D9029">words=</span><span style="color: #BA2121">&quot;keepwords.txt&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Happy, sad or funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "Happy", "sad", "or", "funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Filter to Filter:</strong> "happy", "sad", "or", "funny"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "happy", "funny"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-KStemFilter">KStem Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>KStem is an alternative to the Porter Stem Filter for developers looking for a less aggressive stemmer. KStem was written by Bob Krovetz, ported to Lucene by Sergio Guzman-Lara (UMASS Amherst). This stemmer is only appropriate for English language text.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.KStemFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory &quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.KStemFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "jump jumping jumped"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "jump", "jumping", "jumped"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "jump", "jump", "jump"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-LengthFilter">Length Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter passes tokens whose length falls within the min/max limit specified. All other tokens are discarded.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LengthFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>min</code>: (integer, required) Minimum token length. Tokens shorter than this are discarded.</p>
+</div>
+<div class="paragraph">
+<p><code>max</code>: (integer, required, must be &gt;= min) Maximum token length. Tokens longer than this are discarded.</p>
+</div>
+<div class="paragraph">
+<p><code>enablePositionIncrements</code>: if <code>luceneMatchVersion</code> is <code>4.3</code> or earlier and <code>enablePositionIncrements="false"</code>, no position holes will be left by this filter when it removes tokens. <strong>This argument is invalid if <code>luceneMatchVersion</code> is <code>5.0</code> or later.</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LengthFilterFactory&quot;</span> <span style="color: #7D9029">min=</span><span style="color: #BA2121">&quot;3&quot;</span> <span style="color: #7D9029">max=</span><span style="color: #BA2121">&quot;7&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "turn right at Albuquerque"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "turn", "right", "at", "Albuquerque"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "turn", "right"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-LimitTokenCountFilter">Limit Token Count Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter limits the number of accepted tokens, typically useful for index analysis.</p>
+</div>
+<div class="paragraph">
+<p>By default, this filter ignores any tokens in the wrapped <code>TokenStream</code> once the limit has been reached, which can result in <code>reset()</code> being called prior to <code>incrementToken()</code> returning <code>false</code>. For most <code>TokenStream</code> implementations this should be acceptable, and faster then consuming the full stream. If you are wrapping a <code>TokenStream</code> which requires that the full stream of tokens be exhausted in order to function properly, use the <code>consumeAllTokens="true"</code> option.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LimitTokenCountFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxTokenCount</code>: (integer, required) Maximum token count. After this limit has been reached, tokens are discarded.</p>
+</div>
+<div class="paragraph">
+<p><code>consumeAllTokens</code>: (boolean, defaults to false) Whether to consume (and discard) previous token filters' tokens after the maximum token count has been reached. See description above.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LimitTokenCountFilterFactory&quot;</span> <span style="color: #7D9029">maxTokenCount=</span><span style="color: #BA2121">&quot;10&quot;</span>
+          <span style="color: #7D9029">consumeAllTokens=</span><span style="color: #BA2121">&quot;false&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "1 2 3 4 5 6 7 8 9 10 11 12"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-LimitTokenOffsetFilter">Limit Token Offset Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter limits tokens to those before a configured maximum start character offset. This can be useful to limit highlighting, for example.</p>
+</div>
+<div class="paragraph">
+<p>By default, this filter ignores any tokens in the wrapped <code>TokenStream</code> once the limit has been reached, which can result in <code>reset()</code> being called prior to <code>incrementToken()</code> returning <code>false</code>. For most <code>TokenStream</code> implementations this should be acceptable, and faster then consuming the full stream. If you are wrapping a <code>TokenStream</code> which requires that the full stream of tokens be exhausted in order to function properly, use the <code>consumeAllTokens="true"</code> option.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LimitTokenOffsetFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxStartOffset</code>: (integer, required) Maximum token start character offset. After this limit has been reached, tokens are discarded.</p>
+</div>
+<div class="paragraph">
+<p><code>consumeAllTokens</code>: (boolean, defaults to false) Whether to consume (and discard) previous token filters' tokens after the maximum start offset has been reached. See description above.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LimitTokenOffsetFilterFactory&quot;</span> <span style="color: #7D9029">maxStartOffset=</span><span style="color: #BA2121">&quot;10&quot;</span>
+          <span style="color: #7D9029">consumeAllTokens=</span><span style="color: #BA2121">&quot;false&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "0 2 4 6 8 A C E"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "0", "2", "4", "6", "8", "A", "C", "E"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "0", "2", "4", "6", "8", "A"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-LimitTokenPositionFilter">Limit Token Position Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter limits tokens to those before a configured maximum token position.</p>
+</div>
+<div class="paragraph">
+<p>By default, this filter ignores any tokens in the wrapped <code>TokenStream</code> once the limit has been reached, which can result in <code>reset()</code> being called prior to <code>incrementToken()</code> returning <code>false</code>. For most <code>TokenStream</code> implementations this should be acceptable, and faster then consuming the full stream. If you are wrapping a <code>TokenStream</code> which requires that the full stream of tokens be exhausted in order to function properly, use the <code>consumeAllTokens="true"</code> option.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LimitTokenPositionFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>maxTokenPosition</code>: (integer, required) Maximum token position. After this limit has been reached, tokens are discarded.</p>
+</div>
+<div class="paragraph">
+<p><code>consumeAllTokens</code>: (boolean, defaults to false) Whether to consume (and discard) previous token filters' tokens after the maximum start offset has been reached. See description above.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LimitTokenPositionFilterFactory&quot;</span> <span style="color: #7D9029">maxTokenPosition=</span><span style="color: #BA2121">&quot;3&quot;</span>
+          <span style="color: #7D9029">consumeAllTokens=</span><span style="color: #BA2121">&quot;false&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "1 2 3 4 5"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "1", "2", "3", "4", "5"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "1", "2", "3"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-LowerCaseFilter">Lower Case Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Converts any uppercase letters in a token to the equivalent lowercase token. All other characters are left unchanged.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.LowerCaseFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LowerCaseFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Down With CamelCase"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "Down", "With", "CamelCase"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "down", "with", "camelcase"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ManagedStopFilter">Managed Stop Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is specialized version of the <a href="#FilterDescriptions-StopFilter">Stop Words Filter Factory</a> that uses a set of stop words that are <a href="managed-resources.html#managed-resources">managed from a REST API.</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>managed</code>: The name that should be used for this set of stop words in the managed REST API.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>With this configuration the set of words is named "english" and can be managed via <code>/solr/collection_name/schema/analysis/stopwords/english</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ManagedStopFilterFactory&quot;</span> <span style="color: #7D9029">managed=</span><span style="color: #BA2121">&quot;english&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="#FilterDescriptions-StopFilter">Stop Filter</a> for example input/output.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ManagedSynonymFilter">Managed Synonym Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is specialized version of the <a href="#FilterDescriptions-SynonymFilter">Synonym Filter Factory</a> that uses a mapping on synonyms that is <a href="managed-resources.html#managed-resources">managed from a REST API.</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>managed</code>: The name that should be used for this mapping on synonyms in the managed REST API.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>With this configuration the set of mappings is named "english" and can be managed via <code>/solr/collection_name/schema/analysis/synonyms/english</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ManagedSynonymFilterFactory&quot;</span> <span style="color: #7D9029">managed=</span><span style="color: #BA2121">&quot;english&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="#FilterDescriptions-SynonymFilter">Synonym Filter</a> for example input/output.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-N-GramFilter">N-Gram Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Generates n-gram tokens of sizes in the given range. Note that tokens are ordered by position and then by gram size.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.NGramFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>minGramSize</code>: (integer, default 1) The minimum gram size.</p>
+</div>
+<div class="paragraph">
+<p><code>maxGramSize</code>: (integer, default 2) The maximum gram size.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.NGramFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four", "score"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "f", "o", "u", "r", "fo", "ou", "ur", "s", "c", "o", "r", "e", "sc", "co", "or", "re"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>A range of 1 to 4.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.NGramFilterFactory&quot;</span> <span style="color: #7D9029">minGramSize=</span><span style="color: #BA2121">&quot;1&quot;</span> <span style="color: #7D9029">maxGramSize=</span><span style="color: #BA2121">&quot;4&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four", "score"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "f", "fo", "fou", "four", "o", "ou", "our", "u", "ur", "r", "s", "sc", "sco", "scor", "c", "co", "cor", "core", "o", "or", "ore", "r", "re", "e"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>A range of 3 to 5.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.NGramFilterFactory&quot;</span> <span style="color: #7D9029">minGramSize=</span><span style="color: #BA2121">&quot;3&quot;</span> <span style="color: #7D9029">maxGramSize=</span><span style="color: #BA2121">&quot;5&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four", "score"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "fou", "four", "our", "sco", "scor", "score", "cor", "core", "ore"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-NumericPayloadTokenFilter">Numeric Payload Token Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter adds a numeric floating point payload value to tokens that match a given type. Refer to the Javadoc for the <code>org.apache.lucene.analysis.Token</code> class for more information about token types and payloads.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.NumericPayloadTokenFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>payload</code>: (required) A floating point value that will be added to all matching tokens.</p>
+</div>
+<div class="paragraph">
+<p><code>typeMatch</code>: (required) A token type name string. Tokens with a matching type name will have their payload set to the above floating point value.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.NumericPayloadTokenFilterFactory&quot;</span> <span style="color: #7D9029">payload=</span><span style="color: #BA2121">&quot;0.75&quot;</span> <span style="color: #7D9029">typeMatch=</span><span style="color: #BA2121">&quot;word&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "bing bang boom"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "bing", "bang", "boom"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "bing"[0.75], "bang"[0.75], "boom"[0.75]</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-PatternReplaceFilter">Pattern Replace Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter applies a regular expression to each token and, for those that match, substitutes the given replacement string in place of the matched pattern. Tokens which do not match are passed though unchanged.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.PatternReplaceFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>pattern</code>: (required) The regular expression to test against each token, as per <code>java.util.regex.Pattern</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>replacement</code>: (required) A string to substitute in place of the matched pattern. This string may contain references to capture groups in the regex pattern. See the Javadoc for <code>java.util.regex.Matcher</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>replace</code>: ("all" or "first", default "all") Indicates whether all occurrences of the pattern in the token should be replaced, or only the first.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Simple string replace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternReplaceFilterFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;cat&quot;</span> <span style="color: #7D9029">replacement=</span><span style="color: #BA2121">&quot;dog&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "cat concatenate catycat"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "cat", "concatenate", "catycat"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "dog", "condogenate", "dogydog"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>String replacement, first occurrence only:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternReplaceFilterFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;cat&quot;</span> <span style="color: #7D9029">replacement=</span><span style="color: #BA2121">&quot;dog&quot;</span> <span style="color: #7D9029">replace=</span><span style="color: #BA2121">&quot;first&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "cat concatenate catycat"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "cat", "concatenate", "catycat"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "dog", "condogenate", "dogycat"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>More complex pattern with capture group reference in the replacement. Tokens that start with non-numeric characters and end with digits will have an underscore inserted before the numbers. Otherwise the token is passed through.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternReplaceFilterFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;(\D+)(\d+)$&quot;</span> <span style="color: #7D9029">replacement=</span><span style="color: #BA2121">&quot;$1_$2&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "cat foo1234 9987 blah1234foo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "cat", "foo1234", "9987", "blah1234foo"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "cat", "foo_1234", "9987", "blah1234foo"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-PhoneticFilter">Phonetic Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter creates tokens using one of the phonetic encoding algorithms in the <code>org.apache.commons.codec.language</code> package. For more information, see the section on <a href="phonetic-matching.html#phonetic-matching">Phonetic Matching</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.PhoneticFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>encoder</code>: (required) The name of the encoder to use. The encoder name must be one of the following (case insensitive): "http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/DoubleMetaphone.html[DoubleMetaphone]", "http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/Metaphone.html[Metaphone]", "http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/Soundex.html[Soundex]", "http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/RefinedSoundex.html[RefinedSoundex]", "http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/Caverphone.html[Caverphone]" (v2.0), "http://commons.apache.org/codec/apidocs/org/apache/commons/codec/language/ColognePhonetic.html[ColognePhonetic]", or "http://commons.apache.org/proper/commons-codec/apidocs/org/apache/commons/codec/language/Nysiis.html[Nysiis]".</p>
+</div>
+<div class="paragraph">
+<p><code>inject</code>: (true/false) If true (the default), then new phonetic tokens are added to the stream. Otherwise, tokens are replaced with the phonetic equivalent. Setting this to false will enable phonetic matching, but the exact spelling of the target word may not match.</p>
+</div>
+<div class="paragraph">
+<p><code>maxCodeLength</code>: (integer) The maximum length of the code to be generated by the Metaphone or Double Metaphone encoders.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior for DoubleMetaphone encoding.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PhoneticFilterFactory&quot;</span> <span style="color: #7D9029">encoder=</span><span style="color: #BA2121">&quot;DoubleMetaphone&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score and twenty"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four"(1), "score"(2), "and"(3), "twenty"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "four"(1), "FR"(1), "score"(2), "SKR"(2), "and"(3), "ANT"(3), "twenty"(4), "TNT"(4)</p>
+</div>
+<div class="paragraph">
+<p>The phonetic tokens have a position increment of 0, which indicates that they are at the same position as the token they were derived from (immediately preceding).</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Discard original token.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PhoneticFilterFactory&quot;</span> <span style="color: #7D9029">encoder=</span><span style="color: #BA2121">&quot;DoubleMetaphone&quot;</span> <span style="color: #7D9029">inject=</span><span style="color: #BA2121">&quot;false&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score and twenty"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four"(1), "score"(2), "and"(3), "twenty"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "FR"(1), "SKR"(2), "ANT"(3), "TWNT"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default Soundex encoder.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PhoneticFilterFactory&quot;</span> <span style="color: #7D9029">encoder=</span><span style="color: #BA2121">&quot;Soundex&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "four score and twenty"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "four"(1), "score"(2), "and"(3), "twenty"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "four"(1), "F600"(1), "score"(2), "S600"(2), "and"(3), "A530"(3), "twenty"(4), "T530"(4)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-PorterStemFilter">Porter Stem Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter applies the Porter Stemming Algorithm for English. The results are similar to using the Snowball Porter Stemmer with the <code>language="English"</code> argument. But this stemmer is coded directly in Java and is not based on Snowball. It does not accept a list of protected words and is only appropriate for English language text. However, it has been benchmarked as <a href="http://markmail.org/thread/d2c443z63z37rwf6">four times faster</a> than the English Snowball stemmer, so can provide a performance enhancement.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.PorterStemFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory &quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PorterStemFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "jump jumping jumped"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "jump", "jumping", "jumped"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "jump", "jump", "jump"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-RemoveDuplicatesTokenFilter">Remove Duplicates Token Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The filter removes duplicate tokens in the stream. Tokens are considered to be duplicates ONLY if they have the same text and position values. Because positions must be the same, this filter might not do what a user expects it to do based on its name. It is a very specialized filter that is only useful in very specific circumstances. A more accurate filter name would be extremely long and confusing, so the shorter "remove duplicates" name has been used, even though it is potentially misleading.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.RemoveDuplicatesTokenFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>One example of where <code>RemoveDuplicatesTokenFilterFactory</code> is useful in situations where a synonym file is being used in conjuntion with a stemmer. In these situations, both the stemmer and the synonym filter can cause completely identical terms with the same positions to end up in the stream, increasing index size with no benefit.</p>
+</div>
+<div class="paragraph">
+<p>Consider the following entry from a <code>synonyms.txt</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text"> Television, Televisions, TV, TVs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When used in the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SynonymGraphFilterFactory&quot;</span> <span style="color: #7D9029">synonyms=</span><span style="color: #BA2121">&quot;synonyms.txt&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.EnglishMinimalStemFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.RemoveDuplicatesTokenFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Watch TV"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Synonym Filter:</strong> "Watch"(1) "TV"(2)</p>
+</div>
+<div class="paragraph">
+<p><strong>Synonym Filter to Stem Filter:</strong> "Watch"(1) "Television"(2) "Televisions"(2) "TV"(2) "TVs"(2)</p>
+</div>
+<div class="paragraph">
+<p><strong>Stem Filter to Remove Dups Filter:</strong> "Watch"(1) "Television"(2) "Television"(2) "TV"(2) "TV"(2)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Watch"(1) "Television"(2) "TV"(2)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ReversedWildcardFilter">Reversed Wildcard Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter reverses tokens to provide faster leading wildcard and prefix queries. Tokens without wildcards are not reversed.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ReversedWildcardFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>withOriginal</code> (boolean) If true, the filter produces both original and reversed tokens at the same positions. If false, produces only reversed tokens.</p>
+</div>
+<div class="paragraph">
+<p><code>maxPosAsterisk</code> (integer, default = 2) The maximum position of the asterisk wildcard ('*') that triggers the reversal of the query term. Terms with asterisks at positions above this value are not reversed.</p>
+</div>
+<div class="paragraph">
+<p><code>maxPosQuestion</code> (integer, default = 1) The maximum position of the question mark wildcard ('?') that triggers the reversal of query term. To reverse only pure suffix queries (queries with a single leading asterisk), set this to 0 and <code>maxPosAsterisk</code> to 1.</p>
+</div>
+<div class="paragraph">
+<p><code>maxFractionAsterisk</code> (float, default = 0.0) An additional parameter that triggers the reversal if asterisk ('*') position is less than this fraction of the query token length.</p>
+</div>
+<div class="paragraph">
+<p><code>minTrailing</code> (integer, default = 2) The minimum number of trailing characters in a query token after the last wildcard character. For good performance this should be set to a value larger than 1.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ReversedWildcardFilterFactory&quot;</span> <span style="color: #7D9029">withOriginal=</span><span style="color: #BA2121">&quot;true&quot;</span>
+    <span style="color: #7D9029">maxPosAsterisk=</span><span style="color: #BA2121">&quot;2&quot;</span> <span style="color: #7D9029">maxPosQuestion=</span><span style="color: #BA2121">&quot;1&quot;</span> <span style="color: #7D9029">minTrailing=</span><span style="color: #BA2121">&quot;2&quot;</span> <span style="color: #7D9029">maxFractionAsterisk=</span><span style="color: #BA2121">&quot;0&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "*foo *bar"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "*foo", "*bar"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "oof*", "rab*"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-ShingleFilter">Shingle Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter constructs shingles, which are token n-grams, from the token stream. It combines runs of tokens into a single token.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.ShingleFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>minShingleSize</code>: (integer, must be &gt;= 2, default 2) The minimum number of tokens per shingle.</p>
+</div>
+<div class="paragraph">
+<p><code>maxShingleSize</code>: (integer, must be &gt;= <code>minShingleSize</code>, default 2) The maximum number of tokens per shingle.</p>
+</div>
+<div class="paragraph">
+<p><code>outputUnigrams</code>: (boolean, default true) If true, then each individual token is also included at its original position.</p>
+</div>
+<div class="paragraph">
+<p><code>outputUnigramsIfNoShingles</code>: (boolean, default false) If true, then individual tokens will be output if no shingles are possible.</p>
+</div>
+<div class="paragraph">
+<p><code>tokenSeparator</code>: (string, default is " ") The string to use when joining adjacent tokens to form a shingle.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ShingleFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "To be, or what?"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "To"(1), "be"(2), "or"(3), "what"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "To"(1), "To be"(1), "be"(2), "be or"(2), "or"(3), "or what"(3), "what"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>A shingle size of four, do not include original token.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.ShingleFilterFactory&quot;</span> <span style="color: #7D9029">maxShingleSize=</span><span style="color: #BA2121">&quot;4&quot;</span> <span style="color: #7D9029">outputUnigrams=</span><span style="color: #BA2121">&quot;false&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "To be, or not to be."</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "To"(1), "be"(2), "or"(3), "not"(4), "to"(5), "be"(6)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "To be"(1), "To be or"(1), "To be or not"(1), "be or"(2), "be or not"(2), "be or not to"(2), "or not"(3), "or not to"(3), "or not to be"(3), "not to"(4), "not to be"(4), "to be"(5)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-SnowballPorterStemmerFilter">Snowball Porter Stemmer Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter factory instantiates a language-specific stemmer generated by Snowball. Snowball is a software package that generates pattern-based word stemmers. This type of stemmer is not as accurate as a table-based stemmer, but is faster and less complex. Table-driven stemmers are labor intensive to create and maintain and so are typically commercial products.</p>
+</div>
+<div class="paragraph">
+<p>Solr contains Snowball stemmers for Armenian, Basque, Catalan, Danish, Dutch, English, Finnish, French, German, Hungarian, Italian, Norwegian, Portuguese, Romanian, Russian, Spanish, Swedish and Turkish. For more information on Snowball, visit <a href="http://snowball.tartarus.org/" class="bare">http://snowball.tartarus.org/</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>StopFilterFactory</code>, <code>CommonGramsFilterFactory</code>, and <code>CommonGramsQueryFilterFactory</code> can optionally read stopwords in Snowball format (specify <code>format="snowball"</code> in the configuration of those FilterFactories).</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.SnowballPorterFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>language</code>: (default "English") The name of a language, used to select the appropriate Porter stemmer to use. Case is significant. This string is used to select a package name in the "org.tartarus.snowball.ext" class hierarchy.</p>
+</div>
+<div class="paragraph">
+<p><code>protected</code>: Path of a text file containing a list of protected words, one per line. Protected words will not be stemmed. Blank lines and lines that begin with "#" are ignored. This may be an absolute path, or a simple file name in the Solr config directory.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SnowballPorterFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "flip flipped flipping"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "flip", "flipped", "flipping"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "flip", "flip", "flip"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>French stemmer, English words:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SnowballPorterFilterFactory&quot;</span> <span style="color: #7D9029">language=</span><span style="color: #BA2121">&quot;French&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "flip flipped flipping"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "flip", "flipped", "flipping"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "flip", "flipped", "flipping"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Spanish stemmer, Spanish words:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SnowballPorterFilterFactory&quot;</span> <span style="color: #7D9029">language=</span><span style="color: #BA2121">&quot;Spanish&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "cante canta"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "cante", "canta"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "cant", "cant"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-StandardFilter">Standard Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter removes dots from acronyms and the substring "'s" from the end of tokens. This filter depends on the tokens being tagged with the appropriate term-type to recognize acronyms and words with apostrophes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.StandardFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This filter is no longer operational in Solr when the <code>luceneMatchVersion</code> (in <code>solrconfig.xml</code>) is higher than "3.1".</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-StopFilter">Stop Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter discards, or <em>stops</em> analysis of, tokens that are on the given stop words list. A standard stop words list is included in the Solr config directory, named <code>stopwords.txt</code>, which is appropriate for typical English language text.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.StopFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>words</code>: (optional) The path to a file that contains a list of stop words, one per line. Blank lines and lines that begin with "#" are ignored. This may be an absolute path, or path relative to the Solr config directory.</p>
+</div>
+<div class="paragraph">
+<p><code>format</code>: (optional) If the stopwords list has been formatted for Snowball, you can specify <code>format="snowball"</code> so Solr can read the stopwords file.</p>
+</div>
+<div class="paragraph">
+<p><code>ignoreCase</code>: (true/false, default false) Ignore case when testing for stop words. If true, the stop list should contain lowercase words.</p>
+</div>
+<div class="paragraph">
+<p><code>enablePositionIncrements</code>: if <code>luceneMatchVersion</code> is <code>4.4</code> or earlier and <code>enablePositionIncrements="false"</code>, no position holes will be left by this filter when it removes tokens. <strong>This argument is invalid if <code>luceneMatchVersion</code> is <code>5.0</code> or later.</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Case-sensitive matching, capitalized words not stopped. Token positions skip stopped words.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StopFilterFactory&quot;</span> <span style="color: #7D9029">words=</span><span style="color: #BA2121">&quot;stopwords.txt&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "To be or what?"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "To"(1), "be"(2), "or"(3), "what"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "To"(1), "what"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StopFilterFactory&quot;</span> <span style="color: #7D9029">words=</span><span style="color: #BA2121">&quot;stopwords.txt&quot;</span> <span style="color: #7D9029">ignoreCase=</span><span style="color: #BA2121">&quot;true&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "To be or what?"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "To"(1), "be"(2), "or"(3), "what"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "what"(4)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-SuggestStopFilter">Suggest Stop Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Like <a href="#FilterDescriptions-StopFilter">Stop Filter</a>, this filter discards, or <em>stops</em> analysis of, tokens that are on the given stop words list. Suggest Stop Filter differs from Stop Filter in that it will not remove the last token unless it is followed by a token separator. For example, a query &#8220;find the&#8221; would preserve the &#8216;the&#8217; since it was not followed by a space, punctuation etc., and mark it as a <code>KEYWORD</code> so that following filters will not change or remove it. By contrast, a query like &#8220;find the popsicle&#8221; would remove &#8220;<code>the</code>&#8221; as a stopword, since it&#8217;s followed by a space. When using one of the analyzing suggesters, you would normally use the ordinary <code>StopFilterFactory</code> in your index analyzer and then SuggestStopFilter in your query analyzer.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.SuggestStopFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>words</code>: (optional; default: <a href="https://lucene.apache.org/core/7_0_0//analyzers-common/org/apache/lucene/analysis/core/StopAnalyzer.html"><code>StopAnalyzer#ENGLISH_STOP_WORDS_SET</code></a> ) The name of a stopwords file to parse.</p>
+</div>
+<div class="paragraph">
+<p><code>format</code>: (optional; default: <code>wordset</code>) Defines how the words file will be parsed. If <code>words</code> is not specified, then <code>format</code> must not be specified. The valid values for the format option are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>wordset</code>: This is the default format, which supports one word per line (including any intra-word whitespace) and allows whole line comments begining with the &#8220;#&#8221; character. Blank lines are ignored.</p>
+</li>
+<li>
+<p><code>snowball</code>: This format allows for multiple words specified on each line, and trailing comments may be specified using the vertical line (&#8220;|&#8221;). Blank lines are ignored.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>ignoreCase</code>: (optional; default: <code>false</code>) If <code>true</code>, matching is case-insensitive.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LowerCaseFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SuggestStopFilterFactory&quot;</span> <span style="color: #7D9029">ignoreCase=</span><span style="color: #BA2121">&quot;true&quot;</span>
+          <span style="color: #7D9029">words=</span><span style="color: #BA2121">&quot;stopwords.txt&quot;</span> <span style="color: #7D9029">format=</span><span style="color: #BA2121">&quot;wordset&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "The The"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "the"(1), "the"(2)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "the"(2)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-SynonymFilter">Synonym Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter does synonym mapping. Each token is looked up in the list of synonyms and if a match is found, then the synonym is emitted in place of the token. The position value of the new tokens are set such they all occur at the same position as the original token.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Synonym Filter has been deprecated</div>
+<div class="paragraph">
+<p>Synonym Filter has been deprecated in favor of Synonym Graph Filter, which is required for multi-term synonym support.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.SynonymFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p>For arguments and examples, see the Synonym Graph Filter below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-SynonymGraphFilter">Synonym Graph Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter maps single- or multi-token synonyms, producing a fully correct graph output. This filter is a replacement for the Synonym Filter, which produces incorrect graphs for multi-token synonyms.</p>
+</div>
+<div class="paragraph">
+<p>If you use this filter during indexing, you must follow it with a Flatten Graph Filter to squash tokens on top of one another like the Synonym Filter, because the indexer can&#8217;t directly consume a graph. To get fully correct positional queries when your synonym replacements are multiple tokens, you should instead apply synonyms using this filter at query time.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.SynonymGraphFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>synonyms</code>: (required) The path of a file that contains a list of synonyms, one per line. In the (default) <code>solr</code> format - see the <code>format</code> argument below for alternatives - blank lines and lines that begin with &#8220;#&#8221; are ignored. This may be an absolute path, or path relative to the Solr config directory. There are two ways to specify synonym mappings:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A comma-separated list of words. If the token matches any of the words, then all the words in the list are substituted, which will include the original token.</p>
+</li>
+<li>
+<p>Two comma-separated lists of words with the symbol "&#8658;" between them. If the token matches any word on the left, then the list on the right is substituted. The original token will not be included unless it is also in the list on the right.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>ignoreCase</code>: (optional; default: <code>false</code>) If <code>true</code>, synonyms will be matched case-insensitively.</p>
+</div>
+<div class="paragraph">
+<p><code>expand</code>: (optional; default: <code>true</code>) If <code>true</code>, a synonym will be expanded to all equivalent synonyms. If <code>false</code>, all equivalent synonyms will be reduced to the first in the list.</p>
+</div>
+<div class="paragraph">
+<p><code>format</code>: (optional; default: <code>solr</code>) Controls how the synonyms will be parsed. The short names <code>solr</code> (for <a href="https://lucene.apache.org/core/7_0_0//analyzers-common/org/apache/lucene/analysis/synonym/SolrSynonymParser.html"><code>SolrSynonymParser)</code></a> and <code>wordnet</code> (for <a href="https://lucene.apache.org/core/7_0_0//analyzers-common/org/apache/lucene/analysis/synonym/WordnetSynonymParser.html"><code>WordnetSynonymParser</code></a> ) are supported, or you may alternatively supply the name of your own <a href="https://lucene.apache.org/core/7_0_0//analyzers-common/org/apache/lucene/analysis/synonym/SynonymMap.Builder.html"><code>SynonymMap.Builder</code></a> subclass.</p>
+</div>
+<div class="paragraph">
+<p><code>tokenizerFactory</code>: (optional; default: <code>WhitespaceTokenizerFactory</code>) The name of the tokenizer factory to use when parsing the synonyms file. Arguments with the name prefix &#8220;tokenizerFactory."` will be supplied as init params to the specified tokenizer factory. Any arguments not consumed by the synonym filter factory, including those without the "`tokenizerFactory.&#8221; prefix, will also be supplied as init params to the tokenizer factory. If <code>tokenizerFactory</code> is specified, then <code>analyzer</code> may not be, and vice versa.</p>
+</div>
+<div class="paragraph">
+<p><code>analyzer</code>: (optional; default: <code>WhitespaceTokenizerFactory</code>) The name of the analyzer class to use when parsing the synonyms file. If <code>analyzer</code> is specified, then <code>tokenizerFactory</code> may not be, and vice versa.</p>
+</div>
+<div class="paragraph">
+<p>For the following examples, assume a synonyms file named <code>mysynonyms.txt</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">couch,sofa,divan
+teh =&gt; the
+huge,ginormous,humungous =&gt; large
+small =&gt; tiny,teeny,weeny</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SynonymGraphFilterFactory&quot;</span> <span style="color: #7D9029">synonyms=</span><span style="color: #BA2121">&quot;mysynonyms.txt&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.FlattenGraphFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span> <span style="color: #408080; font-style: italic">&lt;!-- required on index analyzers after graph filters --&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.StandardTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SynonymGraphFilterFactory&quot;</span> <span style="color: #7D9029">synonyms=</span><span style="color: #BA2121">&quot;mysynonyms.txt&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "teh small couch"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "teh"(1), "small"(2), "couch"(3)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "the"(1), "tiny"(2), "teeny"(2), "weeny"(2), "couch"(3), "sofa"(3), "divan"(3)</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "teh ginormous, humungous sofa"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "teh"(1), "ginormous"(2), "humungous"(3), "sofa"(4)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "the"(1), "large"(2), "large"(3), "couch"(4), "sofa"(4), "divan"(4)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-TokenOffsetPayloadFilter">Token Offset Payload Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter adds the numeric character offsets of the token as a payload value for that token.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.TokenOffsetPayloadTokenFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TokenOffsetPayloadTokenFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "bing bang boom"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "bing", "bang", "boom"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "bing"[0,4], "bang"[5,9], "boom"[10,14]</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-TrimFilter">Trim Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter trims leading and/or trailing whitespace from tokens. Most tokenizers break tokens at whitespace, so this filter is most often used for special situations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.TrimFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>updateOffsets</code>: if <code>luceneMatchVersion</code> is <code>4.3</code> or earlier and <code>updateOffsets="true"</code>, trimmed tokens' start and end offsets will be updated to those of the first and last characters (plus one) remaining in the token. <strong>This argument is invalid if <code>luceneMatchVersion</code> is <code>5.0</code> or later.</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>The PatternTokenizerFactory configuration used here splits the input on simple commas, it does not remove whitespace.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.PatternTokenizerFactory&quot;</span> <span style="color: #7D9029">pattern=</span><span style="color: #BA2121">&quot;,&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TrimFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "one, two , three ,four "</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "one", " two ", " three ", "four "</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "one", "two", "three", "four"</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-TypeAsPayloadFilter">Type As Payload Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter adds the token&#8217;s type, as an encoded byte sequence, as its payload.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.TypeAsPayloadTokenFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong> None</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TypeAsPayloadTokenFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "Pay Bob&#8217;s I.O.U."</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "Pay", "Bob&#8217;s", "I.O.U."</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "Pay"[&lt;ALPHANUM&gt;], "Bob&#8217;s"[&lt;APOSTROPHE&gt;], "I.O.U."[&lt;ACRONYM&gt;]</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-TypeTokenFilter">Type Token Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter blacklists or whitelists a specified list of token types, assuming the tokens have type metadata associated with them. For example, the <a href="tokenizers.html#Tokenizers-UAX29URLEmailTokenizer">UAX29 URL Email Tokenizer</a> emits "&lt;URL&gt;" and "&lt;EMAIL&gt;" typed tokens, as well as other types. This filter would allow you to pull out only e-mail addresses from text as tokens, if you wish.</p>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.TypeTokenFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>types</code>: Defines the location of a file of types to filter.</p>
+</div>
+<div class="paragraph">
+<p><code>useWhitelist</code>: If <strong>true</strong>, the file defined in <code>types</code> should be used as include list. If <strong>false</strong>, or undefined, the file defined in <code>types</code> is used as a blacklist.</p>
+</div>
+<div class="paragraph">
+<p><code>enablePositionIncrements</code>: if <code>luceneMatchVersion</code> is <code>4.3</code> or earlier and <code>enablePositionIncrements="false"</code>, no position holes will be left by this filter when it removes tokens. <strong>This argument is invalid if <code>luceneMatchVersion</code> is <code>5.0</code> or later.</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.TypeTokenFilterFactory&quot;</span> <span style="color: #7D9029">types=</span><span style="color: #BA2121">&quot;stoptypes.txt&quot;</span> <span style="color: #7D9029">useWhitelist=</span><span style="color: #BA2121">&quot;true&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-WordDelimiterFilter">Word Delimiter Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter splits tokens at word delimiters.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Word Delimiter Filter has been deprecated</div>
+<div class="paragraph">
+<p>Word Delimiter Filter has been deprecated in favor of Word Delimiter Graph Filter, which is required to produce a correct token graph so that e.g. phrase queries can work correctly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.WordDelimiterFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p>For a full description, including arguments and examples, see the Word Delimiter Graph Filter below.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="FilterDescriptions-WordDelimiterGraphFilter">Word Delimiter Graph Filter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This filter splits tokens at word delimiters.</p>
+</div>
+<div class="paragraph">
+<p>If you use this filter during indexing, you must follow it with a Flatten Graph Filter to squash tokens on top of one another like the Word Delimiter Filter, because the indexer can&#8217;t directly consume a graph. To get fully correct positional queries when tokens are split, you should instead use this filter at query time.</p>
+</div>
+<div class="paragraph">
+<p>Note: although this filter produces correct token graphs, it cannot consume an input token graph correctly.</p>
+</div>
+<div class="paragraph">
+<p>The rules for determining delimiters are determined as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A change in case within a word: "CamelCase" <strong>&#8594;</strong> "Camel", "Case". This can be disabled by setting <code>splitOnCaseChange="0"</code>.</p>
+</li>
+<li>
+<p>A transition from alpha to numeric characters or vice versa: "Gonzo5000" <strong>&#8594;</strong> "Gonzo", "5000" "4500XL" <strong>&#8594;</strong> "4500", "XL". This can be disabled by setting <code>splitOnNumerics="0"</code>.</p>
+</li>
+<li>
+<p>Non-alphanumeric characters (discarded): "hot-spot" <strong>&#8594;</strong> "hot", "spot"</p>
+</li>
+<li>
+<p>A trailing "'s" is removed: "O&#8217;Reilly&#8217;s" <strong>&#8594;</strong> "O", "Reilly"</p>
+</li>
+<li>
+<p>Any leading or trailing delimiters are discarded: "--hot-spot--" <strong>&#8594;</strong> "hot", "spot"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Factory class:</strong> <code>solr.WordDelimiterGraphFilterFactory</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Arguments:</strong></p>
+</div>
+<div class="paragraph">
+<p><code>generateWordParts</code>: (integer, default 1) If non-zero, splits words at delimiters. For example:"CamelCase", "hot-spot" <strong>&#8594;</strong> "Camel", "Case", "hot", "spot"</p>
+</div>
+<div class="paragraph">
+<p><code>generateNumberParts</code>: (integer, default 1) If non-zero, splits numeric strings at delimiters:"1947-32" <strong>&#8594;</strong>"1947", "32"</p>
+</div>
+<div class="paragraph">
+<p><code>splitOnCaseChange</code>: (integer, default 1) If 0, words are not split on camel-case changes:"BugBlaster-XL" <strong>&#8594;</strong> "BugBlaster", "XL". Example 1 below illustrates the default (non-zero) splitting behavior.</p>
+</div>
+<div class="paragraph">
+<p><code>splitOnNumerics</code>: (integer, default 1) If 0, don&#8217;t split words on transitions from alpha to numeric:"FemBot3000" <strong>&#8594;</strong> "Fem", "Bot3000"</p>
+</div>
+<div class="paragraph">
+<p><code>catenateWords</code>: (integer, default 0) If non-zero, maximal runs of word parts will be joined: "hot-spot-sensor&#8217;s" <strong>&#8594;</strong> "hotspotsensor"</p>
+</div>
+<div class="paragraph">
+<p><code>catenateNumbers</code>: (integer, default 0) If non-zero, maximal runs of number parts will be joined: 1947-32" <strong>&#8594;</strong> "194732"</p>
+</div>
+<div class="paragraph">
+<p><code>catenateAll</code>: (0/1, default 0) If non-zero, runs of word and number parts will be joined: "Zap-Master-9000" <strong>&#8594;</strong> "ZapMaster9000"</p>
+</div>
+<div class="paragraph">
+<p><code>preserveOriginal</code>: (integer, default 0) If non-zero, the original token is preserved: "Zap-Master-9000" <strong>&#8594;</strong> "Zap-Master-9000", "Zap", "Master", "9000"</p>
+</div>
+<div class="paragraph">
+<p><code>protected</code>: (optional) The pathname of a file that contains a list of protected words that should be passed through without splitting.</p>
+</div>
+<div class="paragraph">
+<p><code>stemEnglishPossessive</code>: (integer, default 1) If 1, strips the possessive "'s" from each subword.</p>
+</div>
+<div class="paragraph">
+<p><code>types</code>: (optional) The pathname of a file that contains <strong>character &#8658; type</strong> mappings, which enable customization of this filter&#8217;s splitting behavior. Recognized character types: <code>LOWER</code>, <code>UPPER</code>, <code>ALPHA</code>, <code>DIGIT</code>, <code>ALPHANUM</code>, and <code>SUBWORD_DELIM</code>. The default for any character without a customized mapping is computed from Unicode character properties. Blank lines and comment lines starting with '#' are ignored. An example file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="text"># Don&#39;t split numbers at &#39;$&#39;, &#39;.&#39; or &#39;,&#39;
+$ =&gt; DIGIT
+. =&gt; DIGIT
+\u002C =&gt; DIGIT
+
+# Don&#39;t split on ZWJ: http://en.wikipedia.org/wiki/Zero-width_joiner
+\u200D =&gt; ALPHANUM</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Default behavior. The whitespace tokenizer is used here to preserve non-alphanumeric characters.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;index&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WordDelimiterGraphFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.FlattenGraphFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span> <span style="color: #408080; font-style: italic">&lt;!-- required on index analyzers after graph filters --&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span>
+
+<span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WordDelimiterGraphFilterFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "hot-spot RoboBlaster/9000 100XL"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "hot-spot", "RoboBlaster/9000", "100XL"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "hot", "spot", "Robo", "Blaster", "9000", "100", "XL"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Do not split on case changes, and do not generate number parts. Note that by not generating number parts, tokens containing only numeric parts are ultimately discarded.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WordDelimiterGraphFilterFactory&quot;</span> <span style="color: #7D9029">generateNumberParts=</span><span style="color: #BA2121">&quot;0&quot;</span> <span style="color: #7D9029">splitOnCaseChange=</span><span style="color: #BA2121">&quot;0&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "hot-spot RoboBlaster/9000 100-42"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "hot-spot", "RoboBlaster/9000", "100-42"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "hot", "spot", "RoboBlaster", "9000"</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Concatenate word parts and number parts, but not word and number parts that occur in the same token.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WordDelimiterGraphFilterFactory&quot;</span> <span style="color: #7D9029">catenateWords=</span><span style="color: #BA2121">&quot;1&quot;</span> <span style="color: #7D9029">catenateNumbers=</span><span style="color: #BA2121">&quot;1&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "hot-spot 100+42 XL40"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "hot-spot"(1), "100+42"(2), "XL40"(3)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "hot"(1), "spot"(2), "hotspot"(2), "100"(3), "42"(4), "10042"(4), "XL"(5), "40"(6)</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Concatenate all. Word and/or number parts are joined together.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WordDelimiterGraphFilterFactory&quot;</span> <span style="color: #7D9029">catenateAll=</span><span style="color: #BA2121">&quot;1&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "XL-4000/ES"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "XL-4000/ES"(1)</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "XL"(1), "4000"(2), "ES"(3), "XL4000ES"(3)</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="paragraph">
+<p>Using a protected words list that contains "AstroBlaster" and "XL-5000" (among others).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;analyzer</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;query&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;tokenizer</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WhitespaceTokenizerFactory&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;filter</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.WordDelimiterGraphFilterFactory&quot;</span> <span style="color: #7D9029">protected=</span><span style="color: #BA2121">&quot;protwords.txt&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/analyzer&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>In:</strong> "FooBar AstroBlaster XL-5000 ==ES-34-"</p>
+</div>
+<div class="paragraph">
+<p><strong>Tokenizer to Filter:</strong> "FooBar", "AstroBlaster", "XL-5000", "==ES-34-"</p>
+</div>
+<div class="paragraph">
+<p><strong>Out:</strong> "FooBar", "FooBar", "AstroBlaster", "XL-5000", "ES", "34"</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="tokenizers.html">Tokenizers</a>
+      
+      
+      <a class="btn btn-primary next" href="charfilterfactories.html">CharFilterFactories</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=filter-descriptions" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=filter-descriptions"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

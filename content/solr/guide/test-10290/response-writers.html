@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Response Writers | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Response Writers">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='response-writers.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='response-writers.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='response-writers.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Response Writers</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>A Response Writer generates the formatted response of a search. Solr supports a variety of Response Writers to ensure that query responses can be parsed by the appropriate language or application.</p>
+</div>
+<div class="paragraph">
+<p>The <code>wt</code> parameter selects the Response Writer to be used. The table below lists the most common settings for the <code>wt</code> parameter.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><code>wt</code> Parameter Setting</th>
+<th class="tableblock halign-left valign-top">Response Writer Selected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-CSVResponseWriter">CSVResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">geojson</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-GeoJSONResponseWriter">GeoJSONResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">javabin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-BinaryResponseWriter">BinaryResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">json</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-JSONResponseWriter">JSONResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">php</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter">PHPResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">phps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter">PHPSerializedResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">python</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-PythonResponseWriter">PythonResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ruby</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-RubyResponseWriter">RubyResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">smile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-SmileResponseWriter">SmileResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">velocity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-VelocityResponseWriter">VelocityResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">xlsx</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-XLSXResponseWriter">XLSXResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">xml</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-TheStandardXMLResponseWriter">XMLResponseWriter</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">xslt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResponseWriters-TheXSLTResponseWriter">XSLTResponseWriter</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-TheStandardXMLResponseWriter">The Standard XML Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The XML Response Writer is the most general purpose and reusable Response Writer currently included with Solr. It is the format used in most discussions and documentation about the response of Solr queries.</p>
+</div>
+<div class="paragraph">
+<p>Note that the XSLT Response Writer can be used to convert the XML produced by this writer to other vocabularies or text-based formats.</p>
+</div>
+<div class="paragraph">
+<p>The behavior of the XML Response Writer can be driven by the following query parameters.</p>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-TheversionParameter">The <code>version</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>version</code> parameter determines the XML protocol used in the response. Clients are strongly encouraged to <em>always</em> specify the protocol version, so as to ensure that the format of the response they receive does not change unexpectedly if the Solr server is upgraded and a new default format is introduced.</p>
+</div>
+<div class="paragraph">
+<p>Currently supported version values are:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">XML Version</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The format of the responseHeader changed to use the same <code>&lt;lst&gt;</code> structure as the rest of the response.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The default value is the latest supported.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-ThestylesheetParameter">The <code>stylesheet</code> Parameter</h3>
+<div class="paragraph">
+<p>The <code>stylesheet</code> parameter can be used to direct Solr to include a <code>&lt;?xml-stylesheet type="text/xsl" href="&#8230;&#8203;"?&gt;</code> declaration in the XML response it returns.</p>
+</div>
+<div class="paragraph">
+<p>The default behavior is not to return any stylesheet declaration at all.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Use of the <code>stylesheet</code> parameter is discouraged, as there is currently no way to specify external stylesheets, and no stylesheets are provided in the Solr distributions. This is a legacy parameter, which may be developed further in a future release.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-TheindentParameter">The <code>indent</code> Parameter</h3>
+<div class="paragraph">
+<p>If the <code>indent</code> parameter is used, and has a non-blank value, then Solr will make some attempts at indenting its XML response to make it more readable by humans.</p>
+</div>
+<div class="paragraph">
+<p>The default behavior is not to indent.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-TheXSLTResponseWriter">The XSLT Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The XSLT Response Writer applies an XML stylesheet to output. It can be used for tasks such as formatting results for an RSS feed.</p>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-trParameter"><code>tr</code> Parameter</h3>
+<div class="paragraph">
+<p>The XSLT Response Writer accepts one parameter: the <code>tr</code> parameter, which identifies the XML transformation to use. The transformation must be found in the Solr <code>conf/xslt</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>The Content-Type of the response is set according to the <code>&lt;xsl:output&gt;</code> statement in the XSLT transform, for example: <code>&lt;xsl:output media-type="text/html"/&gt;</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-Configuration">Configuration</h3>
+<div class="paragraph">
+<p>The example below, from the <code>sample_techproducts_configs</code> <a href="#response-writers">config set</a> in the Solr distribution, shows how the XSLT Response Writer is configured.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #408080; font-style: italic">&lt;!--</span>
+<span style="color: #408080; font-style: italic">  Changes to XSLT transforms are taken into account</span>
+<span style="color: #408080; font-style: italic">  every xsltCacheLifetimeSeconds at most.</span>
+<span style="color: #408080; font-style: italic">--&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;queryResponseWriter</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;xslt&quot;</span>
+                     <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;org.apache.solr.request.XSLTResponseWriter&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;xsltCacheLifetimeSeconds&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>5<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/queryResponseWriter&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A value of 5 for <code>xsltCacheLifetimeSeconds</code> is good for development, to see XSLT changes quickly. For production you probably want a much higher value.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-JSONResponseWriter">JSON Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A very commonly used Response Writer is the <code>JsonResponseWriter</code>, which formats output in JavaScript Object Notation (JSON), a lightweight data interchange format specified in specified in RFC 4627. Setting the <code>wt</code> parameter to <code>json</code> invokes this Response Writer.</p>
+</div>
+<div class="paragraph">
+<p>Here is a sample response for a simple query like <code>q=id:VS1GB400C3&amp;wt=json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml">{
+  &quot;responseHeader&quot;:{
+    &quot;zkConnected&quot;:true,
+    &quot;status&quot;:0,
+    &quot;QTime&quot;:7,
+    &quot;params&quot;:{
+      &quot;q&quot;:&quot;id:VS1GB400C3&quot;,
+      &quot;indent&quot;:&quot;on&quot;,
+      &quot;wt&quot;:&quot;json&quot;}},
+  &quot;response&quot;:{&quot;numFound&quot;:1,&quot;start&quot;:0,&quot;maxScore&quot;:2.3025851,&quot;docs&quot;:[
+      {
+        &quot;id&quot;:&quot;VS1GB400C3&quot;,
+        &quot;name&quot;:[&quot;CORSAIR ValueSelect 1GB 184-Pin DDR SDRAM Unbuffered DDR 400 (PC 3200) System Memory - Retail&quot;],
+        &quot;manu&quot;:[&quot;Corsair Microsystems Inc.&quot;],
+        &quot;manu_id_s&quot;:&quot;corsair&quot;,
+        &quot;cat&quot;:[&quot;electronics&quot;,
+          &quot;memory&quot;],
+        &quot;price&quot;:[74.99],
+        &quot;popularity&quot;:[7],
+        &quot;inStock&quot;:[true],
+        &quot;store&quot;:[&quot;37.7752,-100.0232&quot;],
+        &quot;manufacturedate_dt&quot;:&quot;2006-02-13T15:26:37Z&quot;,
+        &quot;payloads&quot;:[&quot;electronics|4.0 memory|2.0&quot;],
+        &quot;_version_&quot;:1549728120626479104}]
+  }}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default mime type for the JSON writer is <code>application/json</code>, however this can be overridden in the <code>solrconfig.xml</code> - such as in this example from the &#8220;<code>techproducts</code>&#8221; configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;queryResponseWriter</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;json&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.JSONResponseWriter&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #408080; font-style: italic">&lt;!-- For the purposes of the tutorial, JSON response are written as</span>
+<span style="color: #408080; font-style: italic">       plain text so that it&#39;s easy to read in *any* browser.</span>
+<span style="color: #408080; font-style: italic">       If you are building applications that consume JSON, just remove</span>
+<span style="color: #408080; font-style: italic">       this override to get the default &quot;application/json&quot; mime type.</span>
+<span style="color: #408080; font-style: italic">    --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;content-type&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>text/plain<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/queryResponseWriter&gt;</span></code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-JSON-SpecificParameters">JSON-Specific Parameters</h3>
+<div class="sect3">
+<h4 id="ResponseWriters-json.nl">json.nl</h4>
+<div class="paragraph">
+<p>This parameter controls the output format of NamedLists, where order is more important than access by name. NamedList is currently used for field faceting data.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">json.nl Parameter setting</th>
+<th class="tableblock halign-left valign-top">Example output forNamedList("a"=1, "bar"="foo", null=3, null=null)</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">flat <em>(the default)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">["a",1, "bar","foo", null,3, null,null]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NamedList is represented as a flat array, alternating names and values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">map</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\{"a":1, "bar":"foo", "":3, "":null}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NamedList is represented as a JSON object. Although this is the simplest mapping, a NamedList can have optional keys, repeated keys, and preserves order. Using a JSON object (essentially a map or hash) for a NamedList results in the loss of some information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arrarr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[["a",1], ["bar","foo"], [null,3], [null,null]]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NamedList is represented as an array of two element arrays.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arrmap</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[\{"a":1}, \{"b":2}, 3, null]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NamedList is represented as an array of JSON objects.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arrntv</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[\{"name":"a","type":"int","value":1}, \{"name":"bar","type":"str","value":"foo"}, \{"name":null,"type":"int","value":3}, \{"name":null,"type":"null","value":null}]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NamedList is represented as an array of Name Type Value JSON objects.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="ResponseWriters-json.wrf">json.wrf</h4>
+<div class="paragraph">
+<p><code>json.wrf=function</code> adds a wrapper-function around the JSON response, useful in AJAX with dynamic script tags for specifying a JavaScript callback function.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://www.xml.com/pub/a/2005/12/21/json-dynamic-script-tag.html" class="bare">http://www.xml.com/pub/a/2005/12/21/json-dynamic-script-tag.html</a></p>
+</li>
+<li>
+<p><a href="http://www.theurer.cc/blog/2005/12/15/web-services-json-dump-your-proxy/" class="bare">http://www.theurer.cc/blog/2005/12/15/web-services-json-dump-your-proxy/</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-BinaryResponseWriter">Binary Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a custom binary format used by Solr for inter-node communication as well as client-server communication. SolrJ uses this as the default for indexing as well as querying. See <a href="client-apis.html#client-apis">Client APIs</a> for more details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-GeoJSONResponseWriter">GeoJSON Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Returns Solr results in <a href="http://geojson.org">GeoJSON</a> augmented with Solr-specific JSON. To use this, set <code>wt=geojson</code> and <code>geojson.field</code> to the name of a spatial Solr field. Not all spatial fields types are supported, and you&#8217;ll get an error if you use an unsupported one.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-PythonResponseWriter">Python Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Solr has an optional Python response format that extends its JSON output in the following ways to allow the response to be safely evaluated by the python interpreter:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>true and false changed to True and False</p>
+</li>
+<li>
+<p>Python unicode strings are used where needed</p>
+</li>
+<li>
+<p>ASCII output (with unicode escapes) is used for less error-prone interoperability</p>
+</li>
+<li>
+<p>newlines are escaped</p>
+</li>
+<li>
+<p>null changed to None</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-PHPResponseWriterandPHPSerializedResponseWriter">PHP Response Writer and PHP Serialized Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Solr has a PHP response format that outputs an array (as PHP code) which can be evaluated. Setting the <code>wt</code> parameter to <code>php</code> invokes the PHP Response Writer.</p>
+</div>
+<div class="paragraph">
+<p>Example usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">$code <span style="color: #666666">=</span> file_get_contents<span style="color: #666666">(</span><span style="border: 1px solid #FF0000">&#39;</span>http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/techproducts/select?q=iPod&amp;wt=php&#39;);</span>
+eval<span style="color: #666666">(</span><span style="color: #BA2121">&quot;$result = &quot;</span> <span style="color: #666666">.</span> $code <span style="color: #666666">.</span> <span style="color: #BA2121">&quot;;&quot;</span><span style="color: #666666">);</span>
+print_r<span style="color: #666666">(</span>$result<span style="color: #666666">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Solr also includes a PHP Serialized Response Writer that formats output in a serialized array. Setting the <code>wt</code> parameter to <code>phps</code> invokes the PHP Serialized Response Writer.</p>
+</div>
+<div class="paragraph">
+<p>Example usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">$serializedResult <span style="color: #666666">=</span> file_get_contents<span style="color: #666666">(</span><span style="border: 1px solid #FF0000">&#39;</span>http<span style="color: #666666">:</span><span style="color: #408080; font-style: italic">//localhost:8983/solr/techproducts/select?q=iPod&amp;wt=phps&#39;);</span>
+$result <span style="color: #666666">=</span> unserialize<span style="color: #666666">(</span>$serializedResult<span style="color: #666666">);</span>
+print_r<span style="color: #666666">(</span>$result<span style="color: #666666">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-RubyResponseWriter">Ruby Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Solr has an optional Ruby response format that extends its JSON output in the following ways to allow the response to be safely evaluated by Ruby&#8217;s interpreter:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ruby&#8217;s single quoted strings are used to prevent possible string exploits.</p>
+</li>
+<li>
+<p>\ and ' are the only two characters escaped.</p>
+</li>
+<li>
+<p>Unicode escapes are not used. Data is written as raw UTF-8.</p>
+</li>
+<li>
+<p>nil used for null.</p>
+</li>
+<li>
+<p>&#8658; is used as the key/value separator in maps.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is a simple example of how one may query Solr using the Ruby response format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">require <span style="border: 1px solid #FF0000">&#39;</span>net<span style="color: #666666">/</span>http<span style="border: 1px solid #FF0000">&#39;</span>
+h <span style="color: #666666">=</span> Net<span style="color: #666666">::</span>HTTP<span style="color: #666666">.</span><span style="color: #7D9029">new</span><span style="color: #666666">(</span><span style="border: 1px solid #FF0000">&#39;</span>localhost<span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">,</span> <span style="color: #666666">8983)</span>
+hresp<span style="color: #666666">,</span> data <span style="color: #666666">=</span> h<span style="color: #666666">.</span><span style="color: #7D9029">get</span><span style="color: #666666">(</span><span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">/</span>solr<span style="color: #666666">/</span>techproducts<span style="color: #666666">/</span>select<span style="color: #666666">?</span>q<span style="color: #666666">=</span>iPod<span style="color: #666666">&amp;</span>wt<span style="color: #666666">=</span>ruby<span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">,</span> nil<span style="color: #666666">)</span>
+rsp <span style="color: #666666">=</span> eval<span style="color: #666666">(</span>data<span style="color: #666666">)</span>
+puts <span style="border: 1px solid #FF0000">&#39;</span>number of matches <span style="color: #666666">=</span> <span style="border: 1px solid #FF0000">&#39;</span> <span style="color: #666666">+</span> rsp<span style="color: #666666">[</span><span style="border: 1px solid #FF0000">&#39;</span>response<span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">][</span><span style="border: 1px solid #FF0000">&#39;</span>numFound<span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">].</span><span style="color: #7D9029">to_s</span>
+<span style="border: 1px solid #FF0000">#</span>print out the name field <span style="color: #008000; font-weight: bold">for</span> each returned document
+rsp<span style="color: #666666">[</span><span style="border: 1px solid #FF0000">&#39;</span>response<span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">][</span><span style="border: 1px solid #FF0000">&#39;</span>docs<span style="border: 1px solid #FF0000">&#39;</span><span style="color: #666666">].</span><span style="color: #7D9029">each</span> <span style="color: #666666">{</span> <span style="color: #666666">|</span>doc<span style="color: #666666">|</span> puts <span style="border: 1px solid #FF0000">&#39;</span>name field <span style="color: #666666">=</span> <span style="border: 1px solid #FF0000">&#39;</span> <span style="color: #666666">+</span> doc<span style="color: #666666">[</span><span style="border: 1px solid #FF0000">&#39;</span>name<span style="border: 1px solid #FF0000">&#39;\</span><span style="color: #666666">]</span> <span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-CSVResponseWriter">CSV Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The CSV response writer returns a list of documents in comma-separated values (CSV) format. Other information that would normally be included in a response, such as facet information, is excluded.</p>
+</div>
+<div class="paragraph">
+<p>The CSV response writer supports multi-valued fields, as well as<a href="transforming-result-documents.html#transforming-result-documents">psuedo-fields</a>, and the output of this CSV format is compatible with Solr&#8217;s <a href="https://wiki.apache.org/solr/UpdateCSV">CSV update format</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-CSVParameters">CSV Parameters</h3>
+<div class="paragraph">
+<p>These parameters specify the CSV format that will be returned. You can accept the default values or specify your own.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.encapsulator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.escape</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.separator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">,</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.header</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defaults to true. If false, Solr does not print the column headers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.newline</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\n</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defaults to a zero length string. Use this parameter when a document has no value for a particular field.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-Multi-ValuedFieldCSVParameters">Multi-Valued Field CSV Parameters</h3>
+<div class="paragraph">
+<p>These parameters specify how multi-valued fields are encoded. Per-field overrides for these values can be done using <code>f.&lt;fieldname&gt;.csv.separator=|</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.mv.encapsulator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">None</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.mv.escape</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">csv.mv.separator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defaults to the <code>csv.separator</code> value</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="ResponseWriters-Example">Example</h3>
+<div class="paragraph">
+<p><code><a href="http://localhost:8983/solr/techproducts/select?q=ipod&amp;fl=id,cat,name,popularity,price,score&amp;wt=csv" class="bare">http://localhost:8983/solr/techproducts/select?q=ipod&amp;fl=id,cat,name,popularity,price,score&amp;wt=csv</a></code> returns:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">id<span style="color: #666666">,</span>cat<span style="color: #666666">,</span>name<span style="color: #666666">,</span>popularity<span style="color: #666666">,</span>price<span style="color: #666666">,</span>score
+IW<span style="color: #666666">-02,</span><span style="color: #BA2121">&quot;electronics,connector&quot;</span><span style="color: #666666">,</span>iPod <span style="color: #666666">&amp;</span> iPod Mini USB <span style="color: #666666">2.0</span> Cable<span style="color: #666666">,1,11.5,0.98867977</span>
+F8V7067<span style="color: #666666">-</span>APL<span style="color: #666666">-</span>KIT<span style="color: #666666">,</span><span style="color: #BA2121">&quot;electronics,connector&quot;</span><span style="color: #666666">,</span>Belkin Mobile Power Cord <span style="color: #008000; font-weight: bold">for</span> iPod w<span style="color: #666666">/</span> Dock<span style="color: #666666">,1,19.95,0.6523595</span>
+MA147LL<span style="color: #666666">/</span>A<span style="color: #666666">,</span><span style="color: #BA2121">&quot;electronics,music&quot;</span><span style="color: #666666">,</span>Apple <span style="color: #666666">60</span> GB iPod with Video Playback Black<span style="color: #666666">,10,399.0,0.2446348</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-VelocityResponseWriter">Velocity Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>VelocityResponseWriter</code> processes the Solr response and request context through Apache Velocity templating.</p>
+</div>
+<div class="paragraph">
+<p>See <a href="velocity-response-writer.html#velocity-response-writer">Velocity Response Writer</a> section for details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-SmileResponseWriter">Smile Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Smile format is a JSON-compatible binary format, described in detail here: <a href="http://wiki.fasterxml.com/SmileFormat" class="bare">http://wiki.fasterxml.com/SmileFormat</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResponseWriters-XLSXResponseWriter">XLSX Response Writer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use this to get the response as a spreadsheet in the .xlsx (Microsoft Excel) format. It accepts parameters in the form <code>colwidth.&lt;field-name&gt;</code> and <code>colname.&lt;field-name&gt;</code> which helps you customize the column widths and column names.</p>
+</div>
+<div class="paragraph">
+<p>This response writer has been added as part of the extraction library, and will only work if the extraction contrib is present in the server classpath. Defining the classpath with the <code>lib</code> directive is not sufficient. Instead, you will need to copy the necessary .jars to the Solr webapp&#8217;s <code>lib</code> directory manually. You can run these commands from your <code>$SOLR_INSTALL</code> directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">cp contrib<span style="color: #666666">/</span>extraction<span style="color: #666666">/</span>lib<span style="color: #666666">/*.</span><span style="color: #7D9029">jar</span> server<span style="color: #666666">/</span>solr<span style="color: #666666">-</span>webapp<span style="color: #666666">/</span>webapp<span style="color: #666666">/</span>WEB<span style="color: #666666">-</span>INF<span style="color: #666666">/</span>lib<span style="color: #666666">/</span>
+cp dist<span style="color: #666666">/</span>solr<span style="color: #666666">-</span>cell<span style="color: #666666">-6.3.0.</span><span style="color: #7D9029">jar</span> server<span style="color: #666666">/</span>solr<span style="color: #666666">-</span>webapp<span style="color: #666666">/</span>webapp<span style="color: #666666">/</span>WEB<span style="color: #666666">-</span>INF<span style="color: #666666">/</span>lib<span style="color: #666666">/</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the libraries are in place, you can add <code>wt=xlsx</code> to your request, and results will be returned as an XLSX sheet.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="the-query-elevation-component.html">The Query Elevation Component</a>
+      
+      
+      <a class="btn btn-primary next" href="velocity-response-writer.html">Velocity Response Writer</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=response-writers" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=response-writers"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

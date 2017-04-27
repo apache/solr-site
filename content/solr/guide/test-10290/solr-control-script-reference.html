@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Solr Control Script Reference | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Solr Control Script Reference">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='solr-control-script-reference.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='solr-control-script-reference.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='solr-control-script-reference.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Solr Control Script Reference</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Solr includes a script known as &#8220;bin/solr&#8221; that allows you to start and stop Solr, create and delete collections or cores, perform operations on ZooKeeper and check the status of Solr and configured shards. You can find the script in the <code>bin/</code> directory of your Solr installation. The <code>bin/solr</code> script makes Solr easier to work with by providing simple commands and options to quickly accomplish common goals.</p>
+</div>
+<div class="paragraph">
+<p>The headings below correspond to available commands. For each command, the available options are described with examples.</p>
+</div>
+<div class="paragraph">
+<p>More examples of bin/solr in use are available throughout the Solr Reference Guide, but particularly in the sections <a href="running-solr.html#running-solr">Running Solr</a> and <a href="getting-started-with-solrcloud.html#getting-started-with-solrcloud">Getting Started with SolrCloud</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SolrControlScriptReference-StartingandStopping">Starting and Stopping</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="SolrControlScriptReference-StartandRestart">Start and Restart</h3>
+<div class="paragraph">
+<p>The start command starts Solr. The restart command allows you to restart Solr while it is already running or if it has been stopped already.</p>
+</div>
+<div class="paragraph">
+<p>The start and restart commands have several options to allow you to run in SolrCloud mode, use an example configuration set, start with a hostname or port that is not the default and point to a local ZooKeeper ensemble.</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr start [options]</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr start -help</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr restart [options]</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr restart -help</code></p>
+</div>
+<div class="paragraph">
+<p>When using the restart command, you must pass all of the parameters you initially passed when you started Solr. Behind the scenes, a stop request is initiated, so Solr will be stopped before being started again. If no nodes are already running, restart will skip the step to stop and proceed to starting Solr.</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters">Available Parameters</h4>
+<div class="paragraph">
+<p>The bin/solr script provides many options to allow you to customize the server in common ways, such as changing the listening port. However, most of the defaults are adequate for most Solr installations, especially when just getting started.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-a "&lt;string&gt;"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Solr with additional JVM parameters, such as those starting with -X. If you are passing JVM parameters that begin with "-D", you can omit the -a option.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -a "-Xdebug -Xrunjdwp:transport=dt_socket, server=y,suspend=n,address=1044"</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-cloud</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Start Solr in SolrCloud mode, which will also launch the embedded ZooKeeper instance included with Solr.</p>
+</div>
+<div class="paragraph">
+<p>This option can be shortened to simply <code>-c</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you are already running a ZooKeeper ensemble that you want to use instead of the embedded (single-node) ZooKeeper, you should also pass the -z parameter.</p>
+</div>
+<div class="paragraph">
+<p>For more details, see the section <a href="#SolrControlScriptReference-SolrCloudMode">SolrCloud Mode</a> below.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -c</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-d &lt;dir&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Define a server directory, defaults to <code>server</code> (as in, <code>$SOLR_HOME/server</code>). It is uncommon to override this option. When running multiple instances of Solr on the same host, it is more common to use the same server directory for each instance and use a unique Solr home directory using the -s option.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -d newServerDir</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-e &lt;name&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Start Solr with an example configuration. These examples are provided to help you get started faster with Solr generally, or just try a specific feature.</p>
+</div>
+<div class="paragraph">
+<p>The available options are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>cloud</p>
+</li>
+<li>
+<p>techproducts</p>
+</li>
+<li>
+<p>dih</p>
+</li>
+<li>
+<p>schemaless</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See the section <a href="#SolrControlScriptReference-RunningwithExampleConfigurations">Running with Example Configurations</a> below for more details on the example configurations.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -e schemaless</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Solr in the foreground; you cannot use this option when running examples with the -e option.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -f</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-h &lt;hostname&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Solr with the defined hostname. If this is not specified, 'localhost' will be assumed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -h search.mysolr.com</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-m &lt;memory&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Solr with the defined value as the min (-Xms) and max (-Xmx) heap size for the JVM.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -m 1g</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-noprompt</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Start Solr and suppress any prompts that may be seen with another option. This would have the side effect of accepting all defaults implicitly.</p>
+</div>
+<div class="paragraph">
+<p>For example, when using the "cloud" example, an interactive session guides you through several options for your SolrCloud cluster. If you want to accept all of the defaults, you can simply add the -noprompt option to your request.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -e cloud -noprompt</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-p &lt;port&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Solr on the defined port. If this is not specified, '8983' will be used.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -p 8655</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-s &lt;dir&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Sets the solr.solr.home system property; Solr will create core directories under this directory. This allows you to run multiple Solr instances on the same host while reusing the same server directory set using the -d parameter. If set, the specified directory should contain a solr.xml file, unless solr.xml exists in ZooKeeper. The default value is <code>server/solr</code>.</p>
+</div>
+<div class="paragraph">
+<p>This parameter is ignored when running examples (-e), as the solr.solr.home depends on which example is run.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -s newHome</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-v</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Be more verbose. This changes the logging level of log4j from <code>INFO</code> to <code>DEBUG</code>., having the same effect as if you edited <code>log4j.properties</code> accordingly.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -f -v</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-q</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Be more quiet. This changes the logging level of log4j from <code>INFO</code> to <code>WARN</code>, having the same effect as if you edited <code>log4j.properties</code> accordingly. This can be useful in a production setting where you want to limit logging to warnings and errors.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -f -q</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-V</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Solr with verbose messages from the start script.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -V</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkHost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start Solr with the defined ZooKeeper connection string. This option is only used with the -c option, to start Solr in SolrCloud mode. If this option is not provided, Solr will start the embedded ZooKeeper instance and use that instance for SolrCloud operations.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr start -c -z server1:2181,server2:2181</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-force</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If attempting to start Solr as the root user, the script will exit with a warning that running Solr as "root" can cause problems. It is possible to override this warning with the -force parameter.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sudo bin/solr start -force</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>To emphasize how the default settings work take a moment to understand that the following commands are equivalent:</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr start</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr start -h localhost -p 8983 -d server -s solr -m 512m</code></p>
+</div>
+<div class="paragraph">
+<p>It is not necessary to define all of the options when starting if the defaults are fine for your needs.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-SettingJavaSystemProperties">Setting Java System Properties</h4>
+<div class="paragraph">
+<p>The bin/solr script will pass any additional parameters that begin with -D to the JVM, which allows you to set arbitrary Java system properties. For example, to set the auto soft-commit frequency to 3 seconds, you can do:</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr start -Dsolr.autoSoftCommit.maxTime=3000</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-SolrCloudMode">SolrCloud Mode</h4>
+<div class="paragraph">
+<p>The -c and -cloud options are equivalent:</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr start -c</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr start -cloud</code></p>
+</div>
+<div class="paragraph">
+<p>If you specify a ZooKeeper connection string, such as <code>-z 192.168.1.4:2181</code>, then Solr will connect to ZooKeeper and join the cluster. If you do not specify the -z option when starting Solr in cloud mode, then Solr will launch an embedded ZooKeeper server listening on the Solr port + 1000, i.e., if Solr is running on port 8983, then the embedded ZooKeeper will be listening on port 9983.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If your ZooKeeper connection string uses a chroot, such as <code>localhost:2181/solr</code>, then you need to create the /solr znode before launching SolrCloud using the bin/solr script. To do this use the "mkroot" command outlined below, for example: <code>bin/solr zk mkroot /solr -z 192.168.1.4:2181</code>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When starting in SolrCloud mode, the interactive script session will prompt you to choose a configset to use.</p>
+</div>
+<div class="paragraph">
+<p>For more information about starting Solr in SolrCloud mode, see also the section <a href="getting-started-with-solrcloud.html#getting-started-with-solrcloud">Getting Started with SolrCloud</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-RunningwithExampleConfigurations">Running with Example Configurations</h4>
+<div class="paragraph">
+<p><code>bin/solr start -e &lt;name&gt;</code></p>
+</div>
+<div class="paragraph">
+<p>The example configurations allow you to get started quickly with a configuration that mirrors what you hope to accomplish with Solr.</p>
+</div>
+<div class="paragraph">
+<p>Each example launches Solr in with a managed schema, which allows use of the <a href="schema-api.html#schema-api">Schema API</a> to make schema edits, but does not allow manual editing of a Schema file If you would prefer to manually modify a <code>schema.xml</code> file directly, you can change this default as described in the section <a href="schema-factory-definition-in-solrconfig.html#schema-factory-definition-in-solrconfig">Schema Factory Definition in SolrConfig</a>.</p>
+</div>
+<div class="paragraph">
+<p>Unless otherwise noted in the descriptions below, the examples do not enable <a href="solrcloud.html#solrcloud">SolrCloud</a> nor <a href="schemaless-mode.html#schemaless-mode">schemaless mode</a>.</p>
+</div>
+<div class="paragraph">
+<p>The following examples are provided:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>cloud</strong>: This example starts a 1-4 node SolrCloud cluster on a single machine. When chosen, an interactive session will start to guide you through options to select the initial configset to use, the number of nodes for your example cluster, the ports to use, and name of the collection to be created. When using this example, you can choose from any of the available configsets found in <code>$SOLR_HOME/server/solr/configsets</code>.</p>
+</li>
+<li>
+<p><strong>techproducts</strong>: This example starts Solr in standalone mode with a schema designed for the sample documents included in the <code>$SOLR_HOME/example/exampledocs</code> directory. The configset used can be found in <code>$SOLR_HOME/server/solr/configsets/sample_techproducts_configs</code>.</p>
+</li>
+<li>
+<p><strong>dih</strong>: This example starts Solr in standalone mode with the DataImportHandler (DIH) enabled and several example <code>dataconfig.xml</code> files pre-configured for different types of data supported with DIH (such as, database contents, email, RSS feeds, etc.). The configset used is customized for DIH, and is found in <code>$SOLR_HOME/example/example-DIH/solr/conf</code>. For more information about DIH, see the section <a href="uploading-structured-data-store-data-with-the-data-import-handler.html#uploading-structured-data-store-data-with-the-data-import-handler">Uploading Structured Data Store Data with the Data Import Handler</a>.</p>
+</li>
+<li>
+<p><strong>schemaless</strong>: This example starts Solr in standalone mode using a managed schema, as described in the section <a href="schema-factory-definition-in-solrconfig.html#schema-factory-definition-in-solrconfig">Schema Factory Definition in SolrConfig</a>, and provides a very minimal pre-defined schema. Solr will run in <a href="schemaless-mode.html#schemaless-mode">Schemaless Mode</a> with this configuration, where Solr will create fields in the schema on the fly and will guess field types used in incoming documents. The configset used can be found in <code>$SOLR_HOME/server/solr/configsets/data_driven_schema_configs</code>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The run in-foreground option (-f) is not compatible with the -e option since the script needs to perform additional tasks after starting the Solr server.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-Stop">Stop</h3>
+<div class="paragraph">
+<p>The stop command sends a STOP request to a running Solr node, which allows it to shutdown gracefully. The command will wait up to 5 seconds for Solr to stop gracefully and then will forcefully kill the process (kill -9).</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr stop [options]</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr stop -help</code></p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.1">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-p &lt;port&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stop Solr running on the given port. If you are running more than one instance, or are running in SolrCloud mode, you either need to specify the ports in separate requests or use the -all option.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr stop -p 8983</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-all</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stop all running Solr instances that have a valid PID.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr stop -all</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-k &lt;key&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stop key used to protect from stopping Solr inadvertently; default is "solrrocks".</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr stop -k solrrocks</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SolrControlScriptReference-SystemInformation">System Information</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="SolrControlScriptReference-Version">Version</h3>
+<div class="paragraph">
+<p>The version command simply returns the version of Solr currently installed and immediately exists.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">$ bin/solr version
+X.Y.0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-Status">Status</h3>
+<div class="paragraph">
+<p>The status command displays basic JSON-formatted information for any Solr nodes found running on the local system. The status command uses the SOLR_PID_DIR environment variable to locate Solr process ID files to find running Solr instances; the SOLR_PID_DIR variable defaults to the bin directory.</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr status</code></p>
+</div>
+<div class="paragraph">
+<p>The output will include a status of each node of the cluster, as in this example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">Found 2 Solr nodes:
+
+Solr process 39920 running on port 7574
+{
+  &quot;solr_home&quot;:&quot;/Applications/Solr/example/cloud/node2/solr/&quot;,
+  &quot;version&quot;:&quot;X.Y.0&quot;,
+  &quot;startTime&quot;:&quot;2015-02-10T17:19:54.739Z&quot;,
+  &quot;uptime&quot;:&quot;1 days, 23 hours, 55 minutes, 48 seconds&quot;,
+  &quot;memory&quot;:&quot;77.2 MB (%15.7) of 490.7 MB&quot;,
+  &quot;cloud&quot;:{
+    &quot;ZooKeeper&quot;:&quot;localhost:9865&quot;,
+    &quot;liveNodes&quot;:&quot;2&quot;,
+    &quot;collections&quot;:&quot;2&quot;}}
+
+Solr process 39827 running on port 8865
+{
+  &quot;solr_home&quot;:&quot;/Applications/Solr/example/cloud/node1/solr/&quot;,
+  &quot;version&quot;:&quot;X.Y.0&quot;,
+  &quot;startTime&quot;:&quot;2015-02-10T17:19:49.057Z&quot;,
+  &quot;uptime&quot;:&quot;1 days, 23 hours, 55 minutes, 54 seconds&quot;,
+  &quot;memory&quot;:&quot;94.2 MB (%19.2) of 490.7 MB&quot;,
+  &quot;cloud&quot;:{
+    &quot;ZooKeeper&quot;:&quot;localhost:9865&quot;,
+    &quot;liveNodes&quot;:&quot;2&quot;,
+    &quot;collections&quot;:&quot;2&quot;}}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-Healthcheck">Healthcheck</h3>
+<div class="paragraph">
+<p>The healthcheck command generates a JSON-formatted health report for a collection when running in SolrCloud mode. The health report provides information about the state of every replica for all shards in a collection, including the number of committed documents and its current state.</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr healthcheck [options]</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr healthcheck -help</code></p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.2">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-c &lt;collection&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the collection to run a healthcheck against (required).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr healthcheck -c gettingstarted</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkhost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ZooKeeper connection string, defaults to localhost:9983. If you are running Solr on a port other than 8983, you will have to specify the ZooKeeper connection string. By default, this will be the Solr port + 1000.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr healthcheck -z localhost:2181</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Below is an example healthcheck request and response using a non-standard ZooKeeper connect string, with 2 nodes running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">$ bin/solr healthcheck -c gettingstarted -z localhost:9865
+
+{
+  &quot;collection&quot;:&quot;gettingstarted&quot;,
+  &quot;status&quot;:&quot;healthy&quot;,
+  &quot;numDocs&quot;:0,
+  &quot;numShards&quot;:2,
+  &quot;shards&quot;:[
+    {
+      &quot;shard&quot;:&quot;shard1&quot;,
+      &quot;status&quot;:&quot;healthy&quot;,
+      &quot;replicas&quot;:[
+        {
+          &quot;name&quot;:&quot;core_node1&quot;,
+          &quot;url&quot;:&quot;http://10.0.1.10:8865/solr/gettingstarted_shard1_replica2/&quot;,
+          &quot;numDocs&quot;:0,
+          &quot;status&quot;:&quot;active&quot;,
+          &quot;uptime&quot;:&quot;2 days, 1 hours, 18 minutes, 48 seconds&quot;,
+          &quot;memory&quot;:&quot;25.6 MB (%5.2) of 490.7 MB&quot;,
+          &quot;leader&quot;:true},
+        {
+          &quot;name&quot;:&quot;core_node4&quot;,
+          &quot;url&quot;:&quot;http://10.0.1.10:7574/solr/gettingstarted_shard1_replica1/&quot;,
+          &quot;numDocs&quot;:0,
+          &quot;status&quot;:&quot;active&quot;,
+          &quot;uptime&quot;:&quot;2 days, 1 hours, 18 minutes, 42 seconds&quot;,
+          &quot;memory&quot;:&quot;95.3 MB (%19.4) of 490.7 MB&quot;}]},
+    {
+      &quot;shard&quot;:&quot;shard2&quot;,
+      &quot;status&quot;:&quot;healthy&quot;,
+      &quot;replicas&quot;:[
+        {
+          &quot;name&quot;:&quot;core_node2&quot;,
+          &quot;url&quot;:&quot;http://10.0.1.10:8865/solr/gettingstarted_shard2_replica2/&quot;,
+          &quot;numDocs&quot;:0,
+          &quot;status&quot;:&quot;active&quot;,
+          &quot;uptime&quot;:&quot;2 days, 1 hours, 18 minutes, 48 seconds&quot;,
+          &quot;memory&quot;:&quot;25.8 MB (%5.3) of 490.7 MB&quot;},
+        {
+          &quot;name&quot;:&quot;core_node3&quot;,
+          &quot;url&quot;:&quot;http://10.0.1.10:7574/solr/gettingstarted_shard2_replica1/&quot;,
+          &quot;numDocs&quot;:0,
+          &quot;status&quot;:&quot;active&quot;,
+          &quot;uptime&quot;:&quot;2 days, 1 hours, 18 minutes, 42 seconds&quot;,
+          &quot;memory&quot;:&quot;95.4 MB (%19.4) of 490.7 MB&quot;,
+          &quot;leader&quot;:true}]}]}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SolrControlScriptReference-CollectionsandCores">Collections and Cores</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The bin/solr script can also help you create new collections (in SolrCloud mode) or cores (in standalone mode), or delete collections.</p>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-Create">Create</h3>
+<div class="paragraph">
+<p>The create command detects the mode that Solr is running in (standalone or SolrCloud) and then creates a core or collection depending on the mode.</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr create [options]</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr create -help</code></p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.3">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-c &lt;name&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the core or collection to create (required).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr create -c mycollection</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-d &lt;confdir&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The configuration directory. This defaults to <code>data_driven_schema_configs</code>.</p>
+</div>
+<div class="paragraph">
+<p>See the section <a href="#SolrControlScriptReference-ConfigurationDirectoriesandSolrCloud">Configuration Directories and SolrCloud</a> below for more details about this option when running in SolrCloud mode.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr create -d basic_configs</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-n &lt;configName&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The configuration name. This defaults to the same name as the core or collection.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr create -n basic</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-p &lt;port&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Port of a local Solr instance to send the create command to; by default the script tries to detect the port by looking for running Solr instances.</p>
+</div>
+<div class="paragraph">
+<p>This option is useful if you are running multiple standalone Solr instances on the same host, thus requiring you to be specific about which instance to create the core in.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr create -p 8983</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>-s &lt;shards&gt;</p>
+</div>
+<div class="paragraph">
+<p>-shards</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of shards to split a collection into, default is 1; only applies when Solr is running in SolrCloud mode.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr create -s 2</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>-rf &lt;replicas&gt;</p>
+</div>
+<div class="paragraph">
+<p>-replicationFactor</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of copies of each document in the collection. The default is 1 (no replication).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr create -rf 2</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-force</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If attempting to run create as "root" user, the script will exit with a warning that running Solr or actions against Solr as "root" can cause problems. It is possible to override this warning with the -force parameter.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr create -c foo -force</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-ConfigurationDirectoriesandSolrCloud">Configuration Directories and SolrCloud</h4>
+<div class="paragraph">
+<p>Before creating a collection in SolrCloud, the configuration directory used by the collection must be uploaded to ZooKeeper. The create command supports several use cases for how collections and configuration directories work. The main decision you need to make is whether a configuration directory in ZooKeeper should be shared across multiple collections. Let&#8217;s work through a few examples to illustrate how configuration directories work in SolrCloud.</p>
+</div>
+<div class="paragraph">
+<p>First, if you don&#8217;t provide the <code>-d</code> or <code>-n</code> options, then the default configuration (<code>$SOLR_HOME/server/solr/configsets/data_driven_schema_configs/conf</code>) is uploaded to ZooKeeper using the same name as the collection. For example, the following command will result in the <strong>data_driven_schema_configs</strong> configuration being uploaded to <code>/configs/contacts</code> in ZooKeeper: <code>bin/solr create -c contacts</code>. If you create another collection, by doing <code>bin/solr create -c contacts2</code>, then another copy of the <code>data_driven_schema_configs</code> directory will be uploaded to ZooKeeper under <code>/configs/contacts2</code>. Any changes you make to the configuration for the contacts collection will not affect the contacts2 collection. Put simply, the default behavior creates a unique copy of the configuration directory for each collection you create.</p>
+</div>
+<div class="paragraph">
+<p>You can override the name given to the configuration directory in ZooKeeper by using the <code>-n</code> option. For instance, the command <code>bin/solr create -c logs -d basic_configs -n basic</code> will upload the <code>server/solr/configsets/basic_configs/conf</code> directory to ZooKeeper as <code>/configs/basic</code>.</p>
+</div>
+<div class="paragraph">
+<p>Notice that we used the <code>-d</code> option to specify a different configuration than the default. Solr provides several built-in configurations under <code>server/solr/configsets</code>. However you can also provide the path to your own configuration directory using the <code>-d</code> option. For instance, the command <code>bin/solr create -c mycoll -d /tmp/myconfigs</code>, will upload <code>/tmp/myconfigs</code> into ZooKeeper under <code>/configs/mycoll</code> . To reiterate, the configuration directory is named after the collection unless you override it using the <code>-n</code> option.</p>
+</div>
+<div class="paragraph">
+<p>Other collections can share the same configuration by specifying the name of the shared configuration using the <code>-n</code> option. For instance, the following command will create a new collection that shares the basic configuration created previously: <code>bin/solr create -c logs2 -n basic</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-Data-drivenSchemaandSharedConfigurations">Data-driven Schema and Shared Configurations</h4>
+<div class="paragraph">
+<p>The <code>data_driven_schema_configs</code> schema can mutate as data is indexed. Consequently, we recommend that you do not share data-driven configurations between collections unless you are certain that all collections should inherit the changes made when indexing data into one of the collections.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-Delete">Delete</h3>
+<div class="paragraph">
+<p>The delete command detects the mode that Solr is running in (standalone or SolrCloud) and then deletes the specified core (standalone) or collection (SolrCloud) as appropriate.</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr delete [options]</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr delete -help</code></p>
+</div>
+<div class="paragraph">
+<p>If running in SolrCloud mode, the delete command checks if the configuration directory used by the collection you are deleting is being used by other collections. If not, then the configuration directory is also deleted from ZooKeeper. For example, if you created a collection by doing <code>bin/solr create -c contacts</code>, then the delete command <code>bin/solr delete -c contacts</code> will check to see if the <code>/configs/contacts</code> configuration directory is being used by any other collections. If not, then the <code>/configs/contacts</code> directory is removed from ZooKeeper.</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.4">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-c &lt;name&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the core / collection to delete (required).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr delete -c mycoll</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-deleteConfig &lt;true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Delete the configuration directory from ZooKeeper. The default is true.</p>
+</div>
+<div class="paragraph">
+<p>If the configuration directory is being used by another collection, then it will not be deleted even if you pass <code>-deleteConfig</code> as true.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>bin/solr delete -deleteConfig false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-p &lt;port&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The port of a local Solr instance to send the delete command to. By default the script tries to detect the port by looking for running Solr instances.</p>
+</div>
+<div class="paragraph">
+<p>This option is useful if you are running multiple standalone Solr instances on the same host, thus requiring you to be specific about which instance to delete the core from.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="SolrControlScriptReference-ZooKeeperOperations">ZooKeeper Operations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The bin/solr script allows certain operations affecting ZooKeeper. These operations are for SolrCloud mode only. The operations are available as sub-commands, which each have their own set of options.</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk [sub-command] [options]</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk -help</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Solr should have been started at least once before issuing these commands to initialize ZooKeeper with the znodes Solr expects. Once ZooKeeper is initialized, Solr doesn&#8217;t need to be running on any node to use these commands.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-UploadaConfigurationSet">Upload a Configuration Set</h3>
+<div class="paragraph">
+<p>Use the <code>zk upconfig</code> command to upload one of the pre-configured configuration set or a customized configuration set to ZooKeeper.</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters_allparametersarerequired_">Available Parameters (all parameters are required)</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-n &lt;name&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>Name of the configuration set in ZooKeeper. This command will upload the configuration set to the "configs" ZooKeeper node giving it the name specified.</p>
+</div>
+<div class="paragraph">
+<p>You can see all uploaded configuration sets in the Admin UI via the Cloud screens. Choose Cloud &#8594; Tree &#8594; configs to see them.</p>
+</div>
+<div class="paragraph">
+<p>If a pre-existing configuration set is specified, it will be overwritten in ZooKeeper.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-n myconfig</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-d &lt;configset dir&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The path of the configuration set to upload. It should have a "conf" directory immediately below it that in turn contains solrconfig.xml etc.</p>
+</div>
+<div class="paragraph">
+<p>If just a name is supplied, <code>$SOLR_HOME/server/solr/configsets</code> will be checked for this name. An absolute path may be supplied instead.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>-d directory_under_configsets</code></p>
+</div>
+<div class="paragraph">
+<p><code>-d /path/to/configset/source</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkHost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in <code>solr.in.sh</code> or <code>solr.in.cmd</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-z 123.321.23.43:2181</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An example of this command with these parameters is:</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk upconfig -z 111.222.333.444:2181 -n mynewconfig -d /path/to/configset</code></p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Reload Collections When Changing Configurations</div>
+<div class="paragraph">
+<p>This command does <strong>not</strong> automatically make changes effective! It simply uploads the configuration sets to ZooKeeper. You can use the Collection API&#8217;s <a href="collections-api.html#CollectionsAPI-reload">RELOAD command</a> to reload any collections that uses this configuration set.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-DownloadaConfigurationSet">Download a Configuration Set</h3>
+<div class="paragraph">
+<p>Use the <code>zk downconfig</code> command to download a configuration set from ZooKeeper to the local filesystem.</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters_allparametersarerequired_.1">Available Parameters (all parameters are required)</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-n &lt;name&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of config set in ZooKeeper to download. The Admin UI Cloud &#8594; Tree &#8594; configs node lists all available configuration sets.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-n myconfig</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-d &lt;configset dir&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The path to write the downloaded configuration set into. If just a name is supplied, <code>$SOLR_HOME/server/solr/configsets</code> will be the parent. An absolute path may be supplied as well.</p>
+</div>
+<div class="paragraph">
+<p>In either case, <em>pre-existing configurations at the destination will be overwritten!</em></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-d directory_under_configsets</code> <code>-d /path/to/configset/destination</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkHost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in <code>solr.in.sh</code> or <code>solr.in.cmd</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-z 123.321.23.43:2181</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An example of this command with the parameters is:</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk downconfig -z 111.222.333.444:2181 -n mynewconfig -d /path/to/configset</code></p>
+</div>
+<div class="paragraph">
+<p>A "best practice" is to keep your configuration sets in some form of version control as the system-of-record. In that scenario, <code>downconfig</code> should rarely be used.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-CopybetweenLocalFilesandZooKeeperznodes">Copy between Local Files and ZooKeeper znodes</h3>
+<div class="paragraph">
+<p>Use the <code>zk cp</code> command for transferring files and directories between ZooKeeper znodes and your local drive. This command will copy from the local drive to ZooKeeper, from ZooKeeper to the local drive or from ZooKeeper to ZooKeeper.</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.5">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-r</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Do a recursive copy. The command will fail if the &lt;src&gt; has children unless '-r' is specified.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-r</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;src&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file or path to copy from. If prefixed with <code>zk:</code> then the source is presumed to be ZooKeeper. If no prefix or the prefix is 'file:' this is the local drive. At least one of &lt;src&gt; or &lt;dest&gt; must be prefixed by &#8216;zk:&#8217; or the command will fail.</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>zk:/configs/myconfigs/solrconfig.xml</code></p>
+</div>
+<div class="paragraph">
+<p><code>file:/Users/apache/configs/src</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;dest&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The file or path to copy to. If prefixed with <code>zk:</code> then the source is presumed to be ZooKeeper. If no prefix or the prefix is 'file:' this is the local drive. At least one of &lt;src&gt; or &lt;dest&gt; must be prefixed by <code>zk:</code> or the command will fail. If &lt;dest&gt; ends in a slash character it names a directory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>zk:/configs/myconfigs/solrconfig.xml</code> <code>file:/Users/apache/configs/src</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkHost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in <code>solr.in.sh</code> or <code>solr.in.cmd</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">`-z 123.321.23.43:2181 `</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An example of this command with the parameters is:</p>
+</div>
+<div class="paragraph">
+<p>Recursively copy a directory from local to ZooKeeper.</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk cp -r file:/apache/confgs/whatever/conf zk:/configs/myconf -z 111.222.333.444:2181</code></p>
+</div>
+<div class="paragraph">
+<p>Copy a single file from ZooKeeper to local.</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk cp zk:/configs/myconf/managed_schema /configs/myconf/managed_schema -z 111.222.333.444:2181</code></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-RemoveaznodefromZooKeeper">Remove a znode from ZooKeeper</h3>
+<div class="paragraph">
+<p>Use the <code>zk rm</code> command to remove a znode (and optionally all child nodes) from ZooKeeper</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.6">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-r</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Do a recursive removal. The command will fail if the &lt;path&gt; has children unless '-r' is specified.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-r</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;path&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p>The path to remove from ZooKeeper, either a parent or leaf node.</p>
+</div>
+<div class="paragraph">
+<p>There are limited safety checks, you cannot remove '/' or '/zookeeper' nodes.</p>
+</div>
+<div class="paragraph">
+<p>The path is assumed to be a ZooKeeper node, no <code>zk:</code> prefix is necessary.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div><div class="paragraph">
+<p><code>/configs</code></p>
+</div>
+<div class="paragraph">
+<p><code>/configs/myconfigset</code></p>
+</div>
+<div class="paragraph">
+<p><code>/configs/myconfigset/solrconfig.xml</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkHost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in <code>solr.in.sh</code> or <code>solr.in.cmd</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">`-z 123.321.23.43:2181 `</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An example of this command with the parameters is:</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk rm -r /configs</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk rm /configs/myconfigset/schema.xml</code></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-MoveOneZooKeeperznodetoAnother_Rename_">Move One ZooKeeper znode to Another (Rename)</h3>
+<div class="paragraph">
+<p>Use the <code>zk mv</code> command to move (rename) a ZooKeeper znode</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.7">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;src&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The znode to rename. The <code>zk:</code> prefix is assumed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/configs/oldconfigset</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;dest&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The new name of the znode. The <code>zk:</code> prefix is assumed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/configs/newconfigset</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkHost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in <code>solr.in.sh</code> or <code>solr.in.cmd</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">`-z 123.321.23.43:2181 `</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An example of this command is:</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk mv /configs/oldconfigset /configs/newconfigset</code></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-ListaZooKeeperznode_sChildren">List a ZooKeeper znode&#8217;s Children</h3>
+<div class="paragraph">
+<p>Use the <code>zk ls</code> command to see the children of a znode.</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.8">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-r</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional. Recursively list all descendants of a znode.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>-r</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;path&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The path on ZooKeeper to list.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/collections/mycollection</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkHost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in <code>solr.in.sh</code> or <code>solr.in.cmd</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">`-z 123.321.23.43:2181 `</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>An example of this command with the parameters is:</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk ls -r /collections/mycollection</code></p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk ls /collections</code></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="SolrControlScriptReference-Createaznode_supportschroot_">Create a znode (supports chroot)</h3>
+<div class="paragraph">
+<p>Use the <code>zk mkroot</code> command to create a znode. The primary use-case for this command to support ZooKeeper&#8217;s "chroot" concept. However, it can also be used to create arbitrary paths.</p>
+</div>
+<div class="sect3">
+<h4 id="SolrControlScriptReference-AvailableParameters.9">Available Parameters</h4>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;path&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The path on ZooKeeper to create. Intermediate znodes will be created if necessary. A leading slash is assumed even if not specified.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/solr</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-z &lt;zkHost&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper connection string. Unnecessary if ZK_HOST is defined in <code>solr.in.sh</code> or <code>solr.in.cmd</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">`-z 123.321.23.43:2181 `</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Examples of this command:</p>
+</div>
+<div class="paragraph">
+<p>`bin/solr zk mkroot /solr -z 123.321.23.43:2181 `</p>
+</div>
+<div class="paragraph">
+<p><code>bin/solr zk mkroot /solr/production</code></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="a-step-closer.html">A Step Closer</a>
+      
+      
+      <a class="btn btn-primary next" href="upgrading-solr.html">Upgrading Solr</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=solr-control-script-reference" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=solr-control-script-reference"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Update Request Processors | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Update Request Processors">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='update-request-processors.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='update-request-processors.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='update-request-processors.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Update Request Processors</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every update request received by Solr is run through a chain of plugins known as Update Request Processors, or <em>URPs</em>. This can be useful, for example, to add a field to the document being indexed; to change the value of a particular field; or to drop an update if the incoming document doesn&#8217;t fulfill certain criteria. In fact, a surprisingly large number of features in Solr are implemented as Update Processors and therefore it is necessary to understand how such plugins work and where are they configured.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UpdateRequestProcessors-AnatomyandLifecycle">Anatomy and Lifecycle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An Update Request Processor is created as part of a <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/UpdateRequestProcessorChain.html">chain</a> of one or more update processors. Solr creates a default update request processor chain comprising of a few update request processors which enable essential Solr features. This default chain is used to process every update request unless a user chooses to configure and specify a different custom update request processor chain.</p>
+</div>
+<div class="paragraph">
+<p>The easiest way to describe an Update Request Processor is to look at the Javadocs of the abstract class <a href="https://lucene.apache.org/solr/7_0_0///solr-core/org/apache/solr/update/processor/UpdateRequestProcessor.html">UpdateRequestProcessor</a>. Every UpdateRequestProcessor must have a corresponding factory class which extends <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/UpdateRequestProcessorFactory.html">UpdateRequestProcessorFactory</a>. This factory class is used by Solr to create a new instance of this plugin. Such a design provides two benefits:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An update request processor need not be thread safe because it is used by one and only one request thread and destroyed once the request is complete.</p>
+</li>
+<li>
+<p>The factory class can accept configuration parameters and maintain any state that may be required between requests. The factory class must be thread-safe.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Every update request processor chain is constructed during loading of a Solr core and cached until the core is unloaded. Each <code>UpdateRequestProcessorFactory</code> specified in the chain is also instantiated and initialized with configuration that may have been specified in <code>solrconfig.xml</code>.</p>
+</div>
+<div class="paragraph">
+<p>When an update request is received by Solr, it looks up the update chain to be used for this request. A new instance of each UpdateRequestProcessor specified in the chain is created using the corresponding factory. The update request is parsed into corresponding <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/UpdateCommand.html">UpdateCommand</a> objects which are run through the chain. Each UpdateRequestProcessor instance is responsible for invoking the next plugin in the chain. It can choose to short circuit the chain by not invoking the next processor and even abort further processing by throwing an exception.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A single update request may contain a batch of multiple new documents or deletes and therefore the corresponding processXXX methods of an UpdateRequestProcessor will be invoked multiple times for every individual update. However, it is guaranteed that a single thread will serially invoke these methods.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UpdateRequestProcessors-Configuration">Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Update request processors chains can be created by either creating the whole chain directly in <code>solrconfig.xml</code> or by creating individual update processors in <code>solrconfig.xml</code> and then dynamically creating the chain at run-time by specifying all processors via request parameters.</p>
+</div>
+<div class="paragraph">
+<p>However, before we understand how to configure update processor chains, we must learn about the default update processor chain because it provides essential features which are needed in most custom request processor chains as well.</p>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-DefaultUpdateRequestProcessorChain">Default Update Request Processor Chain</h3>
+<div class="paragraph">
+<p>In case no update processor chains are configured in <code>solrconfig.xml</code>, Solr will automatically create a default update processor chain which will be used for all update requests. This default update processor chain consists of the following processors (in order):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>LogUpdateProcessorFactory</code> - Tracks the commands processed during this request and logs them</p>
+</li>
+<li>
+<p><code>DistributedUpdateProcessorFactory</code> - Responsible for distributing update requests to the right node e.g., routing requests to the leader of the right shard and distributing updates from the leader to each replica. This processor is activated only in SolrCloud mode.</p>
+</li>
+<li>
+<p><code>RunUpdateProcessorFactory</code> - Executes the update using internal Solr APIs.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each of these perform an essential function and as such any custom chain usually contain all of these processors. The <code>RunUpdateProcessorFactory</code> is usually the last update processor in any custom chain.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-CustomUpdateRequestProcessorChain">Custom Update Request Processor Chain</h3>
+<div class="paragraph">
+<p>The following example demonstrates how a custom chain can be configured inside <code>solrconfig.xml</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>updateRequestProcessorChain</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;updateRequestProcessorChain</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;dedupe&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;processor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.processor.SignatureUpdateProcessorFactory&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;enabled&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>true<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;signatureField&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>id<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;overwriteDupes&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>false<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;fields&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>name,features,cat<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;signatureClass&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>solr.processor.Lookup3Signature<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/processor&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;processor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.LogUpdateProcessorFactory&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;processor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.RunUpdateProcessorFactory&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/updateRequestProcessorChain&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, a new update processor chain named "dedupe" is created with <code>SignatureUpdateProcessorFactory</code>, <code>LogUpdateProcessorFactory</code> and <code>RunUpdateProcessorFactory</code> in the chain. The <code>SignatureUpdateProcessorFactory</code> is further configured with different parameters such as "signatureField", "overwriteDupes", etc. This chain is an example of how Solr can be configured to perform de-duplication of documents by calculating a signature using the value of name, features, cat fields which is then used as the "id" field. As you may have noticed, this chain does not specify the <code>DistributedUpdateProcessorFactory</code>. Because this processor is critical for Solr to operate properly, Solr will automatically insert <code>DistributedUpdateProcessorFactory</code> in any chain that does not include it just prior to the <code>RunUpdateProcessorFactory</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">RunUpdateProcessorFactory</div>
+<div class="paragraph">
+<p>Do not forget to add <code>RunUpdateProcessorFactory</code> at the end of any chains you define in <code>solrconfig.xml</code>. Otherwise update requests processed by that chain will not actually affect the indexed data.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-ConfiguringIndividualProcessorsasTop-LevelPlugins">Configuring Individual Processors as Top-Level Plugins</h3>
+<div class="paragraph">
+<p>Update request processors can also be configured independent of a chain in <code>solrconfig.xml</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>updateProcessor</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;updateProcessor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.processor.SignatureUpdateProcessorFactory&quot;</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;signature&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;enabled&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>true<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;signatureField&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>id<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;overwriteDupes&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>false<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;fields&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>name,features,cat<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;signatureClass&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>solr.processor.Lookup3Signature<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/updateProcessor&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;updateProcessor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.RemoveBlankFieldUpdateProcessorFactory&quot;</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;remove_blanks&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, an instance of <code>SignatureUpdateProcessorFactory</code> is configured with the name "signature" and a <code>RemoveBlankFieldUpdateProcessorFactory</code> is defined with the name "remove_blanks". Once the above has been specified in <code>solrconfig.xml</code>, we can be refer to them in update request processor chains in <code>solrconfig.xml</code> as follows:</p>
+</div>
+<div class="paragraph">
+<p><strong>updateRequestProcessorChains and updateProcessors</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;updateProcessorChain</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;custom&quot;</span> <span style="color: #7D9029">processor=</span><span style="color: #BA2121">&quot;remove_blanks,signature&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;processor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.RunUpdateProcessorFactory&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/updateProcessorChain&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UpdateRequestProcessors-UpdateProcessorsinSolrCloud">Update Processors in SolrCloud</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a single node, stand-alone Solr, each update is run through all the update processors in a chain exactly once. But the behavior of update request processors in SolrCloud deserves special consideration.</p>
+</div>
+<div class="paragraph">
+<p>A critical SolrCloud functionality is the routing and distributing of requests. For update requests this routing is implemented by the <code>DistributedUpdateRequestProcessor</code>, and this processor is given a special status by Solr due to its important function.</p>
+</div>
+<div class="paragraph">
+<p>In SolrCloud mode, all processors in the chain <em>before</em> the <code>DistributedUpdateProcessor</code> are run on the first node that receives an update from the client, regardless of this node&#8217;s status as a leader or replica. The <code>DistributedUpdateProcessor</code> then forwards the update to the appropriate shard leader for the update (or to multiple leaders in the event of an update that affects multiple documents, such as a delete by query or commit). The shard leader uses a transaction log to apply <a href="updating-parts-of-documents.html#updating-parts-of-documents">Atomic Updates &amp; Optimistic Concurrency</a> and then forwards the update to all of the shard replicas. The leader and each replica run all of the processors in the chain that are listed <em>after</em> the <code>DistributedUpdateProcessor</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, consider the "dedupe" chain which we saw in a section above. Assume that a 3-node SolrCloud cluster exists where node A hosts the leader of shard1, node B hosts the leader of shard2 and node C hosts the replica of shard2. Assume that an update request is sent to node A which forwards the update to node B (because the update belongs to shard2) which then distributes the update to its replica node C. Let&#8217;s see what happens at each node:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Node A</strong>: Runs the update through the <code>SignatureUpdateProcessor</code> (which computes the signature and puts it in the "id" field), then <code>LogUpdateProcessor</code> and then <code>DistributedUpdateProcessor</code>. This processor determines that the update actually belongs to node B and is forwarded to node B. The update is not processed further. This is required because the next processor, <code>RunUpdateProcessor</code>, will execute the update against the local shard1 index which would lead to duplicate data on shard1 and shard2.</p>
+</li>
+<li>
+<p><strong>Node B</strong>: Receives the update and sees that it was forwarded by another node. The update is directly sent to <code>DistributedUpdateProcessor</code> because it has already been through the <code>SignatureUpdateProcessor</code> on node A and doing the same signature computation again would be redundant. The <code>DistributedUpdateProcessor</code> determines that the update indeed belongs to this node, distributes it to its replica on Node C and then forwards the update further in the chain to <code>RunUpdateProcessor</code>.</p>
+</li>
+<li>
+<p><strong>Node C</strong>: Receives the update and sees that it was distributed by its leader. The update is directly sent to <code>DistributedUpdateProcessor</code> which performs some consistency checks and forwards the update further in the chain to <code>RunUpdateProcessor</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In summary:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>All processors before <code>DistributedUpdateProcessor</code> are only run on the first node that receives an update request whether it be a forwarding node (e.g., node A in the above example) or a leader (e.g., node B). We call these "pre-processors" or just "processors".</p>
+</li>
+<li>
+<p>All processors after <code>DistributedUpdateProcessor</code> run only on the leader and the replica nodes. They are not executed on forwarding nodes. Such processors are called "post-processors".</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In the previous section, we saw that the <code>updateRequestProcessorChain</code> was configured with <code>processor="remove_blanks, signature"</code>. This means that such processors are of the #1 kind and are run only on the forwarding nodes. Similarly, we can configure them as the #2 kind by specifying with the attribute "post-processor" as follows:</p>
+</div>
+<div class="paragraph">
+<p><strong>post-processors</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;updateProcessorChain</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;custom&quot;</span> <span style="color: #7D9029">processor=</span><span style="color: #BA2121">&quot;signature&quot;</span> <span style="color: #7D9029">post-processor=</span><span style="color: #BA2121">&quot;remove_blanks&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;processor</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.RunUpdateProcessorFactory&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/updateProcessorChain&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However executing a processor only on the forwarding nodes is a great way of distributing an expensive computation such as de-duplication across a SolrCloud cluster by sending requests randomly via a load balancer. Otherwise the expensive computation is repeated on both the leader and replica nodes.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Pre-processors and Atomic Updates</div>
+<div class="paragraph">
+<p>Because <code>DistributedUpdateProcessor</code> is responsible for processing <a href="updating-parts-of-documents.html#updating-parts-of-documents">Atomic Updates</a> into full documents on the leader node, this means that pre-processors which are executed only on the forwarding nodes can only operate on the partial document. If you have a processor which must process a full document then the only choice is to specify it as a post-processor.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Custom update chain post-processors may never be invoked on a recovering replica</div>
+<div class="paragraph">
+<p>While a replica is in <a href="read-and-write-side-fault-tolerance.html#ReadandWriteSideFaultTolerance-WriteSideFaultTolerance">recovery</a>, inbound update requests are buffered to the transaction log. After recovery has completed successfully, those buffered update requests are replayed. As of this writing, however, custom update chain post-processors are never invoked for buffered update requests. See <a href="https://issues.apache.org/jira/browse/SOLR-8030">SOLR-8030</a>. To work around this problem until SOLR-8030 has been fixed, <strong>avoid specifying post-processors in custom update chains</strong>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UpdateRequestProcessors-UsingCustomChains">Using Custom Chains</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-update.chainRequestParameter">update.chain Request Parameter</h3>
+<div class="paragraph">
+<p>The <code>update.chain</code> parameter can be used in any update request to choose a custom chain which has been configured in <code>solrconfig.xml</code>. For example, in order to choose the "dedupe" chain described in a previous section, one can issue the following request:</p>
+</div>
+<div class="paragraph">
+<p><strong>update.chain</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl <span style="color: #BA2121">&quot;http://localhost:8983/solr/gettingstarted/update/json?update.chain=dedupe&amp;commit=true&quot;</span> -H <span style="color: #BA2121">&#39;Content-type: application/json&#39;</span> -d <span style="color: #BA2121">&#39;</span>
+<span style="color: #BA2121">[</span>
+<span style="color: #BA2121">  {</span>
+<span style="color: #BA2121">    &quot;name&quot; : &quot;The Lightning Thief&quot;,</span>
+<span style="color: #BA2121">    &quot;features&quot; : &quot;This is just a test&quot;,</span>
+<span style="color: #BA2121">    &quot;cat&quot; : [&quot;book&quot;,&quot;hardcover&quot;]</span>
+<span style="color: #BA2121">  },</span>
+<span style="color: #BA2121">  {</span>
+<span style="color: #BA2121">    &quot;name&quot; : &quot;The Lightning Thief&quot;,</span>
+<span style="color: #BA2121">    &quot;features&quot; : &quot;This is just a test&quot;,</span>
+<span style="color: #BA2121">    &quot;cat&quot; : [&quot;book&quot;,&quot;hardcover&quot;]</span>
+<span style="color: #BA2121">  }</span>
+<span style="color: #BA2121">]&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above should dedupe the two identical documents and index only one of them.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-Processor_Post-ProcessorRequestParameters">Processor &amp; Post-Processor Request Parameters</h3>
+<div class="paragraph">
+<p>We can dynamically construct a custom update request processor chain using the "processor" and "post-processor" request parameters. Multiple processors can be specified as a comma-separated value for these two parameters. For example:</p>
+</div>
+<div class="paragraph">
+<p><strong>Constructing a chain at request time</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #408080; font-style: italic"># Executing processors configured in solrconfig.xml as (pre)-processors</span>
+curl <span style="color: #BA2121">&quot;http://localhost:8983/solr/gettingstarted/update/json?processor=remove_blanks,signature&amp;commit=true&quot;</span> -H <span style="color: #BA2121">&#39;Content-type: application/json&#39;</span> -d <span style="color: #BA2121">&#39;</span>
+<span style="color: #BA2121">[</span>
+<span style="color: #BA2121">  {</span>
+<span style="color: #BA2121">    &quot;name&quot; : &quot;The Lightning Thief&quot;,</span>
+<span style="color: #BA2121">    &quot;features&quot; : &quot;This is just a test&quot;,</span>
+<span style="color: #BA2121">    &quot;cat&quot; : [&quot;book&quot;,&quot;hardcover&quot;]</span>
+<span style="color: #BA2121">  },</span>
+<span style="color: #BA2121">  {</span>
+<span style="color: #BA2121">    &quot;name&quot; : &quot;The Lightning Thief&quot;,</span>
+<span style="color: #BA2121">    &quot;features&quot; : &quot;This is just a test&quot;,</span>
+<span style="color: #BA2121">    &quot;cat&quot; : [&quot;book&quot;,&quot;hardcover&quot;]</span>
+
+<span style="color: #BA2121">  }</span>
+<span style="color: #BA2121">]&#39;</span>
+
+<span style="color: #408080; font-style: italic"># Executing processors configured in solrconfig.xml as pre- and post-processors</span>
+curl <span style="color: #BA2121">&quot;http://localhost:8983/solr/gettingstarted/update/json?processor=remove_blanks&amp;post-processor=signature&amp;commit=true&quot;</span> -H <span style="color: #BA2121">&#39;Content-type: application/json&#39;</span> -d <span style="color: #BA2121">&#39;</span>
+<span style="color: #BA2121">[</span>
+<span style="color: #BA2121">  {</span>
+<span style="color: #BA2121">    &quot;name&quot; : &quot;The Lightning Thief&quot;,</span>
+<span style="color: #BA2121">    &quot;features&quot; : &quot;This is just a test&quot;,</span>
+<span style="color: #BA2121">    &quot;cat&quot; : [&quot;book&quot;,&quot;hardcover&quot;]</span>
+<span style="color: #BA2121">  },</span>
+<span style="color: #BA2121">  {</span>
+<span style="color: #BA2121">    &quot;name&quot; : &quot;The Lightning Thief&quot;,</span>
+<span style="color: #BA2121">    &quot;features&quot; : &quot;This is just a test&quot;,</span>
+<span style="color: #BA2121">    &quot;cat&quot; : [&quot;book&quot;,&quot;hardcover&quot;]</span>
+<span style="color: #BA2121">  }</span>
+<span style="color: #BA2121">]&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the first example, Solr will dynamically create a chain which has "signature" and "remove_blanks" as pre-processors to be executed only on the forwarding node where as in the second example, "remove_blanks" will be executed as a pre-processor and "signature" will be executed on the leader and replicas as a post-processor.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-ConfiguringaCustomChainasaDefault">Configuring a Custom Chain as a Default</h3>
+<div class="paragraph">
+<p>We can also specify a custom chain to be used by default for all requests sent to specific update handlers instead of specifying the names in request parameters for each request.</p>
+</div>
+<div class="paragraph">
+<p>This can be done by adding either "update.chain" or "processor" and "post-processor" as default parameter for a given path which can be done either via <a href="initparams-in-solrconfig.html#initparams-in-solrconfig">initParams</a> or by adding them in a <a href="requesthandlers-and-searchcomponents-in-solrconfig.html#requesthandlers-and-searchcomponents-in-solrconfig">"defaults" section</a> which is supported by all request handlers.</p>
+</div>
+<div class="paragraph">
+<p>The following is an <code>initParam</code> defined in the <a href="schemaless-mode.html#schemaless-mode">schemaless configuration</a> which applies a custom update chain to all request handlers starting with "/update/".</p>
+</div>
+<div class="paragraph">
+<p><strong>InitParams</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;initParams</span> <span style="color: #7D9029">path=</span><span style="color: #BA2121">&quot;/update/**&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;update.chain&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>add-unknown-fields-to-the-schema<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/initParams&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternately, one can achieve a similar effect using the "defaults" as shown in the example below:</p>
+</div>
+<div class="paragraph">
+<p><strong>defaults</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;requestHandler</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;/update/extract&quot;</span>
+                <span style="color: #7D9029">startup=</span><span style="color: #BA2121">&quot;lazy&quot;</span>
+                <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.extraction.ExtractingRequestHandler&quot;</span> <span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;update.chain&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>add-unknown-fields-to-the-schema<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/requestHandler&gt;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="UpdateRequestProcessors-UpdateRequestProcessorFactories">Update Request Processor Factories</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>What follows are brief descriptions of the currently available update request processors. An <code>UpdateRequestProcessorFactory</code> can be integrated into an update chain in <code>solrconfig.xml</code> as necessary. You are strongly urged to examine the Javadocs for these classes; these descriptions are abridged snippets taken for the most part from the Javadocs.</p>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-GeneralUseUpdateProcessorFactories">General Use UpdateProcessorFactories</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/AddSchemaFieldsUpdateProcessorFactory.html">AddSchemaFieldsUpdateProcessorFactory</a>: This processor will dynamically add fields to the schema if an input document contains one or more fields that don&#8217;t match any field or dynamic field in the schema.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ClassificationUpdateProcessorFactory.html">ClassificationUpdateProcessorFactory</a>: This processor uses Lucene&#8217;s classification module to provide simple document classification. See <a href="https://wiki.apache.org/solr/SolrClassification" class="bare">https://wiki.apache.org/solr/SolrClassification</a> for more details on how to use this processor.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/CloneFieldUpdateProcessorFactory.html">CloneFieldUpdateProcessorFactory</a>: Clones the values found in any matching <em>source</em> field into the configured <em>dest</em> field.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/DefaultValueUpdateProcessorFactory.html">DefaultValueUpdateProcessorFactory</a>: A simple processor that adds a default value to any document which does not already have a value in fieldName.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/DocBasedVersionConstraintsProcessorFactory.html">DocBasedVersionConstraintsProcessorFactory</a>: This Factory generates an UpdateProcessor that helps to enforce version constraints on documents based on per-document version numbers using a configured name of a versionField.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/DocExpirationUpdateProcessorFactory.html">DocExpirationUpdateProcessorFactory</a>: Update Processor Factory for managing automatic "expiration" of documents.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/FieldNameMutatingUpdateProcessorFactory.html">FieldNameMutatingUpdateProcessorFactory</a>: Modifies field names by replacing all matches to the configured <code>pattern</code> with the configured <code>replacement</code>.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/IgnoreCommitOptimizeUpdateProcessorFactory.html">IgnoreCommitOptimizeUpdateProcessorFactory</a>: Allows you to ignore commit and/or optimize requests from client applications when running in SolrCloud mode, for more information, see: Shards and Indexing Data in SolrCloud</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/RegexpBoostProcessorFactory.html">RegexpBoostProcessorFactory</a>: A processor which will match content of "inputField" against regular expressions found in "boostFilename", and if it matches will return the corresponding boost value from the file and output this to "boostField" as a double value.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/SignatureUpdateProcessorFactory.html">SignatureUpdateProcessorFactory</a>: Uses a defined set of fields to generate a hash "signature" for the document. Useful for only indexing one copy of "similar" documents.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/StatelessScriptUpdateProcessorFactory.html">StatelessScriptUpdateProcessorFactory</a>: An update request processor factory that enables the use of update processors implemented as scripts.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/TimestampUpdateProcessorFactory.html">TimestampUpdateProcessorFactory</a>: An update processor that adds a newly generated date value of "NOW" to any document being added that does not already have a value in the specified field.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/URLClassifyProcessorFactory.html">URLClassifyProcessorFactory</a>: Update processor which examines a URL and outputs to various other fields with characteristics of that URL, including length, number of path levels, whether it is a top level URL (levels==0), whether it looks like a landing/index page, a canonical representation of the URL (e.g., stripping index.html), the domain and path parts of the URL, etc.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/UUIDUpdateProcessorFactory.html">UUIDUpdateProcessorFactory</a>: An update processor that adds a newly generated UUID value to any document being added that does not already have a value in the specified field.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-FieldMutatingUpdateProcessorFactoryDerivedFactories">FieldMutatingUpdateProcessorFactory Derived Factories</h3>
+<div class="paragraph">
+<p>These factories all provide functionality to <em>modify</em> fields in a document as they&#8217;re being indexed. When using any of these factories, please consult the <a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/FieldMutatingUpdateProcessorFactory.html">FieldMutatingUpdateProcessorFactory javadocs</a> for details on the common options they all support for configuring which fields are modified.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ConcatFieldUpdateProcessorFactory.html">ConcatFieldUpdateProcessorFactory</a>: Concatenates multiple values for fields matching the specified conditions using a configurable delimiter.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/CountFieldValuesUpdateProcessorFactory.html">CountFieldValuesUpdateProcessorFactory</a>: Replaces any list of values for a field matching the specified conditions with the the count of the number of values for that field.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/FieldLengthUpdateProcessorFactory.html">FieldLengthUpdateProcessorFactory</a>: Replaces any CharSequence values found in fields matching the specified conditions with the lengths of those CharSequences (as an Integer).</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/FirstFieldValueUpdateProcessorFactory.html">FirstFieldValueUpdateProcessorFactory</a>: Keeps only the first value of fields matching the specified conditions.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/HTMLStripFieldUpdateProcessorFactory.html">HTMLStripFieldUpdateProcessorFactory</a>: Strips all HTML Markup in any CharSequence values found in fields matching the specified conditions.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/IgnoreFieldUpdateProcessorFactory.html">IgnoreFieldUpdateProcessorFactory</a>: Ignores and removes fields matching the specified conditions from any document being added to the index.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/LastFieldValueUpdateProcessorFactory.html">LastFieldValueUpdateProcessorFactory</a>: Keeps only the last value of fields matching the specified conditions.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/MaxFieldValueUpdateProcessorFactory.html">MaxFieldValueUpdateProcessorFactory</a>: An update processor that keeps only the the maximum value from any selected fields where multiple values are found.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/MinFieldValueUpdateProcessorFactory.html">MinFieldValueUpdateProcessorFactory</a>: An update processor that keeps only the the minimum value from any selected fields where multiple values are found.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ParseBooleanFieldUpdateProcessorFactory.html">ParseBooleanFieldUpdateProcessorFactory</a>: Attempts to mutate selected fields that have only CharSequence-typed values into Boolean values.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ParseDateFieldUpdateProcessorFactory.html">ParseDateFieldUpdateProcessorFactory</a>: Attempts to mutate selected fields that have only CharSequence-typed values into Solr date values.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ParseNumericFieldUpdateProcessorFactory.html">ParseNumericFieldUpdateProcessorFactory</a> derived classes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ParseDoubleFieldUpdateProcessorFactory.html">ParseDoubleFieldUpdateProcessorFactory</a>: Attempts to mutate selected fields that have only CharSequence-typed values into Double values.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ParseFloatFieldUpdateProcessorFactory.html">ParseFloatFieldUpdateProcessorFactory</a>: Attempts to mutate selected fields that have only CharSequence-typed values into Float values.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ParseIntFieldUpdateProcessorFactory.html">ParseIntFieldUpdateProcessorFactory</a>: Attempts to mutate selected fields that have only CharSequence-typed values into Integer values.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/ParseLongFieldUpdateProcessorFactory.html">ParseLongFieldUpdateProcessorFactory</a>: Attempts to mutate selected fields that have only CharSequence-typed values into Long values.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/PreAnalyzedUpdateProcessorFactory.html">PreAnalyzedUpdateProcessorFactory</a>: An update processor that parses configured fields of any document being added using <em>PreAnalyzedField</em> with the configured format parser.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/RegexReplaceProcessorFactory.html">RegexReplaceProcessorFactory</a>: An updated processor that applies a configured regex to any CharSequence values found in the selected fields, and replaces any matches with the configured replacement string.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/RemoveBlankFieldUpdateProcessorFactory.html">RemoveBlankFieldUpdateProcessorFactory</a>: Removes any values found which are CharSequence with a length of 0. (ie: empty strings).</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/TrimFieldUpdateProcessorFactory.html">TrimFieldUpdateProcessorFactory</a>: Trims leading and trailing whitespace from any CharSequence values found in fields matching the specified conditions.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/TruncateFieldUpdateProcessorFactory.html">TruncateFieldUpdateProcessorFactory</a>: Truncates any CharSequence values found in fields matching the specified conditions to a maximum character length.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/UniqFieldsUpdateProcessorFactory.html">UniqFieldsUpdateProcessorFactory</a>: Removes duplicate values found in fields matching the specified conditions.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-UpdateProcessorFactoriesThatCanBeLoadedasPlugins">Update Processor Factories That Can Be Loaded as Plugins</h3>
+<div class="paragraph">
+<p>These processors are included in Solr releases as "contribs", and require additional jars loaded at runtime. See the README files associated with each contrib for details:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="https://lucene.apache.org/solr/7_0_0//solr-langid/index.html"><code>langid</code></a> contrib provides:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-langid/org/apache/solr/update/processor/LangDetectLanguageIdentifierUpdateProcessorFactory.html">LangDetectLanguageIdentifierUpdateProcessorFactory</a>: Identifies the language of a set of input fields using <a href="http://code.google.com/p/language-detection" class="bare">http://code.google.com/p/language-detection</a>.</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-langid/org/apache/solr/update/processor/TikaLanguageIdentifierUpdateProcessorFactory.html">TikaLanguageIdentifierUpdateProcessorFactory</a>: Identifies the language of a set of input fields using Tika&#8217;s LanguageIdentifier.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The <a href="https://lucene.apache.org/solr/7_0_0//solr-uima/index.html"><code>uima</code></a> contrib provides:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-uima/org/apache/solr/uima/processor/UIMAUpdateRequestProcessorFactory.html">UIMAUpdateRequestProcessorFactory</a>: Update document(s) to be indexed with UIMA extracted information.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-UpdateProcessorFactoriesYouShouldNotModifyorRemove">Update Processor Factories You Should <em>Not</em> Modify or Remove</h3>
+<div class="paragraph">
+<p>These are listed for completeness, but are part of the Solr infrastructure, particularly SolrCloud. Other than insuring you do <em>not</em> remove them when modifying the update request handlers (or any copies you make), you will rarely, if ever, need to change these.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/DistributedUpdateProcessorFactory.html">DistributedUpdateProcessorFactory</a>: Used to distribute updates to all necessary nodes.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/NoOpDistributingUpdateProcessorFactory.html">NoOpDistributingUpdateProcessorFactory</a>: An alternative No-Op implementation of <code>DistributingUpdateProcessorFactory</code> that always returns null. Designed for experts who want to bypass distributed updates and use their own custom update logic.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/LogUpdateProcessorFactory.html">LogUpdateProcessorFactory</a>: A logging processor. This keeps track of all commands that have passed through the chain and prints them on finish().</p>
+</li>
+<li>
+<p><a href="https://lucene.apache.org/solr/7_0_0//solr-core/org/apache/solr/update/processor/RunUpdateProcessorFactory.html">RunUpdateProcessorFactory</a>: Executes the update commands using the underlying UpdateHandler. Almost all processor chains should end with an instance of <code>RunUpdateProcessorFactory</code> unless the user is explicitly executing the update commands in an alternative custom <code>UpdateRequestProcessorFactory</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UpdateRequestProcessors-UpdateProcessorsThatCanBeUsedatRuntime">Update Processors That Can Be Used at Runtime</h3>
+<div class="sect3">
+<h4 id="UpdateRequestProcessors-TemplateUpdateProcessorFactory">TemplateUpdateProcessorFactory</h4>
+<div class="paragraph">
+<p>The <code>TemplateUpdateProcessorFactory</code> can be used to add new fields to documents based on a template pattern.</p>
+</div>
+<div class="paragraph">
+<p>This can be used directly in a request without any configuration. To enable this processor, use the parameter <code>processor=Template</code>. The template parameter <code>Template.field</code> (multivalued) define the field to add and the pattern. Templates may contain placeholders which refer to other fields in the document. You can have multiple <code>Template.field</code> parameters in a single request.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">processor</span><span style="color: #666666">=</span>Template&amp;Template.field<span style="color: #666666">=</span>fullName:Mr. <span style="color: #BB6688; font-weight: bold">${</span><span style="color: #19177C">firstName</span><span style="color: #BB6688; font-weight: bold">}</span> <span style="color: #BB6688; font-weight: bold">${</span><span style="color: #19177C">lastName</span><span style="color: #BB6688; font-weight: bold">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above example would add a new field to the document called <code>fullName</code>. The fields <code>firstName and</code> <code>lastName</code> are supplied from the document fields. If either of them is missing, that part is replaced with an empty string. If those fields are multi-valued, only the first value is used.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+      
+      
+      <a class="btn btn-primary next" href="codec-factory.html">Codec Factory</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=update-request-processors" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=update-request-processors"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

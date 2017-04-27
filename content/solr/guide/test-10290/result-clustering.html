@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Result Clustering | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Result Clustering">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='result-clustering.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='result-clustering.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='result-clustering.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Result Clustering</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>clustering</strong> (or <strong>cluster analysis</strong>) plugin attempts to automatically discover groups of related search hits (documents) and assign human-readable labels to these groups. By default in Solr, the clustering algorithm is applied to the search result of each single query—this is called an <em>on-line</em> clustering. While Solr contains an extension for full-index clustering (<em>off-line</em> clustering) this section will focus on discussing on-line clustering only.</p>
+</div>
+<div class="paragraph">
+<p>Clusters discovered for a given query can be perceived as <em>dynamic facets</em>. This is beneficial when regular faceting is difficult (field values are not known in advance) or when the queries are exploratory in nature. Take a look at the <a href="http://search.carrot2.org/stable/search?query=solr&amp;results=100&amp;source=web&amp;view=foamtree">Carrot2</a> project&#8217;s demo page to see an example of search results clustering in action (the groups in the visualization have been discovered automatically in search results to the right, there is no external information involved).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/result-clustering/carrot2.png" alt="image" width="900">
+</div>
+</div>
+<div class="paragraph">
+<p>The query issued to the system was <em>Solr</em>. It seems clear that faceting could not yield a similar set of groups, although the goals of both techniques are similar—to let the user explore the set of search results and either rephrase the query or narrow the focus to a subset of current documents. Clustering is also similar to <a href="result-grouping.html#result-grouping">Result Grouping</a> in that it can help to look deeper into search results, beyond the top few hits.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResultClustering-PreliminaryConcepts">Preliminary Concepts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each <strong>document</strong> passed to the clustering component is composed of several logical parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a unique identifier,</p>
+</li>
+<li>
+<p>origin URL,</p>
+</li>
+<li>
+<p>the title,</p>
+</li>
+<li>
+<p>the main content,</p>
+</li>
+<li>
+<p>a language code of the title and content.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The identifier part is mandatory, everything else is optional but at least one of the text fields (title or content) will be required to make the clustering process reasonable. It is important to remember that logical document parts must be mapped to a particular schema and its fields. The content (text) for clustering can be sourced from either a stored text field or context-filtered using a highlighter, all these options are explained below in the <a href="#ResultClustering-Configuration">configuration</a> section.</p>
+</div>
+<div class="paragraph">
+<p>A <strong>clustering algorithm</strong> is the actual logic (implementation) that discovers relationships among the documents in the search result and forms human-readable cluster labels. Depending on the choice of the algorithm the clusters may (and probably will) vary. Solr comes with several algorithms implemented in the open source <a href="http://carrot2.org">Carrot2</a> project, commercial alternatives also exist.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResultClustering-QuickStartExample">Quick Start Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The &#8220;<code>techproducts</code>&#8221; example included with Solr is pre-configured with all the necessary components for result clustering - but they are disabled by default.</p>
+</div>
+<div class="paragraph">
+<p>To enable the clustering component contrib and a dedicated search handler configured to use it, specify a JVM System Property when running the example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="plain">bin/solr start -e techproducts -Dsolr.clustering.enabled=true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can now try out the clustering handler by opening the following URL in a browser:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><a href="http://localhost:8983/solr/techproducts/clustering?q=" class="bare">http://localhost:8983/solr/techproducts/clustering?q=</a><strong>:</strong>&amp;rows=100</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The output XML should include search hits and an array of automatically discovered clusters at the end, resembling the output shown here:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;response&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;responseHeader&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;status&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;int</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;QTime&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>299<span style="color: #008000; font-weight: bold">&lt;/int&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;result</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;response&quot;</span> <span style="color: #7D9029">numFound=</span><span style="color: #BA2121">&quot;32&quot;</span> <span style="color: #7D9029">start=</span><span style="color: #BA2121">&quot;0&quot;</span> <span style="color: #7D9029">maxScore=</span><span style="color: #BA2121">&quot;1.0&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;doc&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;id&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>GB18030TEST<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>Test with some GB18030 encoded characters<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;features&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>No accents here<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>这是一个功能<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>This is a feature (translated)<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>这份文件是很有光泽<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>This document is very shiny (translated)<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;float</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;price&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0.0<span style="color: #008000; font-weight: bold">&lt;/float&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;price_c&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0,USD<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;inStock&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>true<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;long</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;_version_&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1448955395025403904<span style="color: #008000; font-weight: bold">&lt;/long&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;float</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;score&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>1.0<span style="color: #008000; font-weight: bold">&lt;/float&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/doc&gt;</span>
+
+    <span style="color: #408080; font-style: italic">&lt;!-- more search hits, omitted --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/result&gt;</span>
+
+  <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;clusters&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;labels&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>DDR<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;double</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;score&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>3.9599865057283354<span style="color: #008000; font-weight: bold">&lt;/double&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;docs&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>TWINX2048-3200PRO<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>VS1GB400C3<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>VDBDB1A16<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;lst&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;labels&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>iPod<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;double</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;score&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>11.959228467119022<span style="color: #008000; font-weight: bold">&lt;/double&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;docs&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>F8V7067-APL-KIT<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>IW-02<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>MA147LL/A<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+
+    <span style="color: #408080; font-style: italic">&lt;!-- More clusters here, omitted. --&gt;</span>
+
+    <span style="color: #008000; font-weight: bold">&lt;lst&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;labels&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>Other Topics<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;double</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;score&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>0.0<span style="color: #008000; font-weight: bold">&lt;/double&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;other-topics&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>true<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;docs&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>adata<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>apple<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>asus<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>ati<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+        <span style="color: #408080; font-style: italic">&lt;!-- other unassigned document IDs here --&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/response&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There were a few clusters discovered for this query (<code><strong>:</strong></code>), separating search hits into various categories: DDR, iPod, Hard Drive, etc. Each cluster has a label and score that indicates the "goodness" of the cluster. The score is algorithm-specific and is meaningful only in relation to the scores of other clusters in the same set. In other words, if cluster <em>A</em> has a higher score than cluster <em>B</em>, cluster <em>A</em> should be of better quality (have a better label and/or more coherent document set). Each cluster has an array of identifiers of documents belonging to it. These identifiers correspond to the <code>uniqueKey</code> field declared in the schema.</p>
+</div>
+<div class="paragraph">
+<p>Depending on the quality of input documents, some clusters may not make much sense. Some documents may be left out and not be clustered at all; these will be assigned to the synthetic <em>Other Topics</em> group, marked with the <code>other-topics</code> property set to <code>true</code> (see the XML dump above for an example). The score of the other topics group is zero.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResultClustering-Installation">Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The clustering contrib extension requires <code>dist/solr-clustering-*.jar</code> and all JARs under <code>contrib/clustering/lib</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResultClustering-Configuration">Configuration</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="ResultClustering-DeclarationoftheSearchComponentandRequestHandler">Declaration of the Search Component and Request Handler</h3>
+<div class="paragraph">
+<p>Clustering extension is a search component and must be declared in <code>solrconfig.xml</code>. Such a component can be then appended to a request handler as the last component in the chain (because it requires search results which must be previously fetched by the search component).</p>
+</div>
+<div class="paragraph">
+<p>An example configuration could look as shown below.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Include the required contrib JARs. Note that by default paths are relative to the Solr core so they may need adjustments to your configuration, or an explicit specification of the <code>$solr.install.dir</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;lib</span> <span style="color: #7D9029">dir=</span><span style="color: #BA2121">&quot;${solr.install.dir:../../..}/contrib/clustering/lib/&quot;</span> <span style="color: #7D9029">regex=</span><span style="color: #BA2121">&quot;.*\.jar&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;lib</span> <span style="color: #7D9029">dir=</span><span style="color: #BA2121">&quot;${solr.install.dir:../../..}/dist/&quot;</span> <span style="color: #7D9029">regex=</span><span style="color: #BA2121">&quot;solr-clustering-\d.*\.jar&quot;</span> <span style="color: #008000; font-weight: bold">/&gt;</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Declaration of the search component. Each component can also declare multiple clustering pipelines ("engines"), which can be selected at runtime by passing <code>clustering.engine=(engine name)</code> URL parameter.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;searchComponent</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;clustering&quot;</span> <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.clustering.ClusteringComponent&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #408080; font-style: italic">&lt;!-- Lingo clustering algorithm --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;engine&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>lingo<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;carrot.algorithm&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>org.carrot2.clustering.lingo.LingoClusteringAlgorithm<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+
+  <span style="color: #408080; font-style: italic">&lt;!-- An example definition for the STC clustering algorithm. --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;engine&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;name&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>stc<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;carrot.algorithm&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>org.carrot2.clustering.stc.STCClusteringAlgorithm<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/searchComponent&gt;</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>A request handler to which we append the clustering component declared above.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;requestHandler</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;/clustering&quot;</span>
+                <span style="color: #7D9029">class=</span><span style="color: #BA2121">&quot;solr.SearchHandler&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;lst</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;defaults&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;clustering&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>true<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;bool</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;clustering.results&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>true<span style="color: #008000; font-weight: bold">&lt;/bool&gt;</span>
+
+    <span style="color: #408080; font-style: italic">&lt;!-- Logical field to physical field mapping. --&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;carrot.url&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>id<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;carrot.title&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>doctitle<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;carrot.snippet&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>content<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+
+    <span style="color: #408080; font-style: italic">&lt;!-- Configure any other request handler parameters. We will cluster the</span>
+<span style="color: #408080; font-style: italic">         top 100 search results so bump up the &#39;rows&#39; parameter. --&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;rows&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>100<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;fl&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>*,score<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/lst&gt;</span>
+
+  <span style="color: #408080; font-style: italic">&lt;!-- Append clustering at the end of the list of search components. --&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;arr</span> <span style="color: #7D9029">name=</span><span style="color: #BA2121">&quot;last-components&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;str&gt;</span>clustering<span style="color: #008000; font-weight: bold">&lt;/str&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/arr&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/requestHandler&gt;</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ResultClustering-ConfigurationParametersoftheClusteringComponent">Configuration Parameters of the Clustering Component</h3>
+<div class="paragraph">
+<p>The table below summarizes parameters of each clustering engine or the entire clustering component (depending where they are declared).</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clustering</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>true</code>, clustering component is enabled.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clustering.engine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Declares which clustering engine to use. If not present, the first declared engine will become the default one.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clustering.results</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>true</code>, the component will perform clustering of search results (this should be enabled).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clustering.collection</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>true</code>, the component will perform clustering of the whole document index (this section does not cover full-index clustering).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>At the engine declaration level, the following parameters are supported.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.algorithm</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The algorithm class.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.resourcesDir</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Algorithm-specific resources and configuration files (stop words, other lexical resources, default settings). By default points to <code>conf/clustering/carrot2/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.outputSubClusters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If <code>true</code> and the algorithm supports hierarchical clustering, sub-clusters will also be emitted. Default value: true.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.numDescriptions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of per-cluster labels to return (if the algorithm assigns more than one label to a cluster).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>carrot.algorithm</code> parameter should contain a fully qualified class name of an algorithm supported by the <a href="http://project.carrot2.org">Carrot2</a> framework. Currently, the following algorithms are available:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>org.carrot2.clustering.lingo.LingoClusteringAlgorithm</code> (open source)</p>
+</li>
+<li>
+<p><code>org.carrot2.clustering.stc.STCClusteringAlgorithm</code> (open source)</p>
+</li>
+<li>
+<p><code>org.carrot2.clustering.kmeans.BisectingKMeansClusteringAlgorithm</code> (open source)</p>
+</li>
+<li>
+<p><code>com.carrotsearch.lingo3g.Lingo3GClusteringAlgorithm</code> (commercial)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For a comparison of characteristics of these algorithms see the following links:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://doc.carrot2.org/#section.advanced-topics.fine-tuning.choosing-algorithm" class="bare">http://doc.carrot2.org/#section.advanced-topics.fine-tuning.choosing-algorithm</a></p>
+</li>
+<li>
+<p><a href="http://project.carrot2.org/algorithms.html" class="bare">http://project.carrot2.org/algorithms.html</a></p>
+</li>
+<li>
+<p><a href="http://carrotsearch.com/lingo3g-comparison.html" class="bare">http://carrotsearch.com/lingo3g-comparison.html</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The question of which algorithm to choose depends on the amount of traffic (STC is faster than Lingo, but arguably produces less intuitive clusters, Lingo3G is the fastest algorithm but is not free or open source), expected result (Lingo3G provides hierarchical clusters, Lingo and STC provide flat clusters), and the input data (each algorithm will cluster the input slightly differently). There is no one answer which algorithm is "the best".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ResultClustering-ContextualandFullFieldClustering">Contextual and Full Field Clustering</h3>
+<div class="paragraph">
+<p>The clustering engine can apply clustering to the full content of (stored) fields or it can run an internal highlighter pass to extract context-snippets before clustering. Highlighting is recommended when the logical snippet field contains a lot of content (this would affect clustering performance). Highlighting can also increase the quality of clustering because the content passed to the algorithm will be more focused around the query (it will be query-specific context). The following parameters control the internal highlighter.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.produceSummary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When <code>true</code> the clustering component will run a highlighter pass on the content of logical fields pointed to by <code>carrot.title</code> and <code>carrot.snippet</code>. Otherwise full content of those fields will be clustered.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.fragSize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The size, in characters, of the snippets (aka fragments) created by the highlighter. If not specified, the default highlighting fragsize (<code>hl.fragsize</code>) will be used.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.summarySnippets</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of summary snippets to generate for clustering. If not specified, the default highlighting snippet count (<code>hl.snippets</code>) will be used.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="ResultClustering-LogicaltoDocumentFieldMapping">Logical to Document Field Mapping</h3>
+<div class="paragraph">
+<p>As already mentioned in <a href="#ResultClustering-PreliminaryConcepts">Preliminary Concepts</a>, the clustering component clusters "documents" consisting of logical parts that need to be mapped onto physical schema of data stored in Solr. The field mapping attributes provide a connection between fields and logical document parts. Note that the content of title and snippet fields must be <strong>stored</strong> so that it can be retrieved at search time.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field (alternatively comma- or space-separated list of fields) that should be mapped to the logical document&#8217;s title. The clustering algorithms typically give more weight to the content of the title field compared to the content (snippet). For best results, the field should contain concise, noise-free content. If there is no clear title in your data, you can leave this parameter blank.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.snippet</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field (alternatively comma- or space-separated list of fields) that should be mapped to the logical document&#8217;s main content. If this mapping points to very large content fields the performance of clustering may drop significantly. An alternative then is to use query-context snippets for clustering instead of full field content. See the description of the <code>carrot.produceSummary</code> parameter for details.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field that should be mapped to the logical document&#8217;s content URL. Leave blank if not required.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="ResultClustering-ClusteringMultilingualContent">Clustering Multilingual Content</h3>
+<div class="paragraph">
+<p>The field mapping specification can include a <code>carrot.lang</code> parameter, which defines the field that stores <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO 639-1</a> code of the language in which the title and content of the document are written. This information can be stored in the index based on apriori knowledge of the documents' source or a language detection filter applied at indexing time. All algorithms inside the Carrot2 framework will accept ISO codes of languages defined in <a href="https://github.com/carrot2/carrot2/blob/master/core/carrot2-core/src/org/carrot2/core/LanguageCode.java">LanguageCode enum</a>.</p>
+</div>
+<div class="paragraph">
+<p>The language hint makes it easier for clustering algorithms to separate documents from different languages on input and to pick the right language resources for clustering. If you do have multi-lingual query results (or query results in a language different than English), it is strongly advised to map the language field appropriately.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.lang</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The field that stores ISO 639-1 code of the language of the document&#8217;s text fields.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>carrot.lcmap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A mapping of arbitrary strings into ISO 639 two-letter codes used by <code>carrot.lang</code>. The syntax of this parameter is the same as <code>langid.map.lcmap</code>, for example: <code>langid.map.lcmap=japanese:ja polish:pl english:en</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The default language can also be set using Carrot2-specific algorithm attributes (in this case the <a href="http://doc.carrot2.org/#section.attribute.lingo.MultilingualClustering.defaultLanguage">MultilingualClustering.defaultLanguage</a> attribute).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResultClustering-TweakingAlgorithmSettings">Tweaking Algorithm Settings</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The algorithms that come with Solr are using their default settings which may be inadequate for all data sets. All algorithms have lexical resources and resources (stop words, stemmers, parameters) that may require tweaking to get better clusters (and cluster labels). For Carrot2-based algorithms it is probably best to refer to a dedicated tuning application called Carrot2 Workbench (screenshot below). From this application one can export a set of algorithm attributes as an XML file, which can be then placed under the location pointed to by <code>carrot.resourcesDir</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/result-clustering/carrot2-workbench.png" alt="image">
+</div>
+</div>
+<div class="sect2">
+<h3 id="ResultClustering-ProvidingDefaults">Providing Defaults</h3>
+<div class="paragraph">
+<p>The default attributes for all engines (algorithms) declared in the clustering component are placed under <code>carrot.resourcesDir</code> and with an expected file name of <code>engineName-attributes.xml</code>. So for an engine named <code>lingo</code> and the default value of <code>carrot.resourcesDir</code>, the attributes would be read from a file in <code>conf/clustering/carrot2/lingo-attributes.xml</code>.</p>
+</div>
+<div class="paragraph">
+<p>An example XML file changing the default language of documents to Polish is shown below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="xml"><span style="color: #008000; font-weight: bold">&lt;attribute-sets</span> <span style="color: #7D9029">default=</span><span style="color: #BA2121">&quot;attributes&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;attribute-set</span> <span style="color: #7D9029">id=</span><span style="color: #BA2121">&quot;attributes&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;value-set&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;label&gt;</span>attributes<span style="color: #008000; font-weight: bold">&lt;/label&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;attribute</span> <span style="color: #7D9029">key=</span><span style="color: #BA2121">&quot;MultilingualClustering.defaultLanguage&quot;</span><span style="color: #008000; font-weight: bold">&gt;</span>
+        <span style="color: #008000; font-weight: bold">&lt;value</span> <span style="color: #7D9029">type=</span><span style="color: #BA2121">&quot;org.carrot2.core.LanguageCode&quot;</span> <span style="color: #7D9029">value=</span><span style="color: #BA2121">&quot;POLISH&quot;</span><span style="color: #008000; font-weight: bold">/&gt;</span>
+      <span style="color: #008000; font-weight: bold">&lt;/attribute&gt;</span>
+    <span style="color: #008000; font-weight: bold">&lt;/value-set&gt;</span>
+  <span style="color: #008000; font-weight: bold">&lt;/attribute-set&gt;</span>
+<span style="color: #008000; font-weight: bold">&lt;/attribute-sets&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ResultClustering-TweakingatQuery-Time">Tweaking at Query-Time</h3>
+<div class="paragraph">
+<p>The clustering component and Carrot2 clustering algorithms can accept query-time attribute overrides. Note that certain things (for example lexical resources) can only be initialized once (at startup, via the XML configuration files).</p>
+</div>
+<div class="paragraph">
+<p>An example query that changes the <code>LingoClusteringAlgorithm.desiredClusterCountBase</code> parameter for the Lingo algorithm: <a href="http://localhost:8983/solr/techproducts/clustering?q=" class="bare">http://localhost:8983/solr/techproducts/clustering?q=</a><strong>:</strong>&amp;rows=100&amp;LingoClusteringAlgorithm.desiredClusterCountBase=20.</p>
+</div>
+<div class="paragraph">
+<p>The clustering engine (the algorithm declared in <code>solrconfig.xml</code>) can also be changed at runtime by passing <code>clustering.engine=name</code> request attribute: <a href="http://localhost:8983/solr/techproducts/clustering?q=" class="bare">http://localhost:8983/solr/techproducts/clustering?q=</a><strong>:</strong>&amp;rows=100&amp;clustering.engine=kmeans</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResultClustering-PerformanceConsiderations">Performance Considerations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dynamic clustering of search results comes with two major performance penalties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Increased cost of fetching a larger-than-usual number of search results (50, 100 or more documents),</p>
+</li>
+<li>
+<p>Additional computational cost of the clustering itself.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For simple queries, the clustering time will usually dominate the fetch time. If the document content is very long the retrieval of stored content can become a bottleneck. The performance impact of clustering can be lowered in several ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>feed less content to the clustering algorithm by enabling <code>carrot.produceSummary</code> attribute,</p>
+</li>
+<li>
+<p>perform clustering on selected fields (titles only) to make the input smaller,</p>
+</li>
+<li>
+<p>use a faster algorithm (STC instead of Lingo, Lingo3G instead of STC),</p>
+</li>
+<li>
+<p>tune the performance attributes related directly to a specific algorithm.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Some of these techniques are described in <em>Apache SOLR and Carrot2 integration strategies</em> document, available at <a href="http://carrot2.github.io/solr-integration-strategies" class="bare">http://carrot2.github.io/solr-integration-strategies</a>. The topic of improving performance is also included in the Carrot2 manual at <a href="http://doc.carrot2.org/#section.advanced-topics.fine-tuning.performance" class="bare">http://doc.carrot2.org/#section.advanced-topics.fine-tuning.performance</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ResultClustering-AdditionalResources">Additional Resources</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following resources provide additional information about the clustering component in Solr and its potential applications.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Apache Solr and Carrot2 integration strategies: <a href="http://carrot2.github.io/solr-integration-strategies" class="bare">http://carrot2.github.io/solr-integration-strategies</a></p>
+</li>
+<li>
+<p>Apache Solr Wiki (covers previous Solr versions, may be inaccurate): <a href="http://carrot2.github.io/solr-integration-strategies" class="bare">http://carrot2.github.io/solr-integration-strategies</a></p>
+</li>
+<li>
+<p>Clustering and Visualization of Solr search results (video from Berlin BuzzWords conference, 2011): <a href="http://vimeo.com/26616444" class="bare">http://vimeo.com/26616444</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="result-grouping.html">Result Grouping</a>
+      
+      
+      <a class="btn btn-primary next" href="spatial-search.html">Spatial Search</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=result-clustering" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=result-clustering"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>

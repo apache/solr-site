@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="keywords" content=" ">
+<title>Kerberos Authentication Plugin | Apache Solr Reference Guide</title>
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/lavish-bootstrap.css">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/theme-solr.css">
+<link rel="stylesheet" href="css/ref-guide.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/2.0.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Apache Solr Reference Guide" href="https://home.apache.org/~ctargett/RefGuidePOC/jekyll-full/feed.xml">
+
+    <script>
+        $(document).ready(function() {
+            // Initialize navgoco with default options
+            $("#mysidebar").navgoco({
+                caretHtml: '',
+                accordion: true,
+                openClass: 'active', // open
+                save: false, // we do *NOT* want cookies used to save the current stage of the sidebar
+                             // instead the code in sidebar.html will ensure that the current page
+                             // (and it's ancestors) are "active" on page load
+                slide: {
+                    duration: 400,
+                    easing: 'swing'
+                }
+            });
+
+            $("#collapseAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', false);
+            });
+
+            $("#expandAll").click(function(e) {
+                e.preventDefault();
+                $("#mysidebar").navgoco('toggle', true);
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="apache-solr-reference-guide.html">&nbsp;<span class="projectTitle"> Solr Ref Guide 7.0</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Link to Solr website -->
+                <li><a href="https://lucene.apache.org/solr/news" target="_blank">Solr News</a></li>
+                <!-- Solr Resources dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Solr Resources<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="https://lucene.apache.org/solr/7_0_0//solr-core/index.html" target="_blank">Solr Javadocs</a></li>
+                       <li><a href="https://git1-us-west.apache.org/repos/asf?p=lucene-solr.git" target="_blank">Lucene/Solr Source Code</a></li>
+                       <li><a href="https://lucene.apache.org/solr/resources.html#community" target="_blank">Solr Community Links</a></li>
+                    </ul>
+                </li>
+                
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Kerberos Authentication Plugin">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-12">&nbsp;</div>
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-md-3">
+      
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Apache Solr Reference Guide <!-- TODO: version from site.data --></li>
+  
+  <li class="sb-level1">
+    <a href="about-this-guide.html">About This Guide</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="getting-started.html">Getting Started</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="installing-solr.html">Installing Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr.html">Running Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-quick-overview.html">A Quick Overview</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="a-step-closer.html">A Step Closer</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-control-script-reference.html">Solr Control Script Reference</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-solr.html">Upgrading Solr</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="using-the-solr-administration-user-interface.html">Using the Solr Administration User Interface</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-the-solr-admin-ui.html">Overview of the Solr Admin UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="getting-assistance.html">Getting Assistance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="logging.html">Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cloud-screens.html">Cloud Screens</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collections-core-admin.html">Collections / Core Admin</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="java-properties.html">Java Properties</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="thread-dump.html">Thread Dump</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collection-specific-tools.html">Collection-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="analysis-screen.html">Analysis Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="dataimport-screen.html">Dataimport Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="documents-screen.html">Documents Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="files-screen.html">Files Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-screen.html">Query Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="stream-screen.html">Stream Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-browser-screen.html">Schema Browser Screen</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="core-specific-tools.html">Core-Specific Tools</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="ping.html">Ping</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="plugins-stats-screen.html">Plugins &amp; Stats Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="replication-screen.html">Replication Screen</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="segments-info.html">Segments Info</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="documents-fields-and-schema-design.html">Documents, Fields, and Schema Design</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-documents-fields-and-schema-design.html">Overview of Documents, Fields, and Schema Design</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-field-types.html">Solr Field Types</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="field-type-definitions-and-properties.html">Field Type Definitions and Properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-types-included-with-solr.html">Field Types Included with Solr</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-currencies-and-exchange-rates.html">Working with Currencies and Exchange Rates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-dates.html">Working with Dates</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-enum-fields.html">Working with Enum Fields</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="working-with-external-files-and-processes.html">Working with External Files and Processes</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="field-properties-by-use-case.html">Field Properties by Use Case</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="defining-fields.html">Defining Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="copying-fields.html">Copying Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="dynamic-fields.html">Dynamic Fields</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="other-schema-elements.html">Other Schema Elements</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schema-api.html">Schema API</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="putting-the-pieces-together.html">Putting the Pieces Together</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="docvalues.html">DocValues</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="schemaless-mode.html">Schemaless Mode</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="understanding-analyzers-tokenizers-and-filters.html">Understanding Analyzers, Tokenizers, and Filters</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="analyzers.html">Analyzers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-tokenizers.html">About Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="about-filters.html">About Filters</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="tokenizers.html">Tokenizers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="filter-descriptions.html">Filter Descriptions</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="charfilterfactories.html">CharFilterFactories</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="language-analysis.html">Language Analysis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="phonetic-matching.html">Phonetic Matching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-your-analyzer.html">Running Your Analyzer</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="indexing-and-basic-data-operations.html">Indexing and Basic Data Operations</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-solr-indexing.html">Introduction to Solr Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="post-tool.html">Post Tool</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-index-handlers.html">Uploading Data with Index Handlers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="transforming-and-indexing-custom-json.html">Transforming and Indexing Custom JSON</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-data-with-solr-cell-using-apache-tika.html">Uploading Data with Solr Cell using Apache Tika</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uploading-structured-data-store-data-with-the-data-import-handler.html">Uploading Structured Data Store Data with the Data Import Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="updating-parts-of-documents.html">Updating Parts of Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="detecting-languages-during-indexing.html">Detecting Languages During Indexing</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="de-duplication.html">De-Duplication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="content-streams.html">Content Streams</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="uima-integration.html">UIMA Integration</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="searching.html">Searching</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="overview-of-searching-in-solr.html">Overview of Searching in Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="velocity-search-ui.html">Velocity Search UI</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="relevance.html">Relevance</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-syntax-and-parsing.html">Query Syntax and Parsing</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="common-query-parameters.html">Common Query Parameters</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-standard-query-parser.html">The Standard Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-dismax-query-parser.html">The DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="the-extended-dismax-query-parser.html">The Extended DisMax Query Parser</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="function-queries.html">Function Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="local-parameters-in-queries.html">Local Parameters in Queries</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="other-parsers.html">Other Parsers</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="faceting.html">Faceting</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blockjoin-faceting.html">BlockJoin Faceting</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="highlighting.html">Highlighting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spell-checking.html">Spell Checking</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="query-re-ranking.html">Query Re-Ranking</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="learning-to-rank.html">Learning To Rank</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="transforming-result-documents.html">Transforming Result Documents</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="suggester.html">Suggester</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="morelikethis.html">MoreLikeThis</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="pagination-of-results.html">Pagination of Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="collapse-and-expand-results.html">Collapse and Expand Results</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-grouping.html">Result Grouping</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="result-clustering.html">Result Clustering</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="spatial-search.html">Spatial Search</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-terms-component.html">The Terms Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-term-vector-component.html">The Term Vector Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-stats-component.html">The Stats Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="the-query-elevation-component.html">The Query Elevation Component</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="response-writers.html">Response Writers</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="velocity-response-writer.html">Velocity Response Writer</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="near-real-time-searching.html">Near Real Time Searching</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="realtime-get.html">RealTime Get</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="exporting-result-sets.html">Exporting Result Sets</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="streaming-expressions.html">Streaming Expressions</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="graph-traversal.html">Graph Traversal</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="parallel-sql-interface.html">Parallel SQL Interface</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-dbvisualizer.html">Solr JDBC - DbVisualizer</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-squirrel-sql.html">Solr JDBC - SQuirreL SQL</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-apache-zeppelin.html">Solr JDBC - Apache Zeppelin</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-python-jython.html">Solr JDBC - Python/Jython</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solr-jdbc-r.html">Solr JDBC - R</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="the-well-configured-solr-instance.html">The Well-Configured Solr Instance</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="configuring-solrconfig-xml.html">Configuring solrconfig.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="datadir-and-directoryfactory-in-solrconfig.html">DataDir and DirectoryFactory in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="lib-directives-in-solrconfig.html">Lib Directives in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="schema-factory-definition-in-solrconfig.html">Schema Factory Definition in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="indexconfig-in-solrconfig.html">IndexConfig in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requesthandlers-and-searchcomponents-in-solrconfig.html">RequestHandlers and SearchComponents in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="initparams-in-solrconfig.html">InitParams in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="updatehandlers-in-solrconfig.html">UpdateHandlers in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="query-settings-in-solrconfig.html">Query Settings in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="requestdispatcher-in-solrconfig.html">RequestDispatcher in SolrConfig</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="update-request-processors.html">Update Request Processors</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="codec-factory.html">Codec Factory</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-cores-and-solr-xml.html">Solr Cores and solr.xml</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="format-of-solr-xml.html">Format of solr.xml</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="defining-core-properties.html">Defining core.properties</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="coreadmin-api.html">CoreAdmin API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-sets.html">Config Sets</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuration-apis.html">Configuration APIs</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="blob-store-api.html">Blob Store API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="config-api.html">Config API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="request-parameters-api.html">Request Parameters API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="managed-resources.html">Managed Resources</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="implicit-requesthandlers.html">Implicit RequestHandlers</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solr-plugins.html">Solr Plugins</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="adding-custom-plugins-in-solrcloud-mode.html">Adding Custom Plugins in SolrCloud Mode</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="jvm-settings.html">JVM Settings</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="managing-solr.html">Managing Solr</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="taking-solr-to-production.html">Taking Solr to Production</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="securing-solr.html">Securing Solr</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="authentication-and-authorization-plugins.html">Authentication and Authorization Plugins</a>
+            
+            <ul>
+              
+              <li class="sb-level4">
+                <a href="basic-authentication-plugin.html">Basic Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="kerberos-authentication-plugin.html">Kerberos Authentication Plugin</a>
+                
+              </li>
+              
+              <li class="sb-level4">
+                <a href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+                
+              </li>
+              
+            </ul>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="enabling-ssl.html">Enabling SSL</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="running-solr-on-hdfs.html">Running Solr on HDFS</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="making-and-restoring-backups.html">Making and Restoring Backups</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="configuring-logging.html">Configuring Logging</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-jmx-with-solr.html">Using JMX with Solr</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="mbean-request-handler.html">MBean Request Handler</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="performance-statistics-reference.html">Performance Statistics Reference</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="metrics-reporting.html">Metrics Reporting</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="v2-api.html">v2 API</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solrcloud.html">SolrCloud</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="getting-started-with-solrcloud.html">Getting Started with SolrCloud</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="how-solrcloud-works.html">How SolrCloud Works</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="shards-and-indexing-data-in-solrcloud.html">Shards and Indexing Data in SolrCloud</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="distributed-requests.html">Distributed Requests</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="read-and-write-side-fault-tolerance.html">Read and Write Side Fault Tolerance</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="solrcloud-configuration-and-parameters.html">SolrCloud Configuration and Parameters</a>
+        
+        <ul>
+          
+          <li class="sb-level3">
+            <a href="setting-up-an-external-zookeeper-ensemble.html">Setting Up an External ZooKeeper Ensemble</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="using-zookeeper-to-manage-configuration-files.html">Using ZooKeeper to Manage Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="zookeeper-access-control.html">ZooKeeper Access Control</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="collections-api.html">Collections API</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="parameter-reference.html">Parameter Reference</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="command-line-utilities.html">Command Line Utilities</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="solrcloud-with-legacy-configuration-files.html">SolrCloud with Legacy Configuration Files</a>
+            
+          </li>
+          
+          <li class="sb-level3">
+            <a href="configsets-api.html">ConfigSets API</a>
+            
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="rule-based-replica-placement.html">Rule-based Replica Placement</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="cross-data-center-replication-cdcr-.html">Cross Data Center Replication (CDCR)</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="legacy-scaling-and-distribution.html">Legacy Scaling and Distribution</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-scaling-and-distribution.html">Introduction to Scaling and Distribution</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="distributed-search-with-index-sharding.html">Distributed Search with Index Sharding</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="index-replication.html">Index Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="combining-distribution-and-replication.html">Combining Distribution and Replication</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="merging-indexes.html">Merging Indexes</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="client-apis.html">Client APIs</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="introduction-to-client-apis.html">Introduction to Client APIs</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="choosing-an-output-format.html">Choosing an Output Format</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="client-api-lineup.html">Client API Lineup</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-javascript.html">Using JavaScript</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-python.html">Using Python</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solrj.html">Using SolrJ</a>
+        
+      </li>
+      
+      <li class="sb-level2">
+        <a href="using-solr-from-ruby.html">Using Solr From Ruby</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="major-changes-from-solr-5-to-solr-6.html">Major Changes from Solr 5 to Solr 6</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="upgrading-a-solr-cluster.html">Upgrading a Solr Cluster</a>
+    
+    <ul>
+      
+      <li class="sb-level2">
+        <a href="indexupgrader-tool.html">IndexUpgrader Tool</a>
+        
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="further-assistance.html">Further Assistance</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="solr-glossary.html">Solr Glossary</a>
+    
+  </li>
+  
+  <li class="sb-level1">
+    <a href="errata.html">Errata</a>
+    
+  </li>
+  
+</ul>
+
+
+<!-- set the 'active' class on the current page and ancestors -->
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("#mysidebar a[href='kerberos-authentication-plugin.html']").parents('li').toggleClass("active", true);</script>
+<!-- set the 'current' class on the current page and 'current-tree' on the current page + it's ancestors -->
+<!-- this can let us do css highlighting of the current page in the sidebar even if/when the user clicks around in the sidebar causing other sidebar elements to be 'active' -->
+<script>
+  $("#mysidebar a[href='kerberos-authentication-plugin.html']").parent('li').toggleClass("current", true);
+  $("#mysidebar a[href='kerberos-authentication-plugin.html']").parents('li').toggleClass("current-tree", true);
+</script>
+
+    </div>
+    <!-- Content Column -->
+    <div class="col-md-9">
+      <div class="post-header">
+   <h1 class="post-title-main">Kerberos Authentication Plugin</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 2, listType: 'ul', showSpeed: 0, headers: 'h2,h3' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+<div id="main-content">
+  <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you are using Kerberos to secure your network environment, the Kerberos authentication plugin can be used to secure a Solr cluster. This allows Solr to use a Kerberos service principal and keytab file to authenticate with ZooKeeper and between nodes of the Solr cluster (if applicable). Users of the Admin UI and all clients (such as <a href="using-solrj.html#using-solrj">SolrJ</a>) would also need to have a valid ticket before being able to use the UI or send requests to Solr.</p>
+</div>
+<div class="paragraph">
+<p>Support for the Kerberos authentication plugin is available in SolrCloud mode or standalone mode.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are using Solr with a Hadoop cluster secured with Kerberos and intend to store your Solr indexes in HDFS, also see the section <a href="running-solr-on-hdfs.html#running-solr-on-hdfs">Running Solr on HDFS</a> for additional steps to configure Solr for that purpose. The instructions on this page apply only to scenarios where Solr will be secured with Kerberos. If you only need to store your indexes in a Kerberized HDFS system, please see the other section referenced above.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="KerberosAuthenticationPlugin-HowSolrWorksWithKerberos">How Solr Works With Kerberos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When setting up Solr to use Kerberos, configurations are put in place for Solr to use a <em>service principal</em>, or a Kerberos username, which is registered with the Key Distribution Center (KDC) to authenticate requests. The configurations define the service principal name and the location of the keytab file that contains the credentials.</p>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-security.json">security.json</h3>
+<div class="paragraph">
+<p>The Solr authentication model uses a file called <code>security.json</code>. A description of this file and how it is created and maintained is covered in the section <a href="authentication-and-authorization-plugins.html#authentication-and-authorization-plugins">Authentication and Authorization Plugins</a>. If this file is created after an initial startup of Solr, a restart of each node of the system is required.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-ServicePrincipalsandKeytabFiles">Service Principals and Keytab Files</h3>
+<div class="paragraph">
+<p>Each Solr node must have a service principal registered with the Key Distribution Center (KDC). The Kerberos plugin uses SPNego to negotiate authentication.</p>
+</div>
+<div class="paragraph">
+<p>Using <code>HTTP/host1@YOUR-DOMAIN.ORG</code>, as an example of a service principal:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>HTTP</code> indicates the type of requests which this service principal will be used to authenticate. The <code>HTTP/</code> in the service principal is a must for SPNego to work with requests to Solr over HTTP.</p>
+</li>
+<li>
+<p><code>host1</code> is the host name of the machine hosting the Solr node.</p>
+</li>
+<li>
+<p><code>YOUR-DOMAIN.ORG</code> is the organization wide Kerberos realm.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Multiple Solr nodes on the same host may have the same service principal, since the host name is common to them all.</p>
+</div>
+<div class="paragraph">
+<p>Along with the service principal, each Solr node needs a keytab file which should contain the credentials of the service principal used. A keytab file contains encrypted credentials to support passwordless logins while obtaining Kerberos tickets from the KDC. For each Solr node, the keytab file should be kept in a secure location and not shared with users of the cluster.</p>
+</div>
+<div class="paragraph">
+<p>Since a Solr cluster requires internode communication, each node must also be able to make Kerberos enabled requests to other nodes. By default, Solr uses the same service principal and keytab as a 'client principal' for internode communication. You may configure a distinct client principal explicitly, but doing so is not recommended and is not covered in the examples below.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-KerberizedZooKeeper">Kerberized ZooKeeper</h3>
+<div class="paragraph">
+<p>When setting up a kerberized SolrCloud cluster, it is recommended to enable Kerberos security for Zookeeper as well. In such a setup, the client principal used to authenticate requests with Zookeeper can be shared for internode communication as well. This has the benefit of not needing to renew the ticket granting tickets (TGTs) separately, since the Zookeeper client used by Solr takes care of this. To achieve this, a single JAAS configuration (with the app name as Client) can be used for the Kerberos plugin as well as for the Zookeeper client. See the configuration section below for an example of starting Zookeeper in Kerberos mode.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-BrowserConfiguration">Browser Configuration</h3>
+<div class="paragraph">
+<p>In order for your browser to access the Solr Admin UI after enabling Kerberos authentication, it must be able to negotiate with the Kerberos authenticator service to allow you access. Each browser supports this differently, and some (like Chrome) do not support it at all. If you see 401 errors when trying to access the Solr Admin UI after enabling Kerberos authentication, it&#8217;s likely your browser has not been configured properly to know how or where to negotiate the authentication request.</p>
+</div>
+<div class="paragraph">
+<p>Detailed information on how to set up your browser is beyond the scope of this documentation; please see your system administrators for Kerberos for details on how to configure your browser.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="KerberosAuthenticationPlugin-PluginConfiguration">Plugin Configuration</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="title">Consult Your Kerberos Admins!</div>
+<div class="paragraph">
+<p>Before attempting to configure Solr to use Kerberos authentication, please review each step outlined below and consult with your local Kerberos administrators on each detail to be sure you know the correct values for each parameter. Small errors can cause Solr to not start or not function properly, and are notoriously difficult to diagnose.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Configuration of the Kerberos plugin has several parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create service principals and keytab files</p>
+</li>
+<li>
+<p>ZooKeeper configuration</p>
+</li>
+<li>
+<p>Create or update <code>/security.json</code></p>
+</li>
+<li>
+<p>Define <code>jaas-client.conf</code></p>
+</li>
+<li>
+<p>Solr startup parameters</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We&#8217;ll walk through each of these steps below.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">Using Hostnames</div>
+<div class="paragraph">
+<p>To use host names instead of IP addresses, use the <code>SOLR_HOST</code> configuration in <code>bin/solr.in.sh</code> or pass a <code>-Dhost=&lt;hostname&gt;</code> system parameter during Solr startup. This guide uses IP addresses. If you specify a hostname, replace all the IP addresses in the guide with the Solr hostname as appropriate.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-GetServicePrincipalsandKeytabs">Get Service Principals and Keytabs</h3>
+<div class="paragraph">
+<p>Before configuring Solr, make sure you have a Kerberos service principal for each Solr host and ZooKeeper (if ZooKeeper has not already been configured) available in the KDC server, and generate a keytab file as shown below.</p>
+</div>
+<div class="paragraph">
+<p>This example assumes the hostname is <code>192.168.0.107</code> and your home directory is <code>/home/foo/</code>. This example should be modified for your own environment.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">root@kdc:/# kadmin.local
+Authenticating as principal foo/admin@EXAMPLE.COM with password.
+
+kadmin.local:  addprinc HTTP/192.168.0.107
+WARNING: no policy specified <span style="color: #008000; font-weight: bold">for</span> HTTP/192.168.0.107@EXAMPLE.COM; defaulting to no policy
+Enter password <span style="color: #008000; font-weight: bold">for</span> principal <span style="color: #BA2121">&quot;HTTP/192.168.0.107@EXAMPLE.COM&quot;</span>:
+Re-enter password <span style="color: #008000; font-weight: bold">for</span> principal <span style="color: #BA2121">&quot;HTTP/192.168.0.107@EXAMPLE.COM&quot;</span>:
+Principal <span style="color: #BA2121">&quot;HTTP/192.168.0.107@EXAMPLE.COM&quot;</span> created.
+
+kadmin.local:  ktadd -k /tmp/107.keytab HTTP/192.168.0.107
+Entry <span style="color: #008000; font-weight: bold">for</span> principal HTTP/192.168.0.107 with kvno <span style="color: #666666">2</span>, encryption <span style="color: #008000">type</span> aes256-cts-hmac-sha1-96 added to keytab WRFILE:/tmp/107.keytab.
+Entry <span style="color: #008000; font-weight: bold">for</span> principal HTTP/192.168.0.107 with kvno <span style="color: #666666">2</span>, encryption <span style="color: #008000">type</span> arcfour-hmac added to keytab WRFILE:/tmp/107.keytab.
+Entry <span style="color: #008000; font-weight: bold">for</span> principal HTTP/192.168.0.107 with kvno <span style="color: #666666">2</span>, encryption <span style="color: #008000">type</span> des3-cbc-sha1 added to keytab WRFILE:/tmp/108.keytab.
+Entry <span style="color: #008000; font-weight: bold">for</span> principal HTTP/192.168.0.107 with kvno <span style="color: #666666">2</span>, encryption <span style="color: #008000">type</span> des-cbc-crc added to keytab WRFILE:/tmp/107.keytab.
+
+kadmin.local:  quit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copy the keytab file from the KDC server’s <code>/tmp/107.keytab</code> location to the Solr host at <code>/keytabs/107.keytab</code>. Repeat this step for each Solr node.</p>
+</div>
+<div class="paragraph">
+<p>You might need to take similar steps to create a Zookeeper service principal and keytab if it has not already been set up. In that case, the example below shows a different service principal for ZooKeeper, so the above might be repeated with <code>zookeeper/host1</code> as the service principal for one of the nodes</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-ZooKeeperConfiguration">ZooKeeper Configuration</h3>
+<div class="paragraph">
+<p>If you are using a ZooKeeper that has already been configured to use Kerberos, you can skip the ZooKeeper-related steps shown here.</p>
+</div>
+<div class="paragraph">
+<p>Since ZooKeeper manages the communication between nodes in a SolrCloud cluster, it must also be able to authenticate with each node of the cluster. Configuration requires setting up a service principal for ZooKeeper, defining a JAAS configuration file and instructing ZooKeeper to use both of those items.</p>
+</div>
+<div class="paragraph">
+<p>The first step is to create a file <code>java.env</code> in ZooKeeper&#8217;s <code>conf</code> directory and add the following to it, as in this example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #008000">export</span> <span style="color: #19177C">JVMFLAGS</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;-Djava.security.auth.login.config=/etc/zookeeper/conf/jaas-client.conf&quot;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The JAAS configuration file should contain the following parameters. Be sure to change the <code>principal</code> and <code>keyTab</code> path as appropriate. The file must be located in the path defined in the step above, with the filename specified.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">Server <span style="color: #666666">{</span>
+ com<span style="color: #666666">.</span><span style="color: #7D9029">sun</span><span style="color: #666666">.</span><span style="color: #7D9029">security</span><span style="color: #666666">.</span><span style="color: #7D9029">auth</span><span style="color: #666666">.</span><span style="color: #7D9029">module</span><span style="color: #666666">.</span><span style="color: #7D9029">Krb5LoginModule</span> required
+  useKeyTab<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  keyTab<span style="color: #666666">=</span><span style="color: #BA2121">&quot;/keytabs/zkhost1.keytab&quot;</span>
+  storeKey<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  doNotPrompt<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  useTicketCache<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">false</span>
+  debug<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  principal<span style="color: #666666">=</span><span style="color: #BA2121">&quot;zookeeper/host1@EXAMPLE.COM&quot;</span><span style="color: #666666">;</span>
+<span style="color: #666666">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, add the following lines to the ZooKeeper configuration file <code>zoo.cfg</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">authProvider<span style="color: #666666">.1=</span>org<span style="color: #666666">.</span><span style="color: #7D9029">apache</span><span style="color: #666666">.</span><span style="color: #7D9029">zookeeper</span><span style="color: #666666">.</span><span style="color: #7D9029">server</span><span style="color: #666666">.</span><span style="color: #7D9029">auth</span><span style="color: #666666">.</span><span style="color: #7D9029">SASLAuthenticationProvider</span>
+jaasLoginRenew<span style="color: #666666">=3600000</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once all of the pieces are in place, start ZooKeeper with the following parameter pointing to the JAAS configuration file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">bin<span style="color: #666666">/</span>zkServer<span style="color: #666666">.</span><span style="color: #7D9029">sh</span> start <span style="color: #666666">-</span>Djava<span style="color: #666666">.</span><span style="color: #7D9029">security</span><span style="color: #666666">.</span><span style="color: #7D9029">auth</span><span style="color: #666666">.</span><span style="color: #7D9029">login</span><span style="color: #666666">.</span><span style="color: #7D9029">config</span><span style="color: #666666">=/</span>etc<span style="color: #666666">/</span>zookeeper<span style="color: #666666">/</span>conf<span style="color: #666666">/</span>jaas<span style="color: #666666">-</span>client<span style="color: #666666">.</span><span style="color: #7D9029">conf</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-Createsecurity.json">Create security.json</h3>
+<div class="paragraph">
+<p>Create the <code>security.json</code> file.</p>
+</div>
+<div class="paragraph">
+<p>In SolrCloud mode, you can set up Solr to use the Kerberos plugin by uploading the <code>security.json</code> to ZooKeeper while you create it, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">&gt; server/scripts/cloud-scripts/zkcli.sh -zkhost localhost:2181 -cmd put /security.json <span style="color: #BA2121">&#39;{&quot;authentication&quot;:{&quot;class&quot;: &quot;org.apache.solr.security.KerberosPlugin&quot;}}&#39;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you are using Solr in standalone mode, you need to create the <code>security.json</code> file and put it in your <code>$SOLR_HOME</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>More details on how to use a <code>/security.json</code> file in Solr are available in the section <a href="authentication-and-authorization-plugins.html#authentication-and-authorization-plugins">Authentication and Authorization Plugins</a>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you already have a <code>/security.json</code> file in Zookeeper, download the file, add or modify the authentication section and upload it back to ZooKeeper using the <a href="command-line-utilities.html#command-line-utilities">Command Line Utilities</a> available in Solr.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-DefineaJAASConfigurationFile">Define a JAAS Configuration File</h3>
+<div class="paragraph">
+<p>The JAAS configuration file defines the properties to use for authentication, such as the service principal and the location of the keytab file. Other properties can also be set to ensure ticket caching and other features.</p>
+</div>
+<div class="paragraph">
+<p>The following example can be copied and modified slightly for your environment. The location of the file can be anywhere on the server, but it will be referenced when starting Solr so it must be readable on the filesystem. The JAAS file may contain multiple sections for different users, but each section must have a unique name so it can be uniquely referenced in each application.</p>
+</div>
+<div class="paragraph">
+<p>In the below example, we have created a JAAS configuration file with the name and path of <code>/home/foo/jaas-client.conf</code>. We will use this name and path when we define the Solr start parameters in the next section. Note that the client <code>principal</code> here is the same as the service principal. This will be used to authenticate internode requests and requests to Zookeeper. Make sure to use the correct <code>principal</code> hostname and the <code>keyTab</code> file path.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">Client <span style="color: #666666">{</span>
+  com<span style="color: #666666">.</span><span style="color: #7D9029">sun</span><span style="color: #666666">.</span><span style="color: #7D9029">security</span><span style="color: #666666">.</span><span style="color: #7D9029">auth</span><span style="color: #666666">.</span><span style="color: #7D9029">module</span><span style="color: #666666">.</span><span style="color: #7D9029">Krb5LoginModule</span> required
+  useKeyTab<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  keyTab<span style="color: #666666">=</span><span style="color: #BA2121">&quot;/keytabs/107.keytab&quot;</span>
+  storeKey<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  useTicketCache<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  debug<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  principal<span style="color: #666666">=</span><span style="color: #BA2121">&quot;HTTP/192.168.0.107@EXAMPLE.COM&quot;</span><span style="color: #666666">;</span>
+<span style="color: #666666">};</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The first line of this file defines the section name, which will be used with the <code>solr.kerberos.jaas.appname</code> parameter, defined below.</p>
+</div>
+<div class="paragraph">
+<p>The main properties we are concerned with are the <code>keyTab</code> and <code>principal</code> properties, but there are others which may be required for your environment. The <a href="https://docs.oracle.com/javase/8/docs/jre/api/security/jaas/spec/com/sun/security/auth/module/Krb5LoginModule.html">javadocs for the Krb5LoginModule</a> (the class that&#8217;s being used and is called in the second line above) provide a good outline of the available properties, but for reference the ones in use in the above example are explained here:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>useKeyTab</code>: this boolean property defines if we should use a keytab file (true, in this case).</p>
+</li>
+<li>
+<p><code>keyTab</code>: the location and name of the keytab file for the principal this section of the JAAS configuration file is for. The path should be enclosed in double-quotes.</p>
+</li>
+<li>
+<p><code>storeKey</code>: this boolean property allows the key to be stored in the private credentials of the user.</p>
+</li>
+<li>
+<p><code>useTicketCache</code>: this boolean property allows the ticket to be obtained from the ticket cache.</p>
+</li>
+<li>
+<p><code>debug</code>: this boolean property will output debug messages for help in troubleshooting.</p>
+</li>
+<li>
+<p><code>principal</code>: the name of the service principal to be used.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-SolrStartupParameters">Solr Startup Parameters</h3>
+<div class="paragraph">
+<p>While starting up Solr, the following host-specific parameters need to be passed. These parameters can be passed at the command line with the <code>bin/solr</code> start command (see <a href="solr-control-script-reference.html#solr-control-script-reference">Solr Control Script Reference</a> for details on how to pass system parameters) or defined in <code>bin/solr.in.sh</code> or <code>bin/solr.in.cmd</code> as appropriate for your operating system.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.name.rules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to map Kerberos principals to short names. Default value is <code>DEFAULT</code>. Example of a name rule: `RULE:[1:$1@$0](.<strong>EXAMPLE.COM)s/@.</strong>// `</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.cookie.domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to issue cookies and should have the hostname of the Solr node.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.cookie.portaware</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When set to true, cookies are differentiated based on host and port, as opposed to standard cookies which are not port aware. This should be set if more than one Solr node is hosted on the same host. The default is false.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.principal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The service principal.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.keytab</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keytab file path containing service principal credentials.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.jaas.appname</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The app name (section name) within the JAAS configuration file which is required for internode communication. Default is <code>Client</code>, which is used for Zookeeper authentication as well. If different users are used for ZooKeeper and Solr, they will need to have separate sections in the JAAS configuration file.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.security.auth.login.config</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to the JAAS configuration file for configuring a Solr client for internode communication.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Here is an example that could be added to <code>bin/solr.in.sh</code>. Make sure to change this example to use the right hostname and the keytab file path.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span style="color: #19177C">SOLR_AUTH_TYPE</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;kerberos&quot;</span>
+<span style="color: #19177C">SOLR_AUTHENTICATION_OPTS</span><span style="color: #666666">=</span><span style="color: #BA2121">&quot;-Djava.security.auth.login.config=/home/foo/jaas-client.conf -Dsolr.kerberos.cookie.domain=192.168.0.107 -Dsolr.kerberos.cookie.portaware=true -Dsolr.kerberos.principal=HTTP/192.168.0.107@EXAMPLE.COM -Dsolr.kerberos.keytab=/keytabs/107.keytab&quot;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">KDC with AES-256 encryption</div>
+<div class="paragraph">
+<p>If your KDC uses AES-256 encryption, you need to add the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files to your JRE before a kerberized Solr can interact with the KDC.</p>
+</div>
+<div class="paragraph">
+<p>You will know this when you see an error like this in your Solr logs : "KrbException: Encryption type AES256 CTS mode with HMAC SHA1-96 is not supported/enabled"</p>
+</div>
+<div class="paragraph">
+<p>For Java 1.8, this is available here: <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html" class="bare">http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html</a>.</p>
+</div>
+<div class="paragraph">
+<p>Replace the <code>local_policy.jar</code> present in <code>JAVA_HOME/jre/lib/security/</code> with the new <code>local_policy.jar</code> from the downloaded package and restart the Solr node.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-UsingDelegationTokens">Using Delegation Tokens</h3>
+<div class="paragraph">
+<p>The Kerberos plugin can be configured to use delegation tokens, which allow an application to reuse the authentication of an end-user or another application.</p>
+</div>
+<div class="paragraph">
+<p>There are a few use cases for Solr where this might be helpful:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using distributed clients (such as MapReduce) where each client may not have access to the user&#8217;s credentials.</p>
+</li>
+<li>
+<p>When load on the Kerberos server is high. Delegation tokens can reduce the load because they do not access the server after the first request.</p>
+</li>
+<li>
+<p>If requests or permissions need to be delegated to another user.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To enable delegation tokens, several parameters must be defined. These parameters can be passed at the command line with the <code>bin/solr</code> start command (see <a href="solr-control-script-reference.html#solr-control-script-reference">Solr Control Script Reference</a> for details on how to pass system parameters) or defined in <code>bin/solr.in.sh</code> or <code>bin/solr.in.cmd</code> as appropriate for your operating system.</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 34%;">
+<col style="width: 33%;">
+<col style="width: 33%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.delegation.token.enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes, to enable tokens</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">False by default, set to true to enable delegation tokens.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.delegation.token.kind</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of delegation tokens. By default this is <code>solr-dt</code>. Likely this does not need to change. No other option is available at this time.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.delegation.token.validity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time, in seconds, for which delegation tokens are valid. The default is 36000 seconds.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.delegation.token.signer.secret.provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where delegation token information is stored internally. The default is <code>zookeeper</code> which must be the location for delegation tokens to work across Solr servers (when running in SolrCloud mode). No other option is available at this time.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.delegation.token.signer.secret.provider.zookeper.path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper path where the secret provider information is stored. This is in the form of the path + /security/token. The path can include the chroot or the chroot can be omitted if you are not using it. This example includes the chroot: <code>server1:9983,<code>server2:9983,</code>server3:9983`</code>/solr/security/token`.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">solr.kerberos.delegation.token.secret.manager.znode.working.path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ZooKeeper path where token information is stored. This is in the form of the path + /security/zkdtsm. The path can include the chroot or the chroot can be omitted if you are not using it. This example includes the chroot: <code>server1:9983,<code>server2:9983,</code>server3:9983`</code>/solr/security/zkdtsm`.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-StartSolr">Start Solr</h3>
+<div class="paragraph">
+<p>Once the configuration is complete, you can start Solr with the <code>bin/solr</code> script, as in the example below, which is for users in SolrCloud mode only. This example assumes you modified <code>bin/solr.in.sh</code> or <code>bin/solr.in.cmd</code>, with the proper values, but if you did not, you would pass the system parameters along with the start command. Note you also need to customize the <code>-z</code> property as appropriate for the location of your ZooKeeper nodes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">bin/solr -c -z server1:2181,server2:2181,server3:2181/solr</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-TesttheConfiguration">Test the Configuration</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Do a <code>kinit</code> with your username. For example, &#8220;kinit <a href="mailto:user@EXAMPLE.COM">user@EXAMPLE.COM</a>&#8221;.</p>
+</li>
+<li>
+<p>Try to access Solr using <code>curl</code>. You should get a successful response.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash">curl --negotiate -u : <span style="color: #BA2121">&quot;http://192.168.0.107:8983/solr/&quot;</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="KerberosAuthenticationPlugin-UsingSolrJwithaKerberizedSolr">Using SolrJ with a Kerberized Solr</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use Kerberos authentication in a SolrJ application, you need the following two lines before you create a SolrClient:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">System<span style="color: #666666">.</span><span style="color: #7D9029">setProperty</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;java.security.auth.login.config&quot;</span><span style="color: #666666">,</span> <span style="color: #BA2121">&quot;/home/foo/jaas-client.conf&quot;</span><span style="color: #666666">);</span>
+HttpClientUtil<span style="color: #666666">.</span><span style="color: #7D9029">setConfigurer</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> Krb5HttpClientConfigurer<span style="color: #666666">());</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You need to specify a Kerberos service principal for the client and a corresponding keytab in the JAAS client configuration file above. This principal should be different from the service principal we created for Solr .</p>
+</div>
+<div class="paragraph">
+<p>Here’s an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">SolrJClient <span style="color: #666666">{</span>
+  com<span style="color: #666666">.</span><span style="color: #7D9029">sun</span><span style="color: #666666">.</span><span style="color: #7D9029">security</span><span style="color: #666666">.</span><span style="color: #7D9029">auth</span><span style="color: #666666">.</span><span style="color: #7D9029">module</span><span style="color: #666666">.</span><span style="color: #7D9029">Krb5LoginModule</span> required
+  useKeyTab<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  keyTab<span style="color: #666666">=</span><span style="color: #BA2121">&quot;/keytabs/foo.keytab&quot;</span>
+  storeKey<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  useTicketCache<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  debug<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">true</span>
+  principal<span style="color: #666666">=</span><span style="color: #BA2121">&quot;solrclient@EXAMPLE.COM&quot;</span><span style="color: #666666">;</span>
+<span style="color: #666666">};</span></code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="KerberosAuthenticationPlugin-DelegationTokenswithSolrJ">Delegation Tokens with SolrJ</h3>
+<div class="paragraph">
+<p>Delegation tokens are also supported with SolrJ, in the following ways:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>DelegationTokenRequest</code> and <code>DelegationTokenResponse</code> can be used to get, cancel, and renew delegation tokens.</p>
+</li>
+<li>
+<p><code>HttpSolrClient.Builder</code> includes a <code>withDelegationToken</code> function for creating an HttpSolrClient that uses a delegation token to authenticate.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Sample code to get a delegation token:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span style="color: #008000; font-weight: bold">private</span> String <span style="color: #0000FF">getDelegationToken</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">final</span> String renewer<span style="color: #666666">,</span> <span style="color: #008000; font-weight: bold">final</span> String user<span style="color: #666666">,</span> HttpSolrClient solrClient<span style="color: #666666">)</span> <span style="color: #008000; font-weight: bold">throws</span> Exception <span style="color: #666666">{</span>
+    DelegationTokenRequest<span style="color: #666666">.</span><span style="color: #7D9029">Get</span> get <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> DelegationTokenRequest<span style="color: #666666">.</span><span style="color: #7D9029">Get</span><span style="color: #666666">(</span>renewer<span style="color: #666666">)</span> <span style="color: #666666">{</span>
+      <span style="color: #AA22FF">@Override</span>
+      <span style="color: #008000; font-weight: bold">public</span> SolrParams <span style="color: #0000FF">getParams</span><span style="color: #666666">()</span> <span style="color: #666666">{</span>
+        ModifiableSolrParams params <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> ModifiableSolrParams<span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">super</span><span style="color: #666666">.</span><span style="color: #7D9029">getParams</span><span style="color: #666666">());</span>
+        params<span style="color: #666666">.</span><span style="color: #7D9029">set</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;user&quot;</span><span style="color: #666666">,</span> user<span style="color: #666666">);</span>
+        <span style="color: #008000; font-weight: bold">return</span> params<span style="color: #666666">;</span>
+      <span style="color: #666666">}</span>
+    <span style="color: #666666">};</span>
+    DelegationTokenResponse<span style="color: #666666">.</span><span style="color: #7D9029">Get</span> getResponse <span style="color: #666666">=</span> get<span style="color: #666666">.</span><span style="color: #7D9029">process</span><span style="color: #666666">(</span>solrClient<span style="color: #666666">);</span>
+    <span style="color: #008000; font-weight: bold">return</span> getResponse<span style="color: #666666">.</span><span style="color: #7D9029">getDelegationToken</span><span style="color: #666666">();</span>
+  <span style="color: #666666">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a <code>HttpSolrClient</code> that uses delegation tokens:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">HttpSolrClient client <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> HttpSolrClient<span style="color: #666666">.</span><span style="color: #7D9029">Builder</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;http://localhost:8983/solr&quot;</span><span style="color: #666666">).</span><span style="color: #7D9029">withDelegationToken</span><span style="color: #666666">(</span>token<span style="color: #666666">).</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To create a <code>CloudSolrClient</code> that uses delegation tokens:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java">CloudSolrClient client <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">new</span> CloudSolrClient<span style="color: #666666">.</span><span style="color: #7D9029">Builder</span><span style="color: #666666">()</span>
+                <span style="color: #666666">.</span><span style="color: #7D9029">withZkHost</span><span style="color: #666666">(</span><span style="color: #BA2121">&quot;http://localhost:2181&quot;</span><span style="color: #666666">)</span>
+                <span style="color: #666666">.</span><span style="color: #7D9029">withLBHttpSolrClientBuilder</span><span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">new</span> LBHttpSolrClient<span style="color: #666666">.</span><span style="color: #7D9029">Builder</span><span style="color: #666666">()</span>
+                    <span style="color: #666666">.</span><span style="color: #7D9029">withResponseParser</span><span style="color: #666666">(</span>client<span style="color: #666666">.</span><span style="color: #7D9029">getParser</span><span style="color: #666666">())</span>
+                    <span style="color: #666666">.</span><span style="color: #7D9029">withHttpSolrClientBuilder</span><span style="color: #666666">(</span>
+                        <span style="color: #008000; font-weight: bold">new</span> HttpSolrClient<span style="color: #666666">.</span><span style="color: #7D9029">Builder</span><span style="color: #666666">()</span>
+                            <span style="color: #666666">.</span><span style="color: #7D9029">withKerberosDelegationToken</span><span style="color: #666666">(</span>token<span style="color: #666666">)</span>
+                    <span style="color: #666666">))</span>
+                        <span style="color: #666666">.</span><span style="color: #7D9029">build</span><span style="color: #666666">();</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Hadoop&#8217;s delegation token responses are in JSON map format. A response parser for that is available in <code>DelegationTokenResponse</code>. Other response parsers may not work well with Hadoop responses.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Adds tags, if any -->
+    <div class="tags">
+        
+    </div>
+
+<!-- Adds nav links on each page -->
+    
+    
+    <div class="scrollnav">
+      
+      <a class="btn btn-primary prev" href="hadoop-authentication-plugin.html">Hadoop Authentication Plugin</a>
+      
+      
+      <a class="btn btn-primary next" href="rule-based-authorization-plugin.html">Rule-Based Authorization Plugin</a>
+      
+    </div>
+    
+
+</div>
+
+<!-- Adds comments from Apache's Comment system -->
+
+<div id="comments_thread">
+</div>
+<script type="text/javascript" src="https://comments.apache.org/show_comments.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=kerberos-authentication-plugin" async="true">
+</script>
+<noscript>
+<iframe width="100%" height="500" src="https://comments.apache.org/iframe.lua?site=solrcwiki&style=https://home.apache.org/~ctargett/RefGuidePOC/jekyll/css/comments.css&page=kerberos-authentication-plugin"></iframe>
+</noscript>
+
+<footer>
+            <div class="row">
+                <div class="col-lg-12 footer">
+               &copy;2017 Apache Software Foundation. All rights reserved. <br />
+ Site last generated: 2017-04-26 <br />
+<p><img src="solr-sunOnly-small.png" alt="Apache Solr"/></p>
+                </div>
+            </div>
+</footer>
+
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+
+</body>
+
+</html>
