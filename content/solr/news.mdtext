@@ -30,7 +30,7 @@ This release includes 11 bug fixes since the 6.5.0 release. Some of the major fi
 
 * The fetch() streaming expression wouldn't work if a value included query syntax chars (like :+-). Fixed, and enhanced the generated query to not pollute the queryCache.
 
-* Disable graph query production via schema configuration <fieldtype ... enableGraphQueries="false">. This fixes broken queries for ShingleFilter-containing query-time analyzers when request param sow=false.
+* Disable graph query production via schema configuration <code>&lt;fieldtype ... enableGraphQueries="false"&gt;</code>. This fixes broken queries for ShingleFilter-containing query-time analyzers when request param sow=false.
 
 * Fix indexed="false" on numeric PointFields
 
