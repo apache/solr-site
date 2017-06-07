@@ -10,7 +10,7 @@ and getting a feel for the Solr administrative and search interfaces.
 To follow along with this tutorial, you will need...
 
 1. To meet the [system requirements](/solr/api/SYSTEM_REQUIREMENTS.html)
-2. An Apache Solr release ([download](http://lucene.apache.org/solr/downloads.html)). This tutorial was written using Apache Solr 6.5.1.
+2. An Apache Solr release ([download](http://lucene.apache.org/solr/downloads.html)). This tutorial was written using Apache Solr 6.6.0.
 
 ## Getting Started
 
@@ -22,13 +22,13 @@ Note that the base directory name may vary with the version of Solr downloaded. 
 Cygwin, or MacOS:
 
     /:$ ls solr*
-    solr-6.5.1.zip
-    /:$ unzip -q solr-6.5.1.zip
-    /:$ cd solr-6.5.1/
+    solr-6.6.0.zip
+    /:$ unzip -q solr-6.6.0.zip
+    /:$ cd solr-6.6.0/
 
 To launch Solr, run: `bin/solr start -e cloud -noprompt`
 
-    /solr-6.5.1:$ bin/solr start -e cloud -noprompt
+    /solr-6.6.0:$ bin/solr start -e cloud -noprompt
 
     Welcome to the SolrCloud example!
 
@@ -43,7 +43,7 @@ To launch Solr, run: `bin/solr start -e cloud -noprompt`
 
     SolrCloud example running, please visit http://localhost:8983/solr
 
-    /solr-6.5.1:$ _
+    /solr-6.6.0:$ _
 
 You can see that the Solr is running by loading the Solr Admin UI in your web browser: <http://localhost:8983/solr/>.
 This is the main starting point for administering Solr.
@@ -79,8 +79,8 @@ subdirectory, so that makes a convenient set of (mostly) HTML files built-in to 
 
 Here's what it'll look like:
 
-    /solr-6.5.1:$ bin/post -c gettingstarted docs/
-    java -classpath /solr-6.5.1/dist/solr-core-6.5.1.jar -Dauto=yes -Dc=gettingstarted -Ddata=files -Drecursive=yes org.apache.solr.util.SimplePostTool docs/
+    /solr-6.6.0:$ bin/post -c gettingstarted docs/
+    java -classpath /solr-6.6.0/dist/solr-core-6.6.0.jar -Dauto=yes -Dc=gettingstarted -Ddata=files -Drecursive=yes org.apache.solr.util.SimplePostTool docs/
     SimplePostTool version 5.0.0
     Posting files to [base] url http://localhost:8983/solr/gettingstarted/update...
     Entering auto mode. File endings considered are xml,json,jsonl,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
@@ -133,8 +133,8 @@ Using `bin/post`, index the example Solr XML files in `example/exampledocs/`:
 
 Here's what you'll see:
 
-    /solr-6.5.1:$ bin/post -c gettingstarted example/exampledocs/*.xml
-    java -classpath /solr-6.5.1/dist/solr-core-6.5.1.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/gb18030-example.xml ...
+    /solr-6.6.0:$ bin/post -c gettingstarted example/exampledocs/*.xml
+    java -classpath /solr-6.6.0/dist/solr-core-6.6.0.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/gb18030-example.xml ...
     SimplePostTool version 5.0.0
     Posting files to [base] url http://localhost:8983/solr/gettingstarted/update...
     Entering auto mode. File endings considered are xml,json,jsonl,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
@@ -178,8 +178,8 @@ sample JSON file:
 
 You'll see:
 
-    /solr-6.5.1:$ bin/post -c gettingstarted example/exampledocs/books.json
-    java -classpath /solr-6.5.1/dist/solr-core-6.5.1.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/books.json
+    /solr-6.6.0:$ bin/post -c gettingstarted example/exampledocs/books.json
+    java -classpath /solr-6.6.0/dist/solr-core-6.6.0.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/books.json
     SimplePostTool version 5.0.0
     Posting files to [base] url http://localhost:8983/solr/gettingstarted/update...
     Entering auto mode. File endings considered are xml,json,jsonl,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
@@ -207,8 +207,8 @@ Using `bin/post` index the included example CSV file:
 
 In your terminal you'll see:
 
-    /solr-6.5.1:$ bin/post -c gettingstarted example/exampledocs/books.csv
-    java -classpath /solr-6.5.1/dist/solr-core-6.5.1.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/books.csv
+    /solr-6.6.0:$ bin/post -c gettingstarted example/exampledocs/books.csv
+    java -classpath /solr-6.6.0/dist/solr-core-6.6.0.jar -Dauto=yes -Dc=gettingstarted -Ddata=files org.apache.solr.util.SimplePostTool example/exampledocs/books.csv
     SimplePostTool version 5.0.0
     Posting files to [base] url http://localhost:8983/solr/gettingstarted/update...
     Entering auto mode. File endings considered are xml,json,jsonl,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
@@ -291,7 +291,7 @@ with the term you want to find.  To search for "foundation":
 
 You'll see:
 
-    /solr-6.5.1$ curl "http://localhost:8983/solr/gettingstarted/select?wt=json&indent=true&q=foundation"
+    /solr-6.6.0$ curl "http://localhost:8983/solr/gettingstarted/select?wt=json&indent=true&q=foundation"
     {
       "responseHeader":{
         "zkConnected":true,
@@ -608,3 +608,4 @@ For more information on Solr, check out the following resources:
   * [Solr Reference Guide](https://cwiki.apache.org/confluence/display/solr/Apache+Solr+Reference+Guide) (ensure you
     match the version of the reference guide with your version of Solr)
   * See also additional [Resources](http://lucene.apache.org/solr/resources.html)
+
