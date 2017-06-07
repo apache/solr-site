@@ -1,5 +1,70 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 6 June 2017 - Apache Lucene 6.6.0 and Apache Solr 6.6.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 6.6.0 and Apache Solr 6.6.0.
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/6.6.0>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/6.6.0>
+
+### Highlights of this Lucene release include:
+
+  * A concurrent SortedSet facets implementation    
+
+  * spatial-extras HeatmapFacetCounter will now short-circuit it's work when Bits.MatchNoBits is passed   
+
+  * OfflineSorter now passes the total number of items it will write to getWriter()
+
+  * Move dictionary for Ukrainian analyzer to external dependency
+
+  * SortedSetDocValuesReaderState now implements Accountable so one can see how much RAM it is using
+
+  * OfflineSorter can now run concurrently if you pass it an optional ExecutorService Sorted set facets now use sparse storage when collecting hits, when appropriate
+
+  * PostingsHighlighter has been deprecated in favour of the UnifiedHighlighter
+
+### Highlights of this Solr release include:
+
+  * Payload support with payload() value source and {!payload_score} and {!payload_check} query parsers
+
+  * Solr support for SimpleTextCodec
+
+  * Multi-field support to TermsComponent when requesting terms' statistics
+
+  * New AtomicUpdateProcessor to convert normal update operations to atomic update operations
+
+  * UPLOAD command (Config Set API) for uploading zipped configsets
+
+  * MOVEREPLICA command (Collections API) for moving a replica across nodes
+
+  * LISTALIASES command (Collections API) to return a list of all collection aliases
+
+  * STATUS command (Core Admin API) to emit collection details of each core
+
+  * Basic authentication can be enabled/disabled using bin/solr|bin/solr.cmd
+
+  * Solr default/example uses WordDelimiterGraphFilterFactory and SynonymGraphFilterFactory
+
+  * Expose cache statistics using metrics API
+
+  * CloudSolrClient can now be initialized using the base URL of a Solr instance instead of ZooKeeper hosts
+
+  * Grouping, CollapseQParser and ExpandComponent support with PointFields
+
+  * Variance and Standard Deviation aggregators for the JSON Facet API
+
+  * JSON Faceting now supports a query time 'join' domain change option
+
+  * CartesianProductStream, which turns a single tuple with a multi-valued field into N tuples, one for each value in the multi-valued field
+
+  * New Streaming Evaluators: Basic math, UUID, Date/time, correlation, regress, predict, covariance, convolution, normalize
+
+  * New Streaming Expressions: shuffle, echo, eval, timeseries, let, get, tuple
+
+See the [Lucene CHANGES.txt](/core/6_6_0/changes/Changes.html) and
+[Solr CHANGES.txt](/solr/6_6_0/changes/Changes.html) files included
+with the release for a full list of details.
+
 ## 27 April 2017 - Apache Lucene 6.5.1 and Apache Solr 6.5.1 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 6.5.1 and Apache Solr 6.5.1.
