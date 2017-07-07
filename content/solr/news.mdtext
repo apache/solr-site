@@ -1,6 +1,48 @@
 Title: News
 
 # Solr<sup>&trade;</sup> News
+
+## 7 July 2017 - [SECURITY] CVE-2017-7660
+
+**CVE-2017-7660: Security Vulnerability in secure inter-node communication in Apache Solr**
+
+**Severity**: Important
+
+**Vendor**:
+The Apache Software Foundation
+
+**Versions Affected**:
+Solr 5.3 to 5.5.4
+Solr 6.0 to 6.5.1
+
+**Description:**
+
+Solr uses a PKI based mechanism to secure inter-node communication
+when security is enabled. It is possible to create a specially crafted
+node name that does not exist as part of the cluster and point it to a
+malicious node. This can trick the nodes in cluster to believe that
+the malicious node is a member of the cluster. So, if Solr users have
+enabled BasicAuth authentication mechanism using the BasicAuthPlugin
+or if the user has implemented a custom Authentication plugin, which
+does not implement either "HttpClientInterceptorPlugin" or
+"HttpClientBuilderPlugin", his/her servers are vulnerable to this
+attack. Users who only use SSL without basic authentication or those
+who use Kerberos are not affected.
+
+**Mitigation**:
+6.x users should upgrade to 6.6
+5.x users should obtain the latest source from git and apply this patch:
+http://git-wip-us.apache.org/repos/asf/lucene-solr/commit/2f5ecbcf
+
+**Credit**:
+This issue was discovered by Noble Paul of Lucidworks Inc.
+
+**References**:
+
+  - [https://issues.apache.org/jira/browse/SOLR-10624][1]
+  - [https://wiki.apache.org/solr/SolrSecurity][2]
+
+
 ## 6 June 2017, Apache Solr™ 6.6.0 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 6.6.0
@@ -1284,7 +1326,7 @@ Solr Reference Guide for Solr 4.10.
 
 The 511 page PDF serves as the definitive user's manual for Solr 4.10. It
 can be downloaded from the Apache mirror network:
-[https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][1].
+[https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][3].
 
 ## 03 September 2014 - Apache Solr 4.10.0 Available
 
@@ -1383,7 +1425,7 @@ of the Solr Reference Guide for Solr 4.9.
 
 The 408 page PDF serves as the definitive user's manual for Solr 4.9.
 It can be downloaded from the Apache mirror network:
-[https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][1].
+[https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][4].
 
 ## 25 June 2014 - Apache Solr 4.9.0 Available
 
@@ -1447,7 +1489,7 @@ of the Solr Reference Guide available for Solr 4.8.
 
 The 396 page PDF serves as the definitive user's manual for Solr 4.8.
 It can be downloaded from the Apache mirror network:
-[https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][1]
+[https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][5]
 
 ## 28 April 2014 - Apache Solr 4.8.0 Available
 
@@ -1581,7 +1623,7 @@ This version is now the recommended version for running Apache Solr.
 The Lucene PMC is pleased to announce that there is a new version of the Solr Reference Guide available for Solr 4.7.
 
 The 395 page PDF serves as the definitive user's manual for Solr 4.7. It can be downloaded from the Apache mirror network:
-[https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][1]
+[https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/][6]
 
 ## 26 February 2014 - Apache Solr 4.7.0 Available
 
@@ -1634,3 +1676,8 @@ Solr 4.7 also includes many other new features as well as numerous
 
 
   [1]: https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/
+  [2]: https://wiki.apache.org/solr/SolrSecurity
+  [3]: https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/
+  [4]: https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/
+  [5]: https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/
+  [6]: https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/
