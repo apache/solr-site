@@ -33,25 +33,28 @@ and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/sol
 
 ### Highlights for this Solr release include:
 
-* Replica Types - Solr 7 supports different replica types, which handle updates differently. In addition to pure NRT operation where all replicas build an index and keep a replication log, you can now also add so called PULL replicas, achieving the read-speed optimized benefits of a master/slave setup while at the same time keeping index redundancy.
+ * Replica Types - Solr 7 supports different replica types, which handle updates differently. In addition to pure NRT operation where all replicas build an index and keep a replication log, you can now also add so called PULL replicas, achieving the read-speed optimized benefits of a master/slave setup while at the same time keeping index redundancy.
 
-* Auto-scaling. Solr can now allocate new replicas to nodes using a new auto scaling policy framework. This framework will in future releases enable Solr to move shards around based on load, disk etc.
+ * Auto-scaling. Solr can now allocate new replicas to nodes using a new auto scaling policy framework. This framework will in future releases enable Solr to move shards around based on load, disk etc.
 
-* Indented JSON is now the default response format for all APIs, pass wt=xml and/or indent=off to use the previous unindented XML format.
+ * Indented JSON is now the default response format for all APIs, pass wt=xml and/or indent=off to use the previous unindented XML format.
 
-* The JSON Facet API now supports two-phase facet refinement to ensure accurate counts and statistics for facet buckets returned in distributed mode.
+ * The JSON Facet API now supports two-phase facet refinement to ensure accurate counts and statistics for facet buckets returned in distributed mode.
 
-* Streaming Expressions adds a new statistical programming syntax for the statistical analysis of sql queries, random samples, time series and graph result sets.
+ * Streaming Expressions adds a new statistical programming syntax for the statistical analysis of sql queries, random samples, time series and graph result sets.
 
-* Analytics Component version 2.0, which now supports distributed collections, expressions over multivalued fields, a new JSON request language, and more.
+ * Analytics Component version 2.0, which now supports distributed collections, expressions over multivalued fields, a new JSON request language, and more.
 
-* The new v2 API, exposed at /api/ and also supported via SolrJ, is now the preferred API, but /solr/ continues to work.
+ * The new v2 API, exposed at /api/ and also supported via SolrJ, is now the preferred API, but /solr/ continues to work.
 
-* A new '_default' configset is used if no config is specified at collection creation. The data-driven functionality of this configset indexes strings as analyzed text while at the same time copying to a '*_str' field suitable for faceting.
+ * A new '_default' configset is used if no config is specified at collection creation. The data-driven functionality of this configset indexes strings as analyzed text while at the same time copying to a '*_str' field suitable for faceting.
 
-* Solr 7 is tested with and verified to support Java 9.
+ * Solr 7 is tested with and verified to support Java 9.
 
-See the [Solr CHANGES.txt](/solr/7_0_0/changes/Changes.html) files included with the release for a full list of details.
+See the [Lucene CHANGES.txt](/core/7_0_0/changes/Changes.html) and 
+[Solr CHANGES.txt](/solr/7_0_0/changes/Changes.html) files included
+with the release for a full list of details.
+
 
 ## 7 September 2017 - Apache Lucene 6.6.1 and Apache Solr 6.6.1 Available
 
