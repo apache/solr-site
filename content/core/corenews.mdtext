@@ -1,5 +1,45 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 20 September 2017 - Apache Lucene™ 7.0.0 available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 7.0.0.
+
+Apache Lucene is a high-performance, full-featured text search engine library written entirely in Java. It is a technology suitable for nearly any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:
+
+   <http://www.apache.org/dyn/closer.lua/lucene/java/7.0.0>
+
+Please read CHANGES.txt for a full list of new features and changes:
+
+https://lucene.apache.org/core/7_0_0/changes/Changes.html
+
+### Lucene 7.0.0 Release Highlights:
+
+ * Doc values switched from random access to iterators.
+
+ * The 7.0 codec now sparsely encodes sparse doc values and length normalization factors ("norms"), which also translates to optimization in both indexing, and search on sparse values. With these changes, you finally only pay for what you actually use with doc values, in index size, indexing performance, etc.
+
+ * Index time boost for documents is now removed.
+
+ * Substantial performance gains for delete and update heavy Lucene usage; see http://blog.mikemccandless.com/2017/07/lucene-gets-concurrent-deletes-and.html for details
+
+ * Query scoring is now simpler with removal of coord factor, and query normalization.
+
+ * Classic query parser no longer splits on whitespaces.  This enables better multi-word synonym support.
+
+ * The version of Lucene that created the index segment would be recorded, along with the version that last modified the index.
+
+ * IndexWriter, used to add, update and delete documents in your index, will no longer accept broken token offsets sometimes produced by mis-behaving token filters.
+
+ * IndexReader exposes methods that are typically used to manage resources whose lifetime needs to mimic the lifetime of segments/indexes, typically caches. They have been made much less trappy.
+
+ * The dimensional points API now takes a field name up front to offer per-field points access, matching how the doc values APIs work.
+
+ * The PostingsHighlighter was removed.  Migrating to the UnifiedHighlighter should be straight-forward.
+
+Apache Lucene was tested to be fully compatible with the release of Java 9 and its module system Jigsaw, coming out tomorrow on September 21th!
+
 ## 7 September 2017 - Apache Lucene™ 6.6.1 available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 6.6.1
