@@ -44,6 +44,10 @@ RedirectMatch temp /solr/api/org/(.*) /solr/7_0_0/solr-core/org/$1
 RedirectMatch temp /solr/api/(.*) /solr/7_0_0/$1
 RedirectMatch temp /solr/guide/(?!index.html)([a-z].*) /solr/guide/7_0/$1
 
+# Solr Tutorial is now in the Solr Ref Guide
+# should redirect automatically to latest version
+RedirectMatch Permanent /solr/quickstart.html /solr/guide/solr-tutorial.html
+
 # we no longer have a TLP mail.html page use 'core' for now
 RedirectMatch Permanent /mail.html /core/discussion.html
 
