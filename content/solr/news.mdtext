@@ -2,40 +2,80 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 17 October 2017, Apache Solr™ 7.1.0 available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 7.1.0
+
+Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.
+
+Solr 7.1.0 is available for immediate download at: http://lucene.apache.org/solr/mirrors-solr-latest-redir.html
+
+See http://lucene.apache.org/solr/7_1_0/changes/Changes.html for a full list of details.
+
+### Highlights for this Solr release include:
+
+ * Critical Security Update: Fix for CVE-2017-12629 which is a working 0-day exploit reported on the public lists.
+
+ * Auto-scaling: Solr can now move replicas automatically when a new node is added or an existing node is removed using the auto scaling policy framework introduced in 7.0
+
+ * Auto-scaling: The 'autoAddReplicas' feature which was limited to shared file systems is now available for all file systems. It has been ported to use the new autoscaling framework internally.
+
+ * Auto-scaling: New set-trigger, remove-trigger, set-listener, remove-listener, suspend-trigger, resume-trigger APIs
+
+ * Auto-scaling: New /autoscaling/history API to show past autoscaling actions and cluster events
+
+ * New JSON based Query DSL for Solr
+
+ * JSON Facet API: min/max aggregations are now supported on single-valued date fields
+
+ * Lucene's Geo3D (surface of sphere & ellipsoid) is now supported on spatial RPT fields by setting spatialContextFactory="Geo3D". Furthermore, this is the first time Solr has out of the box support for polygons
+
+ * Expanded support for statistical stream evaluators such as various distributions, rank correlations, distances and more.
+
+ * Multiple other optimizations and bug fixes
+
+You are encouraged to thoroughly read the "Upgrade Notes" at <http://lucene.apache.org/solr/7_1_0/changes/Changes.html> or in the CHANGES.txt file accompanying the release.
+
+Solr 7.1 also includes many other new features as well as numerous optimizations and bugfixes of the corresponding Apache Lucene release.
+
+Please report any feedback to the mailing lists (<http://lucene.apache.org/solr/discussion.html>)
+
+Note: The Apache Software Foundation uses an extensive mirroring network for distributing releases. It is possible that the mirror you are using may not have replicated the release yet. If that is the case, please try another mirror. This also goes for Maven access.
+
 ## 12 October 2017, Please secure your Apache Solr servers since a zero-day exploit has been reported on a public mailing list
 
-Please secure your Solr servers since a zero-day exploit has been 
+Please secure your Solr servers since a zero-day exploit has been
 reported on a [public mailing list](https://s.apache.org/FJDl).
 This has been assigned a public CVE (CVE-2017-12629) which we
 will reference in future communication about resolution and mitigation
-steps. 
+steps.
 
-Here is what we're recommending and what we're doing now: 
+Here is what we're recommending and what we're doing now:
 
-* Until fixes are available, all Solr users are advised to restart their 
-Solr instances with the system parameter `-Ddisable.configEdit=true`. 
-This will disallow any changes to be made to configurations via the 
-Config API. This is a key factor in this vulnerability, since it allows 
-GET requests to add the RunExecutableListener to the config. This is 
-sufficient to protect you from this type of attack, but means you cannot 
-use the edit capabilities of the Config API until the other fixes 
-described below are in place. 
+* Until fixes are available, all Solr users are advised to restart their
+Solr instances with the system parameter `-Ddisable.configEdit=true`.
+This will disallow any changes to be made to configurations via the
+Config API. This is a key factor in this vulnerability, since it allows
+GET requests to add the RunExecutableListener to the config. This is
+sufficient to protect you from this type of attack, but means you cannot
+use the edit capabilities of the Config API until the other fixes
+described below are in place.
 
-* A new release of Lucene/Solr was in the vote phase, but we have now 
-pulled it back to be able to address these issues in the upcoming 7.1 
-release. We will also determine mitigation steps for users on earlier 
-versions, which may include a 6.6.2 release for users still on 6.x. 
+* A new release of Lucene/Solr was in the vote phase, but we have now
+pulled it back to be able to address these issues in the upcoming 7.1
+release. We will also determine mitigation steps for users on earlier
+versions, which may include a 6.6.2 release for users still on 6.x.
 
-* The RunExecutableListener will be removed in 7.1. It was previously 
-used by Solr for index replication but has been replaced and is no 
-longer needed. 
+* The RunExecutableListener will be removed in 7.1. It was previously
+used by Solr for index replication but has been replaced and is no
+longer needed.
 
-* The XML Parser will be fixed and the fixes will be included in the 7.1 
-release. 
+* The XML Parser will be fixed and the fixes will be included in the 7.1
+release.
 
-* The 7.1 release was already slated to include a change to disable the 
-`stream.body` parameter by default, which will further help protect 
-systems. 
+* The 7.1 release was already slated to include a change to disable the
+`stream.body` parameter by default, which will further help protect
+systems.
 
 ## 6 October 2017, Apache Solr™ 7.0.1 available
 
@@ -54,7 +94,7 @@ This release includes 2 bug fixes since the 7.0.0 release:
 
 * Solr 7.0 cannot read indexes from 6.x versions.
 
-* Message "Lock held by this virtual machine" during startup.  
+* Message "Lock held by this virtual machine" during startup.
   Solr is trying to start some cores twice.
 
 Furthermore, this release includes Apache Lucene 7.0.1 which includes 1 bug
