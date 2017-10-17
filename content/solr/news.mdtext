@@ -14,7 +14,7 @@ See http://lucene.apache.org/solr/7_1_0/changes/Changes.html for a full list of 
 
 ### Highlights for this Solr release include:
 
- * Critical Security Update: Fix for CVE-2017-12629 which is a working 0-day exploit reported on the public lists.
+ * Critical Security Update: Fix for CVE-2017-12629 which is a working 0-day exploit reported on the [public mailing list](https://s.apache.org/FJDl).
 
  * Auto-scaling: Solr can now move replicas automatically when a new node is added or an existing node is removed using the auto scaling policy framework introduced in 7.0
 
@@ -24,7 +24,7 @@ See http://lucene.apache.org/solr/7_1_0/changes/Changes.html for a full list of 
 
  * Auto-scaling: New /autoscaling/history API to show past autoscaling actions and cluster events
 
- * New JSON based Query DSL for Solr
+ * New JSON based Query DSL for Solr that extends JSON Request API to also support all query parsers and their nested parameters
 
  * JSON Facet API: min/max aggregations are now supported on single-valued date fields
 
