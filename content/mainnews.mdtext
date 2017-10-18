@@ -1,5 +1,24 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 18 October 2017, Apache Lucene 6.6.2 and Apache Solr 6.6.2 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 6.6.2 and Apache Solr 6.6.2.
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/6.6.2>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/6.6.2>
+
+### Highlight of this Lucene release includes:
+
+Critical security fix:
+
+ * Disallow resolving of external entities in queryparser/xml/CoreParser by default.
+
+### Highlights of this Solr release include:
+
+ * Critical security fix: Fix for a 0-day exploit (CVE-2017-12629), details: https://s.apache.org/FJDl. RunExecutableListener has been disabled by default (can be enabled by -Dsolr.enableRunExecutableListener=true) and resolving external entities in the XML query parser (defType=xmlparser or {!xmlparser ... }) is disabled by default.
+
+ * Fix a bug where Solr was attempting to load the same core twice (Error message: "Lock held by this virtual machine"). 
+
 ## 17 October 2017 - Apache Lucene 7.1.0 and Apache Solr 7.1.0 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 7.1.0 and Apache Solr 7.1.0.
