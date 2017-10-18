@@ -73,13 +73,17 @@ steps.
 Here is what we're recommending and what we're doing now:
 
 * Until fixes are available, all Solr users are advised to restart their
-Solr instances with the system parameter `-Ddisable.configEdit=true`.
+Solr instances with the system property `-Ddisable.configEdit=true`.
 This will disallow any changes to be made to configurations via the
 Config API. This is a key factor in this vulnerability, since it allows
 GET requests to add the RunExecutableListener to the config. This is
 sufficient to protect you from this type of attack, but means you cannot
 use the edit capabilities of the Config API until the other fixes
-described below are in place.
+described below are in place. Users are also advised to remap
+the XML Query Parser to another parser to mitigate the XXE
+vulnerability. For example, adding the following to the solrconfig.xml
+file maps the `xmlparser` to the `edismax` parser:
+`<queryParser name="xmlparser" class="solr.ExtendedDismaxQParserPlugin"/>`.
 
 * A new release of Lucene/Solr was in the vote phase, but we have now
 pulled it back to be able to address these issues in the upcoming 7.1
