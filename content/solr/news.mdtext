@@ -2,6 +2,30 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 24 October 2017, Apache Solr™ 5.5.5 available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 5.5.5.
+
+Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search and analytics, rich document parsing, geospatial search, extensive REST APIs as well as parallel SQL. Solr is enterprise grade, secure and highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.
+
+This release contains one bugfix.
+
+This release includes one critical and one important security fix. Details:
+
+ * Fix for a 0-day exploit (CVE-2017-12629), details: <https://s.apache.org/FJDl>. RunExecutableListener has been disabled by default (can be enabled by -Dsolr.enableRunExecutableListener=true) and resolving external entities in the XML query parser (defType=xmlparser or {!xmlparser ... }) is disabled by default.
+
+ * Fix for CVE-2017-7660: Security Vulnerability in secure inter-node communication in Apache Solr, details: <https://s.apache.org/APTY>
+
+Furthermore, this release includes Apache Lucene 5.5.5 which includes one security fix since the 5.5.4 release.
+
+The release is available for immediate download at:
+
+  <http://www.apache.org/dyn/closer.lua/lucene/solr/5.5.5>
+
+Please read CHANGES.txt for a detailed list of changes:
+
+  <https://lucene.apache.org/solr/5_5_5/changes/Changes.html>
+
 ## 18 October 2017, Apache Solr™ 6.6.2 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 6.6.2
