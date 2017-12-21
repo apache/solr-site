@@ -1,5 +1,27 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 21 December 2017, Apache Lucene™ 7.2.0 available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 7.2.0.
+
+Apache Lucene is a high-performance, full-featured text search engine library written entirely in Java. It is a technology suitable for nearly any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:
+
+  <http://lucene.apache.org/core/mirrors-core-latest-redir.html>
+
+Please read CHANGES.txt for a full list of new features and changes:
+
+  <https://lucene.apache.org/core/7_2_0/changes/Changes.html>
+
+### Lucene 7.2.0 Release Highlights:
+
+ * Specific query implementations can now opt out of caching.
+ * TopFieldDocCollector can now early terminate collection of matches when the index is sorted and the total hit count is not requested.
+ * IndexWriter#flushNextBuffer gives more fine-grained control over the memory usage of IndexWriter.
+ * Fixed document accounting in IndexWriter.
+ * Query scores can be exposed in a ValuesSource using DoubleValuesSource.fromQuery().
+
 ## 24 October 2017, Apache Lucene™ 5.5.5 available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 5.5.5.
