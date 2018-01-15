@@ -1,5 +1,23 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 15 January 2018 - Apache Lucene 7.2.1 and Apache Solr 7.2.1 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 7.2.1 and Apache Solr 7.2.1.
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/7.2.1>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/7.2.1>
+
+### Highlights of this Lucene release include:
+
+ * Fix advanceExact on SortedNumericDocValues produced by Lucene54DocValuesProducer.
+
+### Highlights of this Solr release include:
+
+ * Overseer can never process some last messages.
+ * Rename core in solr standalone mode is not persisted.
+ * QueryComponent's rq parameter parsing no longer considers the defType parameter.
+ * Fix NPE in SolrQueryParser when the query terms inside a filter clause reduce to nothing.
+
 ## 21 December 2017 - Apache Lucene 7.2.0 and Apache Solr 7.2.0 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 7.2.0 and Apache Solr 7.2.0.
@@ -56,7 +74,7 @@ Critical security fix:
 
  * Critical security fix: Fix for a 0-day exploit (CVE-2017-12629), details: https://s.apache.org/FJDl. RunExecutableListener has been disabled by default (can be enabled by -Dsolr.enableRunExecutableListener=true) and resolving external entities in the XML query parser (defType=xmlparser or {!xmlparser ... }) is disabled by default.
 
- * Fix a bug where Solr was attempting to load the same core twice (Error message: "Lock held by this virtual machine"). 
+ * Fix a bug where Solr was attempting to load the same core twice (Error message: "Lock held by this virtual machine").
 
 ## 17 October 2017 - Apache Lucene 7.1.0 and Apache Solr 7.1.0 Available
 
