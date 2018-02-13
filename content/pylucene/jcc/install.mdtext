@@ -128,7 +128,8 @@ There are two defaults to consider here:
 On MacOS, Java is installed by Apple's setup as a framework. The
 values in <i>setup.py</i> for <i>INCLUDES</i>
 and <i>LFLAGS</i> for <i>darwin</i> should be correct
-and ready to use.
+and ready to use when <i><setup.py</i> was able to derive <i>JAVAHOME</i> and 
+<i>JAVAFRAMEWORKS</i>.
 
 
   However, if you intend to use the 'system' Python from a Java VM
