@@ -20,10 +20,10 @@ via <i>distutils</i>
 or <a href="http://pypi.python.org/pypi/setuptools">setuptools</a>.
 
 
-- On Mac OS X and Windows, <i>setup.py</i> will attempt to find a JDK on your
+- On MacOS and Windows, <i>setup.py</i> will attempt to find a JDK on your
 system and report what it found by showing the values for <i>JAVAHOME</i> and
 <i>JAVAFRAMEWORKS</i> it was able to derive. If the JDK installation that was
-found is not the one you wish to use or if you are not on Mac OS X or Windows,
+found is not the one you wish to use or if you are not on MacOS or Windows,
 you can either edit <i>setup.py</i> and review that the values in the
 <i>INCLUDES</i>, <i>CFLAGS</i>, <i>DEBUG_CFLAGS</i>, <i>LFLAGS</i>,
 <i>JAVAC</i>, and <i>JAVADOC</i> dicts are correct for your system or set
@@ -68,7 +68,7 @@ Python extensions).
 
 
 Currently, shared mode is supported with <i>setuptools 0.6c7</i> and above out
-of the box on MacOSX and Windows. On Linux, a patch to <i>setuptools</i> needs
+of the box on MacOS and Windows. On Linux, a patch to <i>setuptools</i> needs
 to be applied first. This patch is included in the JCC source distribution in
 the <i>jcc2/patches</i> directory, <i>patch.43</i>. This patch was submitted
 to the <i>setuptools</i> project via <a
@@ -109,7 +109,7 @@ There are two defaults to consider here:
 
 - Is JCC built with shared mode support or not ?
 
-    - By default, on MacOSX, Linux or Windows, this is the case when using a
+    - By default, on MacOS, Linux or Windows, this is the case when using a
       modern version of <i>setuptools</i>
 
     - On other operating systems shared mode support is off by
@@ -123,16 +123,16 @@ There are two defaults to consider here:
 
 
 
-##Notes for MacOSX
+##Notes for MacOS
 
-On MacOSX, Java is installed by Apple's setup as a framework. The
+On MacOS, Java is installed by Apple's setup as a framework. The
 values in <i>setup.py</i> for <i>INCLUDES</i>
 and <i>LFLAGS</i> for <i>darwin</i> should be correct
 and ready to use.
 
 
   However, if you intend to use the 'system' Python from a Java VM
-  on MacOSX -- Python embedded in Java --
+  on MacOS -- Python embedded in Java --
   you will need to add the flags <i>"-framework", "Python"</i>
   to the <i>LFLAGS</i> value.
 
