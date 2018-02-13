@@ -27,10 +27,10 @@ found is not the one you wish to use or if you are not on Mac OS X or Windows,
 you can either edit <i>setup.py</i> and review that the values in the
 <i>INCLUDES</i>, <i>CFLAGS</i>, <i>DEBUG_CFLAGS</i>, <i>LFLAGS</i>,
 <i>JAVAC</i>, and <i>JAVADOC</i> dicts are correct for your system or set
-<b>all</b> of the following environment variables, <i>JCC_JDK</i>,
-<i>JCC_INCLUDES</i>, <i>JCC_CFLAGS</i>, <i>JCC_DEBUG_CFLAGS</i>,
-<i>JCC_LFLAGS</i>, <i>JCC_JAVAC</i> and <i>JCC_JAVADOC</i>, using os.pathsep
-as value separator to override them.
+<b>all</b> of the environment variables <i>JCC_JDK</i>, <i>JCC_INCLUDES</i>,
+<i>JCC_CFLAGS</i>, <i>JCC_DEBUG_CFLAGS</i>, <i>JCC_LFLAGS</i>,
+<i>JCC_JAVAC</i> and <i>JCC_JAVADOC</i>, using os.pathsep as value separator
+to override them.
 The values hereby configured are going to be compiled into JCC's
 <i>config.py</i> file and are going to be used by JCC when invoking
 <i>setuptools</i> to compile the extensions it is going to generate code for.
