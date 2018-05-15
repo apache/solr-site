@@ -2,6 +2,36 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 15 May 2018, Apache Solr™ 7.3.1 available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 7.3.1
+
+Solr is the popular, blazing fast, open source NoSQL search platform from the
+Apache Lucene project. Its major features include powerful full-text search,
+hit highlighting, faceted search and analytics, rich document parsing,
+geospatial search, extensive REST APIs as well as parallel SQL. Solr is
+enterprise grade, secure and highly scalable, providing fault tolerant
+distributed search and indexing, and powers the search and navigation
+features of many of the world's largest internet sites.
+
+This release includes 9 bug fixes since the 7.3.0 release. Some of the major fixes are:
+
+* Upgrade commons-fileupload dependency to 1.3.3 to address CVE-2016-1000031
+* Deleting replicas sometimes fails and causes the replicas to exist in the down state 
+* A successful restore collection should mark the shard state as active and not buffering 
+* Do not allow to use absolute URIs for including other files in solrconfig.xml and schema parsing
+
+Furthermore, this release includes Apache Lucene 7.3.1 which includes 1 bug
+fix since the 7.3.0 release.
+
+The release is available for immediate download at:
+
+  <http://www.apache.org/dyn/closer.lua/lucene/solr/7.3.1>
+
+Please read CHANGES.txt for a detailed list of changes:
+
+  <https://lucene.apache.org/solr/7_3_1/changes/Changes.html>
+
 ## 4 April 2018, Apache Solr™ 7.3.0 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 7.3.0

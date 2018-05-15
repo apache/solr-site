@@ -1,5 +1,23 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 15 May 2018 - Apache Lucene 7.3.1 and Apache Solr 7.3.1 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 7.3.1 and Apache Solr 7.3.1
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/7.3.1>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/7.3.1>
+
+### Highlights of this Lucene release include:
+
+ * This release contains one build change
+
+### Highlights of this Solr release include:
+
+ * Deleting replicas sometimes fails and causes the replicas to exist in the down state
+ * Upgrade commons-fileupload dependency to 1.3.3 to address CVE-2016-1000031
+ * Do not allow to use absolute URIs for including other files in solrconfig.xml and schema parsing
+ * A successful restore collection should mark the shard state as active and not buffering 
+
 ## 4 April 2018 - Apache Lucene 7.3.0 and Apache Solr 7.3.0 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 7.3.0 and Apache Solr 7.3.0
