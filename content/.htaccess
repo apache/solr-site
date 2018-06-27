@@ -39,10 +39,10 @@ RedirectMatch temp /solr/api$ /solr/api/
 # Other pages can always be redirected to the "most current" released javadocs
 # using "temp" instead of permanent so crawlers know that they
 # might change again in the future
-RedirectMatch temp /core/api/(.*) /core/7_3_1/$1
-RedirectMatch temp /solr/api/org/(.*) /solr/7_3_1/solr-core/org/$1
-RedirectMatch temp /solr/api/(.*) /solr/7_3_1/$1
-RedirectMatch temp /solr/guide/(?!index.html)([a-z].*) /solr/guide/7_3/$1
+RedirectMatch temp /core/api/(.*) /core/7_4_0/$1
+RedirectMatch temp /solr/api/org/(.*) /solr/7_4_0/solr-core/org/$1
+RedirectMatch temp /solr/api/(.*) /solr/7_4_0/$1
+RedirectMatch temp /solr/guide/(?!index.html)([a-z].*) /solr/guide/7_4/$1
 
 # Solr Tutorial is now in the Solr Ref Guide
 # should redirect automatically to latest version
