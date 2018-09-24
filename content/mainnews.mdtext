@@ -1,5 +1,38 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 24 September 2018- Apache Lucene 7.5.0 and Apache Solr 7.5.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 7.5.0 and Apache Solr 7.5.0
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/7.5.0>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/7.5.0>
+
+### Highlights of this Lucene release include:
+
+#### Bug Fixes
+
+  * IndexWriter#deleteDocs(Query... query) applies deletes to wrong documents if the index is sorted.
+
+#### Changes in Runtime behavior
+
+  * TieredMergePolicy now respects maxSegmentSizeMB by default when executing findForcedMerges and findForcedDeletesMerges.
+
+#### Improvements
+
+  * A new points based Shape Indexing and Searching that decomposes shapes into a triangular mesh and indexes individual triangles as a 6 dimension point.
+  * A new ByteBuffer based Directory implementation that aims to replace the deprecated RAMDirectory.
+  * The UnifiedHighlighter can now use the MatchesIterator API to highlight any query more accurately.
+  * TopFieldComparator can now stop comparing documents if the index is sorted, even if hits still need to be visited to compute the hit count.
+  * TieredMergePolicy can control how aggressively deletes should be reclaimed with the new deletesPctAllowed setting.
+
+### Highlights of this Solr release include:
+
+  * Nested/child documents may now be supplied as a field value instead of stand-off. Future releases will leverage this semantic information.
+  * Enhance Autoscaling policy support to equally distribute replicas on the basis of arbitrary properties.
+  * Nodes are now visible inside a view of the Admin UI "Cloud" tab, listing nodes and key metrics.
+  * The status of zookeeper ensemble is now accessible under the Admin UI Cloud tab.
+  * The new Korean morphological analyzer ("nori") has been added to default distribution.
+
 ## 3 July 2018 - Apache Lucene 6.6.5 and Apache Solr 6.6.5 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 6.6.5 and Apache Solr 6.6.5
@@ -46,16 +79,16 @@ and Solr can be downloaded from <http://lucene.apache.org/solr/downloads.html>
  * Upgraded from Log4j 1.x to 2.x.  Solr continues to log via SLF4J.
 
 ## 18 May 2018 - Apache Lucene 6.6.4 and Apache Solr 6.6.4 Available
- 
+
 The Lucene PMC is pleased to announce the release of Apache Lucene 6.6.4 and Apache Solr 6.6.4
- 
+
 Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/6.6.4>
 and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/6.6.4>
- 
+
 ### Highlights of this Solr release include:
- 
+
  * Do not allow to use absolute URIs for including other files in solrconfig.xml and schema parsing
- 
+
 ## 15 May 2018 - Apache Lucene 7.3.1 and Apache Solr 7.3.1 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 7.3.1 and Apache Solr 7.3.1
@@ -72,7 +105,7 @@ and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/sol
  * Deleting replicas sometimes fails and causes the replicas to exist in the down state
  * Upgrade commons-fileupload dependency to 1.3.3 to address CVE-2016-1000031
  * Do not allow to use absolute URIs for including other files in solrconfig.xml and schema parsing
- * A successful restore collection should mark the shard state as active and not buffering 
+ * A successful restore collection should mark the shard state as active and not buffering
 
 ## 4 April 2018 - Apache Lucene 7.3.0 and Apache Solr 7.3.0 Available
 
