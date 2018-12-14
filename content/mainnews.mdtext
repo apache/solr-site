@@ -1,5 +1,34 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 14 December 2018- Apache Lucene 7.6.0 and Apache Solr 7.6.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 7.6.0 and Apache Solr 7.6.0
+
+Lucene can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/java/7.6.0>
+and Solr can be downloaded from <http://www.apache.org/dyn/closer.lua/lucene/solr/7.6.0>
+
+### Highlights of this Lucene release include:
+
+#### Bug Fixes
+
+  * Index sorting corruption due to numeric overflow has been fixed. Indices affected by this bug can be detected by running the CheckIndex command on a 7.6+ release distribution. 
+  * Better tessellation processing of Polygons including graceful exceptions for detecting invalid shapes.   
+
+#### Improvements
+
+  * Points codec now supports `selective indexing`; the ability to designate dimensions as as "data only" dimensions that do not affect construction of the index.
+  * New Simple WKT Shape Parser builds lucene geometries (polygons, lines, rectangles) from WKT format.
+  * New LatLonShapeLineQuery queries indexed shapes with arbitrary lines.
+  * Performance in PerFieldMergeState#FilterFieldInfos has been improved from O(N) to O(1) lookup time.
+
+### Highlights of this Solr release include:
+
+  * Field and FieldType now support a new `uninvertible` option to control using costly field cache or more efficient docValues.
+  * Collections API has been improved to support adding multiple replicas to a collection shard at a time as well as splitting into multiple sub-shards directly..
+  * Autoscaling's suggestions API now include rebalance options as well as suggestions to add new replicas for lost replicas.
+  * Several new Stream Evaluators have been added to include: oscillate, convexHull, enclosingDisk, pairSort, log10, percentiles, and pivot for geometric and scientific analysis.
+  * UnifiedHighlighter has been improved to support best/perfect highlighting accuracy and full phrase highlighting.
+
 ## 24 September 2018- Apache Lucene 7.5.0 and Apache Solr 7.5.0 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 7.5.0 and Apache Solr 7.5.0
