@@ -2,6 +2,38 @@ Title: News
 
 # Solr<sup>&trade;</sup> News
 
+## 11 February 2019, Apache Solr™ 7.7.0 available
+
+The Lucene PMC is pleased to announce the release of Apache Solr 7.7.0
+
+Solr is the popular, blazing fast, open source NoSQL search platform from the
+Apache Lucene project. Its major features include powerful full-text search,
+hit highlighting, faceted search, dynamic clustering, database integration, rich document
+(e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault
+tolerant distributed search and indexing, and powers the search and navigation features of
+many of the world's largest internet sites.
+
+Solr 7.7.0 is available for immediate download at:
+  <http://lucene.apache.org/solr/downloads.html>
+
+Please read CHANGES.txt for a full list of new features and changes:
+
+  <http://lucene.apache.org/solr/7_7_0/changes/Changes.html>
+
+### Solr 7.7.0 Release Highlights:
+
+  * URI Too Long with large streaming expressions in SolrJ.
+  * A failure while reloading a SolrCore can result in the SolrCore not being closed.
+  * Spellcheck parameters not working in new UI.
+  * New Admin UI Query does not URL-encode the query produced in the URL box.
+  * Rule-base Authorization plugin skips authorization if querying node does not have collection replica.
+  * Solr installer fails on SuSE linux.
+  * Fix incorrect SOLR_SSL_KEYSTORE_TYPE variable in solr start script.
+  * JSON 'terms' Faceting now supports a 'prelim_sort' option to use when initially selecting the top ranking buckets, prior to the final 'sort' option used after refinement.
+  * Add a login page to Admin UI, with initial support for Basic Auth and Kerberos.
+  * New Node-level health check handler at /admin/info/healthcheck and /node/health paths that checks if the node is live, connected to zookeeper and not shutdown.
+  * It is now possible to configure a host whitelist for distributed search.
+
 ## 14 December 2018, Apache Solr™ 7.6.0 available
 
 The Lucene PMC is pleased to announce the release of Apache Solr 7.6.0
@@ -24,7 +56,7 @@ Please read CHANGES.txt for a full list of new features and changes:
 
   * Field and FieldType now support a new `uninvertible` option to control using costly field cache or more efficient docValues.
   * Collections API has been improved to support adding multiple replicas to a collection shard at a time as well as splitting into multiple sub-shards directly..
-  * Autoscaling's suggestions API now include rebalance options as well as suggestions to add new replicas for lost replicas. 
+  * Autoscaling's suggestions API now include rebalance options as well as suggestions to add new replicas for lost replicas.
   * Several new Stream Evaluators have been added to include: oscillate, convexHull, enclosingDisk, pairSort, log10, percentiles, and pivot for geometric and scientific analysis.
   * UnifiedHighlighter has been improved to support best/perfect highlighting accuracy and full phrase highlighting.
 
