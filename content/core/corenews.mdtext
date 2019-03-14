@@ -1,5 +1,40 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Core News
 
+## 14 March 2019 - Apache Lucene™ 8.0.0 available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 8.0.0.
+
+Apache Lucene is a high-performance, full-featured text search engine library written entirely in Java. It is a technology suitable for nearly any application that requires full-text search, especially cross-platform.
+
+This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:
+
+   <http://lucene.apache.org/core/downloads.html>
+
+### Lucene 8.0.0 Release Highlights:
+
+#### Query execution
+
+Term queries, phrase queries and boolean queries introduced new optimization that enables efficient skipping over non-competitive documents when the total hit count is not needed. Depending on the exact query and data distribution, queries might run between a few percents slower and many times faster, especially term queries and pure disjunctions.
+
+In order to support this enhancement, some API changes have been made:
+ * `TopDocs.totalHits` is no longer a long but an object that gives a lower bound of the actual hit count.
+ * `IndexSearcher`'s `search` and `searchAfter` methods now only compute total hit counts accurately up to 1,000 in order to enable this optimization by default.
+ * Queries are now required to produce non-negative scores.
+
+#### Codecs
+
+ * Postings now index score impacts alongside skip data. This is how term queries optimize collection of top hits when hit counts are not needed.
+ * Doc values introduced jump tables, so that advancing runs in constant time. This is especially helpful on sparse fields.
+ * The terms index `FST` is now loaded off-heap for non-primary-key fields using `MMapDirectory`, reducing heap usage for such fields.
+
+#### Custom scoring
+
+The new `FeatureField` allows efficient integration of static features such as a pagerank into the score. Furthermore, the new `LongPoint#newDistanceFeatureQuery` and `LatLonPoint#newDistanceFeatureQuery` methods allow boosting by recency and geo-distance respectively. These new helpers are optimized for the case when total hit counts are not needed. For instance if the pagerank has a significant weight in your scores, then Lucene might be able to skip over documents that have a low pagerank value.
+
+Further details of changes are available in the change log available at:
+
+  <http://lucene.apache.org/core/8_0_0/changes/Changes.html>
+
 ## 1 March 2019, Apache Lucene™ 7.7.1 available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 7.7.1.
