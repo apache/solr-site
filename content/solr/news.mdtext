@@ -62,11 +62,11 @@ Please read CHANGES.txt for a full list of new features and changes:
  * Bugfix for ClassCastException when URPs try to read a String field which returns a ByteArrayUTF8CHarSequence (a
    regression in release 7.7.0).
 
- * Bugfix: Autoscaling based replica placement was broken out of the box. Solr 7.5 enabled autoscaling based replica
+ * Bugfix: Autoscaling based replica placement was broken out of the box. Solr 7.6 enabled autoscaling based replica
    placement by default but in the absence of default cluster policies, autoscaling can place more than 1 replica of the
    same shard on the same node. Also, the maxShardsPerNode and createNodeSet was not respected. Due to these reasons,
    this issue reverts the default replica placement policy to the 'legacy' assignment policy that was the default until
-   Solr 7.4.
+   Solr 7.5.
 
 ## 11 February 2019, Apache Solr™ 7.7.0 available
 
