@@ -48,7 +48,18 @@ Please read CHANGES.txt for a full list of new features and changes:
 
 ### Solr 8.0.0 Release Highlights
 
-* Solr now uses HTTP/2 for inter-node communication
+* Solr now uses HTTP/2 for inter-node communication to attain greater efficiency.  
+Details:  Solr is switching from Apache HttpClient to Jetty Client for adding HTTP/2 support.
+Most frequent inter-communication between nodes like indexing and query are now sent in HTTP/2.
+HTTP/1.1 practically allows only one outstanding request per TCP connection this means that for sending multiple requests at the same time multiple TCP connections must be established.
+This leads to waste of resources on both-sides and long GC-pause.
+Solr 8 with HTTP/2 support overcomes that problem by allowing multiple requests can be sent in parallel using a same TCP connection.
+
+* Nested documents (AKA child documents or block join) is significantly improved.
+Most improvements come from storing and leveraging more information about the relationships in the index, like the named relationship between a child and its parent.
+This information is used by the [child] doc transformer to return children in nested form instead of flat.
+There is plenty more that can be done with this in the future.
+Another key improvement is that nested documents can be deleted or replaced in a natural way without orphaning child documents; although care is still needed with delete-by-query.
 
 Being a major release, Solr 8 removes many deprecated APIs, changes various parameter defaults and behavior. Some changes may require a re-index of your content.
 You are thus encouraged to thoroughly read the "Upgrade Notes" at:
