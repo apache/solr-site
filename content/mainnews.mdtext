@@ -1,5 +1,33 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 16 May 2019 - Apache Lucene 8.1.0 and Apache Solr 8.1.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 8.1.0 and Apache Solr 8.1.0
+
+Lucene can be downloaded from <http://lucene.apache.org/core/downloads.html>
+and Solr can be downloaded from <http://lucene.apache.org/solr/downloads.html>
+
+### Highlights of this Lucene release include:
+
+  * A query introspection API has been introduced.
+  * Luke, well-known GUI for inspecting Lucene indexes, now added as a Lucene module
+  * Merging dimensional points to use radix partitioning, which has also been optimized
+  * Bugfix: LatLonShapePolygonQuery returns incorrect WITHIN results with shared boundaries
+  * TieredMergePolicy#findForcedMerges now tries to create the cheapest merges
+  * Build point writers in the BKD tree only when they are needed
+  * SynonymQuery can now deboost the document frequency of each term when blending synonym scores
+  * ConstantScoreQuery can early terminate if minimum score > constant score (total hits are not requested)
+  * DateRangePrefixTree can now parse more precise dates
+
+### Highlights of this Solr release include:
+
+  * Partial/Atomic Updates for nested documents. This enables atomic updates for nested documents, without the need to supply the whole nested hierarchy (which would be overwritten if absent).
+  * Category Routed Aliases feature introduced for data driven assignment of documents to collections based on values of a field
+  * JWT Token authentication plugin with OpenID Connect implicit flow login through Admin UI
+  * REINDEXCOLLECTION command for re-indexing of existing collections
+  * Collection RENAME command and support using aliases in most collection admin commands
+  * Read-only mode for SolrCloud collections
+
 ## 5 April 2019 - Apache Lucene 6.6.6 and Apache Solr 6.6.6 Available
 
 The Lucene PMC is pleased to announce the release of Apache Lucene 6.6.6 and Apache Solr 6.6.6
