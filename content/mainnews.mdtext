@@ -40,7 +40,6 @@ and Solr can be downloaded from <http://lucene.apache.org/solr/downloads.html>
   * Read-only mode for SolrCloud collections
   * Handling of incorrect or absent values was improved for many request parameters. In such cases the response is 400 http code (Bad Request), instead of 500 (Internal Server Error) as it was before.
   * Breaching timeAllowed limit correctly responded as 200 http code (Ok) with partialResults=true, instead of 500 (Internal Server Error) as it was before in SolrCloud. Note, it was fixed for essential request parameters, if you still evidence 500 caused by timeAllowed, please submit an issue with log excerpt attached.
-
   * In-place updates work for collections created with route.field.
   * Asynchronous Collection API calls do not return completion status prematurely when more than one replica reside per note.
   * Range Facets and Terms Component performance has been optimized for certain cases.
