@@ -33,7 +33,7 @@ Python version used:
 
 JCC started as a C++ code generator for hiding the gory details of
 accessing methods and fields on Java classes via
-Java's <a href="http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/invocation.html">Native Invocation Interface</a>.
+Java's <a href="https://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/invocation.html">Native Invocation Interface</a>.
 These C++ wrappers make it possible to access a Java object as if it
 was a regular C++ object.
 
@@ -228,7 +228,7 @@ invoke <i>distutils</i> with <i>bdist</i>
 or <i>setuptools</i>
 with <i>bdist_egg</i>. If <i>setuptools</i> is used,
 the resulting egg has to be installed with the
-<a href="http://peak.telecommunity.com/DevCenter/EasyInstall"><i>easy_install</i></a>
+<a href="https://peak.telecommunity.com/DevCenter/EasyInstall"><i>easy_install</i></a>
 installer which is normally part of a Python installation that
 includes <i>setuptools</i>.
 
@@ -695,8 +695,8 @@ call <i>super()</i> on these methods from Python as well.
 
 
 There are a number of extension examples available in PyLucene's test
-<a href="http://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/test">suite</a>
-and <a href="http://svn.apache.org/viewvc/lucene/pylucene/trunk/samples">samples</a>.
+<a href="https://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/test">suite</a>
+and <a href="https://svn.apache.org/viewvc/lucene/pylucene/trunk/samples">samples</a>.
 
 ##Embedding a Python VM in a Java VM
 
@@ -799,7 +799,7 @@ to do so via the <i>--mapping</i> command line option which
 takes two arguments, the class to generate the mapping get for and
 the Java method to use. The method is specified with its name
 followed by ':' and its Java
-<a href="http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16432">signature</a>.
+<a href="https://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16432">signature</a>.
 
 
 For example, <i>System.getProperties()['java.class.path']</i> is
@@ -818,7 +818,7 @@ when requested to do so via the <i>--sequence</i> command line
 option which takes three arguments, the class to generate the
 sequence length and get for and the two java methods to use. The
 methods are specified with their name followed by ':' and their Java
-<a href="http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16432">signature</a>. For example:
+<a href="https://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16432">signature</a>. For example:
 
 <pre><code>
 for i in xrange(len(hits)): 
