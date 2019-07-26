@@ -1,5 +1,55 @@
 # Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> News
 
+## 26 July 2019 - Apache Lucene 8.2.0 and Apache Solr 8.2.0 Available
+
+The Lucene PMC is pleased to announce the release of Apache Lucene 8.2.0 and Apache Solr 8.2.0
+
+Lucene can be downloaded from https://lucene.apache.org/core/downloads.html and Solr can be downloaded from https://lucene.apache.org/solr/downloads.html
+
+### Highlights of this Lucene release include:
+
+#### API Changes:
+
+  * Intervals queries has been moved from the sandbox to the queries module.
+
+#### New Features
+
+  * New XYShape Field and Queries for indexing and querying general cartesian geometries.
+  * Snowball stemmer/analyzer for the Estonian language.
+  * Provide a FeatureSortfield to allow sorting search hits by descending value of a feature.
+  * Add new KoreanNumberFilter that can change Hangul character to number and process decimal point.
+  * Add doc-value support to range fields.
+  * Add monitor subproject (previously Luwak monitoring library) that allows a stream of documents to be matched against a set of registered queriesin an efficient manner.
+  * Add a numeric range query in sandbox that takes advantage of index sorting.Add a numeric range query in sandbox that takes advantage of index sorting.
+
+  ####Optimizations
+
+  * Use exponential search instead of binary search in IntArrayDocIdSet#advance method.
+  * Use incoming thread for execution if IndexSearcher has an executor. Now caller threads execute at least one search on an index even if there is an executor provided to minimize thread context switching.
+  * New storing strategy for BKD tree leaves with low cardinality that can lower storage costs and It can be used at search time to speed up queries.
+  * Load frequencies lazily only when needed in BlockDocsEnum and BlockImpactsEverythingEnum.
+  * Phrase queries now leverage impacts.
+
+### Highlights of this Solr release include:
+
+#### New features
+
+  * Add an update param failOnVersionConflicts=false to updates not fail when there is a version conflict
+  * Add facet2D Streaming Expression.
+  * Preferred replicas on nodes with same system properties as the query master
+  * OpenTracing support for Solr
+  * Raw index data analysis tool (extension of COLSTATUS collection command).
+  * Add recNum Stream Evaluator.
+  * Allow zplot to visualize 2D clusters and convex hulls.
+  * Add a field type for Estonian language to default managed_schema, document about Estonian language analysis in Solr Ref Guide
+
+#### Bug Fixes
+
+  * Intermittent 401's for internode requests with basicauth enabled.
+  * In 8.1, Atomic Updates were broken (NPE) when the schema declared the new _nest_path_ field even if you weren't using nested docs. In-place updates were not affected (worked)
+  * Fix atomic update encoding issue for UUID, enum, bool, and binary fields.
+  * Impossible to delete a collection with the same name as an existing alias. This fixes also a bug inREINDEXCOLLECTION when used with removeSource=true which could lead to a data loss.
+
 ## 4 June 2019, Apache Lucene 7.7.2 and Apache Solr 7.7.2 available
 
 The Lucene PMC is pleased to announce the release of Apache® Lucene™ 7.7.2 and Apache® Solr™ 7.7.2.
