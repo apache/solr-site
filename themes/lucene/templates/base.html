@@ -1,26 +1,47 @@
-{#
- This is a work around to the fact that the CMS doesn't allow inheritance of depth 
- 2, so instead do a lot of includes.  See https://issues.apache.org/jira/browse/INFRA-3850
-#}
-<!-- main.html -->
 <!doctype html>
 <html>
-{% extends "head.html" %}
-{% block css %}
-    <link href="./css/global.css" rel="stylesheet" type="text/css">
-{% endblock %}
-{% block javascript %}
-<script type="text/javascript" src="./scripts/prototype.js"></script>
-<script type="text/javascript" src="./scripts/effects.js"></script>
-<script type="text/javascript" src="./scripts/search.js"></script>
-<script type="text/javascript" src="./scripts/slides.js"></script>
-{% endblock %}
-{% block metakeys %}<meta name="keywords"
-        content="apache, apache lucene, apache solr, solr, lucene
-        search, information retrieval, spell checking, faceting, inverted index, open source"/>
-{% endblock %}
-{% endextends %}
- 
+  <head>
+    <!--
+        Licensed to the Apache Software Foundation (ASF) under one or more
+        contributor license agreements.  See the NOTICE file distributed with
+        this work for additional information regarding copyright ownership.
+        The ASF licenses this file to You under the Apache License, Version 2.0
+        (the "License"); you may not use this file except in compliance with
+        the License.  You may obtain a copy of the License at
+
+           http://www.apache.org/licenses/LICENSE- 2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+    -->
+
+    {% block css %}
+    <link href="theme/css/global.css" rel="stylesheet" type="text/css">
+    {% endblock %}
+    <title>Apache Lucene - {% block headtitle %}{{ Title }}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="Distribution" content="Global"/>
+    <meta name="Robots" content="index,follow"/>
+    {% block metakeys %}
+    <meta name="keywords"
+       content="apache, apache lucene, apache solr, solr, lucene
+       search, information retrieval, spell checking, faceting, inverted index, open source"/>
+    {% endblock %}
+    {% block favicon %}
+    <link rel="shortcut icon" type="image/x-icon" href="/images/lucene-favicon.ico"/>
+    {% endblock %}
+    {% block javascript %}
+    <script type="text/javascript" src="theme/javascript/prototype.js"></script>
+    <script type="text/javascript" src="theme/javascript/effects.js"></script>
+    <script type="text/javascript" src="theme/javascript/search.js"></script>
+    <script type="text/javascript" src="theme/javascript/slides.js"></script>
+    {% endblock %}
+  </head>
+
 {% extends "body.html" %}
 {% block news %}
 {% endblock %}
