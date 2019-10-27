@@ -41,9 +41,21 @@
     <script type="text/javascript" src="theme/javascript/slides.js"></script>
     {% endblock %}
   </head>
-
-{% extends "body.html" %}
-{% block news %}
-{% endblock %}
-{% endextends %}
+  <body id="home">
+    <div id="wrap">
+      <div id="content-wrap" class="clearfix">
+        <div id="main">
+          {% block content %}
+          {% endblock %}
+        </div>
+        {% block sidebar %}
+        <div id="sidebar">
+          {% macro markdown() %}{% include "_sidenav.md" %}{%- endmacro %}
+        </div>
+        {% endblock %}
+      </div>
+      {% include "_footer.html" %}
+    </div>
+    {% include "_analytics.html" %}
+  </body>
 </html>
