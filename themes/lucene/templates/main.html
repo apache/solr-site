@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+{% block headtitle %}{{ page.title }}{% endblock %}
 {% block header %}
+    <div id="logo" style="float:left">
         {% block logo %}
         <a href="http://lucene.apache.org/"><img border="0" src="images/lucene_logo_green_300.png" alt="Lucene Logo"/></a><div style="position:absolute;right:100px;top:10px;"><span style="vertical-align: super; font-size: xx-small">TM</span></div>
         {% endblock %}
+        </div>
         {% include "_search.html" %}
         <div id="nav">
           {% block nav %}
@@ -80,10 +83,33 @@ document.observe('dom:loaded', StartSlides);
 {% endblock header %}
 
 {% block content %}
-  <h1 class="title">{% block title %}{{ Title }}{% endblock %}</h1>
+  <h1 class="title">{% block title %}{{ page.title }}{% endblock %}</h1>
   <div>
     {{ page.content }}
   </div>
+
+  {% block main_news %}
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible
+    }
+  </style>
+  <h1 id="lucene-project-news">Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Project News
+    <a class="headerlink" href="#lucenetm-project-news" title="Permanent link">¶</a>
+  </h1>
+  <div>
+    {% for article in (articles | selectattr("category", "equalto", "main_news")|list)[:70] %}
+    <h2 id="{{article.slug}}">
+      {{article.locale_date|title}} - {{article.title}}
+      <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
+    </h2>
+    {{article.content}}
+    {% endfor %}
+  </div>
+  {% endblock main_news %}
 
   {% block asfboiler %}
   <div>{% macro markdown() %}{% include "_asf.md" %}{% endmacro %}</div>
