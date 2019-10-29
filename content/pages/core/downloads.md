@@ -1,4 +1,6 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Downloads
+URL: core/
+save_as: core/downloads.html
 template: page
 
 Official releases are usually created when the [developers](../whoweare.html) feel there are

@@ -1,4 +1,7 @@
-#Privacy Policy
+Title: Privacy Policy
+URL:
+save_as: privacy.html
+template: page
 
 Information about your use of this website is collected using server access logs and a tracking cookie. The collected information consists of the following:
 

@@ -15,14 +15,14 @@ category: sidebar
 <div class="download-desc">apache solr 8.2.0</div>
 
 # Projects
-  - [Lucene Core (Java)](./core/)
+  - [Lucene Core (Java)](/core/)
   - [Solr](./solr/)
   - [PyLucene](./pylucene/)
   - [Open Relevance (Discontinued)](./openrelevance/)
 
 # About
   - [License](https://www.apache.org/licenses/)
-  - [Who We are](./whoweare.html)
+  - [Who We are](/whoweare.html)
 
 # Events
 
@@ -36,7 +36,7 @@ category: sidebar
 
 # Editing This Site
 
-  - [Instructions](site-instructions.html)
+  - [Instructions](/site-instructions.html)
   - [ASF CMS](http://www.apache.org/dev/cms.html)
   - [ASF CMS Reference/FAQ](http://www.apache.org/dev/cmsref.html)
   - [Markdown](http://daringfireball.net/projects/markdown/syntax)

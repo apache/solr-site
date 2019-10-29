@@ -1,4 +1,7 @@
 Title: Updating the Lucene Website
+URL:
+save_as: site-instructions.html
+template: page
 
 ## Editing Content on the Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> sites
 
@@ -30,4 +33,3 @@ To get started, take the following steps from the command line:
 * [Markdown Reference](http://daringfireball.net/projects/markdown/syntax)
 
 * [ASF CMS Reference](http://www.apache.org/dev/cmsref.html) and [ASF CMS](http://www.apache.org/dev/cms.html)
-

@@ -1,4 +1,6 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Release Docs
+URL: core/
+save_as: core/documentation.html
 template: page
 
 ## Java Docs

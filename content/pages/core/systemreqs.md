@@ -1,4 +1,7 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> System Requirements
+URL: core/
+save_as: core/systemreqs.html
+template: page
 
 The system requirements of the various Lucene releases are listed on their documentation pages:
 

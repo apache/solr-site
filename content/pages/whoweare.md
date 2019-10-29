@@ -1,4 +1,7 @@
-[pmc]: images/  "Optional title attribute"
+Title: Who we are
+URL:
+save_as: whoweare.html
+template: page
 
 ## Lucene<span style="vertical-align: super; font-size: xx-small">TM</span>/Solr<span style="vertical-align: super; font-size: xx-small">TM</span> Committers
 - *[Namgyu Kim](https://www.linkedin.com/in/danmuzi)* (namgyu@...)
@@ -77,7 +80,7 @@
 - *[Jason Gerlowski](https://twitter.com/jeg90)* (gerlowskija@...)
 - *Ignacio Vera* (ivera@...)
 - *Munendra S N* (munendrasn@...)
- 
+
 ## Emeritus
 
 - *George Aroush* (aroush@...)
@@ -100,7 +103,7 @@
 - *Dmitry Serebrennikov* (dmitrys@...)
 - *Jon Stevens* (jon at latchkey.com)
 - *Matt Tucker* (mtucker@...)
-- *Karl Wettin* (kalle@...) 
+- *Karl Wettin* (kalle@...)
 
 ## Lucene Project Management Committee (PMC)
 

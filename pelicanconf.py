@@ -47,10 +47,20 @@ EXTRA_PATH_METADATA = {
         'save_as': 'core/corenews.html',
         },
     }
+PLUGIN_PATHS = ['./plugins']
+PLUGINS = [
+    'extract_toc',
+    'jinja2content',
+    'md_inline_extension',
+]
 
 MARKDOWN = {
     'extension_configs': {
+        'toc': {},
         'mdx_include': {},
+        'markdown.extensions.codehilite': {'css_class': 'highlight'},
+        'markdown.extensions.extra': {},
+        'markdown.extensions.meta': {},
     },
     'output_format': 'html5',
 }

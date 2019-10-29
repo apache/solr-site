@@ -1,4 +1,6 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Dev
+URL: core/
+save_as: core/developer.html
 template: page
 
 ##Source Code
