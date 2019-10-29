@@ -1,4 +1,4 @@
-## Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Tutorials
+Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Tutorials
 
 A copy of the demo for each version of Lucene is included
 in the documentation for that release.
