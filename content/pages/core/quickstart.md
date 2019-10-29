@@ -1,4 +1,5 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Tutorials
+template: page
 
 A copy of the demo for each version of Lucene is included
 in the documentation for that release.
