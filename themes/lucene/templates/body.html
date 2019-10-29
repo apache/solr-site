@@ -3,7 +3,7 @@
   <div id="header">
     <div id="logo" style="float:left">
       {% block logo %}
-      <a href="http://lucene.apache.org/"><img border="0" src="images/lucene_logo_green_300.png" alt="Lucene Logo"/></a><div style="position:absolute;right:100px;top:10px;"><span style="vertical-align: super; font-size: xx-small">TM</span></div>
+      <a href="http://lucene.apache.org/"><img border="0" src="{{ SITEURL }}/images/lucene_logo_green_300.png" alt="Lucene Logo"/></a><div style="position:absolute;right:100px;top:10px;"><span style="vertical-align: super; font-size: xx-small">TM</span></div>
       {% endblock %}
     </div>
     {% include "search.html" %}
@@ -80,7 +80,7 @@
       document.observe('dom:loaded', StartSlides);
     </script>
     {% endblock %}
-  </div> 
+  </div>
   <div id="content-wrap" class="clearfix">
     <div id="main">
       <h1 class="title">{% block title %}{{ headers.title }}{% endblock %}</h1>
@@ -97,7 +97,7 @@
     {% block sidebar %}
     <div id="sidebar">
       {% filter markdown %}{% include "sidenav.mdtext" %}{% endfilter %}
-      
+
     </div>
     {% endblock %}
   </div>
