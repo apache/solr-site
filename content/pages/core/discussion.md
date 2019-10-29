@@ -1,4 +1,4 @@
-#Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Mailing Lists and IRC
+Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Mailing Lists and IRC
 
 [TOC]
 
@@ -19,9 +19,9 @@ send questions to this list to verify your problem before filing issues in JIRA.
 ### Developer Discussion: dev@lucene.apache.org
 
 This is the list where participating developers of the Java Lucene project meet
-and discuss issues concerning Lucene/Solr internals, code changes/additions, etc. 
+and discuss issues concerning Lucene/Solr internals, code changes/additions, etc.
 
-*<b>NOTE:</b> Please do not send mail to this list with usage questions or configuration 
+*<b>NOTE:</b> Please do not send mail to this list with usage questions or configuration
 questions and problems; that is what the java-user and solr-user mailing lists are for.*
 
 - Subscribe: [dev-subscribe](mailto:dev-subscribe@lucene.apache.org)
@@ -32,8 +32,8 @@ questions and problems; that is what the java-user and solr-user mailing lists a
 
 ### General Discussion: general@lucene.apache.org
 
-This list is for broader questions and discussions about the Lucene project, announcements, 
-and for questions from users who have no idea where to get started (Lucene-Core?, Solr? PyLucene?) 
+This list is for broader questions and discussions about the Lucene project, announcements,
+and for questions from users who have no idea where to get started (Lucene-Core?, Solr? PyLucene?)
 
 - Subscribe: [general-subscribe](mailto:general-subscribe@lucene.apache.org)
 - Unsubscribe: [general-unsubscribe](mailto:general-unsubscribe@lucene.apache.org)
@@ -46,7 +46,7 @@ This is an automated announcement only list where notifications about all JIRA i
 
 Subscribe: [issues-subscribe](mailto:issues-subscribe@lucene.apache.org)
 
-Unsubscribe: [issues-unsubscribe](mailto:issues-unsubscribe@lucene.apache.org) 
+Unsubscribe: [issues-unsubscribe](mailto:issues-unsubscribe@lucene.apache.org)
 ([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
 
 [Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-issues/)
@@ -57,7 +57,7 @@ This is an automated announcement only list where notifications about all CI bui
 
 Subscribe: [builds-subscribe](mailto:builds-subscribe@lucene.apache.org)
 
-Unsubscribe: [builds-unsubscribe](mailto:builds-unsubscribe@lucene.apache.org) 
+Unsubscribe: [builds-unsubscribe](mailto:builds-unsubscribe@lucene.apache.org)
 ([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
 
 [Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-builds/)
@@ -92,4 +92,4 @@ No endorsement is implied by the listing of an archive on the Wiki.
 
 ## Other Mailing Lists
 
-Each Lucene project maintains its own mailing lists.  Please refer to the project you are interested in for details on subscribing to its mailing list.  
+Each Lucene project maintains its own mailing lists.  Please refer to the project you are interested in for details on subscribing to its mailing list.
