@@ -1,15 +1,18 @@
-  <div class="button-green">
-    <a href="core/downloads.html">Download</a>
-    <div class="flap top">Click to</div>
-    <div class="flap bottom">Apache Lucene 8.2.0</div>
-  </div>
-  <div class="download-desc">Apache Lucene 8.2.0</div>
-  <div class="button-orange">
-    <a href="solr/downloads.html?">Download</a>
-    <div class="flap top">Click to</div>
-    <div class="flap bottom">Apache Solr 8.2.0</div>
-  </div>
-  <div class="download-desc">Apache Solr 8.2.0</div>
+Title: Sidebar
+category: sidebar
+
+<div class="button-green">
+  <a href="core/downloads.html">download</a>
+  <div class="flap top">click to</div>
+  <div class="flap bottom">apache lucene 8.2.0</div>
+</div>
+<div class="download-desc">apache lucene 8.2.0</div>
+<div class="button-orange">
+  <a href="solr/downloads.html?">download</a>
+  <div class="flap top">click to</div>
+  <div class="flap bottom">apache solr 8.2.0</div>
+</div>
+<div class="download-desc">apache solr 8.2.0</div>
 
 # Projects
   - [Lucene Core (Java)](./core/)

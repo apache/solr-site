@@ -52,11 +52,12 @@
           {% block content %}
           {% endblock %}
         </div>
-        {% block sidebar %}
         <div id="sidebar">
-          {% macro markdown() %}{% include "_sidenav.md" %}{%- endmacro %}
-        </div>
+        {% block sidebar %}
+        {% set sidebar = pages | selectattr("category", "equalto", "sidebar")|first %}
+        {{ sidebar.content }}
         {% endblock %}
+        </div>
       </div>
       {% include "_footer.html" %}
     </div>
