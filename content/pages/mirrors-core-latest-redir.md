@@ -1,3 +1,6 @@
+Title:
+slug: mirrors-core-latest-redir
+
 You should be automatically redirected to the Apache Mirrors Site, if not please choose from the
 following:
 
