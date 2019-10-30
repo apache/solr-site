@@ -54,13 +54,13 @@
         </div>
         <div id="sidebar">
         {% block sidebar %}
-        {% set sidebar = pages | selectattr("category", "equalto", "sidebar")|first %}
+        {% set sidebar = pages | selectattr("category", "equalto", "sidebar-core")|first %}
         {{ sidebar.content }}
         {% endblock %}
         </div>
       </div>
-      {% include "_footer.html" %}
+      {% include "lucene-core/_footer.html" %}
     </div>
-    {% include "_analytics.html" %}
+    {% include "lucene-core/_analytics.html" %}
   </body>
 </html>

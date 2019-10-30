@@ -1,11 +1,11 @@
-{% extends "main.html" %}
+{% extends "lucene-tlp/main.html" %}
 
 {% block title %}{{page.title}}{% endblock %}
 
 {% block content %}
   {{ super() }}
   <div>
-    {{page.content}}
+    {{ page.content }}
   </div>
 
   {% block main_news %}
@@ -17,11 +17,8 @@
       visibility: visible
     }
   </style>
-  <h1 id="lucene-project-news">Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Project News
-    <a class="headerlink" href="#lucenetm-project-news" title="Permanent link">¶</a>
-  </h1>
   <div>
-    {% for article in (articles | selectattr("category", "equalto", "main_news")|list)[:15] %}
+    {% for article in (articles | selectattr("category", "equalto", "main_news")|list) %}
     <h2 id="{{article.slug}}">
       {{article.locale_date|title}} - {{article.title}}
       <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>

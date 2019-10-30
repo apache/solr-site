@@ -8,7 +8,7 @@ SITEURL = ''
 
 PATH = 'content'
 
-THEME = 'themes/lucene-tlp'
+THEME = 'themes/lucene'
 
 TIMEZONE = 'UTC'
 

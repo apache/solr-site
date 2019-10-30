@@ -1,0 +1,63 @@
+<div id="search" style="float:right;zoom:1">
+  <script type="text/javascript">
+    function getBlank(input, stdValue) {
+      if (input.value == stdValue) {
+        input.value = '';
+      }
+      return true;
+    }
+
+    function submitForm(form) {
+      provider = form.elements['searchProvider'].value;
+      if (provider == "any") {
+        if (Math.random() > 0.5) {
+          provider = "lucid";
+        } else {
+          provider = "sl";
+        }
+      }
+
+      if (provider == "lucid") {
+        form.action = "http://find.searchhub.org/p:lucene,solr";
+      } else if (provider == "sl") {
+        form.action = "http://search-lucene.com/lucene";
+      }
+
+      days = 90; // cookie will be valid for 90 days
+      date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toGMTString();
+      document.cookie = "searchProvider=" + provider + expires + "; path=/";
+
+      return true;
+    }
+  </script>
+  <form id="quick-search" method="GET" onsubmit="return submitForm(this)"
+        action="http://search-lucene.com/lucene"
+        name="searchform">
+    <fieldset>
+      <input type="search" id="q" name="q" value="Search with Apache Solr..." class="class1 class2 hint" accesskey="q"
+             onfocus="getBlank(this, 'Search with Apache Solr...')">
+      <span style="color:white">@</span>
+      <select name="searchProvider" id="searchProvider">
+        <option value="any">select provider</option>
+        <option value="lucid">Lucid Find</option>
+        <option value="sl">Search-Lucene</option>
+      </select>
+    </fieldset>
+    <script type="text/javascript">
+      if (document.cookie.length > 0) {
+        cStart = document.cookie.indexOf("searchProvider=");
+        if (cStart != -1) {
+          cStart = cStart + "searchProvider=".length;
+          cEnd = document.cookie.indexOf(";", cStart);
+          if (cEnd == -1) {
+            cEnd = document.cookie.length;
+          }
+          provider = unescape(document.cookie.substring(cStart, cEnd));
+          document.forms['searchform'].elements['searchProvider'].value = provider;
+        }
+      }
+    </script>
+  </form>
+</div>

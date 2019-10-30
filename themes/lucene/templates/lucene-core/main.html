@@ -1,0 +1,99 @@
+{% extends "lucene-core/base.html" %}
+{% block headtitle %}{{ Title }}{% endblock %}
+{% block header %}
+    <div id="logo" style="float:left">
+        {% block logo %}
+        <a href="http://lucene.apache.org/"><img border="0" src="{{ SITEURL }}/images/lucene_logo_green_300.png" alt="Lucene Logo"/></a><div style="position:absolute;right:100px;top:10px;"><span style="vertical-align: super; font-size: xx-small">TM</span></div>
+        {% endblock %}
+        </div>
+        {% include "lucene-core/_search.html" %}
+        <div id="nav">
+          {% block nav %}
+          <ul>
+            <li><a href="{{ SITEURL}}/core/index.html">Core</a></li>
+            <li><a href="{{ SITEURL}}/core/corenews.html">News</a></li>
+            <li><a href="{{ SITEURL}}/core/downloads.html">Download</a></li>
+            <li><a href="{{ SITEURL}}/core/discussion.html">Mailing Lists</a></li>
+            <li><a href="{{ SITEURL}}/core/documentation.html">Documentation</a></li>
+            <li><a href="{{ SITEURL}}/core/quickstart.html">Tutorials</a></li>
+            <li><a href="https://issues.apache.org/jira/browse/LUCENE">Issue Tracker</a></li>
+            <li><a class="last" href="{{ SITEURL }}/">Lucene TLP</a></li>
+          </ul>
+          {% endblock %}
+        </div>
+        {% block slides %}
+        <div id="slides">
+          <div class="slideshow" id="mantleSlides">
+            <div id="slide1">
+              <div class="callout">
+                Ultra-fast Search Library<br/>
+              </div>
+              <div class="descwrapper">
+                <div class="description">
+                  Apache Lucene sets the standard for search and indexing performance
+                </div>
+              </div>
+              <div class="mantle">
+                <img alt="Apache Lucene" src="../images/mantle-lucene.png"/>
+              </div>
+            </div>
+            <div id="slide2" style="display:none">
+              <div class="callout">
+                Proven search capabilities<br/>
+              </div>
+              <div class="descwrapper">
+                <div class="description">
+                  Lucene is the de facto standard for search libraries
+                </div>
+              </div>
+              <div class="mantle">
+                <img alt="Lucene Power" src="../images/mantle-power.png"/>
+              </div>
+            </div>
+            <div id="slide3" style="display:none">
+              <div class="callout">
+                Innovation and Maturity
+              </div>
+              <div class="descwrapper">
+                <div class="description">
+                  Lucene has proven stability as well as a track record of innovation
+                </div>
+              </div>
+              <div class="mantle">
+                <img alt="Apache Lucene" src="../images/mantle-innovation.png"/>
+              </div>
+            </div>
+            <div id="slide4" style="display:none">
+              <div class="callout">
+                Apache 2.0 licensed
+              </div>
+              <div class="descwrapper">
+                <div class="description">
+                  Apache Lucene is distributed under a commercially friendly Apache Software license
+                </div>
+              </div>
+              <div class="mantle">
+                <img alt="Apache Software Foundation" src="../images/mantle-asf.png"/>
+              </div>
+            </div>
+          </div>
+          <div class="controls">
+            <a class="next" id="next" title="Next" href="#">Next</a>
+            <a class="previous" id="previous" title="Previous" href="#">Previous</a>
+            <a class="start" id="start" title="Start" href="#" style="display: none; ">Start</a>
+            <a class="stop" id="stop" title="Stop" href="#">Stop</a>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          function StartSlides() {
+            new Slides('mantleSlides');
+          }
+document.observe('dom:loaded', StartSlides);
+        </script>
+        {% endblock %}
+{% endblock header %}
+
+{% block content %}
+<h1 class="title">{% block title %}{{ Title }}{% endblock %}</h1>
+{% endblock content %}

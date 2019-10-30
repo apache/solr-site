@@ -1,7 +1,7 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Release Docs
 URL: core/
 save_as: core/documentation.html
-template: page
+template: lucene-core/page
 
 ## Java Docs
 - [8.2.0](./8_2_0/index.html)

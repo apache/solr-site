@@ -1,3 +1,16 @@
+Title: Sidebar
+category: sidebar-core
+slug: sidebar-core
+
+<div class="button-wrapper">
+  <div class="button-green">
+    <a href="downloads.html">Download</a>
+    <div class="flap top">Click to</div>
+    <div class="flap bottom">Apache Lucene 8.2.0</div>
+  </div>
+  <div class="download-desc">Apache Lucene 8.2.0</div>
+</div>
+
 # Resources
 - [Mailing Lists](discussion.html)
 - [Developer](developer.html)
@@ -33,3 +46,10 @@
 - [Apache OpenNLP](http://opennlp.apache.org/)
 - [Apache Tika](http://tika.apache.org)
 - [Apache Zookeeper](http://zookeeper.apache.org)
+
+
+<div class="status">
+  <!-- No SVN anymore; TODO: how to do Git? INFRA does not have a plugin!
+  <div id="svn"></div>
+  -->
+</div>

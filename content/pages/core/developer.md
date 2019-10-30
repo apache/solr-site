@@ -1,7 +1,8 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Dev
 URL: core/
 save_as: core/developer.html
-template: page
+theme: lucene-core
+template: lucene-core/page
 
 ##Source Code
 The source files are stored using GIT (see https://git-scm.com/documentation)

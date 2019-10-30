@@ -1,7 +1,8 @@
 Title: Apache Lucene Core
 URL: core/
 save_as: core/index.html
-template: page
+theme: lucene-core
+template: lucene-core/page
 
 Apache Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> is a high-performance, full-featured text search engine library written entirely in Java. It is a technology suitable for nearly any application that requires full-text search, especially cross-platform.
 

@@ -1,7 +1,7 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Downloads
 URL: core/
 save_as: core/downloads.html
-template: page
+template: lucene-core/page
 
 Official releases are usually created when the [developers](../whoweare.html) feel there are
             sufficient changes, improvements and bug fixes to warrant a release.
