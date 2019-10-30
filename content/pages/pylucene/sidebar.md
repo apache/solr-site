@@ -1,3 +1,15 @@
+Title: Sidebar
+category: sidebar-pylucene
+slug: sidebar-pylucene
+
+<div class="button-wrapper" style="margin-top: 40px;">
+  <div class="button-green">
+    <a href="http://www.apache.org/dyn/closer.lua/lucene/pylucene/">Download</a>
+    <div class="flap top">Click to begin</div>
+    <div class="flap bottom">of Apache PyLucene</div>
+  </div>
+</div>
+
 # Documentation
   - [License](https://www.apache.org/licenses/)
   - [Features](features.html)
@@ -6,7 +18,7 @@
 # Events
 
   - <a  href="https://www.apache.org/events/current-event.html" target="_blank"><img src="https://www.apache.org/events/current-event-125x125.png"/></a>
-  
+
 # ASF links
   - [Apache Software Foundation](http://www.apache.org)
   - [Thanks](http://www.apache.org/foundation/thanks.html)

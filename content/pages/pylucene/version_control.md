@@ -1,3 +1,8 @@
+Title: Source Code
+URL: pylucene/
+save_as: pylucene/version_control.html
+template: pylucene/page
+
 #Source Code
 The source files are now stored using Subversion (see https://subversion.tigris.org/ and https://svnbook.red-bean.com/)
 

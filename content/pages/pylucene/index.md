@@ -1,4 +1,7 @@
 Title: Welcome to PyLucene
+URL: pylucene/
+save_as: pylucene/index.html
+template: pylucene/splash
 
 ##What is PyLucene ?
 
@@ -36,7 +39,7 @@ of <a href="https://ant.apache.org">Ant</a> capable of building
 Java <a href="https://lucene.apache.org/java/">Lucene</a> and a C++
 compiler. Use
 of <a href="https://pypi.python.org/pypi/setuptools">setuptools</a>
-is recommended. 
+is recommended.
 
 See the JCC <a href="jcc/install.html">installation
 instructions</a> for more information about building JCC from sources.
@@ -45,6 +48,3 @@ instructions</a> for more information about building JCC from sources.
 See the PyLucene <a href="install.html">installation
 instructions</a> for more information about building PyLucene from
 sources.
-
-
-<div>{% filter markdown %}{% include "content/pylucene/pynews.mdtext" %}{% endfilter %}</div>

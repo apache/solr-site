@@ -1,18 +1,23 @@
-## Warning    
+Title: Features
+URL: pylucene/
+save_as: pylucene/features.html
+template: pylucene/page
+
+## Warning
 
 Before calling any PyLucene API that requires the Java VM, start it by
-calling <i>initVM(classpath, ...)</i>. 
+calling <i>initVM(classpath, ...)</i>.
 More about this function in <a href="jcc/features.html">here</a>.
 
 ##Installing PyLucene
 
-PyLucene is a Python extension built with 
+PyLucene is a Python extension built with
 <a href="jcc/">JCC</a>.
 
 
 To build PyLucene, JCC needs to be built first. Sources for JCC are
 included with the PyLucene sources. Instructions for building and
-installing JCC are <a href="jcc/install.html">here</a>. 
+installing JCC are <a href="jcc/install.html">here</a>.
 
 
 Instruction for building PyLucene
@@ -28,7 +33,7 @@ supports the entire Lucene API.
 
 PyLucene also includes a number of Lucene contrib packages: the
 Snowball analyzer and stemmers, the highlighter package, analyzers
-for other languages than english, regular expression queries, 
+for other languages than english, regular expression queries,
 specialized queries such as 'more like this' and more.
 
 

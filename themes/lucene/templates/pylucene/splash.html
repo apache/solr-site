@@ -1,0 +1,35 @@
+{% extends "pylucene/main.html" %}
+{% block content %}
+<div>
+  <h1 class="title">{{page.title}}</h1>
+  {% if page.toc %}
+  <div class="toc">
+    {{ page.toc }}
+  </div>
+  {% endif %}
+  {{page.content}}
+</div>
+
+  {% block pylucene_news %}
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible
+    }
+  </style>
+  <h1 id="news">News
+    <a class="headerlink" href="#news" title="Permanent link">¶</a>
+  </h1>
+  <div>
+    {% for article in (articles | selectattr("category", "equalto", "pylucene_news")|list)[:15] %}
+    <h2 id="{{article.slug}}">
+      {{article.locale_date|title}} - {{article.title}}
+      <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
+    </h2>
+    {{article.content}}
+    {% endfor %}
+  </div>
+  {% endblock pylucene_news %}
+{% endblock %}

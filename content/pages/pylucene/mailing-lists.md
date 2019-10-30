@@ -1,4 +1,7 @@
 Title: Mailing Lists
+URL: pylucene/
+save_as: pylucene/mailing-lists.html
+template: pylucene/page
 
 ##Users
 
@@ -16,7 +19,7 @@ mailing list.
 <note>
 In order to post to the <a href="#Developers">PyLucene Developer</a>
 list, it is necessary to first <a href="mailto:pylucene-dev-subscribe@lucene.apache.org">subscribe</a> to it. See below for more information.
-</note> 
+</note>
 
 ##Developers
 
@@ -36,7 +39,7 @@ The PyLucene developer mailing list is:
 
 <note>
 In order to post to the list, it is necessary to first <a href="mailto:pylucene-dev-subscribe@lucene.apache.org">subscribe</a> to it.
-</note> 
+</note>
 
 ##Commits
 
