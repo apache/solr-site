@@ -1,4 +1,4 @@
-<!doctype html>
+c<!doctype html>
 <html>
   <head>
     <!--
@@ -19,8 +19,8 @@
     -->
 
     {% block css %}
-    <link href="{{ SITEURL }}/theme/css/global.css" rel="stylesheet" type="text/css">
-    <link href="{{ SITEURL }}/theme/css/pylucene.css" rel="stylesheet" type="text/css">
+    <link href="{{ SITEURL }}/theme/css/openrelevance/global.css" rel="stylesheet" type="text/css">
+    <link href="{{ SITEURL }}/theme/css/openrelevance/orp.css" rel="stylesheet" type="text/css">
     {% endblock %}
     <title>Apache Lucene - {% block headtitle %}{{ SITE_TITLE }}{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,13 +33,13 @@
        apache lucene, python java, open source"/>
     {% endblock %}
     {% block favicon %}
-    <link rel="shortcut icon" type="image/x-icon" href="{{ SITEURL }}/images/lucene-favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ SITEURL }}/theme/images/openrelevance/lucene-favicon.ico"/>
     {% endblock %}
     {% block javascript %}
-    <script type="text/javascript" src="{{ SITEURL }}/theme/javascript/prototype.js"></script>
-    <script type="text/javascript" src="{{ SITEURL }}/theme/javascript/effects.js"></script>
-    <script type="text/javascript" src="{{ SITEURL }}/theme/javascript/search.js"></script>
-    <script type="text/javascript" src="{{ SITEURL }}/theme/javascript/slides.js"></script>
+    <script type="text/javascript" src="{{ SITEURL }}/theme/javascript/openrelevance/prototype.js"></script>
+    <script type="text/javascript" src="{{ SITEURL }}/theme/javascript/openrelevance/effects.js"></script>
+    <script type="text/javascript" src="{{ SITEURL }}/theme/javascript/openrelevance/search.js"></script>
+    <script type="text/javascript" src="{{ SITEURL }}/theme/javascript/openrelevance/slides.js"></script>
     {% endblock %}
   </head>
   <body id="home">
