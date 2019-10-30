@@ -1,3 +1,7 @@
+Title: Sidebar
+category: sidebar-orp
+slug: sidebar-orp
+
 # About
   - [License](https://www.apache.org/licenses/)
   - [Who We are](../whoweare.html)
@@ -5,7 +9,7 @@
 # Events
 
   - <a  href="https://www.apache.org/events/current-event.html" target="_blank"><img src="https://www.apache.org/events/current-event-125x125.png"/></a>
-  
+
 # ASF links
   - [Apache Software Foundation](http://www.apache.org)
   - [Thanks](http://www.apache.org/foundation/thanks.html)

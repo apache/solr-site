@@ -1,5 +1,6 @@
 Title: Sidebar
 category: sidebar-tlp
+slug: sidebar-tlp
 
 <div class="button-green">
   <a href="core/downloads.html">download</a>
