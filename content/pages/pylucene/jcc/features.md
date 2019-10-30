@@ -1,4 +1,10 @@
-## Warning    
+Title: Features
+URL: pylucene/jcc/
+save_as: pylucene/jcc/features.html
+template: pylucene-jcc/page
+slug: pylucene-jcc-features
+
+## Warning
 *Before calling any PyLucene API that requires the Java VM, start it by
 calling <i>initVM(classpath, ...)</i>. More about this function
 in <a href="#api">here</a>.*
@@ -40,7 +46,7 @@ was a regular C++ object.
 
 It then became apparent that JCC could also generate the C++
 wrappers for making these classes available to Python. Every class
-that gets thus wrapped becomes a 
+that gets thus wrapped becomes a
 <a href="https://docs.python.org/2/extending/newtypes.html">CPython
 type</a>.
 
@@ -55,7 +61,7 @@ found in one of the following ways:
 - the type is one of the requested classes
 
 - the type is one of the requested classes' superclass or implemented
-interfaces 
+interfaces
 
 - the type is available from one of the packages listed via the
 <i>--package</i> command line argument
@@ -96,7 +102,7 @@ $ python -m jcc           # run JCC to wrap
     --jar regex.jar       # and the regex search contrib package
     --jar queries.jar     # and the queries contrib package
     --jar extensions.jar  # and the Python extensions package
-    --package java.lang   # including all dependencies found in the 
+    --package java.lang   # including all dependencies found in the
                           # java.lang package
     --package java.util   # and the java.util package
     --package java.io     # and the java.io package
@@ -129,18 +135,18 @@ $ python -m jcc           # run JCC to wrap
     --python lucene       # generating Python wrappers into a module
                           # called lucene
     --version 2.4.0       # giving the Python extension egg version 2.4.0
-    --mapping org.apache.lucene.document.Document 
-              'get:(Ljava/lang/String;)Ljava/lang/String;' 
+    --mapping org.apache.lucene.document.Document
+              'get:(Ljava/lang/String;)Ljava/lang/String;'
                           # asking for a Python mapping protocol wrapper
                           # for get access on the Document class by
                           # calling its get method
-    --mapping java.util.Properties 
+    --mapping java.util.Properties
               'getProperty:(Ljava/lang/String;)Ljava/lang/String;'
                           # asking for a Python mapping protocol wrapper
                           # for get access on the Properties class by
                           # calling its getProperty method
     --sequence org.apache.lucene.search.Hits
-               'length:()I' 
+               'length:()I'
                'doc:(I)Lorg/apache/lucene/document/Document;'
                           # asking for a Python sequence protocol wrapper
                           # for length and get access on the Hits class by
@@ -150,7 +156,7 @@ $ python -m jcc           # run JCC to wrap
     --build               # and finally compiling the generated C++ code
                           # into a Python egg via setuptools - when
                           # installed - or a regular Python extension via
-                          # distutils or setuptools otherwise 
+                          # distutils or setuptools otherwise
     --module collections.py
                           # copying the collections.py module into the egg
     --install             # installing it into Python's site-packages
@@ -199,7 +205,7 @@ resulting Python extension egg and added to the classpath at build
 and runtime, use the <i>--include</i> option. This option
 works like the <i>--jar</i> option except that no wrappers are
 generated for the classes contained in them unless they're
-explicitely named on the command line. 
+explicitely named on the command line.
 
 
 When more than one JCC-built extension module is going to be used in
@@ -249,14 +255,14 @@ Instead, the <i>initVM()</i> function must be called from the
 main thread before using any of the wrapped classes. It takes the
 following keyword arguments:
 
-- 
+-
 <i>classpath</i><br/>
 A string containing one or more directories or jar files for the
 Java VM to search for classes. Every Python extension produced by
 JCC exports a <i>CLASSPATH</i> variable that is hardcoded to
 the jar files that it was produced from. A copy of each jar file
 is installed as a resource file with the extension when JCC is
-invoked with the <i>--install</i> command line argument. 
+invoked with the <i>--install</i> command line argument.
 This parameter is optional and defaults to the
 <i>CLASSPATH</i> string exported by the module
 <i>initVM</i> is imported from.
@@ -265,7 +271,7 @@ This parameter is optional and defaults to the
     >>> lucene.initVM(classpath=lucene.CLASSPATH)
 </code></pre>
 
-- 
+-
 <i>initialheap</i><br/>
 The initial amount of Java heap to start the Java VM with. This
 argument is a string that follows the same syntax as the
@@ -277,19 +283,19 @@ similar <i>-Xms</i> java command line argument.
     33357824L
 </code></pre>
 
-- 
+-
 <i>maxheap</i><br/>
 The maximum amount of Java heap that could become available to the
 Java VM. This argument is a string that follows the same syntax as
 the similar <i>-Xmx</i> java command line argument.
 
-- 
+-
 <i>maxstack</i><br/>
 The maximum amount of stack space that available to the Java
 VM. This argument is a string that follows the same syntax as the
 similar <i>-Xss</i> java command line argument.
 
-- 
+-
 <i>vmargs</i><br/>
 A string of comma separated additional options to pass to the VM
 startup rountine. These are passed through as-is. For example:
@@ -303,14 +309,14 @@ The <i>initVM()</i> and <i>getVMEnv()</i> functions
 return a JCCEnv object that has a few utility methods on it:
 
 
-- 
+-
 <i>attachCurrentThread(name, asDaemon)</i><br/>
 Before a thread created in Python or elsewhere but not in the Java
 VM can be used with the Java VM, this method needs to be
 invoked. The two arguments it takes are optional and
 self-explanatory.
 
-- 
+-
 <i>detachCurrentThread()</i>
 The opposite of <i>attachCurrentThread()</i>. This method
 should be used with extreme caution as Python's and java VM's
@@ -324,10 +330,10 @@ There are several differences between JNI's <i>findClass()</i>
 and Java's <i>Class.forName()</i>:
 
 
-- 
+-
 className is a '/' separated string of names
 
-- 
+-
 the class loaders are different, <i>findClass()</i> may find
 classes that <i>Class.forName()</i> won't.
 
@@ -400,7 +406,7 @@ example, <i>java.util.ArrayList&lt;E&gt;</i> is declared to
 accept one type parameter. Its wrapper's <i>of_()</i> method
 hence accepts one parameter, a Python class, to use as type
 parameter for the return type of its <i>get()</i> method, among
-others: 
+others:
 
 <pre><code>
     &gt&gt&gt a = ArrayList().of_(Document)
@@ -416,7 +422,7 @@ others:
 
 The use of type parameters is, of course, optional. A generic Java
 class can still be used as before, without type parameters.
-Downcasting from <i>Object</i> is then necessary:  
+Downcasting from <i>Object</i> is then necessary:
 
 <pre><code>
     >>> a = ArrayList()
@@ -536,7 +542,7 @@ above:
     # is d array of Object ? are d's elements of type Object ?
     >>> JArray('object').instance_(d)
     True
-    
+
     # can it receive Object instances ?
     >>> JArray('object').assignable_(d)
     False
@@ -705,7 +711,7 @@ Java class, JCC may also be used to embed a Python VM in a Java VM.
 Following are the steps and constraints to follow to achieve this:
 
 
-- 
+-
 JCC must be built in shared mode.  See
 <a href="install.html">installation
 instructions</a> for more information about shared mode.
@@ -713,29 +719,29 @@ Note that for this use on macOS, JCC must also be built
 with the link flags <i>"-framework", "Python"</i> in
 the <i>LFLAGS</i> value.
 
-- 
+-
 As described in the previous section, define one or more Java
 classes to be "extended" from Python to provide the
 implementations of the native methods declared on them. Instances
 of these classes implement the bridges into the Python VM from
 Java.
 
-- 
+-
 The <i>org.apache.jcc.PythonVM</i> Java class is going be
 used from the Java VM's main thread to initialize the embedded
 Python VM. This class is installed inside the JCC egg under the
 <i>jcc/classes</i> directory and the full path to this
 directory must be on the Java <i>CLASSPATH</i>.
 
-- 
+-
 The JCC egg directory contains the JCC shared runtime library - not
 the JCC Python extension shared library - but a library
-called <i>libjcc.dylib</i> on macOS, 
-<i>libjcc.so</i> on Linux or <i>jcc.dll</i> on Windows. 
+called <i>libjcc.dylib</i> on macOS,
+<i>libjcc.so</i> on Linux or <i>jcc.dll</i> on Windows.
 This directory must be added to the Java VM's shared library path
 via the <i>-Djava.library.path</i> command line parameter.
 
-- 
+-
 In the Java VM's main thread, initialize the Python VM by
 calling its static <i>start()</i> method passing it a
 Python program name string and optional start-up arguments
@@ -750,21 +756,21 @@ singleton instance.  This instance may also be retrieved at any
 later time via the static <i>get()</i> method defined
 on the <i>org.apache.jcc.PythonVM</i> class.
 
-- 
+-
 Any Java VM thread that is going to be calling into the Python VM
 should start with acquiring a reference to the Python thread state
 object by calling <i>acquireThreadState()</i> method on the
 Python VM instance. It should then release the Python thread state
-before terminating by calling <i>releaseThreadState()</i>. 
+before terminating by calling <i>releaseThreadState()</i>.
 Calling these methods is optional but strongly recommended as it
 ensures that Python is not creating and throwing away a thread
 state everytime the Python VM is entered and exited from a given
 Java VM thread.
 
-- 
+-
 Any Java VM thread may instantiate a Python object for which an
 extension class was defined in Java as described in the previous
-section by calling the <i>instantiate()</i> method on the 
+section by calling the <i>instantiate()</i> method on the
 PythonVM instance. This method takes two string parameters, the
 name of the Python module and the name of the Python class to
 import and instantiate from it. The <i>\_\_init\_\_()</i>
@@ -781,12 +787,12 @@ When generating wrappers for Python, JCC attempts to detect which
 classes can be made iterable:
 
 
-- 
+-
 When a class declares to
 implement <i>java.lang.Iterable</i>, JCC makes it iterable
 from Python.
 
-- 
+-
 When a Java class declares a method called <i>next()</i>
 with no arguments returning an object type, this class is made
 iterable. Its <i>next()</i> method is assumed to terminate
@@ -806,7 +812,7 @@ For example, <i>System.getProperties()['java.class.path']</i> is
 made possible by:
 
 <pre><code>
---mapping java.util.Properties 
+--mapping java.util.Properties
         'getProperty:(Ljava/lang/String;)Ljava/lang/String;'
                     # asking for a Python mapping protocol wrapper
                     # for get access on the Properties class by
@@ -821,7 +827,7 @@ methods are specified with their name followed by ':' and their Java
 <a href="https://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16432">signature</a>. For example:
 
 <pre><code>
-for i in xrange(len(hits)): 
+for i in xrange(len(hits)):
 doc = hits[i]
 ...
 </code></pre>
@@ -829,7 +835,7 @@ doc = hits[i]
 is made possible by:
 <pre><code>
 --sequence org.apache.lucene.search.Hits
-         'length:()I' 
+         'length:()I'
          'doc:(I)Lorg/apache/lucene/document/Document;'
 </code></pre>
 

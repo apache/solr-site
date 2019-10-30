@@ -1,0 +1,25 @@
+{% extends "pylucene-jcc/base.html" %}
+{% block headtitle %}{{ Title }}{% endblock %}
+{% block header %}
+    <div id="logo" style="float:left">
+        {% block logo %}
+        <a href="{{ SITEURL }}/"><img border="0" src="{{ SITEURL }}/images/lucene_logo_green_300.png" alt="Lucene Logo"/></a><div style="position:absolute;right:100px;top:10px;"><span style="vertical-align: super; font-size: xx-small">TM</span></div>
+        {% endblock %}
+        </div>
+        {% include "pylucene-jcc/_search.html" %}
+        <div id="nav">
+          {% block nav %}
+          <ul>
+            <li><a href="{{ SITEURL}}/pylucene/jcc/index.html">JCC</a></li>
+            <li><a href="{{ SITEURL}}/pylucene/mailing-lists.html">Mailing Lists</a></li>
+            <li><a href="https://issues.apache.org/jira/browse/PYLUCENE">Issue Tracker</a></li>
+            <li><a href="{{ SITEURL}}/pylucene/index.html">PyLucene</a></li>
+            <li><a class="last" href="{{ SITEURL }}/">Lucene</a></li>
+          </ul>
+          {% endblock %}
+        </div>
+        {% endblock header %}
+
+{% block content %}
+<h1 class="title">{% block title %}{{ Title }}{% endblock %}</h1>
+{% endblock content %}

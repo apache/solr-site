@@ -1,4 +1,7 @@
 Title: Install JCC
+URL: pylucene/jcc/
+save_as: pylucene/jcc/install.html
+template: pylucene-jcc/page
 
 ##Getting JCC's Source Code
 
@@ -128,7 +131,7 @@ There are two defaults to consider here:
 On MacOS, Java is installed by Apple's setup as a framework. The
 values in <i>setup.py</i> for <i>INCLUDES</i>
 and <i>LFLAGS</i> for <i>darwin</i> should be correct
-and ready to use when <i>setup.py</i> was able to derive <i>JAVAHOME</i> and 
+and ready to use when <i>setup.py</i> was able to derive <i>JAVAHOME</i> and
 <i>JAVAFRAMEWORKS</i>.
 
 
@@ -198,7 +201,7 @@ gcc-4.5, jre-1.7, jdk-1.7, python-2.6, ant, gnu-make and subversion.
 
 Missing packages can be installed via <i>pkg install</i>.
 
-- Edit setup.py and do the following changes:                                  
+- Edit setup.py and do the following changes:
 Inside JDK = { ? } change the entry for sunos5 to:
 <code>'sunos5': '/usr/jdk/instances/jdk1.7.0',</code>
 Inside CFLAGS= {?} change the entry for sunos5 to:

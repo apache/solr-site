@@ -2,6 +2,7 @@ Title: Features
 URL: pylucene/
 save_as: pylucene/features.html
 template: pylucene/page
+slug: pylucene-features
 
 ## Warning
 

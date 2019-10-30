@@ -1,4 +1,8 @@
 Title: Welcome to JCC, PyLucene's code generator
+URL: pylucene/jcc/
+save_as: pylucene/jcc/index.html
+template: pylucene-jcc/page
+
 
 ##What is JCC ?
 
@@ -10,7 +14,7 @@ interpreter.
 
 When generating Python wrappers, JCC produces a complete Python
 extension module via the distutils or
-[setuptools](https://pypi.python.org/pypi/setuptools) packages. 
+[setuptools](https://pypi.python.org/pypi/setuptools) packages.
 
 See [here](features.html) for more information and documentation about JCC.
 
