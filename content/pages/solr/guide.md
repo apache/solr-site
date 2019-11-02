@@ -1,4 +1,7 @@
 Title: Solr Reference Guide
+URL: solr/
+save_as: solr/guide.html
+template: solr/page
 Notice:    Licensed to the Apache Software Foundation (ASF) under one
            or more contributor license agreements.  See the NOTICE file
            distributed with this work for additional information
@@ -20,7 +23,7 @@ Notice:    Licensed to the Apache Software Foundation (ASF) under one
 
 The Apache Solr Reference Guide is the official Solr documentation.
 
-As of Solr 8.2, it is published only in HTML format. 
+As of Solr 8.2, it is published only in HTML format.
 
 **Latest release**:
 
@@ -42,6 +45,6 @@ As of Solr 8.2, it is published only in HTML format.
 
 Prior to Solr 8.2, a PDF version was also published. You can access these older version from the Apache archives.
 
-  - [Archived PDFs for earlier releases](http://archive.apache.org/dist/lucene/solr/ref-guide/) 
+  - [Archived PDFs for earlier releases](http://archive.apache.org/dist/lucene/solr/ref-guide/)
 
- 
+
