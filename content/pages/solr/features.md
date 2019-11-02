@@ -1,16 +1,19 @@
 Title: Features
+URL: solr/
+save_as: solr/features.html
+template: solr/page
 
 <section class="hero alternate">
   <div class="row">
     <div class="large-12 columns">
       <div class="annotation">
-        Apache Solr<sup>&trade;</sup> {% include "../content/latestversion.mdtext" %}
+        Apache Solr<sup>&trade;</sup> 8.2.0
       </div>
       <h1>
         Solr Features
       </h1>
       <p>
-        Solr is a standalone enterprise search server with a REST-like API. You put 
+        Solr is a standalone enterprise search server with a REST-like API. You put
         documents in it (called "indexing") via JSON, XML, CSV or binary over HTTP. You query it via HTTP GET and receive JSON, XML, CSV or binary results.
       </p>
       <div class="down-arrow"><a data-scroll href="#top"><i class="fa fa-angle-down fa-2x red"></i></a></div>
@@ -23,7 +26,7 @@ Title: Features
     <ul class="small-block-grid-1 medium-block-grid-3">
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_advanced_full-text_search.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_advanced_full-text_search.svg"/></div>
           <div class="content">
             <h3>Advanced Full-Text Search Capabilities</h3>
             <p>Powered by Lucene<sup>&trade;</sup>, Solr enables powerful matching capabilities including phrases, wildcards, joins, grouping and much more across any data type</p>
@@ -32,7 +35,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_optimized_for_high_volume.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_optimized_for_high_volume.svg"/></div>
           <div class="content">
             <h3>Optimized for High Volume Traffic</h3>
             <p>Solr is proven at extremely large scales the world over</p>
@@ -41,7 +44,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_standards_based_open_interfaces.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_standards_based_open_interfaces.svg"/></div>
           <div class="content">
             <h3>Standards Based Open Interfaces - XML, JSON and HTTP</h3>
             <p>Solr uses the tools you use to make application building a snap</p>
@@ -50,7 +53,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_comprehensive_html_admin.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_comprehensive_html_admin.svg"/></div>
           <div class="content">
             <h3>Comprehensive Administration Interfaces</h3>
             <p>Solr ships with a built-in, responsive administrative user interface to make it easy to control your Solr instances</p>
@@ -59,7 +62,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_server_statistics_exposed.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_server_statistics_exposed.svg"/></div>
           <div class="content">
             <h3>Easy Monitoring</h3>
             <p>Need more insight into your instances? Solr publishes loads of metric data via JMX</p>
@@ -68,7 +71,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_highy_scalable.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_highy_scalable.svg"/></div>
           <div class="content">
             <h3>Highly Scalable and Fault Tolerant</h3>
             <p>Built on the battle-tested Apache Zookeeper, Solr makes it easy to scale up and down.  Solr bakes in replication, distribution, rebalancing and fault tolerance out of the box.</p>
@@ -77,7 +80,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_flexible_and_adaptable.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_flexible_and_adaptable.svg"/></div>
           <div class="content">
             <h3>Flexible and Adaptable with easy configuration</h3>
             <p>Solr's is designed to adapt to your needs all while simplifying configuration</p>
@@ -86,7 +89,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_real-time.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_real-time.svg"/></div>
           <div class="content">
             <h3>Near Real-Time Indexing</h3>
             <p>Want to see your updates now?  Solr takes advantage of Lucene's Near Real-Time Indexing capabilities to make sure you see your content when you want to see it</p>
@@ -95,7 +98,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_extensible_plugin.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_extensible_plugin.svg"/></div>
           <div class="content">
             <h3>Extensible Plugin Architecture</h3>
             <p>Solr publishes many well-defined extension points that make it easy to plugin both index and query time plugins.  Of course, since it is Apache-licensed open source, you can change any code you want!</p>
@@ -128,7 +131,7 @@ Title: Features
     <ul class="small-block-grid-2 medium-block-grid-3">
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_schemaless.svg"></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_schemaless.svg"></div>
           <div class="content">
             <h3>Schema when you want, schemaless when you don't</h3>
             <p>Use Solr's data-driven schemaless mode when getting started and then lock it down when it's time for production.</p>
@@ -137,7 +140,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_powerful_extensions.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_powerful_extensions.svg"/></div>
           <div class="content">
             <h3>Powerful Extensions</h3>
             <p>Solr ships with optional plugins for indexing rich content (e.g. PDFs, Word), language detection, search results clustering and more</p>
@@ -146,7 +149,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_faceted_search.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_faceted_search.svg"/></div>
           <div class="content">
             <h3>Faceted Search and Filtering</h3>
             <p>Slice and dice your data as you see fit using a large array of faceting algorithms</p>
@@ -155,7 +158,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_geospatial_search.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_geospatial_search.svg"/></div>
           <div class="content">
             <h3>Geospatial Search</h3>
             <p>Enabling location-based search is simple with Solr's built-in support for spatial search</p>
@@ -164,7 +167,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_advanced,_configurable_text.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_advanced,_configurable_text.svg"/></div>
           <div class="content">
             <h3>Advanced Configurable Text Analysis</h3>
             <p>Solr ships with support for most of the widely spoken languages in the world (English, Chinese, Japanese, German, French and many more) and many other analysis tools
@@ -174,7 +177,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_highly_configurable.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_highly_configurable.svg"/></div>
           <div class="content">
             <h3>Highly Configurable and User Extensible Caching</h3>
             <p>Fine-grained controls on Solr's built-in caches make it easy to optimize performance</p>
@@ -183,7 +186,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_performance_optimizations.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_performance_optimizations.svg"/></div>
           <div class="content">
             <h3>Performance Optimizations</h3>
             <p>Solr has been tuned to handle the world's largest sites</p>
@@ -192,7 +195,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_security.svg"></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_security.svg"></div>
           <div class="content">
             <h3>Security built right in</h3>
             <p>Secure Solr with SSL, Authentication and Role based Authorization. Pluggable, of course!</p>
@@ -201,7 +204,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_an_ajax_based.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_an_ajax_based.svg"/></div>
           <div class="content">
             <h3>Advanced Storage Options</h3>
             <p>Building on Lucene's advanced storage capabilities (codecs, directories and more), Solr makes it easy to tune
@@ -211,7 +214,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_monitorable_logging.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_monitorable_logging.svg"/></div>
           <div class="content">
             <h3>Monitorable Logging</h3>
             <p>Easily access Solr's log files from the admin interface</p>
@@ -220,7 +223,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_fast_near_real-time.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_fast_near_real-time.svg"/></div>
           <div class="content">
             <h3>Query Suggestions, Spelling and More</h3>
             <p>Solr ships with advanced capabilites for auto-complete (typeahead search), spell checking and more</p>
@@ -229,7 +232,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_easy_ways_to_pull_in_data.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_easy_ways_to_pull_in_data.svg"/></div>
           <div class="content">
             <h3>Your Data, Your Way!</h3>
             <p>JSON, CSV, XML and more are supported out of the box.  Don't waste precious time converting all your data to a common representation, just send it to Solr!</p>
@@ -238,7 +241,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_rich_document.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_rich_document.svg"/></div>
           <div class="content">
             <h3>Rich Document Parsing</h3>
             <p>Solr ships with Apache Tika built-in, making it easy to index rich content such as Adobe PDF, Microsoft Word and more.</p>
@@ -247,7 +250,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_apache_uima.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_apache_uima.svg"/></div>
           <div class="content">
             <h3>Apache UIMA</h3>
             <p>Ready to enhance your content with advanced annotation engines?  Solr integrates into Apache UIMA, making it easy to leverage NLP and other tools as part of your application.</p>
@@ -256,7 +259,7 @@ Title: Features
       </li>
       <li>
         <div class="box">
-          <div class="img"><img src="/solr/assets/images/Solr_Icons_multiple_search_indices.svg"/></div>
+          <div class="img"><img src="{attach}/images/solr/Solr_Icons_multiple_search_indices.svg"/></div>
           <div class="content">
             <h3>Multiple search indices</h3>
             <p>Solr supports multi-tenant architectures, making it easy to isolate users and content.</p>
@@ -302,7 +305,7 @@ Title: Features
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Dynamic Fields enable on-the-fly addition of new fields that auto-map to field types based on the field name 
+        <li>Dynamic Fields enable on-the-fly addition of new fields that auto-map to field types based on the field name
         </li>
       </div>
       <div class="small-6 columns">
@@ -363,7 +366,7 @@ Title: Features
       </div>
       <div class="small-6 columns">
         <li>Sort by any number of fields, and by complex functions of numeric fields
-          <p>Documents with missing values can be configured to sort last (or first)  
+          <p>Documents with missing values can be configured to sort last (or first)
         </li>
       </div>
     </div>
@@ -620,7 +623,7 @@ Title: Features
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>Function query results can be returned with hits, and used to sort or boost hits 
+        <li>Function query results can be returned with hits, and used to sort or boost hits
         </li>
       </div>
       <div class="small-6 columns">
@@ -630,7 +633,7 @@ Title: Features
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <li>The stats component can compute min, max, sum, mean, distinct values, and more 
+        <li>The stats component can compute min, max, sum, mean, distinct values, and more
         </li>
       </div>
     </div>
