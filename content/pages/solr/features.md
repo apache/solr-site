@@ -1,7 +1,7 @@
 Title: Features
 URL: solr/
 save_as: solr/features.html
-template: solr/page
+template: solr/full-width
 
 <section class="hero alternate">
   <div class="row">

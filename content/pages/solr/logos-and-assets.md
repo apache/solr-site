@@ -1,7 +1,7 @@
 Title: Logos and Assets
 URL: solr/
 save_as: solr/logos-and-assets.html
-template: solr/page
+template: solr/full-width
 
 <section class="hero alternate">
   <div class="row">
