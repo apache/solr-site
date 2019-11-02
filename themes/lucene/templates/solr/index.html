@@ -1,0 +1,614 @@
+<!doctype html>
+<html>
+
+  <head>
+  <!--
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE- 2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+  -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,600,500' rel='stylesheet' type='text/css'>
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/solr/lib/foundation/normalize.css" />
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/solr/lib/foundation/foundation.min.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/solr/lib/foundation/foundation-icons.css"/>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/solr/base.css" />
+  {% block css %}{% endblock %}
+
+  <title>Apache Solr - {% block title %}{% endblock %}</title>
+
+
+
+  <meta name="Distribution" content="Global"/>
+  <meta name="Robots" content="index,follow"/>
+
+  {% block metakeys %}<meta name="keywords"
+        content="apache, apache lucene, apache solr, solr, lucene
+        search, information retrieval, spell checking, faceting, inverted index, open source"/>{% endblock %}
+
+  {% block favicon %}
+  <link rel="icon" href="{{ SITEURL }}/theme/images/solr/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ SITEURL }}/theme/images/solr/favicon.ico" type="image/x-icon">
+  {% endblock %}
+  <script src="{{ SITEURL }}/theme/javascript/solr/lib/jquery-2.1.1.min.js"></script>
+  <script src="{{ SITEURL }}/theme/javascript/solr/lib/foundation/modernizr.js"></script>
+  <script src="{{ SITEURL }}/theme/javascript/solr/lib/angularjs/angular.min.js"></script>
+  <script src="{{ SITEURL }}/theme/javascript/solr/lib/angularjs/angular-animate.min.js"></script>
+  <script src="{{ SITEURL }}/theme/javascript/solr/lib/foundation/foundation.min.js"></script>
+  <script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
+  <script src="{{ SITEURL }}/theme/javascript/solr/lib/jquery.smooth-scroll.min.js"></script>
+  <script src="{{ SITEURL }}/theme/javascript/solr/main.js"></script>
+  </head>
+
+  <body class="page homepage" x-ng-app="page" x-ng-controller="page.controllers.main">
+
+    <div class="contain-to-grid">
+    <div class="header-section">
+    	<nav class="top-bar" data-topbar role="navigation">
+    	  <ul class="title-area">
+    	    <li class="name">
+            <a href="/solr/"><img class="logo" src="{{ SITEURL }}/theme/images/solr/logo.svg" /></a>
+    	    </li>
+    	    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    	  </ul>
+
+    	  <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="/solr/news.html">News</a>
+          </li>
+          <li>
+            <a href="/solr/features.html">Features</a>
+          </li>
+          <li>
+            <a href="/solr/resources.html">Resources</a>
+          </li>
+          <li>
+            <a href="/solr/community.html">Community</a>
+          </li>
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+              <script type="text/javascript">
+                function getBlank(input, stdValue) {
+                  if (input.value == stdValue) {
+                    input.value = '';
+                  }
+                  return true;
+                }
+
+                function selectProvider(form) {
+                  lucidAction = "http://find.searchhub.org/p:lucene,solr";
+                  searchLuceneAction = "http://search-lucene.com/solr";
+
+                  provider = document.getElementById('searchProvider').value;
+                  if (provider == "lucid" || provider == "sl") {
+                    if (provider == "lucid") {
+                      form.action = lucidAction;
+                    } else if (provider == "sl") {
+                      form.action = searchLuceneAction;
+                    }
+
+                    // Only store provider preference cookie if the user selected it
+                    days = 90; // cookie will be valid for 90 days
+                    date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toGMTString();
+                    document.cookie = "searchProvider=" + provider + expires + "; path=/";
+                  } else {
+                    if (Math.random() > 0.5) {
+                      form.action = lucidAction;
+                    } else {
+                      form.action = searchLuceneAction;
+                    }
+                  }
+                  return true;
+                }
+              </script>
+              <form id="quick-search" method="GET" onsubmit="return selectProvider(this)"
+                    action="http://search-lucene.com/solr"
+                    name="searchform">
+                <fieldset>
+                  <div ng-show="toggled" class="search-box ng-hide">
+                    <input type="search" name="q" placeholder="Search |" accesskey="q"
+                           onfocus="getBlank(this, 'Search |');"/>
+                    <a class="search-button" type="submit"
+                                             onclick="form = document.getElementById('quick-search'); selectProvider(form); form.submit();"><img src="{{ SITEURL }}/theme/images/solr/magnifying-glass.png"/></a>
+                    <select id="searchProvider" class="search-provider">
+                      <option value="any"> - select provider - </option>
+                      <option value="lucid">@ Lucid Find</option>
+                      <option value="sl">@ Search-Lucene</option>
+                    </select>
+                  </div>
+                </fieldset>
+                <script type="text/javascript">
+                  if (document.cookie.length > 0) {
+                    cStart = document.cookie.indexOf("searchProvider=");
+                    if (cStart != -1) {
+                      cStart = cStart + "searchProvider=".length;
+                      cEnd = document.cookie.indexOf(";", cStart);
+                      if (cEnd == -1) {
+                        cEnd = document.cookie.length;
+                      }
+                      provider = unescape(document.cookie.substring(cStart, cEnd));
+                      document.getElementById('searchProvider').value = provider;
+                    }
+                  }
+                </script>
+              </form>
+            </div>
+          </li>
+          <li>
+            <a class="btn" href="/solr/downloads.html">Download</a>
+          </li>
+          <li >
+            <a class="lucene-btn" href="/index.html">Lucene<br />&#8679; TLP</a>
+          </li>
+        </ul>
+    	  </div>
+    	</nav>
+    </div>
+    </div>
+
+    <div class="header-fill"></div>
+
+    <section class="hero alternate">
+      <div class="row">
+        <div class="large-10 large-offset-1 columns">
+          <div class="annotation">
+            Apache Solr<sup>&trade;</sup> 8.3.0
+          </div>
+          <h1>
+            Solr is the popular, blazing-fast, open source enterprise search platform built on Apache Lucene<sup>&trade;</sup>.
+          </h1>
+
+          <div class="down-arrow"><a class="smooth-scroll" href="#learn-more" target="_self"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gray offset-medium" id="learn-more"></section>
+    <section class="gray col-4">
+      <div class="row">
+        <div class="large-10 large-offset-1 columns">
+          <div class="annotation">
+            &nbsp;
+          </div>
+          <h1>
+            Learn more about Solr.
+          </h1>
+          <p>
+            Solr is highly reliable, scalable and fault tolerant, providing distributed indexing, replication and load-balanced querying, automated failover and recovery, centralized configuration and more. Solr powers the search and navigation features of many of the world's largest internet sites.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
+          <li>
+            <a href="/solr/features.html"><div class="box"><div class="img"><img src="{{ SITEURL }}/theme/images/solr/icon-features.svg"/></div>
+                <div class="title">
+                  <h3>Features</h3>
+                </div>
+                <p>Hundreds of features make Solr incredibly versatile.</p>
+                <span class="btn1">Learn More</span>
+              </div></a>
+          </li>
+          <li>
+            <a href="/solr/resources.html">
+              <div class="box">
+                <div class="img"><img src="{{ SITEURL }}/theme/images/solr/icon-resources.svg"/></div>
+                <div class="title">
+                  <h3>Resources</h3>
+                </div>
+                <p>From tutorials to in-depth documentation, you'll find it here.</p>
+                <span class="btn1">Get Started</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/solr/features.html#solrcloud">
+              <div class="box">
+                <div class="img"><img src="{{ SITEURL }}/theme/images/solr/icon-scaling.svg"/></div>
+                <div class="title">
+                  <h3>Scaling with Solr</h3>
+                </div>
+                <p>Scale with confidence in data integrity and performance.</p>
+                <span class="btn1">Scale Solr</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/solr/resources.html#community">
+              <div class="box">
+                <div class="img"><img src="{{ SITEURL }}/theme/images/solr/icon-community.svg"/></div>
+                <div class="title">
+                  <h3>Solr Community</h3>
+                </div>
+                <p>Get support and give back. Contribute to the Solr project.</p>
+                <span class="btn1">Learn More</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="white poweredby">
+      <div class="row">
+        <div class="large-12 columns text-center">
+          <div class="annotation">
+            Tested and proven
+          </div>
+          <h1 class="red">
+            Solr is trusted.
+          </h1>
+
+          <p>
+            Solr powers some of the most heavily-trafficked websites and applications in the world.
+          </p>
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-11 small-centered columns">
+          <div class="slider powered">
+            <!--<div><img src="{{ SITEURL }}/theme/images/solr/logo-bloomberg.png"/></div>-->
+            <div><img src="{{ SITEURL }}/theme/images/solr/logo-eharmony.png"/></div>
+            <div><img src="{{ SITEURL }}/theme/images/solr/logo-duckduckgo.png"/></div>
+            <div><img src="{{ SITEURL }}/theme/images/solr/logo-sears.png"/></div>
+            <div><img src="{{ SITEURL }}/theme/images/solr/logo-stubhub.png"/></div>
+            <div><img src="{{ SITEURL }}/theme/images/solr/logo-zappos.png"/></div>
+            <div><img src="{{ SITEURL }}/theme/images/solr/logo-bestbuy.png"/></div>
+            <div><img src="{{ SITEURL }}/theme/images/solr/logo-aol.png"/></div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">Other Notable Users</div>
+      <div class="list text-center">
+        <ul>
+          <div class="row">
+            <div class="small-4 columns">
+              <li>AT&T
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>Instagram
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>Buy.com
+              </li>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-4 columns">
+              <li>Ticketmaster
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>Netflix</li>
+            </div>
+            <div class="small-4 columns">
+              <li>The Echo Nest
+              </li>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-4 columns">
+              <li>Chegg
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>Disney
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>Adobe
+              </li>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-4 columns">
+              <li>eBay
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>Internet Archive
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>SAP Hybris
+              </li>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-4 columns">
+              <li>Magento
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>IBM Websphere Commerce
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>Bloomberg<!--CiteSeer-->
+              </li>
+            </div>
+          </div>
+          <div class="row">
+            <div class="small-4 columns">
+              <li>Comcast
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>MTV Networks
+              </li>
+            </div>
+            <div class="small-4 columns">
+              <li>Travelocity
+              </li>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <div class="text-center small">
+        <p>Want to see more?  Want to see your app or website here? Visit Solr's <a href="https://wiki.apache.org/solr/PublicServers">Public Servers</a> listing page to learn more.</p>
+      </div>
+    </section>
+
+    <section class="hero alternate">
+      <div class="row">
+        <div class="large-12 columns text-center">
+          <div class="annotation">
+            Take the first step
+          </div>
+          <h1>
+            Getting Started
+          </h1>
+          <p>
+            Power your global enterprise or your weekend project.
+          </p>
+          <div class="down-arrow "><a data-scroll href="#get-started"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gray col-3" id="get-started">
+      <div class="row">
+        <div class="large-4 columns">
+          <a href="/solr/downloads.html">
+            <div class="box">
+              <div class="img"><img src="{{ SITEURL }}/theme/images/solr/icon-download-binary.svg"/></div>
+              <div class="title">
+                <h3>Download Binary</h3>
+              </div>
+              <p>Click here to download the Solr binary from the available mirrors.</p>
+              <span class="btn1">Download Solr</span>
+            </div>
+          </a>
+        </div>
+        <div class="large-4 columns">
+		<a href="/solr/guide/solr-tutorial.html">
+            <div class="box">
+              <div class="img"><img src="{{ SITEURL }}/theme/images/solr/icon-run-install.svg"/></div>
+              <div class="title">
+                <h3>Run Through the Tutorial</h3>
+              </div>
+              <p>The Solr Quick Start tutorial will help you start working with Solr.</p>
+              <span class="btn1">Read the Tutorial</span>
+            </div>
+          </a>
+        </div>
+        <div class="large-4 columns">
+          <a href="/solr/resources.html">
+            <div class="box">
+              <div class="img"><img src="{{ SITEURL }}/theme/images/solr/icon-check-out-tutorial.svg"/></div>
+              <div class="title">
+                <h3>Level Up</h3>
+              </div>
+              <p>Once you've completed the tutorial, continue your mastery with the Solr resource library.</p>
+              <span class="btn1">More Resources</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero alternate">
+      <div class="row">
+        <div class="large-12 columns text-center">
+          <div class="annotation">
+            Solr News | 02 November 2019
+          </div>
+          <h1>
+             Apache Solr 8.3.0 available
+          </h1>
+          <p>
+            The Lucene PMC is pleased to announce the release of Apache Solr 8.3.0.  Download <a href="/solr/downloads.html">here</a>.
+          </p>
+          <a href="/solr/news.html"><span class="white">Read More News</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gray">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="annotation">
+            Deep expertise
+          </div>
+          <h1>
+            Solr Books<br/>
+            <small>The definitive in-depth resource library written by the world's Solr experts.</small>
+          </h1>
+          <hr/>
+          <ul class="books small-block-grid-2 medium-block-grid-3 large-block-grid-6">
+            <li><a href="/solr/resources.html#book-asess-3ed"><img src="{{ SITEURL }}/theme/images/solr/book_asess_3ed.jpg"/></a></li>
+            <li><a href="/solr/resources.html#book-scaling-big-data-hadoop-solr-II"><img src="{{ SITEURL }}/theme/images/solr/book_scaling_big_data_hadoop_solr_II.jpg"/></a></li>
+            <li><a href="/solr/resources.html#book-solr-search-patterns"><img src="{{ SITEURL }}/theme/images/solr/book_solr_search_patterns.jpg"/></a></li>
+            <li><a href="/solr/resources.html#book-solr-cookbook-3ed"><img src="{{ SITEURL }}/theme/images/solr/book_solr_cookbook_3ed.jpg"/></a></li>
+            <li><a href="/solr/resources.html#mastering-apache-solr"><img src="{{ SITEURL }}/theme/images/solr/book_mas.jpg"/></a></li>
+            <li><a href="/solr/resources.html#solr-in-action"><img src="{{ SITEURL }}/theme/images/solr/book_sia.png"/></a></li>
+          </ul>
+          <a class="btn" href="/solr/resources.html#solr-books">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="white">
+      <div class="row">
+        <div class="large-12 columns text-center">
+          <h1>
+            The Apache Software Foundation
+          </h1>
+          <p>
+            The Apache Software Foundation provides support for the Apache community of open-source software projects. The Apache projects are defined by collaborative consensus based processes, an open, pragmatic software license and a desire to create high quality software that leads the way in its field. Apache Lucene, Apache Solr, Apache PyLucene, Apache Open Relevance Project and their respective logos are trademarks of The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+          </p>
+          <p>
+            <a target="_blank" href="https://www.apache.org/events/current-event.html">
+              <img src="https://www.apache.org/events/current-event-234x60.png"/>
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="row">
+        <div class="small-6 medium-3 columns">
+          <h4>Features</h4>
+          <ul>
+            <li><a href="/solr/features.html">Overview</a></li>
+            <li><a href="/solr/features.html#data-handling">Data Handling</a></li>
+            <li><a href="/solr/features.html#query">Querying</a></li>
+            <li><a href="/solr/features.html#facets">Faceting</a></li>
+            <li><a href="/solr/features.html#discovery">Discovery</a></li>
+            <li><a href="/solr/features.html#plugins">Plugins and Extensions</a></li>
+            <li><a href="/solr/features.html#stats">Statistics and Aggregations</a></li>
+            <li><a href="/solr/features.html#spatial">Spatial</a></li>
+            <li><a href="/solr/features.html#rich-content">Rich Content</a></li>
+            <li><a href="/solr/features.html#performance">Performance</a></li>
+            <li><a href="/solr/features.html#solrcloud">Scaling with SolrCloud</a></li>
+            <li><a href="/solr/features.html#admin-ui">User Interface</a></li>
+          </ul>
+        </div>
+        <div class="small-6 medium-3 columns">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/solr/resources.html#tutorials">Tutorial</a></li>
+            <li><a href="/solr/resources.html#documentation">Docs</a></li>
+            <li><a href="/solr/resources.html#solr-books">Books</a></li>
+            <li><a href="/solr/resources.html#presentations">Presentations</a></li>
+            <li><a href="/solr/resources.html#videos">Videos</a></li>
+            <li><a href="/solr/logos-and-assets.html">Solr Logos and Assets</a></li>
+    	<br/>
+    		<li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+    		<li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    		<li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    		<li><a href="https://www.apache.org/security/">Security</a></li>
+    		<li><a href="https://www.apache.org/licenses/">License</a></li>
+          </ul>
+        </div>
+        <div class="small-6 medium-3 columns">
+          <h4>Get Started</h4>
+          <ul>
+            <li><a href="/solr/downloads.html">Download</a></li>
+    		<li><a href="/solr/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+            <li><a href="/solr/resources.html">Level Up</a></li>
+          </ul>
+    		<br/>
+          <h4>Community</h4>
+          <ul>
+    		<li><a href="/solr/community.html#support">Support</a></li>
+    		<li><a href="/solr/community.html#mailing-lists-irc">Mailing Lists</a></li>
+    		<li><a href="/solr/community.html#issue-tracker">Issues (JIRA)</a></li>
+    		<li><a href="/solr/community.html#how-to-contribute">Contribute</a></li>
+    		<li><a href="/solr/community.html#version-control">Version control (GIT)</a></li>
+    	  </ul>
+        </div>
+        <div class="small-6 medium-3 columns">
+          <h4>Related Projects</h4>
+          <ul>
+            <li><a href="http://hadoop.apache.org/">Apache Hadoop</a></li>
+            <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+            <li><a href="http://mahout.apache.org/">Apache Mahout</a></li>
+            <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+            <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+            <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+            <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+            <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+    		<li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row copyright">
+        <div class="large-centered columns">
+          <p>Copyright © 2019 The Apache Software Foundation, Licensed under the Apache License, Version 2.0. Privacy Policy<br/>Apache and the Apache feather logo are trademarks of The Apache Software Foundation. Apache Lucene, Apache Solr and their respective logos are trademarks of the Apache Software Foundation. Please see the Apache Trademark Policy for more information.  All non-Apache logos are the trademarks of their respective owners.</p>
+        </div>
+      </div>
+    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<script>
+$(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+});
+</script>
+
+  </body>
+</html>
