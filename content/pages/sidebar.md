@@ -5,15 +5,15 @@ slug: sidebar-tlp
 <div class="button-green">
   <a href="core/downloads.html">download</a>
   <div class="flap top">click to</div>
-  <div class="flap bottom">apache lucene 8.2.0</div>
+  <div class="flap bottom">apache lucene 8.3.0</div>
 </div>
-<div class="download-desc">apache lucene 8.2.0</div>
+<div class="download-desc">apache lucene 8.3.0</div>
 <div class="button-orange">
   <a href="solr/downloads.html?">download</a>
   <div class="flap top">click to</div>
-  <div class="flap bottom">apache solr 8.2.0</div>
+  <div class="flap bottom">apache solr 8.3.0</div>
 </div>
-<div class="download-desc">apache solr 8.2.0</div>
+<div class="download-desc">apache solr 8.3.0</div>
 
 # Projects
   - [Lucene Core (Java)](/core/)

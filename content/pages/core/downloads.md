@@ -8,13 +8,13 @@ Official releases are usually created when the [developers](../whoweare.html) fe
             Due to the voluntary nature of Lucene, no releases are scheduled in advance. System Requirements are detailed
             [here](systemreqs.html).
 
-### Lucene 8.2.0
+### Lucene 8.3.0
 
-Lucene 8.2.0 is the most recent Apache Lucene release.
+Lucene 8.3.0 is the most recent Apache Lucene release.
 
- - Source release: [lucene-8.2.0-src.tgz](https://www.apache.org/dyn/closer.lua/lucene/java/8.2.0/lucene-8.2.0-src.tgz) [[PGP](https://www.apache.org/dist/lucene/java/8.2.0/lucene-8.2.0-src.tgz.asc)] [[SHA512](https://www.apache.org/dist/lucene/java/8.2.0/lucene-8.2.0-src.tgz.sha512)]
- - Binary releases:  [lucene-8.2.0.tgz](https://www.apache.org/dyn/closer.lua/lucene/java/8.2.0/lucene-8.2.0.tgz) [[PGP](https://www.apache.org/dist/lucene/java/8.2.0/lucene-8.2.0.tgz.asc)] [[SHA512](https://www.apache.org/dist/lucene/java/8.2.0/lucene-8.2.0.tgz.sha512)] / [lucene-8.2.0.zip](https://www.apache.org/dyn/closer.lua/lucene/java/8.2.0/lucene-8.2.0.zip) [[PGP](https://www.apache.org/dist/lucene/java/8.2.0/lucene-8.2.0.zip.asc)] [[SHA512](https://www.apache.org/dist/lucene/java/8.2.0/lucene-8.2.0.zip.sha512)]
- - [Change log](https://lucene.apache.org/core/8_2_0/changes/Changes.html)
+ - Source release: [lucene-8.3.0-src.tgz](https://www.apache.org/dyn/closer.lua/lucene/java/8.3.0/lucene-8.3.0-src.tgz) [[PGP](https://www.apache.org/dist/lucene/java/8.3.0/lucene-8.3.0-src.tgz.asc)] [[SHA512](https://www.apache.org/dist/lucene/java/8.3.0/lucene-8.3.0-src.tgz.sha512)]
+ - Binary releases:  [lucene-8.3.0.tgz](https://www.apache.org/dyn/closer.lua/lucene/java/8.3.0/lucene-8.3.0.tgz) [[PGP](https://www.apache.org/dist/lucene/java/8.3.0/lucene-8.3.0.tgz.asc)] [[SHA512](https://www.apache.org/dist/lucene/java/8.3.0/lucene-8.3.0.tgz.sha512)] / [lucene-8.3.0.zip](https://www.apache.org/dyn/closer.lua/lucene/java/8.3.0/lucene-8.3.0.zip) [[PGP](https://www.apache.org/dist/lucene/java/8.3.0/lucene-8.3.0.zip.asc)] [[SHA512](https://www.apache.org/dist/lucene/java/8.3.0/lucene-8.3.0.zip.sha512)]
+ - [Change log](https://lucene.apache.org/core/8.3.0/changes/Changes.html)
 
 ### Lucene 7.7.2
 

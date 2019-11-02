@@ -9,4 +9,4 @@ in the documentation for that release.
 The most recent versions can also be found online:
 
 <!-- why doesn't include "/pages/latestversion.md"  work here? -->
-- <a href="8_2_0/demo/overview-summary.html#overview_description">Lucene 8.2.0 Demo</a>
+- <a href="8_3_0/demo/overview-summary.html#overview_description">Lucene 8.3.0 Demo</a>

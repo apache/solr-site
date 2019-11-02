@@ -6,9 +6,9 @@ slug: sidebar-core
   <div class="button-green">
     <a href="downloads.html">Download</a>
     <div class="flap top">Click to</div>
-    <div class="flap bottom">Apache Lucene 8.2.0</div>
+    <div class="flap bottom">Apache Lucene 8.3.0</div>
   </div>
-  <div class="download-desc">Apache Lucene 8.2.0</div>
+  <div class="download-desc">Apache Lucene 8.3.0</div>
 </div>
 
 # Resources
@@ -20,7 +20,7 @@ slug: sidebar-core
 
 # Release Docs
 
-- [8.2.0](./8_2_0/index.html)
+- [8.3.0](./8_3_0/index.html)
 
 # About
 - [License](https://www.apache.org/licenses/)
