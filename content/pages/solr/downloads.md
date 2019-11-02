@@ -1,4 +1,7 @@
 Title: Downloads
+URL: solr/
+save_as: solr/downloads.html
+template: solr/page
 
 # Solr Downloads
 
