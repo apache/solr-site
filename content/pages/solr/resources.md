@@ -23,7 +23,7 @@ Users who have completed the tutorial are encouraged to review the [other docume
 Beginning with Solr 4.4, a detailed reference guide is available online or as a PDF download.
 <!--
 Do not add a version# to the text label for ref guide download unless there is a clear mechanism to maintain it.
-The template 8.2.0 is tied directly to the code release version and so can not be
+The template 8.3.0 is tied directly to the code release version and so can not be
 used for ref guide release version unless we either 1. guarantee code and ref guide release to happen together, always or
 2. Make the change here explicitly as part of the ref guide release process to reflect ref guide .
 -->

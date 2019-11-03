@@ -7,7 +7,7 @@ template: solr/full-width
   <div class="row">
     <div class="large-12 columns">
       <div class="annotation">
-        Apache Solr<sup>&trade;</sup> 8.2.0
+        Apache Solr<sup>&trade;</sup> 8.3.0
       </div>
       <h1>Solr Logos and Assets</h1>
       <p>Solr's identity system: a style guide, icons, and logos</p>
