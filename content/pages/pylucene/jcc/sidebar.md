@@ -1,5 +1,6 @@
 Title: Sidebar
 category: sidebar-pylucene-jcc
+save_as:
 slug: sidebar-pylucene-jcc
 
 # Documentation

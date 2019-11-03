@@ -1,4 +1,7 @@
 Title: Apache Solr 5.0.0 and Reference Guide for 5.0 available
+category: solr/news
+URL: 
+save_as: 
 
 Solr is the popular, blazing fast, open source NoSQL search platform
 from the Apache Lucene project. Its major features include powerful

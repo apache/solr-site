@@ -1,5 +1,6 @@
 Title: Sidebar
 category: sidebar-orp
+save_as:
 slug: sidebar-orp
 
 # About

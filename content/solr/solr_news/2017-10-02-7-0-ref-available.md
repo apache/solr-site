@@ -1,4 +1,7 @@
 Title: Apache Solr Reference Guide for 7.0 available
+category: solr/news
+URL: 
+save_as: 
 
 The Lucene PMC is pleased to announce the release of the Apache Solr Reference Guide for Solr 7.0.
 

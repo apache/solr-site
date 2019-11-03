@@ -1,5 +1,6 @@
 Title: Sidebar
 category: sidebar-pylucene
+save_as:
 slug: sidebar-pylucene
 
 <div class="button-wrapper" style="margin-top: 40px;">

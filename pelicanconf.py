@@ -19,12 +19,38 @@ DATE_FORMATS = {
     'en': '%-d %B %Y',
 }
 
+USE_FOLDER_AS_CATEGORY = False
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
+
+INDEX_SAVE_AS = ''
+ARTICLE_SAVE_AS = ''
+ARTICLE_LANG_SAVE_AS = ''
+DRAFT_SAVE_AS = ''
+DRAFT_LANG_SAVE_AS = ''
+PAGE_SAVE_AS = ''
+PAGE_LANG_SAVE_AS = ''
+TAGS_SAVE_AS = ''
+TAG_SAVE_AS = ''
+AUTHORS_SAVE_AS = ''
+AUTHOR_SAVE_AS = ''
+ARCHIVES_SAVE_AS = ''
+CATEGORIES_SAVE_AS = ''
+CATEGORY_SAVE_AS = ''
+
+SLUG_REGEX_SUBSTITUTIONS = [
+(r'[^\w\s-]', ''), # remove non-alphabetical/whitespace/'-' chars
+(r'(?u)\A\s*', ''), # strip leading whitespace
+(r'(?u)\s*\Z', ''), # strip trailing whitespace
+(r'[-\s]+', '-'), # reduce multiple whitespace or '-' to single '-'
+]
+
+CATEGORY_REGEX_SUBSTITUTIONS = []
 
 # Blogroll
 LINKS = (('Pelican', 'http://getpelican.com/'),

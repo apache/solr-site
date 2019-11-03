@@ -20,8 +20,8 @@ template: solr/full-width
 <section class="gray">
   <div class="row">
     <div class="small-12 columns">
-      <h3 class="asset-download">Download the <a href="{attach}/images/solr/identity/Solr_Styleguide.pdf">Solr Style Guide</a> (PDF format)</h3>
-      <h3 class="asset-download">Download the <a href="{attach}/images/solr/identity/Solr_Icons.pdf">Solr Icons</a> (editable PDF format)</h3>
+      <h3 class="asset-download">Download the <a href="{static}/images/solr/identity/Solr_Styleguide.pdf">Solr Style Guide</a> (PDF format)</h3>
+      <h3 class="asset-download">Download the <a href="{static}/images/solr/identity/Solr_Icons.pdf">Solr Icons</a> (editable PDF format)</h3>
     </div>
   </div>
 </section>
@@ -35,10 +35,10 @@ template: solr/full-width
           <p>PNG format, 1692x855</p>
           <div class="img logo-container orange-background">
             <img class="resizeable-solr-logo" alt="Solr Logo on orange (PNG format, 1692x855)"
-                 src="{attach}/images/solr/identity/Solr_Logo_on_orange.png"/>
+                 src="{static}/images/solr/identity/Solr_Logo_on_orange.png"/>
           </div>
           <br />
-          <p>Download editable PDF format <a href="{attach}/images/solr/identity/Solr_Logo_on_orange.pdf">here</a></p>
+          <p>Download editable PDF format <a href="{static}/images/solr/identity/Solr_Logo_on_orange.pdf">here</a></p>
       </li>
       <li>
         <div class="box logo-box">
@@ -46,10 +46,10 @@ template: solr/full-width
           <p>PNG format, 1692x855</p>
           <div class="img logo-container white-background">
             <img class="resizeable-solr-logo" alt="Solr Logo on white (PNG format, 1692x855)"
-                 src="{attach}/images/solr/identity/Solr_Logo_on_white.png"/>
+                 src="{static}/images/solr/identity/Solr_Logo_on_white.png"/>
           </div>
           <br />
-          <p>Download editable PDF format <a href="{attach}/images/solr/identity/Solr_Logo_on_white.pdf">here</a></p>
+          <p>Download editable PDF format <a href="{static}/images/solr/identity/Solr_Logo_on_white.pdf">here</a></p>
       </li>
       <li>
         <div class="box logo-box">
@@ -57,10 +57,10 @@ template: solr/full-width
           <p>PNG format, 1692x855</p>
           <div class="img" style="background-color:#000; padding:20px; height:auto; width:auto">
             <img class="resizeable-solr-logo" alt="Solr Logo on black (PNG format, 1692x855)"
-                 src="{attach}/images/solr/identity/Solr_Logo_on_black.png"/>
+                 src="{static}/images/solr/identity/Solr_Logo_on_black.png"/>
           </div>
           <br />
-          <p>Download editable PDF format <a href="{attach}/images/solr/identity/Solr_Logo_on_black.pdf">here</a></p>
+          <p>Download editable PDF format <a href="{static}/images/solr/identity/Solr_Logo_on_black.pdf">here</a></p>
       </li>
     </div>
   </div>

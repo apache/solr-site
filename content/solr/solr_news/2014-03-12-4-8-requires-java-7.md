@@ -1,4 +1,7 @@
 Title: Apache Solr 4.8 will require Java 7
+category: solr/news
+URL: 
+save_as: 
 
 The Apache Solr committers decided with a large majority on the vote to require **Java 7** for the next minor release of Apache Solr (version 4.8)!
 

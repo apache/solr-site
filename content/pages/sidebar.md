@@ -1,5 +1,6 @@
 Title: Sidebar
 category: sidebar-tlp
+save_as:
 slug: sidebar-tlp
 
 <div class="button-green">

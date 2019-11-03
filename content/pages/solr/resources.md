@@ -71,7 +71,7 @@ This book demystifies relevance work and shows you that a search engine is a pro
 
 [David Smiley](https://www.linkedin.com/in/davidwsmiley), [Eric Pugh](https://www.linkedin.com/in/epugh), [Kranti Parisa](https://www.linkedin.com/in/krantiparisa), and [Matt Mitchell](https://www.linkedin.com/in/mattmitchell4) are proud to *finally* announce the book “[Apache Solr Enterprise Search Server, Third Edition](http://www.solrenterprisesearchserver.com)” by [Packt Publishing](https://www.packtpub.com/).  You can find links to buy it at Packt’s site & Amazon from our book’s official website: [solrenterprisesearchserver.com](http://www.solrenterprisesearchserver.com).  You'll find a useful search parameter quick-reference sheet (the appendix) online there too.
 
-<a href="http://www.solrenterprisesearchserver.com"><img alt="Apache Solr Enterprise Search Server, Third Edition (cover)" class="float-right" src="{attach}/images/solr/book_asess_3ed.jpg"></a>
+<a href="http://www.solrenterprisesearchserver.com"><img alt="Apache Solr Enterprise Search Server, Third Edition (cover)" class="float-right" src="{static}/images/solr/book_asess_3ed.jpg"></a>
 **Apache Solr Enterprise Search Server, Third Edition** is a comprehensive resource to almost everything Solr has to offer. It serves the reader right from initiation to development to deployment. It also comes with complete running examples to demonstrate its use and show how to integrate Solr with other languages and frameworks — even Hadoop.
 
 By using a large set of metadata, including artists, releases, and tracks, courtesy of the MusicBrainz.org project, you will have a testing ground for Solr and will learn how to import this data in various ways. You will then learn how to search this data in different ways, including Solr's rich query syntax and boosting match scores based on record data. Finally, we'll cover various deployment considerations to include indexing strategies and performance-oriented configuration that will enable you to scale Solr to meet the needs of a high-volume site.
@@ -86,7 +86,7 @@ Solr 4 was Solr's biggest release ever. We updated the previous edition to cover
 
 [Hrishikesh Karambelkar](http://hrishikesh.karambelkar.co.in) is proud to announce the book "[Scaling Big Data with Hadoop and Solr - Second Edition](https://www.packtpub.com/big-data-and-business-intelligence/scaling-big-data-hadoop-and-solr-second-edition)" by [Packt Publishing](https://www.packtpub.com/). This book will help the readers understand, design, build, and optimize their big data search engine with Hadoop and Apache Solr.
 
-<a href="https://www.packtpub.com/big-data-and-business-intelligence/scaling-big-data-hadoop-and-solr-second-edition"><img alt="Scaling Big Data with Hadoop and Solr - Second Edition (cover)" class="float-right" src="{attach}/images/solr/book_scaling_big_data_hadoop_solr_II.jpg"></a>
+<a href="https://www.packtpub.com/big-data-and-business-intelligence/scaling-big-data-hadoop-and-solr-second-edition"><img alt="Scaling Big Data with Hadoop and Solr - Second Edition (cover)" class="float-right" src="{static}/images/solr/book_scaling_big_data_hadoop_solr_II.jpg"></a>
 **Scaling Big Data with Hadoop and Solr - Second Edition** is aimed at developers, designers, and architects who would like to build big data enterprise search solutions for their customers or organizations. It explores the different approaches to making Solr work on big data ecosystems apart from Apache Hadoop.
 
 A practical guide that covers interesting, real-life cases for big data search along with sample code targetted to help the readers to improve search performance while working with big data.
@@ -99,7 +99,7 @@ Click [here](https://www.packtpub.com/big-data-and-business-intelligence/scaling
 
 [Jayant Kumar](https://www.linkedin.com/in/jayantkumar) is proud to announce the book "[Apache Solr Search Patterns](http://bit.ly/1J2neZ9)" by [Packt Publishing](https://www.packtpub.com/). This book is for developers who have prior knowledge on Solr and are looking at procuring advanced strategies for improving their search using Solr. Also, if you work with analytics to generate graphs and reports using Solr and you are a search architect who is looking forward to scale your search using Solr, then this book is a perfect guide for you.
 
-<a href="http://bit.ly/1J2neZ9"><img alt="Apache Solr Search Patterns (cover)" class="float-right" src="{attach}/images/solr/book_solr_search_patterns.jpg"></a>
+<a href="http://bit.ly/1J2neZ9"><img alt="Apache Solr Search Patterns (cover)" class="float-right" src="{static}/images/solr/book_solr_search_patterns.jpg"></a>
 **Apache Solr Search Patterns** begins with a brief introduction of analyzers and tokenizers to understand the challenges associated with implementing large-scale indexing and multilingual search functionality. It then moves on to working with custom queries and understanding how filters work internally. While doing so, it also helps the readers create their own query language or Solr plugin that does proximity searches.
 
 Furthermore, the book discusses how Solr can be used for real-time analytics and tackle problems faced during its implementation in e-commerce search. It then dives into the spatial features such as indexing strategies and search/filtering strategies for a spatial search. And also do an in-depth analysis of problems faced in an ad serving platform and how Solr can be used to solve these problems.
@@ -112,7 +112,7 @@ Click [here](http://bit.ly/1J2neZ9) to read more about the Apache Solr Search Pa
 
 [Rafał Kuć](https://pl.linkedin.com/in/rafalkuc) is proud to *finally* announce the book "[Solr Cookbook - Third Edition](http://bit.ly/1Q2AGS8)" by [Packt Publishing](https://www.packtpub.com/). This edition will specifically appeal to developers who wish to quickly get to grips with the changes and new features of Apache Solr 5.
 
-<a href="http://bit.ly/1Q2AGS8"><img alt="Solr Cookbook - Third Edition (cover)" class="float-right" src="{attach}/images/solr/book_solr_cookbook_3ed.jpg"></a>
+<a href="http://bit.ly/1Q2AGS8"><img alt="Solr Cookbook - Third Edition (cover)" class="float-right" src="{static}/images/solr/book_solr_cookbook_3ed.jpg"></a>
 **Solr Cookbook - Third Edition** has over 100 easy to follow recipes to solve real-time problems related to Apache Solr 4.x and 5.0 effectively. Starting with vital information on setting up Solr, the developer will quickly progress to analyzing their text data through querying and performance improvement. Finally, they will explore real-life situations, where Solr can be used to simplify daily collection handling.
 
 With numerous practical chapters centered on important Solr techniques and methods **Solr Cookbook - Third Edition** will guide intermediate Solr Developers who are willing to learn and implement Pro-level practices, techniques, and solutions.
@@ -125,7 +125,7 @@ Click [here](http://bit.ly/1Q2AGS8) to read more about the Solr Cookbook - Third
 
 <a href="https://www.linkedin.com/in/mathieun">Mathieu Nayrolles</a> and <a href="http://www.inkstall.com/">Inkstall Publications</a> are proud to announce their latest book — [Mastering Apache Solr](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall).  This book will empower you to provide a world-class search experience to your end users through the discovery of the powerful mechanisms presented in it.
 
-<a href="http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall" title="Mastering Apache Solr"><img alt="Mastering Apache Solr cover" class="float-right" src="{attach}/images/solr/book_mas.jpg"></a>
+<a href="http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall" title="Mastering Apache Solr"><img alt="Mastering Apache Solr cover" class="float-right" src="{static}/images/solr/book_mas.jpg"></a>
 **Mastering Apache Solr** is a short, focused, practical, hands-on guide containing crisp, relevant, systematically arranged, progressive chapters. These chapters contain a wealth of information presented in a direct and easy-to-understand manner. Highlighting Solr's supremacy over classical databases in full-text search, this book covers key technical concepts which will help you accelerate your progress in the Solr world.
 
 **Mastering Apache Solr** starts with an introduction to Apache Solr, its underlying technologies, the main differences between the classical database engines, and gradually moves to more advance topics such as boosting performance. In this book, we will look under the hood of a large number of topics and discuss answers to pertinent questions such as why denormalize data, how to import classical databases' data inside Apache Solr, how to serve Solr through five different web servers, how to optimize them to serve Solr even faster. An important and major topic covered in this book is Solr's querying mechanism, which will prove to be a strong ally in our journey through this book. We then look at boosting performance and deploying Solr using several servlet servers. Finally, we cover how to communicate with Solr using different programming languages, before deploying it in a cloud-based environment.
@@ -140,7 +140,7 @@ Click [here](http://bit.ly/1Q2AGS8) to read more about the Solr Cookbook - Third
 
 Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [Solr in Action](http://solrinaction.com), a comprehensive (638 pg.), example-driven guide covering through Solr 4.7.
 
-<a href="http://solrinaction.com" title="Manning: Solr in Action"><img alt="Solr in Action cover" class="float-right" src="{attach}/images/solr/book_sia.png"></a>
+<a href="http://solrinaction.com" title="Manning: Solr in Action"><img alt="Solr in Action cover" class="float-right" src="{static}/images/solr/book_sia.png"></a>
 **Solr in Action** is an essential resource for implementing fast and scalable search using Apache Solr. It uses well-documented examples ranging from basic keyword searching to scaling a system for billions of documents and queries. With this book, you’ll gain a deep understanding of how to implement core Solr capabilities such as faceted navigation through search results, matched snippet highlighting, field collapsing and search results grouping, spell-checking, query autocomplete, querying by functions, and more. You’ll also see how to take Solr to the next level, with deep coverage of large-scale production use cases, sophisticated multilingual search, complex query operations, and advanced relevancy tuning strategies.
 
 [Buy here](http://solrinaction.com)
@@ -148,7 +148,7 @@ Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [S
 ***
 <h3 class="offset" id="einfuehrung-in-apache-solr">Einführung in Apache Solr</h3>
 
-<a href="http://www.oreilly.de/catalog/einfapachesolrger/" title="Einführung in Apache Solr"><img alt="Einführung in Apache Solr Cover" class="float-right" src="{attach}/images/solr/book-eias.jpg"></a>
+<a href="http://www.oreilly.de/catalog/einfapachesolrger/" title="Einführung in Apache Solr"><img alt="Einführung in Apache Solr Cover" class="float-right" src="{static}/images/solr/book-eias.jpg"></a>
 <p>Markus Klose, Daniel Wrigley and O’Reilly are proud to present the first book on Apache Solr in German.</p>
 <p>[Einführung in Apache Solr](http://www.oreilly.de/catalog/einfapachesolrger/) offers a substantiated and practice-oriented introduction into the search technology Apache Solr. The sample configurations, instructions, tips and pitfalls from the practice of the authors enable the reader to get a quick insight to this search technology. The book provides the necessary knowledge and tools to implement custom search solutions with Apache Solr, covering the following topics:</p>
 <ul>
@@ -164,7 +164,7 @@ Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [S
 
 <h3 class="offset" id="instant-apache-solr-for-indexing-data-how-to">Instant Apache Solr for Indexing Data How-to</h3>
 
-<a href="http://www.packtpub.com/apache-solr-for-indexing-data/book" title="Packt: Instant Apache Solr for Indexing Data How-to"><img alt="Instant Apache Solr for Indexing Data How-to - cover" class="float-right" src="{attach}/images/solr/book_s4index.jpg"></a>
+<a href="http://www.packtpub.com/apache-solr-for-indexing-data/book" title="Packt: Instant Apache Solr for Indexing Data How-to"><img alt="Instant Apache Solr for Indexing Data How-to - cover" class="float-right" src="{static}/images/solr/book_s4index.jpg"></a>
 Alexandre Rafalovitch and Packt Publishing are proud to announce [Instant Apache Solr for Indexing Data How-to](http://www.packtpub.com/apache-solr-for-indexing-data/book) - an example-driven guide that will take you on a journey from the basic collection of data to a multi-lingual, multi-field, multi-type schema.
 
 Content and data searching is a very important part of the modern user experience, and before something can be searched, it has to be indexed. Indexing is a hidden part of the process that has a surprisingly strong impact on the overall user experience. From speed, to faceting, to multilingual support, everything depends on correct indexing. **Instant Apache Solr for Indexing Data How-to** is a friendly, practical guide that will show you how to index your data with Solr 4.3.
@@ -175,7 +175,7 @@ Content and data searching is a very important part of the modern user experienc
 
 <h3 class="offset" id="apache-solr-4-cookbook">Apache Solr 4 Cookbook</h3>
 
-<a href="http://www.packtpub.com/apache-solr-4-cookbook/book" title="Packt: Apache Solr 4 Cookbook"><img alt="Apache Solr 4 Cookbook cover" class="float-right" src="{attach}/images/solr/book_s4c.jpg"></a>
+<a href="http://www.packtpub.com/apache-solr-4-cookbook/book" title="Packt: Apache Solr 4 Cookbook"><img alt="Apache Solr 4 Cookbook cover" class="float-right" src="{static}/images/solr/book_s4c.jpg"></a>
 Rafał Kuć and Packt Publishing are proud to announce the second edition of [Apache Solr 4 Cookbook](http://www.packtpub.com/apache-solr-4-cookbook/book). The Cookbook is newly updated and improved with new chapters on SolrCloud and every chapter updated to Solr 4.
 
 **Apache Solr 4 Cookbook** features over 100 recipes to make Apache Solr faster, more reliable, and return better results. It will show you how to get the most out of your search engine. Full of practical recipes and examples, this book will show you how to set up Apache Solr, tune and benchmark performance as well as index and analyze your data to provide better, more precise, and useful search data.
@@ -190,7 +190,7 @@ With numerous practical chapters centered on important Solr techniques and metho
 
 <h3 class="offset" id="taming-text">Taming Text</h3>
 
-<a href="http://www.manning.com/ingersoll/" title="Taming Text"><img alt="Taming Text cover" class="float-right" src="{attach}/images/solr/book_tt.png"></a>
+<a href="http://www.manning.com/ingersoll/" title="Taming Text"><img alt="Taming Text cover" class="float-right" src="{static}/images/solr/book_tt.png"></a>
 Taming Text is a hands-on, example-driven guide to working with unstructured text in the context of real-world applications. This book explores how to automatically organize text using approaches such as full-text search with Apache Solr (v3), proper name recognition,
 clustering, tagging, information extraction, and summarization. The book guides you through examples illustrating each of these topics, as well as the foundations upon which they are built.  Source code
 is available on [Github](https://github.com/tamingtext/book).
@@ -201,7 +201,7 @@ is available on [Github](https://github.com/tamingtext/book).
 
 <h3 class="offset" id="apache-solr-3.1-cookbook">Apache Solr 3.1 Cookbook</h3>
 
-<a href="http://www.packtpub.com/solr-3-1-enterprise-search-server-cookbook/book" title="PACKT: Apache Solr 3.1 Cookbook"><img alt="Solr Cookbook cover" class="float-right" src="{attach}/images/solr/book_s3c.png"></a>
+<a href="http://www.packtpub.com/solr-3-1-enterprise-search-server-cookbook/book" title="PACKT: Apache Solr 3.1 Cookbook"><img alt="Solr Cookbook cover" class="float-right" src="{static}/images/solr/book_s3c.png"></a>
 Rafał Kuć is proud to introduce a new book on Solr, [Apache Solr 3.1 Cookbook](http://www.packtpub.com/solr-3-1-enterprise-search-server-cookbook/book) from Packt Publishing.
 
 **Apache Solr 3.1 Cookbook** will make your everyday work easier by using real-life examples that show you how to deal with the most common problems that can arise while using the Apache Solr search engine.

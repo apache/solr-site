@@ -1,4 +1,7 @@
 Title: Recommendation to update Apache POI in Apache Solr 4.8.0, 4.8.1, and 4.9.0 installations
+category: news
+URL: 
+save_as: 
 
 Apache Solr versions 4.8.0, 4.8.1, 4.9.0 bundle Apache POI 3.10-beta2 with its binary release tarball.
 This version (and all previous ones) of Apache POI are vulnerable to the following issues:

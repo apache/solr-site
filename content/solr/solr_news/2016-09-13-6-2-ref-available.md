@@ -1,4 +1,7 @@
 Title: Apache Solr Reference Guide for 6.2 available
+category: solr/news
+URL: 
+save_as: 
 
 The Lucene PMC is pleased to announce that the Solr Reference Guide
 for Solr 6.2 has been released.

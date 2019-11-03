@@ -1,4 +1,7 @@
 Title: Apache Solr Reference Guide 7.7 available
+category: solr/news
+URL: 
+save_as: 
 
 The Lucene PMC is pleased to announce that the Solr Reference Guide for 7.7 is now available.  This 1,431-page PDF is the definitive guide to using Apache Solr, the search server built on Lucene.
 

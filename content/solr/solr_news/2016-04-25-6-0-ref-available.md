@@ -1,4 +1,7 @@
 Title: Solr Reference Guide for 6.0 Available
+category: solr/news
+URL: 
+save_as: 
 The Lucene PMC is pleased to announce the release of the Solr Reference Guide for 6.0.
 
 The Guide has been extensively updated for Solr 6.0, with new sections on Parallel SQL and Cross Data Center Replication.

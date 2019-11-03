@@ -21,13 +21,16 @@
     <a class="headerlink" href="#lucenetm-project-news" title="Permanent link">¶</a>
   </h1>
   <div>
-    {% for article in (articles | selectattr("category", "equalto", "main_news")|list)[:15] %}
+    {% for article in (articles | selectattr("category.name", "eq", "news")|list)[:15] %}
     <h2 id="{{article.slug}}">
       {{article.locale_date|title}} - {{article.title}}
       <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
     </h2>
     {{article.content}}
     {% endfor %}
+  </div>
+  <div>
+    <h3>For more see <a href url="{{ SITEURL }}/news.html"> all Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Project News</a></h3>
   </div>
   {% endblock main_news %}
 

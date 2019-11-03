@@ -1,4 +1,7 @@
 Title: New mailing lists
+category: news
+URL: 
+save_as: 
 
 The Lucene project has added two new announce mailing lists, `issues@lucene.apache.org` and `builds@lucene.apache.org`.
 High-volume automated emails from our bug tracker, JIRA and GitHub will be moved from the `dev@` list to `issues@` and

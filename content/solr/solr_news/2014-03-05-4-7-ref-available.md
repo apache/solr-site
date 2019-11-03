@@ -1,4 +1,7 @@
 Title: Apache Solr Ref Guide for 4.7 Available
+category: solr/news
+URL: 
+save_as: 
 The Lucene PMC is pleased to announce that there is a new version of the Solr Reference Guide available for Solr 4.7.
 
 The 395 page PDF serves as the definitive user's manual for Solr 4.7. It can be downloaded from the Apache mirror network:

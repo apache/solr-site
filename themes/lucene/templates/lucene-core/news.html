@@ -1,16 +1,9 @@
-{% extends "pylucene/main.html" %}
+{% extends "lucene-core/main.html" %}
 {% block content %}
 <div>
   <h1 class="title">{{page.title}}</h1>
-  {% if page.toc %}
-  <div class="toc">
-    {{ page.toc }}
-  </div>
-  {% endif %}
-  {{page.content}}
-</div>
 
-  {% block pylucene_news %}
+  {% block core_news %}
   <style type="text/css">
     .headerlink, .elementid-permalink {
       visibility: hidden;
@@ -19,11 +12,8 @@
       visibility: visible
     }
   </style>
-  <h1 id="news">News
-    <a class="headerlink" href="#news" title="Permanent link">¶</a>
-  </h1>
   <div>
-    {% for article in (articles | selectattr("category.name", "eq", "pylucene/news")|list)[:15] %}
+    {% for article in (articles | selectattr("category.name", "eq", "core/news")|list) %}
     <h2 id="{{article.slug}}">
       {{article.locale_date|title}} - {{article.title}}
       <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
@@ -31,5 +21,7 @@
     {{article.content}}
     {% endfor %}
   </div>
-  {% endblock pylucene_news %}
+  {% endblock core_news %}
+</div>
+
 {% endblock %}

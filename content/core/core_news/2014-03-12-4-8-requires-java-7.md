@@ -1,4 +1,7 @@
 Title: Apache Lucene 4.8 will require Java 7
+category: core/news
+URL: 
+save_as: 
 
 The Apache Lucene committers decided with a large majority on the vote to require **Java 7** for the next minor release of Apache Lucene (version 4.8)!
 

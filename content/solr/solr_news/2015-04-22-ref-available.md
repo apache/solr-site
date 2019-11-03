@@ -1,4 +1,7 @@
 Title: Apache Solr Reference Guide Available
+category: solr/news
+URL: 
+save_as: 
 The Lucene PMC is pleased to announce the availability of the Apache Solr Reference Guide for Solr 5.1.
 
 This 578 page PDF serves is the definitive user's manual for Solr. For this version, we've updated the Guide for several new features and changes and given the PDF a bit of a facelift for easier reading.

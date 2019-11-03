@@ -20,7 +20,7 @@
     }
   </style>
   <div>
-    {% for article in (articles | selectattr("category", "equalto", "orp_news")|list)[:15] %}
+    {% for article in (articles | selectattr("category.name", "eq", "openrelevance/news")|list)[:15] %}
     <h2 id="{{article.slug}}">
       {{article.locale_date|title}} - {{article.title}}
       <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>

@@ -1,5 +1,6 @@
 Title: Sidebar
 category: sidebar-core
+save_as:
 slug: sidebar-core
 
 <div class="button-wrapper">

@@ -1,4 +1,7 @@
 Title: Apache Lucene/Solr development moves to GIT
+category: solr/news
+URL: 
+save_as: 
 
 As of January 23rd 2016, Lucene/Solr source code is hosted in Apache's GIT repository.
 This means that the old SVN repository is now stale and should not be used.

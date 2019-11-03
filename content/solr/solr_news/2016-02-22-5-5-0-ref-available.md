@@ -1,4 +1,7 @@
 Title: Apache Solr 5.5.0 and Reference Guide for 5.5 Available
+category: solr/news
+URL: 
+save_as: 
 
 The Lucene PMC is pleased to announce the release of Apache Solr 5.5.0
 
