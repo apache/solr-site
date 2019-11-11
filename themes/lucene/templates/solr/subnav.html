@@ -1,0 +1,20 @@
+{% extends "solr/page.html" %}
+
+{% block subnav %}
+<div class="row">
+  <div class="small-12 text-center columns">
+    <h1>{% block subnav_title %}{% endblock %}<br/>
+      <small>{% block subnav_subtitle %}{% endblock %}</small></h1>
+  </div>
+</div>
+<div class="sub-nav-container">
+  <div class="row sub-nav-border anchor-top">
+    <div class="small-12 text-center columns">
+      <dl class="sub-nav">
+        {% block subnav_nav_items %}
+        {% endblock %}
+      </dl>
+    </div>
+  </div>
+</div>
+{% endblock %}

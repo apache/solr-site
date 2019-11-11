@@ -1,0 +1,19 @@
+{% extends "lucene/openrelevance/page.html" %}
+
+{% block content %}
+{{ super() }}
+
+<h1 id="news">News
+  <a class="headerlink" href="#news" title="Permanent link">¶</a>
+</h1>
+
+<div>
+  {% for article in (articles | selectattr("category.name", "eq", "openrelevance/news")|list)[:3] %}
+  <h2 id="{{article.slug}}">
+    {{article.locale_date|title}} - {{article.title}}
+    <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
+  </h2>
+  {{article.content}}
+  {% endfor %}
+</div>
+{% endblock %}

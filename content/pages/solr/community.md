@@ -1,5 +1,5 @@
 Title: Community
-URL: solr/
+URL: solr/community.html
 save_as: solr/community.html
 template: solr/community
 Notice:    Licensed to the Apache Software Foundation (ASF) under one

@@ -50,5 +50,27 @@ both auto-regenerate and serve the output at http://localhost:8000:
 pelican --autoreload --listen
 ```
 
+## Bump Lucene/Solr latest version after a release
+
+There are variables in **pelicanconf.py** to modify the latest 2 supported release
+versions. This will affect all references to release version in the theme, but
+not in pages or articles. Pelican views pages and articles as static write-once,
+like a blog post, whereas the theme can be more dynamic and change with every
+build.
+
+Modify `LUCENE_LATEST_RELEASE` and `LUCENE_PREVIOUS_MAJOR_RELEASE`, and
+`LUCENE_LATEST_RELEASE_DATE` to affect
+
+* Full patch release versions in html such as "6.3.0".
+* Minor release versions in html such as "6.3.x".
+* References to unsupported versions such as "<6" in [Solr downloads][3].
+* References to upcoming unreleased versions such as "7" in [Solr downloads][3]
+  which is a +1 increment of the `LUCENE_LATEST_RELEASE` setting.
+* Links to source, javadocs, PGP, and SHA512 which use underscores to separate
+  version parts such as `6_3_0`
+* References to the release date of the latest version which can be dynamically
+  formatted for different pages.
+
 [1]: https://blog.getpelican.com/
 [2]: https://docs.getpelican.com/en/stable/install.html
+[3]: https://lucene.apache.org/solr/downloads.html#about-versions-and-support

@@ -1,0 +1,23 @@
+{% extends "lucene/base.html" %}
+
+{% block hero_header %}
+<div id="slides">
+  <div class="slideshow" id="mantleSlides">
+    {% block slides %}
+    {% endblock %}
+  </div>
+  <div class="controls">
+    <a class="next" id="next" title="Next" href="#">Next</a>
+    <a class="previous" id="previous" title="Previous" href="#">Previous</a>
+    <a class="start" id="start" title="Start" href="#" style="display: none; ">Start</a>
+    <a class="stop" id="stop" title="Stop" href="#">Stop</a>
+  </div>
+
+  <script type="text/javascript">
+    function StartSlides() {
+      new Slides('mantleSlides');
+    }
+document.observe('dom:loaded', StartSlides);
+  </script>
+</div> <!-- End #slides -->
+{% endblock hero_header %}

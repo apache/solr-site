@@ -1,7 +1,7 @@
 Title:
-URL:
+URL: mirrors-core-latest-redir.html
 save_as: mirrors-core-latest-redir.html
-template: lucene-tlp/page
+template: lucene/tlp/page
 slug: mirrors-core-latest-redir
 
 You should be automatically redirected to the Apache Mirrors Site, if not please choose from the

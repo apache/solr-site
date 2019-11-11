@@ -1,4 +1,4 @@
 Title: Lucene™ Project News
-URL:
+URL: news.html
 save_as: news.html
-template: lucene-tlp/news
+template: lucene/tlp/news

@@ -1,54 +1,7 @@
 Title: Resources
-URL: solr/
+URL: solr/resources.html
 save_as: solr/resources.html
 template: solr/resources
-
-## Tutorials ##
-
-* [Solr Quick Start](/solr/guide/solr-tutorial.html)
-
-<!--
-* More to come: Ideas include "Solr in a Day", "Solr and JSON", "Solr and CSV", "Solr and XML"
--->
-
-Users who have completed the tutorial are encouraged to review the [other documentation available](#documentation).
-
-***
-
-## Documentation ##
-
-
-<h3 class="offset" id="the-apache-solr-reference-guide">The Apache Solr Reference Guide</h3>
-
-Beginning with Solr 4.4, a detailed reference guide is available online or as a PDF download.
-<!--
-Do not add a version# to the text label for ref guide download unless there is a clear mechanism to maintain it.
-The template 8.3.0 is tied directly to the code release version and so can not be
-used for ref guide release version unless we either 1. guarantee code and ref guide release to happen together, always or
-2. Make the change here explicitly as part of the ref guide release process to reflect ref guide .
--->
-
-* [Official PDF Reference Guide for Solr](https://www.apache.org/dyn/closer.lua/lucene/solr/ref-guide/)
-
-* [HTML Version of the Reference Guide](/solr/guide)
-
-* [Visual Guide to Streaming Expressions and Math Expressions](http://bit.ly/32srTpA)
-
-* [Previous Releases](http://archive.apache.org/dist/lucene/solr/ref-guide/)
-
-
-<h3 class="offset" id="javadocs">Solr Javadocs</h3>
-
-Solr generates JavaDocs for all included code in each release.
-Copies of this documentation for every release can be found online:
-
-* [Latest Release](/solr/8_3_0/index.html)
-
-<h3 class="offset" id="additional-documentation">Additional Documentation</h3>
-
-Additional documentation can be found on the [Solr Community Wiki](http://wiki.apache.org/solr) or the various [books published about Solr](#solr-books).
-
-***
 
 ## Community ##
 

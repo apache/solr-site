@@ -1,0 +1,25 @@
+{% extends "lucene/tlp/page.html" %}
+
+{% block content %}
+{{ super() }}
+
+<h1 id="lucene-project-news">Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Project News
+  <a class="headerlink" href="#lucenetm-project-news" title="Permanent link">¶</a>
+</h1>
+
+<div>
+  {% for article in (articles | selectattr("category.name", "eq", "news")|list)[:3] %}
+  <h2 id="{{article.slug}}">
+    {{article.locale_date|title}} - {{article.title}}
+    <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
+  </h2>
+  {{article.content}}
+  {% endfor %}
+</div>
+
+<div>
+  <h3>For more see <a href url="{{ SITEURL }}/news.html"> all Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Project News</a></h3>
+</div>
+
+{% include "lucene/_asf.html" %}
+{% endblock content %}

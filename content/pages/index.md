@@ -1,7 +1,7 @@
 Title: Welcome to Apache Lucene
-URL:
+URL: index.html
 save_as: index.html
-Template: lucene-tlp/splash
+Template: lucene/tlp/index
 
 The Apache Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> project develops open-source search software, including:
 

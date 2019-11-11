@@ -1,0 +1,11 @@
+{% extends "lucene/core/page.html" %}
+
+{% block content %}
+<div>
+  {{ super() }}
+  <p>The most recent versions can also be found online:</p>
+  <ul>
+    <li><a href="{{ LUCENE_LATEST_RELEASE | replace(".", "_") }}/demo/overview-summary.html#overview_description">Lucene {{ LUCENE_LATEST_RELEASE }} Demo</a></li>
+  </ul>
+</div>
+{% endblock %}

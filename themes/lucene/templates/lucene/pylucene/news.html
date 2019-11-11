@@ -1,0 +1,14 @@
+{% extends "lucene/pylucene/page.html" %}
+
+{% block content %}
+  {{ super() }}
+  <div>
+    {% for article in (articles | selectattr("category.name", "eq", "pylucene/news")|list) %}
+    <h2 id="{{article.slug}}">
+      {{article.locale_date|title}} - {{article.title}}
+      <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
+    </h2>
+    {{article.content}}
+    {% endfor %}
+  </div>
+{% endblock content %}

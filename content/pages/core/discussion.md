@@ -1,14 +1,14 @@
 Title: Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Mailing Lists and IRC
-URL: core/
+URL: core/discussion.html
 save_as: core/discussion.html
-template: lucene-core/page
+template: lucene/core/page
 
 [TOC]
 
 ## Java User List: java-user@lucene.apache.org
 
 This list is for users of Java Lucene to ask questions, share knowledge,
-and discuss issues. <b>Do</b> send mail to this list with usage and configuration questions and problems.  Also, please
+and discuss issues. **Do** send mail to this list with usage and configuration questions and problems.  Also, please
 send questions to this list to verify your problem before filing issues in JIRA.
 
 - Subscribe: [java-user-subscribe](mailto:java-user-subscribe@lucene.apache.org)
@@ -24,8 +24,8 @@ send questions to this list to verify your problem before filing issues in JIRA.
 This is the list where participating developers of the Java Lucene project meet
 and discuss issues concerning Lucene/Solr internals, code changes/additions, etc.
 
-*<b>NOTE:</b> Please do not send mail to this list with usage questions or configuration
-questions and problems; that is what the java-user and solr-user mailing lists are for.*
+***NOTE:*** _Please do not send mail to this list with usage questions or configuration
+questions and problems; that is what the java-user and solr-user mailing lists are for._
 
 - Subscribe: [dev-subscribe](mailto:dev-subscribe@lucene.apache.org)
 - Unsubscribe: [dev-unsubscribe](mailto:dev-unsubscribe@lucene.apache.org)
@@ -78,15 +78,15 @@ This is an automated announcement only list where notifications about every Luce
 
 There are two primary IRC channels dedicated to Lucene at [freenode.net](http://freenode.net/).
 
-- <b>#lucene</b> -- Channel for user questions
-- <b>#lucene-dev</b> -- [Logged Channel](http://colabti.org/irclogger/irclogger_logs/lucene-dev) for Lucene development questions
+- **#lucene** -- Channel for user questions
+- **#lucene-dev** -- [Logged Channel](http://colabti.org/irclogger/irclogger_logs/lucene-dev) for Lucene development questions
 
 The IRC channel can be used for online discussion about Lucene related stuff,
 but developers should be careful to transfer all the official decisions or useful discussions to the issue tracking system.
 
 ## Slack
 
-The project's Slack channel is the <b>#lucene-solr</b> channel in the <b>the-asf</b> organization. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
+The project's Slack channel is the **#lucene-solr** channel in the **the-asf** organization. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
 
 ## Mail Archives
 

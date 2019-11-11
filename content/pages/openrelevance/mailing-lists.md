@@ -1,7 +1,7 @@
 Title: ORP Mailing Lists
-URL: openrelevance/
+URL: openrelevance/mailing-lists.html
 save_as: openrelevance/mailing-lists.html
-template: openrelevance/page
+template: lucene/openrelevance/page
 
 ## *User discussions:*
 

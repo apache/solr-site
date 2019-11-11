@@ -1,6 +1,6 @@
 Title: Solr Reference Guide
-URL: solr/
-save_as: solr/guide.html
+URL: solr/guide/index.html
+save_as: solr/guide/index.html
 template: solr/page
 Notice:    Licensed to the Apache Software Foundation (ASF) under one
            or more contributor license agreements.  See the NOTICE file

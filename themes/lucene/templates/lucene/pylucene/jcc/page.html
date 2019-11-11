@@ -1,0 +1,13 @@
+{% extends "lucene/pylucene/page.html" %}
+
+{% block nav_items %}
+<li><a href="{{ SITEURL}}/pylucene/jcc/index.html">JCC</a></li>
+<li><a href="{{ SITEURL}}/pylucene/mailing-lists.html">Mailing Lists</a></li>
+<li><a href="https://issues.apache.org/jira/browse/PYLUCENE">Issue Tracker</a></li>
+<li><a href="{{ SITEURL}}/pylucene/index.html">PyLucene</a></li>
+<li><a class="last" href="{{ SITEURL }}/">Lucene</a></li>
+{% endblock %}
+
+{% block sidebar %}
+{% include "lucene/pylucene/jcc/_sidebar.html" %}
+{% endblock %}

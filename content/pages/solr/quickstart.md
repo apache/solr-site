@@ -1,6 +1,6 @@
 Title: Quickstart
-URL: solr/
-save_as: solr/quickstart.html
+URL: solr/guide/solr-tutorial.html
+save_as: solr/guide/solr-tutorial.html
 template: solr/page
 
 <!-- As of 2 Oct 2017, this page now automatically redirects to

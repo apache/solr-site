@@ -1,6 +1,4 @@
 Title:
-URL:
+URL: latestversion.html
 save_as: latestversion.html
-template: lucene-tlp/page
-
-8.3.0
+template: lucene/tlp/latest_version

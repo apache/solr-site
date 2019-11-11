@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+from datetime import datetime
 
 AUTHOR = 'Lucene and Solr Developers'
 SITENAME = 'Apache Lucene'
+SITESUBTITLE = ''
 SITEURL = ''
+
+LUCENE_LATEST_RELEASE = '8.3.0'
+LUCENE_LATEST_RELEASE_DATE = datetime(2019, 11, 2)
+LUCENE_PREVIOUS_MAJOR_RELEASE = '7.7.2'
 
 PATH = 'content'
 
@@ -61,6 +67,8 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
 # Social widget
 SOCIAL = (('You can add links in your config file', '#'),
           ('Another social link', '#'),)
+
+GOOGLE_ANALYTICS_TRACKING_ID = 'UA-94576-12'
 
 DEFAULT_PAGINATION = False
 

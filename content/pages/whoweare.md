@@ -1,7 +1,7 @@
 Title: Who we are
-URL:
+URL: whoweare.html
 save_as: whoweare.html
-template: lucene-tlp/page
+template: lucene/tlp/page
 
 ## Lucene<span style="vertical-align: super; font-size: xx-small">TM</span>/Solr<span style="vertical-align: super; font-size: xx-small">TM</span> Committers
 - *[Namgyu Kim](https://www.linkedin.com/in/danmuzi)* (namgyu@...)
