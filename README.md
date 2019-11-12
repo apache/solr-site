@@ -31,10 +31,10 @@ pip install -r requirements.txt
 ### Generating HTML
 
 Once Pelican is installed you can convert your content into HTML via the pelican
-command.
+command (`content` is the default location to build from).
 
 ```sh
-pelican content
+pelican
 ```
 
 The above command will generate your site and save it in the `output/` using the
