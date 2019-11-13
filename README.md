@@ -1,5 +1,7 @@
 # Web site for Apache Lucene and Solr
 
+This repository contains the "source code" of the Lucene/Solr website at [lucene.apache.org](https://lucene.apache.org/).
+
 ## Building the site
 
 ### Installing Pelican
