@@ -36,7 +36,7 @@ Once Pelican is installed you can convert your content into HTML via the pelican
 command (`content` is the default location to build from).
 
 ```sh
-pelican
+pelican content
 ```
 
 The above command will generate your site and save it in the `output/` using the
