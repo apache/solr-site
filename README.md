@@ -4,9 +4,11 @@ This repository contains the "source code" of the Lucene/Solr website at [lucene
 
 ## Building the site
 
-The site is written in Markdown syntax and built into a static site using [Pelican][1]. The site is re-built automatically by ASF Buildbot on every push to master branch and the result can be previewed at <TBD>. If the preview looks good, simply merge the change to branch <TBD> and the site will be deployed.
+The site is written in Markdown syntax and built into a static site using [Pelican][1]. The site is re-built automatically by [ASF Buildbot][5] on every push to master branch and the result can be previewed at [lucene.staged.apache.org][6]. Build success/failure emails are sent to [commits@lucene.apache.org][7] mailing list. Read more about the mechanics behind auto building in [INFRA Confluence][8].
+ 
+If the staged site looks good, simply merge the changes to branch `production` and the site will be deployed in a minute or two.
 
-For larger edits it is recommended to build and preview the site locally. This is much faster. THe next sections detail that procedure.
+For larger edits it is recommended to build and preview the site locally. This is much faster. The next sections detail that procedure.
 
 ### Installing Pelican
 
@@ -26,21 +28,15 @@ pip install -r requirements.txt
 
 ### Generating HTML
 
-Once Pelican is installed you can convert your content into HTML via the pelican
-command (`content` is the default location to build from).
+Once Pelican is installed you can convert your content into HTML via the pelican command (`content` is the default location to build from).
 
 ```sh
 pelican
 ```
 
-The above command will generate your site and save it in the `output/` using the
-lucene theme and settings defined in `pelicanconf.py`
+The above command will generate your site and save it in the `output/` folder using the lucene theme and settings defined in `pelicanconf.py`
 
-You can also tell Pelican to watch for your modifications, instead of manually
-re-running it every time you want to see your changes. To enable this, run the
-pelican command with the -r or --autoreload option. On non-Windows environments,
-this option can also be combined with the -l or --listen option to simultaneously
-both auto-regenerate and serve the output through a builtin webserver.
+You can also tell Pelican to watch for your modifications, instead of manually re-running it every time you want to see your changes. To enable this, run the pelican command with the `-r` or `--autoreload` option. On non-Windows environments, this option can also be combined with the `-l` or `--listen` option to simultaneously both auto-regenerate and serve the output through a builtin webserver.
 
 ```sh
 pelican --autoreload --listen
@@ -48,13 +44,15 @@ pelican --autoreload --listen
 
 Now go to http://localhost:8000 to view the beautiful Lucene web page :)
 
-## Bump Lucene/Solr latest version after a release
+## Updating site during a Lucene/Solr release
 
-There are variables in **pelicanconf.py** to modify the latest 2 supported release
-versions. This will affect all references to release version in the theme, but
-not in pages or articles. Pelican views pages and articles as static write-once,
-like a blog post, whereas the theme can be more dynamic and change with every
-build.
+The release manager documentation will contain detailed instructions on how to update the site during a release. Some of the boring version number update and download link generation is handled by Pelican, see below.
+
+JavaDoc publishing and Solr RefGuide publishing is handled in a special way and are not checked in to this repository. More details will follow. 
+
+### Bump Lucene/Solr latest version after the release
+
+There are variables in **pelicanconf.py** to modify the latest 2 supported release versions. This will affect all references to release version in the theme, but not in pages or articles. Pelican views pages and articles as static write-once, like a blog post, whereas the theme can be more dynamic and change with every build.
 
 Modify `LUCENE_LATEST_RELEASE` and `LUCENE_PREVIOUS_MAJOR_RELEASE`, and
 `LUCENE_LATEST_RELEASE_DATE` to affect
@@ -73,3 +71,7 @@ Modify `LUCENE_LATEST_RELEASE` and `LUCENE_PREVIOUS_MAJOR_RELEASE`, and
 [2]: https://docs.getpelican.com/en/stable/install.html
 [3]: https://lucene.apache.org/solr/downloads.html#about-versions-and-support
 [4]: https://www.python.org/downloads/
+[5]: https://ci2.apache.org/#/builders/3
+[6]: https://lucene.staged.apache.org
+[7]: https://lists.apache.org/list.html?commits@lucene.apache.org
+[8]: https://wiki.apache.org/confluence/display/INFRA/.asf.yaml+features+for+git+repositories
