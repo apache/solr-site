@@ -3,6 +3,12 @@
 #
 #
 
+### Javadocs & Solr Refguide
+
+AliasMatch "^/core/(\d_\d_\d\b.*$)" "/www/docs.lucene.apache.org/content/core/$1"
+AliasMatch "^/solr/(\d_\d_\d\b.*$)" "/www/docs.lucene.apache.org/content/solr/$1"
+AliasMatch "^/solr/guide/(\d_\d\b.*$)" "/www/docs.lucene.apache.org/content/solr/guide/$1"
+
 ### Pre-CMS site redirects
 
 # DOAP file redirects to source repository

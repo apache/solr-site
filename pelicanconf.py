@@ -81,6 +81,9 @@ EXTRA_PATH_METADATA = {
         'save_as': 'core/corenews.html',
         },
     }
+
+STATIC_PATHS = ['.']
+
 PLUGIN_PATHS = ['./plugins']
 PLUGINS = [
     'extract_toc',
