@@ -9,21 +9,21 @@ RewriteBase /
 ### Pre-CMS site redirects
 
 # DOAP file redirects to source repository
-RedirectMatch Permanent /core/doap.rdf https://gitbox.apache.org/repos/asf?p=lucene-solr.git;a=blob_plain;f=dev-tools/doap/lucene.rdf;hb=HEAD
-RedirectMatch Permanent /solr/doap.rdf https://gitbox.apache.org/repos/asf?p=lucene-solr.git;a=blob_plain;f=dev-tools/doap/solr.rdf;hb=HEAD
+RedirectMatch Permanent ^/core/doap.rdf https://gitbox.apache.org/repos/asf?p=lucene-solr.git;a=blob_plain;f=dev-tools/doap/lucene.rdf;hb=HEAD
+RedirectMatch Permanent ^/solr/doap.rdf https://gitbox.apache.org/repos/asf?p=lucene-solr.git;a=blob_plain;f=dev-tools/doap/solr.rdf;hb=HEAD
 
 # page renames
-RedirectMatch Permanent /who.html /whoweare.html
-RedirectMatch Permanent /java/docs/irc.html /core/discussion.html#irc
-RedirectMatch Permanent /java/docs/mailinglists.html /core/discussion.html
-RedirectMatch Permanent /java/docs/systemrequirements.html /core/systemreqs.html
-RedirectMatch Permanent /java/docs/developer-resources.html /core/developer.html
-RedirectMatch Permanent /solr/issue_tracking.html https://issues.apache.org/jira/browse/SOLR
-RedirectMatch Permanent /solr/mirrors-solr-latest-redir.html /solr/downloads.html
-RedirectMatch Permanent /solr/mirrors-solr-3x-redir /solr/downloads.html
-RedirectMatch Permanent /solr/mirrors-solr-redir.html /solr/downloads.html
-RedirectMatch Permanent /core/mirrors-core-latest-redir.html /core/downloads.html
-RedirectMatch Permanent /core/mirrors-core-redir.html /core/downloads.html
+RedirectMatch Permanent ^/who.html /whoweare.html
+RedirectMatch Permanent ^/java/docs/irc.html /core/discussion.html#irc
+RedirectMatch Permanent ^/java/docs/mailinglists.html /core/discussion.html
+RedirectMatch Permanent ^/java/docs/systemrequirements.html /core/systemreqs.html
+RedirectMatch Permanent ^/java/docs/developer-resources.html /core/developer.html
+RedirectMatch Permanent ^/solr/issue_tracking.html https://issues.apache.org/jira/browse/SOLR
+RedirectMatch Permanent ^/solr/mirrors-solr-latest-redir.html /solr/downloads.html
+RedirectMatch Permanent ^/solr/mirrors-solr-3x-redir /solr/downloads.html
+RedirectMatch Permanent ^/solr/mirrors-solr-redir.html /solr/downloads.html
+RedirectMatch Permanent ^/core/mirrors-core-latest-redir.html /core/downloads.html
+RedirectMatch Permanent ^/core/mirrors-core-redir.html /core/downloads.html
 
 # Solr site redesign
 # needs to use mod_rewrite because of the anchor fragments
@@ -39,59 +39,59 @@ RewriteRule solr/mailing_lists.html solr/resources.html#community               
 
 
 # Simple redirect to "directory", so later rules match
-RedirectMatch temp /core/api$ /core/api/
-RedirectMatch temp /solr/api$ /solr/api/
+RedirectMatch temp ^/core/api$ /core/api/
+RedirectMatch temp ^/solr/api$ /solr/api/
 
 # Other pages can always be redirected to the "most current" released javadocs
 # using "temp" instead of permanent so crawlers know that they
 # might change again in the future
-RedirectMatch temp /core/api/(.*) /core/8_4_0/$1
-RedirectMatch temp /solr/api/org/(.*) /solr/8_4_0/solr-core/org/$1
-RedirectMatch temp /solr/api/(.*) /solr/8_4_0/$1
-RedirectMatch temp /solr/guide/(?!index.html)([a-z].*) /solr/guide/8_4/$1
+RedirectMatch temp ^/core/api/(.*) /core/8_4_0/$1
+RedirectMatch temp ^/solr/api/org/(.*) /solr/8_4_0/solr-core/org/$1
+RedirectMatch temp ^/solr/api/(.*) /solr/8_4_0/$1
+RedirectMatch temp ^/solr/guide/(?!index.html)([a-z].*) /solr/guide/8_4/$1
 
 # Solr Tutorial is now in the Solr Ref Guide
 # should redirect automatically to latest version
-RedirectMatch Permanent /solr/quickstart.html /solr/guide/solr-tutorial.html
+RedirectMatch Permanent ^/solr/quickstart.html /solr/guide/solr-tutorial.html
 
 # we no longer have a TLP mail.html page use 'core' for now
-RedirectMatch Permanent /mail.html /core/discussion.html
+RedirectMatch Permanent ^/mail.html /core/discussion.html
 
 # this was a temporary solution:
-RedirectMatch Permanent /core/old_versioned_docs/versions/(.*) /core/$1
+RedirectMatch Permanent ^/core/old_versioned_docs/versions/(.*) /core/$1
 
 # redirect older point versions to latest (to keep number of javadocs small):
-RedirectMatch Permanent /core/2_9_[0123](.*) /core/2_9_4$1
-RedirectMatch Permanent /core/3_0_[012](.*) /core/3_0_3$1
-RedirectMatch Permanent /core/4_0_0-(ALPHA|BETA)(.*) /core/4_0_0$2
-RedirectMatch Permanent /solr/4_0_0-(ALPHA|BETA)(.*) /solr/4_0_0$2
-RedirectMatch Permanent /solr/api-(.*) /solr/$1
+RedirectMatch Permanent ^/core/2_9_[0123](.*) /core/2_9_4$1
+RedirectMatch Permanent ^/core/3_0_[012](.*) /core/3_0_3$1
+RedirectMatch Permanent ^/core/4_0_0-(ALPHA|BETA)(.*) /core/4_0_0$2
+RedirectMatch Permanent ^/solr/4_0_0-(ALPHA|BETA)(.*) /solr/4_0_0$2
+RedirectMatch Permanent ^/solr/api-(.*) /solr/$1
 
 # Default catch for "java" - Core is the new Java!
-RedirectMatch Permanent /java/docs(.*) /core$1
+RedirectMatch Permanent ^/java/docs(.*) /core$1
 RedirectMatch Permanent ^/java($|/.*) /core$1
 
 # pylucene docs renamed
-RedirectMatch Permanent /pylucene/documentation/install.html /pylucene/install.html
-RedirectMatch Permanent /pylucene/documentation/readme.html /pylucene/features.html
-RedirectMatch Permanent /pylucene/resources/version_control.html /pylucene/mailing-lists.html
+RedirectMatch Permanent ^/pylucene/documentation/install.html /pylucene/install.html
+RedirectMatch Permanent ^/pylucene/documentation/readme.html /pylucene/features.html
+RedirectMatch Permanent ^/pylucene/resources/version_control.html /pylucene/mailing-lists.html
 
 # no page for this????
-RedirectMatch Permanent /pylucene/resources/version_control.html /pylucene/
+RedirectMatch Permanent ^/pylucene/resources/version_control.html /pylucene/
 
 # when in doubt, assume they've moved up a dir
-RedirectMatch Permanent /pylucene/documentation/(.*) /pylucene/$1
-RedirectMatch Permanent /pylucene/jcc/documentation/(.*) /pylucene/jcc/$1
+RedirectMatch Permanent ^/pylucene/documentation/(.*) /pylucene/$1
+RedirectMatch Permanent ^/pylucene/jcc/documentation/(.*) /pylucene/jcc/$1
 
 # this got added to the new site nav, even though it has never existed.
 # faster for now to put a redirect in then to try and figure out how to fix the nav
-RedirectMatch Permanent /solr/wiki.html http://wiki.apache.org/solr/
+RedirectMatch Permanent ^/solr/wiki.html https://cwiki.apache.org/confluence/display/solr/
 
 
 ### old subprojects
 
 # old nutch redirects
-Redirect Permanent /nutch/docs/en/bot.html http://lucene.apache.org/nutch/bot.html
+Redirect Permanent ^/nutch/docs/en/bot.html http://lucene.apache.org/nutch/bot.html
 
 # hadoop graduated to TLP
 RedirectMatch Permanent ^/hadoop(.*) http://hadoop.apache.org/core$1
