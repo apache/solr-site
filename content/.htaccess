@@ -3,11 +3,14 @@
 #
 #
 
+RewriteEngine on
+RewriteBase /
+
 ### Javadocs & Solr Refguide
 
-AliasMatch "^/core/(\d_\d_\d\b.*$)" "/www/docs.lucene.apache.org/content/core/$1"
-AliasMatch "^/solr/(\d_\d_\d\b.*$)" "/www/docs.lucene.apache.org/content/solr/$1"
-AliasMatch "^/solr/guide/(\d_\d\b.*$)" "/www/docs.lucene.apache.org/content/solr/guide/$1"
+RewriteRule ^core/(\d_\d_\d\b.*$) __svncontent/core/$1 [PT]
+RewriteRule ^solr/(\d_\d_\d\b.*$) __svncontent/solr/$1 [PT]
+RewriteRule ^solr/guide/(\d_\d\b.*$) __svncontent/solr/guide/$1 [PT]
 
 ### Pre-CMS site redirects
 
@@ -30,8 +33,6 @@ RedirectMatch Permanent /core/mirrors-core-redir.html /core/downloads.html
 
 # Solr site redesign
 # needs to use mod_rewrite because of the anchor fragments
-RewriteEngine on
-RewriteBase /
 RewriteRule solr/books.html solr/resources.html#solr-books                      [R=301,NE]
 RewriteRule solr/discussion.html solr/resources.html#community                  [R=301,NE]
 RewriteRule solr/documentation.html solr/resources.html#documentation           [R=301,NE]
