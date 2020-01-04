@@ -1,7 +1,17 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
 #
-# $HeadURL: https://svn.apache.org/repos/asf/lucene/site/publish/.htaccess $
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
-#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 RewriteEngine on
 RewriteBase /
@@ -36,7 +46,6 @@ RewriteRule solr/tutorial.html solr/resources.html#tutorials                    
 RewriteRule solr/versioncontrol.html solr/resources.html#solr-version-control   [R=301,NE]
 RewriteRule solr/version_control.html solr/resources.html#solr-version-control  [R=301,NE]
 RewriteRule solr/mailing_lists.html solr/resources.html#community               [R=301,NE]
-
 
 # Simple redirect to "directory", so later rules match
 RedirectMatch temp ^/core/api$ /core/api/
@@ -91,24 +100,26 @@ RedirectMatch Permanent ^/solr/wiki.html https://cwiki.apache.org/confluence/dis
 ### old subprojects
 
 # old nutch redirects
-Redirect Permanent ^/nutch/docs/en/bot.html http://lucene.apache.org/nutch/bot.html
+Redirect Permanent ^/nutch/docs/en/bot.html https://lucene.apache.org/nutch/bot.html
 
-# hadoop graduated to TLP
-RedirectMatch Permanent ^/hadoop(.*) http://hadoop.apache.org/core$1
+# hadoop graduated to TLP, site strcuture has changed, do don't use $1 in redirect...
+RedirectMatch Permanent ^/hadoop(.*)$ https://hadoop.apache.org/
 
 #mahout is TLP
-RedirectMatch Permanent ^/mahout(.*) http://mahout.apache.org/$1
+RedirectMatch Permanent ^/mahout(.*)$ https://mahout.apache.org/$1
 
 # promote Tika to TLP
-RedirectMatch Permanent ^/tika/(.*)$ http://tika.apache.org/$1
+RedirectMatch Permanent ^/tika/(.*)$ https://tika.apache.org/$1
 
 # promote Nutch to TLP
-RedirectMatch Permanent ^/nutch/(.*)$ http://nutch.apache.org/$1
+RedirectMatch Permanent ^/nutch/(.*)$ https://nutch.apache.org/$1
 
 # Lucy has moved, site strcuture has changed, do don't use $1 in redirect...
-RedirectMatch Permanent ^/lucy/(.*)$ http://lucy.apache.org/
+RedirectMatch Permanent ^/lucy/(.*)$ https://lucy.apache.org/
+
 
 ### Javadocs & Solr Refguide
+# __root/docs.lucene.apache.org/content/ is a special alias added by INFRA-19439, so we can refer to stuff in other places like SVN
 
 RewriteRule ^core/(\d_\d_\d\b.*$) __root/docs.lucene.apache.org/content/core/$1 [PT]
 RewriteRule ^solr/(\d_\d_\d\b.*$) __root/docs.lucene.apache.org/content/solr/$1 [PT]
