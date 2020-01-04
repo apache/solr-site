@@ -6,12 +6,6 @@
 RewriteEngine on
 RewriteBase /
 
-### Javadocs & Solr Refguide
-
-RewriteRule ^core/(\d_\d_\d\b.*$) __root/docs.lucene.apache.org/content/core/$1 [PT]
-RewriteRule ^solr/(\d_\d_\d\b.*$) __root/docs.lucene.apache.org/content/solr/$1 [PT]
-RewriteRule ^solr/guide/(\d_\d\b.*$) __root/docs.lucene.apache.org/content/solr/guide/$1 [PT]
-
 ### Pre-CMS site redirects
 
 # DOAP file redirects to source repository
@@ -113,3 +107,9 @@ RedirectMatch Permanent ^/nutch/(.*)$ http://nutch.apache.org/$1
 
 # Lucy has moved, site strcuture has changed, do don't use $1 in redirect...
 RedirectMatch Permanent ^/lucy/(.*)$ http://lucy.apache.org/
+
+### Javadocs & Solr Refguide
+
+RewriteRule ^core/(\d_\d_\d\b.*$) __root/docs.lucene.apache.org/content/core/$1 [PT]
+RewriteRule ^solr/(\d_\d_\d\b.*$) __root/docs.lucene.apache.org/content/solr/$1 [PT]
+RewriteRule ^solr/guide/(\d_\d\b.*$) __root/docs.lucene.apache.org/content/solr/guide/$1 [PT]
