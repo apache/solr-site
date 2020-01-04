@@ -8,9 +8,9 @@ RewriteBase /
 
 ### Javadocs & Solr Refguide
 
-RewriteRule ^core/(\d_\d_\d\b.*$) __svncontent/core/$1 [PT]
-RewriteRule ^solr/(\d_\d_\d\b.*$) __svncontent/solr/$1 [PT]
-RewriteRule ^solr/guide/(\d_\d\b.*$) __svncontent/solr/guide/$1 [PT]
+RewriteRule ^core/(\d_\d_\d\b.*$) __root/docs.lucene.apache.org/content/core/$1 [PT]
+RewriteRule ^solr/(\d_\d_\d\b.*$) __root/docs.lucene.apache.org/content/solr/$1 [PT]
+RewriteRule ^solr/guide/(\d_\d\b.*$) __root/docs.lucene.apache.org/content/solr/guide/$1 [PT]
 
 ### Pre-CMS site redirects
 
