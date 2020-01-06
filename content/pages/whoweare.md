@@ -80,6 +80,9 @@ template: lucene/tlp/page
 - *[Jason Gerlowski](https://twitter.com/jeg90)* (gerlowskija@...)
 - *Ignacio Vera* (ivera@...)
 - *Munendra S N* (munendrasn@...)
+- *Atri Sharma* (atri@...)
+- *[Houston Putman](http://www.linkedin.com/in/houston-putman-3b662361)* (houston@...)
+- *Bruno Roustant* (broustant@...)
 
 ## Emeritus
 
