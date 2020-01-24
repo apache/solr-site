@@ -121,5 +121,5 @@ RedirectMatch Permanent ^/lucy/(.*)$ https://lucy.apache.org/
 ### Javadocs & Solr Refguide
 # __root/docs.lucene.apache.org/content/ is a special alias added by INFRA-19439, so we can refer to stuff in other places like SVN
 
-RewriteRule ^(core|solr)/(\d\d?_\d\d?_\d\d?\b.*$) __root/docs.lucene.apache.org/content/$1/$2 [PT]
-RewriteRule ^solr/guide/(\d\d?_\d\d?\b.*$) __root/docs.lucene.apache.org/content/solr/guide/$1 [PT]
+RewriteRule ^(core|solr)/(\d+_\d+_\d+\b.*)$ __root/docs.lucene.apache.org/content/$1/$2 [PT]
+RewriteRule ^solr/guide/(\d+_\d+\b.*)$ __root/docs.lucene.apache.org/content/solr/guide/$1 [PT]
