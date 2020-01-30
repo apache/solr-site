@@ -105,8 +105,8 @@
   </h3>
 
   <p>Apache Solr is under active development with frequent feature releases on the current major version.
-  The <strong>previous</strong> major version may still receive security- and bug fixes as point releases, thus taking the role
-  of the LTS (Long Term Support) version. Older versions are considered EOL (End Of Life) and will not be further
+  The <strong>previous</strong> major version will see occasional critical security- or bug fixes releases.
+  Older versions are considered EOL (End Of Life) and will not be further
   updated. For this reason it may also be difficult to obtain community support for EOL versions.</p>
 
   <p>Large changes or changes that break compatibility with existing functionality are normally only included in the
@@ -123,7 +123,7 @@
     </tr>
     <tr align=left>
       <td>{{ LUCENE_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ LUCENE_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}.x</td>
-      <td>Version in the previous major release for bugfixes only (LTS)</td>
+      <td>Previous major version may sometimes receive critical bugfix releases</td>
     </tr>
     <tr align=left>
       <td>{{ LUCENE_LATEST_RELEASE.split('.') | first | int + 1 }}</td>
