@@ -58,6 +58,7 @@ template: lucene/tlp/page
 - *Timothy Potter* (thelabdude@...)
 - *[Alexandre Rafalovitch](http://www.solr-start.com/)* (arafalov@...)
 - *[Kevin Risden](https://risdenk.github.io/)* (krisden@...)
+- *Bruno Roustant* (broustant@...)
 - *Steve Rowe* (sarowe@...)
 - *[Uwe Schindler](http://www.thetaphi.de/)* (uschindler@...)
 - *Yonik Seeley* (yonik@...)
