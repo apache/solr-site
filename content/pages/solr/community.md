@@ -143,7 +143,7 @@ wealth of information about how to get the most out of the IRC channels.
 
 #### Slack ####
 
-The project's Slack channel is the `#lucene-solr` channel in the `the-asf` organization. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
+The project's Slack channel is the `#lucene-dev` channel in the `the-asf` organization. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
 
 ## Issue tracker ##
 
