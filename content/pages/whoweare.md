@@ -29,7 +29,7 @@ template: lucene/tlp/page
 - *Jim Ferenczi* (jimczi@...)
 - *[Otis Gospodnetic](http://www.sematext.com)* (otis@...)
 - *Dennis Gove* (dpgove@...)
-- *[Adrien Grand](http://blog.jpountz.net)* (jpountz@...)
+- *Adrien Grand* (jpountz@...)
 - *Martijn van Groningen* (mvg@...)
 - *[Anshum Gupta](https://twitter.com/anshumgupta)* (anshum@...)
 - *Erik Hatcher* (ehatcher@...)
