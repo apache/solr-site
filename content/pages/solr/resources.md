@@ -2,6 +2,22 @@ Title: Resources
 URL: solr/resources.html
 save_as: solr/resources.html
 template: solr/resources
+Notice:    Licensed to the Apache Software Foundation (ASF) under one
+           or more contributor license agreements.  See the NOTICE file
+           distributed with this work for additional information
+           regarding copyright ownership.  The ASF licenses this file
+           to you under the Apache License, Version 2.0 (the
+           "License"); you may not use this file except in compliance
+           with the License.  You may obtain a copy of the License at
+           .
+             http://www.apache.org/licenses/LICENSE-2.0
+           .
+           Unless required by applicable law or agreed to in writing,
+           software distributed under the License is distributed on an
+           "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+           KIND, either express or implied.  See the License for the
+           specific language governing permissions and limitations
+           under the License.
 
 ## Tutorials ##
 
@@ -20,12 +36,6 @@ Users who have completed the tutorial are encouraged to review the [other docume
 <h3 class="offset" id="the-apache-solr-reference-guide">The Apache Solr Reference Guide</h3>
 
 Beginning with Solr 4.4, a detailed reference guide is available online.
-<!--
-Do not add a version# to the text label for ref guide download unless there is a clear mechanism to maintain it.
-The template "{% include "content/latestversion.mdtext" %}" is tied directly to the code release version and so can not be
-used for ref guide release version unless we either 1. guarantee code and ref guide release to happen together, always or
-2. Make the change here explicitly as part of the ref guide release process to reflect ref guide .
--->
 
 * [HTML Version of the Reference Guide](/solr/guide)
 
