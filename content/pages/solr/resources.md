@@ -2,14 +2,64 @@ Title: Resources
 URL: solr/resources.html
 save_as: solr/resources.html
 template: solr/resources
+Notice:    Licensed to the Apache Software Foundation (ASF) under one
+           or more contributor license agreements.  See the NOTICE file
+           distributed with this work for additional information
+           regarding copyright ownership.  The ASF licenses this file
+           to you under the Apache License, Version 2.0 (the
+           "License"); you may not use this file except in compliance
+           with the License.  You may obtain a copy of the License at
+           .
+             http://www.apache.org/licenses/LICENSE-2.0
+           .
+           Unless required by applicable law or agreed to in writing,
+           software distributed under the License is distributed on an
+           "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+           KIND, either express or implied.  See the License for the
+           specific language governing permissions and limitations
+           under the License.
 
-## Community ##
+## Tutorials ##
 
-This section has been moved to a new <a href="community.html">Solr Community</a> page.
+* [Solr Quick Start](/solr/guide/solr-tutorial.html)
+
+<!--
+* More to come: Ideas include "Solr in a Day", "Solr and JSON", "Solr and CSV", "Solr and XML"
+-->
+
+Users who have completed the tutorial are encouraged to review the [other documentation available](#documentation).
+
+***
+
+## Documentation ##
+
+<h3 class="offset" id="the-apache-solr-reference-guide">The Apache Solr Reference Guide</h3>
+
+Beginning with Solr 4.4, a detailed reference guide is available online.
+
+* [HTML Version of the Reference Guide](/solr/guide)
+
+* [Visual Guide to Streaming Expressions and Math Expressions](http://bit.ly/32srTpA)
+
+* [Previous Releases in PDF (until Solr 8.1)](http://archive.apache.org/dist/lucene/solr/ref-guide/)
+
+
+<h3 class="offset" id="javadocs">Solr Javadocs</h3>
+
+Solr generates JavaDocs for all included code in each release.
+Copies of this documentation for every release can be found online:
+
+* [Latest Release](/solr/{{ LUCENE_LATEST_RELEASE | replace(".", "_") }}/index.html)
+
+<h3 class="offset" id="additional-documentation">Additional Documentation</h3>
+
+Additional documentation can be found on the [Solr Community Wiki](https://cwiki.apache.org/confluence/display/solr) or the various [books published about Solr](#solr-books).
+
+***
 
 ## Solr Books ##
 
-If you have a Solr book that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) to this [website](https://svn.apache.org/viewvc/lucene/cms/trunk/) via a JIRA issue.
+If you have a Solr book that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) to this [website](https://svn.apache.org/viewvc/lucene/cms/trunk/) via a JIRA issue.
 
 <h3 class="offset" id="book-relevant-search">Relevant Search</h3>
 Doug Turnbull, John Berryman and Manning Publications are proud to announce *Relevant Search*.
@@ -167,7 +217,7 @@ This cookbook will show you how to get the most out of your search engine. Each 
 
 ## Presentations ##
 
-If you have a Solr presentation that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) via a JIRA with the appropriate content.
+If you have a Solr presentation that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) via a JIRA with the appropriate content.
 
 <h3 class="offset" id="slideshare">Slideshare</h3>
 
@@ -175,7 +225,7 @@ If you have a Solr presentation that you would like to see listed here, please s
 
 ## Videos ##
 
-If you have a Solr video that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) via a JIRA with the appropriate content.
+If you have a Solr video that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) via a JIRA with the appropriate content.
 
 <h3 class="offset" id="lucenesolr-revolution">Lucene/Solr Revolution</h3>
 

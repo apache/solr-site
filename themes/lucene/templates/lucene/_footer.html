@@ -1,10 +1,7 @@
-{% set years = dates|groupby('date.year')|sort(reverse=False) %}
-{% set to_year = years|last|first|default('2011') %}
-
 <div id="footer">
   <div class="copyright">
     <p>
-      Copyright &copy; 2011-{{ to_year }} The Apache Software Foundation, Licensed under
+      Copyright &copy; 2011-{{ CURRENTYEAR }} The Apache Software Foundation, Licensed under
       the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.  {% block privacy %}<a href="{{ SITERUL }}/privacy.html">Privacy Policy</a>{% endblock %}
       <br/>
       Apache and the Apache feather logo are trademarks of The Apache Software Foundation.  Apache Lucene, Apache Solr and their

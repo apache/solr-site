@@ -42,7 +42,7 @@ the JIRA issue tracker, make sure it's a real bug and that it hasn't been alread
 Subscribe: [solr-user-subscribe](mailto:solr-user-subscribe@lucene.apache.org)
 
 Unsubscribe: [solr-user-unsubscribe](mailto:solr-user-unsubscribe@lucene.apache.org)
-([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
+([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
 
 Send: [solr-user](mailto:solr-user@lucene.apache.org) \(Requires subscription\)
 
@@ -59,7 +59,7 @@ problems, that is what the solr-user mailing list is for.
 Subscribe: [dev-subscribe](mailto:dev-subscribe@lucene.apache.org)
 
 Unsubscribe: [dev-unsubscribe](mailto:dev-unsubscribe@lucene.apache.org)
-([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
+([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
 
 Send: [dev](mailto:dev@lucene.apache.org) \(Requires subscription\)
 
@@ -73,7 +73,7 @@ and for questions from users who have no idea where to get started (Lucene-Core?
 Subscribe: [general-subscribe](mailto:general-subscribe@lucene.apache.org)
 
 Unsubscribe: [general-unsubscribe](mailto:general-unsubscribe@lucene.apache.org)
-([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
+([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
 
 Send: [general](mailto:general@lucene.apache.org) \(Requires subscription\)
 
@@ -86,7 +86,7 @@ This is an automated announcement only list where notifications about all JIRA i
 Subscribe: [issues-subscribe](mailto:issues-subscribe@lucene.apache.org)
 
 Unsubscribe: [issues-unsubscribe](mailto:issues-unsubscribe@lucene.apache.org)
-([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
+([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
 
 [Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-issues/)
 
@@ -97,7 +97,7 @@ This is an automated announcement only list where notifications about all CI bui
 Subscribe: [builds-subscribe](mailto:builds-subscribe@lucene.apache.org)
 
 Unsubscribe: [builds-unsubscribe](mailto:builds-unsubscribe@lucene.apache.org)
-([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
+([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
 
 [Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-builds/)
 
@@ -108,7 +108,7 @@ This is an automated announcement only list where notifications about every Luce
 Subscribe: [commits-subscribe](mailto:commits-subscribe@lucene.apache.org)
 
 Unsubscribe: [commits-unsubscribe](mailto:commits-unsubscribe@lucene.apache.org)
-([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
+([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
 
 [Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-commits/)
 
@@ -143,7 +143,7 @@ wealth of information about how to get the most out of the IRC channels.
 
 #### Slack ####
 
-The project's Slack channel is the `#lucene-solr` channel in the `the-asf` organization. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
+The project's Slack channel is the `#lucene-dev` channel in the `the-asf` organization. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
 
 ## Issue tracker ##
 
@@ -185,4 +185,4 @@ Instructions for committer GIT access are [here](https://git-wip-us.apache.org/#
 ## Powered By ##
 
 Are you Solr powered?  Looking for good company?  Check out
-[Solr's Powered By](https://wiki.apache.org/solr/PublicServers) page to learn about people and companies using Solr.
+[Solr's Powered By](https://cwiki.apache.org/confluence/display/solr/PublicServers) page to learn about people and companies using Solr.
