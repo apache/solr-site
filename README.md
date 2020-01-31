@@ -4,15 +4,23 @@ This repository contains the "source code" of the Lucene/Solr website at [lucene
 
 ## Building the site
 
-The site is written in Markdown syntax and built into a static site using [Pelican][1]. The site is re-built automatically by [ASF Buildbot][5] on every push to master branch and the result can be previewed at [lucene.staged.apache.org][6]. Build success/failure emails are sent to [commits@lucene.apache.org][7] mailing list. Read more about the mechanics behind auto building in [INFRA Confluence][8].
+The site is written in [Markdown][9] syntax and built into a static site using [Pelican][1]. The site is re-built automatically by [ASF Buildbot][5] on every push to master branch and the result can be previewed at [lucene.staged.apache.org][6]. Build success/failure emails are sent to [commits@lucene.apache.org][7] mailing list. Read more about the mechanics behind auto building in [INFRA Confluence][8].
  
 If the staged site looks good, simply merge the changes to branch `production` and the site will be deployed in a minute or two.
 
-For larger edits it is recommended to build and preview the site locally. This is much faster. The next sections detail that procedure.
+For larger edits it is recommended to build and preview the site locally. This is much faster. The next sections detail that procedure. The TL;DR instructions goes like this:
 
-### Installing Pelican
+    # Usage: ./build.sh [-s]
+    #       -s  Serve the site on localhost:8000 and auto reload on changes
+    ./build -s
 
-This site uses [Pelican][1] for static html generation. Pelican requires [Python 3.5+][4] and can be installed with pip. Assuming that you have python3 installed, simply run:
+Now go to <http://localhost:8000> to view the beautiful Lucene web page served from your laptop with live-preview of updates :)
+
+### Installing Pelican by hand
+
+The site uses [Pelican][1] for static html generation. Pelican requires [Python 3.5+][4] and can be installed with pip.
+
+**The `build.sh` script mentioned in the above paragraph takes care of setting up your Pelican environment,** and you can skip this part unless you want to understand the moving parts and install things by hand. Assuming that you have python3 installed, simply run:
 
 ```sh
 pip3 install -r requirements.txt
@@ -26,8 +34,6 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-### Generating HTML
-
 Once Pelican is installed you can convert your content into HTML via the pelican command (`content` is the default location to build from).
 
 ```sh
@@ -36,13 +42,13 @@ pelican
 
 The above command will generate your site and save it in the `output/` folder using the lucene theme and settings defined in `pelicanconf.py`
 
-You can also tell Pelican to watch for your modifications, instead of manually re-running it every time you want to see your changes. To enable this, run the pelican command with the `-r` or `--autoreload` option. On non-Windows environments, this option can also be combined with the `-l` or `--listen` option to simultaneously both auto-regenerate and serve the output through a builtin webserver.
+You can also tell Pelican to watch for your modifications, instead of manually re-running it every time you want to see your changes. To enable this, run the pelican command with the `-r` or `--autoreload` option. On non-Windows environments, this option can also be combined with the `-l` or `--listen` option to simultaneously both auto-regenerate and serve the output through a builtin webserver on <http://localhost:8000>.
 
 ```sh
 pelican --autoreload --listen
 ```
 
-Now go to http://localhost:8000 to view the beautiful Lucene web page :)
+Remember that on Mac/Linux you can use the `build.sh` script with `-s` option to do the same.
 
 ## Updating site during a Lucene/Solr release
 
@@ -75,3 +81,4 @@ Modify `LUCENE_LATEST_RELEASE` and `LUCENE_PREVIOUS_MAJOR_RELEASE`, and
 [6]: https://lucene.staged.apache.org
 [7]: https://lists.apache.org/list.html?commits@lucene.apache.org
 [8]: https://wiki.apache.org/confluence/display/INFRA/.asf.yaml+features+for+git+repositories
+[9]: http://daringfireball.net/projects/markdown/syntax
