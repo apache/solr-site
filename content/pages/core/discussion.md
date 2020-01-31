@@ -50,7 +50,7 @@ This is an automated announcement only list where notifications about all JIRA i
 Subscribe: [issues-subscribe](mailto:issues-subscribe@lucene.apache.org)
 
 Unsubscribe: [issues-unsubscribe](mailto:issues-unsubscribe@lucene.apache.org)
-([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
+([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
 
 [Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-issues/)
 
@@ -61,7 +61,7 @@ This is an automated announcement only list where notifications about all CI bui
 Subscribe: [builds-subscribe](mailto:builds-subscribe@lucene.apache.org)
 
 Unsubscribe: [builds-unsubscribe](mailto:builds-unsubscribe@lucene.apache.org)
-([Problems?](https://wiki.apache.org/solr/Unsubscribing%20from%20mailing%20lists))
+([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
 
 [Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-builds/)
 
@@ -90,7 +90,7 @@ The project's Slack channel is the **#lucene-dev** channel in the **the-asf** or
 
 ## Mail Archives
 
-The Lucene Wiki maintains a list of searchable mailing list archives at [http://wiki.apache.org/lucene-java/MailingListArchives](http://wiki.apache.org/lucene-java/MailingListArchives).
+The Lucene Wiki maintains a list of searchable mailing list archives at [https://cwiki.apache.org/confluence/display/lucene/MailingListArchives](https://cwiki.apache.org/confluence/display/lucene/MailingListArchives).
 No endorsement is implied by the listing of an archive on the Wiki.
 
 ## Other Mailing Lists

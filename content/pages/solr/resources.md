@@ -53,13 +53,13 @@ Copies of this documentation for every release can be found online:
 
 <h3 class="offset" id="additional-documentation">Additional Documentation</h3>
 
-Additional documentation can be found on the [Solr Community Wiki](http://wiki.apache.org/solr) or the various [books published about Solr](#solr-books).
+Additional documentation can be found on the [Solr Community Wiki](https://cwiki.apache.org/confluence/display/solr) or the various [books published about Solr](#solr-books).
 
 ***
 
 ## Solr Books ##
 
-If you have a Solr book that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) to this [website](https://svn.apache.org/viewvc/lucene/cms/trunk/) via a JIRA issue.
+If you have a Solr book that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) to this [website](https://svn.apache.org/viewvc/lucene/cms/trunk/) via a JIRA issue.
 
 <h3 class="offset" id="book-relevant-search">Relevant Search</h3>
 Doug Turnbull, John Berryman and Manning Publications are proud to announce *Relevant Search*.
@@ -217,7 +217,7 @@ This cookbook will show you how to get the most out of your search engine. Each 
 
 ## Presentations ##
 
-If you have a Solr presentation that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) via a JIRA with the appropriate content.
+If you have a Solr presentation that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) via a JIRA with the appropriate content.
 
 <h3 class="offset" id="slideshare">Slideshare</h3>
 
@@ -225,7 +225,7 @@ If you have a Solr presentation that you would like to see listed here, please s
 
 ## Videos ##
 
-If you have a Solr video that you would like to see listed here, please submit a [patch](http://wiki.apache.org/solr/HowToContribute) via a JIRA with the appropriate content.
+If you have a Solr video that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) via a JIRA with the appropriate content.
 
 <h3 class="offset" id="lucenesolr-revolution">Lucene/Solr Revolution</h3>
 
