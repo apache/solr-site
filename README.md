@@ -10,9 +10,10 @@ If the staged site looks good, simply merge the changes to branch `production` a
 
 For larger edits it is recommended to build and preview the site locally. This is much faster. The next sections detail that procedure. The TL;DR instructions goes like this:
 
-    # Usage: ./build.sh [-s]
-    #       -s  Serve the site on localhost:8000 and auto reload on changes
-    ./build -s
+    # Usage: ./build.sh [-l] [<other pelican arguments>]
+    #        -l     Live build and reload source changes on localhost:8000
+    #        --help Show full help for options that Pelican accepts
+    ./build -l
 
 Now go to <http://localhost:8000> to view the beautiful Lucene web page served from your laptop with live-preview of updates :)
 
@@ -48,7 +49,7 @@ You can also tell Pelican to watch for your modifications, instead of manually r
 pelican --autoreload --listen
 ```
 
-Remember that on Mac/Linux you can use the `build.sh` script with `-s` option to do the same.
+Remember that on Mac/Linux you can use the `build.sh` script with `-l` option to do the same.
 
 ## Updating site during a Lucene/Solr release
 

@@ -15,13 +15,20 @@
 # limitations under the License.
 
 if [[ ! -z $1 ]]; then
-  if [[ "$1" == "-s" ]]; then
+  if [[ "$1" == "-l" ]]; then
     SERVE=true
     shift
   else
-    echo "Usage: ./build.sh [-s] [<other pelican arguments>]"
-    echo "       -s  Serve the site on localhost:8000 and auto reload on changes"
+    echo "Usage: ./build.sh [-l] [<other pelican arguments>]"
+    echo "       -l     Live build and reload source changes on localhost:8000"
+    echo "       --help Show full help for options that Pelican accepts"
     if [[ "$1" == "-h" ]]; then
+      exit 0
+    elif [[ "$1" == "--help" ]]; then
+      echo
+      echo "Below is a list of other arguments you can use which will be passed to pelican."
+      echo
+      pelican --help
       exit 0
     fi
   fi
@@ -52,6 +59,6 @@ if [[ $SERVE ]]; then
   pelican --autoreload --listen $@
 else
   echo "Building Lucene site."
-  echo "To build and serve live edits locally, run this script with -s option."
+  echo "To build and serve live edits locally, run this script with -l argument. Use -h for help."
   pelican $@
 fi
