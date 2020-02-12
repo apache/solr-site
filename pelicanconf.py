@@ -89,7 +89,7 @@ PLUGIN_PATHS = ['./plugins']
 PLUGINS = [
     'extract_toc',
     'jinja2content',
-    'md_inline_extension',
+#    'md_inline_extension',
 ]
 
 MARKDOWN = {
