@@ -49,7 +49,7 @@ Beginning with Solr 4.4, a detailed reference guide is available online.
 Solr generates JavaDocs for all included code in each release.
 Copies of this documentation for every release can be found online:
 
-* [Latest Release](/solr/{{ LUCENE_LATEST_RELEASE | replace(".", "_") }}/index.html)
+* [Latest Release](__DOCSLINK__)
 
 <h3 class="offset" id="additional-documentation">Additional Documentation</h3>
 

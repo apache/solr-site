@@ -9,3 +9,7 @@
 <dd><a data-scroll href="#presentations">Presentations</a></dd>
 <dd><a data-scroll href="#videos">Videos</a></dd>
 {% endblock %}
+
+{% block content_inner %}
+{{ page.content | replace('__DOCSLINK__', '/solr/%s/index.html' % (LUCENE_LATEST_RELEASE | replace(".", "_"))) }}
+{% endblock content_inner %}
