@@ -36,7 +36,7 @@ function selectProvider(form) {
 </script>
 
 <form id="quick-search" method="GET" onsubmit="return selectProvider(this)"
-                                     action="http://search-lucene.com/solr"
+                                     action="https://sematext.com/opensee/solr"
                                      name="searchform">
   <fieldset>
     <div ng-show="toggled" class="search-box ng-hide">
@@ -47,7 +47,7 @@ function selectProvider(form) {
       <select id="searchProvider" class="search-provider">
         <option value="any"> - select provider - </option>
         <option value="lucid">@ Lucid Find</option>
-        <option value="sl">@ Sematext Opensee</option>
+        <option value="sematext">@ Sematext Opensee</option>
       </select>
     </div>
   </fieldset>
