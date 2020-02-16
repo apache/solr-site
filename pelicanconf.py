@@ -85,6 +85,8 @@ EXTRA_PATH_METADATA = {
 
 STATIC_PATHS = ['.']
 
+TEMPLATE_PAGES = {'htaccess.template': '.htaccess'}
+
 PLUGIN_PATHS = ['./plugins']
 PLUGINS = [
     'extract_toc',
