@@ -8,14 +8,14 @@
 
 function selectProvider(form) {
   lucidAction = "http://find.searchhub.org/p:lucene,solr";
-  searchLuceneAction = "http://search-lucene.com/solr";
+  sematextAction = "https://sematext.com/opensee/solr";
 
   provider = document.getElementById('searchProvider').value;
-  if (provider == "lucid" || provider == "sl") {
+  if (provider == "lucid" || provider == "sematext") {
     if (provider == "lucid") {
       form.action = lucidAction;
-    } else if (provider == "sl") {
-      form.action = searchLuceneAction;
+    } else if (provider == "sematext") {
+      form.action = sematextAction;
     }
 
     // Only store provider preference cookie if the user selected it
@@ -28,7 +28,7 @@ function selectProvider(form) {
     if (Math.random() > 0.5) {
       form.action = lucidAction;
     } else {
-      form.action = searchLuceneAction;
+      form.action = sematextAction;
     }
   }
   return true;
@@ -47,7 +47,7 @@ function selectProvider(form) {
       <select id="searchProvider" class="search-provider">
         <option value="any"> - select provider - </option>
         <option value="lucid">@ Lucid Find</option>
-        <option value="sl">@ Search-Lucene</option>
+        <option value="sl">@ Sematext Opensee</option>
       </select>
     </div>
   </fieldset>

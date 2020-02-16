@@ -13,14 +13,14 @@
         if (Math.random() > 0.5) {
           provider = "lucid";
         } else {
-          provider = "sl";
+          provider = "sematext";
         }
       }
 
       if (provider == "lucid") {
         form.action = "http://find.searchhub.org/p:lucene,solr";
-      } else if (provider == "sl") {
-        form.action = "http://search-lucene.com/lucene";
+      } else if (provider == "sematext") {
+        form.action = "https://sematext.com/opensee/lucene";
       }
 
       days = 90; // cookie will be valid for 90 days
@@ -33,7 +33,7 @@
     }
   </script>
   <form id="quick-search" method="GET" onsubmit="return submitForm(this)"
-        action="http://search-lucene.com/lucene"
+        action="https://sematext.com/opensee/lucene"
         name="searchform">
     <fieldset>
       <input type="search" id="q" name="q" value="Search with Apache Solr..." class="class1 class2 hint" accesskey="q"
@@ -42,7 +42,7 @@
       <select name="searchProvider" id="searchProvider">
         <option value="any">select provider</option>
         <option value="lucid">Lucid Find</option>
-        <option value="sl">Search-Lucene</option>
+        <option value="sematext">Sematext Opensee</option>
       </select>
     </fieldset>
     <script type="text/javascript">
