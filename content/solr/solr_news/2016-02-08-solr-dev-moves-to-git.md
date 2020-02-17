@@ -6,7 +6,7 @@ save_as:
 As of January 23rd 2016, Lucene/Solr source code is hosted in Apache's GIT repository.
 This means that the old SVN repository is now stale and should not be used.
 For information on working with git, please consult
-[the Solr web site](http://lucene.apache.org/solr/resources.html#solr-version-control)
+[the Solr web site](https://lucene.apache.org/solr/resources.html#solr-version-control)
 and the [wiki](https://wiki.apache.org/solr/Git%20commit%20process).
 
 The [GitHub mirror](https://github.com/apache/lucene-solr/) remains at

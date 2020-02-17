@@ -49,5 +49,5 @@ Lucene offers powerful features through a simple API:
 [1]: http://home.apache.org/~mikemccand/lucenebench/indexing.html
 [2]: http://en.wikipedia.org/wiki/Vector_Space_Model
 [3]: http://en.wikipedia.org/wiki/Okapi_BM25
-[4]: http://www.apache.org/licenses/LICENSE-2.0.html
+[4]: https://www.apache.org/licenses/LICENSE-2.0.html
 [5]: https://cwiki.apache.org/confluence/display/lucene/LuceneImplementations

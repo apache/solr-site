@@ -14,7 +14,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 5.5.0 is available for immediate download at:
-<http://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+<https://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
 
 See the [CHANGES.txt](/solr/5_5_0/changes/Changes.html)
 file included with the release for a full list of details.
