@@ -26,7 +26,7 @@
       [<a href="https://www.apache.org/dist/lucene/java/{{ LUCENE_LATEST_RELEASE }}/lucene-{{ LUCENE_LATEST_RELEASE }}.zip.sha512">SHA512</a>]
     </li>
 
-    <li><a href="https://lucene.apache.org/core/{{ LUCENE_LATEST_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
+    <li><a href="{{ SITEURL }}/core/{{ LUCENE_LATEST_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
 
   <h3 id="lucene-{{ LUCENE_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Lucene {{ LUCENE_PREVIOUS_MAJOR_RELEASE }}
@@ -52,7 +52,7 @@
       [<a href="https://www.apache.org/dist/lucene/java/{{ LUCENE_PREVIOUS_MAJOR_RELEASE }}/lucene-{{ LUCENE_PREVIOUS_MAJOR_RELEASE }}.zip.sha512">SHA512</a>]
     </li>
 
-    <li><a href="https://lucene.apache.org/core/{{ LUCENE_PREVIOUS_MAJOR_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
+    <li><a href="{{ SITEURL }}/core/{{ LUCENE_PREVIOUS_MAJOR_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
 
   <p>The above release files should be verified using the PGP signatures and the <a href="https://www.apache.org/dist/lucene/KEYS">project release KEYS</a>.

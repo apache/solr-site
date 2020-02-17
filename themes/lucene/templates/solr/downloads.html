@@ -38,7 +38,7 @@
       [<a href="https://www.apache.org/dist/lucene/solr/{{ LUCENE_LATEST_RELEASE }}/solr-{{ LUCENE_LATEST_RELEASE }}.zip.sha512">SHA512</a>]
     </li>
 
-    <li><a href="https://lucene.apache.org/solr/{{ LUCENE_LATEST_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
+    <li><a href="{{ SITEURL }}/solr/{{ LUCENE_LATEST_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
 
   <h3 id="solr-{{ LUCENE_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr {{ LUCENE_PREVIOUS_MAJOR_RELEASE }}
@@ -64,14 +64,14 @@
       [<a href="https://www.apache.org/dist/lucene/solr/{{ LUCENE_PREVIOUS_MAJOR_RELEASE }}/solr-{{ LUCENE_PREVIOUS_MAJOR_RELEASE }}.zip.sha512">SHA512</a>]
     </li>
 
-    <li><a href="https://lucene.apache.org/solr/{{ LUCENE_PREVIOUS_MAJOR_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
+    <li><a href="{{ SITEURL }}/solr/{{ LUCENE_PREVIOUS_MAJOR_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
 
   <h2 id="solr-reference-guide" class="offset">Solr Reference Guide
     <a class="headerlink" href="#solr-reference-guide" title="Permanent link">¶</a>
   </h2>
 
-  <p>The <a href="https://lucene.apache.org/solr/guide/">Solr Reference Guide</a> is Solr's official documentation.</p>
+  <p>The <a href="{{ SITEURL }}/solr/guide/">Solr Reference Guide</a> is Solr's official documentation.</p>
 
   <h2 id="past-versions">Past versions
     <a class="headerlink" href="#past-versions" title="Permanent link">&para;</a>
@@ -136,8 +136,8 @@
   </table>
 
   <p>For more about versions and upgrading Solr, see the
-    <a href="https://lucene.apache.org/solr/guide/solr-upgrade-notes.html">Reference Guide chapter “Upgrade Notes”</a>
-    and <a href="https://lucene.apache.org/solr/guide/solr-system-requirements.html">"System Requirements"</a>.
+    <a href="{{ SITEURL }}/solr/guide/solr-upgrade-notes.html">Reference Guide chapter “Upgrade Notes”</a>
+    and <a href="{{ SITEURL }}/solr/guide/solr-system-requirements.html">"System Requirements"</a>.
   </p>
 </div>
 {% endblock content_inner %}

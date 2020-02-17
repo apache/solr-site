@@ -24,4 +24,4 @@ Notice:    Licensed to the Apache Software Foundation (ASF) under one
 
 # Solr Quick Start
 
-Please see the [Solr Tutorial](https://lucene.apache.org/solr/guide/solr-tutorial.html) or additional [Resources](http://lucene.apache.org/solr/resources.html).
+Please see the [Solr Tutorial](https://lucene.apache.org/solr/guide/solr-tutorial.html) or additional [Resources](https://lucene.apache.org/solr/resources.html).
