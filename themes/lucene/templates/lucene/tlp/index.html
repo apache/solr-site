@@ -3,23 +3,51 @@
 {% block content %}
 {{ super() }}
 
-<h1 id="lucene-project-news">Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Project News
-  <a class="headerlink" href="#lucenetm-project-news" title="Permanent link">¶</a>
-</h1>
+<p>
+  The Apache Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> project develops open-source search
+  software. The project releases a core search library, named Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> core,
+  as well as the Solr<span style="vertical-align: super; font-size: xx-small">TM</span> search server.
+</p>
 
-<div>
-  {% for article in (articles | selectattr("category.name", "eq", "news")|list)[:3] %}
-  <h2 id="{{article.slug}}">
-    {{article.locale_date|title}} - {{article.title}}
-    <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
-  </h2>
-  {{article.content}}
-  {% endfor %}
+<div id="col1">
+  <div class="front-logo-container">
+    <a href="/core/">
+      <img src="/theme/images/lucene/lucene_logo_green_300.png" width="300" alt="Lucene Logo" />
+    </a>
+  </div>
+  <p><a href="/core/">Lucene Core</a> is a Java library providing powerful indexing and search features,
+  as well as spellchecking, hit highlighting and advanced analysis/tokenization capabilities. The <a href="/pylucene/">PyLucene</a>
+    sub project provides Python bindings for Lucene Core.
+  </p>
+  <h2 id="lucene-core-news">Latest Lucene Core News</h2>
+  <div>
+    {% for article in (articles | selectattr("category.name", "eq", "core/news")|list)[:3] %}
+    <p id="{{article.slug}}">
+      <a href="/core/corenews.html#{{article.slug}}">{{article.title}}</a>
+    </p>
+    {% endfor %}
+  </div>
 </div>
-
-<div>
-  <h3>For more see <a href url="{{ SITEURL }}/news.html"> all Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> Project News</a></h3>
+<div id="col2">
+  <div class="front-logo-container">
+    <a href="/solr/">
+      <img src="/theme/images/solr/Solr_Logo_200x101.png" width="200" alt="Solr Logo" />
+    </a>
+  </div>
+  <p><a href="/solr/">Solr<span style="vertical-align: super; font-size: xx-small">TM</span></a> is a high
+  performance search server built using Lucene Core. Solr is highly scalable, providing fully fault tolerant distributed
+  indexing, search and analytics. It exposes Lucene's features through easy to use JSON/HTTP interfaces or native clients
+  for Java and other languages.
+  </p>
+  <h2 id="solr-news">Latest Solr News</h2>
+  <div>
+    {% for article in (articles | selectattr("category.name", "eq", "solr/news")|list)[:3] %}
+    <p id="{{article.slug}}">
+      <a href="/solr/news.html#{{article.slug}}">{{article.title}}</a>
+    </p>
+    {% endfor %}
+  </div>
 </div>
-
+<br clear="all"/>
 {% include "lucene/_asf.html" %}
 {% endblock content %}
