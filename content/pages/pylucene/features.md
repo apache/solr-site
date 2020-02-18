@@ -17,7 +17,7 @@ To build PyLucene, JCC needs to be built first. Sources for JCC are
 included with the PyLucene sources. Instructions for building and
 installing JCC are [here](jcc/install.html).
 
-Instruction for building PyLuceneare [here](install.html).
+Instructions for building PyLucene are [here](install.html).
 
 ## API documentation
 
@@ -43,8 +43,8 @@ exposes some Java runtime APIs.
 The best way to learn PyLucene is to look at the samples and tests included with
 the PyLucene source release or on the web at:
 
-- [https://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/samples](https://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/samples)
-- [https://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/test](https://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/test)
+- [https://svn.apache.org/viewvc/lucene/pylucene/trunk/samples](https://svn.apache.org/viewvc/lucene/pylucene/trunk/samples)
+- [https://svn.apache.org/viewvc/lucene/pylucene/trunk/test3](https://svn.apache.org/viewvc/lucene/pylucene/trunk/test3)
 
 ## Threading support with attachCurrentThread
 
