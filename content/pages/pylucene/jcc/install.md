@@ -57,9 +57,10 @@ Shared mode depends on _setuptools_' capability of building plain shared librari
 Currently, shared mode is supported with _setuptools 0.6c7_ and above out of the
 box on MacOS and Windows. On Linux, a patch to _setuptools_ needs to be applied
 first. This patch is included in the JCC source distribution in the _jcc2/patches_
-directory, _patch.43_. This patch was submitted to the _setuptools_ project via
-[issue 43](https://bugs.python.org/setuptools/issue43). _setup.py_ will attempt
-to apply the patch for you via monkeypatching.
+directory, _patch.43_. This patch was submitted to the _setuptools_ project
+years ago via "Issue 43", originally tracked in the long defunct
+bugs.python.org/setuptools bug tracker. _setup.py_ will attempt to apply the
+patch for you via monkeypatching.
 
 The _shared mode disabled_ error reported during the build of JCC's on Linux
 contains the exact instructions on how to patch the _setuptools_ installation

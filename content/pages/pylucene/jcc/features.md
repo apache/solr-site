@@ -185,7 +185,7 @@ over _setuptools_, use the _--use-distutils_ command line argument.
 
 The _--bdist_ option can be used to ask JCC to invoke _distutils_ with _bdist_
 or _setuptools_ with _bdist_egg_. If _setuptools_ is used, the resulting egg has
-to be installed with the [_easy_install_](https://peak.telecommunity.com/DevCenter/EasyInstall)
+to be installed with the [_easy_install_](https://setuptools.readthedocs.io/en/latest/easy_install.html)
 installer which is normally part of a Python installation that includes _setuptools_.
 
 ## JCC's runtime API functions
@@ -581,7 +581,7 @@ or protected equivalents available on the parent class, JCC generates code that
 makes it possible to call _super()_ on these methods from Python as well.
 
 There are a number of extension examples available in PyLucene's test
-[suite](https://svn.apache.org/viewcvs.cgi/lucene/pylucene/trunk/test) and
+[suite](https://svn.apache.org/viewvc/lucene/pylucene/trunk/test3) and
 [samples](https://svn.apache.org/viewvc/lucene/pylucene/trunk/samples).
 
 ## Embedding a Python VM in a Java VM
