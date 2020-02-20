@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 from datetime import datetime, date
+from checksumdir import dirhash
 
 AUTHOR = 'Lucene and Solr Developers'
 SITENAME = 'Apache Lucene'
@@ -12,6 +13,9 @@ CURRENTYEAR = date.today().year
 LUCENE_LATEST_RELEASE = '8.4.1'
 LUCENE_LATEST_RELEASE_DATE = datetime(2019, 12, 3)
 LUCENE_PREVIOUS_MAJOR_RELEASE = '7.7.2'
+
+# This string will be appended to all unversioned css and js resources to prevent caching surprises on edits
+STATIC_RESOURCE_SUFFIX = "?v=%s" % dirhash('themes/lucene/static', 'sha1')[-8:]
 
 PATH = 'content'
 

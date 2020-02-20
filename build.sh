@@ -41,11 +41,11 @@ if [[ ! $(python3 -h 2>/dev/null) ]]; then
   exit 2
 fi
 if [[ -d env ]]; then
-  source env/bin/activate
+  source env/bin/activate && pip -q install --upgrade pip && pip -q install -r requirements.txt >/dev/null
 fi
 if [[ ! $(pelican -h 2>/dev/null) ]]; then
   echo "No pelican installed, attempting install"
-  python3 -m venv env && source env/bin/activate && pip install --upgrade pip && pip install -r requirements.txt
+  python3 -m venv env && source env/bin/activate && pip -q install --upgrade pip && pip install -r requirements.txt
   if [[ $? -gt 0 ]]; then
     echo "Failed pelican install, exiting."
     exit 2
