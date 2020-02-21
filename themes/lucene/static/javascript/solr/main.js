@@ -27,7 +27,8 @@
 
   $(function() {
     $('h2').addClass('offset');
-    $('.container .row .small-12 h2 ').removeClass('offset');
+    $('.container .row .small-12 h2').removeClass('offset');
+    $('.security .row .large-12 h2').removeClass('offset');
     $('.smooth-scroll').smoothScroll({ offset: 100 })
   });
 

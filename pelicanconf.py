@@ -33,8 +33,8 @@ DATE_FORMATS = {
 USE_FOLDER_AS_CATEGORY = False
 
 # Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
+FEED_ALL_ATOM = 'feeds/all.atom.xml'
+CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
@@ -95,6 +95,8 @@ PLUGIN_PATHS = ['./plugins']
 PLUGINS = [
     'extract_toc',
     'jinja2content',
+    'regex_replace',
+    'age_days_lt'
 #    'md_inline_extension',
 ]
 

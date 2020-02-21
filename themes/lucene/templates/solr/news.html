@@ -1,6 +1,7 @@
 {% extends "solr/page.html" %}
 
 {% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
+{% block rss %}<link rel="alternate" type="application/atom+xml" title="Solr news except security news" href="/feeds/solr/news.atom.xml" />{% endblock %}
 
 {% block content_inner %}
 <div class="small-12 columns">
@@ -16,7 +17,7 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   {{page.content}}
 
-  {% for article in (articles | selectattr("category.name", "eq", "solr/news")|list) %}
+  {% for article in (articles | selectattr("category.name", "in", ['solr/news', 'solr/security'])|list) %}
   <h2 id="{{ article.slug }}">{{ article.locale_date }}, {{ article.title }}
     <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
   </h2>

@@ -23,7 +23,7 @@
   <div>
     {% for article in (articles | selectattr("category.name", "eq", "core/news")|list)[:3] %}
     <p id="{{article.slug}}">
-      <a href="/core/corenews.html#{{article.slug}}">{{article.title}}</a>
+      <a href="/core/corenews.html#{{article.slug}}">{{article.title}}</a> <span class="news-date">({{ article.date | strftime("%d.%b") }})</span>
     </p>
     {% endfor %}
   </div>
@@ -41,9 +41,13 @@
   </p>
   <h2 id="solr-news">Latest Solr News</h2>
   <div>
-    {% for article in (articles | selectattr("category.name", "eq", "solr/news")|list)[:3] %}
+    {% for article in (articles | selectattr("category.name", "in", ['solr/news', 'solr/security'])|list)[:3] %}
     <p id="{{article.slug}}">
-      <a href="/solr/news.html#{{article.slug}}">{{article.title}}</a>
+      {% if article.category.name == 'solr/security' %}
+      <a href="/solr/security.html#{{article.slug}}" class="security">{{article.title}}</a> <span class="news-date">({{ article.date | strftime("%d.%b") }})</span>
+      {% else %}
+      <a href="/solr/news.html#{{article.slug}}">{{article.title}}</a> <span class="news-date">({{ article.date | strftime("%d.%b") }})</span>
+      {% endif %}
     </p>
     {% endfor %}
   </div>

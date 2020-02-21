@@ -1,7 +1,5 @@
 Title: [ANNOUNCE] 8.1.1 and 8.2.0 users check ENABLE_REMOTE_JMX_OPTS setting
-category: solr/news
-URL: 
-save_as: 
+category: solr/security
 
     Severity: Low
 

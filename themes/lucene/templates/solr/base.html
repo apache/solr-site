@@ -15,12 +15,15 @@
    <link rel="icon" href="{{ SITEURL }}/theme/images/solr/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="{{ SITEURL }}/theme/images/solr/favicon.ico" type="image/x-icon">
    {% endblock %}
-
+   {% block rss %}{% endblock %}
    {% block javascript %}{% endblock %}
   </head>
 
   <body class="page {% block bodyclass %}{% endblock %}" {% block ng_directives %}{% endblock %} x-ng-app="page" x-ng-controller="page.controllers.main">
     {% include "solr/_header.html" %}
+
+    {% block security_warning %}
+    {% endblock %}
     {% block hero_header %}
     {% endblock %}
     {% block content %}

@@ -2,8 +2,22 @@
 
 {% block bodyclass %}homepage{% endblock %}
 
+{% block security_warning %}
+{% set num_security_news_90d = articles | selectattr("category.name", "eq", "solr/security") | selectattr("date", "age_days_lt", 90) | list | length %}
+{% if num_security_news_90d > 0 %}
+<section class="security">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <h2><a href="security.html">There are recent security announcements. Read more on the Security page.</a></h2>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
 {% block content_inner %}
 <section class="gray offset-medium" id="learn-more"></section>
+
 <section class="gray col-4">
   <div class="row">
     <div class="large-10 large-offset-1 columns">
