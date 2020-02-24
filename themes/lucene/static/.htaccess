@@ -14,4 +14,4 @@
 # limitations under the License.
 
 # Theme's assets can be cached for 10 days, but only if we use a has as query string; otherwise no header is sent:
-Header add Cache-Control "public, max-age=864000, stale-while-revalidate=1728000" env=QUERY_STRING
+Header add Cache-Control "public, max-age=864000, stale-while-revalidate=1728000" "expr=%{QUERY_STRING} =~ m/^v=/"
