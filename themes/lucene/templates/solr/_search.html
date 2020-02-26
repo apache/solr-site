@@ -1,16 +1,7 @@
-<script type="text/javascript">
-  function getBlank(input, stdValue) {
-    if (input.value == stdValue) {
-      input.value = '';
-    }
-    return true;
-  }
-</script>
-
 <form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
   <fieldset>
     <div ng-show="toggled" class="search-box ng-hide">
-      <input type="search" name="q" placeholder="Search..." accesskey="q" onfocus="getBlank(this, 'Search...');"/>
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
       <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="{{ SITEURL }}/theme/images/solr/magnifying-glass.png"/></a>
     </div>
   </fieldset>

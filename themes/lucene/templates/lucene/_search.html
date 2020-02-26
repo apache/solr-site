@@ -1,16 +1,7 @@
 <div id="search" style="float:right;zoom:1">
-  <script type="text/javascript">
-    function getBlank(input, stdValue) {
-      if (input.value == stdValue) {
-        input.value = '';
-      }
-      return true;
-    }
-  </script>
   <form id="quick-search" method="GET" action="https://sematext.com/opensee/lucene" name="searchform">
     <fieldset>
-      <input type="search" id="q" name="q" value="Search with Apache Solr..." class="class1 class2 hint" accesskey="q"
-             onfocus="getBlank(this, 'Search with Apache Solr...')">
+      <input type="search" id="q" name="q" placeholder="Search with Apache Solr..." class="class1 class2 hint" accesskey="q">
     </fieldset>
   </form>
 </div>
