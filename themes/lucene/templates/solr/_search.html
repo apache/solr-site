@@ -5,64 +5,13 @@
     }
     return true;
   }
-
-function selectProvider(form) {
-  lucidAction = "http://find.searchhub.org/p:lucene,solr";
-  sematextAction = "https://sematext.com/opensee/solr";
-
-  provider = document.getElementById('searchProvider').value;
-  if (provider == "lucid" || provider == "sematext") {
-    if (provider == "lucid") {
-      form.action = lucidAction;
-    } else if (provider == "sematext") {
-      form.action = sematextAction;
-    }
-
-    // Only store provider preference cookie if the user selected it
-    days = 90; // cookie will be valid for 90 days
-    date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    expires = "; expires=" + date.toGMTString();
-    document.cookie = "searchProvider=" + provider + expires + "; path=/";
-  } else {
-    if (Math.random() > 0.5) {
-      form.action = lucidAction;
-    } else {
-      form.action = sematextAction;
-    }
-  }
-  return true;
-}
 </script>
 
-<form id="quick-search" method="GET" onsubmit="return selectProvider(this)"
-                                     action="https://sematext.com/opensee/solr"
-                                     name="searchform">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
   <fieldset>
     <div ng-show="toggled" class="search-box ng-hide">
-      <input type="search" name="q" placeholder="Search |" accesskey="q"
-                                                           onfocus="getBlank(this, 'Search |');"/>
-      <a class="search-button" type="submit"
-                               onclick="form = document.getElementById('quick-search'); selectProvider(form); form.submit();"><img src="{{ SITEURL }}/theme/images/solr/magnifying-glass.png"/></a>
-      <select id="searchProvider" class="search-provider">
-        <option value="any"> - select provider - </option>
-        <option value="lucid">@ Lucid Find</option>
-        <option value="sematext">@ Sematext Opensee</option>
-      </select>
+      <input type="search" name="q" placeholder="Search..." accesskey="q" onfocus="getBlank(this, 'Search...');"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="{{ SITEURL }}/theme/images/solr/magnifying-glass.png"/></a>
     </div>
   </fieldset>
-  <script type="text/javascript">
-    if (document.cookie.length > 0) {
-      cStart = document.cookie.indexOf("searchProvider=");
-      if (cStart != -1) {
-        cStart = cStart + "searchProvider=".length;
-        cEnd = document.cookie.indexOf(";", cStart);
-        if (cEnd == -1) {
-          cEnd = document.cookie.length;
-        }
-        provider = unescape(document.cookie.substring(cStart, cEnd));
-        document.getElementById('searchProvider').value = provider;
-      }
-    }
-  </script>
 </form>
