@@ -44,15 +44,15 @@ RedirectMatch Permanent ^/core/mirrors-core-redir.html /core/downloads.html
 
 # Solr site redesign
 # needs to use mod_rewrite because of the anchor fragments
-RewriteRule ^solr/books.html solr/resources.html#solr-books                      [R=301,NE]
-RewriteRule ^solr/discussion.html solr/resources.html#community                  [R=301,NE]
-RewriteRule ^solr/documentation.html solr/resources.html#documentation           [R=301,NE]
-RewriteRule ^solr/screenshots.html solr/features.html                            [R=301,NE]
-RewriteRule ^solr/solrnews.html solr/news.html                                   [R=301,NE]
-RewriteRule ^solr/tutorial.html solr/resources.html#tutorials                    [R=301,NE]
-RewriteRule ^solr/versioncontrol.html solr/resources.html#solr-version-control   [R=301,NE]
-RewriteRule ^solr/version_control.html solr/resources.html#solr-version-control  [R=301,NE]
-RewriteRule ^solr/mailing_lists.html solr/resources.html#community               [R=301,NE]
+RewriteRule ^solr/books.html solr/resources.html#solr-books                      [R=301,NE,L]
+RewriteRule ^solr/discussion.html solr/resources.html#community                  [R=301,NE,L]
+RewriteRule ^solr/documentation.html solr/resources.html#documentation           [R=301,NE,L]
+RewriteRule ^solr/screenshots.html solr/features.html                            [R=301,NE,L]
+RewriteRule ^solr/solrnews.html solr/news.html                                   [R=301,NE,L]
+RewriteRule ^solr/tutorial.html solr/resources.html#tutorials                    [R=301,NE,L]
+RewriteRule ^solr/versioncontrol.html solr/resources.html#solr-version-control   [R=301,NE,L]
+RewriteRule ^solr/version_control.html solr/resources.html#solr-version-control  [R=301,NE,L]
+RewriteRule ^solr/mailing_lists.html solr/resources.html#community               [R=301,NE,L]
 
 # Simple redirect to "directory", so later rules match
 RedirectMatch temp ^/(core|solr)/api$ $0/
@@ -128,7 +128,11 @@ RedirectMatch Permanent ^/lucy/(.*)$ https://lucy.apache.org/
 
 ### Javadocs & Solr Refguide
 
+# Hack: Append slash, if folder name does not end with slash - everything containing a "." is treated as file and excluded from redirect:
+RewriteRule ^(core|solr)/\d+_\d+_\d+/(?!.+\.\w+$|.+/$).+$   $0/ [R=301,L]
+RewriteRule ^solr/guide/\d+_\d+/(?!.+\.\w+$|.+/$).+$        $0/ [R=301,L]
+
 # __root/docs.lucene.apache.org/content/ is a special alias added by INFRA-19439, so we can refer to stuff in other places like SVN:
-RewriteRule ^(core|solr)/(\d+_\d+_\d+/.*)$ __root/docs.lucene.apache.org/content/$1/$2 [PT]
-RewriteRule ^solr/guide/(\d+_\d+/.*)$ __root/docs.lucene.apache.org/content/solr/guide/$1 [PT]
+RewriteRule ^(core|solr)/(\d+_\d+_\d+/.*)$   __root/docs.lucene.apache.org/content/$1/$2 [PT]
+RewriteRule ^(solr/guide)/(\d+_\d+/.*)$      __root/docs.lucene.apache.org/content/$1/$2 [PT]
 
