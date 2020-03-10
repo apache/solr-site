@@ -6,16 +6,16 @@ This repository contains the "source code" of the Lucene/Solr website at [lucene
 
 The site is written in [Markdown][9] syntax and built into a static site using [Pelican][1]. The site is re-built automatically by [ASF Buildbot][5] on every push to master branch and the result can be previewed at [lucene.staged.apache.org][6]. Build success/failure emails are sent to [commits@lucene.apache.org][7] mailing list. Read more about the mechanics behind auto building in [INFRA Confluence][8].
  
-If the staged site looks good, simply merge the changes to branch `production` and the site will be deployed in a minute or two.
+If the staged site looks good, simply merge the changes to branch `production` and the site will be deployed in a minute or two. Note that simple edits can also be done directly in the GitHub UI rather than clone -> edit -> commit -> push.
 
-For larger edits it is recommended to build and preview the site locally. This is much faster. The next sections detail that procedure. The TL;DR instructions goes like this:
+For larger edits it is recommended to build and preview the site locally. This lets you see the result of your changes instantly without committing anything. The next sections detail that procedure. The TL;DR instructions goes like this:
 
     # Usage: ./build.sh [-l] [<other pelican arguments>]
     #        -l     Live build and reload source changes on localhost:8000
     #        --help Show full help for options that Pelican accepts
     ./build -l
 
-Now go to <http://localhost:8000> to view the beautiful Lucene web page served from your laptop with live-preview of updates :)
+Now go to <http://localhost:8000> to view the beautiful Lucene/Solr web page served from your laptop with live-preview of updates :)
 
 ### Installing Pelican by hand
 
@@ -55,7 +55,7 @@ Remember that on Mac/Linux you can use the `build.sh` script with `-l` option to
 
 The release manager documentation will contain detailed instructions on how to update the site during a release. Some of the boring version number update and download link generation is handled by Pelican, see below.
 
-JavaDoc publishing and Solr RefGuide publishing is handled in a special way and are not checked in to this repository. More details will follow. 
+JavaDoc publishing and Solr RefGuide publishing is **not** done through this repo, but in SVN as detailed in Release Manager instructions, and will then appear in respective sections of the website automatically, see `.htaccess` for how.
 
 ### Bump Lucene/Solr latest version after the release
 
