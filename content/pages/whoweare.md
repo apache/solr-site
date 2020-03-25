@@ -8,6 +8,7 @@ template: lucene/tlp/page
 - *[Ramkumar Aiyengar](https://www.linkedin.com/in/andyetitmoves)* (andyetitmoves@...)
 - *Ahmet Arslan* (iorixxx@...)
 - *Bill Au* (billa@...)
+- *[Alessandro Benedetti](https://www.sease.io)* (abenedetti@...)
 - *Joel Bernstein* (jbernste@...)
 - *Andrzej Bialecki* (ab@...)
 - *[Scott Blum](https://github.com/dragonsinth)* (dragonsinth@...)
