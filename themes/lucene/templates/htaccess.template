@@ -17,7 +17,7 @@ RewriteEngine on
 RewriteBase /
 
 <If "%{HTTPS} == 'on'">
-  Header always set Strict-Transport-Security "max-age=2592000"
+  Header always set Strict-Transport-Security "max-age=31536000"
 </If>
 <Else>
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
