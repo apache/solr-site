@@ -59,6 +59,7 @@ template: lucene/tlp/page
 - *Noble Paul* (noble@...)
 - *Christine Poerschke* (cpoerschke@...)
 - *Timothy Potter* (thelabdude@...)
+- *[Eric Pugh](https://www.linkedin.com/in/epugh)* (epugh@...)
 - *[Houston Putman](http://www.linkedin.com/in/houston-putman-3b662361)* (houston@...)
 - *[Alexandre Rafalovitch](http://www.solr-start.com/)* (arafalov@...)
 - *[Kevin Risden](https://risdenk.github.io/)* (krisden@...)
