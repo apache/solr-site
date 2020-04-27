@@ -12,7 +12,7 @@ CURRENTYEAR = date.today().year
 
 LUCENE_LATEST_RELEASE = '8.5.1'
 LUCENE_LATEST_RELEASE_DATE = datetime(2020, 4, 16)
-LUCENE_PREVIOUS_MAJOR_RELEASE = '7.7.2'
+LUCENE_PREVIOUS_MAJOR_RELEASE = '7.7.3'
 
 # This string will be appended to all unversioned css and js resources to prevent caching surprises on edits.
 # The theme's htaccess file also sets a cache-control header with longer lifetime, if the v=XXXX query string is added.
