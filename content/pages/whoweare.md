@@ -85,6 +85,7 @@ template: lucene/tlp/page
 - *Alan Woodward* (romseygeek@...)
 - *Karl Wright* (kwright@...)
 - *[Areek Zillur](http://www.linkedin.com/in/areekzillur)* (areek@...)
+- *Nhat Nguyen* (dnhatn@...)
 
 ## Emeritus
 
@@ -161,6 +162,7 @@ template: lucene/tlp/page
   - *Alan Woodward* (romseygeek@...)
   - *Karl Wright* (kwright@...)
   - *[Areek Zillur](http://www.linkedin.com/in/areekzillur)* (areek@...)
+  - *Nhat Nguyen* (dnhatn@...)
 
 ## Emeritus PMC members:
 
