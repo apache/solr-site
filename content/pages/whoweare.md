@@ -72,7 +72,7 @@ template: lucene/tlp/page
 - *[Shalin Shekhar Mangar](http://shal.in)* (shalin@...)
 - *Sami Siren* (siren@...)
 - *[David Smiley](http://www.linkedin.com/in/davidwsmiley)* (dsmiley@...)
-- *Michael Sokolov* (msokolov@...)
+- *Michael Sokolov* (sokolov@...)
 - *Cassandra Targett* (ctargett@...)
 - *Tommaso Teofili* (tommaso@...)
 - *Varun Thacker* (varun@...)
