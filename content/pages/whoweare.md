@@ -152,6 +152,7 @@ template: lucene/tlp/page
   - *Koji Sekiguchi* (koji@...)
   - *Sami Siren* (siren@...)
   - *[David Smiley](http://www.linkedin.com/in/davidwsmiley)* (dsmiley@...)
+  - *Michael Sokolov* (sokolov@...)
   - *Cassandra Targett* (ctargett@...)
   - *Tommaso Teofili* (tommaso@...)
   - *Varun Thacker* (varun@...)
