@@ -156,6 +156,7 @@ template: lucene/tlp/page
   - *Cassandra Targett* (ctargett@...)
   - *Tommaso Teofili* (tommaso@...)
   - *Varun Thacker* (varun@...)
+  - *Tomoko Uchida* (tomoko@...)
   - *Andi Vajda* (vajda@...)
   - *Ignacio Vera* (ivera@...)
   - *Dawid Weiss* (dweiss@...)
