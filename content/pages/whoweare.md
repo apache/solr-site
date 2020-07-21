@@ -29,6 +29,7 @@ template: lucene/tlp/page
 - *Tomas Fernandez Lobbe* (tflobbe@...)
 - *Jim Ferenczi* (jimczi@...)
 - *[Jason Gerlowski](https://twitter.com/jeg90)* (gerlowskija@...)
+- *Ilan Ginzburg* (ilan@...)
 - *[Otis Gospodnetic](http://www.sematext.com)* (otis@...)
 - *Dennis Gove* (dpgove@...)
 - *Adrien Grand* (jpountz@...)
