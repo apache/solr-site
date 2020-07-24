@@ -117,6 +117,7 @@ template: lucene/tlp/page
   - *Andrzej Bialecki* (ab@...)
   - *Michael Busch* (buschmi@...)
   - *Doron Cohen* (doronc@...)
+  - *Mike Drob* (mdrob@...)
   - *James Dyer* (jdyer@...)
   - *Shai Erera* (shaie@...)
   - *Erick Erickson* (erick@...)
