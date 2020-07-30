@@ -132,6 +132,7 @@ template: lucene/tlp/page
   - *Anshum Gupta* (anshum@...)
   - *Mark Harwood* (mharwood@...)
   - *Erik Hatcher* (ehatcher@...)
+  - *Gus Heck* (gus@...)
   - *Shawn Heisey* (elyograg@...)
   - *Jan H&oslash;ydahl* (janhoy@...)
   - *Grant Ingersoll* (gsingers@...)
