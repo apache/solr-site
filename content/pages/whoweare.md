@@ -136,6 +136,7 @@ template: lucene/tlp/page
   - *Shawn Heisey* (elyograg@...)
   - *Jan H&oslash;ydahl* (janhoy@...)
   - *Grant Ingersoll* (gsingers@...)
+  - *[Namgyu Kim](https://www.linkedin.com/in/danmuzi)* (namgyu@...)
   - *Nick Knize* (nknize@...)
   - *Shalin Shekhar Mangar* (shalin@...)
   - *Stefan Matheis* (steffkes@...)
