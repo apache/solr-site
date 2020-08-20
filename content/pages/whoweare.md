@@ -153,6 +153,7 @@ template: lucene/tlp/page
   - *[Uwe Schindler](http://www.thetaphi.de/)* (uschindler@...)
   - *Yonik Seeley* (yonik@...)
   - *Koji Sekiguchi* (koji@...)
+  - *Atri Sharma* (atri@...)
   - *Sami Siren* (siren@...)
   - *[David Smiley](http://www.linkedin.com/in/davidwsmiley)* (dsmiley@...)
   - *Michael Sokolov* (sokolov@...)
