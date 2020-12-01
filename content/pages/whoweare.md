@@ -148,6 +148,7 @@ template: lucene/tlp/page
   - *Robert Muir* (rmuir@...)
   - *Christine Poerschke* (cpoerschke@...)
   - *Timothy Potter* (thelabdude@...)
+  - *[Houston Putman](http://www.linkedin.com/in/houston-putman-3b662361)* (houston@...)
   - *[Kevin Risden](https://risdenk.github.io/)* (krisden@...)
   - *Steve Rowe* (sarowe@...)
   - *[Uwe Schindler](http://www.thetaphi.de/)* (uschindler@...)
