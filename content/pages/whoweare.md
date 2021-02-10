@@ -167,6 +167,9 @@ template: lucene/tlp/page
   - *Simon Willnauer* (simonw@...)
   - *Alan Woodward* (romseygeek@...)
   - *Karl Wright* (kwright@...)
+  - *Noble Paul* (noble@...)
+  - *Ishan Chattopadhyaya* (ishan@...)
+  - *[Cao Manh Dat](https://www.linkedin.com/in/cao-manh-dat-44244435/)* (datcm@...)
   - *[Areek Zillur](http://www.linkedin.com/in/areekzillur)* (areek@...)
   - *Nhat Nguyen* (dnhatn@...)
 
