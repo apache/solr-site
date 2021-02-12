@@ -113,9 +113,9 @@ for details on subscribing to its mailing list.
 
 There are two primary IRC channels dedicated to Solr at freenode.net.
 
-- #solr -- Channel for Solr user questions
+• #solr -- Channel for Solr user questions
 
-- #solr-dev -- Hangout for discussion of Solr development
+• #solr-dev -- Hangout for discussion of Solr development
 
 The IRC channel can be used for online discussion about Lucene<sup>&trade;</sup>/Solr related stuff,
 but developers should be careful to transfer all the official decisions or useful discussions to the issue
