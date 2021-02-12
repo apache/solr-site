@@ -113,9 +113,9 @@ for details on subscribing to its mailing list.
 
 There are two primary IRC channels dedicated to Solr at freenode.net.
 
-• #solr -- Channel for Solr user questions
+- #solr -- Channel for Solr user questions
 
-• #solr-dev -- Hangout for discussion of Solr development
+- #solr-dev -- Hangout for discussion of Solr development
 
 The IRC channel can be used for online discussion about Lucene<sup>&trade;</sup>/Solr related stuff,
 but developers should be careful to transfer all the official decisions or useful discussions to the issue
@@ -127,7 +127,11 @@ wealth of information about how to get the most out of the IRC channels.
 
 #### Slack ####
 
-The project's Slack channel is the `#lucene-dev` channel in the `the-asf` organization. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
+* The project's Slack channel are the `#lucene-dev` and `#solr-dev` channels in the `the-asf` organization. These are primarily for developer discussions and not meant as support channels. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
+
+* There are unofficial slack organizations for Solr support
+    * A community maintained/unofficial Slack organization that relays messages bi-directionally to/from the official IRC channels. Link: https://s.apache.org/solr-slack
+    * For relevance related discussions (Solr or other search engines), there's Relevance Slack: https://opensourceconnections.com/slack
 
 ## Issue tracker ##
 
