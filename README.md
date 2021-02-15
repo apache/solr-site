@@ -8,6 +8,8 @@ The site is written in [Markdown][9] syntax and built into a static site using [
  
 If the staged site looks good, simply merge the changes to branch `production` and the site will be deployed in a minute or two. Note that simple edits can also be done directly in the GitHub UI rather than clone -> edit -> commit -> push.
 
+> **IMPORTANT**: Please never commit directly to `production` branch. All commits should go to master, and then merge master to production. Note that it **is** possible to make a Pull Request for the merge from `master-->production`. If you do so, please merge using a merge commit rather than a squash merge.
+
 For larger edits it is recommended to build and preview the site locally. This lets you see the result of your changes instantly without committing anything. The next sections detail that procedure. The TL;DR instructions goes like this:
 
     # Usage: ./build.sh [-l] [<other pelican arguments>]
