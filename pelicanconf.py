@@ -16,11 +16,11 @@ LUCENE_PREVIOUS_MAJOR_RELEASE = '7.7.3'
 
 # This string will be appended to all unversioned css and js resources to prevent caching surprises on edits.
 # The theme's htaccess file also sets a cache-control header with longer lifetime, if the v=XXXX query string is added.
-STATIC_RESOURCE_SUFFIX = "?v=%s" % dirhash('themes/lucene/static', 'sha1')[-8:]
+STATIC_RESOURCE_SUFFIX = "?v=%s" % dirhash('themes/solr/static', 'sha1')[-8:]
 
 PATH = 'content'
 
-THEME = 'themes/lucene'
+THEME = 'themes/solr'
 
 TIMEZONE = 'UTC'
 
