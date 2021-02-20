@@ -63,14 +63,14 @@ JavaDoc publishing and Solr RefGuide publishing is **not** done through this rep
 
 There are variables in **pelicanconf.py** to modify the latest 2 supported release versions. This will affect all references to release version in the theme, but not in pages or articles. Pelican views pages and articles as static write-once, like a blog post, whereas the theme can be more dynamic and change with every build.
 
-Modify `LUCENE_LATEST_RELEASE` and `LUCENE_PREVIOUS_MAJOR_RELEASE`, and
-`LUCENE_LATEST_RELEASE_DATE` to affect
+Modify `SOLR_LATEST_RELEASE` and `SOLR_PREVIOUS_MAJOR_RELEASE`, and
+`SOLR_LATEST_RELEASE_DATE` to affect
 
 * Full patch release versions in html such as "6.3.0".
 * Minor release versions in html such as "6.3.x".
 * References to unsupported versions such as "<6" in [Solr downloads][3].
 * References to upcoming unreleased versions such as "7" in [Solr downloads][3]
-  which is a +1 increment of the `LUCENE_LATEST_RELEASE` setting.
+  which is a +1 increment of the `SOLR_LATEST_RELEASE` setting.
 * Links to source, javadocs, PGP, and SHA512 which use underscores to separate
   version parts such as `6_3_0`
 * References to the release date of the latest version which can be dynamically

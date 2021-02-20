@@ -81,12 +81,7 @@ DEFAULT_PAGINATION = False
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
-EXTRA_PATH_METADATA = {
-    'pages/core/corenews.md': {
-        'url': 'core/',
-        'save_as': 'core/corenews.html',
-        },
-    }
+EXTRA_PATH_METADATA = {}
 
 STATIC_PATHS = ['.']
 
