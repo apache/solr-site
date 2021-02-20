@@ -9,7 +9,7 @@ The Solr Community provides user support for free through the [solr-user mailing
 here. There are also a number of external companies and professionals ready to help, see the user-maintained list at
 [cwiki.apache.org/confluence/display/solr/Support](https://cwiki.apache.org/confluence/display/solr/Support).
 
-## Mailing Lists & IRC ##
+## Mailing Lists & Chat ##
 
 #### Solr User List: solr-user@lucene.apache.org ####
 
@@ -140,6 +140,15 @@ discussed on the mailing list and/or via IRC before creating an issue.
 Looking to contribute to Solr?  Read the [instructions](https://cwiki.apache.org/confluence/display/SOLR/HowToContribute) on
 contributing and then submit a patch!
 
+## Code of Conduct ##
+
+For a large and diverse community like ours to be friendly, welcoming and respectful, we recognize
+the need for some guidelines. The project follows [Apache's Code of Conduct](https://www.apache.org/foundation/policies/conduct)
+statement. Please take some time to read and understand it.
+
+If any member of this community experience a breach of this CoC, you may refer to the link above,
+and escalate to the PMC if the problematic behaviour persists.
+
 ## Version Control ##
 
 The Solr source code resides in the Apache [GIT](http://git.apache.org) repository. Various GIT clients
@@ -149,20 +158,21 @@ have installed the command line version.
 
 #### Web Access (read-only) ####
 
-The source code can be browsed via the Web at <https://git-wip-us.apache.org/repos/asf?p=lucene-solr.git>.
+The source code can be browsed at <https://github.com/apache/solr> and also <https://gitbox.apache.org/repos/asf?p=solr.git>.
 No GIT client software is required.
 
-The code can also be browsed through our GitHub mirror at <https://github.com/apache/lucene-solr/>.
+#### Cloning the repository ####
 
-#### Anonymous Access (read-only) ####
+To work on the code locally, you may clone the git repository:
 
-The GIT URL for anonymous users is <http://git-wip-us.apache.org/repos/asf/lucene-solr.git>.
-Instructions for non-committer GIT access are [here](https://git-wip-us.apache.org/#repository-checkout).
+    git clone https://github.com/apache/solr.git
 
-#### Committer Access (read-write) ####
+Then use GitHub's [fork feature](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
+to obtain a personal fork from which you can later contribute your changes through a
+[Pull Request](https://cwiki.apache.org/confluence/display/solr/HowToContribute#HowToContribute-WorkingwithGitHub)
+or a [patch in Jira](https://cwiki.apache.org/confluence/display/solr/HowToContribute#HowToContribute-Generatingapatch).
 
-The GIT URL for committers is <https://git-wip-us.apache.org/repos/asf/lucene-solr.git>.
-Instructions for committer GIT access are [here](https://git-wip-us.apache.org/#repository-checkout).
+You may alternatively choose to clone apache's git mirror at `https://gitbox.apache.org/repos/asf?p=solr.git`.
 
 ## Powered By ##
 
