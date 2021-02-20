@@ -9,99 +9,38 @@ The Solr Community provides user support for free through the [solr-user mailing
 here. There are also a number of external companies and professionals ready to help, see the user-maintained list at
 [cwiki.apache.org/confluence/display/solr/Support](https://cwiki.apache.org/confluence/display/solr/Support).
 
+<a name="mailing-lists-irc"></a>
+
 ## Mailing Lists & Chat ##
 
-#### Solr User List: solr-user@lucene.apache.org ####
+#### Solr User List: users@solr.apache.org ####
 
 This list is for users of Solr to ask questions, share knowledge, and discuss issues.  We strongly encourage
 users to send usage and configuration questions and problems to this mailing list.  Before filing an issue in
 the JIRA issue tracker, make sure it's a real bug and that it hasn't been already discovered by discussing it here.
 
-Subscribe: [solr-user-subscribe](mailto:solr-user-subscribe@lucene.apache.org)
+[Subscribe - Unsubscribe - Archives : users@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?users@solr.apache.org).
 
-Unsubscribe: [solr-user-unsubscribe](mailto:solr-user-unsubscribe@lucene.apache.org)
-([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
+#### Developer List: dev@solr.apache.org ####
 
-Send: [solr-user](mailto:solr-user@lucene.apache.org) \(Requires subscription\)
+This is the list where participating developers of the Solr project meet and discuss
+issues concerning Solr internals, code changes/additions, etc.
 
-[Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-solr-user/)
+[Subscribe - Unsubscribe - Archives : dev@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?dev@solr.apache.org).
 
-#### Developer List: dev@lucene.apache.org ####
+**NOTE: Please do not send mail to this list with usage questions or configuration questions and
+problems, that is what the solr-user mailing list is for.**
 
-This is the list where participating developers of the Lucene and Solr projects meet and discuss
-issues concerning Lucene/Solr internals, code changes/additions, etc.
+#### Notification / automated announcements lists for developers ####
 
-NOTE: Please do not send mail to this list with usage questions or configuration questions and
-problems, that is what the solr-user mailing list is for.
+Notifications about all JIRA issues and Github pull requests:  
+[Subscribe - Unsubscribe - Archives : issues@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?issues@solr.apache.org).
 
-Subscribe: [dev-subscribe](mailto:dev-subscribe@lucene.apache.org)
+Notifications about all CI builds by Jenkins:  
+[Subscribe - Unsubscribe - Archives : builds@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?builds@solr.apache.org).
 
-Unsubscribe: [dev-unsubscribe](mailto:dev-unsubscribe@lucene.apache.org)
-([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
-
-Send: [dev](mailto:dev@lucene.apache.org) \(Requires subscription\)
-
-[Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-dev/)
-
-#### General Discussion: general@lucene.apache.org ###
-
-This list is for broader questions and discussions about the Lucene project, announcements,
-and for questions from users who have no idea where to get started (Lucene-Core?, Solr? PyLucene?)
-
-Subscribe: [general-subscribe](mailto:general-subscribe@lucene.apache.org)
-
-Unsubscribe: [general-unsubscribe](mailto:general-unsubscribe@lucene.apache.org)
-([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
-
-Send: [general](mailto:general@lucene.apache.org) \(Requires subscription\)
-
-[Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-general/)
-
-#### Issue Notifications: issues@lucene ####
-
-This is an automated announcement only list where notifications about all JIRA issues and Github pull requests are sent.
-
-Subscribe: [issues-subscribe](mailto:issues-subscribe@lucene.apache.org)
-
-Unsubscribe: [issues-unsubscribe](mailto:issues-unsubscribe@lucene.apache.org)
-([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
-
-[Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-issues/)
-
-#### Build Notifications: builds@lucene ####
-
-This is an automated announcement only list where notifications about all CI builds by Jenkins are sent.
-
-Subscribe: [builds-subscribe](mailto:builds-subscribe@lucene.apache.org)
-
-Unsubscribe: [builds-unsubscribe](mailto:builds-unsubscribe@lucene.apache.org)
-([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
-
-[Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-builds/)
-
-#### Commit Notifications: commits@lucene ####
-
-This is an automated announcement only list where notifications about every Lucene/Solr commit are sent.
-
-Subscribe: [commits-subscribe](mailto:commits-subscribe@lucene.apache.org)
-
-Unsubscribe: [commits-unsubscribe](mailto:commits-unsubscribe@lucene.apache.org)
-([Problems?](https://cwiki.apache.org/confluence/display/solr/Unsubscribing%20from%20mailing%20lists))
-
-[Official Apache Archive](http://mail-archives.apache.org/mod_mbox/lucene-commits/)
-
-#### Mail Archives ####
-
-The Solr Wiki maintains a list of searchable mailing list archives at
-
-<https://cwiki.apache.org/confluence/display/SOLR/SolrResources#SolrResources-MailingListArchives>.
-
-No endorsement is implied by the listing of an archive on the Wiki.
-
-#### Other Mailing Lists ####
-
-Each Lucene project maintains its own mailing lists. Please refer to the project you are interested in
-for details on subscribing to its mailing list.
+Notifications about every Solr commit:  
+[Subscribe - Unsubscribe - Archives : commits@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?commits@solr.apache.org).
 
 #### IRC  ####
 
@@ -111,7 +50,7 @@ There are two primary IRC channels dedicated to Solr at freenode.net.
 
 • #solr-dev -- Hangout for discussion of Solr development
 
-The IRC channel can be used for online discussion about Lucene<sup>&trade;</sup>/Solr related stuff,
+The IRC channel can be used for online discussion about Solr related stuff,
 but developers should be careful to transfer all the official decisions or useful discussions to the issue
 tracking system.  Note that the solr-user mailing list will reach a lot more people than the IRC channel,
 but if it's the right time of day, the IRC channel can offer a more interactive experience with faster turnaround.
@@ -121,7 +60,8 @@ wealth of information about how to get the most out of the IRC channels.
 
 #### Slack ####
 
-* The project's Slack channels are `#lucene-dev` and `#solr-dev` in the `the-asf` organization. These are primarily for developer discussions and not meant as support channels. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
+* The project's Slack channel is `#solr-dev` in the `the-asf` organization. This is primarily for developer 
+  discussions and not meant as support channels. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
 
 * There are unofficial slack organizations for Solr support
     * A community maintained/unofficial Slack organization that relays messages bi-directionally to/from the official IRC channels. Link: <https://s.apache.org/solr-slack>
