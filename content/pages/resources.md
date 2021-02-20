@@ -224,3 +224,10 @@ If you have a Solr video that you would like to see listed here, please submit a
 <h3 class="offset" id="vimeo">Vimeo</h3>
 
 [Search Vimeo for Solr](http://vimeo.com/search?q=solr)
+
+## Website ##
+
+This web site is hosted in its own git repository `solr-site` (see [Github](https://github.com/apache/solr-site/) and [Gitbox](https://gitbox.apache.org/repos/asf/solr-site.git)).
+
+Pushing to the `master` branch will update the [staging site](https://solr.staged.apache.org) while pushing to `production` branch will update the main web site. Read the [README.md](https://github.com/apache/solr-site/blob/master/README.md) file for further instructions.
+
