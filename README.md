@@ -4,7 +4,7 @@ This repository contains the "source code" of the Solr website at [solr.apache.o
 
 ## Building the site
 
-The site is written in [Markdown][9] syntax and built into a static site using [Pelican][1]. The site is re-built automatically by [ASF Buildbot][5] on every push to master branch and the result can be previewed at [solr.staged.apache.org][6]. Build success/failure emails are sent to [commits@solr.apache.org][7] mailing list. Read more about the mechanics behind auto building in [INFRA Confluence][8].
+The site is written in [Markdown][9] syntax and built into a static site using [Pelican][1]. The site is re-built automatically by [ASF Buildbot][5] on every push to main branch, and the result can be previewed at [solr.staged.apache.org][6]. Build success/failure emails are sent to [commits@solr.apache.org][7] mailing list. Read more about the mechanics behind auto building in [INFRA Confluence][8].
  
 If the staged site looks good, simply merge the changes to branch `production` and the site will be deployed in a minute or two. Note that simple edits can also be done directly in the GitHub UI rather than clone -> edit -> commit -> push.
 

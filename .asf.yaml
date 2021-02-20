@@ -1,5 +1,5 @@
 pelican:
-  whoami: master
+  whoami: main
   target: asf-staging
 
 staging:
@@ -7,6 +7,7 @@ staging:
 
 github:
   labels:
+    - apache
     - solr
     - website
     - pelican
@@ -15,5 +16,5 @@ github:
     merge:  true
     rebase: false
   protected_branches:
-    master
+    main
     production
