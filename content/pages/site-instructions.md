@@ -1,7 +1,7 @@
 Title: Updating the Lucene Website
 URL: site-instructions.html
 save_as: site-instructions.html
-template: lucene/tlp/page
+template: page
 
 ## Editing Content on the Lucene<span style="vertical-align: super; font-size: xx-small">TM</span> sites
 

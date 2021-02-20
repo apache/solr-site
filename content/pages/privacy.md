@@ -1,7 +1,7 @@
 Title: Privacy Policy
 URL: privacy.html
 save_as: privacy.html
-template: lucene/tlp/page
+template: page
 
 Information about your use of this website is collected using server access logs and a tracking cookie. The collected information consists of the following:
 

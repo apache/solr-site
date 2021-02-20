@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    {% include "_head.html" %}
+    <title>Apache Solr - {% block title %}{% endblock %}</title>
+    {% block css %}{% endblock %}
+
+    {% block metakeys %}
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+   {% endblock %}
+
+   {% block favicon %}
+   <link rel="icon" href="{{ SITEURL }}/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="{{ SITEURL }}/theme/images/favicon.ico" type="image/x-icon">
+   {% endblock %}
+   {% block rss %}{% endblock %}
+   {% block javascript %}{% endblock %}
+  </head>
+
+  <body class="page {% block bodyclass %}{% endblock %}" {% block ng_directives %}{% endblock %} x-ng-app="page" x-ng-controller="page.controllers.main">
+    {% include "_header.html" %}
+
+    {% block security_warning %}
+    {% endblock %}
+    {% block hero_header %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    <footer>
+      {% include "_footer.html" %}
+    </footer>
+
+    {% include "_last_scripts.html" %}
+    {% include "_analytics.html" %}
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  {% block subnav %}
+  {% endblock %}
+  <div class="row">
+    {% block content_inner %}{{ page.content }}{% endblock %}
+  </div>
+</div>
+{% endblock %}

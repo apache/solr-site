@@ -1,0 +1,324 @@
+{% extends "fullwidth.html" %}
+
+{% block bodyclass %}homepage{% endblock %}
+
+{% block security_warning %}
+{% set latest_sec_articles = (articles | selectattr("category.name", "eq", "solr/security") | list)[:1] %}
+{% set latest_date = latest_sec_articles[0].date | strftime("%Y-%m-%d") %}
+<section class="security" latest-date="{{ latest_date }}">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <h2><a href="security.html">There are recent security announcements. Read more on the Security page.</a></h2>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content_inner %}
+<section class="gray offset-medium" id="learn-more"></section>
+
+<section class="gray col-4">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">
+        &nbsp;
+      </div>
+      <h1>
+        Learn more about Solr.
+      </h1>
+      <p>
+      Solr is highly reliable, scalable and fault tolerant, providing distributed indexing, replication and load-balanced querying, automated failover and recovery, centralized configuration and more. Solr powers the search and navigation features of many of the world's largest internet sites.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
+      <li>
+        <a href="/features.html"><div class="box"><div class="img"><img src="{{ SITEURL }}/theme/images/icon-features.svg"/></div>
+            <div class="title">
+              <h3>Features</h3>
+            </div>
+            <p>Hundreds of features make Solr incredibly versatile.</p>
+            <span class="btn1">Learn More</span>
+          </div></a>
+      </li>
+      <li>
+        <a href="/resources.html">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/icon-resources.svg"/></div>
+            <div class="title">
+              <h3>Resources</h3>
+            </div>
+            <p>From tutorials to in-depth documentation, you'll find it here.</p>
+            <span class="btn1">Get Started</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="/features.html#solrcloud">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/icon-scaling.svg"/></div>
+            <div class="title">
+              <h3>Scaling with Solr</h3>
+            </div>
+            <p>Scale with confidence in data integrity and performance.</p>
+            <span class="btn1">Scale Solr</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="/resources.html#community">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/icon-community.svg"/></div>
+            <div class="title">
+              <h3>Solr Community</h3>
+            </div>
+            <p>Get support and give back. Contribute to the Solr project.</p>
+            <span class="btn1">Learn More</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="white poweredby">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <div class="annotation">
+        Tested and proven
+      </div>
+      <h1 class="red">
+        Solr is trusted.
+      </h1>
+
+      <p>
+      Solr powers some of the most heavily-trafficked websites and applications in the world.
+      </p>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-11 small-centered columns">
+      <div class="slider powered">
+        <!--<div><img src="{{ SITEURL }}/theme/images/logo-bloomberg.png"/></div>-->
+        <div><img src="{{ SITEURL }}/theme/images/logo-eharmony.png"/></div>
+        <div><img src="{{ SITEURL }}/theme/images/logo-duckduckgo.png"/></div>
+        <div><img src="{{ SITEURL }}/theme/images/logo-sears.png"/></div>
+        <div><img src="{{ SITEURL }}/theme/images/logo-stubhub.png"/></div>
+        <div><img src="{{ SITEURL }}/theme/images/logo-zappos.png"/></div>
+        <div><img src="{{ SITEURL }}/theme/images/logo-bestbuy.png"/></div>
+        <div><img src="{{ SITEURL }}/theme/images/logo-aol.png"/></div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">Other Notable Users</div>
+  <div class="list text-center">
+    <ul>
+      <div class="row">
+        <div class="small-4 columns">
+          <li>AT&T
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>Instagram
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>Buy.com
+          </li>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          <li>Ticketmaster
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>Netflix</li>
+        </div>
+        <div class="small-4 columns">
+          <li>The Echo Nest
+          </li>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          <li>Chegg
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>Disney
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>Adobe
+          </li>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          <li>eBay
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>Internet Archive
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>SAP Hybris
+          </li>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          <li>Magento
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>IBM Websphere Commerce
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>Bloomberg<!--CiteSeer-->
+          </li>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-4 columns">
+          <li>Comcast
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>MTV Networks
+          </li>
+        </div>
+        <div class="small-4 columns">
+          <li>Travelocity
+          </li>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <div class="text-center small">
+    <p>Want to see more?  Want to see your app or website here? Visit Solr's <a href="https://wiki.apache.org/solr/PublicServers">Public Servers</a> listing page to learn more.</p>
+  </div>
+</section>
+
+<section class="hero alternate">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <div class="annotation">
+        Take the first step
+      </div>
+      <h1>
+        Getting Started
+      </h1>
+      <p>
+      Power your global enterprise or your weekend project.
+      </p>
+      <div class="down-arrow "><a data-scroll href="#get-started"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray col-3" id="get-started">
+  <div class="row">
+    <div class="large-4 columns">
+      <a href="/downloads.html">
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/icon-download-binary.svg"/></div>
+          <div class="title">
+            <h3>Download Binary</h3>
+          </div>
+          <p>Click here to download the Solr binary from the available mirrors.</p>
+          <span class="btn1">Download Solr</span>
+        </div>
+      </a>
+    </div>
+    <div class="large-4 columns">
+      <a href="/guide/solr-tutorial.html">
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/icon-run-install.svg"/></div>
+          <div class="title">
+            <h3>Run Through the Tutorial</h3>
+          </div>
+          <p>The Solr Quick Start tutorial will help you start working with Solr.</p>
+          <span class="btn1">Read the Tutorial</span>
+        </div>
+      </a>
+    </div>
+    <div class="large-4 columns">
+      <a href="/resources.html">
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/icon-check-out-tutorial.svg"/></div>
+          <div class="title">
+            <h3>Level Up</h3>
+          </div>
+          <p>Once you've completed the tutorial, continue your mastery with the Solr resource library.</p>
+          <span class="btn1">More Resources</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="hero alternate">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <div class="annotation">
+        Solr News | {{ LUCENE_LATEST_RELEASE_DATE|strftime('%-d %B %Y') }}
+      </div>
+      <h1>
+        Apache Solr {{ LUCENE_LATEST_RELEASE }} available
+      </h1>
+      <p>
+      The Lucene PMC is pleased to announce the release of Apache Solr {{ LUCENE_LATEST_RELEASE }}.  Download <a href="/downloads.html">here</a>.
+      </p>
+      <a href="/news.html"><span class="white">Read More News</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="gray">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Deep expertise
+      </div>
+      <h1>
+        Solr Books<br/>
+        <small>The definitive in-depth resource library written by the world's Solr experts.</small>
+      </h1>
+      <hr/>
+      <ul class="books small-block-grid-2 medium-block-grid-3 large-block-grid-6">
+        <li><a href="/resources.html#book-asess-3ed"><img src="{{ SITEURL }}/theme/images/book_asess_3ed.jpg"/></a></li>
+        <li><a href="/resources.html#book-scaling-big-data-hadoop-solr-II"><img src="{{ SITEURL }}/theme/images/book_scaling_big_data_hadoop_solr_II.jpg"/></a></li>
+        <li><a href="/resources.html#book-solr-search-patterns"><img src="{{ SITEURL }}/theme/images/book_solr_search_patterns.jpg"/></a></li>
+        <li><a href="/resources.html#book-solr-cookbook-3ed"><img src="{{ SITEURL }}/theme/images/book_solr_cookbook_3ed.jpg"/></a></li>
+        <li><a href="/resources.html#mastering-apache-solr"><img src="{{ SITEURL }}/theme/images/book_mas.jpg"/></a></li>
+        <li><a href="/resources.html#solr-in-action"><img src="{{ SITEURL }}/theme/images/book_sia.png"/></a></li>
+      </ul>
+      <a class="btn" href="/resources.html#solr-books">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<section class="white">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <h1>
+        The Apache Software Foundation
+      </h1>
+      <p>
+      The Apache Software Foundation provides support for the Apache community of open-source software projects. The Apache projects are defined by collaborative consensus based processes, an open, pragmatic software license and a desire to create high quality software that leads the way in its field. Apache Lucene, Apache Solr, Apache PyLucene, Apache Open Relevance Project and their respective logos are trademarks of The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+      </p>
+      <p>
+      <a target="_blank" href="https://www.apache.org/events/current-event.html">
+        <img src="https://www.apache.org/events/current-event-234x60.png"/>
+      </a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock content_inner %}

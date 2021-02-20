@@ -1,0 +1,8 @@
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="{{ SITEURL }}/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>
