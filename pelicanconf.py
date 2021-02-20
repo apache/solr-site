@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 from datetime import datetime, date
 from checksumdir import dirhash
 
-AUTHOR = 'Lucene and Solr Developers'
-SITENAME = 'Apache Lucene'
+AUTHOR = 'Solr Developers'
+SITENAME = 'Apache Solr'
 SITESUBTITLE = ''
 SITEURL = ''
 CURRENTYEAR = date.today().year

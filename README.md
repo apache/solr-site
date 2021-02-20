@@ -1,4 +1,4 @@
-# Web site for Apache Lucene and Solr
+# Web site for Apache Solr
 
 This repository contains the "source code" of the Lucene/Solr website at [lucene.apache.org](https://lucene.apache.org/).
 
@@ -17,7 +17,7 @@ For larger edits it is recommended to build and preview the site locally. This l
     #        --help Show full help for options that Pelican accepts
     ./build -l
 
-Now go to <http://localhost:8000> to view the beautiful Lucene/Solr web page served from your laptop with live-preview of updates :)
+Now go to <http://localhost:8000> to view the beautiful Solr web page served from your laptop with live-preview of updates :)
 
 ### Installing Pelican by hand
 
@@ -43,7 +43,7 @@ Once Pelican is installed you can convert your content into HTML via the pelican
 pelican
 ```
 
-The above command will generate your site and save it in the `output/` folder using the lucene theme and settings defined in `pelicanconf.py`
+The above command will generate your site and save it in the `output/` folder using the solr theme and settings defined in `pelicanconf.py`
 
 You can also tell Pelican to watch for your modifications, instead of manually re-running it every time you want to see your changes. To enable this, run the pelican command with the `-r` or `--autoreload` option. On non-Windows environments, this option can also be combined with the `-l` or `--listen` option to simultaneously both auto-regenerate and serve the output through a builtin webserver on <http://localhost:8000>.
 
@@ -53,13 +53,13 @@ pelican --autoreload --listen
 
 Remember that on Mac/Linux you can use the `build.sh` script with `-l` option to do the same.
 
-## Updating site during a Lucene/Solr release
+## Updating site during a Solr release
 
 The release manager documentation will contain detailed instructions on how to update the site during a release. Some of the boring version number update and download link generation is handled by Pelican, see below.
 
 JavaDoc publishing and Solr RefGuide publishing is **not** done through this repo, but in SVN as detailed in Release Manager instructions, and will then appear in respective sections of the website automatically, see `.htaccess` for how.
 
-### Bump Lucene/Solr latest version after the release
+### Bump Solr latest version after the release
 
 There are variables in **pelicanconf.py** to modify the latest 2 supported release versions. This will affect all references to release version in the theme, but not in pages or articles. Pelican views pages and articles as static write-once, like a blog post, whereas the theme can be more dynamic and change with every build.
 

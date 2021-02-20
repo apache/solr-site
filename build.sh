@@ -54,11 +54,11 @@ if [[ ! $(pelican -h 2>/dev/null) ]]; then
   fi
 fi
 if [[ $SERVE ]]; then
-  echo "Building Lucene site locally. Goto http://localhost:8000 to view."
+  echo "Building Solr site locally. Goto http://localhost:8000 to view."
   echo "Edits you do to the source tree will be compiled immediately!"
   pelican --autoreload --listen $@
 else
-  echo "Building Lucene site."
+  echo "Building Solr site."
   echo "To build and serve live edits locally, run this script with -l argument. Use -h for help."
   pelican $@
 fi
