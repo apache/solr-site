@@ -3,12 +3,6 @@ URL: community.html
 save_as: community.html
 template: community
 
-## Apache Software Foundation ##
-
-Solr is developed by contributors to the Apache Software Foundation (ASF) through an open, meritocratic process that goes well beyond
-simply sharing the source code.
-Visit the [ASF website](https://www.apache.org/) to learn more.
-
 ## Support ##
 
 The Solr Community provides user support for free through the [solr-user mailing list](#mailing-lists-irc) and other channels mentioned
