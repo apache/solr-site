@@ -14,6 +14,20 @@
 </section>
 {% endblock %}
 
+{% block solr_news %}
+{% set latest_articles = (articles | selectattr("category.name", "eq", "solr/news") | list)[:1] %}
+{% set latest_date = latest_articles[0].date | strftime("%Y-%m-%d") %}
+<section class="topnews" latest-date="{{ latest_date }}">
+  <div class="row">
+    {% for article in (articles | selectattr("category.name", "in", ['solr/news'])|list)[:1] %}
+    <p id="{{article.slug}}">
+      <a href="/news.html#{{article.slug}}"><b>NEWS:</b> {{article.title}}</a> <span class="news-date">({{ article.date | strftime("%d.%b") }})</span>
+    </p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
 {% block content_inner %}
 <section class="gray offset-medium" id="learn-more"></section>
 
