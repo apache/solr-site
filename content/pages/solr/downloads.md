@@ -12,4 +12,4 @@ Solr 8.8.0 has been reported to have back-compat issues with SolrJ.
 
 Client applications that use a SolrJ version prior to 8.8.0 may experience a NullPointerException in ZkCoreNodeProps when requesting cluster state from Zookeeper. Upgrading your application to use SolrJ 8.8.0 will fix the issue.
 
-A release with the fix is currently being worked on.
+This back compat break has been fixed in 8.8.1
