@@ -5,7 +5,7 @@ template: resources
 
 ## Tutorials ##
 
-* [Solr Quick Start](/solr/guide/solr-tutorial.html)
+* [Solr Quick Start](/guide/solr-tutorial.html)
 
 <!--
 * More to come: Ideas include "Solr in a Day", "Solr and JSON", "Solr and CSV", "Solr and XML"
@@ -21,11 +21,11 @@ Users who have completed the tutorial are encouraged to review the [other docume
 
 Beginning with Solr 4.4, a detailed reference guide is available online.
 
-* [HTML Version of the Reference Guide](/solr/guide)
+* [HTML Version of the Reference Guide](/guide)
 
 * [Visual Guide to Streaming Expressions and Math Expressions](http://bit.ly/32srTpA)
 
-* [Previous Releases in PDF (until Solr 8.1)](http://archive.apache.org/dist/lucene/solr/ref-guide/)
+* [Previous Releases in PDF (until Solr 8.x)](http://archive.apache.org/dist/lucene/solr/ref-guide/)
 
 
 <h3 class="offset" id="javadocs">Solr Javadocs</h3>
@@ -33,7 +33,7 @@ Beginning with Solr 4.4, a detailed reference guide is available online.
 Solr generates JavaDocs for all included code in each release.
 Copies of this documentation for every release can be found online:
 
-* [Latest Release](/solr/api/index.html)
+* [Latest Release](/api/index.html)
 
 <h3 class="offset" id="additional-documentation">Additional Documentation</h3>
 
@@ -43,7 +43,7 @@ Additional documentation can be found on the [Solr Community Wiki](https://cwiki
 
 ## Solr Books ##
 
-If you have a Solr book that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) to this [website](https://svn.apache.org/viewvc/lucene/cms/trunk/) via a JIRA issue.
+If you have a Solr book that you would like to see listed here, please [edit this website add submit a Pull Request](/editing-website.html).
 
 <h3 class="offset" id="book-relevant-search">Relevant Search</h3>
 Doug Turnbull, John Berryman and Manning Publications are proud to announce *Relevant Search*.
@@ -135,28 +135,28 @@ Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [S
 ***
 <h3 class="offset" id="einfuehrung-in-apache-solr">Einführung in Apache Solr</h3>
 
-<a href="http://www.oreilly.de/catalog/einfapachesolrger/" title="Einführung in Apache Solr"><img alt="Einführung in Apache Solr Cover" class="float-right" src="{static}/images/solr/book-eias.jpg"></a>
+<a href="https://www.oreilly.com/library/view/einfuhrung-in-apache/9783955614249/" title="Einführung in Apache Solr"><img alt="Einführung in Apache Solr Cover" class="float-right" src="{static}/images/solr/book-eias.jpg"></a>
 <p>Markus Klose, Daniel Wrigley and O’Reilly are proud to present the first book on Apache Solr in German.</p>
-<p>[Einführung in Apache Solr](http://www.oreilly.de/catalog/einfapachesolrger/) offers a substantiated and practice-oriented introduction into the search technology Apache Solr. The sample configurations, instructions, tips and pitfalls from the practice of the authors enable the reader to get a quick insight to this search technology. The book provides the necessary knowledge and tools to implement custom search solutions with Apache Solr, covering the following topics:</p>
+<p><a href="https://www.oreilly.com/library/view/einfuhrung-in-apache/9783955614249/">Einführung in Apache Solr</a> offers a substantiated and practice-oriented introduction into the search technology Apache Solr. The sample configurations, instructions, tips and pitfalls from the practice of the authors enable the reader to get a quick insight to this search technology. The book provides the necessary knowledge and tools to implement custom search solutions with Apache Solr, covering the following topics:</p>
 <ul>
-<li>**Quick start guide**: Start Apache Solr after download and execute your first search.</li>
-<li>**Index configuration**: Learn how to configure the schema.xml and the analysis process to improve search quality.</li>
-<li>**Features out-of-the-box**: Use all build-in features like faceting, auto suggest or spellcheck and integrate them into a search user interface.</li>
-<li>**Scoring and relevance**: Learn how to influence the scoring mechanism to bias the quantity and quality of your hitlist.</li>
-<li>**Solr architectures**: Read about the options scaling Apache Solr. Set up your own Solr Cluster as Master/Slave or SolrCloud architecture.</li>
+<li><b>Quick start guide</b>: Start Apache Solr after download and execute your first search.</li>
+<li><b>Index configuration</b>: Learn how to configure the schema.xml and the analysis process to improve search quality.</li>
+<li><b>Features out-of-the-box</b>: Use all http://www.packtpub.com/apache-solr-for-indexing-data/bookbuild-in features like faceting, auto suggest or spellcheck and integrate them into a search user interface.</li>
+<li><b>Scoring and relevance</b>: Learn how to influence the scoring mechanism to bias the quantity and quality of your hitlist.</li>
+<li><b>Solr architectures</b>: Read about the options scaling Apache Solr. Set up your own Solr Cluster as Master/Slave or SolrCloud architecture.</li>
 </ul>
-[Buy here](http://www.oreilly.de/catalog/einfapachesolrger/)
+[Buy here](https://www.oreilly.com/library/view/einfuhrung-in-apache/9783955614249/)
 
 ***
 
 <h3 class="offset" id="instant-apache-solr-for-indexing-data-how-to">Instant Apache Solr for Indexing Data How-to</h3>
 
 <a href="http://www.packtpub.com/apache-solr-for-indexing-data/book" title="Packt: Instant Apache Solr for Indexing Data How-to"><img alt="Instant Apache Solr for Indexing Data How-to - cover" class="float-right" src="{static}/images/solr/book_s4index.jpg"></a>
-Alexandre Rafalovitch and Packt Publishing are proud to announce [Instant Apache Solr for Indexing Data How-to](http://www.packtpub.com/apache-solr-for-indexing-data/book) - an example-driven guide that will take you on a journey from the basic collection of data to a multi-lingual, multi-field, multi-type schema.
+Alexandre Rafalovitch and Packt Publishing are proud to announce [Instant Apache Solr for Indexing Data How-to](https://www.amazon.com/Instant-Apache-Solr-Indexing-Data/dp/1782164847) - an example-driven guide that will take you on a journey from the basic collection of data to a multi-lingual, multi-field, multi-type schema.
 
 Content and data searching is a very important part of the modern user experience, and before something can be searched, it has to be indexed. Indexing is a hidden part of the process that has a surprisingly strong impact on the overall user experience. From speed, to faceting, to multilingual support, everything depends on correct indexing. **Instant Apache Solr for Indexing Data How-to** is a friendly, practical guide that will show you how to index your data with Solr 4.3.
 
-[Buy here](http://www.packtpub.com/apache-solr-for-indexing-data/book)
+[Buy here](https://www.amazon.com/Instant-Apache-Solr-Indexing-Data/dp/1782164847)
 
 ***
 
@@ -209,13 +209,13 @@ If you have a Solr presentation that you would like to see listed here, please s
 
 ## Videos ##
 
-If you have a Solr video that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) via a JIRA with the appropriate content.
-
-<h3 class="offset" id="lucenesolr-revolution">Lucene/Solr Revolution</h3>
+If you have a Solr video that you would like to see listed here, please [edit this website add submit a Pull Request](/editing-website.html).
 
 <!-- TODO: WOULD BE NICE TO HAVE A SLIDER OR RANDOMLY PICKED VIDEO HERE -->
 
-[Videos from Past Events](http://lucenerevolution.org/past-events/) including Apache Eurocon
+[Videos from Past Activate / Lucene/Solr revolution events](https://www.activate-conf.com/more-events)
+
+[Videos from Lucidwork's Eurocon](https://vimeo.com/search?q=lucene%20eurocon)
 
 <h3 class="offset" id="youtube">YouTube</h3>
 
@@ -229,5 +229,5 @@ If you have a Solr video that you would like to see listed here, please submit a
 
 This web site is hosted in its own git repository `solr-site` (see [Github](https://github.com/apache/solr-site/) and [Gitbox](https://gitbox.apache.org/repos/asf/solr-site.git)).
 
-Pushing to the `master` branch will update the [staging site](https://solr.staged.apache.org) while pushing to `production` branch will update the main web site. Read the [README.md](https://github.com/apache/solr-site/blob/master/README.md) file for further instructions.
+Pushing to the `main` branch will update the [staging site](https://solr.staged.apache.org) while pushing to `production` branch will update the main web site. Read the [README.md](https://github.com/apache/solr-site/) file for further instructions.
 
