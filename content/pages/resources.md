@@ -43,7 +43,7 @@ Additional documentation can be found on the [Solr Community Wiki](https://cwiki
 
 ## Solr Books ##
 
-If you have a Solr book that you would like to see listed here, please [edit this website add submit a Pull Request](/editing-website.html).
+If you have a Solr book that you would like to see listed here, please [edit this website add submit a Pull Request]("/editing-website.html").
 
 <h3 class="offset" id="book-relevant-search">Relevant Search</h3>
 Doug Turnbull, John Berryman and Manning Publications are proud to announce *Relevant Search*.
@@ -209,13 +209,21 @@ If you have a Solr presentation that you would like to see listed here, please s
 
 ## Videos ##
 
-If you have a Solr video that you would like to see listed here, please [edit this website add submit a Pull Request](/editing-website.html).
+If you have a Solr video that you would like to see listed here, please [edit this website add submit a Pull Request]("/editing-website.html").
 
 <!-- TODO: WOULD BE NICE TO HAVE A SLIDER OR RANDOMLY PICKED VIDEO HERE -->
 
+<h3 class="offset" id="youtube">Conferences with Solr talks</h3>
+
+[Videos from Past ApacheCon events](https://www.youtube.com/c/TheApacheFoundation/search?query=lucene%20solr)
+
 [Videos from Past Activate / Lucene/Solr revolution events](https://www.activate-conf.com/more-events)
 
-[Videos from Lucidwork's Eurocon](https://vimeo.com/search?q=lucene%20eurocon)
+[Videos from past Berlin Buzzwords events](https://www.youtube.com/c/PlainSchwarzUG/playlists?view=50&sort=dd&shelf_id=1)
+
+[Videos from past Haystack events (search relevance)](https://www.youtube.com/channel/UCiuXt-f2Faan4Es37nADUdQ/playlists)
+
+[Videos from Lucidwork's Lucene Eurocon](https://vimeo.com/search?q=lucene%20eurocon)
 
 <h3 class="offset" id="youtube">YouTube</h3>
 
@@ -224,10 +232,4 @@ If you have a Solr video that you would like to see listed here, please [edit th
 <h3 class="offset" id="vimeo">Vimeo</h3>
 
 [Search Vimeo for Solr](http://vimeo.com/search?q=solr)
-
-## Website ##
-
-This web site is hosted in its own git repository `solr-site` (see [Github](https://github.com/apache/solr-site/) and [Gitbox](https://gitbox.apache.org/repos/asf/solr-site.git)).
-
-Pushing to the `main` branch will update the [staging site](https://solr.staged.apache.org) while pushing to `production` branch will update the main web site. Read the [README.md](https://github.com/apache/solr-site/) file for further instructions.
 
