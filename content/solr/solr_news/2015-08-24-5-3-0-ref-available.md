@@ -12,7 +12,7 @@ fault tolerant distributed search and indexing, and powers the search
 and navigation features of many of the world's largest internet sites.
 
 Solr 5.3.0 is available for immediate download at:
-<https://lucene.apache.org/solr/mirrors-solr-latest-redir.html>
+<https://solr.apache.org/downloads.html>
 
 Solr 5.3 Release Highlights:
 
@@ -28,5 +28,5 @@ Solr 5.3 Release Highlights:
 
 See the [CHANGES.txt](/solr/5_3_0/changes/Changes.html) file included with the release for a full list of details.
 
-Please report any feedback to the [mailing lists](https://lucene.apache.org/solr/discussion.html)
+Please report any feedback to the [mailing lists](https://solr.apache.org/discussion.html)
 
