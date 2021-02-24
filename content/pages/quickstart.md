@@ -8,4 +8,4 @@ template: page
 
 # Solr Quick Start
 
-Please see the [Solr Tutorial](https://lucene.apache.org/solr/guide/solr-tutorial.html) or additional [Resources](/resources.html).
+Please see the [Solr Tutorial](https://solr.apache.org/guide/solr-tutorial.html) or additional [Resources](/resources.html).

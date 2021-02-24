@@ -7,7 +7,7 @@ template: security
 If you believe you have discovered a vulnerability in Solr, you may first want to consult the [list of known false positives](https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools) to make sure you are reporting a real vulnerability.
 Then please disclose responsibly by following [these ASF guidelines](https://www.apache.org/security/) for reporting.
 
-You may file your request by email to <mailto:security@lucene.apache.org> or alternatively file a **private** security issue in [Solr JIRA](https://issues.apache.org/jira/browse/SOLR).
+You may file your request by email to <mailto:security@solr.apache.org>.
 
 ## More information
 You will find more security related information on our Wiki: <https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity>, such as information on how to treat the automated reports from security scanning tools.
