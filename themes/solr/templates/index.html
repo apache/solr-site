@@ -4,11 +4,11 @@
 
 {% block security_warning %}
 {% set latest_sec_articles = (articles | selectattr("category.name", "eq", "solr/security") | list)[:1] %}
-{% set latest_date = latest_sec_articles[0].date | strftime("%Y-%m-%d") %}
-<section class="security" latest-date="{{ latest_date }}">
+{% set latest_sec_date = latest_sec_articles[0].date | strftime("%Y-%m-%d") %}
+<section class="security" latest-date="{{ latest_sec_date }}">
   <div class="row">
     <div class="large-12 columns text-center">
-      <h2><a href="security.html">There are recent security announcements. Read more on the Security page.</a></h2>
+      <h2><a href="security.html">&#x26A0; There are recent security announcements. Read more on the Security page.</a></h2>
     </div>
   </div>
 </section>
@@ -19,7 +19,7 @@
 {% set latest_date = latest_articles[0].date | strftime("%Y-%m-%d") %}
 <section class="topnews" latest-date="{{ latest_date }}">
   <div class="row">
-    {% for article in (articles | selectattr("category.name", "in", ['solr/news'])|list)[:1] %}
+    {% for article in latest_articles %}
     <p id="{{article.slug}}">
       <a href="/news.html#{{article.slug}}"><b>NEWS:</b> {{article.title}}</a> <span class="news-date">({{ article.date | strftime("%d.%b") }})</span>
     </p>

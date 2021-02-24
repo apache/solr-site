@@ -32,12 +32,12 @@
     $('.topnews .row h2').removeClass('offset');
     $('.smooth-scroll').smoothScroll({ offset: 100 });
     // Conditionally show security news block
-    var latest_sec_days = (new Date() - new Date($('.security').attr('latest-date'))) / (1000*60*60*24);
+    const latest_sec_days = (new Date() - new Date($('.security').attr('latest-date'))) / (1000 * 60 * 60 * 24);
     if (latest_sec_days < 60) {
       $('.security').show();
     }
     // Conditionally show last news entry
-    var latest_news_days = (new Date() - new Date($('.topnews').attr('latest-date'))) / (1000*60*60*24);
+    const latest_news_days = (new Date() - new Date($('.topnews').attr('latest-date'))) / (1000 * 60 * 60 * 24);
     if (latest_news_days < 60) {
       $('.topnews').show();
     }
