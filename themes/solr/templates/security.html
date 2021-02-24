@@ -24,7 +24,7 @@
         </tr>
         {% for article in (articles | selectattr("category.name", "eq", "solr/security")|list)[:15] %}
         <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/{{ article.cve }}">{{ article.cve }}</a></td>
+            <td>{% if article.cve %}<a href="https://nvd.nist.gov/vuln/detail/{{ article.cve }}">{{ article.cve }}</a>{% endif %}</td>
             <td>{{ article.date | strftime("%Y-%m-%d") }}</td>
             <td><a href="#{{ article.slug }}">{{ article.title | regex_replace('^CVE.*?: ', '') }}</a></td>
         </tr>
