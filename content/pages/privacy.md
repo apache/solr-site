@@ -3,13 +3,17 @@ URL: privacy.html
 save_as: privacy.html
 template: page
 
-Information about your use of this website is collected using server access logs and a tracking cookie. The collected information consists of the following:
+# Privacy Policy for Apache Solr website
 
-The IP address from which you access the website;
-The type of browser and operating system you use to access our site;
-The date and time you access our site;
-The pages you visit; and
-The addresses of pages from where you followed a link to our site.
+Information about your use of this website is collected using server access logs and a tracking cookie. 
+The collected information consists of the following:
+
+* The IP address from which you access the website;
+* The type of browser and operating system you use to access our site;
+* The date and time you access our site;
+* The pages you visit; and
+* The addresses of pages from where you followed a link to our site.
+
 Part of this information is gathered using a tracking cookie set by the [Google Analytics](http://www.google.com/analytics) service and handled by Google as described in their [privacy policy](http://www.google.com/privacy.html). See your browser documentation for instructions on how to disable the cookie if you prefer not to share this data with Google.
 
 We use the gathered information to help us make our site more useful to visitors and to better understand how and when our site is
