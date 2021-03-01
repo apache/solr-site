@@ -78,9 +78,9 @@
     modalOverlay.classList.toggle("closed");
   });
 
-  // Open modal box on first visit only
-  if (readCookie("alreadyVisited") == null) {
-    createCookie("alreadyVisited", "yes", 30000)
+  // Open modal box on first visit only, and only the first year
+  if (readCookie("alreadyVisited") == null && new Date() < new Date('2022-03-01')) {
+    createCookie("alreadyVisited", "yes", 400)
     modal.classList.toggle("closed");
     modalOverlay.classList.toggle("closed");
   }
