@@ -37,8 +37,33 @@ This is a list of emeritus project members. We appreciate your contributions!
 
 #### Emeritus PMC members
 
-* NN
+- George Aroush (aroush)
+- Doron Cohen (doronc)
+- Doug Cutting (cutting)
+- Christoph Goller (goller)
+- Chris Hostetter (hossman)
+- Mike Klaas (klaas)
 
 #### Emeritus committers
 
-* NN
+- George Aroush (aroush)
+- Josh Bloch
+- Peter Carlson (carlson)
+- Tal Dayan (zapta)
+- Bertrand Delacretaz (bdelacretaz)
+- Scott Ganyo (scottganyo)
+- Brian Goetz (briangoetz)
+- Christoph Goller (goller)
+- Eugene Gluzberg (drag0n)
+- Cory Hubert (clhubert)
+- Ted Husted
+- Tim Jones (tjones)
+- Mike Klaas (klaas)
+- Dave Kor (davekor)
+- Daniel Naber (dnaber)
+- Patrick O'Leary (pjaol)
+- Andrew C. Oliver (acoliver)
+- Dmitry Serebrennikov (dmitrys)
+- Jon Stevens
+- Matt Tucker (mtucker)
+- Karl Wettin (kalle)
