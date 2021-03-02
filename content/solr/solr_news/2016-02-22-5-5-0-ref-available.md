@@ -16,7 +16,7 @@ and navigation features of many of the world's largest internet sites.
 Solr 5.5.0 is available for immediate download at:
 <https://solr.apache.org/downloads.html>
 
-See the [CHANGES.txt](/solr/5_5_0/changes/Changes.html)
+See the [CHANGES.txt](/docs/5_5_0/changes/Changes.html)
 file included with the release for a full list of details.
 
 This is expected to be the last 5.x feature release before Solr 6.0.

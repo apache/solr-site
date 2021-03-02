@@ -26,7 +26,7 @@ Solr 5.3 Release Highlights:
  * Added Scoring mode for query-time join and block join.
  * Added Smile response format
 
-See the [CHANGES.txt](/solr/5_3_0/changes/Changes.html) file included with the release for a full list of details.
+See the [CHANGES.txt](/docs/5_3_0/changes/Changes.html) file included with the release for a full list of details.
 
 Please report any feedback to the [mailing lists](https://solr.apache.org/discussion.html)
 

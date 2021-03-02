@@ -4,7 +4,7 @@ save_as: guide/solr-tutorial.html
 template: page
 
 <!-- As of 2 Oct 2017, this page now automatically redirects to
-        the Solr Reference Guide page solr/guide/solr-tutorial.html -->
+        the Solr Reference Guide page /guide/solr-tutorial.html -->
 
 # Solr Quick Start
 
