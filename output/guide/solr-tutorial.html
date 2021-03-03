@@ -1,0 +1,333 @@
+<!doctype html>
+<html>
+  <head>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE- 2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,500' rel='stylesheet' type='text/css'>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=634a020b" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=634a020b"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=634a020b"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=634a020b" />
+<meta name="Distribution" content="Global"/>
+<meta name="Robots" content="index,follow"/>
+
+<script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=634a020b"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=634a020b"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=634a020b"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=634a020b"></script>
+<script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=634a020b"></script>
+<script src="/theme/javascript/main.js?v=634a020b"></script>    <title>Apache Solr - </title>
+
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+
+   <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
+  </head>
+
+  <body class="page "  x-ng-app="page" x-ng-controller="page.controllers.main">
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="/news.html">News</a>
+          </li>
+          <li>
+            <a href="/security.html">Security</a>
+          </li>
+          <li>
+            <a href="/features.html">Features</a>
+          </li>
+          <li>
+            <a href="/resources.html">Resources</a>
+          </li>
+          <li>
+            <a href="/community.html">Community</a>
+          </li>
+          <li>
+            <a href="/whoweare.html">Project</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="/downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
+<div class="container">
+  <div class="row">
+<!-- As of 2 Oct 2017, this page now automatically redirects to
+        the Solr Reference Guide page /guide/solr-tutorial.html -->
+
+<h1 id="solr-quick-start">Solr Quick Start</h1>
+<p>Please see the <a href="https://solr.apache.org/guide/solr-tutorial.html">Solr Tutorial</a> or additional <a href="/resources.html">Resources</a>.</p>  </div>
+</div>
+    <footer>
+<div class="row">
+  <div class="small-6 medium-3 columns">
+    <h4>Features</h4>
+    <ul>
+      <li><a href="/features.html">Overview</a></li>
+      <li><a href="/features.html#data-handling">Data Handling</a></li>
+      <li><a href="/features.html#query">Querying</a></li>
+      <li><a href="/features.html#facets">Faceting</a></li>
+      <li><a href="/features.html#discovery">Discovery</a></li>
+      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
+      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
+      <li><a href="/features.html#spatial">Spatial</a></li>
+      <li><a href="/features.html#rich-content">Rich Content</a></li>
+      <li><a href="/features.html#performance">Performance</a></li>
+      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
+      <li><a href="/features.html#admin-ui">User Interface</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="/resources.html#documentation">Docs</a></li>
+      <li><a href="/resources.html#solr-books">Books</a></li>
+      <li><a href="/resources.html#presentations">Presentations</a></li>
+      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
+      <li><a href="/editing-website.html">Editing this Website</a></li>
+      <br/>
+      <li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+      <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+      <li><a href="https://www.apache.org/security/">Security</a></li>
+      <li><a href="https://www.apache.org/licenses/">License</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Get Started</h4>
+    <ul>
+      <li><a href="/downloads.html">Download</a></li>
+      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+      <li><a href="/resources.html">Level Up</a></li>
+    </ul>
+    <br/>
+    <h4>Community</h4>
+    <ul>
+      <li><a href="/community.html#support">Support</a></li>
+      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
+      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
+      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Related Projects</h4>
+    <ul>
+      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row copyright">
+<div class="large-centered columns">
+  <p>Copyright © 2021 The Apache Software Foundation, Licensed under the
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="/privacy.html">Privacy Policy</a><br/>
+    Apache and the Apache feather logo are trademarks of The Apache Software Foundation. Apache Lucene,
+    Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
+    Please see the <a href="https://www.apache.org/foundation/marks/">Apache Trademark Policy</a> for more information.
+    All non-Apache logos are the trademarks of their respective owners.</p>
+</div></div>    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<script>
+  $(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+  });
+</script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QKSF79B9Y1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QKSF79B9Y1');
+</script>
+<!-- End Google Analytics -->
+/* Displays a post-it note at first visit only */
+<div class="modal-overlay closed" id="modal-overlay"></div>
+
+<div class="sticky-container closed" id="modal">
+    <div class="sticky-outer">
+      <div class="sticky">
+        <svg width="0" height="0">
+          <defs>
+            <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
+              <path
+                d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
+                stroke-linejoin="round"
+                stroke-linecap="square"
+              />
+            </clipPath>
+          </defs>
+        </svg>
+        <div class="sticky-content">
+          <button class="close-button" id="close-button">X</button>
+          <div><h1>Solr has a new home!</h1></div>
+          <div class="break"></div>
+          <div>
+            Solr is now an independent Apache project here at <b>solr.apache.org</b>.
+            Please update your links. <a href="/news.html#apache-solr-becomes-an-apache-tlp" id="news-link">Read more about what it means for you</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<button id="open-button" class="open-button">Open Button</button>
+
+<script>
+  /* Cookie enabling functions. Thanks to Peter-Paul Koch for the code examples
+     at https://www.quirksmode.org/js/cookies.html
+     Copyright granted https://www.quirksmode.org/about/copyright.html
+  */
+  function createCookie(name,value,days) {
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime()+(days*24*60*60*1000));
+      var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+  }
+
+  function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+  }
+
+  function eraseCookie(name) {
+    createCookie(name,"",-1);
+  }
+</script>
+
+<script>
+  /* Script code to handle sticky note and modality */
+  var modal = document.querySelector("#modal");
+  var modalOverlay = document.querySelector("#modal-overlay");
+  var closeButton = document.querySelector("#close-button");
+  var linkText = document.querySelector("#news-link");
+
+  closeButton.addEventListener("click", function() {
+    modal.classList.toggle("closed");
+    modalOverlay.classList.toggle("closed");
+  });
+
+  linkText.addEventListener("click", function() {
+    modal.classList.toggle("closed");
+    modalOverlay.classList.toggle("closed");
+  });
+
+  // Open modal box on first visit only, and only the first year
+  if (readCookie("alreadyVisited") == null && new Date() < new Date('2022-03-01')) {
+    createCookie("alreadyVisited", "yes", 400)
+    modal.classList.toggle("closed");
+    modalOverlay.classList.toggle("closed");
+  }
+</script>  </body>
+</html>
