@@ -2,7 +2,7 @@
 <html>
   <head>
     {% include "_head.html" %}
-    <title>Apache Solr - {% block title %}{% endblock %}</title>
+    <title>{% block title %}{{ page.title }}{% endblock %} - Apache Solr</title>
     {% block css %}{% endblock %}
 
     {% block metakeys %}
