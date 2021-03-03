@@ -43,7 +43,7 @@ Additional documentation can be found on the [Solr Community Wiki](https://cwiki
 
 ## Solr Books ##
 
-If you have a Solr book that you would like to see listed here, please [edit this website add submit a Pull Request]("/editing-website.html").
+If you have a Solr book that you would like to see listed here, please [edit this website and submit a Pull Request](/editing-website.html).
 
 <h3 class="offset" id="book-relevant-search">Relevant Search</h3>
 Doug Turnbull, John Berryman and Manning Publications are proud to announce *Relevant Search*.
@@ -209,7 +209,7 @@ If you have a Solr presentation that you would like to see listed here, please s
 
 ## Videos ##
 
-If you have a Solr video that you would like to see listed here, please [edit this website add submit a Pull Request]("/editing-website.html").
+If you have a Solr video that you would like to see listed here, please [edit this website and submit a Pull Request](/editing-website.html).
 
 <!-- TODO: WOULD BE NICE TO HAVE A SLIDER OR RANDOMLY PICKED VIDEO HERE -->
 
