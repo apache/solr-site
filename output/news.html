@@ -145,7 +145,7 @@ Solr has been a Lucene sub-project since its incubation in 2006, governed by the
 and has since the 3.1 release also shared source code repository with Lucene.</p>
 <h3 id="whats-the-background">What's the background?</h3>
 <p>The change was proposed by members of the Lucene PMC, and a vote in June 2020 decided
-that Solr would be promoted to TLP. Later, the Lucene PMC decided that the Solr project
+that Solr would be a separate TLP. Later, the Lucene PMC decided that the Solr project
 would be bootstrapped with the same set of committers and PMC members as the "mother" Lucene project.</p>
 <h3 id="how-does-this-affect-users">How does this affect users?</h3>
 <p>The Solr software will not change at all as a result of this, but users will see these changes:</p>
@@ -157,12 +157,12 @@ would be bootstrapped with the same set of committers and PMC members as the "mo
 <h3 id="how-does-this-affect-developers">How does this affect developers?</h3>
 <p>Developers will have to do a number of things to adapt to the change</p>
 <ol>
-<li>Subscribe to the new mailing lists. See <a href="https://lists.apache.org/list.html?dev@solr.apache.org">lists.apache.org</a> for instructions</li>
-<li>Start using the new git location by cloning or defining a new git remote</li>
-<li>Realize that lucene is now a build dependency of Solr</li>
-<li>Backported bug fixes for 8.x versions must be submitted to the Lucene project, that continue to release bugfix releases of the 8.x line</li>
+<li>Subscribe to the new mailing lists. See <a href="/community.html#mailing-lists-chat">Mailing Lists &amp; Chat</a> for instructions</li>
+<li>Start using <a href="/community.html#version-control">the new git location</a> by cloning or defining a new git remote</li>
+<li>Realize that lucene will be a build dependency of Solr on the main branch (once the code migration is done)</li>
+<li>Backported bug fixes for Solr 8.8 must be submitted to the Lucene git, for a joint bugfix release</li>
 </ol>
-<p>Please go to the new website <a href="http://solr.apache.org/">http://solr.apache.org/</a> to read more.</p>
+<p><strong>NOTE:</strong> Some things may be in flux during the migration work.</p>
   <h2 id="apache-solrtm-880-available">29 January 2021, Apache Solr™ 8.8.0 available
     <a class="headerlink" href="#apache-solrtm-880-available" title="Permanent link">¶</a>
   </h2>
