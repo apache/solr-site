@@ -1,0 +1,941 @@
+<!doctype html>
+<html>
+  <head>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE- 2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,500' rel='stylesheet' type='text/css'>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=634a020b" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=634a020b"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=634a020b"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=634a020b" />
+<meta name="Distribution" content="Global"/>
+<meta name="Robots" content="index,follow"/>
+
+<script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=634a020b"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=634a020b"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=634a020b"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=634a020b"></script>
+<script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=634a020b"></script>
+<script src="/theme/javascript/main.js?v=634a020b"></script>    <title>Apache Solr - </title>
+
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+
+   <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/atom+xml" title="Solr security announce feed" href="/feeds/solr/security.atom.xml" />  </head>
+
+  <body class="page " x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="/news.html">News</a>
+          </li>
+          <li>
+            <a href="/security.html">Security</a>
+          </li>
+          <li>
+            <a href="/features.html">Features</a>
+          </li>
+          <li>
+            <a href="/resources.html">Resources</a>
+          </li>
+          <li>
+            <a href="/community.html">Community</a>
+          </li>
+          <li>
+            <a href="/whoweare.html">Project</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="/downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
+<div class="container">
+  <div class="row">
+<div class="small-12 columns">
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible;
+    }
+  </style>
+  <h1 id="solr-news">Solr<sup>™</sup> Security News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
+  <h2 id="how-to-report-a-security-issue">How to report a security issue</h2>
+<p>If you believe you have discovered a vulnerability in Solr, you may first want to consult the <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools">list of known false positives</a> to make sure you are reporting a real vulnerability.
+Then please disclose responsibly by following <a href="https://www.apache.org/security/">these ASF guidelines</a> for reporting.</p>
+<p>You may file your request by email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#115;&#111;&#108;&#114;&#46;&#97;&#112;&#97;&#99;&#104;&#101;&#46;&#111;&#114;&#103;">&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#115;&#111;&#108;&#114;&#46;&#97;&#112;&#97;&#99;&#104;&#101;&#46;&#111;&#114;&#103;</a>.</p>
+<h2 id="more-information">More information</h2>
+<p>You will find more security related information on our Wiki: <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a>, such as information on how to treat the automated reports from security scanning tools.</p>
+<h1 id="recent-cve-reports-for-apache-solr">Recent CVE reports for Apache Solr</h1>
+<p>Below is a list of already announced CVE vulnerabilities. These are also available as an <a href="/feeds/solr/security.atom.xml">ATOM feed</a>:</p>
+
+    <table>
+        <tr>
+            <th width="130">CVE#</th>
+            <th width="95">Date</th>
+            <th>Announcement</th>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13957">CVE-2020-13957</a></td>
+            <td>2020-10-12</td>
+            <td><a href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">The checks added to unauthenticated configset uploads in Apache Solr can be circumvented</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13941">CVE-2020-13941</a></td>
+            <td>2020-08-14</td>
+            <td><a href="#cve-2020-13941-apache-solr-information-disclosure-vulnerability">Apache Solr information disclosure vulnerability</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-17558">CVE-2019-17558</a></td>
+            <td>2019-12-30</td>
+            <td><a href="#cve-2019-17558-apache-solr-rce-through-velocityresponsewriter">Apache Solr RCE through VelocityResponseWriter</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12409">CVE-2019-12409</a></td>
+            <td>2019-11-18</td>
+            <td><a href="#cve-2019-12409-apache-solr-rce-vulnerability-due-to-bad-config-default">Apache Solr RCE vulnerability due to bad config default</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12401">CVE-2019-12401</a></td>
+            <td>2019-09-09</td>
+            <td><a href="#cve-2019-12401-xml-bomb-in-apache-solr-versions-prior-to-50">XML Bomb in Apache Solr versions prior to 5.0</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>2019-08-14</td>
+            <td><a href="#announce-811-and-820-users-check-enable_remote_jmx_opts-setting">[ANNOUNCE] 8.1.1 and 8.2.0 users check ENABLE_REMOTE_JMX_OPTS setting</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-0193">CVE-2019-0193</a></td>
+            <td>2019-07-31</td>
+            <td><a href="#cve-2019-0193-apache-solr-remote-code-execution-via-dataimporthandler">Apache Solr, Remote Code Execution via DataImportHandler</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-0192">CVE-2019-0192</a></td>
+            <td>2019-03-06</td>
+            <td><a href="#cve-2019-0192-deserialization-of-untrusted-data-via-jmxserviceurl-in-apache-solr">Deserialization of untrusted data via jmx.serviceUrl in Apache Solr</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-3164">CVE-2017-3164</a></td>
+            <td>2019-02-12</td>
+            <td><a href="#cve-2017-3164-ssrf-issue-in-apache-solr">SSRF issue in Apache Solr</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1308">CVE-2018-1308</a></td>
+            <td>2018-04-08</td>
+            <td><a href="#cve-2018-1308-xxe-attack-through-apache-solrs-dihs-dataconfig-request-parameter">XXE attack through Apache Solr's DIH's dataConfig request parameter</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6809">CVE-2016-6809</a></td>
+            <td>2017-10-26</td>
+            <td><a href="#cve-2016-6809-java-code-execution-for-serialized-objects-embedded-in-matlab-files-parsed-by-apache-solr-using-tika">Java code execution for serialized objects embedded in MATLAB files parsed by Apache Solr using Tika</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-9803">CVE-2017-9803</a></td>
+            <td>2017-10-18</td>
+            <td><a href="#several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce">Several critical vulnerabilities discovered in Apache Solr (XXE & RCE)</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-12629">CVE-2017-12629</a></td>
+            <td>2017-10-12</td>
+            <td><a href="#solr-security-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list">Please secure your Apache Solr servers since a zero-day exploit has been reported on a public mailing list</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-9803">CVE-2017-9803</a></td>
+            <td>2017-09-18</td>
+            <td><a href="#cve-2017-9803-security-vulnerability-in-kerberos-delegation-token-functionality">Security vulnerability in kerberos delegation token functionality**</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7660">CVE-2017-7660</a></td>
+            <td>2017-07-07</td>
+            <td><a href="#cve-2017-7660-security-vulnerability-in-secure-inter-node-communication-in-apache-solr">Security Vulnerability in secure inter-node communication in Apache Solr**</a></td>
+        </tr>
+    </table>
+
+  <h2 id="cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">2020-10-12, CVE-2020-13957: The checks added to unauthenticated configset uploads in Apache Solr can be circumvented
+    <a class="headerlink" href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong>
+High</p>
+<p><strong>Versions Affected:</strong>
+6.6.0 to 6.6.6
+7.0.0 to 7.7.3
+8.0.0 to 8.6.2</p>
+<p><strong>Description:</strong>
+Solr prevents some features considered dangerous (which could be used for remote code execution) to be configured in a ConfigSet that's uploaded via API without authentication/authorization. The checks in place to prevent such features can be circumvented by using a combination of UPLOAD/CREATE actions.</p>
+<p><strong>Mitigation:</strong>
+Any of the following are enough to prevent this vulnerability:</p>
+<ul>
+<li>Disable UPLOAD command in ConfigSets API if not used by setting the system property: <code>configset.upload.enabled</code> to <code>false</code> (<a href="https://solr.apache.org/guide/8_6/configsets-api.html">see docs</a>)</li>
+<li>Use Authentication/Authorization and make sure unknown requests aren't allowed (<a href="https://solr.apache.org/guide/8_6/authentication-and-authorization-plugins.html">see docs</a>)</li>
+<li>Upgrade to <code>Solr 8.6.3</code> or greater.</li>
+<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-14663">SOLR-14663</a></li>
+<li>No Solr API, including the Admin UI, is designed to be exposed to non-trusted parties. Tune your firewall so that only trusted computers and people are allowed access</li>
+</ul>
+<p><strong>Credit:</strong>
+Tomás Fernández Löbbe, András Salamon</p>
+<p><strong>References:</strong>
+<a href="https://issues.apache.org/jira/browse/SOLR-14925">SOLR-14925</a>: CVE-2020-13957: The checks added to unauthenticated configset uploads can be circumvented</p>
+  <hr/>
+  <h2 id="cve-2020-13941-apache-solr-information-disclosure-vulnerability">2020-08-14, CVE-2020-13941: Apache Solr information disclosure vulnerability
+    <a class="headerlink" href="#cve-2020-13941-apache-solr-information-disclosure-vulnerability" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong> 
+Medium</p>
+<p><strong>Versions Affected:</strong><br>
+Before Solr 8.6.  Some risks are specific to Windows.</p>
+<p><strong>Description:</strong>
+Reported in SOLR-14515 (private) and fixed in SOLR-14561 (public), released in Solr version 8.6.0. 
+The Replication handler (https://solr.apache.org/guide/8_6/index-replication.html#http-api-commands-for-the-replicationhandler) allows commands backup, restore and deleteBackup. Each of these take a location parameter, which was not validated, i.e you could read/write to any location the solr user can access. </p>
+<p>On a windows system SMB paths such as \10.0.0.99\share\folder may also be used, leading to:</p>
+<ul>
+<li>The possibility of restoring another SolrCore from a server on the network (or mounted remote file system) may lead to:<ul>
+<li>Exposing search index data that the attacker should otherwise not have access to</li>
+<li>Replacing the index data entirely by loading it from a remote file system that the attacker controls</li>
+</ul>
+</li>
+<li>Launching SMB attacks which may result in:<ul>
+<li>The exfiltration of sensitive data such as OS user hashes (NTLM/LM hashes),</li>
+<li>In case of misconfigured systems, SMB Relay Attacks which can lead to user impersonation on SMB Shares or, in a worse-case scenario, Remote Code Execution </li>
+</ul>
+</li>
+</ul>
+<p><strong>Mitigation:</strong>
+Upgrade to Solr 8.6, and/or ensure only trusted clients can make requests of Solr's replication handler.</p>
+<p><strong>Credit:</strong>
+Matei "Mal" Badanoiu</p>
+  <hr/>
+  <h2 id="cve-2019-17558-apache-solr-rce-through-velocityresponsewriter">2019-12-30, CVE-2019-17558: Apache Solr RCE through VelocityResponseWriter
+    <a class="headerlink" href="#cve-2019-17558-apache-solr-rce-through-velocityresponsewriter" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong> High</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong>
+5.0.0 to 8.3.1</p>
+<p><strong>Description:</strong><br>
+The affected versions are vulnerable to a Remote Code Execution through the
+VelocityResponseWriter.  A Velocity template can be provided through
+Velocity templates in a configset <code>velocity/</code> directory or as a parameter.
+A user defined configset could contain renderable, potentially malicious,
+templates.  Parameter provided templates are disabled by default, but can
+be enabled by setting <code>params.resource.loader.enabled</code> by defining a
+response writer with that setting set to <code>true</code>.  Defining a response
+writer requires configuration API access.</p>
+<p>Solr 8.4 removed the params resource loader entirely, and only enables the
+configset-provided template rendering when the configset is <code>trusted</code> (has
+been uploaded by an authenticated user).</p>
+<p><strong>Mitigation:</strong><br>
+Ensure your network settings are configured so that only trusted traffic
+communicates with Solr, especially to the configuration APIs.</p>
+<p><strong>Credit:</strong><br>
+Github user <code>s00py</code></p>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-13971">https://issues.apache.org/jira/browse/SOLR-13971</a></li>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-14025">https://issues.apache.org/jira/browse/SOLR-14025</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
+</ul>
+  <hr/>
+  <h2 id="cve-2019-12409-apache-solr-rce-vulnerability-due-to-bad-config-default">2019-11-18, CVE-2019-12409: Apache Solr RCE vulnerability due to bad config default
+    <a class="headerlink" href="#cve-2019-12409-apache-solr-rce-vulnerability-due-to-bad-config-default" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong>
+High</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong><br>
+Solr 8.1.1 and 8.2.0 for Linux</p>
+<p><strong>Description:</strong><br>
+The 8.1.1 and 8.2.0 releases of Apache Solr contain an
+insecure setting for the ENABLE_REMOTE_JMX_OPTS configuration option
+in the default solr.in.sh configuration file shipping with Solr.</p>
+<p>Windows users are not affected.</p>
+<p>If you use the default solr.in.sh file from the affected releases, then
+JMX monitoring will be enabled and exposed on RMI_PORT (default=18983),
+without any authentication. If this port is opened for inbound traffic
+in your firewall, then anyone with network access to your Solr nodes
+will be able to access JMX, which may in turn allow them to upload
+malicious code for execution on the Solr server.</p>
+<p>The vulnerability is already public [1] and mitigation steps were
+announced on project mailing lists and news page [3] on August 14th,
+without mentioning RCE at that time.</p>
+<p><strong>Mitigation:</strong><br>
+Make sure your effective solr.in.sh file has ENABLE_REMOTE_JMX_OPTS set
+to 'false' on every Solr node and then restart Solr. Note that the
+effective solr.in.sh file may reside in /etc/defaults/ or another
+location depending on the install. You can then validate that the
+'com.sun.management.jmxremote*' family of properties are not listed in
+the "Java Properties" section of the Solr Admin UI, or configured in a
+secure way.</p>
+<p>There is no need to upgrade or update any code.</p>
+<p>Remember to follow the Solr Documentation's advice to never expose Solr
+nodes directly in a hostile network environment.</p>
+<p><strong>Credit:</strong><br>
+Matei "Mal" Badanoiu<br>
+Solr JIRA user 'jnyryan' (John)</p>
+<p><strong>References:</strong><br>
+[1] https://issues.apache.org/jira/browse/SOLR-13647<br>
+[3] https://solr.apache.org/news.html</p>
+  <hr/>
+  <h2 id="cve-2019-12401-xml-bomb-in-apache-solr-versions-prior-to-50">2019-09-09, CVE-2019-12401: XML Bomb in Apache Solr versions prior to 5.0
+    <a class="headerlink" href="#cve-2019-12401-xml-bomb-in-apache-solr-versions-prior-to-50" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong> Medium</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>1.3.0 to 1.4.1</li>
+<li>3.1.0 to 3.6.2</li>
+<li>4.0.0 to 4.10.4</li>
+</ul>
+<p><strong>Description:</strong><br>
+Solr versions prior to 5.0.0 are vulnerable to an XML resource
+consumption attack (a.k.a. Lol Bomb) via it’s update handler. By leveraging
+XML DOCTYPE and ENTITY type elements, the attacker can create a pattern
+that will expand when the server parses the XML causing OOMs</p>
+<p><strong>Mitigation:</strong>  </p>
+<ul>
+<li>Upgrade to Apache Solr 5.0 or later.</li>
+<li>Ensure your network settings are configured so that only trusted traffic is allowed to post documents to the running Solr instances.</li>
+</ul>
+<p><strong>Credit:</strong><br>
+Matei "Mal" Badanoiu</p>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-13750">https://issues.apache.org/jira/browse/SOLR-13750</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
+</ul>
+  <hr/>
+  <h2 id="announce-811-and-820-users-check-enable_remote_jmx_opts-setting">2019-08-14, [ANNOUNCE] 8.1.1 and 8.2.0 users check ENABLE_REMOTE_JMX_OPTS setting
+    <a class="headerlink" href="#announce-811-and-820-users-check-enable_remote_jmx_opts-setting" title="Permanent link">¶</a>
+  </h2>
+  <div class="codehilite"><pre><span></span><code><span class="n">Severity</span><span class="o">:</span> <span class="n">Low</span>
+
+<span class="n">Versions</span> <span class="n">Affected</span><span class="o">:</span>
+<span class="mf">8.1</span><span class="o">.</span><span class="mi">1</span> <span class="n">and</span> <span class="mf">8.2</span><span class="o">.</span><span class="mi">0</span> <span class="k">for</span> <span class="n">Linux</span>
+
+<span class="n">Description</span><span class="o">:</span>
+<span class="n">It</span> <span class="n">has</span> <span class="n">been</span> <span class="n">discovered</span> <span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="n">that</span> <span class="n">the</span> <span class="mf">8.1</span><span class="o">.</span><span class="mi">1</span> <span class="n">and</span> <span class="mf">8.2</span><span class="o">.</span><span class="mi">0</span> <span class="n">releases</span> <span class="n">contain</span> <span class="n">a</span> <span class="n">bad</span> <span class="k">default</span>
+<span class="n">setting</span> <span class="k">for</span> <span class="n">the</span> <span class="n">ENABLE_REMOTE_JMX_OPTS</span> <span class="n">setting</span> <span class="k">in</span> <span class="n">the</span> <span class="k">default</span> <span class="n">solr</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">sh</span> <span class="n">file</span>
+<span class="n">shipping</span> <span class="k">with</span> <span class="n">Solr</span><span class="o">.</span>
+
+<span class="n">Windows</span> <span class="n">users</span> <span class="n">and</span> <span class="n">users</span> <span class="k">with</span> <span class="n">custom</span> <span class="n">solr</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">sh</span> <span class="n">files</span> <span class="n">are</span> <span class="n">not</span> <span class="n">affected</span><span class="o">.</span>
+
+<span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">the</span> <span class="k">default</span> <span class="n">solr</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">sh</span> <span class="n">file</span> <span class="n">from</span> <span class="n">the</span> <span class="n">affected</span> <span class="n">releases</span><span class="o">,</span> <span class="n">then</span>
+<span class="n">JMX</span> <span class="n">monitoring</span> <span class="n">will</span> <span class="n">be</span> <span class="n">enabled</span> <span class="n">and</span> <span class="n">exposed</span> <span class="n">on</span> <span class="n">JMX_PORT</span> <span class="o">(</span><span class="k">default</span> <span class="o">=</span> <span class="mi">18983</span><span class="o">),</span>
+<span class="n">without</span> <span class="n">any</span> <span class="n">authentication</span><span class="o">.</span> <span class="n">So</span> <span class="k">if</span> <span class="n">your</span> <span class="n">firewalls</span> <span class="n">allows</span> <span class="n">inbound</span> <span class="n">traffic</span> <span class="n">on</span>
+<span class="n">JMX_PORT</span><span class="o">,</span> <span class="n">then</span> <span class="n">anyone</span> <span class="k">with</span> <span class="n">network</span> <span class="n">access</span> <span class="n">to</span> <span class="n">your</span> <span class="n">Solr</span> <span class="n">nodes</span> <span class="n">will</span> <span class="n">be</span> <span class="n">able</span> <span class="n">to</span>
+<span class="n">access</span> <span class="n">monitoring</span> <span class="n">data</span> <span class="n">exposed</span> <span class="n">over</span> <span class="n">JMX</span><span class="o">.</span>
+
+<span class="n">Mitigation</span><span class="o">:</span>
+<span class="n">Edit</span> <span class="n">solr</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">sh</span><span class="o">,</span> <span class="kd">set</span> <span class="n">ENABLE_REMOTE_JMX_OPTS</span><span class="o">=</span><span class="kc">false</span> <span class="n">and</span> <span class="n">restart</span> <span class="n">Solr</span><span class="o">.</span>
+<span class="n">Alternatively</span> <span class="n">wait</span> <span class="k">for</span> <span class="n">the</span> <span class="n">future</span> <span class="mf">8.3</span><span class="o">.</span><span class="mi">0</span> <span class="n">release</span> <span class="n">and</span> <span class="n">upgrade</span><span class="o">.</span>
+
+<span class="n">References</span><span class="o">:</span>
+<span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="n">https</span><span class="o">://</span><span class="n">issues</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">org</span><span class="sr">/jira/browse/</span><span class="n">SOLR</span><span class="o">-</span><span class="mi">13647</span>
+</code></pre></div>
+  <hr/>
+  <h2 id="cve-2019-0193-apache-solr-remote-code-execution-via-dataimporthandler">2019-07-31, CVE-2019-0193: Apache Solr, Remote Code Execution via DataImportHandler
+    <a class="headerlink" href="#cve-2019-0193-apache-solr-remote-code-execution-via-dataimporthandler" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong> High</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>5.0.0 to 5.5.5</li>
+<li>6.0.0 to 6.6.5</li>
+</ul>
+<p><strong>Description:</strong><br>
+The DataImportHandler, an optional but popular module to pull in data from
+databases and other sources, has a feature in which the whole DIH
+configuration can come from a request's "dataConfig" parameter. The debug
+mode of the DIH admin screen uses this to allow convenient debugging /
+development of a DIH config. Since a DIH config can contain scripts, this
+parameter is a security risk. Starting with version 8.2.0 of Solr, use of
+this parameter requires setting the Java System property
+<code>enable.dih.dataConfigParam</code> to true.</p>
+<p><strong>Mitigation:</strong>  </p>
+<ul>
+<li>Upgrade to 8.2.0 or later, which is secure by default.</li>
+<li>or, edit solrconfig.xml to configure all DataImportHandler usages with an "invariants" section listing the "dataConfig" parameter set to am empty string.</li>
+<li>Ensure your network settings are configured so that only trusted traffic communicates with Solr, especially to the DIH request handler.  This is a best practice to all of Solr.</li>
+</ul>
+<p><strong>Credit:</strong><br>
+Michael Stepankin (JPMorgan Chase)</p>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-13669">https://issues.apache.org/jira/browse/SOLR-13669</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
+</ul>
+  <hr/>
+  <h2 id="cve-2019-0192-deserialization-of-untrusted-data-via-jmxserviceurl-in-apache-solr">2019-03-06, CVE-2019-0192: Deserialization of untrusted data via jmx.serviceUrl in Apache Solr
+    <a class="headerlink" href="#cve-2019-0192-deserialization-of-untrusted-data-via-jmxserviceurl-in-apache-solr" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong> High</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>5.0.0 to 5.5.5</li>
+<li>6.0.0 to 6.6.5</li>
+</ul>
+<p><strong>Description:</strong><br>
+ConfigAPI allows to configure Solr's JMX server via an HTTP POST request.
+By pointing it to a malicious RMI server, an attacker could take advantage
+of Solr's unsafe deserialization to trigger remote code execution on the
+Solr side.</p>
+<p><strong>Mitigation:</strong><br>
+Any of the following are enough to prevent this vulnerability:</p>
+<ul>
+<li>Upgrade to Apache Solr 7.0 or later.</li>
+<li>Disable the ConfigAPI if not in use, by running Solr with the system property “disable.configEdit=true”</li>
+<li>If upgrading or disabling the Config API are not viable options, apply patch in [1] and re-compile Solr.</li>
+<li>Ensure your network settings are configured so that only trusted traffic is allowed to ingress/egress your hosts running Solr.</li>
+</ul>
+<p><strong>Credit:</strong><br>
+Michael Stepankin</p>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-13301">https://issues.apache.org/jira/browse/SOLR-13301</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
+</ul>
+  <hr/>
+  <h2 id="cve-2017-3164-ssrf-issue-in-apache-solr">2019-02-12, CVE-2017-3164: SSRF issue in Apache Solr
+    <a class="headerlink" href="#cve-2017-3164-ssrf-issue-in-apache-solr" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong> High</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong>
+Apache Solr versions from 1.3 to 7.6.0</p>
+<p><strong>Description:</strong><br>
+The "shards" parameter does not have a corresponding whitelist mechanism,
+so it can request any URL.</p>
+<p><strong>Mitigation:</strong><br>
+Upgrade to Apache Solr 7.7.0 or later.
+Ensure your network settings are configured so that only trusted traffic is
+allowed to ingress/egress your hosts running Solr.</p>
+<p><strong>Credit:</strong><br>
+dk from Chaitin Tech</p>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-12770">https://issues.apache.org/jira/browse/SOLR-12770</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
+</ul>
+  <hr/>
+  <h2 id="cve-2018-1308-xxe-attack-through-apache-solrs-dihs-dataconfig-request-parameter">2018-04-08, CVE-2018-1308: XXE attack through Apache Solr's DIH's dataConfig request parameter
+    <a class="headerlink" href="#cve-2018-1308-xxe-attack-through-apache-solrs-dihs-dataconfig-request-parameter" title="Permanent link">¶</a>
+  </h2>
+  <p>CVE-2018-1308: XXE attack through Apache Solr's DIH's dataConfig request parameter</p>
+<p><strong>Severity:</strong> Major</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Solr 1.2 to 6.6.2</li>
+<li>Solr 7.0.0 to 7.2.1</li>
+</ul>
+<p><strong>Description:</strong><br>
+The details of this vulnerability were reported to the Apache Security mailing list. </p>
+<p>This vulnerability relates to an XML external entity expansion (XXE) in the
+<code>&amp;dataConfig=&lt;inlinexml&gt;</code> parameter of Solr's DataImportHandler. It can be
+used as XXE using file/ftp/http protocols in order to read arbitrary local
+files from the Solr server or the internal network. See [1] for more details.</p>
+<p><strong>Mitigation:</strong><br>
+Users are advised to upgrade to either Solr 6.6.3 or Solr 7.3.0 releases both
+of which address the vulnerability. Once upgrade is complete, no other steps
+are required. Those releases disable external entities in anonymous XML files
+passed through this request parameter. </p>
+<p>If users are unable to upgrade to Solr 6.6.3 or Solr 7.3.0 then they are
+advised to disable data import handler in their solrconfig.xml file and
+restart their Solr instances. Alternatively, if Solr instances are only used
+locally without access to public internet, the vulnerability cannot be used
+directly, so it may not be required to update, and instead reverse proxies or
+Solr client applications should be guarded to not allow end users to inject
+<code>dataConfig</code> request parameters. Please refer to [2] on how to correctly
+secure Solr servers.</p>
+<p><strong>Credit:</strong><br>
+麦 香浓郁</p>
+<p><strong>References:</strong></p>
+<p>[1] <a href="https://issues.apache.org/jira/browse/SOLR-11971">https://issues.apache.org/jira/browse/SOLR-11971</a><br>
+[2] <a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></p>
+  <hr/>
+  <h2 id="cve-2016-6809-java-code-execution-for-serialized-objects-embedded-in-matlab-files-parsed-by-apache-solr-using-tika">2017-10-26, CVE-2016-6809: Java code execution for serialized objects embedded in MATLAB files parsed by Apache Solr using Tika
+    <a class="headerlink" href="#cve-2016-6809-java-code-execution-for-serialized-objects-embedded-in-matlab-files-parsed-by-apache-solr-using-tika" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong> Important</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Solr 5.0.0 to 5.5.4</li>
+<li>Solr 6.0.0 to 6.6.1</li>
+<li>Solr 7.0.0 to 7.0.1</li>
+</ul>
+<p><strong>Description:</strong><br>
+Apache Solr uses Apache Tika for parsing binary file types such as
+doc, xls, pdf etc. Apache Tika wraps the jmatio parser
+(https://github.com/gradusnikov/jmatio) to handle MATLAB files. The
+parser uses native deserialization on serialized Java objects embedded
+in MATLAB files. A malicious user could inject arbitrary code into a
+MATLAB file that would be executed when the object is deserialized.</p>
+<p>This vulnerability was originally described at
+http://mail-archives.apache.org/mod_mbox/tika-user/201611.mbox/%3C2125912914.1308916.1478787314903%40mail.yahoo.com%3E</p>
+<p><strong>Mitigation:</strong><br>
+Users are advised to upgrade to either Solr 5.5.5 or Solr 6.6.2 or Solr 7.1.0
+releases which have fixed this vulnerability.</p>
+<p>Solr 5.5.5 upgrades the jmatio parser to v1.2 and disables the Java
+deserialisation support to protect against this vulnerability.</p>
+<p>Solr 6.6.2 and Solr 7.1.0 have upgraded the bundled Tika to v1.16.</p>
+<p>Once upgrade is complete, no other steps are required.</p>
+<p><strong>References:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-11486">https://issues.apache.org/jira/browse/SOLR-11486</a></li>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-10335">https://issues.apache.org/jira/browse/SOLR-10335</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
+</ul>
+  <hr/>
+  <h2 id="several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce">2017-10-18, Several critical vulnerabilities discovered in Apache Solr (XXE & RCE)
+    <a class="headerlink" href="#several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Critical</p>
+<p><strong>Vendor:</strong><br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected:</strong>  </p>
+<ul>
+<li>Solr 5.5.0 to 5.5.4</li>
+<li>Solr 6.0.0 to 6.6.1</li>
+<li>Solr 7.0.0 to 7.0.1</li>
+</ul>
+<p><strong>Description:</strong><br>
+The details of this vulnerability were reported on public mailing
+lists. See https://s.apache.org/FJDl</p>
+<p>The first vulnerability relates to XML external entity expansion in
+the XML Query Parser which is available, by default, for any query
+request with parameters deftype=xmlparser. This can be exploited to
+upload malicious data to the /upload request handler. It can also be
+used as Blind XXE using ftp wrapper in order to read arbitrary local
+files from the solr server.</p>
+<p>The second vulnerability relates to remote code execution using the
+RunExecutableListener available on all affected versions of Solr.</p>
+<p>At the time of the above report, this was a 0-day vulnerability with a
+working exploit affecting the versions of Solr mentioned in the
+previous section. However, mitigation steps were announced to protect
+Solr users the same day. See
+https://solr.apache.org/news.html#12-october-2017-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list</p>
+<p><strong>Mitigation:</strong><br>
+Users are advised to upgrade to either Solr 6.6.2 or Solr 7.1.0
+releases both of which address the two vulnerabilities. Once upgrade is
+complete, no other steps are required.</p>
+<p>If users are unable to upgrade to Solr 6.6.2 or Solr 7.1.0 then they
+are advised to restart their Solr instances with the system parameter
+<code>-Ddisable.configEdit=true</code>. This will disallow any changes to be made
+to your configurations via the Config API. This is a key factor in
+this vulnerability, since it allows GET requests to add the
+RunExecutableListener to your config. Users are also advised to re-map
+the XML Query Parser to another parser to mitigate the XXE
+vulnerability. For example, adding the following to the solrconfig.xml
+file re-maps the xmlparser to the edismax parser:
+<code>&lt;queryParser name="xmlparser" class="solr.ExtendedDismaxQParserPlugin"/&gt;</code></p>
+<p><strong>Credit:</strong>  </p>
+<ul>
+<li>Michael Stepankin (JPMorgan Chase)</li>
+<li>Olga Barinova (Gotham Digital Science)</li>
+</ul>
+<p><strong>References:</strong>  </p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-11482">https://issues.apache.org/jira/browse/SOLR-11482</a></li>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-11477">https://issues.apache.org/jira/browse/SOLR-11477</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
+</ul>
+  <hr/>
+  <h2 id="solr-security-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list">2017-10-12, Please secure your Apache Solr servers since a zero-day exploit has been reported on a public mailing list
+    <a class="headerlink" href="#solr-security-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list" title="Permanent link">¶</a>
+  </h2>
+  <p>Please secure your Solr servers since a zero-day exploit has been
+reported on a <a href="https://s.apache.org/FJDl">public mailing list</a>.
+This has been assigned a public CVE (CVE-2017-12629) which we
+will reference in future communication about resolution and mitigation
+steps.</p>
+<p>Here is what we're recommending and what we're doing now:</p>
+<ul>
+<li>
+<p>Until fixes are available, all Solr users are advised to restart their
+Solr instances with the system property <code>-Ddisable.configEdit=true</code>.
+This will disallow any changes to be made to configurations via the
+Config API. This is a key factor in this vulnerability, since it allows
+GET requests to add the RunExecutableListener to the config. This is
+sufficient to protect you from this type of attack, but means you cannot
+use the edit capabilities of the Config API until the other fixes
+described below are in place. Users are also advised to remap
+the XML Query Parser to another parser to mitigate the XXE
+vulnerability. For example, adding the following to the solrconfig.xml
+file maps the <code>xmlparser</code> to the <code>edismax</code> parser:
+<code>&lt;queryParser name="xmlparser" class="solr.ExtendedDismaxQParserPlugin"/&gt;</code>.</p>
+</li>
+<li>
+<p>A new release of Lucene/Solr was in the vote phase, but we have now
+pulled it back to be able to address these issues in the upcoming 7.1
+release. We will also determine mitigation steps for users on earlier
+versions, which may include a 6.6.2 release for users still on 6.x.</p>
+</li>
+<li>
+<p>The RunExecutableListener will be removed in 7.1. It was previously
+used by Solr for index replication but has been replaced and is no
+longer needed.</p>
+</li>
+<li>
+<p>The XML Parser will be fixed and the fixes will be included in the 7.1
+release.</p>
+</li>
+<li>
+<p>The 7.1 release was already slated to include a change to disable the
+<code>stream.body</code> parameter by default, which will further help protect
+systems.</p>
+</li>
+</ul>
+  <hr/>
+  <h2 id="cve-2017-9803-security-vulnerability-in-kerberos-delegation-token-functionality">2017-09-18, CVE-2017-9803: Security vulnerability in kerberos delegation token functionality**
+    <a class="headerlink" href="#cve-2017-9803-security-vulnerability-in-kerberos-delegation-token-functionality" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>CVE-2017-9803: Security vulnerability in kerberos delegation token functionality</strong></p>
+<p><strong>Severity</strong>: Important</p>
+<p><strong>Vendor</strong>:<br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected</strong>:<br>
+Solr 6.2.0 to 6.6.0</p>
+<p><strong>Description</strong>:</p>
+<p>Solr's Kerberos plugin can be configured to use delegation tokens, which allows an application to reuse the authentication of an end-user or another application.
+There are two issues with this functionality (when using SecurityAwareZkACLProvider type of ACL provider e.g. SaslZkACLProvider),</p>
+<p>Firstly, access to the security configuration can be leaked to users other than the solr super user. Secondly, malicious users can exploit this leaked configuration for privilege escalation to further expose/modify private data and/or disrupt operations in the Solr cluster.</p>
+<p>The vulnerability is fixed from Solr 6.6.1 onwards.</p>
+<p><strong>Mitigation</strong>:<br>
+6.x users should upgrade to 6.6.1</p>
+<p><strong>Credit</strong>:<br>
+This issue was discovered by Hrishikesh Gadre of Cloudera Inc.</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-11184">https://issues.apache.org/jira/browse/SOLR-11184</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
+</ul>
+  <hr/>
+  <h2 id="cve-2017-7660-security-vulnerability-in-secure-inter-node-communication-in-apache-solr">2017-07-07, CVE-2017-7660: Security Vulnerability in secure inter-node communication in Apache Solr**
+    <a class="headerlink" href="#cve-2017-7660-security-vulnerability-in-secure-inter-node-communication-in-apache-solr" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>CVE-2017-7660: Security Vulnerability in secure inter-node communication in Apache Solr</strong></p>
+<p><strong>Severity</strong>: Important</p>
+<p><strong>Vendor</strong>:<br>
+The Apache Software Foundation</p>
+<p><strong>Versions Affected</strong>:  </p>
+<ul>
+<li>Solr 5.3 to 5.5.4</li>
+<li>Solr 6.0 to 6.5.1</li>
+</ul>
+<p><strong>Description:</strong><br>
+Solr uses a PKI based mechanism to secure inter-node communication
+when security is enabled. It is possible to create a specially crafted
+node name that does not exist as part of the cluster and point it to a
+malicious node. This can trick the nodes in cluster to believe that
+the malicious node is a member of the cluster. So, if Solr users have
+enabled BasicAuth authentication mechanism using the BasicAuthPlugin
+or if the user has implemented a custom Authentication plugin, which
+does not implement either "HttpClientInterceptorPlugin" or
+"HttpClientBuilderPlugin", his/her servers are vulnerable to this
+attack. Users who only use SSL without basic authentication or those
+who use Kerberos are not affected.</p>
+<p><strong>Mitigation</strong>:</p>
+<ul>
+<li>6.x users should upgrade to 6.6.0 or higher</li>
+<li>5.x users should obtain the latest source from git and apply this patch:
+<a href="http://git-wip-us.apache.org/repos/asf/lucene-solr/commit/2f5ecbcf">http://git-wip-us.apache.org/repos/asf/lucene-solr/commit/2f5ecbcf</a></li>
+</ul>
+<p><strong>Credit</strong>:<br>
+This issue was discovered by Noble Paul of Lucidworks Inc.</p>
+<p><strong>References</strong>:</p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-10624">https://issues.apache.org/jira/browse/SOLR-10624</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
+</ul>
+  <hr/>
+</div>
+  </div>
+</div>
+    <footer>
+<div class="row">
+  <div class="small-6 medium-3 columns">
+    <h4>Features</h4>
+    <ul>
+      <li><a href="/features.html">Overview</a></li>
+      <li><a href="/features.html#data-handling">Data Handling</a></li>
+      <li><a href="/features.html#query">Querying</a></li>
+      <li><a href="/features.html#facets">Faceting</a></li>
+      <li><a href="/features.html#discovery">Discovery</a></li>
+      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
+      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
+      <li><a href="/features.html#spatial">Spatial</a></li>
+      <li><a href="/features.html#rich-content">Rich Content</a></li>
+      <li><a href="/features.html#performance">Performance</a></li>
+      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
+      <li><a href="/features.html#admin-ui">User Interface</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="/resources.html#documentation">Docs</a></li>
+      <li><a href="/resources.html#solr-books">Books</a></li>
+      <li><a href="/resources.html#presentations">Presentations</a></li>
+      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
+      <li><a href="/editing-website.html">Editing this Website</a></li>
+      <br/>
+      <li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+      <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+      <li><a href="https://www.apache.org/security/">Security</a></li>
+      <li><a href="https://www.apache.org/licenses/">License</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Get Started</h4>
+    <ul>
+      <li><a href="/downloads.html">Download</a></li>
+      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+      <li><a href="/resources.html">Level Up</a></li>
+    </ul>
+    <br/>
+    <h4>Community</h4>
+    <ul>
+      <li><a href="/community.html#support">Support</a></li>
+      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
+      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
+      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Related Projects</h4>
+    <ul>
+      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row copyright">
+<div class="large-centered columns">
+  <p>Copyright © 2021 The Apache Software Foundation, Licensed under the
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="/privacy.html">Privacy Policy</a><br/>
+    Apache and the Apache feather logo are trademarks of The Apache Software Foundation. Apache Lucene,
+    Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
+    Please see the <a href="https://www.apache.org/foundation/marks/">Apache Trademark Policy</a> for more information.
+    All non-Apache logos are the trademarks of their respective owners.</p>
+</div></div>    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<script>
+  $(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+  });
+</script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QKSF79B9Y1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QKSF79B9Y1');
+</script>
+<!-- End Google Analytics -->
+/* Displays a post-it note at first visit only */
+<div class="modal-overlay closed" id="modal-overlay"></div>
+
+<div class="sticky-container closed" id="modal">
+    <div class="sticky-outer">
+      <div class="sticky">
+        <svg width="0" height="0">
+          <defs>
+            <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
+              <path
+                d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
+                stroke-linejoin="round"
+                stroke-linecap="square"
+              />
+            </clipPath>
+          </defs>
+        </svg>
+        <div class="sticky-content">
+          <button class="close-button" id="close-button">X</button>
+          <div><h1>Solr has a new home!</h1></div>
+          <div class="break"></div>
+          <div>
+            Solr is now an independent Apache project here at <b>solr.apache.org</b>.
+            Please update your links. <a href="/news.html#apache-solr-becomes-an-apache-tlp" id="news-link">Read more about what it means for you</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<button id="open-button" class="open-button">Open Button</button>
+
+<script>
+  /* Cookie enabling functions. Thanks to Peter-Paul Koch for the code examples
+     at https://www.quirksmode.org/js/cookies.html
+     Copyright granted https://www.quirksmode.org/about/copyright.html
+  */
+  function createCookie(name,value,days) {
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime()+(days*24*60*60*1000));
+      var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+  }
+
+  function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+  }
+
+  function eraseCookie(name) {
+    createCookie(name,"",-1);
+  }
+</script>
+
+<script>
+  /* Script code to handle sticky note and modality */
+  var modal = document.querySelector("#modal");
+  var modalOverlay = document.querySelector("#modal-overlay");
+  var closeButton = document.querySelector("#close-button");
+  var linkText = document.querySelector("#news-link");
+
+  closeButton.addEventListener("click", function() {
+    modal.classList.toggle("closed");
+    modalOverlay.classList.toggle("closed");
+  });
+
+  linkText.addEventListener("click", function() {
+    modal.classList.toggle("closed");
+    modalOverlay.classList.toggle("closed");
+  });
+
+  // Open modal box on first visit only, and only the first year
+  if (readCookie("alreadyVisited") == null && new Date() < new Date('2022-03-01')) {
+    createCookie("alreadyVisited", "yes", 400)
+    modal.classList.toggle("closed");
+    modalOverlay.classList.toggle("closed");
+  }
+</script>  </body>
+</html>
