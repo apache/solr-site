@@ -74,7 +74,7 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
 SOCIAL = (('You can add links in your config file', '#'),
           ('Another social link', '#'),)
 
-GOOGLE_ANALYTICS_TRACKING_ID = 'UA-94576-12'
+GOOGLE_ANALYTICS_TRACKING_ID = 'G-QKSF79B9Y1'
 
 DEFAULT_PAGINATION = False
 
