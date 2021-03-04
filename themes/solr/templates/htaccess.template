@@ -40,10 +40,10 @@ RewriteRule ^versioncontrol.html resources.html#solr-version-control   [R=301,NE
 RewriteRule ^version_control.html resources.html#solr-version-control  [R=301,NE,L]
 RewriteRule ^mailing_lists.html community.html#mailing-lists-chat      [R=301,NE,L]
 
-RedirectMatch Permanent ^issue_tracking.html https://issues.apache.org/jira/browse/SOLR
-RedirectMatch Permanent ^mirrors-solr-latest-redir.html downloads.html
-RedirectMatch Permanent ^mirrors-solr-3x-redir downloads.html
-RedirectMatch Permanent ^mirrors-solr-redir.html downloads.html
+RedirectMatch Permanent ^/issue_tracking.html https://issues.apache.org/jira/browse/SOLR
+RedirectMatch Permanent ^/mirrors-solr-latest-redir.html downloads.html
+RedirectMatch Permanent ^/mirrors-solr-3x-redir downloads.html
+RedirectMatch Permanent ^/mirrors-solr-redir.html downloads.html
 
 # Top-level javadoc redirect in case redirected from Lucene site /solr/X_Y_Z -> solr.apache.org/x_Y_Z
 RedirectMatch Permanent ^/(\d+_\d+_\d+)$ /docs/$1/
