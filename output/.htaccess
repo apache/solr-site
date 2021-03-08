@@ -79,3 +79,5 @@ RewriteRule ^guide/\d+_\d+/(?!.+\.\w+$|.+/$).+$             $0/ [R=301,L]
 # TODO: Move solr specific content to own root location and change these rules
 RewriteRule ^docs/(\d+_\d+_\d+/.*)$  __root/docs.lucene.apache.org/content/solr/$1 [PT]
 RewriteRule ^guide/\d+_\d+/.*$       __root/docs.lucene.apache.org/content/solr/$0 [PT]
+
+RewriteRule ^charts/(.*)$ https://nightlies.apache.org/solr/helm-charts/$1 [R,L]
