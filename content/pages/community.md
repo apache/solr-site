@@ -48,17 +48,17 @@ Also see developer discussion archives at [dev@lucene.apache.org](https://lists.
 
 #### Notification / automated announcements lists for developers ####
 
-Notifications about all JIRA issues and Github pull requests:
+Notifications about JIRA issues / Pull Requests - **issues@solr.apache.org**:
 <a class="btn" href="mailto:issues-subscribe@solr.apache.org">Subscribe</a>
 <a class="btn" href="mailto:issues-unsubscribe@solr.apache.org">Unsubscribe</a>
 <a class="btn" href="https://lists.apache.org/list.html?issues@solr.apache.org">Archives</a>
 
-Notifications about all CI builds by Jenkins:
+Notifications about all CI builds by Jenkins - **builds@solr.apache.org**:
 <a class="btn" href="mailto:builds-subscribe@solr.apache.org">Subscribe</a>
 <a class="btn" href="mailto:builds-unsubscribe@solr.apache.org">Unsubscribe</a>
 <a class="btn" href="https://lists.apache.org/list.html?builds@solr.apache.org">Archives</a>
 
-Notifications about every Solr commit:
+Notifications about every Solr commit - **commits@solr.apache.org**:
 <a class="btn" href="mailto:commits-subscribe@solr.apache.org">Subscribe</a>
 <a class="btn" href="mailto:commits-unsubscribe@solr.apache.org">Unsubscribe</a>
 <a class="btn" href="https://lists.apache.org/list.html?commits@solr.apache.org">Archives</a>
