@@ -15,7 +15,7 @@ here. There are also a number of external companies and professionals ready to h
 
 We use [mailing lists](https://apache.org/foundation/mailinglists.html) for all official project communications.
 To subscribe or unsubscribe you need to send an email to special addresses (listed below) from *the email address you
-want to subscribe as*, and then confirm your ownership of that address by replying to a mail from the list software.
+want to subscribe as or unsubscribe from*, and then confirm your ownership of that address by replying to a mail from the list software.
 
 #### Mailing list etiquette
 
