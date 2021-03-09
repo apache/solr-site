@@ -26,7 +26,7 @@ RewriteBase /
 ### Pre-CMS site redirects
 
 # DOAP file redirects to source repository
-RedirectMatch Permanent ^/doap.rdf https://gitbox.apache.org/repos/asf?p=solr.git;a=blob_plain;f=dev-tools/doap/solr.rdf;hb=HEAD
+RedirectMatch Permanent ^/doap/solr.rdf https://gitbox.apache.org/repos/asf?p=lucene-solr.git;a=blob_plain;f=dev-tools/doap/solr.rdf;hb=HEAD
 
 # Solr site redesign
 # needs to use mod_rewrite because of the anchor fragments
