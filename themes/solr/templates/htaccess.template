@@ -26,7 +26,7 @@ RewriteBase /
 ### Pre-CMS site redirects
 
 # DOAP file redirects to source repository
-RedirectMatch Permanent ^/doap.rdf https://gitbox.apache.org/repos/asf?p=solr.git;a=blob_plain;f=dev-tools/doap/solr.rdf;hb=HEAD
+RedirectMatch Permanent ^/doap/solr.rdf https://gitbox.apache.org/repos/asf?p=solr.git;a=blob_plain;f=dev-tools/doap/solr.rdf;hb=HEAD
 
 # Solr site redesign
 # needs to use mod_rewrite because of the anchor fragments
@@ -39,11 +39,11 @@ RewriteRule ^tutorial.html resources.html#tutorials                    [R=301,NE
 RewriteRule ^versioncontrol.html resources.html#solr-version-control   [R=301,NE,L]
 RewriteRule ^version_control.html resources.html#solr-version-control  [R=301,NE,L]
 RewriteRule ^mailing_lists.html community.html#mailing-lists-chat      [R=301,NE,L]
+RewriteRule ^mirrors-solr-latest-redir.html downloads.html             [R=301,NE,L]
+RewriteRule ^mirrors-solr-3x-redir downloads.html                      [R=301,NE,L]
+RewriteRule ^mirrors-solr-redir.html downloads.html                    [R=301,NE,L]
 
-RedirectMatch Permanent ^issue_tracking.html https://issues.apache.org/jira/browse/SOLR
-RedirectMatch Permanent ^mirrors-solr-latest-redir.html downloads.html
-RedirectMatch Permanent ^mirrors-solr-3x-redir downloads.html
-RedirectMatch Permanent ^mirrors-solr-redir.html downloads.html
+RedirectMatch Permanent ^/issue_tracking.html https://issues.apache.org/jira/browse/SOLR
 
 # Top-level javadoc redirect in case redirected from Lucene site /solr/X_Y_Z -> solr.apache.org/x_Y_Z
 RedirectMatch Permanent ^/(\d+_\d+_\d+)$ /docs/$1/
@@ -80,3 +80,4 @@ RewriteRule ^guide/\d+_\d+/(?!.+\.\w+$|.+/$).+$             $0/ [R=301,L]
 RewriteRule ^docs/(\d+_\d+_\d+/.*)$  __root/docs.lucene.apache.org/content/solr/$1 [PT]
 RewriteRule ^guide/\d+_\d+/.*$       __root/docs.lucene.apache.org/content/solr/$0 [PT]
 
+RewriteRule ^charts/(.*)$ https://nightlies.apache.org/solr/helm-charts/$1 [R,L]
