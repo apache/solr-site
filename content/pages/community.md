@@ -13,6 +13,12 @@ here. There are also a number of external companies and professionals ready to h
 
 ## Mailing Lists & Chat ##
 
+We use [mailing lists](https://apache.org/foundation/mailinglists.html) for all official project communications.
+To subscribe or unsubscribe you need to send an email to special addresses (e.g. users-subscribe@solr.apache.org to subscribe to the users list).
+This email must be sent from **the email address you want to subscribe as or unsubscribe from**. You will then need to
+confirm by replying to an automated e-mail from the list software. Clicking the `SUBSCRIBE` or `UNSUBSCRIBE` buttons below
+will open your e-mail software with a pre-filled email that is ready to send.  
+
 #### Mailing list etiquette
 
 Written communication is hard and prone to misunderstandings. We recommend reading [ComDev's etiquette page](https://community.apache.org/contributors/etiquette) for some practical tips on how to improve.
@@ -23,7 +29,10 @@ This list is for users of Solr to ask questions, share knowledge, and discuss is
 users to send usage and configuration questions and problems to this mailing list.  Before filing an issue in
 the JIRA issue tracker, make sure it's a real bug and that it hasn't been already discovered by discussing it here.
 
-[Subscribe - Unsubscribe - Archives : users@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?users@solr.apache.org).
+<a class="btn" href="mailto:users-subscribe@solr.apache.org?subject=subscribe">&#x1F4E7;&nbsp;&nbsp;Subscribe</a>
+<a class="btn" href="mailto:users-unsubscribe@solr.apache.org?subject=unsubscribe">&#x1F4E7;&nbsp;&nbsp;Unsubscribe</a>
+<a class="btn" href="mailto:users@solr.apache.org">&#x1F4E7;&nbsp;&nbsp;Send mail to list</a>
+<a class="btn" href="https://lists.apache.org/list.html?users@solr.apache.org">&#x1F517;&nbsp;&nbsp;Archives</a>
 
 > **NOTE:** This list was named [solr-user@lucene.apache.org](https://lists.apache.org/list.html?solr-user@lucene.apache.org) while Solr was a Lucene subproject. The list was migrated to Solr in March 2021, including subscriptions and archive.
 
@@ -32,20 +41,29 @@ the JIRA issue tracker, make sure it's a real bug and that it hasn't been alread
 This is the list where participating developers of the Solr project meet and discuss
 issues concerning Solr internals, code changes/additions, etc. **Please do not send mail to this list with usage questions or configuration questions and problems, that is what the users mailing list is for.**
 
-[Subscribe - Unsubscribe - Archives : dev@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?dev@solr.apache.org).
+<a class="btn" href="mailto:dev-subscribe@solr.apache.org?subject=subscribe">&#x1F4E7;&nbsp;&nbsp;Subscribe</a>
+<a class="btn" href="mailto:dev-unsubscribe@solr.apache.org?subject=unsubscribe">&#x1F4E7;&nbsp;&nbsp;Unsubscribe</a>
+<a class="btn" href="mailto:dev@solr.apache.org">&#x1F4E7;&nbsp;&nbsp;Send mail to list</a>
+<a class="btn" href="https://lists.apache.org/list.html?dev@solr.apache.org">&#x1F517;&nbsp;&nbsp;Archives</a>
 
 Also see developer discussion archives at [dev@lucene.apache.org](https://lists.apache.org/list.html?dev@lucene.apache.org) from when Solr was a Lucene subproject.
 
 #### Notification / automated announcements lists for developers ####
 
-Notifications about all JIRA issues and Github pull requests:  
-[Subscribe - Unsubscribe - Archives : issues@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?issues@solr.apache.org).
+Notifications from JIRA / Pull Requests - **issues@solr.apache.org**:
+<a class="btn" href="mailto:issues-subscribe@solr.apache.org?subject=subscribe">&#x1F4E7;&nbsp;&nbsp;Subscribe</a>
+<a class="btn" href="mailto:issues-unsubscribe@solr.apache.org?subject=unsubscribe">&#x1F4E7;&nbsp;&nbsp;Unsubscribe</a>
+<a class="btn" href="https://lists.apache.org/list.html?issues@solr.apache.org">&#x1F517;&nbsp;&nbsp;Archives</a>
 
-Notifications about all CI builds by Jenkins:  
-[Subscribe - Unsubscribe - Archives : builds@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?builds@solr.apache.org).
+Notifications about CI builds by Jenkins - **builds@solr.apache.org**:
+<a class="btn" href="mailto:builds-subscribe@solr.apache.org?subject=subscribe">&#x1F4E7;&nbsp;&nbsp;Subscribe</a>
+<a class="btn" href="mailto:builds-unsubscribe@solr.apache.org?subject=unsubscribe">&#x1F4E7;&nbsp;&nbsp;Unsubscribe</a>
+<a class="btn" href="https://lists.apache.org/list.html?builds@solr.apache.org">&#x1F517;&nbsp;&nbsp;Archives</a>
 
-Notifications about every Solr commit:  
-[Subscribe - Unsubscribe - Archives : commits@solr.apache.org at Apache's PonyMail](https://lists.apache.org/list.html?commits@solr.apache.org).
+Notifications about every Solr commit - **commits@solr.apache.org**:
+<a class="btn" href="mailto:commits-subscribe@solr.apache.org?subject=subscribe">&#x1F4E7;&nbsp;&nbsp;Subscribe</a>
+<a class="btn" href="mailto:commits-unsubscribe@solr.apache.org?subject=unsubscribe">&#x1F4E7;&nbsp;&nbsp;Unsubscribe</a>
+<a class="btn" href="https://lists.apache.org/list.html?commits@solr.apache.org">&#x1F517;&nbsp;&nbsp;Archives</a>
 
 #### IRC  ####
 
