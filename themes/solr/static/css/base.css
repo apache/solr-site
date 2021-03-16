@@ -7,6 +7,11 @@ html, body {
 
 body {
   overflow-x:hidden;
+  pointer-events: none;
+}
+
+body > * {
+  pointer-events: auto;
 }
 
 .alignleft {
