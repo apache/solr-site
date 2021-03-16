@@ -2,7 +2,7 @@
 
 {% block bodyclass %}homepage{% endblock %}
 
-{% block security_warning %}
+{% block solr_operator_security_warning %}
 {% set latest_sec_articles = (articles | selectattr("category.name", "eq", "solr/operator/security") | list)[:1] %}
 {% set latest_sec_date = latest_sec_articles[0].date | strftime("%Y-%m-%d") %}
 <section class="security" latest-date="{{ latest_sec_date }}">
@@ -21,7 +21,7 @@
   <div class="row">
     {% for article in latest_articles %}
     <p id="{{article.slug}}">
-      <a href="/news.html#{{article.slug}}"><b>NEWS:</b> {{article.title}}</a> <span class="news-date">({{ article.date | strftime("%d.%b") }})</span>
+      <a href="/operator/news.html#{{article.slug}}"><b>NEWS:</b> {{article.title}}</a> <span class="news-date">({{ article.date | strftime("%d.%b") }})</span>
     </p>
     {% endfor %}
   </div>
@@ -38,7 +38,7 @@
         &nbsp;
       </div>
       <h1>
-        Learn more about Solr.
+        Learn more about the Solr Operator.
       </h1>
       <p>
       Solr is highly reliable, scalable and fault tolerant, providing distributed indexing, replication and load-balanced querying, automated failover and recovery, centralized configuration and more. Solr powers the search and navigation features of many of the world's largest internet sites.

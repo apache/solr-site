@@ -23,9 +23,9 @@
   <body class="page {% block bodyclass %}{% endblock %}" {% block ng_directives %}{% endblock %} x-ng-app="page" x-ng-controller="page.controllers.main">
     {% include "operator/_header.html" %}
 
-    {% block security_warning %}
+    {% block operator_security_warning %}
     {% endblock %}
-    {% block solr_news %}
+    {% block solr_operator_news %}
     {% endblock %}
     {% block hero_header %}
     {% endblock %}
