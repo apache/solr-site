@@ -17,14 +17,7 @@ Users who have completed the tutorial are encouraged to review the [other docume
 
 <h3 class="offset" id="the-apache-solr-reference-guide">The Apache Solr Reference Guide</h3>
 
-Beginning with Solr 4.4, a detailed reference guide is available online.
-
-* [HTML Version of the Reference Guide](/guide)
-
-* [Visual Guide to Streaming Expressions and Math Expressions](http://bit.ly/32srTpA)
-
-* [Previous Releases in PDF (until Solr 8.x)](http://archive.apache.org/dist/lucene/solr/ref-guide/)
-
+Current documentation can be found in the [repo's github pages](https://apache.github.io/solr-operator/docs), soon it will be migrated to this site.
 
 <h3 class="offset" id="additional-documentation">Additional Documentation</h3>
 
