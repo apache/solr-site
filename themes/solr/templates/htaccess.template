@@ -80,4 +80,6 @@ RewriteRule ^guide/\d+_\d+/(?!.+\.\w+$|.+/$).+$             $0/ [R=301,L]
 RewriteRule ^docs/(\d+_\d+_\d+/.*)$  __root/docs.lucene.apache.org/content/solr/$1 [PT]
 RewriteRule ^guide/\d+_\d+/.*$       __root/docs.lucene.apache.org/content/solr/$0 [PT]
 
-RewriteRule ^charts/(.*)$ https://nightlies.apache.org/solr/helm-charts/$1 [R,L]
+### Redirects to Apache Nightlies, this will change when they have a separate area for released artifacts
+RewriteRule ^charts(/.*)?$ https://nightlies.apache.org/solr/release/helm-charts$1 [R,L]
+RewriteRule ^operator/downloads/crds(/(v\d\.\d\.\d(/.*)?)?)?$ https://nightlies.apache.org/solr/release/operator/crds$1 [R,L]
