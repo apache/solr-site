@@ -15,69 +15,80 @@
     <a class="headerlink" href="#solr-downloads" title="Permanent link">¶</a>
   </h1>
   {{ page.content }}
-  <h2 id="solr-{{ SOLR_LATEST_RELEASE | replace(".", "") }}">Solr {{ SOLR_LATEST_RELEASE }}
-    <a class="headerlink" href="#solr-{{ SOLR_LATEST_RELEASE | replace(".", "") }}" title="Permanent link">¶</a>
+  <h2 id="solr-{{ SOLR_OPERATOR_LATEST_RELEASE | replace(".", "") }}">Solr Operator {{ SOLR_OPERATOR_LATEST_RELEASE }}
+    <a class="headerlink" href="#solr-{{ SOLR_OPERATOR_LATEST_RELEASE | replace(".", "") }}" title="Permanent link">¶</a>
   </h2>
 
-  <p>Solr {{ SOLR_LATEST_RELEASE }} is the most recent Apache Solr release.</p>
+  <p>Solr Operator {{ SOLR_OPERATOR_LATEST_RELEASE }} is the most recent Apache Solr Operator release.</p>
 
   <ul>
     <li>Source release:
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}-src.tgz">solr-{{ SOLR_LATEST_RELEASE }}-src.tgz</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}-src.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}-src.tgz.sha512">SHA512</a>]
+      <a href="https://www.apache.org/dyn/closer.lua/solr/operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz">solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz</a>
+      [<a href="https://downloads.apache.org/solr/operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.sha512">SHA512</a>]
     </li>
 
-    <li>Binary releases:
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.tgz">solr-{{ SOLR_LATEST_RELEASE }}.tgz</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.tgz.sha512">SHA512</a>]
-      /
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.zip">solr-{{ SOLR_LATEST_RELEASE }}.zip</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.zip.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.zip.sha512">SHA512</a>]
+    <li>Docker releases:
+      <a href="https://hub.docker.com/r/apache/solr-operator">apache/solr-operator</a>
     </li>
 
+    <li>Helm Chart release:
+      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "")  }}">Artifact Hub</a>
+    </li>
+
+    <li>CRDs:
+      <ul>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all.yaml">All</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrclouds.yaml">Solr Cloud</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrbackups.yaml">Solr Backup</a></li>
+      </ul>
+    </li>
+
+    <!-- TODO: Change log -->
     <li><a href="{{ SITEURL }}/{{ SOLR_LATEST_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
 
-  <h3 id="solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }}
-    <a class="headerlink" href="#solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}" title="Permanent link">¶</a>
+  <h3 id="solr-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr Operator {{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}
+    <a class="headerlink" href="#solr-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}" title="Permanent link">¶</a>
   </h3>
 
-  <p>Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }} is the last release in the {{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.x series.</p>
+  <p>Solr Operator {{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }} is the last release in the v0.{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE.split(".")[1] }}.x series.</p>
 
   <ul>
     <li>Source release:
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz.sha512">SHA512</a>]
+      <a href="https://github.com/apache/solr-operator/archive/v0.2.8.tar.gz">solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz</a>
+      <!-- TODO: Replace bullet point with following when v0.2.x is no longer relevant
+      <a href="https://www.apache.org/dyn/closer.lua/solr/operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz">solr-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz</a>
+      [<a href="https://downloads.apache.org/solr/operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz.sha512">SHA512</a>]
+      -->
     </li>
 
-    <li>Binary releases:
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz.sha512">SHA512</a>]
-      /
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.zip">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.zip</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.zip.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.zip.sha512">SHA512</a>]
+    <!-- TODO: Change to Apache when v0.2.x is no longer relevant -->
+    <li>Docker releases:
+      <a href="https://hub.docker.com/r/bloomberg/solr-operator">bloomberg/solr-operator</a>
     </li>
 
-    <li><a href="{{ SITEURL }}/{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
+    <li>Helm Chart release:
+      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "")  }}">Artifact Hub</a>
+    </li>
+
+    <li>CRDs:
+      <ul>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/all.yaml">All</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrclouds.yaml">Solr Cloud</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrbackups.yaml">Solr Backup</a></li>
+      </ul>
+    </li>
   </ul>
-
-  <h2 id="solr-reference-guide" class="offset">Solr Reference Guide
-    <a class="headerlink" href="#solr-reference-guide" title="Permanent link">¶</a>
-  </h2>
-
-  <p>The <a href="{{ SITEURL }}/guide/">Solr Reference Guide</a> is Solr's official documentation.</p>
 
   <h2 id="past-versions">Past versions
     <a class="headerlink" href="#past-versions" title="Permanent link">&para;</a>
   </h2>
 
-  <p>Archives for all past versions of Solr are available at <a href="https://archive.apache.org/dist/solr/">the Apache archives</a>. Se the <a href="https://archive.apache.org/dist/lucene/solr/">Lucene archives for pre-9.0 releases</a></p>
+  <p>Archives for all past versions of Solr are available at <a href="https://archive.apache.org/dist/solr/operator">the Apache archives</a>. See the <a href="https://github.com/apache/solr-operator/releases">Github releases for pre-v0.3.0 releases</a></p>
 
   <h2 id="about-downloads">About downloads
     <a class="headerlink" href="#about-downloads" title="Permanent link">&para;</a>
@@ -87,7 +98,7 @@
     <a class="headerlink" href="#verify-downloads" title="Permanent link">&para;</a>
   </h3>
 
-  <p>The above release files should be verified using the PGP signatures and the <a href="https://downloads.apache.org/lucene/KEYS">project release KEYS</a>.
+  <p>The above source release files should be verified using the PGP signatures and the <a href="https://downloads.apache.org/solr/KEYS">project release KEYS</a>.
   See <a href="https://www.apache.org/dyn/closer.cgi#verify">verification instructions</a> for a description of using the PGP and KEYS files for verification.
   SHA checksums are also provided as alternative verification method.</p>
 
@@ -95,22 +106,23 @@
     <a class="headerlink" href="#file-names" title="Permanent link">&para;</a>
   </h3>
 
-  <p>The <code>solr-VERSION.zip</code> or <code>solr-VERSION.tgz</code> files (where <code>VERSION</code> is the version number of
-  the release, e.g. <code>{{ SOLR_LATEST_RELEASE }}</code>) contain Apache Solr, html documentation and a tutorial.</p>
-
-  <p>The <code>solr-VERSION-src.tgz</code> file contains the full source code for that version.</p>
+  <p>The <code>solr-operator-VERSION.tgz</code> file contains the full source code for that version, where <code>VERSION</code> is the version number of
+    the release, e.g. <code>{{ SOLR_OPERATOR_LATEST_RELEASE }}</code>.</p>
 
   <h3 id="about-versions-and-support">About versions and support
     <a class="headerlink" href="#about-versions-and-support" title="Permanent link">&para;</a>
   </h3>
 
-  <p>Apache Solr is under active development with frequent feature releases on the current major version.
-  The <strong>previous</strong> major version will see occasional critical security- or bug fixes releases.
+  <p>The Apache Solr Operator is under active development with frequent feature releases on the current minor version.
+    It is still in the beta phase, and working towards its <code>v1.0.0</code> release.
+  The <strong>previous</strong> minor version will see occasional critical security- or bug fixes releases.
   Older versions are considered EOL (End Of Life) and will not be further
   updated. For this reason it may also be difficult to obtain community support for EOL versions.</p>
 
   <p>Large changes or changes that break compatibility with existing functionality are normally only included in the
-  <strong>next</strong> major version.</p>
+    <strong>next</strong> minor version.</p>
+
+  <p>After the <code>v1.0.0</code> release, large changes that break compatibility will be reserved for major version changes.</p>
 
   <table>
     <tr align=left>
@@ -118,26 +130,25 @@
       <th>Description</th>
     </tr>
     <tr align=left>
-      <td>{{ SOLR_LATEST_RELEASE.split('.') | first }}.x</td>
-      <td>Current major version for feature releases (STABLE)</td>
+      <td>v0.{{ SOLR_OPERATOR_LATEST_RELEASE.split('.')[1] }}.x</td>
+      <td>Current minor version for feature releases (STABLE)</td>
     </tr>
     <tr align=left>
-      <td>{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}.x</td>
-      <td>Previous major version may sometimes receive critical bugfix releases</td>
+      <td>{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE.split('.')[0] }}.{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}.x</td>
+      <td>Previous minor version may sometimes receive critical bugfix releases</td>
     </tr>
     <tr align=left>
-      <td>{{ SOLR_LATEST_RELEASE.split('.') | first | int + 1 }}</td>
-      <td>Next major version, yet to be released (UNSTABLE)</td>
+      <td>v0.{{ SOLR_OPERATOR_LATEST_RELEASE.split('.')[1] | int + 1 }}</td>
+      <td>Next minor version, yet to be released (UNSTABLE)</td>
     </tr>
     <tr align=left>
-      <td>&lt;{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}</td>
+      <td>&lt;{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}</td>
       <td>All older versions are End Of Life (EOL)</td>
     </tr>
   </table>
 
-  <p>For more about versions and upgrading Solr, see the
-    <a href="{{ SITEURL }}/guide/solr-upgrade-notes.html">Reference Guide chapter “Upgrade Notes”</a>
-    and <a href="{{ SITEURL }}/guide/solr-system-requirements.html">"System Requirements"</a>.
+  <p>For more about versions and upgrading the Solr Operator, see the
+    <a href="https://github.com/apache/solr-operator/blob/main/docs/upgrade-notes.md">Upgrade Notes page</a> in the documentation.
   </p>
 </div>
 {% endblock content_inner %}
