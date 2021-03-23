@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    {% include "_head.html" %}
+    {% include "operator/_head.html" %}
     <title>{% block title %}{{ page.title }}{% endblock %} - Apache Solr Operator</title>
     {% block css %}{% endblock %}
 
@@ -11,6 +11,14 @@
                    kubernetes operator, kubebuilder,
                    search, information retrieval, spell checking, faceting, inverted index, open source"/>
    {% endblock %}
+    {% block ogmeta %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://solr.apache.org/{{ page.url }}"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:description" content="{{ page.content | striptags | replace("\"", "&quot;") | truncate(137, False, '...') }}"/>
+    <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png{{ STATIC_RESOURCE_SUFFIX }}"/>
+    <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png{{ STATIC_RESOURCE_SUFFIX }}"/>
+    {% endblock %}
 
    {% block favicon %}
    <link rel="icon" href="{{ SITEURL }}/theme/images/favicon.ico" type="image/x-icon">
