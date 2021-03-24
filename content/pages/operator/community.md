@@ -9,17 +9,8 @@ The Solr Operator community provides user support for free through the [users ma
 
 ## Mailing Lists & Chat ##
 
-We use [mailing lists](https://apache.org/foundation/mailinglists.html) for all official project communications.
-To subscribe or unsubscribe you need to send an email to special addresses (e.g. users-subscribe@solr.apache.org to subscribe to the users list).
-This email must be sent from **the email address you want to subscribe as or unsubscribe from**. You will then need to
-confirm by replying to an automated e-mail from the list software.
-
 The Solr Operator shares mailing lists with its parent project, Apache Solr.
 Available lists can be [found here]({filename}/pages/community.md#mailing-lists-chat).
-
-#### Mailing list etiquette
-
-Written communication is hard and prone to misunderstandings. We recommend reading [ComDev's etiquette page](https://community.apache.org/contributors/etiquette) for some practical tips on how to improve.
 
 #### Slack ####
 
@@ -73,9 +64,3 @@ to obtain a personal fork from which you can later contribute your changes throu
 [Pull Request](https://github.com/apache/solr-operator/pulls)
 
 You may alternatively choose to clone apache's git mirror at `https://gitbox.apache.org/repos/asf?p=solr-operator.git`.
-
-## Powered By ##
-TODO: Either remove or find a list of Powered By
-
-Are you Solr powered?  Looking for good company?  Check out
-[Solr's Powered By](https://cwiki.apache.org/confluence/display/solr/PublicServers) page to learn about people and companies using Solr.
