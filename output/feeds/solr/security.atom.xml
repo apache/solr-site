@@ -1,5 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2020-10-12T00:00:00+00:00</updated><subtitle></subtitle><entry><title>CVE-2020-13957: The checks added to unauthenticated configset uploads in Apache Solr can be circumvented</title><link href="/cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented.html" rel="alternate"></link><published>2020-10-12T00:00:00+00:00</published><updated>2020-10-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2020-10-12:/cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2021-04-12T00:00:00+00:00</updated><subtitle></subtitle><entry><title>CVE-2021-27905: SSRF vulnerability with the Replication handler</title><link href="/cve-2021-27905-ssrf-vulnerability-with-the-replication-handler.html" rel="alternate"></link><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/cve-2021-27905-ssrf-vulnerability-with-the-replication-handler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
+High&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+The ReplicationHandler (normally registered at "/replication" under a Solr core) has a "masterUrl" (also "leaderUrl" alias) parameter that is used to designate another ReplicationHandler on another Solr core to replicate index …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
+High&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+The ReplicationHandler (normally registered at "/replication" under a Solr core) has a "masterUrl" (also "leaderUrl" alias) parameter that is used to designate another ReplicationHandler on another Solr core to replicate index data into the local core.
+To prevent a SSRF vulnerability, Solr ought to check these parameters against a similar configuration it uses for the "shards" parameter.  Prior to this bug getting fixed, it did not.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
+Any of the following are enough to prevent this vulnerability:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Upgrade to &lt;code&gt;Solr 8.8.2&lt;/code&gt; or greater.&lt;/li&gt;
+&lt;li&gt;If upgrading is not an option, consider applying the patch in &lt;a href="https://issues.apache.org/jira/browse/SOLR-15217"&gt;SOLR-15217&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ensure that any access to the replication handler is purely internal to Solr.  Typically, it's only accessed externally for diagnostic/informational purposes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Reported by Caolinhong(Skay) from QI-ANXIN Cert (QI-ANXIN Technology Group Inc.)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
+&lt;a href="https://issues.apache.org/jira/browse/SOLR-15217"&gt;SOLR-15217&lt;/a&gt;: CVE-2021-27905: SSRF vulnerability with the Replication handler&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</title><link href="/cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings.html" rel="alternate"></link><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
+High&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+When starting Apache Solr versions prior to 8.8.2, configured with the SaslZkACLProvider or VMParamsAllAndReadonlyDigestZkACLProvider and no existing security.json znode, if the optional read-only user is configured then Solr …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
+High&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+When starting Apache Solr versions prior to 8.8.2, configured with the SaslZkACLProvider or VMParamsAllAndReadonlyDigestZkACLProvider and no existing security.json znode, if the optional read-only user is configured then Solr would not treat that node as a sensitive path and would allow it to be readable.
+Additionally, with any ZkACLProvider, if the security.json is already present, Solr will not automatically update the ACLs.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
+Any of the following are enough to prevent this vulnerability:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Manually set appropriate ACLs on /security.json znode.&lt;/li&gt;
+&lt;li&gt;Upgrade to &lt;code&gt;Solr 8.8.2&lt;/code&gt; or greater.&lt;/li&gt;
+&lt;li&gt;If upgrading is not an option, consider applying the patch in &lt;a href="https://issues.apache.org/jira/browse/SOLR-15249"&gt;SOLR-15249&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ensure that any access to zookeeper is only by trusted application.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Timothy Potter and Mike Drob, Apple Cloud Services&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
+&lt;a href="https://issues.apache.org/jira/browse/SOLR-15249"&gt;SOLR-15249&lt;/a&gt;: CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections</title><link href="/cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections.html" rel="alternate"></link><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
+High&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
+High&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect authorization resolution on the receiving hosts.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
+Any of the following are enough to prevent this vulnerability:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Upgrade to &lt;code&gt;Solr 8.8.2&lt;/code&gt; or greater.&lt;/li&gt;
+&lt;li&gt;If upgrading is not an option, consider applying the patch in &lt;a href="https://issues.apache.org/jira/browse/SOLR-15233"&gt;SOLR-15233&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Use a different authentication plugin, such as the KerberosPlugin or HadoopAuthPlugin&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Geza Nagy&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
+&lt;a href="https://issues.apache.org/jira/browse/SOLR-15233"&gt;SOLR-15233&lt;/a&gt;: CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections &lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2020-13957: The checks added to unauthenticated configset uploads in Apache Solr can be circumvented</title><link href="/cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented.html" rel="alternate"></link><published>2020-10-12T00:00:00+00:00</published><updated>2020-10-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2020-10-12:/cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
 High&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
 6.6.0 to 6.6.6

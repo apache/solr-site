@@ -137,6 +137,21 @@ Then please disclose responsibly by following <a href="https://www.apache.org/se
             <th>Announcement</th>
         </tr>
         <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27905">CVE-2020-27905</a></td>
+            <td>2021-04-12</td>
+            <td><a href="#cve-2021-27905-ssrf-vulnerability-with-the-replication-handler">SSRF vulnerability with the Replication handler</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-29262">CVE-2020-29262</a></td>
+            <td>2021-04-12</td>
+            <td><a href="#cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings">Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-29943">CVE-2020-29943</a></td>
+            <td>2021-04-12</td>
+            <td><a href="#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections">Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections</a></td>
+        </tr>
+        <tr>
             <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13957">CVE-2020-13957</a></td>
             <td>2020-10-12</td>
             <td><a href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">The checks added to unauthenticated configset uploads in Apache Solr can be circumvented</a></td>
@@ -196,23 +211,77 @@ Then please disclose responsibly by following <a href="https://www.apache.org/se
             <td>2017-10-18</td>
             <td><a href="#several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce">Several critical vulnerabilities discovered in Apache Solr (XXE & RCE)</a></td>
         </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-12629">CVE-2017-12629</a></td>
-            <td>2017-10-12</td>
-            <td><a href="#solr-security-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list">Please secure your Apache Solr servers since a zero-day exploit has been reported on a public mailing list</a></td>
-        </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-9803">CVE-2017-9803</a></td>
-            <td>2017-09-18</td>
-            <td><a href="#cve-2017-9803-security-vulnerability-in-kerberos-delegation-token-functionality">Security vulnerability in kerberos delegation token functionality**</a></td>
-        </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7660">CVE-2017-7660</a></td>
-            <td>2017-07-07</td>
-            <td><a href="#cve-2017-7660-security-vulnerability-in-secure-inter-node-communication-in-apache-solr">Security Vulnerability in secure inter-node communication in Apache Solr**</a></td>
-        </tr>
     </table>
 
+  <h2 id="cve-2021-27905-ssrf-vulnerability-with-the-replication-handler">2021-04-12, CVE-2021-27905: SSRF vulnerability with the Replication handler
+    <a class="headerlink" href="#cve-2021-27905-ssrf-vulnerability-with-the-replication-handler" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong>
+High</p>
+<p><strong>Versions Affected:</strong>
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1</p>
+<p><strong>Description:</strong>
+The ReplicationHandler (normally registered at "/replication" under a Solr core) has a "masterUrl" (also "leaderUrl" alias) parameter that is used to designate another ReplicationHandler on another Solr core to replicate index data into the local core.
+To prevent a SSRF vulnerability, Solr ought to check these parameters against a similar configuration it uses for the "shards" parameter.  Prior to this bug getting fixed, it did not.</p>
+<p><strong>Mitigation:</strong>
+Any of the following are enough to prevent this vulnerability:</p>
+<ul>
+<li>Upgrade to <code>Solr 8.8.2</code> or greater.</li>
+<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-15217">SOLR-15217</a></li>
+<li>Ensure that any access to the replication handler is purely internal to Solr.  Typically, it's only accessed externally for diagnostic/informational purposes.</li>
+</ul>
+<p><strong>Credit:</strong>
+Reported by Caolinhong(Skay) from QI-ANXIN Cert (QI-ANXIN Technology Group Inc.)</p>
+<p><strong>References:</strong>
+<a href="https://issues.apache.org/jira/browse/SOLR-15217">SOLR-15217</a>: CVE-2021-27905: SSRF vulnerability with the Replication handler</p>
+  <hr/>
+  <h2 id="cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings">2021-04-12, CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings
+    <a class="headerlink" href="#cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong>
+High</p>
+<p><strong>Versions Affected:</strong>
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1</p>
+<p><strong>Description:</strong>
+When starting Apache Solr versions prior to 8.8.2, configured with the SaslZkACLProvider or VMParamsAllAndReadonlyDigestZkACLProvider and no existing security.json znode, if the optional read-only user is configured then Solr would not treat that node as a sensitive path and would allow it to be readable.
+Additionally, with any ZkACLProvider, if the security.json is already present, Solr will not automatically update the ACLs.</p>
+<p><strong>Mitigation:</strong>
+Any of the following are enough to prevent this vulnerability:</p>
+<ul>
+<li>Manually set appropriate ACLs on /security.json znode.</li>
+<li>Upgrade to <code>Solr 8.8.2</code> or greater.</li>
+<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-15249">SOLR-15249</a></li>
+<li>Ensure that any access to zookeeper is only by trusted application.</li>
+</ul>
+<p><strong>Credit:</strong>
+Timothy Potter and Mike Drob, Apple Cloud Services</p>
+<p><strong>References:</strong>
+<a href="https://issues.apache.org/jira/browse/SOLR-15249">SOLR-15249</a>: CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</p>
+  <hr/>
+  <h2 id="cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections">2021-04-12, CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections
+    <a class="headerlink" href="#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong>
+High</p>
+<p><strong>Versions Affected:</strong>
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1</p>
+<p><strong>Description:</strong>
+When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect authorization resolution on the receiving hosts.</p>
+<p><strong>Mitigation:</strong>
+Any of the following are enough to prevent this vulnerability:</p>
+<ul>
+<li>Upgrade to <code>Solr 8.8.2</code> or greater.</li>
+<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-15233">SOLR-15233</a></li>
+<li>Use a different authentication plugin, such as the KerberosPlugin or HadoopAuthPlugin</li>
+</ul>
+<p><strong>Credit:</strong>
+Geza Nagy</p>
+<p><strong>References:</strong>
+<a href="https://issues.apache.org/jira/browse/SOLR-15233">SOLR-15233</a>: CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections </p>
+  <hr/>
   <h2 id="cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">2020-10-12, CVE-2020-13957: The checks added to unauthenticated configset uploads in Apache Solr can be circumvented
     <a class="headerlink" href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented" title="Permanent link">¶</a>
   </h2>
@@ -611,114 +680,6 @@ file re-maps the xmlparser to the edismax parser:
 <ul>
 <li><a href="https://issues.apache.org/jira/browse/SOLR-11482">https://issues.apache.org/jira/browse/SOLR-11482</a></li>
 <li><a href="https://issues.apache.org/jira/browse/SOLR-11477">https://issues.apache.org/jira/browse/SOLR-11477</a></li>
-<li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
-</ul>
-  <hr/>
-  <h2 id="solr-security-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list">2017-10-12, Please secure your Apache Solr servers since a zero-day exploit has been reported on a public mailing list
-    <a class="headerlink" href="#solr-security-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list" title="Permanent link">¶</a>
-  </h2>
-  <p>Please secure your Solr servers since a zero-day exploit has been
-reported on a <a href="https://s.apache.org/FJDl">public mailing list</a>.
-This has been assigned a public CVE (CVE-2017-12629) which we
-will reference in future communication about resolution and mitigation
-steps.</p>
-<p>Here is what we're recommending and what we're doing now:</p>
-<ul>
-<li>
-<p>Until fixes are available, all Solr users are advised to restart their
-Solr instances with the system property <code>-Ddisable.configEdit=true</code>.
-This will disallow any changes to be made to configurations via the
-Config API. This is a key factor in this vulnerability, since it allows
-GET requests to add the RunExecutableListener to the config. This is
-sufficient to protect you from this type of attack, but means you cannot
-use the edit capabilities of the Config API until the other fixes
-described below are in place. Users are also advised to remap
-the XML Query Parser to another parser to mitigate the XXE
-vulnerability. For example, adding the following to the solrconfig.xml
-file maps the <code>xmlparser</code> to the <code>edismax</code> parser:
-<code>&lt;queryParser name="xmlparser" class="solr.ExtendedDismaxQParserPlugin"/&gt;</code>.</p>
-</li>
-<li>
-<p>A new release of Lucene/Solr was in the vote phase, but we have now
-pulled it back to be able to address these issues in the upcoming 7.1
-release. We will also determine mitigation steps for users on earlier
-versions, which may include a 6.6.2 release for users still on 6.x.</p>
-</li>
-<li>
-<p>The RunExecutableListener will be removed in 7.1. It was previously
-used by Solr for index replication but has been replaced and is no
-longer needed.</p>
-</li>
-<li>
-<p>The XML Parser will be fixed and the fixes will be included in the 7.1
-release.</p>
-</li>
-<li>
-<p>The 7.1 release was already slated to include a change to disable the
-<code>stream.body</code> parameter by default, which will further help protect
-systems.</p>
-</li>
-</ul>
-  <hr/>
-  <h2 id="cve-2017-9803-security-vulnerability-in-kerberos-delegation-token-functionality">2017-09-18, CVE-2017-9803: Security vulnerability in kerberos delegation token functionality**
-    <a class="headerlink" href="#cve-2017-9803-security-vulnerability-in-kerberos-delegation-token-functionality" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>CVE-2017-9803: Security vulnerability in kerberos delegation token functionality</strong></p>
-<p><strong>Severity</strong>: Important</p>
-<p><strong>Vendor</strong>:<br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected</strong>:<br>
-Solr 6.2.0 to 6.6.0</p>
-<p><strong>Description</strong>:</p>
-<p>Solr's Kerberos plugin can be configured to use delegation tokens, which allows an application to reuse the authentication of an end-user or another application.
-There are two issues with this functionality (when using SecurityAwareZkACLProvider type of ACL provider e.g. SaslZkACLProvider),</p>
-<p>Firstly, access to the security configuration can be leaked to users other than the solr super user. Secondly, malicious users can exploit this leaked configuration for privilege escalation to further expose/modify private data and/or disrupt operations in the Solr cluster.</p>
-<p>The vulnerability is fixed from Solr 6.6.1 onwards.</p>
-<p><strong>Mitigation</strong>:<br>
-6.x users should upgrade to 6.6.1</p>
-<p><strong>Credit</strong>:<br>
-This issue was discovered by Hrishikesh Gadre of Cloudera Inc.</p>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-11184">https://issues.apache.org/jira/browse/SOLR-11184</a></li>
-<li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
-</ul>
-  <hr/>
-  <h2 id="cve-2017-7660-security-vulnerability-in-secure-inter-node-communication-in-apache-solr">2017-07-07, CVE-2017-7660: Security Vulnerability in secure inter-node communication in Apache Solr**
-    <a class="headerlink" href="#cve-2017-7660-security-vulnerability-in-secure-inter-node-communication-in-apache-solr" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>CVE-2017-7660: Security Vulnerability in secure inter-node communication in Apache Solr</strong></p>
-<p><strong>Severity</strong>: Important</p>
-<p><strong>Vendor</strong>:<br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected</strong>:  </p>
-<ul>
-<li>Solr 5.3 to 5.5.4</li>
-<li>Solr 6.0 to 6.5.1</li>
-</ul>
-<p><strong>Description:</strong><br>
-Solr uses a PKI based mechanism to secure inter-node communication
-when security is enabled. It is possible to create a specially crafted
-node name that does not exist as part of the cluster and point it to a
-malicious node. This can trick the nodes in cluster to believe that
-the malicious node is a member of the cluster. So, if Solr users have
-enabled BasicAuth authentication mechanism using the BasicAuthPlugin
-or if the user has implemented a custom Authentication plugin, which
-does not implement either "HttpClientInterceptorPlugin" or
-"HttpClientBuilderPlugin", his/her servers are vulnerable to this
-attack. Users who only use SSL without basic authentication or those
-who use Kerberos are not affected.</p>
-<p><strong>Mitigation</strong>:</p>
-<ul>
-<li>6.x users should upgrade to 6.6.0 or higher</li>
-<li>5.x users should obtain the latest source from git and apply this patch:
-<a href="http://git-wip-us.apache.org/repos/asf/lucene-solr/commit/2f5ecbcf">http://git-wip-us.apache.org/repos/asf/lucene-solr/commit/2f5ecbcf</a></li>
-</ul>
-<p><strong>Credit</strong>:<br>
-This issue was discovered by Noble Paul of Lucidworks Inc.</p>
-<p><strong>References</strong>:</p>
-<ul>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-10624">https://issues.apache.org/jira/browse/SOLR-10624</a></li>
 <li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
 </ul>
   <hr/>
