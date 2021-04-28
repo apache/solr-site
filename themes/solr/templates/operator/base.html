@@ -31,7 +31,7 @@
   <body class="page {% block bodyclass %}{% endblock %}" {% block ng_directives %}{% endblock %} x-ng-app="page" x-ng-controller="page.controllers.main">
     {% include "operator/_header.html" %}
 
-    {% block solr_operator_security_warning %}
+    {% block solr_security_warning %}
     {% endblock %}
     {% block solr_operator_news %}
     {% endblock %}

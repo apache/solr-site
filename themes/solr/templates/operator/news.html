@@ -22,7 +22,7 @@
   <h1 id="solr-operator-news">Solr Operator<sup>™</sup> News<a class="headerlink" href="#solr-operator-news" title="Permanent link">¶</a></h1>
   {{page.content}}
 
-  {% for article in (articles | selectattr("category.name", "in", ['solr/operator/news', 'solr/operator/security'])|list) %}
+  {% for article in (articles | selectattr("category.name", "in", ['solr/operator/news'])|list) %}
   <h2 id="{{ article.slug }}">{{ article.locale_date }}, {{ article.title }}
     <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
   </h2>

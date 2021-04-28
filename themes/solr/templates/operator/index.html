@@ -2,14 +2,14 @@
 
 {% block bodyclass %}homepage{% endblock %}
 
-{% block solr_operator_security_warning %}
-{% set latest_sec_articles = (articles | selectattr("category.name", "eq", "solr/operator/security") | list)[:1] %}
+{% block solr_security_warning %}
+{% set latest_sec_articles = (articles | selectattr("category.name", "eq", "solr/security") | list)[:1] %}
 {% if (latest_sec_articles | length) > 0 %}
 {% set latest_sec_date = latest_sec_articles[0].date | strftime("%Y-%m-%d") %}
 <section class="security" latest-date="{{ latest_sec_date }}">
   <div class="row">
     <div class="large-12 columns text-center">
-      <h2><a href="operator/security.html">&#x26A0; There are recent security announcements. Read more on the Security page.</a></h2>
+      <h2><a href="/security.html">&#x26A0; There are recent security announcements. Read more on the Solr Security page.</a></h2>
     </div>
   </div>
 </section>
