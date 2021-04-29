@@ -1,0 +1,24 @@
+{% extends "operator/base.html" %}
+
+{% block hero_header %}
+<section class="hero alternate">
+  <div class="row">
+    {% block hero_header_inner %}
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">
+        Apache Solr Operator<sup>&trade;</sup> {{ SOLR_OPERATOR_LATEST_RELEASE }}
+      </div>
+      <h1>
+        The Apache Solr Operator is built to reliably manage Apache Solr<sup>&trade;</sup> on Kubernetes.
+      </h1>
+
+      <div class="down-arrow"><a class="smooth-scroll" href="#learn-more" target="_self"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+    {% endblock hero_header_inner %}
+  </div>
+</section>
+{% endblock hero_header %}
+
+{% block content %}
+{% block content_inner %}{{ page.content }}{% endblock %}
+{% endblock %}

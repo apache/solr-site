@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    {% include "operator/_head.html" %}
+    <title>{% block title %}{{ page.title }}{% endblock %} - Apache Solr Operator</title>
+    {% block css %}{% endblock %}
+
+    {% block metakeys %}
+    <meta name="keywords"
+          content="apache, apache solr, solr, apache solr operator, solr operator, kubernetes, operator,
+                   kubernetes operator, kubebuilder,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+   {% endblock %}
+    {% block ogmeta %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://solr.apache.org/{{ page.url }}"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:description" content="{{ page.content | striptags | replace("\"", "&quot;") | truncate(137, False, '...') }}"/>
+    <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png{{ STATIC_RESOURCE_SUFFIX }}"/>
+    <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png{{ STATIC_RESOURCE_SUFFIX }}"/>
+    {% endblock %}
+
+   {% block favicon %}
+   <link rel="icon" href="{{ SITEURL }}/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="{{ SITEURL }}/theme/images/favicon.ico" type="image/x-icon">
+   {% endblock %}
+   {% block rss %}{% endblock %}
+   {% block javascript %}{% endblock %}
+  </head>
+
+  <body class="page {% block bodyclass %}{% endblock %}" {% block ng_directives %}{% endblock %} x-ng-app="page" x-ng-controller="page.controllers.main">
+    {% include "operator/_header.html" %}
+
+    {% block solr_security_warning %}
+    {% endblock %}
+    {% block solr_operator_news %}
+    {% endblock %}
+    {% block hero_header %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    <footer>
+      {% include "operator/_footer.html" %}
+    </footer>
+
+    {% include "_last_scripts.html" %}
+    {% include "_analytics.html" %}
+  </body>
+</html>
