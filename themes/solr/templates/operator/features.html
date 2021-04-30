@@ -1,0 +1,231 @@
+{% extends "operator/fullwidth.html" %}
+
+{% block fullwidth_title %}<h1>Extension</h1>{% endblock %}
+
+{% block hero_header_inner %}
+<div class="large-12 columns">
+  <div class="annotation">
+    Apache Solr Operator<sup>&trade;</sup> {{ SOLR_OPERATOR_LATEST_RELEASE }}
+  </div>
+  <h1>
+    Solr Operator Features
+  </h1>
+  <p>
+  The Solr Operator is a control-plane manager for a Solr ecosystem in Kubernetes.
+  </p>
+  <div class="down-arrow"><a data-scroll href="#crds"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+</div>
+{% endblock %}
+
+{% block content_inner %}
+<section class="gray col-4 offset-small" id="crds">
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-3">
+      <li>
+          <div class="box">
+            <a href="#solr-cloud">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_fast_near_real-time.svg"/></div>
+            <div class="content">
+              <h3>Solr Cloud</h3>
+              <p>Orchestrate highly available Solr Cloud clusters in Kubernetes.</p>
+            </div>
+            </a>
+          </div>
+      </li>
+      <li>
+        <div class="box">
+        <a href="#solr-metrics">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_monitorable_logging.svg"/></div>
+            <div class="content">
+              <h3>Solr Prometheus Exporter</h3>
+              <p>Manage collection of Solr Metrics, adapting to changes in your Solr Cloud.</p>
+            </div>
+        </a>
+        </div>
+      </li>
+      <li>
+        <a href="#solr-backup">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_multiple_search_indices.svg"/></div>
+            <div class="content">
+              <h3>Solr Backup</h3>
+              <p>Take backups of your Solr Cloud.</p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="hero alternate" id="solr-cloud">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Solr Cloud
+      </div>
+      <h1>
+        Managing Solr Cloud clusters in Kubernetes.
+      </h1>
+      <div class="down-arrow"><a data-scroll href="#solr-cloud-features"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray col-4 offset-small" id="solr-cloud-features">
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-3">
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#update-strategy" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_standards_based_open_interfaces.svg"/></div>
+            <div class="content">
+              <h3>Advanced and Safe Rolling Restarts and Upgrades</h3>
+              <p>The Solr Operator can orchestrate a safe rolling restart and upgrade of SolrCloud clusters.</p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#authentication-and-authorization" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_security.svg"/></div>
+            <div class="content">
+              <h3>Easy enablement of Solr Security</h3>
+              <p>Turning on Solr security, with Basic Auth, is as easy as flipping a switch.</p>
+              <p>It's also never been easier to enable SSL within your Solr Cloud.</p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#zookeeper-reference" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_highly_configurable.svg"/></div>
+            <div class="content">
+              <h3>Hassle-Free ZooKeeper Deployment</h3>
+              <p>
+                Easily spin up an external ZooKeeper cluster for your SolrCloud.
+                Possible via an integration with the ZooKeeper Operator.
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#addressability" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/icon-resources.svg"/></div>
+            <div class="content">
+              <h3>Easy Addressability for any Provider</h3>
+              <p>
+                With complete customizable addressability, you can run and expose your Solr Nodes in any Kubernetes Provider.
+                Setup is automatic, all you have to do is provide the settings that work in your environment.
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#override-built-in-solr-configuration-files" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_flexible_and_adaptable.svg"/></div>
+            <div class="content">
+              <h3>Customize the Kubernetes Components</h3>
+              <p>The Solr Operator gives many options for customizing the Kubernetes components used to deploy the Solr Cloud.</p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="hero alternate" id="solr-metrics">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Solr Prometheus Exporter
+      </div>
+      <h1>
+        Managing Solr Metrics in Kubernetes.
+      </h1>
+      <div class="down-arrow"><a data-scroll href="#solr-metrics-features"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray col-4 offset-small" id="solr-metrics-features">
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-3">
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-prometheus-exporter#finding-the-solr-cluster-to-monitor" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_standards_based_open_interfaces.svg"/></div>
+            <div class="content">
+              <h3>Automatically Update Information</h3>
+              <p>Automatically restart when updates to TLS secrets, Auth or ZooKeeper Connection Strings are made.</p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-prometheus-exporter#prometheus-stack" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_extensible_plugin.svg"/></div>
+            <div class="content">
+              <h3>Integrate with Prometheus Stack</h3>
+              <p>Integration with the Prometheus Operator in Kubernetes is easy and well documented.</p>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-prometheus-exporter#customize-prometheus-exporter-config" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_flexible_and_adaptable.svg"/></div>
+            <div class="content">
+              <h3>Customize the Kubernetes Components</h3>
+              <p>The Solr Operator gives many options for customizing the Kubernetes components used to deploy the Solr Prometheus Exporter.</p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="hero alternate" id="solr-backup">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Solr Backups
+      </div>
+      <h1>
+        Backup your SolrClouds in Kubernetes.
+      </h1>
+      <div class="down-arrow"><a data-scroll href="#solr-backup-features"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray col-4 offset-small" id="solr-backup-features">
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-3">
+      <li>
+        <a href="https://apache.github.io/solr-operator/docs/solr-backup" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_an_ajax_based.svg"/></div>
+            <div class="content">
+              <h3>Multiple Storage Options</h3>
+              <p>You have the ability to store your backups in S3 or Kuberenetes Persistent Volumes.</p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{{ super() }}
+{% endblock content_inner %}

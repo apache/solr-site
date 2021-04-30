@@ -15,7 +15,7 @@ For larger edits it is recommended to build and preview the site locally. This l
     # Usage: ./build.sh [-l] [<other pelican arguments>]
     #        -l     Live build and reload source changes on localhost:8000
     #        --help Show full help for options that Pelican accepts
-    ./build -l
+    ./build.sh -l
 
 Now go to <http://localhost:8000> to view the beautiful Solr web page served from your laptop with live-preview of updates :)
 

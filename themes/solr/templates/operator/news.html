@@ -1,0 +1,32 @@
+{% extends "operator/page.html" %}
+
+{% block ng_directives %}x-ng-app-root="/solr/operator"{% endblock %}
+{% block rss %}<link rel="alternate" type="application/atom+xml" title="Solr Operator news" href="/feeds/solr/operator/news.atom.xml" />{% endblock %}
+
+{% block content_inner %}
+<div class="small-12 columns">
+
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible;
+    }
+    h2 {
+      /* Avoid news title being hidden behind header when linked by anchor link */
+      padding-top: 70px;
+      margin-top: -70px;
+    }
+  </style>
+  <h1 id="solr-operator-news">Solr Operator<sup>™</sup> News<a class="headerlink" href="#solr-operator-news" title="Permanent link">¶</a></h1>
+  {{page.content}}
+
+  {% for article in (articles | selectattr("category.name", "in", ['solr/operator/news'])|list) %}
+  <h2 id="{{ article.slug }}">{{ article.locale_date }}, {{ article.title }}
+    <a class="headerlink" href="#{{article.slug}}" title="Permanent link">¶</a>
+  </h2>
+  {{article.content}}
+  {% endfor %}
+</div>
+{% endblock content_inner %}
