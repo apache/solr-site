@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/operator/news</title><link href="/" rel="alternate"></link><link href="/feeds/solr/operator/news.atom.xml" rel="self"></link><id>/</id><updated>2021-01-14T00:00:00+00:00</updated><subtitle></subtitle><entry><title>Solr Operator donated to Apache Solr</title><link href="/solr-operator-donated-to-apache-solr.html" rel="alternate"></link><published>2021-01-14T00:00:00+00:00</published><updated>2021-01-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-01-14:/solr-operator-donated-to-apache-solr.html</id><summary type="html">&lt;p&gt;The Apache Software Foundation's board today accepted Bloomberg's donation of the Solr Operator as a sub-project of the Apache Solr project.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/operator/news</title><link href="/" rel="alternate"></link><link href="/feeds/solr/operator/news.atom.xml" rel="self"></link><id>/</id><updated>2021-04-29T00:00:00+00:00</updated><subtitle></subtitle><entry><title>Apache Solr Operator™ v0.3.0 available</title><link href="/" rel="alternate"></link><published>2021-04-29T00:00:00+00:00</published><updated>2021-04-29T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-29:/</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of the Apache Solr Operator v0.3.0.&lt;/p&gt;
+&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
+&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of the Apache Solr Operator v0.3.0.&lt;/p&gt;
+&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
+&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/operator/downloads.html"&gt;https://solr.apache.org/operator/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="solr-operator-v030-release-highlights"&gt;Solr Operator v0.3.0 Release Highlights:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The Solr Operator is now an Apache project managed by the Apache Solr PMC.&lt;/li&gt;
+&lt;li&gt;The CRDs are now under the solr.apache.org group instead of solr.bloomberg.com.&lt;/li&gt;
+&lt;li&gt;The Solr Operator now fully supports running Solr in a secure and locked down way:&lt;/li&gt;
+&lt;li&gt;Basic Auth support is now built in when requested in the SolrCloud CRD&lt;/li&gt;
+&lt;li&gt;Solr can be run with TLS (optional mTLS, if provided to the operator)&lt;/li&gt;
+&lt;li&gt;More helm chart options are provided to customize running the Solr Operator&lt;/li&gt;
+&lt;li&gt;The Zookeeper Operator is now up-to-date with the most recent release, v0.2.9.&lt;/li&gt;
+&lt;li&gt;It can now be installed as a helm-chart dependency with the Solr Operator.&lt;/li&gt;
+&lt;li&gt;Users can now provide custom Solr log4j.xml and Prometheus Exporter config xml configMaps&lt;/li&gt;
+&lt;li&gt;Fixed a bug in custom probes for Solr pods&lt;/li&gt;
+&lt;li&gt;Solr pod shutdown is more graceful, has better coordination between Kubernetes and Solr.&lt;/li&gt;
+&lt;li&gt;SolrCloud can now be used with the Kubernetes HPA to autoscale Solr Cloud pods.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A summary of important changes is published in the documentation at https://apache.github.io/solr-operator/docs/upgrade-notes.html. For the most exhaustive list, see the full release notes at https://github.com/apache/solr-operator/releases/tag/v0.3.0 or by viewing the git history in the solr-operator repo.&lt;/p&gt;</content><category term="solr/operator/news"></category></entry><entry><title>Solr Operator donated to Apache Solr</title><link href="/solr-operator-donated-to-apache-solr.html" rel="alternate"></link><published>2021-01-14T00:00:00+00:00</published><updated>2021-01-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-01-14:/solr-operator-donated-to-apache-solr.html</id><summary type="html">&lt;p&gt;The Apache Software Foundation's board today accepted Bloomberg's donation of the Solr Operator as a sub-project of the Apache Solr project.&lt;/p&gt;
 &lt;h3 id="whats-the-background"&gt;What's the background?&lt;/h3&gt;
 &lt;p&gt;The Solr Operator is software that manages an environment to run Solr and related services on Kubernetes.
 It was created and open sourced by &lt;a href="https://www.techatbloomberg.com/"&gt;Bloomberg&lt;/a&gt; in …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Apache Software Foundation's board today accepted Bloomberg's donation of the Solr Operator as a sub-project of the Apache Solr project.&lt;/p&gt;

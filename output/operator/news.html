@@ -127,6 +127,29 @@
   <h1 id="solr-operator-news">Solr Operator<sup>™</sup> News<a class="headerlink" href="#solr-operator-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/operator/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-operatortm-v030-available">29 April 2021, Apache Solr Operator™ v0.3.0 available
+    <a class="headerlink" href="#apache-solr-operatortm-v030-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of the Apache Solr Operator v0.3.0.</p>
+<p>The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.</p>
+<p>This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/operator/downloads.html">https://solr.apache.org/operator/downloads.html</a></p>
+<h3 id="solr-operator-v030-release-highlights">Solr Operator v0.3.0 Release Highlights:</h3>
+<ul>
+<li>The Solr Operator is now an Apache project managed by the Apache Solr PMC.</li>
+<li>The CRDs are now under the solr.apache.org group instead of solr.bloomberg.com.</li>
+<li>The Solr Operator now fully supports running Solr in a secure and locked down way:</li>
+<li>Basic Auth support is now built in when requested in the SolrCloud CRD</li>
+<li>Solr can be run with TLS (optional mTLS, if provided to the operator)</li>
+<li>More helm chart options are provided to customize running the Solr Operator</li>
+<li>The Zookeeper Operator is now up-to-date with the most recent release, v0.2.9.</li>
+<li>It can now be installed as a helm-chart dependency with the Solr Operator.</li>
+<li>Users can now provide custom Solr log4j.xml and Prometheus Exporter config xml configMaps</li>
+<li>Fixed a bug in custom probes for Solr pods</li>
+<li>Solr pod shutdown is more graceful, has better coordination between Kubernetes and Solr.</li>
+<li>SolrCloud can now be used with the Kubernetes HPA to autoscale Solr Cloud pods.</li>
+</ul>
+<p>A summary of important changes is published in the documentation at https://apache.github.io/solr-operator/docs/upgrade-notes.html. For the most exhaustive list, see the full release notes at https://github.com/apache/solr-operator/releases/tag/v0.3.0 or by viewing the git history in the solr-operator repo.</p>
   <h2 id="solr-operator-donated-to-apache-solr">14 January 2021, Solr Operator donated to Apache Solr
     <a class="headerlink" href="#solr-operator-donated-to-apache-solr" title="Permanent link">¶</a>
   </h2>
