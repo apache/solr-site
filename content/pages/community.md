@@ -122,8 +122,6 @@ can be obtained from [git-scm.com](https://git-scm.com/). There are also GIT int
 IDEs. For Eclipse, look at [EGit](http://www.eclipse.org/egit/). IntelliJ has git support bundled, if you
 have installed the command line version.
 
-> **NOTE:** We are in a transition period where Solr code still lives in <https://github.com/apache/lucene-solr>, but will soon move to the new Solr repository.
-
 #### Web Access (read-only) ####
 
 The source code can be browsed at <https://github.com/apache/solr> and also <https://gitbox.apache.org/repos/asf?p=solr.git>.
