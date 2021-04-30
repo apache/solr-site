@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=aa503f6f"/>
 <link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=aa503f6f"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
-<link rel="stylesheet" href="/theme/css/base.css?v=aa503f6f" />
+<link rel="stylesheet" href="/theme/css/operator.css?v=aa503f6f" />
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="index,follow"/>
 
@@ -38,17 +38,18 @@
 <script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
 <script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=aa503f6f"></script>
 <script src="/theme/javascript/main.js?v=aa503f6f"></script>
-<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Logos and Assets - Apache Solr</title>
+<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Logos and Assets - Apache Solr Operator</title>
 
     <meta name="keywords"
-          content="apache, apache lucene, apache solr, solr, lucene,
+          content="apache, apache solr, solr, apache solr operator, solr operator, kubernetes, operator,
+                   kubernetes operator, kubebuilder,
                    search, information retrieval, spell checking, faceting, inverted index, open source"/>
-     <meta property="og:type" content="website" />
-     <meta property="og:url" content="https://solr.apache.org/logos-and-assets.html"/>
-     <meta property="og:title" content="Logos and Assets"/>
-     <meta property="og:description" content=""/>
-     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=aa503f6f"/>
-     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=aa503f6f"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://solr.apache.org/operator/logos-and-assets.html"/>
+    <meta property="og:title" content="Logos and Assets"/>
+    <meta property="og:description" content=""/>
+    <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=aa503f6f"/>
+    <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=aa503f6f"/>
 
    <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
@@ -60,7 +61,7 @@
     <nav class="top-bar" data-topbar role="navigation">
       <ul class="title-area">
         <li class="name">
-          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+          <a href="/operator/"><img class="logo" src="/theme/images/logo.svg" /></a>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
       </ul>
@@ -68,25 +69,16 @@
       <div class="top-bar-section">
         <ul class="navigation right">
           <li>
-            <a href="/news.html">News</a>
+            <a href="/operator/news.html">News</a>
           </li>
           <li>
-            <a href="/security.html">Security</a>
+            <a href="/operator/features.html">Features</a>
           </li>
           <li>
-            <a href="/features.html">Features</a>
+            <a href="/operator/resources.html">Resources</a>
           </li>
           <li>
-            <a href="/resources.html">Resources</a>
-          </li>
-          <li>
-            <a href="/community.html">Community</a>
-          </li>
-          <li>
-            <a href="/whoweare.html">Project</a>
-          </li>
-          <li>
-            <a href="/operator/">Solr Operator</a>
+            <a href="/operator/community.html">Community</a>
           </li>
 <!-- TODO Search not working as of feb 2021, disabling
           <li class="toggle">
@@ -103,7 +95,10 @@
           </li>
 -->
           <li>
-            <a class="btn" href="/downloads.html">Download</a>
+            <a href="/operator/downloads.html">Download</a>
+          </li>
+          <li>
+            <a class="btn" href="/">ᐱ Solr TLP</a>
           </li>
         </ul>
       </div>
@@ -116,10 +111,10 @@
   <div class="row">
 <div class="large-12 columns">
   <div class="annotation">
-    Apache Solr<sup>&trade;</sup> 8.8.2
+    Apache Solr Operator<sup>&trade;</sup> v0.3.0
   </div>
-  <h1>Solr Logos and Assets</h1>
-  <p>Solr's identity system: a style guide, icons, and logos</p>
+  <h1>Solr Operator Logos and Assets</h1>
+  <p>The Solr Operator's identity system: a style guide, icons, and logos</p>
   <div class="down-arrow"><a data-scroll href="#top"><i class="fa fa-angle-down fa-2x red"></i></a></div>
 </div>
   </div>
@@ -178,28 +173,19 @@
   <div class="small-6 medium-3 columns">
     <h4>Features</h4>
     <ul>
-      <li><a href="/features.html">Overview</a></li>
-      <li><a href="/features.html#data-handling">Data Handling</a></li>
-      <li><a href="/features.html#query">Querying</a></li>
-      <li><a href="/features.html#facets">Faceting</a></li>
-      <li><a href="/features.html#discovery">Discovery</a></li>
-      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
-      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
-      <li><a href="/features.html#spatial">Spatial</a></li>
-      <li><a href="/features.html#rich-content">Rich Content</a></li>
-      <li><a href="/features.html#performance">Performance</a></li>
-      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
-      <li><a href="/features.html#admin-ui">User Interface</a></li>
+      <li><a href="/operator/features.html">Overview</a></li>
+      <li><a href="/operator/features.html#solr-cloud">Solr Cloud</a></li>
+      <li><a href="/operator/features.html#solr-metrics">Solr Metrics</a></li>
+      <li><a href="/operator/features.html#solr-backup">Solr Backups</a></li>
     </ul>
   </div>
   <div class="small-6 medium-3 columns">
     <h4>Resources</h4>
     <ul>
-      <li><a href="/resources.html#tutorials">Tutorial</a></li>
-      <li><a href="/resources.html#documentation">Docs</a></li>
-      <li><a href="/resources.html#solr-books">Books</a></li>
-      <li><a href="/resources.html#presentations">Presentations</a></li>
-      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/operator/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="/operator/resources.html#documentation">Docs</a></li>
+      <li><a href="/operator/resources.html#presentations">Presentations</a></li>
+      <li><a href="/operator/resources.html#videos">Videos</a></li>
       <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
       <li><a href="/editing-website.html">Editing this Website</a></li>
       <br/>
@@ -213,31 +199,28 @@
   <div class="small-6 medium-3 columns">
     <h4>Get Started</h4>
     <ul>
-      <li><a href="/downloads.html">Download</a></li>
-      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
-      <li><a href="/resources.html">Level Up</a></li>
+      <li><a href="/operator/downloads.html">Download</a></li>
+      <li><a href="/operator/resources.html#tutorials">Run Through the Tutorial</a></li>
+      <li><a href="/operator/resources.html">Level Up</a></li>
     </ul>
     <br/>
     <h4>Community</h4>
     <ul>
-      <li><a href="/community.html#support">Support</a></li>
-      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
-      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
-      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
-      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+      <li><a href="/operator/community.html#support">Support</a></li>
+      <li><a href="/operator/community.html#mailing-lists-irc">Mailing Lists & Chat</a></li>
+      <li><a href="/operator/community.html#issue-tracker">Issues</a></li>
+      <li><a href="/operator/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/operator/community.html#version-control">Version control (GIT)</a></li>
     </ul>
   </div>
   <div class="small-6 medium-3 columns">
     <h4>Related Projects</h4>
     <ul>
-      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
-      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
-      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
-      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
-      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
-      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
-      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
-      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+      <li><a href="https://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="https://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="https://kubernetes.io/">Kubernetes</a></li>
+      <li><a href="https://github.com/pravega/zookeeper-operator">The Zookeeper Operator</a></li>
+      <li><a href="https://github.com/kubernetes-sigs/kubebuilder">Kubebuilder</a></li>
     </ul>
   </div>
 </div>
@@ -306,87 +289,5 @@
   gtag('config', 'G-QKSF79B9Y1');
 </script>
 <!-- End Google Analytics -->
-<div class="modal-overlay closed" id="modal-overlay"></div>
-
-<div class="sticky-container closed" id="modal">
-    <div class="sticky-outer">
-      <div class="sticky">
-        <svg width="0" height="0">
-          <defs>
-            <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
-              <path
-                d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
-                stroke-linejoin="round"
-                stroke-linecap="square"
-              />
-            </clipPath>
-          </defs>
-        </svg>
-        <div class="sticky-content">
-          <button class="close-button" id="close-button">X</button>
-          <div><h1>Solr has a new home!</h1></div>
-          <div class="break"></div>
-          <div>
-            Solr is now an independent Apache project here at <b>solr.apache.org</b>.
-            Please update your links. <a href="/news.html#apache-solr-becomes-an-apache-tlp" id="news-link">Read more about what it means for you</a>.
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-
-<script>
-  /* Cookie enabling functions. Thanks to Peter-Paul Koch for the code examples
-     at https://www.quirksmode.org/js/cookies.html (used with permission)
-  */
-  function createCookie(name,value,days) {
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime()+(days*24*60*60*1000));
-      var expires = "; expires="+date.toGMTString();
-    }
-    else var expires = "";
-    document.cookie = name+"="+value+expires+"; path=/";
-  }
-
-  function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-  }
-
-  function eraseCookie(name) {
-    createCookie(name,"",-1);
-  }
-</script>
-
-<script>
-  /* Script code to handle sticky note and modality */
-  var modal = document.querySelector("#modal");
-  var modalOverlay = document.querySelector("#modal-overlay");
-  var closeButton = document.querySelector("#close-button");
-  var linkText = document.querySelector("#news-link");
-
-  closeButton.addEventListener("click", function() {
-    modal.classList.toggle("closed");
-    modalOverlay.classList.toggle("closed");
-  });
-
-  linkText.addEventListener("click", function() {
-    modal.classList.toggle("closed");
-    modalOverlay.classList.toggle("closed");
-  });
-
-  // Open modal box on first visit only, and only the first year
-  if (readCookie("alreadyVisited") == null && new Date() < new Date('2022-03-01')) {
-    createCookie("alreadyVisited", "yes", 400)
-    modal.classList.toggle("closed");
-    modalOverlay.classList.toggle("closed");
-  }
-</script>  </body>
+  </body>
 </html>
