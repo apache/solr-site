@@ -71,7 +71,6 @@ RedirectMatch Permanent ^/docs/api-(.*) /docs/$1
 
 ### Redirects to Apache Nightlies, this will change when they have a separate area for released artifacts
 Redirect temp /charts https://nightlies.apache.org/solr/release/helm-charts
-RedirectMatch temp ^/operator/downloads/crds(/.*) https://nightlies.apache.org/solr/release/operator/crds$1
 
 ### Javadocs & Refguide
 
