@@ -69,6 +69,10 @@ RedirectMatch Permanent ^/quickstart.html /guide/solr-tutorial.html
 RedirectMatch Permanent ^/docs/4_0_0-(ALPHA|BETA)(.*) /docs/4_0_0$2
 RedirectMatch Permanent ^/docs/api-(.*) /docs/$1
 
+### Redirects to Apache Nightlies, this will change when they have a separate area for released artifacts
+Redirect temp /charts https://nightlies.apache.org/solr/release/helm-charts
+RewriteRule ^operator/downloads/?$  operator/downloads.html [PT]
+
 ### Javadocs & Refguide
 
 # Hack: Append slash, if folder name does not end with slash - everything containing a "." is treated as file and excluded from redirect:
@@ -79,7 +83,3 @@ RewriteRule ^guide/\d+_\d+/(?!.+\.\w+$|.+/$).+$             $0/ [R=301,L]
 # TODO: Move solr specific content to own root location and change these rules
 RewriteRule ^docs/(\d+_\d+_\d+/.*)$  __root/docs.lucene.apache.org/content/solr/$1 [PT]
 RewriteRule ^guide/\d+_\d+/.*$       __root/docs.lucene.apache.org/content/solr/$0 [PT]
-
-### Redirects to Apache Nightlies, this will change when they have a separate area for released artifacts
-RewriteRule ^charts(/.*)?$ https://nightlies.apache.org/solr/release/helm-charts$1 [R,L]
-RewriteRule ^operator/downloads/crds(/(v\d\.\d\.\d(/.*)?)?)?$ https://nightlies.apache.org/solr/release/operator/crds$1 [R,L]
