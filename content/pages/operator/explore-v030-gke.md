@@ -1,3 +1,10 @@
+Title: Exploring the Apache Solr Operator on GKE
+URL: operator/explore-v030-gke.html
+save_as: operator/explore-v030-gke.html
+template: operator/page
+
+## Exploring the Apache Solr Operator v0.3.0 on GKE ##
+
 Earlier this year, Bloomberg graciously donated the Solr operator to the Apache Software Foundation. The latest [0.3.0 release](https://solr.apache.org/operator/downloads.html#solr-v030) is the first under Apache and represents a significant milestone for the Apache Solr community at large. The operator is Solr’s first satellite project that is managed by the Solr PMC but released independently of Apache Solr. The community now has a powerful vehicle to translate hard earned lessons and best practices running Solr at scale into automated solutions on Kubernetes.
 
 In this post, I explore the 0.3.0 release from the perspective of a DevOps engineer needing to deploy a well-configured Solr cluster on Kubernetes.
@@ -68,6 +75,7 @@ kubectl get pod -l component=zookeeper-operator
 #### SolrCloud CRD
 
 A [Custom Resource Definition](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRD) allows application developers to define a new type of object in Kubernetes. This provides a number of benefits:
+
 1. Exposes domain specific config settings to human operators
 2. Reduce boilerplate and hide implementation details
 3. Perform CRUD operations on CRDs with kubectl
@@ -158,6 +166,7 @@ To deploy the `explore` SolrCloud to K8s, save the YAML shown above to a file na
 ```
 kubectl apply -f explore-SolrCloud.yaml
 ```
+_We'll make updates to the `explore-SolrCloud.yaml` file throughout the rest of this document._
 
 When you submit this SolrCloud definition to the Kubernetes API server, it notifies the Solr operator (running as a pod in your namespace) using a watcher like mechanism. 
 This initiates a reconcile process in the operator where it creates the various K8s objects needed to run the `explore` SolrCloud cluster (see diagram above). Take a brief look at the logs for the operator as the SolrCloud instance gets deployed.
@@ -271,7 +280,7 @@ spec:
   solrAddressability:
     commonServicePort: 443
     external:
-      domainName: k8s.thelabdude.cloud
+      domainName: YOUR_DOMAIN_NAME_HERE
       method: Ingress
       nodePortOverride: 443
       useExternalAddress: false
@@ -314,13 +323,13 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: thelabdude@gmail.com
+    email: *** REDACTED ***
     privateKeySecretRef:
       name: acme-letsencrypt-issuer-pk
     solvers:
     - dns01:
         cloudDNS:
-          project: solr-operator
+          project: GCP_PROJECT
           serviceAccountSecretRef:
             name: clouddns-dns01-solver-svc-acct
             key: key.json
@@ -332,8 +341,7 @@ metadata:
   name: explore-solr-tls-cert
 spec:
   dnsNames:
-  - '*.k8s.thelabdude.cloud'
-  - k8s.thelabdude.cloud
+  - YOUR_DOMAIN_NAME_HERE
   issuerRef:
     kind: Issuer
     name: acme-letsencrypt-issuer
@@ -350,7 +358,7 @@ spec:
     organizationalUnits:
     - k8s
     organizations:
-    - thelabdude
+    - solr
 ```
 
 Creating a certificate issuer typically involves some platform specific configuration. 
@@ -374,7 +382,7 @@ spec:
       key: keystore.p12
 ```
 
-The final step is to create a DNS A record to map the IP address of your Ingress (created by the Solr operator) to the hostname for your Ingress, in my case: **sop030-explore-solrcloud.k8s.thelabdude.cloud**.
+The final step is to create a DNS A record to map the IP address of your Ingress (created by the Solr operator) to the hostname for your Ingress.
 
 ##### mTLS
 
@@ -811,7 +819,7 @@ spec:
   solrAddressability:
     commonServicePort: 443
     external:
-      domainName: k8s.thelabdude.cloud
+      domainName: YOUR_DOMAIN_NAME_HERE
       method: Ingress
       nodePortOverride: 443
       useExternalAddress: false
