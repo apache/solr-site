@@ -5,6 +5,8 @@ template: operator/page
 
 # Exploring the Apache Solr Operator v0.3.0 on GKE
 
+<small>_Author: Tim Potter_</small>
+
 Earlier this year, Bloomberg graciously donated the Solr operator to the Apache Software Foundation.
 The latest [v0.3.0 release]({filename}/pages/operator/downloads.md#solr-v030) is the first under Apache and represents a significant milestone for the Apache Solr community at large.
 The operator is Solr’s first satellite project that is managed by the Solr PMC but released independently of Apache Solr.
@@ -30,6 +32,8 @@ Let’s get a base deployment of the Solr operator, Solr cluster, and supporting
 I have no formal affiliation with Google and am using GKE for this post because of its ease of use, but the same basic process will work on other cloud managed Kubernetes like Amazon’s EKS or AKS.
 We’ll improve on this initial configuration as we work through the sections of this document.
 At the end, we’ll have the CRD definitions and supporting scripts needed to run a production ready Solr cluster in the cloud.
+
+### Kubernetes Setup
 
 I encourage you to follow along at home, so fire up a GKE cluster and open your terminal.
 If you’re new to GKE, work through the [GKE Quickstart](https://cloud.google.com/kubernetes-engine/docs/quickstart) before proceeding with this document.
@@ -61,8 +65,10 @@ kubectl create ns sop030
 kubectl config set-context --current --namespace=sop030
 ```
 
+### Solr Operator Setup
+
 If you installed previous versions of the Solr operator, then please upgrade to the **Apache Solr** version using these instructions: [Upgrading to Apache](https://apache.github.io/solr-operator/docs/upgrading-to-apache.html). 
-Otherwise, add the Apache Solr Helm repo and install the Solr operator:
+Otherwise, add the Apache Solr Helm repo, install the [Solr CRDs](#solr-crds) and [install the Solr operator](https://artifacthub.io/packages/helm/apache-solr/solr-operator):
 ```
 helm repo add apache-solr https://solr.apache.org/charts
 helm repo update
@@ -82,12 +88,12 @@ kubectl describe pod -l control-plane=solr-operator
 
 Notice I’m using a label selector filter instead of addressing the pods by ID, which saves me having to look up the ID to get pod details.
 
-There should also be a Zookeeper operator pod running in your namespace, verify using:
+There should also be a [Zookeeper Operator](https://github.com/pravega/zookeeper-operator) pod running in your namespace, verify using:
 ```
 kubectl get pod -l component=zookeeper-operator
 ```
 
-### SolrCloud CRD
+### Solr CRDs
 
 A [Custom Resource Definition](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRD) allows application developers to define a new type of object in Kubernetes.
 This provides a number of benefits:
@@ -104,11 +110,18 @@ First, let’s look at the SolrCloud CRD using kubectl:
 # get a list of all CRDs in the cluster
 kubectl get crds
 
-# get details about the solrclouds crd
-kubectl get crds solrclouds.solr.apache.org -o yaml
+# get details about the SolrCloud CRD Spec
+kubectl explain solrclouds.spec
+kubectl explain solrclouds.spec.solrImage
+
+# get details about the SolrCloud CRD Status
+kubectl explain solrclouds.status
 ```
 
-Take a moment to look over the output from the get command above; the various structures and fields should seem familiar.
+Take a moment to look over the output from the `explain` command above; the various structures and fields should seem familiar.
+Feel free to dig down, exploring different parts of the SolrCloud CRD Spec and Status.
+
+### Creating a Solr Cloud
 
 To deploy an instance of a SolrCloud object in a Kubernetes namespace, we craft a bit of YAML, such as the example shown below:
 ```
@@ -184,7 +197,8 @@ To deploy the `explore` SolrCloud to K8s, save the YAML shown above to a file na
 ```
 kubectl apply -f explore-SolrCloud.yaml
 ```
-_We'll make updates to the `explore-SolrCloud.yaml` file throughout the rest of this document._
+_We'll make updates to the `explore-SolrCloud.yaml` file throughout the rest of this document.  
+Any code section that starts with "`spec:`", refers to this file._
 
 When you submit this SolrCloud definition to the Kubernetes API server, it notifies the Solr operator (running as a pod in your namespace) using a watcher like mechanism. 
 This initiates a reconcile process in the operator where it creates the various K8s objects needed to run the `explore` SolrCloud cluster (see diagram above).
@@ -192,15 +206,15 @@ Take a brief look at the logs for the operator as the SolrCloud instance gets de
 
 One of the main benefits of CRDs is you can interact with them using `kubectl` just like native K8s objects:
 ```
-kubectl get solrclouds
+$ kubectl get solrclouds
 
 NAME     VERSION   TARGETVERSION   DESIREDNODES   NODES   READYNODES   AGE
 explore  8.8.2                     3              3       3            73s
 
-kubectl get solrclouds explore -o yaml
+$ kubectl get solrclouds explore -o yaml
 ```
 
-Behind the scenes, the operator created a StatefulSet for managing a set of Solr pods.
+Behind the scenes, the operator created a [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) for managing a set of Solr pods.
 Take a look at the `explore` StatefulSet using:
 ```
 kubectl get sts explore -o yaml
@@ -211,7 +225,7 @@ There's one slightly nuanced setting I'm relying on for this initial SolrCloud d
   updateStrategy:
     method: StatefulSet
 ```
-We need to start with `StatefulSet` as the `updateStrategy` method so that we can enable TLS on an existing SolrCloud. 
+We need to start with `StatefulSet` as the [`updateStrategy` method](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#update-strategy) so that we can enable TLS on an existing SolrCloud. 
 We'll switch this to `Managed` in the HA section after enabling TLS. Using `Managed` requires the operator to call the
 collections API to get `CLUSTERSTATUS` which doesn't work while a cluster is converting from HTTP to HTTPs. 
 In a real deployment, you should just start with TLS enabled initially vs. upgrading to TLS on an existing cluster.
@@ -240,6 +254,7 @@ If not already installed in your cluster, follow the basic instructions provided
 
 First, let’s get started with a self-signed certificate.
 You’ll need to create a self-signed issuer (cert-manager CRD), certificate (cert-manager CRD), and a secret holding a keystore password.
+Save the following yaml to a file, and apply it via `kubectl apply -f`.
 
 ```
 ---
@@ -445,10 +460,10 @@ You also need to ensure replicas for each shard of each collection that needs hi
 However, ensuring some replicas remain online in the event of an outage only goes so far.
 At some point, the healthy replicas may become overloaded by requests, so any availability strategy you put in place also needs to plan for a sudden increase in load on the healthy replicas. 
 
-To begin our exploration of high availability with the Solr operator, let’s ensure Solr pods are evenly distributed around the cluster using pod anti-affinity.
-
 
 ### Pod Anti-Affinity
+
+To begin our exploration of high availability with the Solr operator, let’s ensure Solr pods are evenly distributed around the cluster using pod anti-affinity.
 
 Once you determine the number of Solr pods you need, you’ll also want to distribute the pods across your Kubernetes cluster in a balanced manner in order to withstand random node failures as well as zone-level outages (for multi-zone clusters) using [Pod Anti-affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) rules.
 
@@ -458,7 +473,7 @@ To see the zones for each node in your cluster, do:
 kubectl get nodes -L topology.kubernetes.io/zone
 ```
 
-In the following **podAntiAffinity** example, pods that match the **solr-cloud=explore** label selector are distributed across different nodes and zones in the cluster:
+In the following **podAntiAffinity** example, pods that match the **solr-cloud=explore** label selector are distributed across different nodes and zones in the cluster.
 
 _Tip: The Solr operator sets the “solr-cloud” label to the name of your SolrCloud instance on all pods._
 
@@ -510,6 +525,7 @@ If you need more Solr pods than available nodes in a cluster, then you should us
 Kubernetes does its best to distribute pods evenly across nodes, but multiple pods will get scheduled on the same node at some point (obviously).
 
 Assuming you requested 3 replicas for the “explore” SolrCloud, you should have an even distribution of pods across the three zones.
+Run the following command to get the number of unique nodes that your Solr Pods are running on, and count how many there are.
 ```
 kubectl get po -l solr-cloud=explore,technology=solr-cloud \
   -o json | jq -r '.items | sort_by(.spec.nodeName)[] | [.spec.nodeName] | @tsv' | uniq | wc -l
@@ -590,7 +606,7 @@ I’ll leave it as an exercise for the reader to apply an auto-scaling policy th
 
 ### Replica Types
 
-If you use the operator to deploy multiple SolrCloud instances but they all use the same Zookeeper connection string (and chroot), then it behaves like a single cluster from a Solr perspective. 
+If you use the operator to deploy multiple SolrCloud instances, but they all use the same Zookeeper connection string (and chroot), then it behaves like a single Solr Cloud cluster from a Solr perspective. 
 You can use this approach to assign Solr pods to different nodes in your Kubernetes cluster. 
 For instance, you may want to run `TLOG` replicas on one set of nodes and `PULL` replicas on another set to isolate write and read traffic
 (see: [Replica Types](https://solr.apache.org/guide/shards-and-indexing-data-in-solrcloud.html#types-of-replicas)). 
@@ -601,11 +617,11 @@ Each instance will need a Java system property set, such as **solr_node_type**, 
 
 One of the major benefits of an operator is we can extend Kubernetes default behavior to take into account application specific state. 
 For instance, when performing a rolling restart of a StatefulSet, K8s will start with the pod with the highest ordinal value and work down to zero, waiting in between for the restarted pod to reach the `Running` state. 
-While this approach works, it’s typically too slow for large clusters.
+While this approach works, it’s typically too slow for large clusters, and could possibly be harmful without knowledge of whether replicas on that node are recovering.
 
 In contrast, the operator enhances the rolling restart operation for StatefulSets to give consideration for which Solr pod hosts the Overseer (restarted last), number of leaders on a pod, and so on. 
 The result is an optimized rolling restart process for SolrCloud where multiple pods can be restarted concurrently. 
-The operator uses Solr’s cluster status API to ensure at least one replica for every shard is online when deciding which pods to restart concurrently. 
+The operator uses Solr’s cluster status API to ensure at least one replica for every shard* is online when deciding which pods to restart concurrently. 
 What’s more, these custom reconcile processes adhere to the idea of idempotency that is so important in Kubernetes. 
 The reconcile can be called 100 times given the same starting state, the results should be identical from the 1st and 100th.
 
@@ -622,6 +638,9 @@ spec:
     method: Managed
 ```
 _Add this to your `explore-SolrCloud.yaml` and apply the changes._ 
+
+_* As you see above, the `Managed` update strategy is customizable and can be configured to be as safe or as fast as you require.
+See the [update documentation](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#update-strategy) for more information._
 
 ## Performance Monitoring
 
