@@ -8,7 +8,7 @@ All resources are currently found in the [Solr Operator repository](https://gith
 ## Tutorials ##
 
 * [Solr Operator Quick Start](https://apache.github.io/solr-operator/docs/local_tutorial)
-* [Exploring the Apache Solr Operator v0.3.0 on GKE]({filename}/pages/operator/explore-v030-gke.md)
+* [Exploring the Apache Solr Operator v0.3.0 on GKE]({filename}/pages/operator/articles/explore-v030-gke.md)
 
 Users who have completed the tutorial are encouraged to review the [other documentation available](#documentation).
 

@@ -1,25 +1,40 @@
 Title: Exploring the Apache Solr Operator on GKE
-URL: operator/explore-v030-gke.html
-save_as: operator/explore-v030-gke.html
+URL: operator/articles/explore-v030-gke.html
+save_as: operator/articles/explore-v030-gke.html
 template: operator/page
 
-## Exploring the Apache Solr Operator v0.3.0 on GKE ##
+# Exploring the Apache Solr Operator v0.3.0 on GKE
 
-Earlier this year, Bloomberg graciously donated the Solr operator to the Apache Software Foundation. The latest [0.3.0 release](https://solr.apache.org/operator/downloads.html#solr-v030) is the first under Apache and represents a significant milestone for the Apache Solr community at large. The operator is Solr’s first satellite project that is managed by the Solr PMC but released independently of Apache Solr. The community now has a powerful vehicle to translate hard earned lessons and best practices running Solr at scale into automated solutions on Kubernetes.
+Earlier this year, Bloomberg graciously donated the Solr operator to the Apache Software Foundation.
+The latest [v0.3.0 release]({filename}/pages/operator/downloads.md#solr-v030) is the first under Apache and represents a significant milestone for the Apache Solr community at large.
+The operator is Solr’s first satellite project that is managed by the Solr PMC but released independently of Apache Solr.
+The community now has a powerful vehicle to translate hard-earned lessons and best practices running Solr at scale into automated solutions on Kubernetes.
 
-In this post, I explore the 0.3.0 release from the perspective of a DevOps engineer needing to deploy a well-configured Solr cluster on Kubernetes.
+## Introduction
 
-The Solr operator makes getting started with Solr on Kubernetes very easy. If you follow the [local tutorial](https://apache.github.io/solr-operator/docs/local_tutorial), you can have a Solr cluster up and running locally in no time. However, for rolling out to production, three additional concerns come to mind: security, high-availability, and performance monitoring. The purpose of this guide is to help you plan for and implement these important production concerns.
+In this post, I explore the `v0.3.0` release from the perspective of a DevOps engineer needing to deploy a well-configured Solr cluster on Kubernetes.
 
-Before getting into the details, take a moment to review the diagram below, which depicts the primary components, configuration, and interactions for a Solr cluster deployed to Kubernetes by the operator. Of course there are many other Kubernetes objects at play (secrets, service accounts, and so on) but the diagram only shows the primary objects.
+The Solr operator makes getting started with Solr on Kubernetes very easy.
+If you follow the [local tutorial](https://apache.github.io/solr-operator/docs/local_tutorial), you can have a Solr cluster up and running locally in no time.
+However, for rolling out to production, three additional concerns come to mind: security, high-availability, and performance monitoring.
+The purpose of this guide is to help you plan for and implement these important production concerns.
 
-<img alt="Solr operator components" class="float-right" src="{static}/images/operator/k8s-primary-components.png">
+Before getting into the details, take a moment to review the diagram below, which depicts the primary components, configuration, and interactions for a Solr cluster deployed to Kubernetes by the operator.
+Of course there are many other Kubernetes objects at play (secrets, service accounts, and so on) but the diagram only shows the primary objects.
 
-### Getting Started
+![Solr Operator Components]({static}/images/operator/k8s-primary-components.png)
 
-Let’s get a base deployment of the Solr operator, Solr cluster, and supporting services running on GKE. I have no formal affiliation with Google and am using GKE for this post because of its ease of use, but the same basic process will work on other cloud managed Kubernetes like Amazon’s EKS or AKS. We’ll improve on this initial configuration as we work through the sections of this document. At the end, we’ll have the CRD definitions and supporting scripts needed to run a production ready Solr cluster in the cloud.
+## Getting Started
 
-I encourage you to follow along at home, so fire up a GKE cluster and open your terminal. If you’re new to GKE, work through the [GKE Quickstart](https://cloud.google.com/kubernetes-engine/docs/quickstart) before proceeding with this document. To achieve better HA, you should deploy a **regional** GKE cluster across three zones (at least one Solr pod per zone). Of course, you can deploy a zonal cluster to one zone for dev / testing purposes but the examples I show are based on a 3-node GKE cluster running in the us-central1 region with one node in each of three zones.
+Let’s get a base deployment of the Solr operator, Solr cluster, and supporting services running on GKE.
+I have no formal affiliation with Google and am using GKE for this post because of its ease of use, but the same basic process will work on other cloud managed Kubernetes like Amazon’s EKS or AKS.
+We’ll improve on this initial configuration as we work through the sections of this document.
+At the end, we’ll have the CRD definitions and supporting scripts needed to run a production ready Solr cluster in the cloud.
+
+I encourage you to follow along at home, so fire up a GKE cluster and open your terminal.
+If you’re new to GKE, work through the [GKE Quickstart](https://cloud.google.com/kubernetes-engine/docs/quickstart) before proceeding with this document.
+To achieve better HA, you should deploy a **regional** GKE cluster across three zones (at least one Solr pod per zone).
+Of course, you can deploy a zonal cluster to one zone for dev / testing purposes but the examples I show are based on a 3-node GKE cluster running in the us-central1 region with one node in each of three zones.
 
 To get started, we need to install the nginx ingress controller into ingress-nginx namespace:
 
@@ -72,16 +87,19 @@ There should also be a Zookeeper operator pod running in your namespace, verify 
 kubectl get pod -l component=zookeeper-operator
 ```
 
-#### SolrCloud CRD
+### SolrCloud CRD
 
-A [Custom Resource Definition](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRD) allows application developers to define a new type of object in Kubernetes. This provides a number of benefits:
+A [Custom Resource Definition](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRD) allows application developers to define a new type of object in Kubernetes.
+This provides a number of benefits:
 
 1. Exposes domain specific config settings to human operators
 2. Reduce boilerplate and hide implementation details
 3. Perform CRUD operations on CRDs with kubectl
 4. Stored and managed in etcd just like any other K8s resource
 
-The Solr operator defines CRDs that represent Solr specific objects, such as a SolrCloud resource, metrics exporter resource, and a backup/restore resource. The SolrCloud CRD defines the configuration settings needed to deploy and manage a Solr cluster in a Kubernetes namespace. First, let’s look at the SolrCloud CRD using kubectl:
+The Solr operator defines CRDs that represent Solr specific objects, such as a SolrCloud resource, metrics exporter resource, and a backup/restore resource.
+The SolrCloud CRD defines the configuration settings needed to deploy and manage a Solr cluster in a Kubernetes namespace.
+First, let’s look at the SolrCloud CRD using kubectl:
 ```
 # get a list of all CRDs in the cluster
 kubectl get crds
@@ -169,7 +187,8 @@ kubectl apply -f explore-SolrCloud.yaml
 _We'll make updates to the `explore-SolrCloud.yaml` file throughout the rest of this document._
 
 When you submit this SolrCloud definition to the Kubernetes API server, it notifies the Solr operator (running as a pod in your namespace) using a watcher like mechanism. 
-This initiates a reconcile process in the operator where it creates the various K8s objects needed to run the `explore` SolrCloud cluster (see diagram above). Take a brief look at the logs for the operator as the SolrCloud instance gets deployed.
+This initiates a reconcile process in the operator where it creates the various K8s objects needed to run the `explore` SolrCloud cluster (see diagram above).
+Take a brief look at the logs for the operator as the SolrCloud instance gets deployed.
 
 One of the main benefits of CRDs is you can interact with them using `kubectl` just like native K8s objects:
 ```
@@ -181,7 +200,8 @@ explore  8.8.2                     3              3       3            73s
 kubectl get solrclouds explore -o yaml
 ```
 
-Behind the scenes, the operator created a StatefulSet for managing a set of Solr pods. Take a look at the `explore` StatefulSet using:
+Behind the scenes, the operator created a StatefulSet for managing a set of Solr pods.
+Take a look at the `explore` StatefulSet using:
 ```
 kubectl get sts explore -o yaml
 ```
@@ -204,7 +224,7 @@ Before moving on, I wanted to point out a handy feature in the operator that all
 I mention this feature because you may face a situation where you need to customize the Log4j config for Solr to help troubleshoot a problem in production.
 I won't go into the details here, but use the [Custom Log Configuration](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#custom-log-configuration) documentation to configure your own custom Log4J config.
 
-### Security
+## Security
 
 Security should be your first and main concern at all times, especially when running in public clouds like GKE; you don’t want to be that ops engineer who’s system gets compromised. 
 In this section we’re going to enable TLS, basic authentication, and authorization controls for Solr’s API endpoints. 
@@ -216,9 +236,10 @@ If not already installed in your cluster, follow the basic instructions provided
 [Use cert-manager to issue the certificate](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#use-cert-manager-to-issue-the-certificate).
 
 
-##### Cert-manager and Let’s Encrypt
+### Cert-manager and Let’s Encrypt
 
-First, let’s get started with a self-signed certificate. You’ll need to create a self-signed issuer (cert-manager CRD), certificate (cert-manager CRD), and a secret holding a keystore password.
+First, let’s get started with a self-signed certificate.
+You’ll need to create a self-signed issuer (cert-manager CRD), certificate (cert-manager CRD), and a secret holding a keystore password.
 
 ```
 ---
@@ -306,7 +327,7 @@ traffic over HTTPS by opening a port-forward to one of the Solr pods (port 8983)
 curl https://localhost:8983/solr/admin/info/system -k
 ```
 
-##### Let’s Encrypt Issued TLS Certs
+### Let’s Encrypt Issued TLS Certs
 
 Self-signed certificates are great for local testing but for exposing services on the Web, we need a certificate issued by a trusted CA. 
 I’m going to use Let’s Encrypt to issue a cert for my Solr cluster for a domain I own. 
@@ -384,12 +405,12 @@ spec:
 
 The final step is to create a DNS A record to map the IP address of your Ingress (created by the Solr operator) to the hostname for your Ingress.
 
-##### mTLS
+### mTLS
 
 The Solr operator supports mTLS-enabled Solr clusters but is a bit beyond the scope of this document. 
 Refer to the Solr Operator documentation for [configuring mTLS](https://apache.github.io/solr-operator/docs/running-the-operator.html#client-auth-for-mtls-enabled-solr-clusters).
 
-#### Authentication & Authorization
+### Authentication & Authorization
 
 If you followed the process in the previous section, then traffic on the wire between Solr pods is encrypted, but we also need to make sure incoming requests have a user identity (authentication) and the requesting user is authorized to perform the request. 
 As of `v0.3.0`, the Solr operator supports basic authentication and Solr’s rule based authorization controls.
@@ -416,14 +437,18 @@ kubectl get secret explore-solrcloud-security-bootstrap \
 At this point, all traffic into and between Solr pods is encrypted using TLS and API endpoints are locked down via Solr’s Rule-based authorization controls and basic authentication. 
 Now that Solr is properly locked down, let’s move on to configuring our cluster for high availability (HA).
 
-### High Availability
+## High Availability
 
-In this section, we cover several key topics to achieving high availability for Solr pods in Kubernetes. Ensuring node availability is only part of the equation. You also need to ensure replicas for each shard of each collection that needs high availability are properly distributed across the pods so that losing a node or even an entire AZ will not result in a loss of service. However, ensuring some replicas remain online in the event of an outage only goes so far. At some point, the healthy replicas may become overloaded by requests, so any availability strategy you put in place also needs to plan for a sudden increase in load on the healthy replicas. 
+In this section, we cover several key topics to achieving high availability for Solr pods in Kubernetes.
+Ensuring node availability is only part of the equation.
+You also need to ensure replicas for each shard of each collection that needs high availability are properly distributed across the pods so that losing a node or even an entire AZ will not result in a loss of service.
+However, ensuring some replicas remain online in the event of an outage only goes so far.
+At some point, the healthy replicas may become overloaded by requests, so any availability strategy you put in place also needs to plan for a sudden increase in load on the healthy replicas. 
 
 To begin our exploration of high availability with the Solr operator, let’s ensure Solr pods are evenly distributed around the cluster using pod anti-affinity.
 
 
-#### Pod Anti-Affinity
+### Pod Anti-Affinity
 
 Once you determine the number of Solr pods you need, you’ll also want to distribute the pods across your Kubernetes cluster in a balanced manner in order to withstand random node failures as well as zone-level outages (for multi-zone clusters) using [Pod Anti-affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) rules.
 
@@ -481,7 +506,8 @@ Also, you may encounter pod scheduling issues when applying these anti-affinity 
 Any Solr pods that move to another zone based on the new anti-affinity rule will leave the pod in a `Pending` state because the PVC that needs to be re-attached only exists in the original zone.
 Thus, it's a good idea to plan your pod affinity rules before rolling out SolrCloud clusters.
 
-If you need more Solr pods than available nodes in a cluster, then you should use **preferredDuringSchedulingIgnoredDuringExecution** instead of requiredDuringSchedulingIgnoredDuringExecution for the rule based on **kubernetes.io/hostname**. Kubernetes does its best to distribute pods evenly across nodes, but multiple pods will get scheduled on the same node at some point (obviously).
+If you need more Solr pods than available nodes in a cluster, then you should use **preferredDuringSchedulingIgnoredDuringExecution** instead of requiredDuringSchedulingIgnoredDuringExecution for the rule based on **kubernetes.io/hostname**.
+Kubernetes does its best to distribute pods evenly across nodes, but multiple pods will get scheduled on the same node at some point (obviously).
 
 Assuming you requested 3 replicas for the “explore” SolrCloud, you should have an even distribution of pods across the three zones.
 ```
@@ -492,7 +518,7 @@ _Output should be: 3_
 
 You should employ a similar anti-affinity config for Zookeeper pods to distribute those across zones as well.
 
-#### Zone Aware Replica Placement 
+### Zone Aware Replica Placement 
 
 Once your cluster’s pods are properly sized and distributed around the cluster to facilitate HA, 
 you still need to ensure all replicas for the collections that require HA get placed in order to take advantage of the cluster layout. 
@@ -509,7 +535,8 @@ If you're over-sharding your collections, i.e. total replicas > # of pods, then 
 _NOTE: The Solr auto-scaling framework has been deprecated in 8.x and is removed in 9.x. However, the rules we’ll leverage for replica placement in this document are replaced by the AffinityPlacementPlugin available in 9.x, 
 see: [solr/core/src/java/org/apache/solr/cluster/placement/plugins/AffinityPlacementFactory.java](https://github.com/apache/solr/blob/main/solr/core/src/java/org/apache/solr/cluster/placement/plugins/AffinityPlacementFactory.java) for details._
 
-For multi-AZ clusters, each Solr pod in a StatefulSet needs the **availability_zone** Java system property set, which is a unique label that identifies the zone for that pod. The **availability_zone** property can be used in an auto-scaling rule to distribute replicas across all available zones in the SolrCloud cluster.
+For multi-AZ clusters, each Solr pod in a StatefulSet needs the **availability_zone** Java system property set, which is a unique label that identifies the zone for that pod.
+The **availability_zone** property can be used in an auto-scaling rule to distribute replicas across all available zones in the SolrCloud cluster.
 ```
 {"replica":"#EQUAL", "shard":"#EACH", "sysprop.availability_zone":"#EACH"},
 ```
@@ -561,7 +588,7 @@ For more detail, consult the Solr Ref Guide - [Shard Preferences](https://solr.a
 
 I’ll leave it as an exercise for the reader to apply an auto-scaling policy that uses the `availability_zone` system property to influence replica placement.
 
-#### Replica Types
+### Replica Types
 
 If you use the operator to deploy multiple SolrCloud instances but they all use the same Zookeeper connection string (and chroot), then it behaves like a single cluster from a Solr perspective. 
 You can use this approach to assign Solr pods to different nodes in your Kubernetes cluster. 
@@ -570,7 +597,7 @@ For instance, you may want to run `TLOG` replicas on one set of nodes and `PULL`
 Isolating traffic by replica type is beyond the scope of this document, but you can use the operator to deploy multiple SolrCloud instances to achieve the isolation. 
 Each instance will need a Java system property set, such as **solr_node_type**, to differentiate the Solr pods from each other; Solr’s auto-scaling policy engine supports assigning replicas by type using a System property.
 
-#### Rolling restarts
+### Rolling restarts
 
 One of the major benefits of an operator is we can extend Kubernetes default behavior to take into account application specific state. 
 For instance, when performing a rolling restart of a StatefulSet, K8s will start with the pod with the highest ordinal value and work down to zero, waiting in between for the restarted pod to reach the `Running` state. 
@@ -596,17 +623,17 @@ spec:
 ```
 _Add this to your `explore-SolrCloud.yaml` and apply the changes._ 
 
-### Performance Monitoring
+## Performance Monitoring
 
 So now we have a secured, HA-capable Solr cluster, deployed and managed by the Solr operator. 
 This last piece I want to cover is performance monitoring with the [Prometheus stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack).
 
-#### Prometheus Stack
+### Prometheus Stack
 
 You’re probably already using Prometheus for monitoring but if not installed in your cluster, 
 use the [installation instructions](https://apache.github.io/solr-operator/docs/solr-prometheus-exporter/#prometheus-stack) to install the Prometheus stack which includes Grafana.
 
-#### Prometheus Exporter
+### Prometheus Exporter
 
 The operator [documentation](https://apache.github.io/solr-operator/docs/solr-prometheus-exporter/) covers how to deploy a Prometheus exporter for your SolrCloud instance. 
 Since we enabled basic auth and TLS, you’ll need to ensure the exporter can talk to the secured Solr pods using the following config settings:
@@ -653,7 +680,7 @@ spec:
 ```
 _You'll need at least one collection created in your cluster before the exporter starts generating useful metrics._
 
-#### Grafana Dashboards
+### Grafana Dashboards
 
 Use kubectl expose to create a LoadBalancer (external IP) for Grafana:
 ```
@@ -685,17 +712,17 @@ If you don’t have a query load test tool, then I recommend looking at Gatling 
 shards.preference=node.sysprop:sysprop.availability_zone,replica.location:local
 ```
 
-### Wrap-up
+## Wrap-up
 
 At this point, you now have a blueprint for creating a secure, HA-capable, balanced Solr cluster with performance monitoring via Prometheus and Grafana. 
 Before rolling out to production, you also need to consider backup/restore, automated scaling, and alerting for key health indicators. 
 Hopefully I’ll be able to cover some of these additional aspects in a future post.
 
 Have other concerns you want more information about? 
-Let’s us know, we’re on slack [#solr-operator](https://kubernetes.slack.com/messages/solr-operator) or via GitHub issues: https://github.com/apache/solr-operator.
+Let’s us know, we’re on slack [#solr-operator](https://kubernetes.slack.com/messages/solr-operator) or via [GitHub Issues](https://github.com/apache/solr-operator/issues).
 
 Here’s a final listing of the SolrCloud, Prometheus Exporter, and supporting objects YAML I used in this post. Enjoy!
-```
+```yaml
 ---
 apiVersion: v1
 kind: Secret
