@@ -7,6 +7,10 @@ template: resources
 
 * [Solr Quick Start](/guide/solr-tutorial.html)
 
+* [Solr on Docker](https://github.com/docker-solr/docker-solr#getting-started-with-the-docker-image)
+
+* [Solr on Kubernetes](/operator/resources.html#tutorials)
+
 <!--
 * More to come: Ideas include "Solr in a Day", "Solr and JSON", "Solr and CSV", "Solr and XML"
 -->
