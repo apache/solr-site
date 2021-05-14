@@ -804,7 +804,7 @@ footer .copyright p {
 /* box variants */
 .col-4 .box {
   margin: 15px;
-  padding: 20px 15px;
+  padding: 5px 5px 15px 5px;
   border: solid 1px transparent
 }
 
@@ -814,7 +814,7 @@ footer .copyright p {
 
 .col-3 .box {
   margin: 15px;
-  padding: 50px 20px 30px 20px;
+  padding: 20px 20px 30px 20px;
   border: solid 1px transparent
 }
 
@@ -823,9 +823,11 @@ footer .copyright p {
 }
 
 [class*="block-grid-"] {
-  display: block;
+  display: flex;
   padding: 0;
   margin:0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /*
@@ -847,6 +849,7 @@ footer .copyright p {
 .powered div{
     line-height: 99px;
     height: 99px;
+    padding-left: 10px;
     padding-right: 10px;
 }
 
