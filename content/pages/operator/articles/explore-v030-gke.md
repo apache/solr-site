@@ -232,6 +232,16 @@ In a real deployment, you should just start with TLS enabled initially vs. upgra
 
 Also, let’s not create any collections or load data just yet as we want to lock down the cluster before moving forward.
 
+#### Zookeeper Connection
+
+Solr Cloud depends on Apache Zookeeper. 
+In the `explore` SolrCloud definition, I'm using the [provided](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#zookeeper-reference) option, which means the Solr operator _provides_ a Zookeeper ensemble for the SolrCloud instance. 
+Behind the scenes, the Solr operator defines a `ZookeeperCluster` CRD instance, which is managed by the Zookeeper operator.
+The `provided` option is useful for getting started and development but does not expose all the configuration options supported by the Zookeeper operator. 
+For production deployments, consider defining your own `ZookeeperCluster` outside of the SolrCloud CRD definition and then simply pointing to the Zookeeper ensemble connection string using `connectionInfo` under `spec.zookeeperRef`.
+This gives you full control over your Zookeeper cluster deployment, allows for multiple SolrCloud instances (and other applications) to share the same Zookeeper service (with different chroot of course), and provides a nice separation of concerns.
+Alternatively, the Solr operator does not require using the Zookeeper operator, so you can use a [Helm chart](https://bitnami.com/stack/zookeeper/helm) to deploy your Zookeeper cluster, if the Zookeeper operator does not meet your needs.
+
 #### Custom Log4J Config
 
 Before moving on, I wanted to point out a handy feature in the operator that allows you to load a custom Log4j config from a user-provided ConfigMap.
