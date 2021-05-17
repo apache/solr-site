@@ -7,7 +7,10 @@ All resources are currently found in the [Solr Operator repository](https://gith
 
 ## Tutorials ##
 
-* [Solr Operator Quick Start](https://apache.github.io/solr-operator/docs/local_tutorial)
+* [Solr Operator Quick Start](https://apache.github.io/solr-operator/docs/local_tutorial)  
+  This is a basic tutorial designed for users new to Kubernetes and the Solr Opertor
+* [Exploring the Apache Solr Operator v0.3.0 on GKE]({filename}/pages/operator/articles/explore-v030-gke.md)  
+  This is an advanced tutorial for users ready to use the Solr Operator for Solr Clouds running in a production environment.
 
 Users who have completed the tutorial are encouraged to review the [other documentation available](#documentation).
 
