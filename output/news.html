@@ -22,22 +22,22 @@
 
 <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,500' rel='stylesheet' type='text/css'>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=a7c70b96" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=a7c70b96"/>
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=a7c70b96"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=c510980d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=c510980d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=c510980d"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
-<link rel="stylesheet" href="/theme/css/base.css?v=a7c70b96" />
+<link rel="stylesheet" href="/theme/css/base.css?v=c510980d" />
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="index,follow"/>
 
 <script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
-<script src="/theme/javascript/lib/foundation/modernizr.js?v=a7c70b96"></script>
-<script src="/theme/javascript/lib/angularjs/angular.min.js?v=a7c70b96"></script>
-<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=a7c70b96"></script>
-<script src="/theme/javascript/lib/foundation/foundation.min.js?v=a7c70b96"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=c510980d"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=c510980d"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=c510980d"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=c510980d"></script>
 <script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
-<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=a7c70b96"></script>
-<script src="/theme/javascript/main.js?v=a7c70b96"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=c510980d"></script>
+<script src="/theme/javascript/main.js?v=c510980d"></script>
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Solr News - Apache Solr</title>
 
     <meta name="keywords"
@@ -47,8 +47,8 @@
      <meta property="og:url" content="https://solr.apache.org/news.html"/>
      <meta property="og:title" content="Solr News"/>
      <meta property="og:description" content="You may also read these news as an ATOM feed."/>
-     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=a7c70b96"/>
-     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=a7c70b96"/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=c510980d"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=c510980d"/>
 
    <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
@@ -132,6 +132,34 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-890-available">16 June 2021, Apache Solr™ 8.9.0 available
+    <a class="headerlink" href="#apache-solrtm-890-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 8.9.0.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 8.9.0 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-890-release-highlights">Solr 8.9.0 Release Highlights:</h3>
+<ul>
+<li>
+<p>Backup/Restore: Support for incremental backups, support for storing backups in Google Cloud Storage (GCS), ability to restore on top of an existing collection. Improved v2 API. Please see CHANGES.txt for details. (SOLR-15087, SOLR-15090, SOLR-13608, SOLR-15101)</p>
+</li>
+<li>
+<p>Monitoring: New "Solr Cluster" row in Grafana dashboard, improved Zookeeper monitoring, new shard health info in CLUSTERSTATUS and more. Please see CHANGES.txt for details. (SOLR-15365, SOLR-15397, SOLR-15300, SOLR-15081, SOLR-15383)</p>
+</li>
+<li>
+<p>Deprecations: The Metrics history feature has been deprecated and will be removed in 9.0 (SOLR-15416)</p>
+</li>
+<li>
+<p>Admin UI: Query page now stores state in URL and can easily be shared (SOLR-6152)</p>
+</li>
+<li>
+<p>Security: Jetty server upgraded to 9.4.41 which fixes some known vulnerabilities (SOLR-15316)</p>
+</li>
+</ul>
+<p>A summary of important changes is published in the Solr Reference Guide at <a href="https://solr.apache.org/guide/8_9/solr-upgrade-notes.html">https://solr.apache.org/guide/8_9/solr-upgrade-notes.html</a>.</p>
+<p>For the most exhaustive list, see the full release notes at <a href="https://solr.apache.org/8_9_0/changes/Changes.html">https://solr.apache.org/8_9_0/changes/Changes.html</a> or by viewing the CHANGES.txt file accompanying the distribution.</p>
+<p>Solr's release notes usually don't include Lucene layer changes.  Lucene's release notes are at <a href="https://lucene.apache.org/core/8_9_0/changes/Changes.html">https://lucene.apache.org/core/8_9_0/changes/Changes.html</a></p>
   <h2 id="apache-solrtm-882-available">12 April 2021, Apache Solr™ 8.8.2 available
     <a class="headerlink" href="#apache-solrtm-882-available" title="Permanent link">¶</a>
   </h2>
