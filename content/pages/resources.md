@@ -75,7 +75,7 @@ Solr 4 was Solr's biggest release ever. We updated the previous edition to cover
 
 <h3 class="offset" id="book-scaling-big-data-hadoop-solr-II">Scaling Big Data with Hadoop and Solr - Second Edition</h3>
 
-[Hrishikesh Karambelkar](http://hrishikesh.karambelkar.co.in) is proud to announce the book "[Scaling Big Data with Hadoop and Solr - Second Edition](https://www.packtpub.com/big-data-and-business-intelligence/scaling-big-data-hadoop-and-solr-second-edition)" by [Packt Publishing](https://www.packtpub.com/). This book will help the readers understand, design, build, and optimize their big data search engine with Hadoop and Apache Solr.
+[Hrishikesh Karambelkar](https://www.linkedin.com/in/hrishik/) is proud to announce the book "[Scaling Big Data with Hadoop and Solr - Second Edition](https://www.packtpub.com/big-data-and-business-intelligence/scaling-big-data-hadoop-and-solr-second-edition)" by [Packt Publishing](https://www.packtpub.com/). This book will help the readers understand, design, build, and optimize their big data search engine with Hadoop and Apache Solr.
 
 <a href="https://www.packtpub.com/big-data-and-business-intelligence/scaling-big-data-hadoop-and-solr-second-edition"><img alt="Scaling Big Data with Hadoop and Solr - Second Edition (cover)" class="float-right" src="{static}/images/solr/book_scaling_big_data_hadoop_solr_II.jpg"></a>
 **Scaling Big Data with Hadoop and Solr - Second Edition** is aimed at developers, designers, and architects who would like to build big data enterprise search solutions for their customers or organizations. It explores the different approaches to making Solr work on big data ecosystems apart from Apache Hadoop.
@@ -114,16 +114,16 @@ Click [here](http://bit.ly/1Q2AGS8) to read more about the Solr Cookbook - Third
 
 <h3 class="offset" id="mastering-apache-solr">Mastering Apache Solr</h3>
 
-<a href="https://www.linkedin.com/in/mathieun">Mathieu Nayrolles</a> and <a href="http://www.inkstall.com/">Inkstall Publications</a> are proud to announce their latest book — [Mastering Apache Solr](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall).  This book will empower you to provide a world-class search experience to your end users through the discovery of the powerful mechanisms presented in it.
+<a href="https://www.linkedin.com/in/mathieun">Mathieu Nayrolles</a> and Inkstall Publications are proud to announce their latest book — [Mastering Apache Solr](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509).  This book will empower you to provide a world-class search experience to your end users through the discovery of the powerful mechanisms presented in it.
 
-<a href="http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall" title="Mastering Apache Solr"><img alt="Mastering Apache Solr cover" class="float-right" src="{static}/images/solr/book_mas.jpg"></a>
+<a href="http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509" title="Mastering Apache Solr"><img alt="Mastering Apache Solr cover" class="float-right" src="{static}/images/solr/book_mas.jpg"></a>
 **Mastering Apache Solr** is a short, focused, practical, hands-on guide containing crisp, relevant, systematically arranged, progressive chapters. These chapters contain a wealth of information presented in a direct and easy-to-understand manner. Highlighting Solr's supremacy over classical databases in full-text search, this book covers key technical concepts which will help you accelerate your progress in the Solr world.
 
 **Mastering Apache Solr** starts with an introduction to Apache Solr, its underlying technologies, the main differences between the classical database engines, and gradually moves to more advance topics such as boosting performance. In this book, we will look under the hood of a large number of topics and discuss answers to pertinent questions such as why denormalize data, how to import classical databases' data inside Apache Solr, how to serve Solr through five different web servers, how to optimize them to serve Solr even faster. An important and major topic covered in this book is Solr's querying mechanism, which will prove to be a strong ally in our journey through this book. We then look at boosting performance and deploying Solr using several servlet servers. Finally, we cover how to communicate with Solr using different programming languages, before deploying it in a cloud-based environment.
 
 **Mastering Apache Solr** is written lucidly and has a clear simple approach. From the first page to the last, the book remains practical and focuses on the most important topics used in the world of Apache Solr without neglecting important theoretical fundamentals that help you build a strong foundation.
 
-[Buy here](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509/ref=sr_1_1?ie=UTF8&qid=1400238519&sr=8-1&keywords=mastering+inkstall)
+[Buy here](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509)
 
 ***
 
@@ -145,7 +145,7 @@ Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [S
 <ul>
 <li><b>Quick start guide</b>: Start Apache Solr after download and execute your first search.</li>
 <li><b>Index configuration</b>: Learn how to configure the schema.xml and the analysis process to improve search quality.</li>
-<li><b>Features out-of-the-box</b>: Use all http://www.packtpub.com/apache-solr-for-indexing-data/bookbuild-in features like faceting, auto suggest or spellcheck and integrate them into a search user interface.</li>
+<li><b>Features out-of-the-box</b>: Use all build-in features like faceting, auto suggest or spellcheck and integrate them into a search user interface.</li>
 <li><b>Scoring and relevance</b>: Learn how to influence the scoring mechanism to bias the quantity and quality of your hitlist.</li>
 <li><b>Solr architectures</b>: Read about the options scaling Apache Solr. Set up your own Solr Cluster as Master/Slave or SolrCloud architecture.</li>
 </ul>
@@ -155,7 +155,7 @@ Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [S
 
 <h3 class="offset" id="instant-apache-solr-for-indexing-data-how-to">Instant Apache Solr for Indexing Data How-to</h3>
 
-<a href="http://www.packtpub.com/apache-solr-for-indexing-data/book" title="Packt: Instant Apache Solr for Indexing Data How-to"><img alt="Instant Apache Solr for Indexing Data How-to - cover" class="float-right" src="{static}/images/solr/book_s4index.jpg"></a>
+<a href="https://www.amazon.com/Instant-Apache-Solr-Indexing-Data/dp/1782164847" title="Packt: Instant Apache Solr for Indexing Data How-to"><img alt="Instant Apache Solr for Indexing Data How-to - cover" class="float-right" src="{static}/images/solr/book_s4index.jpg"></a>
 Alexandre Rafalovitch and Packt Publishing are proud to announce [Instant Apache Solr for Indexing Data How-to](https://www.amazon.com/Instant-Apache-Solr-Indexing-Data/dp/1782164847) - an example-driven guide that will take you on a journey from the basic collection of data to a multi-lingual, multi-field, multi-type schema.
 
 Content and data searching is a very important part of the modern user experience, and before something can be searched, it has to be indexed. Indexing is a hidden part of the process that has a surprisingly strong impact on the overall user experience. From speed, to faceting, to multilingual support, everything depends on correct indexing. **Instant Apache Solr for Indexing Data How-to** is a friendly, practical guide that will show you how to index your data with Solr 4.3.
