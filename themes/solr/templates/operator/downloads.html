@@ -21,35 +21,40 @@
 
   <p>Solr Operator {{ SOLR_OPERATOR_LATEST_RELEASE }} is the most recent Apache Solr Operator release.</p>
 
-  <ul>
-    <li>Source release:
-      <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz">solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz</a>
-      [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.sha512">SHA512</a>]
-    </li>
+  <div style="display:flex">
+    <ul style="margin: 0.75rem; flex-shrink: 0">
+      <li>Source release:
+        <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz">solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz</a>
+        [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.asc">PGP</a>]
+        [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.sha512">SHA512</a>]
+      </li>
 
-    <li>Docker releases:
-      <a href="https://hub.docker.com/r/apache/solr-operator">apache/solr-operator</a>
-    </li>
+      <li>Docker releases:
+        <a href="https://hub.docker.com/r/apache/solr-operator">apache/solr-operator</a>
+      </li>
 
-    <li>Helm Chart release:
-      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}">Artifact Hub</a><br/>
-      <i>Use <code>{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i>
-    </li>
+      <li>Helm Chart release:
+        <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}">Artifact Hub</a><br/>
+        <i>Use <code>{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i>
+      </li>
 
-    <li>CRDs:
-      <ul>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all.yaml">All</a></li>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrclouds.yaml">Solr Cloud</a></li>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrbackups.yaml">Solr Backup</a></li>
-      </ul>
-    </li>
+      <li>CRDs:
+        <ul>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all.yaml">All</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrclouds.yaml">Solr Cloud</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrbackups.yaml">Solr Backup</a></li>
+        </ul>
+      </li>
 
-    <!-- TODO: Put change log in site -->
-    <li><a href="https://github.com/apache/solr-operator/releases/{{ SOLR_OPERATOR_LATEST_RELEASE }}">Change log</a></li>
-  </ul>
+      <!-- TODO: Put change log in site -->
+      <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog">Change log</a></li>
+    </ul>
+
+    <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="true" data-responsive="true"></div>
+    <script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+  </div>
 
   <h3 id="solr-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr Operator {{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}
     <a class="headerlink" href="#solr-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}" title="Permanent link">¶</a>
