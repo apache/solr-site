@@ -76,7 +76,7 @@ RewriteRule ^operator/downloads/?$  operator/downloads.html [PT]
 ### Javadocs & Refguide
 
 # Hack: Append slash, if folder name does not end with slash - everything containing a "." is treated as file and excluded from redirect:
-RewriteRule ^(docs|guide)/(?!.+\.\w+$|.+/$).+$          $0/ [R=301,L]
+RewriteRule ^(docs|guide)/\d+(?!.+\.\w+$|.+/$).+$          $0/ [R=301,L]
 
 # __root/docs.solr.apache.org/ is a special alias added by INFRA-19439, so we can refer to stuff in other places like SVN
 RewriteRule ^(docs|guide)/\d+.*$  __root/docs.solr.apache.org/$0 [PT]
