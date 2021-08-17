@@ -22,22 +22,22 @@
 
 <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,500' rel='stylesheet' type='text/css'>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=c510980d" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=c510980d"/>
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=c510980d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=2434aa0d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=2434aa0d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=2434aa0d"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
-<link rel="stylesheet" href="/theme/css/base.css?v=c510980d" />
+<link rel="stylesheet" href="/theme/css/base.css?v=2434aa0d" />
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="index,follow"/>
 
 <script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
-<script src="/theme/javascript/lib/foundation/modernizr.js?v=c510980d"></script>
-<script src="/theme/javascript/lib/angularjs/angular.min.js?v=c510980d"></script>
-<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=c510980d"></script>
-<script src="/theme/javascript/lib/foundation/foundation.min.js?v=c510980d"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=2434aa0d"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=2434aa0d"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=2434aa0d"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=2434aa0d"></script>
 <script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
-<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=c510980d"></script>
-<script src="/theme/javascript/main.js?v=c510980d"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=2434aa0d"></script>
+<script src="/theme/javascript/main.js?v=2434aa0d"></script>
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Resources - Apache Solr</title>
 
     <meta name="keywords"
@@ -47,8 +47,8 @@
      <meta property="og:url" content="https://solr.apache.org/resources.html"/>
      <meta property="og:title" content="Resources"/>
      <meta property="og:description" content="Tutorials Solr Quick Start Solr on Docker Solr on Kubernetes Users who have completed the tutorial are encouraged to review the other..."/>
-     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=c510980d"/>
-     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=c510980d"/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=2434aa0d"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=2434aa0d"/>
 
    <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
@@ -125,6 +125,7 @@
       <dl class="sub-nav">
 <dd><a data-scroll href="#tutorials">Tutorials</a></dd>
 <dd><a data-scroll href="#documentation">Docs</a></dd>
+<dd><a data-scroll href="#helm-charts">Helm Charts</a></dd>
 <dd><a data-scroll href="#solr-books">Books</a></dd>
 <dd><a data-scroll href="#presentations">Presentations</a></dd>
 <dd><a data-scroll href="#videos">Videos</a></dd>
@@ -176,6 +177,23 @@ Copies of this documentation for every release can be found online:</p>
 <h3 class="offset" id="additional-documentation">Additional Documentation</h3>
 
 <p>Additional documentation can be found on the <a href="https://cwiki.apache.org/confluence/display/solr">Solr Community Wiki</a> or the various <a href="#solr-books">books published about Solr</a>.</p>
+<hr>
+<h2 id="helm-charts">Helm Charts</h2>
+<p>If you want to run Solr on Kubernetes, the easiest way to get started is via installing the Helm charts below.</p>
+<ul>
+<li><strong><a href="/operator">Solr Operator</a></strong> - A management layer that runs independently in Kubernetes. Only deploy 1 per Kubernetes cluster or namespace.</li>
+</ul>
+<!-- Uncomment when v0.4.0 is released
+* **Solr** - A SolrCloud cluster. In order to deploy this Helm chart successfully, you must first install the Solr Operator and Solr CRDs. Follow the instructions on the ArtifactHub page below.
+-->
+
+<div style="display:flex; justify-content: space-evenly">
+  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="false" data-responsive="true"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+  <!-- Uncomment when v0.4.0 is released
+  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr" data-theme="light" data-header="false" data-responsive="true"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+  -->
+</div>
+
 <hr>
 <h2 id="solr-books">Solr Books</h2>
 <p>If you have a Solr book that you would like to see listed here, please <a href="/editing-website.html">edit this website and submit a Pull Request</a>.</p>

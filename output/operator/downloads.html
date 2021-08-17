@@ -22,22 +22,22 @@
 
 <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,500' rel='stylesheet' type='text/css'>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=c510980d" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=c510980d"/>
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=c510980d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=2434aa0d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=2434aa0d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=2434aa0d"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
-<link rel="stylesheet" href="/theme/css/operator.css?v=c510980d" />
+<link rel="stylesheet" href="/theme/css/operator.css?v=2434aa0d" />
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="index,follow"/>
 
 <script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
-<script src="/theme/javascript/lib/foundation/modernizr.js?v=c510980d"></script>
-<script src="/theme/javascript/lib/angularjs/angular.min.js?v=c510980d"></script>
-<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=c510980d"></script>
-<script src="/theme/javascript/lib/foundation/foundation.min.js?v=c510980d"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=2434aa0d"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=2434aa0d"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=2434aa0d"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=2434aa0d"></script>
 <script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
-<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=c510980d"></script>
-<script src="/theme/javascript/main.js?v=c510980d"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=2434aa0d"></script>
+<script src="/theme/javascript/main.js?v=2434aa0d"></script>
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Downloads - Apache Solr Operator</title>
 
     <meta name="keywords"
@@ -48,8 +48,8 @@
     <meta property="og:url" content="https://solr.apache.org/operator/downloads.html"/>
     <meta property="og:title" content="Downloads"/>
     <meta property="og:description" content="Official releases are usually created when the developers feel there are sufficient changes, improvements and bug fixes to warrant a..."/>
-    <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=c510980d"/>
-    <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=c510980d"/>
+    <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=2434aa0d"/>
+    <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=2434aa0d"/>
 
    <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
@@ -133,35 +133,40 @@ Source releases are provided for the operator, however binaries are only provide
 
   <p>Solr Operator v0.3.0 is the most recent Apache Solr Operator release.</p>
 
-  <ul>
-    <li>Source release:
-      <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz">solr-operator-v0.3.0.tgz</a>
-      [<a href="https://downloads.apache.org/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz.sha512">SHA512</a>]
-    </li>
+  <div style="display:flex">
+    <ul style="margin: 0.75rem; flex-shrink: 0">
+      <li>Source release:
+        <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz">solr-operator-v0.3.0.tgz</a>
+        [<a href="https://downloads.apache.org/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz.asc">PGP</a>]
+        [<a href="https://downloads.apache.org/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz.sha512">SHA512</a>]
+      </li>
 
-    <li>Docker releases:
-      <a href="https://hub.docker.com/r/apache/solr-operator">apache/solr-operator</a>
-    </li>
+      <li>Docker releases:
+        <a href="https://hub.docker.com/r/apache/solr-operator">apache/solr-operator</a>
+      </li>
 
-    <li>Helm Chart release:
-      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.3.0">Artifact Hub</a><br/>
-      <i>Use <code>0.3.0</code> as the version of the Helm Chart.</i>
-    </li>
+      <li>Helm Chart release:
+        <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.3.0">Artifact Hub</a><br/>
+        <i>Use <code>0.3.0</code> as the version of the Helm Chart.</i>
+      </li>
 
-    <li>CRDs:
-      <ul>
-        <li><a href="/operator/downloads/crds/v0.3.0/all.yaml">All</a></li>
-        <li><a href="/operator/downloads/crds/v0.3.0/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
-        <li><a href="/operator/downloads/crds/v0.3.0/solrclouds.yaml">Solr Cloud</a></li>
-        <li><a href="/operator/downloads/crds/v0.3.0/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
-        <li><a href="/operator/downloads/crds/v0.3.0/solrbackups.yaml">Solr Backup</a></li>
-      </ul>
-    </li>
+      <li>CRDs:
+        <ul>
+          <li><a href="/operator/downloads/crds/v0.3.0/all.yaml">All</a></li>
+          <li><a href="/operator/downloads/crds/v0.3.0/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
+          <li><a href="/operator/downloads/crds/v0.3.0/solrclouds.yaml">Solr Cloud</a></li>
+          <li><a href="/operator/downloads/crds/v0.3.0/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
+          <li><a href="/operator/downloads/crds/v0.3.0/solrbackups.yaml">Solr Backup</a></li>
+        </ul>
+      </li>
 
-    <!-- TODO: Put change log in site -->
-    <li><a href="https://github.com/apache/solr-operator/releases/v0.3.0">Change log</a></li>
-  </ul>
+      <!-- TODO: Put change log in site -->
+      <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.3.0?modal=changelog">Change log</a></li>
+    </ul>
+
+    <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="true" data-responsive="true"></div>
+    <script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+  </div>
 
   <h3 id="solr-v028">Solr Operator v0.2.8
     <a class="headerlink" href="#solr-v028" title="Permanent link">¶</a>
