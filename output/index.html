@@ -22,22 +22,22 @@
 
 <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,500' rel='stylesheet' type='text/css'>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=2434aa0d" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=2434aa0d"/>
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=2434aa0d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=f74b530e" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=f74b530e"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=f74b530e"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
-<link rel="stylesheet" href="/theme/css/base.css?v=2434aa0d" />
+<link rel="stylesheet" href="/theme/css/base.css?v=f74b530e" />
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="index,follow"/>
 
 <script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
-<script src="/theme/javascript/lib/foundation/modernizr.js?v=2434aa0d"></script>
-<script src="/theme/javascript/lib/angularjs/angular.min.js?v=2434aa0d"></script>
-<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=2434aa0d"></script>
-<script src="/theme/javascript/lib/foundation/foundation.min.js?v=2434aa0d"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=f74b530e"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=f74b530e"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=f74b530e"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=f74b530e"></script>
 <script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
-<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=2434aa0d"></script>
-<script src="/theme/javascript/main.js?v=2434aa0d"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=f74b530e"></script>
+<script src="/theme/javascript/main.js?v=f74b530e"></script>
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Welcome to Apache Solr - Apache Solr</title>
 
     <meta name="keywords"
@@ -47,8 +47,8 @@
      <meta property="og:url" content="https://solr.apache.org/index.html"/>
      <meta property="og:title" content="Welcome to Apache Solr"/>
      <meta property="og:description" content=""/>
-     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=2434aa0d"/>
-     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=2434aa0d"/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=f74b530e"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=f74b530e"/>
 
    <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
@@ -568,87 +568,5 @@
       nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
     });
   });
-</script><div class="modal-overlay closed" id="modal-overlay"></div>
-
-<div class="sticky-container closed" id="modal">
-    <div class="sticky-outer">
-      <div class="sticky">
-        <svg width="0" height="0">
-          <defs>
-            <clipPath id="stickyClip" clipPathUnits="objectBoundingBox">
-              <path
-                d="M 0 0 Q 0 0.69, 0.03 0.96 0.03 0.96, 1 0.96 Q 0.96 0.69, 0.96 0 0.96 0, 0 0"
-                stroke-linejoin="round"
-                stroke-linecap="square"
-              />
-            </clipPath>
-          </defs>
-        </svg>
-        <div class="sticky-content">
-          <button class="close-button" id="close-button">X</button>
-          <div><h1>Solr has a new home!</h1></div>
-          <div class="break"></div>
-          <div>
-            Solr is now an independent Apache project here at <b>solr.apache.org</b>.
-            Please update your links. <a href="/news.html#apache-solr-becomes-an-apache-tlp" id="news-link">Read more about what it means for you</a>.
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-
-<script>
-  /* Cookie enabling functions. Thanks to Peter-Paul Koch for the code examples
-     at https://www.quirksmode.org/js/cookies.html (used with permission)
-  */
-  function createCookie(name,value,days) {
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime()+(days*24*60*60*1000));
-      var expires = "; expires="+date.toGMTString();
-    }
-    else var expires = "";
-    document.cookie = name+"="+value+expires+"; path=/";
-  }
-
-  function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-      var c = ca[i];
-      while (c.charAt(0)==' ') c = c.substring(1,c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-  }
-
-  function eraseCookie(name) {
-    createCookie(name,"",-1);
-  }
-</script>
-
-<script>
-  /* Script code to handle sticky note and modality */
-  var modal = document.querySelector("#modal");
-  var modalOverlay = document.querySelector("#modal-overlay");
-  var closeButton = document.querySelector("#close-button");
-  var linkText = document.querySelector("#news-link");
-
-  closeButton.addEventListener("click", function() {
-    modal.classList.toggle("closed");
-    modalOverlay.classList.toggle("closed");
-  });
-
-  linkText.addEventListener("click", function() {
-    modal.classList.toggle("closed");
-    modalOverlay.classList.toggle("closed");
-  });
-
-  // Open modal box on first visit only, and only the first year
-  if (readCookie("alreadyVisited") == null && new Date() < new Date('2022-03-01')) {
-    createCookie("alreadyVisited", "yes", 400)
-    modal.classList.toggle("closed");
-    modalOverlay.classList.toggle("closed");
-  }
 </script>  </body>
 </html>
