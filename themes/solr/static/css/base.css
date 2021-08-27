@@ -930,9 +930,12 @@ img.float-right {
     margin: 5px 0px 10px 10px;
 }
 
-
-.poweredby .list ul{
-    list-style-type: none;
+.poweredby ul {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  font-weight: 500;
 }
 
 .wrappable-btn {
