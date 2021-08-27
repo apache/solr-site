@@ -142,30 +142,30 @@ You may alternatively choose to clone apache's git mirror at `https://gitbox.apa
 
 ## Powered By ##
 
-Solr powers some of the most heavily-trafficked websites and applications in the world. Here are some examples:
+Solr powers some of the most heavily-trafficked websites and applications in the world. Here are some examples (alphabetical order):
 
-* AOL
-* Bestbuy
-* Zappos
-* StubHub
-* eharmony
-* DuckDuckGo
-* salesforce
-* AT&T
-* Instagram
-* Buy.com
-* Ticketmaster
-* Netflix
-* Chegg
-* Disney
 * Adobe
-* eBay
-* Internet Archive
-* SAP Hybris
-* Magento
+* AOL
+* AT&T
+* Bestbuy
 * Bloomberg
+* Buy.com
+* Chegg
 * Comcast
+* Disney
+* DuckDuckGo
+* eBay
+* eharmony
+* Instagram
+* Internet Archive
+* Magento
 * MTV Networks
+* Netflix
+* salesforce
+* SAP Hybris
+* StubHub
+* Ticketmaster
 * Travelocity
+* Zappos
 
-Visit [Solr's Powered By](https://cwiki.apache.org/confluence/display/solr/PublicServers) page to learn more about people and companies using Solr.
+Visit [Solr's Powered By](https://cwiki.apache.org/confluence/display/solr/PublicServers) Wiki page to learn more about more people and companies using Solr.
