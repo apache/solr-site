@@ -1,7 +1,7 @@
-Title: Downloads
-URL: operator/downloads.html
-save_as: operator/downloads.html
-template: operator/downloads
+Title: Artifacts
+URL: operator/artifacts.html
+save_as: operator/artifacts.html
+template: operator/artifacts
 
 Official releases are usually created when the [developers]({filename}/pages/whoweare.md)
 feel there are sufficient changes, improvements and bug fixes to warrant a release.
