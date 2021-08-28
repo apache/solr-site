@@ -163,7 +163,7 @@ Solr powers some of the most heavily-trafficked websites and applications in the
     <li>Magento</li>
     <li>MTV Networks</li>
     <li>Netflix</li>
-    <li>salesforce</li>
+    <li>Salesforce</li>
     <li>SAP Hybris</li>
     <li>StubHub</li>
     <li>Ticketmaster</li>
