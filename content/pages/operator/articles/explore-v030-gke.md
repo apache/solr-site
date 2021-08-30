@@ -8,7 +8,7 @@ template: operator/page
 <small>_Author: Tim Potter_</small>
 
 Earlier this year, Bloomberg graciously donated the Solr operator to the Apache Software Foundation.
-The latest [v0.3.0 release]({filename}/pages/operator/downloads.md#solr-v030) is the first under Apache and represents a significant milestone for the Apache Solr community at large.
+The latest [v0.3.0 release]({filename}/pages/operator/artifacts.md) is the first under Apache and represents a significant milestone for the Apache Solr community at large.
 The operator is Solr’s first satellite project that is managed by the Solr PMC but released independently of Apache Solr.
 The community now has a powerful vehicle to translate hard-earned lessons and best practices running Solr at scale into automated solutions on Kubernetes.
 
