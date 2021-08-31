@@ -142,5 +142,34 @@ You may alternatively choose to clone apache's git mirror at `https://gitbox.apa
 
 ## Powered By ##
 
-Are you Solr powered?  Looking for good company?  Check out
-[Solr's Powered By](https://cwiki.apache.org/confluence/display/solr/PublicServers) page to learn about people and companies using Solr.
+Solr powers some of the most heavily-trafficked websites and applications in the world. Here are some examples (alphabetical order):
+
+<div class="poweredby">
+  <ul>
+    <li>Adobe</li>
+    <li>AOL</li>
+    <li>AT&T</li>
+    <li>Bestbuy</li>
+    <li>Bloomberg</li>
+    <li>Buy.com</li>
+    <li>Chegg</li>
+    <li>Comcast</li>
+    <li>Disney</li>
+    <li>DuckDuckGo</li>
+    <li>eBay</li>
+    <li>eharmony</li>
+    <li>Instagram</li>
+    <li>Internet Archive</li>
+    <li>Magento</li>
+    <li>MTV Networks</li>
+    <li>Netflix</li>
+    <li>Salesforce</li>
+    <li>SAP Hybris</li>
+    <li>StubHub</li>
+    <li>Ticketmaster</li>
+    <li>Travelocity</li>
+    <li>Zappos</li>
+  </ul>
+</div>
+
+Visit [Solr's Powered By](https://cwiki.apache.org/confluence/display/solr/PublicServers) Wiki page to learn more about more people and companies using Solr.
