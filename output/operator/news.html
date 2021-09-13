@@ -127,6 +127,38 @@
   <h1 id="solr-operator-news">Solr Operator<sup>™</sup> News<a class="headerlink" href="#solr-operator-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/operator/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-operatortm-v040-available">13 September 2021, Apache Solr Operator™ v0.4.0 available
+    <a class="headerlink" href="#apache-solr-operatortm-v040-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.4.0.</p>
+<p>The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.</p>
+<p>This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/operator/artifacts.html">https://solr.apache.org/operator/artifacts.html</a></p>
+<h3 id="solr-operator-v040-release-highlights">Solr Operator v0.4.0 Release Highlights:</h3>
+<ul>
+<li>A new Helm chart for templating the Solr resource.</li>
+<li>Users must still run the Solr Operator, preferably through the Solr Operator Helm chart.</li>
+<li>Support for hostpath for the Solr data volume when in ephemeral mode</li>
+<li>Scheduled restarts of Solr Clouds and Solr Prometheus Exporters</li>
+<li>The default version of Solr has been upgraded to 8.9</li>
+<li>Allow for custom service accounts to be used when running Solr</li>
+<li>Upgrade the Zookeeper Operator dependency to v0.2.12</li>
+<li>Allow for ephemeral storage when running a provided Zookeeper cluster</li>
+<li>The storage type for Zookeeper will default to the option chosen for Solr</li>
+<li>Enable configuration of provided Zookeeper Config options</li>
+<li>Use a more secure base image for the Solr Operator</li>
+<li>The PrometheusExporter now accepts custom pod probes (liveness, readiness, startup)</li>
+<li>Fix permissions in the default bootstrapped security.json</li>
+<li>Allow for terminating the Solr TLS at the ingress</li>
+<li>Allow for loading in TLS information from a mounted directory (SolrCloud and SolrPrometheusExporter)</li>
+<li>SolrCloud now supports separate server and client certs for mTLS</li>
+<li>The Solr Operator supports hot-reloading of TLS client certs used to connect to Solr (enabled by default)</li>
+</ul>
+<p>A summary of important changes is published in the documentation at:</p>
+<p><a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html">https://apache.github.io/solr-operator/docs/upgrade-notes.html</a></p>
+<p>For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.</p>
+<p><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog">https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog</a>
+  <a href="https://github.com/apache/solr-operator/releases/tag/v0.4.0">https://github.com/apache/solr-operator/releases/tag/v0.4.0</a></p>
   <h2 id="apache-solr-operatortm-v030-available">29 April 2021, Apache Solr Operator™ v0.3.0 available
     <a class="headerlink" href="#apache-solr-operatortm-v030-available" title="Permanent link">¶</a>
   </h2>

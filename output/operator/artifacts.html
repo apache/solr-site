@@ -127,18 +127,18 @@ feel there are sufficient changes, improvements and bug fixes to warrant a relea
 Due to the voluntary nature of Solr, no releases are scheduled in advance.</p>
 <p>The suggested method of installing the Solr Operator in your Kubernetes cluster is via the <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator">provided Helm chart</a>.
 Source releases are provided for the operator, however binaries are only provided via the official <a href="https://hub.docker.com/r/apache/solr-operator">Docker Image</a>.</p>
-  <h2 id="solr-v030">Solr Operator v0.3.0
-    <a class="headerlink" href="#solr-v030" title="Permanent link">¶</a>
+  <h2 id="solr-v040">Solr Operator v0.4.0
+    <a class="headerlink" href="#solr-v040" title="Permanent link">¶</a>
   </h2>
 
-  <p>Solr Operator v0.3.0 is the most recent Apache Solr Operator release.</p>
+  <p>Solr Operator v0.4.0 is the most recent Apache Solr Operator release.</p>
 
   <div style="display:flex">
     <ul style="margin: 0.75rem; flex-shrink: 0">
       <li>Source release:
-        <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz">solr-operator-v0.3.0.tgz</a>
-        [<a href="https://downloads.apache.org/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz.asc">PGP</a>]
-        [<a href="https://downloads.apache.org/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz.sha512">SHA512</a>]
+        <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/v0.4.0/solr-operator-v0.4.0.tgz">solr-operator-v0.4.0.tgz</a>
+        [<a href="https://downloads.apache.org/solr/solr-operator/v0.4.0/solr-operator-v0.4.0.tgz.asc">PGP</a>]
+        [<a href="https://downloads.apache.org/solr/solr-operator/v0.4.0/solr-operator-v0.4.0.tgz.sha512">SHA512</a>]
       </li>
 
       <li>Docker releases:
@@ -146,61 +146,57 @@ Source releases are provided for the operator, however binaries are only provide
       </li>
 
       <li>Helm Chart release:
-        <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.3.0">Artifact Hub</a><br/>
-        <i>Use <code>0.3.0</code> as the version of the Helm Chart.</i>
+        <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.4.0">Artifact Hub</a><br/>
+        <i>Use <code>0.4.0</code> as the version of the Helm Chart.</i>
       </li>
 
       <li>CRDs:
         <ul>
-          <li><a href="/operator/downloads/crds/v0.3.0/all.yaml">All</a></li>
-          <li><a href="/operator/downloads/crds/v0.3.0/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
-          <li><a href="/operator/downloads/crds/v0.3.0/solrclouds.yaml">Solr Cloud</a></li>
-          <li><a href="/operator/downloads/crds/v0.3.0/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
-          <li><a href="/operator/downloads/crds/v0.3.0/solrbackups.yaml">Solr Backup</a></li>
+          <li><a href="/operator/downloads/crds/v0.4.0/all.yaml">All</a></li>
+          <li><a href="/operator/downloads/crds/v0.4.0/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
+          <li><a href="/operator/downloads/crds/v0.4.0/solrclouds.yaml">Solr Cloud</a></li>
+          <li><a href="/operator/downloads/crds/v0.4.0/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
+          <li><a href="/operator/downloads/crds/v0.4.0/solrbackups.yaml">Solr Backup</a></li>
         </ul>
       </li>
 
       <!-- TODO: Put change log in site -->
-      <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.3.0?modal=changelog">Change log</a></li>
+      <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.4.0?modal=changelog">Change log</a></li>
     </ul>
 
     <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="true" data-responsive="true"></div>
     <script async src="https://artifacthub.io/artifacthub-widget.js"></script>
   </div>
 
-  <h3 id="solr-v028">Solr Operator v0.2.8
-    <a class="headerlink" href="#solr-v028" title="Permanent link">¶</a>
+  <h3 id="solr-v030">Solr Operator v0.3.0
+    <a class="headerlink" href="#solr-v030" title="Permanent link">¶</a>
   </h3>
 
-  <p>Solr Operator v0.2.8 is the last release in the v0.2.x series.</p>
+  <p>Solr Operator v0.3.0 is the last release in the v0.3.x series.</p>
 
   <ul>
     <li>Source release:
-      <a href="https://github.com/apache/solr-operator/archive/v0.2.8.tar.gz">solr-operator-v0.2.8.tgz</a>
-      <!-- TODO: Replace bullet point with following when v0.2.x is no longer relevant
-      <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/v0.2.8/solr-operator-v0.2.8.tgz">solr-v0.2.8.tgz</a>
-      [<a href="https://downloads.apache.org/solr/solr-operator/v0.2.8/solr-operator-v0.2.8.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/solr/solr-operator/v0.2.8/solr-operator-v0.2.8.tgz.sha512">SHA512</a>]
-      -->
+      <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz">solr-operator-v0.3.0.tgz</a>
+      [<a href="https://downloads.apache.org/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/solr-operator/v0.3.0/solr-operator-v0.3.0.tgz.sha512">SHA512</a>]
     </li>
 
-    <!-- TODO: Change to Apache when v0.2.x is no longer relevant -->
     <li>Docker releases:
-      <a href="https://hub.docker.com/r/bloomberg/solr-operator">bloomberg/solr-operator</a>
+      <a href="https://hub.docker.com/r/apache/solr-operator">apache/solr-operator</a>
     </li>
 
     <li>Helm Chart release:
-      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.2.8">Artifact Hub</a><br/>
-      <i>Use <code>0.2.8</code> as the version of the Helm Chart.</i>
+      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/0.3.0">Artifact Hub</a><br/>
+      <i>Use <code>0.3.0</code> as the version of the Helm Chart.</i>
     </li>
 
     <li>CRDs:
       <ul>
-        <li><a href="/operator/downloads/crds/v0.2.8/all.yaml">All</a></li>
-        <li><a href="/operator/downloads/crds/v0.2.8/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
-        <li><a href="/operator/downloads/crds/v0.2.8/solrclouds.yaml">Solr Cloud</a></li>
-        <li><a href="/operator/downloads/crds/v0.2.8/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
-        <li><a href="/operator/downloads/crds/v0.2.8/solrbackups.yaml">Solr Backup</a></li>
+        <li><a href="/operator/downloads/crds/v0.3.0/all.yaml">All</a></li>
+        <li><a href="/operator/downloads/crds/v0.3.0/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
+        <li><a href="/operator/downloads/crds/v0.3.0/solrclouds.yaml">Solr Cloud</a></li>
+        <li><a href="/operator/downloads/crds/v0.3.0/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
+        <li><a href="/operator/downloads/crds/v0.3.0/solrbackups.yaml">Solr Backup</a></li>
       </ul>
     </li>
   </ul>
@@ -228,7 +224,7 @@ Source releases are provided for the operator, however binaries are only provide
   </h3>
 
   <p>The <code>solr-operator-VERSION.tgz</code> file contains the full source code for that version, where <code>VERSION</code> is the version number of
-    the release, e.g. <code>v0.3.0</code>.</p>
+    the release, e.g. <code>v0.4.0</code>.</p>
 
   <p>Helm Charts do not allow a <strong>v</strong> prefix in the version, so that is the only version in the Solr Operator release corpus that does not use it.</p>
 
@@ -253,19 +249,19 @@ Source releases are provided for the operator, however binaries are only provide
       <th>Description</th>
     </tr>
     <tr align=left>
-      <td>v0.3.x</td>
+      <td>v0.4.x</td>
       <td>Current minor version for feature releases (STABLE)</td>
     </tr>
     <tr align=left>
-      <td>v0.2.x</td>
+      <td>v0.3.x</td>
       <td>Previous minor version may sometimes receive critical bugfix releases</td>
     </tr>
     <tr align=left>
-      <td>v0.4</td>
+      <td>v0.5</td>
       <td>Next minor version, yet to be released (UNSTABLE)</td>
     </tr>
     <tr align=left>
-      <td>&lt;v0.2.8</td>
+      <td>&lt;v0.3.0</td>
       <td>All older versions are End Of Life (EOL)</td>
     </tr>
   </table>
