@@ -50,15 +50,11 @@ Additional documentation can be found on the [Solr Community Wiki](https://cwiki
 If you want to run Solr on Kubernetes, the easiest way to get started is via installing the Helm charts below.
 
 * **[Solr Operator](/operator)** - A management layer that runs independently in Kubernetes. Only deploy 1 per Kubernetes cluster or namespace.
-<!-- Uncomment when v0.4.0 is released
 * **Solr** - A SolrCloud cluster. In order to deploy this Helm chart successfully, you must first install the Solr Operator and Solr CRDs. Follow the instructions on the ArtifactHub page below.
--->
 
-<div style="display:flex; justify-content: space-evenly">
-  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="false" data-responsive="true"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
-  <!-- Uncomment when v0.4.0 is released
-  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr" data-theme="light" data-header="false" data-responsive="true"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
-  -->
+<div style="display:flex; justify-content: space-evenly; flex-wrap: wrap">
+  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
 </div>
 
 ***
