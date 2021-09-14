@@ -24,32 +24,32 @@
   <div style="display:flex">
     <ul style="margin: 0.75rem; flex-shrink: 0">
       <li>Source release:
-        <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz">solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz</a>
-        [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.asc">PGP</a>]
-        [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.sha512">SHA512</a>]
+        <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz" target="_blank">solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz</a>
+        [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.asc" target="_blank">PGP</a>]
+        [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz.sha512" target="_blank">SHA512</a>]
       </li>
 
       <li>Docker releases:
-        <a href="https://hub.docker.com/r/apache/solr-operator">apache/solr-operator</a>
+        <a href="https://hub.docker.com/r/apache/solr-operator" target="_blank">apache/solr-operator</a>
       </li>
 
       <li>Helm Chart release:
-        <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}">Artifact Hub</a><br/>
+        <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}" target="_blank">Artifact Hub</a><br/>
         <i>Use <code>{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i>
       </li>
 
       <li>CRDs:
         <ul>
-          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all.yaml">All</a></li>
-          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
-          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrclouds.yaml">Solr Cloud</a></li>
-          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
-          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrbackups.yaml">Solr Backup</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all.yaml" target="_blank">All</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/all-with-dependencies.yaml" target="_blank">All with Dependencies (Zookeeper)</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrclouds.yaml" target="_blank">Solr Cloud</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrprometheusexporters.yaml" target="_blank">Solr Prometheus Exporter</a></li>
+          <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solrbackups.yaml" target="_blank">Solr Backup</a></li>
         </ul>
       </li>
 
       <!-- TODO: Put change log in site -->
-      <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog">Change log</a></li>
+      <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog" target="_blank">Change log</a></li>
     </ul>
 
     <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="true" data-responsive="true"></div>
@@ -64,36 +64,40 @@
 
   <ul>
     <li>Source release:
-      <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz">solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz</a>
-      [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz.sha512">SHA512</a>]
+      <a href="https://archive.apache.org/dist/solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz" target="_blank">solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz</a>
+      [<a href="https://archive.apache.org/dist/solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz.asc" target="_blank">PGP</a>]
+      [<a href="https://archive.apache.org/dist/solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}.tgz.sha512" target="_blank">SHA512</a>]
     </li>
 
     <li>Docker releases:
-      <a href="https://hub.docker.com/r/apache/solr-operator">apache/solr-operator</a>
+      <a href="https://hub.docker.com/r/apache/solr-operator" target="_blank">apache/solr-operator</a>
     </li>
 
     <li>Helm Chart release:
-      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}">Artifact Hub</a><br/>
+      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}" target="_blank">Artifact Hub</a><br/>
       <i>Use <code>{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i>
     </li>
 
     <li>CRDs:
       <ul>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/all.yaml">All</a></li>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/all-with-dependencies.yaml">All with Dependencies (Zookeeper)</a></li>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrclouds.yaml">Solr Cloud</a></li>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrprometheusexporters.yaml">Solr Prometheus Exporter</a></li>
-        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrbackups.yaml">Solr Backup</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/all.yaml" target="_blank">All</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/all-with-dependencies.yaml" target="_blank">All with Dependencies (Zookeeper)</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrclouds.yaml" target="_blank">Solr Cloud</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrprometheusexporters.yaml" target="_blank">Solr Prometheus Exporter</a></li>
+        <li><a href="{{ SITEURL }}/operator/downloads/crds/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}/solrbackups.yaml" target="_blank">Solr Backup</a></li>
       </ul>
     </li>
+
+    <!-- TODO: Put change log in site -->
+    <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog" target="_blank">Change log</a></li>
   </ul>
 
   <h2 id="past-versions">Past versions
     <a class="headerlink" href="#past-versions" title="Permanent link">&para;</a>
   </h2>
 
-  <p>Archives for all past versions of the Solr Operator are available at <a href="https://archive.apache.org/dist/solr/solr-operator">the Apache archives</a>. See the <a href="https://github.com/apache/solr-operator/releases">Github releases</a> for pre-v0.3.0 releases</p>
+  <p>Archives for all past versions of the Solr Operator are available at <a href="https://archive.apache.org/dist/solr/solr-operator" target="_blank">the Apache archives</a>
+    and <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator" target="_blank">ArtifactHub</a>. See the <a href="https://github.com/apache/solr-operator/releases">Github releases</a> for pre-v0.3.0 releases</p>
 
   <h2 id="about-downloads">About downloads
     <a class="headerlink" href="#about-downloads" title="Permanent link">&para;</a>
@@ -155,12 +159,12 @@
   </table>
 
   <p>For more about versions and upgrading the Solr Operator, see the
-    <a href="https://github.com/apache/solr-operator/blob/main/docs/upgrade-notes.md">Upgrade Notes page</a> in the documentation.
+    <a href="https://github.com/apache/solr-operator/blob/main/docs/upgrade-notes.md" target="_blank">Upgrade Notes page</a> in the documentation.
   </p>
 
   <h3>Docker Image License Information</h3>
   <p>
-    The official <a href="https://hub.docker.com/r/apache/solr-operator">Solr Operator Docker image</a> contains <code>NOTICE</code> and <code>LICENSE</code> information in the <code>/etc/licenses</code> directory.
+    The official <a href="https://hub.docker.com/r/apache/solr-operator" target="_blank">Solr Operator Docker image</a> contains <code>NOTICE</code> and <code>LICENSE</code> information in the <code>/etc/licenses</code> directory.
     This is different from the source release <code>LICENSE</code> and <code>NOTICE</code> files, so make sure to familiarize yourself when using the image.
   </p>
 </div>
