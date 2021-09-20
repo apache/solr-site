@@ -41,6 +41,11 @@
     if (latest_news_days < 60) {
       $('.topnews').show();
     }
+    // Conditionally show last operator news entry
+    const latest_operator_news_days = (new Date() - new Date($('.topnews-operator').attr('latest-date'))) / (1000 * 60 * 60 * 24);
+    if (latest_operator_news_days < 60) {
+      $('.topnews-operator').show();
+    }
   });
 
   /*
