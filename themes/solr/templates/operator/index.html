@@ -19,7 +19,7 @@
 {% block solr_operator_news %}
 {% set latest_articles = (articles | selectattr("category.name", "eq", "solr/operator/news") | list)[:1] %}
 {% set latest_date = latest_articles[0].date | strftime("%Y-%m-%d") %}
-<section class="topnews" latest-date="{{ latest_date }}">
+<section class="topnews-operator" latest-date="{{ latest_date }}">
   <div class="row">
     {% for article in latest_articles %}
     <p id="{{article.slug}}">

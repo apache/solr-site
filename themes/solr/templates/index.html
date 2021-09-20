@@ -28,6 +28,20 @@
 </section>
 {% endblock %}
 
+{% block solr_operator_news %}
+{% set latest_operator_articles = (articles | selectattr("category.name", "eq", "solr/operator/news") | list)[:1] %}
+{% set latest_operator_date = latest_operator_articles[0].date | strftime("%Y-%m-%d") %}
+<section class="topnews-operator" latest-date="{{ latest_operator_date }}">
+  <div class="row">
+    {% for article in latest_operator_articles %}
+    <p id="{{article.slug}}-operator">
+      <a href="/operator/news.html#{{article.slug}}"><b>NEWS:</b> {{article.title}}</a> <span class="news-date">({{ article.date | strftime("%d.%b") }})</span>
+    </p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
 {% block content_inner %}
 <section class="gray offset-medium" id="learn-more"></section>
 
