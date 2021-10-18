@@ -57,8 +57,8 @@ RedirectMatch Permanent ^/guide/\d+_\d+$ $0/
 # Other pages can always be redirected to the "most current" released javadocs
 # using "temp" instead of permanent so crawlers know that they
 # might change again in the future
-RedirectMatch temp ^/api/org/(.*) /docs/8_10_0/solr-core/org/$1
-RedirectMatch temp ^/api/(.*) /docs/8_10_0/$1
+RedirectMatch temp ^/api/org/(.*) /docs/8_10_1/solr-core/org/$1
+RedirectMatch temp ^/api/(.*) /docs/8_10_1/$1
 RedirectMatch temp ^/guide/(?!index.html)([a-z].*) /guide/8_10/$1
 
 # Solr Tutorial is now in the Solr Ref Guide
