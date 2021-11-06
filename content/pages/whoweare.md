@@ -43,6 +43,7 @@ This is a list of emeritus project members. We appreciate your contributions!
 - Christoph Goller (goller)
 - Chris Hostetter (hossman)
 - Mike Klaas (klaas)
+- Erick Erickson (erick)
 
 #### Emeritus committers
 
