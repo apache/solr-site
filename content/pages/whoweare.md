@@ -44,6 +44,7 @@ This is a list of emeritus project members. We appreciate your contributions!
 - Chris Hostetter (hossman)
 - Mike Klaas (klaas)
 - Erick Erickson (erick)
+- Dawid Weiss (dweiss)
 
 #### Emeritus committers
 
