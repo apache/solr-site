@@ -127,6 +127,39 @@
   <h1 id="solr-operator-news">Solr Operator<sup>™</sup> News<a class="headerlink" href="#solr-operator-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/operator/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-operatortm-v050-available">16 November 2021, Apache Solr Operator™ v0.5.0 available
+    <a class="headerlink" href="#apache-solr-operatortm-v050-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.5.0.</p>
+<p>The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.</p>
+<p>This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/operator/artifacts.html">https://solr.apache.org/operator/artifacts.html</a></p>
+<h3 id="solr-operator-v050-release-highlights">Solr Operator v0.5.0 Release Highlights:</h3>
+<ul>
+<li>Support for Kubernetes v1.22+ (including the new Ingress APIs)</li>
+<li>Support for cloud-native backups, and multiple backup repositories per-SolrCloud</li>
+<li>GCS and S3 Backup Repositories are now fully supported (require Solr 8.9 and Solr 8.10 respectively)</li>
+<li>SolrCloud Backup option has been removed from SolrCloud.spec.dataStorage.backupRestoreOptions, please use SolrCloud.spec.backupRepositories instead</li>
+<li>When upgrading, the Solr Operator will automatically migrate the information to the new location</li>
+<li>SolrBackup Persistence has been removed</li>
+<li>Please keep the data in the shared volume, or use a cloud-native backup repository instead (e.g. GCS, S3)</li>
+<li>Any persistence options provided will be removed and ignored</li>
+<li>Introducing recurring/scheduled backup support in SolrBackup resource</li>
+<li>Ability to bootstrap a custom Solr security.xml from a Secret</li>
+<li>Fix for managed SolrCloud upgrades across multiple SolrCloud resources (with a shared zookeeper connection string)</li>
+<li>Easy enablement of Solr Modules and additional libraries for SolrCloud</li>
+<li>Pod Lifecycle is now customizable for SolrCloud and SolrPrometheusExporter</li>
+<li>SolrCloud can now be run across availability zones with support for PodSpreadTopologyConstraints</li>
+<li>Augment the available Pod customization options for provided Zookeeper Clusters</li>
+<li>The Solr Operator now runs with liveness and readiness probes by default</li>
+<li>The Solr Operator now provides a metrics endpoint, that is enabled by default when using the Solr Operator Helm chart</li>
+<li>Leader election is now enabled for the Solr Operator by default, and supports multiple namespace watching</li>
+</ul>
+<p>A summary of important changes is published in the documentation at:</p>
+<p><a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html">https://apache.github.io/solr-operator/docs/upgrade-notes.html</a></p>
+<p>For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.</p>
+<p><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog">https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog</a></p>
+<p><a href="https://github.com/apache/solr-operator/releases/tag/v0.5.0">https://github.com/apache/solr-operator/releases/tag/v0.5.0</a></p>
   <h2 id="apache-solr-operatortm-v040-available">13 September 2021, Apache Solr Operator™ v0.4.0 available
     <a class="headerlink" href="#apache-solr-operatortm-v040-available" title="Permanent link">¶</a>
   </h2>
