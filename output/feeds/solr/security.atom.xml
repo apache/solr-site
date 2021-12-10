@@ -29,9 +29,9 @@ Any of the following are enough to prevent this vulnerability for Solr servers:&
 &lt;ul&gt;
 &lt;li&gt;Upgrade to &lt;code&gt;Solr 8.11.1&lt;/code&gt; or greater (when available), which will include an updated version of the log4j2 dependency.&lt;/li&gt;
 &lt;li&gt;Manually update the version of log4j2 on your runtime classpath and restart your Solr application.&lt;/li&gt;
-&lt;li&gt;Edit your &lt;code&gt;solr-exporter&lt;/code&gt; script to include
+&lt;li&gt;Edit your &lt;code&gt;solr-exporter&lt;/code&gt; script to include:
   &lt;code&gt;JAVA_OPTS="$JAVA_OPTS -Dlog4j2.formatMsgNoLookups=true"&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Follow any of the other mitgations listed at https://logging.apache.org/log4j/2.x/security.html&lt;/li&gt;
+&lt;li&gt;Follow any of the other mitgations listed at &lt;a href="https://logging.apache.org/log4j/2.x/security.html"&gt;https://logging.apache.org/log4j/2.x/security.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
 &lt;a href="https://logging.apache.org/log4j/2.x/security.html"&gt;https://logging.apache.org/log4j/2.x/security.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2021-27905: SSRF vulnerability with the Replication handler</title><link href="/cve-2021-27905-ssrf-vulnerability-with-the-replication-handler.html" rel="alternate"></link><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/cve-2021-27905-ssrf-vulnerability-with-the-replication-handler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;

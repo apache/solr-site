@@ -159,9 +159,9 @@ Any of the following are enough to prevent this vulnerability for Solr servers:<
 <ul>
 <li>Upgrade to <code>Solr 8.11.1</code> or greater (when available), which will include an updated version of the log4j2 dependency.</li>
 <li>Manually update the version of log4j2 on your runtime classpath and restart your Solr application.</li>
-<li>Edit your <code>solr-exporter</code> script to include
+<li>Edit your <code>solr-exporter</code> script to include:
   <code>JAVA_OPTS="$JAVA_OPTS -Dlog4j2.formatMsgNoLookups=true"</code></li>
-<li>Follow any of the other mitgations listed at https://logging.apache.org/log4j/2.x/security.html</li>
+<li>Follow any of the other mitgations listed at <a href="https://logging.apache.org/log4j/2.x/security.html">https://logging.apache.org/log4j/2.x/security.html</a></li>
 </ul>
 <p><strong>References:</strong>
 <a href="https://logging.apache.org/log4j/2.x/security.html">https://logging.apache.org/log4j/2.x/security.html</a></p>
