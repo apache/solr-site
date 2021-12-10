@@ -19,7 +19,7 @@ Any of the following are enough to prevent this vulnerability:&lt;/p&gt;
 &lt;li&gt;Upgrade to &lt;code&gt;Solr 8.11.1&lt;/code&gt; or greater (when available), which will include an updated version of the log4j2 dependancy.&lt;/li&gt;
 &lt;li&gt;Manually update the version of log4j2 on your runtime classpath and restart your Solr application.&lt;/li&gt;
 &lt;li&gt;(Linux/MacOS) Edit your &lt;code&gt;solr.in.sh&lt;/code&gt; file to include &lt;code&gt;SOLR_OPTS="$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true"&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;(Windows) Edit your &lt;code&gt;solr.in.cmd&lt;/code&gt; file to include &lt;code&gt;SOLR_OPTS="%SOLR_OPTS% -Dlog4j2.formatMsgNoLookups=true"&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;(Windows) Edit your &lt;code&gt;solr.in.cmd&lt;/code&gt; file to include &lt;code&gt;set SOLR_OPTS=%SOLR_OPTS% -Dlog4j2.formatMsgNoLookups=true&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Follow any of the other mitgations listed at https://logging.apache.org/log4j/2.x/security.html&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
