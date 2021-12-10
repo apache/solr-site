@@ -29,9 +29,9 @@ Any of the following are enough to prevent this vulnerability for Solr servers:&
 &lt;ul&gt;
 &lt;li&gt;Upgrade to &lt;code&gt;Solr 8.11.1&lt;/code&gt; or greater (when available), which will include an updated version of the log4j2 dependency.&lt;/li&gt;
 &lt;li&gt;Manually update the version of log4j2 on your runtime classpath and restart your Solr application.&lt;/li&gt;
-&lt;li&gt;Edit your &lt;code&gt;solr-exporter&lt;/code&gt; script to include
+&lt;li&gt;Edit your &lt;code&gt;solr-exporter&lt;/code&gt; script to include:
   &lt;code&gt;JAVA_OPTS="$JAVA_OPTS -Dlog4j2.formatMsgNoLookups=true"&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Follow any of the other mitgations listed at https://logging.apache.org/log4j/2.x/security.html&lt;/li&gt;
+&lt;li&gt;Follow any of the other mitgations listed at &lt;a href="https://logging.apache.org/log4j/2.x/security.html"&gt;https://logging.apache.org/log4j/2.x/security.html&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
 &lt;a href="https://logging.apache.org/log4j/2.x/security.html"&gt;https://logging.apache.org/log4j/2.x/security.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>Apache Solr Operator™ v0.5.0 available</title><link href="/apache-solr-operatortm-v050-available.html" rel="alternate"></link><published>2021-11-16T00:00:00+00:00</published><updated>2021-11-16T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-11-16:/apache-solr-operatortm-v050-available.html</id><summary type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.5.0.&lt;/p&gt;
