@@ -140,6 +140,11 @@ Then please disclose responsibly by following <a href="https://www.apache.org/se
             <th>Announcement</th>
         </tr>
         <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44228">CVE-2021-44228</a></td>
+            <td>2021-12-12</td>
+            <td><a href="#apache-solr-affected-by-apache-log4j-cve-2021-44228-jndi-features-do-not-protect-against-attacker-controlled-ldap-and-other-jndi-related-endpoints">Apache Solr affected by Apache Log4J CVE-2021-44228: JNDI features do not protect against attacker controlled LDAP and other JNDI related endpoints</a></td>
+        </tr>
+        <tr>
             <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-27905">CVE-2021-27905</a></td>
             <td>2021-04-12</td>
             <td><a href="#cve-2021-27905-ssrf-vulnerability-with-the-replication-handler">SSRF vulnerability with the Replication handler</a></td>
@@ -209,13 +214,31 @@ Then please disclose responsibly by following <a href="https://www.apache.org/se
             <td>2017-10-26</td>
             <td><a href="#cve-2016-6809-java-code-execution-for-serialized-objects-embedded-in-matlab-files-parsed-by-apache-solr-using-tika">Java code execution for serialized objects embedded in MATLAB files parsed by Apache Solr using Tika</a></td>
         </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-9803">CVE-2017-9803</a></td>
-            <td>2017-10-18</td>
-            <td><a href="#several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce">Several critical vulnerabilities discovered in Apache Solr (XXE & RCE)</a></td>
-        </tr>
     </table>
 
+  <h2 id="apache-solr-affected-by-apache-log4j-cve-2021-44228-jndi-features-do-not-protect-against-attacker-controlled-ldap-and-other-jndi-related-endpoints">2021-12-12, Apache Solr affected by Apache Log4J CVE-2021-44228: JNDI features do not protect against attacker controlled LDAP and other JNDI related endpoints
+    <a class="headerlink" href="#apache-solr-affected-by-apache-log4j-cve-2021-44228-jndi-features-do-not-protect-against-attacker-controlled-ldap-and-other-jndi-related-endpoints" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong>
+Critical</p>
+<p><strong>Versions Affected:</strong>
+7.0.0 to 7.7.3
+8.0.0 to 8.11.0</p>
+<p><strong>Description:</strong>
+Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache Log4J library vulnerable to RCE. For full impact and additional detail consult the Log4J security page.</p>
+<p>Apache Solr releases prior to 7.0 (i.e. all Solr 5 and Solr 6 releases) use log4j 1.2.17 which may be vulnerable for installations using non-default logging configurations. To determine you if you are vulnerable please consult the Log4J security page.</p>
+<p><strong>Mitigation:</strong>
+Any of the following are enough to prevent this vulnerability:</p>
+<ul>
+<li>Upgrade to <code>Solr 8.11.1</code> or greater (when available), which will include an updated version of the log4j2 dependancy.</li>
+<li>Manually update the version of log4j2 on your runtime classpath and restart your Solr application.</li>
+<li>(Linux/MacOS) Edit your <code>solr.in.sh</code> file to include <code>SOLR_OPTS="$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true"</code></li>
+<li>(Windows) Edit your <code>solr.in.cmd</code> file to include <code>SOLR_OPTS="%SOLR_OPTS% -Dlog4j2.formatMsgNoLookups=true"</code></li>
+<li>Follow any of the other mitgations listed at https://logging.apache.org/log4j/2.x/security.html</li>
+</ul>
+<p><strong>References:</strong>
+https://logging.apache.org/log4j/2.x/security.html</p>
+  <hr/>
   <h2 id="cve-2021-27905-ssrf-vulnerability-with-the-replication-handler">2021-04-12, CVE-2021-27905: SSRF vulnerability with the Replication handler
     <a class="headerlink" href="#cve-2021-27905-ssrf-vulnerability-with-the-replication-handler" title="Permanent link">¶</a>
   </h2>
@@ -628,61 +651,6 @@ deserialisation support to protect against this vulnerability.</p>
 <ul>
 <li><a href="https://issues.apache.org/jira/browse/SOLR-11486">https://issues.apache.org/jira/browse/SOLR-11486</a></li>
 <li><a href="https://issues.apache.org/jira/browse/SOLR-10335">https://issues.apache.org/jira/browse/SOLR-10335</a></li>
-<li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
-</ul>
-  <hr/>
-  <h2 id="several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce">2017-10-18, Several critical vulnerabilities discovered in Apache Solr (XXE & RCE)
-    <a class="headerlink" href="#several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong><br>
-Critical</p>
-<p><strong>Vendor:</strong><br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected:</strong>  </p>
-<ul>
-<li>Solr 5.5.0 to 5.5.4</li>
-<li>Solr 6.0.0 to 6.6.1</li>
-<li>Solr 7.0.0 to 7.0.1</li>
-</ul>
-<p><strong>Description:</strong><br>
-The details of this vulnerability were reported on public mailing
-lists. See https://s.apache.org/FJDl</p>
-<p>The first vulnerability relates to XML external entity expansion in
-the XML Query Parser which is available, by default, for any query
-request with parameters deftype=xmlparser. This can be exploited to
-upload malicious data to the /upload request handler. It can also be
-used as Blind XXE using ftp wrapper in order to read arbitrary local
-files from the solr server.</p>
-<p>The second vulnerability relates to remote code execution using the
-RunExecutableListener available on all affected versions of Solr.</p>
-<p>At the time of the above report, this was a 0-day vulnerability with a
-working exploit affecting the versions of Solr mentioned in the
-previous section. However, mitigation steps were announced to protect
-Solr users the same day. See
-https://solr.apache.org/news.html#12-october-2017-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list</p>
-<p><strong>Mitigation:</strong><br>
-Users are advised to upgrade to either Solr 6.6.2 or Solr 7.1.0
-releases both of which address the two vulnerabilities. Once upgrade is
-complete, no other steps are required.</p>
-<p>If users are unable to upgrade to Solr 6.6.2 or Solr 7.1.0 then they
-are advised to restart their Solr instances with the system parameter
-<code>-Ddisable.configEdit=true</code>. This will disallow any changes to be made
-to your configurations via the Config API. This is a key factor in
-this vulnerability, since it allows GET requests to add the
-RunExecutableListener to your config. Users are also advised to re-map
-the XML Query Parser to another parser to mitigate the XXE
-vulnerability. For example, adding the following to the solrconfig.xml
-file re-maps the xmlparser to the edismax parser:
-<code>&lt;queryParser name="xmlparser" class="solr.ExtendedDismaxQParserPlugin"/&gt;</code></p>
-<p><strong>Credit:</strong>  </p>
-<ul>
-<li>Michael Stepankin (JPMorgan Chase)</li>
-<li>Olga Barinova (Gotham Digital Science)</li>
-</ul>
-<p><strong>References:</strong>  </p>
-<ul>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-11482">https://issues.apache.org/jira/browse/SOLR-11482</a></li>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-11477">https://issues.apache.org/jira/browse/SOLR-11477</a></li>
 <li><a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></li>
 </ul>
   <hr/>
