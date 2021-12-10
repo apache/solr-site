@@ -132,6 +132,28 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-affected-by-apache-log4j-cve-2021-44228-jndi-features-do-not-protect-against-attacker-controlled-ldap-and-other-jndi-related-endpoints">12 December 2021, Apache Solr affected by Apache Log4J CVE-2021-44228: JNDI features do not protect against attacker controlled LDAP and other JNDI related endpoints
+    <a class="headerlink" href="#apache-solr-affected-by-apache-log4j-cve-2021-44228-jndi-features-do-not-protect-against-attacker-controlled-ldap-and-other-jndi-related-endpoints" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong>
+Critical</p>
+<p><strong>Versions Affected:</strong>
+7.0.0 to 7.7.3
+8.0.0 to 8.11.0</p>
+<p><strong>Description:</strong>
+Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache Log4J library vulnerable to RCE. For full impact and additional detail consult the Log4J security page.</p>
+<p>Apache Solr releases prior to 7.0 (i.e. all Solr 5 and Solr 6 releases) use log4j 1.2.17 which may be vulnerable for installations using non-default logging configurations. To determine you if you are vulnerable please consult the Log4J security page.</p>
+<p><strong>Mitigation:</strong>
+Any of the following are enough to prevent this vulnerability:</p>
+<ul>
+<li>Upgrade to <code>Solr 8.11.1</code> or greater (when available), which will include an updated version of the log4j2 dependancy.</li>
+<li>Manually update the version of log4j2 on your runtime classpath and restart your Solr application.</li>
+<li>(Linux/MacOS) Edit your <code>solr.in.sh</code> file to include <code>SOLR_OPTS="$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true"</code></li>
+<li>(Windows) Edit your <code>solr.in.cmd</code> file to include <code>SOLR_OPTS="%SOLR_OPTS% -Dlog4j2.formatMsgNoLookups=true"</code></li>
+<li>Follow any of the other mitgations listed at https://logging.apache.org/log4j/2.x/security.html</li>
+</ul>
+<p><strong>References:</strong>
+https://logging.apache.org/log4j/2.x/security.html</p>
   <h2 id="apache-solrtm-8110-available">16 November 2021, Apache Solr™ 8.11.0 available
     <a class="headerlink" href="#apache-solrtm-8110-available" title="Permanent link">¶</a>
   </h2>
