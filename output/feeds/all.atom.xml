@@ -10,7 +10,7 @@ Critical&lt;/p&gt;
 7.4.0 to 7.7.3, 8.0.0 to 8.11.0&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
 Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache Log4J library vulnerable to RCE. For full impact and additional detail consult the Log4J security page.&lt;/p&gt;
-&lt;p&gt;Apache Solr releases prior to 7.4 (i.e. Solr 5, Solr 6, and Solr 7 through 7.3) use log4j 1.2.17 which may be vulnerable for installations using non-default logging configurations that include the JMS Appender, see https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126 for discussion.&lt;/p&gt;
+&lt;p&gt;Apache Solr releases prior to 7.4 (i.e. Solr 5, Solr 6, and Solr 7 through 7.3) use log4j 1.2.17 which may be vulnerable for installations using non-default logging configurations that include the JMS Appender, see &lt;a href="https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126"&gt;https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126&lt;/a&gt; for discussion.&lt;/p&gt;
 &lt;p&gt;The Prometheus Exporter Contrib is similarly separately affected.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
 Any of the following are enough to prevent this vulnerability for Solr servers:&lt;/p&gt;
