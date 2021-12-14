@@ -147,6 +147,7 @@ Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache 
 Any of the following are enough to prevent this vulnerability for Solr servers:</p>
 <ul>
 <li>Upgrade to <code>Solr 8.11.1</code> or greater (when available), which will include an updated version of the log4j2 dependency.</li>
+<li>If you are using Solr's official docker image, no matter the version, it has already been mitigated.  You may need to re-pull the image.</li>
 <li>Manually update the version of log4j2 on your runtime classpath and restart your Solr application.</li>
 <li>(Linux/MacOS) Edit your <code>solr.in.sh</code> file to include:
   <code>SOLR_OPTS="$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true"</code></li>
@@ -157,6 +158,7 @@ Any of the following are enough to prevent this vulnerability for Solr servers:<
 <p>The vulnerability in the Prometheus Exporter Contrib can be mitigated by any of the following:</p>
 <ul>
 <li>Upgrade to <code>Solr 8.11.1</code> or greater (when available), which will include an updated version of the log4j2 dependency.</li>
+<li>If you are using Solr's official docker image, no matter the version, it has already been mitigated.  You may need to re-pull the image.</li>
 <li>Manually update the version of log4j2 on your runtime classpath and restart your Solr application.</li>
 <li>Edit your <code>solr-exporter</code> script to include:
   <code>JAVA_OPTS="$JAVA_OPTS -Dlog4j2.formatMsgNoLookups=true"</code></li>
