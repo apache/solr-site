@@ -227,10 +227,13 @@ Critical</p>
 Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache Log4J library vulnerable to RCE. For full impact and additional detail consult the Log4J security page.</p>
 <p>Apache Solr releases prior to 7.4 (i.e. Solr 5, Solr 6, and Solr 7 through 7.3) use Log4J 1.2.17 which may be vulnerable for installations using non-default logging configurations that include the JMS Appender, see <a href="https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126">https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126</a> for discussion.</p>
 <p>Solr's Prometheus Exporter uses Log4J as well but it does not log user input or data, so we don't see a risk there.</p>
+<p>Apache Solr releases are <em>not</em> vulnerable to the followup CVE-2021-45046, because the MDC patterns used by Solr are for the
+collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Passing system property
+<code>log4j2.formatMsgNoLookups=true</code> (as described below) is suitable to mitigate.</p>
 <p><strong>Mitigation:</strong>
 Any of the following are enough to prevent this vulnerability for Solr servers:</p>
 <ul>
-<li>Upgrade to <code>Solr 8.11.1</code> or greater (when available), which will include an updated version of the Log4J dependency.</li>
+<li>Upgrade to <code>Solr 8.11.1</code> or greater (when available), which will include an updated version (<code>&gt;= 2.16.0</code>) of the Log4J dependency.</li>
 <li>If you are using Solr's official docker image, it has already been mitigated in all versions listed as supported on Docker Hub: <a href="https://hub.docker.com/_/solr">https://hub.docker.com/_/solr</a>.  You may need to re-pull the image.</li>
 <li>Manually update the version of Log4J on your runtime classpath and restart your Solr application.</li>
 <li>(Linux/MacOS) Edit your <code>solr.in.sh</code> file to include:
