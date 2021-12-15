@@ -12,10 +12,13 @@ Critical&lt;/p&gt;
 Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache Log4J library vulnerable to RCE. For full impact and additional detail consult the Log4J security page.&lt;/p&gt;
 &lt;p&gt;Apache Solr releases prior to 7.4 (i.e. Solr 5, Solr 6, and Solr 7 through 7.3) use Log4J 1.2.17 which may be vulnerable for installations using non-default logging configurations that include the JMS Appender, see &lt;a href="https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126"&gt;https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126&lt;/a&gt; for discussion.&lt;/p&gt;
 &lt;p&gt;Solr's Prometheus Exporter uses Log4J as well but it does not log user input or data, so we don't see a risk there.&lt;/p&gt;
+&lt;p&gt;Apache Solr releases are &lt;em&gt;not&lt;/em&gt; vulnerable to the followup CVE-2021-45046, because the MDC patterns used by Solr are for the
+collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Passing system property
+&lt;code&gt;log4j2.formatMsgNoLookups=true&lt;/code&gt; (as described below) is suitable to mitigate.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
 Any of the following are enough to prevent this vulnerability for Solr servers:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Upgrade to &lt;code&gt;Solr 8.11.1&lt;/code&gt; or greater (when available), which will include an updated version of the Log4J dependency.&lt;/li&gt;
+&lt;li&gt;Upgrade to &lt;code&gt;Solr 8.11.1&lt;/code&gt; or greater (when available), which will include an updated version (&lt;code&gt;&amp;gt;= 2.16.0&lt;/code&gt;) of the Log4J dependency.&lt;/li&gt;
 &lt;li&gt;If you are using Solr's official docker image, it has already been mitigated in all versions listed as supported on Docker Hub: &lt;a href="https://hub.docker.com/_/solr"&gt;https://hub.docker.com/_/solr&lt;/a&gt;.  You may need to re-pull the image.&lt;/li&gt;
 &lt;li&gt;Manually update the version of Log4J on your runtime classpath and restart your Solr application.&lt;/li&gt;
 &lt;li&gt;(Linux/MacOS) Edit your &lt;code&gt;solr.in.sh&lt;/code&gt; file to include:
