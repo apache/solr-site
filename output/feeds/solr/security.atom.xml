@@ -16,7 +16,7 @@ Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache 
 Any of the following are enough to prevent this vulnerability for Solr servers:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Upgrade to &lt;code&gt;Solr 8.11.1&lt;/code&gt; or greater (when available), which will include an updated version of the Log4J dependency.&lt;/li&gt;
-&lt;li&gt;If you are using Solr's official docker image, no matter the version, it has already been mitigated.  You may need to re-pull the image.&lt;/li&gt;
+&lt;li&gt;If you are using Solr's official docker image, it has already been mitigated in all versions listed as supported on Docker Hub: &lt;a href="https://hub.docker.com/_/solr"&gt;https://hub.docker.com/_/solr&lt;/a&gt;.  You may need to re-pull the image.&lt;/li&gt;
 &lt;li&gt;Manually update the version of Log4J on your runtime classpath and restart your Solr application.&lt;/li&gt;
 &lt;li&gt;(Linux/MacOS) Edit your &lt;code&gt;solr.in.sh&lt;/code&gt; file to include:
   &lt;code&gt;SOLR_OPTS="$SOLR_OPTS -Dlog4j2.formatMsgNoLookups=true"&lt;/code&gt;&lt;/li&gt;
