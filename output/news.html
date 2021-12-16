@@ -132,6 +132,35 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-8111-available">16 December 2021, Apache Solr™ 8.11.1 available
+    <a class="headerlink" href="#apache-solrtm-8111-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.11.1.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 8.11.1 is available for immediate download at:</p>
+<p><a href="https://lucene.apache.org/solr/downloads.html">https://lucene.apache.org/solr/downloads.html</a></p>
+<h3 id="solr-8111-release-highlights">Solr 8.11.1 Release Highlights:</h3>
+<p>Security</p>
+<ul>
+<li>Updates bundled log4j2 dependencies to address CVE-2021-44228 (SOLR-15843)</li>
+<li>Upgrade jaegertracing to 1.6.0 and libthrift to 0.14.1 to address CVE-2020-13949 (SOLR-15324)</li>
+</ul>
+<p>Bugfixes</p>
+<ul>
+<li>Fixes to the new Admin UI Security and Schema Designer screens (SOLR-15825, SOLR-15774 and SOLR-15813)</li>
+<li>Fix regression in 8.11.0 for the Admin UI Files screen and Velocity (SOLR-15804)</li>
+<li>Admin endpoints for Zookeeper now by default protected by zk_read permission (SOLR-15768)</li>
+<li>Better default security.json uploaded by bin/solr tool (SOLR-15828)</li>
+<li>Switching a PRS collection from true -&gt; false -&gt; true resulted in INACTIVE replicas (SOLR-15794)</li>
+<li>Fix REPLACENODE to not use source node when choosing a target node (SOLR-15795)</li>
+<li>Fix NPE in pivot facets, add non-Analyzed query method in FieldType (SOLR-8319)</li>
+<li>Upgrade Velocity from to v2.3 and Velocity Tools to v3.1 (SOLR-15844)</li>
+<li>..and more</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/8_11/solr-upgrade-notes.html">https://solr.apache.org/guide/8_11/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of bugfixes:</p>
+<p><a href="https://solr.apache.org/docs/8_11_1/changes/Changes.html">https://solr.apache.org/docs/8_11_1/changes/Changes.html</a></p>
   <h2 id="apache-solr-affected-by-apache-log4j-cve-2021-44228">10 December 2021, Apache Solr affected by Apache Log4J CVE-2021-44228
     <a class="headerlink" href="#apache-solr-affected-by-apache-log4j-cve-2021-44228" title="Permanent link">¶</a>
   </h2>
