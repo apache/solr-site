@@ -192,9 +192,10 @@ Critical</p>
 Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache Log4J library vulnerable to RCE. For full impact and additional detail consult the Log4J security page.</p>
 <p>Apache Solr releases prior to 7.4 (i.e. Solr 5, Solr 6, and Solr 7 through 7.3) use Log4J 1.2.17 which may be vulnerable for installations using non-default logging configurations that include the JMS Appender, see <a href="https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126">https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126</a> for discussion.</p>
 <p>Solr's Prometheus Exporter uses Log4J as well but it does not log user input or data, so we don't see a risk there.</p>
-<p>Apache Solr releases are <em>not</em> vulnerable to the followup CVE-2021-45046, because the MDC patterns used by Solr are for the
-collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Passing system property
-<code>log4j2.formatMsgNoLookups=true</code> (as described below) is suitable to mitigate.</p>
+<p>Apache Solr releases are <em>not</em> vulnerable to the followup <strong>CVE-2021-45046</strong> and <strong>CVE-2021-45105</strong>, because the MDC patterns used by Solr
+are for the collection, shard, replica, core and node names, and a potential trace id, which are all sanitized
+and injected into log files with "<code>%X</code>". Passing system property <code>log4j2.formatMsgNoLookups=true</code> (as described below)
+is suitable to mitigate.</p>
 <p><strong>Mitigation:</strong>
 Any of the following are enough to prevent this vulnerability for Solr servers:</p>
 <ul>
