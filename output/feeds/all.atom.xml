@@ -59,9 +59,10 @@ Critical&lt;/p&gt;
 Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache Log4J library vulnerable to RCE. For full impact and additional detail consult the Log4J security page.&lt;/p&gt;
 &lt;p&gt;Apache Solr releases prior to 7.4 (i.e. Solr 5, Solr 6, and Solr 7 through 7.3) use Log4J 1.2.17 which may be vulnerable for installations using non-default logging configurations that include the JMS Appender, see &lt;a href="https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126"&gt;https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126&lt;/a&gt; for discussion.&lt;/p&gt;
 &lt;p&gt;Solr's Prometheus Exporter uses Log4J as well but it does not log user input or data, so we don't see a risk there.&lt;/p&gt;
-&lt;p&gt;Apache Solr releases are &lt;em&gt;not&lt;/em&gt; vulnerable to the followup CVE-2021-45046, because the MDC patterns used by Solr are for the
-collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Passing system property
-&lt;code&gt;log4j2.formatMsgNoLookups=true&lt;/code&gt; (as described below) is suitable to mitigate.&lt;/p&gt;
+&lt;p&gt;Apache Solr releases are &lt;em&gt;not&lt;/em&gt; vulnerable to the followup &lt;strong&gt;CVE-2021-45046&lt;/strong&gt; and &lt;strong&gt;CVE-2021-45105&lt;/strong&gt;, because the MDC patterns used by Solr
+are for the collection, shard, replica, core and node names, and a potential trace id, which are all sanitized
+and injected into log files with "&lt;code&gt;%X&lt;/code&gt;". Passing system property &lt;code&gt;log4j2.formatMsgNoLookups=true&lt;/code&gt; (as described below)
+is suitable to mitigate.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
 Any of the following are enough to prevent this vulnerability for Solr servers:&lt;/p&gt;
 &lt;ul&gt;
