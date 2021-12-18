@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2021-12-10T00:00:00+00:00</updated><subtitle></subtitle><subtitle></subtitle><entry><title>Apache Solr affected by Apache Log4J CVE-2021-44228</title><link href="/apache-solr-affected-by-apache-log4j-cve-2021-44228.html" rel="alternate"></link><published>2021-12-10T00:00:00+00:00</published><updated>2021-12-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-12-10:/apache-solr-affected-by-apache-log4j-cve-2021-44228.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2021-12-18T00:00:00+00:00</updated><subtitle></subtitle><subtitle></subtitle><entry><title>CVE-2021-44548: Apache Solr information disclosure vulnerability through DataImportHandler</title><link href="/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html" rel="alternate"></link><published>2021-12-18T00:00:00+00:00</published><updated>2021-12-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-12-18:/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;br&gt;
+All versions prior to 8.11.1. Affected platforms: Windows.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+An Improper Input Validation vulnerability in DataImportHandler of Apache Solr allows an attacker to provide a Windows UNC path resulting in an SMB network call being made from the Solr host to another host on …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;br&gt;
+All versions prior to 8.11.1. Affected platforms: Windows.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+An Improper Input Validation vulnerability in DataImportHandler of Apache Solr allows an attacker to provide a Windows UNC path resulting in an SMB network call being made from the Solr host to another host on the network. If the attacker has wider access to the network, this may lead to SMB attacks, which may result in:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The exfiltration of sensitive data such as OS user hashes (NTLM/LM hashes),&lt;/li&gt;
+&lt;li&gt;In case of misconfigured systems, SMB Relay Attacks which can lead to user impersonation on SMB Shares or, in a worse-case scenario, Remote Code Execution&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This issue affects all Apache Solr versions prior to 8.11.1. This issue only affects Windows.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+Upgrade to Solr 8.11.1, and/or ensure only trusted clients can make requests to Solr's DataImport handler.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;&lt;br&gt;
+Apache Solr would like to thank LaiHan of Nsfocus security team for reporting the issue&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+Jira issue &lt;a href="https://issues.apache.org/jira/browse/SOLR-15826"&gt;SOLR-15826&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>Apache Solr affected by Apache Log4J CVE-2021-44228</title><link href="/apache-solr-affected-by-apache-log4j-cve-2021-44228.html" rel="alternate"></link><published>2021-12-10T00:00:00+00:00</published><updated>2021-12-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-12-10:/apache-solr-affected-by-apache-log4j-cve-2021-44228.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
 Critical&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
 7.4.0 to 7.7.3, 8.0.0 to 8.11.0&lt;/p&gt;
