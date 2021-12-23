@@ -248,7 +248,7 @@ Critical</p>
 Apache Solr releases prior to 8.11.1 were using a bundled version of the Apache Log4J library vulnerable to RCE. For full impact and additional detail consult the Log4J security page.</p>
 <p>Apache Solr releases prior to 7.4 (i.e. Solr 5, Solr 6, and Solr 7 through 7.3) use Log4J 1.2.17 which may be vulnerable for installations using non-default logging configurations that include the JMS Appender, see <a href="https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126">https://github.com/apache/logging-log4j2/pull/608#issuecomment-990494126</a> for discussion.</p>
 <p>Solr's Prometheus Exporter uses Log4J as well but it does not log user input or data, so we don't see a risk there.</p>
-<p>Solr is <em>not</em> vulnerable to the followup <strong>CVE-2021-45046</strong> and <strong>CVE-2021-45105</strong>.  A listing of these and other CVEs with some justifications are listed in Solr's wiki: https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools</p>
+<p>Solr is <em>not</em> vulnerable to the followup <strong>CVE-2021-45046</strong> and <strong>CVE-2021-45105</strong>.  A listing of these and other CVEs with some justifications are listed in Solr's wiki: <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools</a></p>
 <p><strong>Mitigation:</strong>
 Any of the following are enough to prevent this vulnerability for Solr servers:</p>
 <ul>
