@@ -55,9 +55,11 @@ RewriteRule /guide/defining-fields.html                                     /gui
 # TODO RewriteRule /guide/deployment-and-operations.html                           /guide/deployment-guide/index.html                       [R=301,NE,L]
 RewriteRule /guide/detecting-languages-during-indexing.html                 /guide/indexing-guide/language-detection.html                      [R=301,NE,L]
 RewriteRule /guide/distributed-requests.html                                /guide/deployment-guide/solrcloud-distributed-requests.html        [R=301,NE,L]
-RewriteRule /guide/distributed-search-with-index-sharding.html              /guide/user-managed-distributed-search.html        [R=301,NE,L]
-RewriteRule /guide/documents-fields-and-schema-design.html                  /guide/fields-and-schema-design.html               [R=301,NE,L]
-RewriteRule /guide/filter-descriptions.html                                 /guide/filters.html                                [R=301,NE,L]
+RewriteRule /guide/distributed-search-with-index-sharding.html              /guide/deployment-guide/user-managed-distributed-search.html       [R=301,NE,L]
+# TODO: The spreadsheet says fields-and-schema-design.adoc
+RewriteRule /guide/documents-fields-and-schema-design.html                  /guide/getting-started/documents-fields-schema-design.html         [R=301,NE,L]
+RewriteRule /guide/filter-descriptions.html                                 /guide/indexing-guide/filters.html                                 [R=301,NE,L]
+# TODO: Assign sub paths to the ones below
 RewriteRule /guide/format-of-solr-xml.html                                  /guide/configuring-solr-xml.html                   [R=301,NE,L]
 RewriteRule /guide/getting-started-with-solrcloud.html                      /guide/tutorial-solrcloud.html                     [R=301,NE,L]
 RewriteRule /guide/index-replication.html                                   /guide/user-managed-index-replication.html         [R=301,NE,L]
