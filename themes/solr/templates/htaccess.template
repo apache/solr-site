@@ -52,14 +52,12 @@ RedirectMatch Permanent ^/(\d+_\d+_\d+/.*)$ /docs/$1
 # Simple redirect to "directory", so later rules match
 RedirectMatch temp ^/api$ $0/
 RedirectMatch Permanent ^/docs/\d+_\d+_\d+$ $0/
-RedirectMatch Permanent ^/guide/\d+_\d+$ $0/
 
 # Other pages can always be redirected to the "most current" released javadocs
 # using "temp" instead of permanent so crawlers know that they
 # might change again in the future
 RedirectMatch temp ^/api/org/(.*) /docs/{{ SOLR_LATEST_RELEASE | replace(".", "_") }}/solr-core/org/$1
 RedirectMatch temp ^/api/(.*) /docs/{{ SOLR_LATEST_RELEASE | replace(".", "_") }}/$1
-RedirectMatch temp ^/guide/(?!index.html)([a-z].*) /guide/{{ SOLR_LATEST_RELEASE.rsplit(".", 1) | first | replace(".", "_") }}/$1
 
 # Solr Tutorial is now in the Solr Ref Guide
 # should redirect automatically to latest version
@@ -73,10 +71,10 @@ RedirectMatch Permanent ^/docs/api-(.*) /docs/$1
 Redirect temp /charts https://nightlies.apache.org/solr/release/helm-charts
 Redirect temp /operator/downloads/crds https://nightlies.apache.org/solr/release/operator/crds
 
-### Javadocs & Refguide
+### Javadocs
 
 # Hack: Append slash, if folder name does not end with slash - everything containing a "." is treated as file and excluded from redirect:
-RewriteRule ^(docs|guide)/\d+(?!.+\.\w+$|.+/$).+$          $0/ [R=301,L]
+RewriteRule ^docs/\d+(?!.+\.\w+$|.+/$).+$          $0/ [R=301,L]
 
 # __root/docs.solr.apache.org/ is a special alias added by INFRA-19439, so we can refer to stuff in other places like SVN
-RewriteRule ^(docs|guide)/\d+.*$  __root/docs.solr.apache.org/$0 [PT]
+RewriteRule ^docs/\d+.*$  __root/docs.solr.apache.org/$0 [PT]
