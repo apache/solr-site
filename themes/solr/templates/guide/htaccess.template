@@ -14,6 +14,7 @@
 # limitations under the License.
 
 RewriteEngine on
+RewriteBase /guide/
 
 # Test of page rename redirects
 RewriteRule foo.html solr-glossary.html [R=301,NE,L]
@@ -29,4 +30,4 @@ RedirectMatch temp ^(?!index.html)([a-z].*) {{ SOLR_LATEST_RELEASE.rsplit(".", 1
 RewriteRule ^\d+(?!.+\.\w+$|.+/$).+$          $0/ [R=301,L]
 
 # __root/docs.solr.apache.org/ is a special alias added by INFRA-19439, so we can refer to stuff in other places like SVN
-RewriteRule ^\d+.*$  __root/docs.solr.apache.org/$0 [PT]
+RewriteRule ^\d+.*$  __root/docs.solr.apache.org/guide/$0 [PT]
