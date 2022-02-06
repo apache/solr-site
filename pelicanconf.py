@@ -89,7 +89,7 @@ EXTRA_PATH_METADATA = {}
 
 STATIC_PATHS = ['.']
 
-TEMPLATE_PAGES = {'htaccess.template': '.htaccess'}
+TEMPLATE_PAGES = {'htaccess.template': '.htaccess', 'guide/htaccess.template': 'guide/.htaccess'}
 
 PLUGIN_PATHS = ['./plugins']
 PLUGINS = [
