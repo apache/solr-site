@@ -43,6 +43,8 @@ RewriteRule ^mirrors-solr-latest-redir.html downloads.html             [R=301,NE
 RewriteRule ^mirrors-solr-3x-redir downloads.html                      [R=301,NE,L]
 RewriteRule ^mirrors-solr-redir.html downloads.html                    [R=301,NE,L]
 
+# See guide/.htaccess for reference guide specific redirects
+
 RedirectMatch Permanent ^/issue_tracking.html https://issues.apache.org/jira/browse/SOLR
 
 # Top-level javadoc redirect in case redirected from Lucene site /solr/X_Y_Z -> solr.apache.org/x_Y_Z
@@ -52,14 +54,12 @@ RedirectMatch Permanent ^/(\d+_\d+_\d+/.*)$ /docs/$1
 # Simple redirect to "directory", so later rules match
 RedirectMatch temp ^/api$ $0/
 RedirectMatch Permanent ^/docs/\d+_\d+_\d+$ $0/
-RedirectMatch Permanent ^/guide/\d+_\d+$ $0/
 
 # Other pages can always be redirected to the "most current" released javadocs
 # using "temp" instead of permanent so crawlers know that they
 # might change again in the future
 RedirectMatch temp ^/api/org/(.*) /docs/8_11_1/solr-core/org/$1
 RedirectMatch temp ^/api/(.*) /docs/8_11_1/$1
-RedirectMatch temp ^/guide/(?!index.html)([a-z].*) /guide/8_11/$1
 
 # Solr Tutorial is now in the Solr Ref Guide
 # should redirect automatically to latest version
