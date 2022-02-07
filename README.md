@@ -76,10 +76,6 @@ Modify `SOLR_LATEST_RELEASE` and `SOLR_PREVIOUS_MAJOR_RELEASE`, and
 * References to the release date of the latest version which can be dynamically
   formatted for different pages.
 
-### Redirecting reference-guide pages
-
-Sometimes a reference guide page changes name or is merged with another page, and when requesting the the page as `/guide/<page>.html` without specifying version, that will result in a 404. To fix this, open the `guide/htaccess.template` file, and define a redirect for the old page name to the new one. If a feature is removed in a major version, you may instead redirect the page to the latest guide version with that feature. See also a python script in `dev-tools/scripts/` in the main repository which may aid for major reference guide restructurings.
-
 [1]: https://blog.getpelican.com/
 [2]: https://docs.getpelican.com/en/stable/install.html
 [3]: https://solr.apache.org/downloads.html#about-versions-and-support
