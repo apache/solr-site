@@ -67,7 +67,7 @@ Notifications about every Solr commit - **commits@solr.apache.org**:
 
 #### IRC  ####
 
-There are two primary IRC channels dedicated to Solr at freenode.net.
+There are two primary IRC channels dedicated to Solr at libera.chat.
 
 • #solr -- Channel for Solr user questions
 
@@ -83,7 +83,7 @@ wealth of information about how to get the most out of the IRC channels.
 
 #### Slack ####
 
-* The project's Slack channel is `#solr-dev` in the `the-asf` organization. This is primarily for developer 
+* The project's Slack channel is `#solr-dev` in the `the-asf` organization. This is primarily for developer
   discussions and not meant as support channels. Link: <https://the-asf.slack.com/messages/CE70MDPMF>
 
 * There are unofficial slack organizations for Solr support
