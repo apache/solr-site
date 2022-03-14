@@ -74,7 +74,7 @@ Redirect temp /charts https://nightlies.apache.org/solr/release/helm-charts
 ### Redirects to Apache Nightlies for pre-Apache Solr Operator CRDs (These don't exist in the archives)
 RedirectMatch ^/operator/downloads/crds/(v0\.2\.6|v0\.2\.7|v0\.2\.8) https://nightlies.apache.org/solr/release/operator/crds/$1
 ### Redirects to Apache Archives, where the official release CRDs are stored
-RedirectMatch ^/operator/downloads/crds/(v\d+\.\d+\.\d+) https://archive.apache.org/dist/solr/solr-operator/$1/crds
+RedirectMatch ^/operator/downloads/crds/(v\d+\.\d+\.\d+) https://www.apache.org/dyn/closer.lua?action=download&filename=/solr/solr-operator/$1/crds
 
 ### Javadocs & Refguide
 
