@@ -69,8 +69,8 @@ RedirectMatch Permanent ^/quickstart.html /guide/solr-tutorial.html
 RedirectMatch Permanent ^/docs/4_0_0-(ALPHA|BETA)(.*) /docs/4_0_0$2
 RedirectMatch Permanent ^/docs/api-(.*) /docs/$1
 
-### Redirects to Apache Nightlies, this will change when they have a separate area for released artifacts
-Redirect temp /charts https://nightlies.apache.org/solr/release/helm-charts
+### Redirects to the old nightly charts for local caches of the Solr helm repo that have not been updated recently. We can remove this after some time (maybe a few months).
+RedirectMatch ^/charts/(.+\.tgz.*)$ https://nightlies.apache.org/solr/release/helm-charts/$1
 ### Redirects to Apache Nightlies for pre-Apache Solr Operator CRDs (These don't exist in the archives)
 RedirectMatch ^/operator/downloads/crds/(v0\.2\.6|v0\.2\.7|v0\.2\.8)(/?.*)$ https://nightlies.apache.org/solr/release/operator/crds/$1$2
 ### Redirects to Apache Archives, where the official release CRDs are stored
