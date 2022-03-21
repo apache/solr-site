@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2021-12-18T00:00:00+00:00</updated><subtitle></subtitle><subtitle></subtitle><entry><title>CVE-2021-44548: Apache Solr information disclosure vulnerability through DataImportHandler</title><link href="/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html" rel="alternate"></link><published>2021-12-18T00:00:00+00:00</published><updated>2021-12-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-12-18:/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2022-03-21T00:00:00+00:00</updated><subtitle></subtitle><subtitle></subtitle><entry><title>Apache Solr Operator™ v0.5.1 available</title><link href="/apache-solr-operatortm-v051-available.html" rel="alternate"></link><published>2022-03-21T00:00:00+00:00</published><updated>2022-03-21T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-03-21:/apache-solr-operatortm-v051-available.html</id><summary type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.5.1.&lt;/p&gt;
+&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
+&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.5.1.&lt;/p&gt;
+&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
+&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="solr-operator-v051-release-highlights"&gt;Solr Operator v0.5.1 Release Highlights:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Copy from the draft release notes&lt;/li&gt;
+&lt;li&gt;Upgrade GoLang to 1.17&lt;/li&gt;
+&lt;li&gt;Fix security vulnerabilities introduced by dependencies, notably github.com/gogo/protobuf and golang.org/x/crypto&lt;/li&gt;
+&lt;li&gt;Resource checking for pods across all generated resources has been fixed, will not overwrite equivalent resources with different units&lt;/li&gt;
+&lt;li&gt;Necessary step for GKE Autopilot and the Vertical Pod Autoscaler&lt;/li&gt;
+&lt;li&gt;Ability to run sidecars of the Solr Operator that use the root user, when installing via the Helm Chart&lt;/li&gt;
+&lt;li&gt;The zk.external option in the solr helm chart is now functional&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A summary of important changes is published in the documentation at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html"&gt;https://apache.github.io/solr-operator/docs/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog"&gt;https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.5.1"&gt;https://github.com/apache/solr-operator/releases/tag/v0.5.1&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"></category></entry><entry><title>CVE-2021-44548: Apache Solr information disclosure vulnerability through DataImportHandler</title><link href="/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html" rel="alternate"></link><published>2021-12-18T00:00:00+00:00</published><updated>2021-12-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-12-18:/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
 Moderate&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;br&gt;
 All versions prior to 8.11.1. Affected platforms: Windows.&lt;/p&gt;

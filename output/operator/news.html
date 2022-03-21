@@ -127,6 +127,28 @@
   <h1 id="solr-operator-news">Solr Operator<sup>™</sup> News<a class="headerlink" href="#solr-operator-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/operator/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-operatortm-v051-available">21 March 2022, Apache Solr Operator™ v0.5.1 available
+    <a class="headerlink" href="#apache-solr-operatortm-v051-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.5.1.</p>
+<p>The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.</p>
+<p>This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/operator/artifacts.html">https://solr.apache.org/operator/artifacts.html</a></p>
+<h3 id="solr-operator-v051-release-highlights">Solr Operator v0.5.1 Release Highlights:</h3>
+<ul>
+<li>Copy from the draft release notes</li>
+<li>Upgrade GoLang to 1.17</li>
+<li>Fix security vulnerabilities introduced by dependencies, notably github.com/gogo/protobuf and golang.org/x/crypto</li>
+<li>Resource checking for pods across all generated resources has been fixed, will not overwrite equivalent resources with different units</li>
+<li>Necessary step for GKE Autopilot and the Vertical Pod Autoscaler</li>
+<li>Ability to run sidecars of the Solr Operator that use the root user, when installing via the Helm Chart</li>
+<li>The zk.external option in the solr helm chart is now functional</li>
+</ul>
+<p>A summary of important changes is published in the documentation at:</p>
+<p><a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html">https://apache.github.io/solr-operator/docs/upgrade-notes.html</a></p>
+<p>For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.</p>
+<p><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog">https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog</a></p>
+<p><a href="https://github.com/apache/solr-operator/releases/tag/v0.5.1">https://github.com/apache/solr-operator/releases/tag/v0.5.1</a></p>
   <h2 id="apache-solr-operatortm-v050-available">16 November 2021, Apache Solr Operator™ v0.5.0 available
     <a class="headerlink" href="#apache-solr-operatortm-v050-available" title="Permanent link">¶</a>
   </h2>
