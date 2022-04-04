@@ -138,7 +138,7 @@ to obtain a personal fork from which you can later contribute your changes throu
 [Pull Request](https://cwiki.apache.org/confluence/display/solr/HowToContribute#HowToContribute-WorkingwithGitHub)
 or a [patch in Jira](https://cwiki.apache.org/confluence/display/solr/HowToContribute#HowToContribute-Generatingapatch).
 
-You may alternatively choose to clone apache's git mirror at `https://gitbox.apache.org/repos/asf?p=solr.git`.
+You may alternatively choose to clone apache's git mirror at `https://gitbox.apache.org/repos/asf/solr.git`.
 
 ## Powered By ##
 
