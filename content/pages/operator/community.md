@@ -63,4 +63,4 @@ Then use GitHub's [fork feature](https://docs.github.com/en/github/getting-start
 to obtain a personal fork from which you can later contribute your changes through a
 [Pull Request](https://github.com/apache/solr-operator/pulls)
 
-You may alternatively choose to clone apache's git mirror at `https://gitbox.apache.org/repos/asf?p=solr-operator.git`.
+You may alternatively choose to clone apache's git mirror at `https://gitbox.apache.org/repos/asf/solr-operator.git`.
