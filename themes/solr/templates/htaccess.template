@@ -59,7 +59,7 @@ RedirectMatch Permanent ^/guide/\d+_\d+$ $0/
 # might change again in the future
 RedirectMatch temp ^/api/org/(.*) /docs/{{ SOLR_LATEST_RELEASE | replace(".", "_") }}/solr-core/org/$1
 RedirectMatch temp ^/api/(.*) /docs/{{ SOLR_LATEST_RELEASE | replace(".", "_") }}/$1
-RedirectMatch temp ^/guide/(?!index.html)([a-z].*) /guide/{{ SOLR_LATEST_RELEASE.rsplit(".", 1) | first | replace(".", "_") }}/$1
+RedirectMatch temp ^/guide/(?!index.html)(?!solr/)([a-z].*) /guide/{{ SOLR_LATEST_RELEASE.rsplit(".", 1) | first | replace(".", "_") }}/$1
 
 # Solr Tutorial is now in the Solr Ref Guide
 # should redirect automatically to latest version
