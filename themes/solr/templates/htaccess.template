@@ -85,8 +85,6 @@ RewriteRule ^(docs|guide)/\d+(?!.+\.\w+$|.+/$).+$          $0/ [R=301,L]
 RewriteRule ^docs/\d+.*$  __root/docs.solr.apache.org/$0 [PT]
 # Ref-guides up to 8.x
 RewriteRule ^guide/(6|7|8)_\d+.*$  __root/docs.solr.apache.org/$0 [PT]
-# Redirect v9 and higher guides on format /guide/9_0/foo to /guide/solr/9_0/foo
-RedirectMatch Permanent ^/guide/((9|1\d)_\d.*$) /guide/solr/$1
 # Ref-guides from 9.0
 RewriteRule ^guide/solr/\d+.*$  __root/docs.solr.apache.org/$0 [PT]
 
