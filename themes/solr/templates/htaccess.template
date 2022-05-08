@@ -86,7 +86,7 @@ RewriteRule ^docs/\d+.*$  __root/docs.solr.apache.org/$0 [PT]
 # Ref-guides up to 8.x
 RewriteRule ^guide/(6|7|8)_\d+.*$  __root/docs.solr.apache.org/$0 [PT]
 # Ref-guides from 9.0
-RewriteRule ^guide/_/.+$  __root/docs.solr.apache.org/$0 [PT]
+RewriteRule ^guide/(_/.+|search-index.js)$  __root/docs.solr.apache.org/$0 [PT]
 RewriteRule ^guide/solr/(latest|\d+(?!.+\.\w+$|.+/$).+)$          $0/ [R=301,L]
 RewriteRule ^guide/solr/\d+_\d+/.*$  __root/docs.solr.apache.org/$0 [PT]
 
