@@ -59,7 +59,8 @@ RedirectMatch Permanent ^/guide/\d+_\d+$ $0/
 # might change again in the future
 RedirectMatch temp ^/api/org/(.*) /docs/9_0_0/solr-core/org/$1
 RedirectMatch temp ^/api/(.*) /docs/9_0_0/$1
-RedirectMatch temp ^/guide/(?!index.html)(?!solr/)(?!search-index.js)([a-z].*) /guide/9_0/$1
+# No need for this after 9.0, as we now use /guide/solr/latest/foo
+#RedirectMatch temp ^/guide/(?!index.html)(?!solr/)(?!search-index.js)([a-z].*) /guide/9_0/$1
 
 # Solr Tutorial is now in the Solr Ref Guide
 # should redirect automatically to latest version
