@@ -7,14 +7,13 @@ template: page
 
 The Apache Solr Reference Guide is the official Solr documentation.
 
-As of Solr 8.2, it is published only in HTML format.
-
 **Latest release**:
 
-- [Solr 8.11](8_11/)
+  - [Solr 9.0](solr/9_0/)
 
 **Earlier versions**:
 
+  - [Solr 8.11](8_11/)
   - [Solr 8.10](8_10/)
   - [Solr 8.9](8_9/)
   - [Solr 8.8](8_8/)
