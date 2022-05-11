@@ -130,11 +130,35 @@
   <p>Official releases are usually created when the <a href="/whoweare.html">developers</a>
 feel there are sufficient changes, improvements and bug fixes to warrant a release.
 Due to the voluntary nature of Solr, no releases are scheduled in advance.</p>
-  <h2 id="solr-8111">Solr 8.11.1
-    <a class="headerlink" href="#solr-8111" title="Permanent link">¶</a>
+  <h2 id="solr-900">Solr 9.0.0
+    <a class="headerlink" href="#solr-900" title="Permanent link">¶</a>
   </h2>
 
-  <p>Solr 8.11.1 is the most recent Apache Solr release.</p>
+  <p>Solr 9.0.0 is the most recent Apache Solr release.</p>
+
+  <ul>
+    <li>Source release:
+      <a href="https://www.apache.org/dyn/closer.lua/solr/solr/9.0.0/solr-9.0.0-src.tgz?action=download">solr-9.0.0-src.tgz</a>
+      [<a href="https://downloads.apache.org/solr/solr/9.0.0/solr-9.0.0-src.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/solr/9.0.0/solr-9.0.0-src.tgz.sha512">SHA512</a>]
+    </li>
+
+    <li>Binary releases:
+      <a href="https://www.apache.org/dyn/closer.lua/solr/solr/9.0.0/solr-9.0.0.tgz?action=download">solr-9.0.0.tgz</a>
+      [<a href="https://downloads.apache.org/solr/solr/9.0.0/solr-9.0.0.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/solr/9.0.0/solr-9.0.0.tgz.sha512">SHA512</a>]
+    </li>
+
+    <li>Docker: <a href="https://hub.docker.com/_/solr">solr:9.0.0</a></li>
+
+    <li><a href="/9_0_0/changes/Changes.html">Change log</a></li>
+  </ul>
+
+  <h3 id="solr-8111">Solr 8.11.1
+    <a class="headerlink" href="#solr-8111" title="Permanent link">¶</a>
+  </h3>
+
+  <p>Solr 8.11.1 is the last release in the 8.x series.</p>
 
   <ul>
     <li>Source release:
@@ -156,35 +180,6 @@ Due to the voluntary nature of Solr, no releases are scheduled in advance.</p>
     <li>Docker: <a href="https://hub.docker.com/_/solr">solr:8.11.1</a></li>
 
     <li><a href="/8_11_1/changes/Changes.html">Change log</a></li>
-  </ul>
-
-  <h3 id="solr-773">Solr 7.7.3
-    <a class="headerlink" href="#solr-773" title="Permanent link">¶</a>
-  </h3>
-
-  <p>Solr 7.7.3 is the last release in the 7.x series.</p>
-  <p><b>WARNING: The 7.7.3 release is not patched for <a href="/security.html">the latest known security vulnerabilities</a>, and it is still uncertain whether a 7.7.4 release will happen, as 9.0 is currently being planned. New users should choose Solr 8.11.1, and existing 7.7.3 users should either upgrade or take actions to mitigate relevant vulnerabilities.</b></p>
-
-  <ul>
-    <li>Source release:
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/7.7.3/solr-7.7.3-src.tgz?action=download">solr-7.7.3-src.tgz</a>
-      [<a href="https://downloads.apache.org/lucene/solr/7.7.3/solr-7.7.3-src.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/7.7.3/solr-7.7.3-src.tgz.sha512">SHA512</a>]
-    </li>
-
-    <li>Binary releases:
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/7.7.3/solr-7.7.3.tgz?action=download">solr-7.7.3.tgz</a>
-      [<a href="https://downloads.apache.org/lucene/solr/7.7.3/solr-7.7.3.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/7.7.3/solr-7.7.3.tgz.sha512">SHA512</a>]
-      /
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/7.7.3/solr-7.7.3.zip?action=download">solr-7.7.3.zip</a>
-      [<a href="https://downloads.apache.org/lucene/solr/7.7.3/solr-7.7.3.zip.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/7.7.3/solr-7.7.3.zip.sha512">SHA512</a>]
-    </li>
-
-    <li>Docker: <a href="https://hub.docker.com/_/solr">solr:7.7.3</a></li>
-
-    <li><a href="/7_7_3/changes/Changes.html">Change log</a></li>
   </ul>
 
   <h2 id="solr-reference-guide" class="offset">Solr Reference Guide
@@ -216,7 +211,7 @@ Due to the voluntary nature of Solr, no releases are scheduled in advance.</p>
   </h3>
 
   <p>The <code>solr-VERSION.zip</code> or <code>solr-VERSION.tgz</code> files (where <code>VERSION</code> is the version number of
-  the release, e.g. <code>8.11.1</code>) contain Apache Solr, html documentation and a tutorial.</p>
+  the release, e.g. <code>9.0.0</code>) contain Apache Solr, html documentation and a tutorial.</p>
 
   <p>The <code>solr-VERSION-src.tgz</code> file contains the full source code for that version.</p>
 
@@ -238,19 +233,19 @@ Due to the voluntary nature of Solr, no releases are scheduled in advance.</p>
       <th>Description</th>
     </tr>
     <tr align=left>
-      <td>8.x</td>
+      <td>9.x</td>
       <td>Current major version for feature releases (STABLE)</td>
     </tr>
     <tr align=left>
-      <td>7.7.x</td>
+      <td>8.11.x</td>
       <td>Previous major version may sometimes receive critical bugfix releases</td>
     </tr>
     <tr align=left>
-      <td>9</td>
+      <td>10</td>
       <td>Next major version, yet to be released (UNSTABLE)</td>
     </tr>
     <tr align=left>
-      <td>&lt;7.7</td>
+      <td>&lt;8.11</td>
       <td>All older versions are End Of Life (EOL)</td>
     </tr>
   </table>
