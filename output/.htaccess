@@ -54,6 +54,7 @@ RedirectMatch 301 ^/guide/(analytics-expression-sources|analytics-mapping-functi
 RedirectMatch 301 ^/guide/(codec-factory|collections-api|config-api|config-sets|configsets-api|configuring-solrconfig-xml|coreadmin-api|implicit-requesthandlers|libs|managed-resources|package-manager-internals|package-manager|realtime-get|request-parameters-api|resource-loading|solr-plugins|update-request-processors|v2-api)\.html /guide/solr/latest/configuration-guide/$1.html
 RedirectMatch 301 ^/guide/(major-changes-in-solr-7|major-changes-in-solr-8|solr-upgrade-notes)\.html /guide/solr/latest/upgrade-notes/$1.html
 # Page renames between 8.x and 9.0
+RewriteRule ^guide/9_0/solr-tutorial.html /guide/solr/latest/getting-started/solr-tutorial.html [R=301,NE,L]
 RewriteRule ^guide/a-quick-overview.html /guide/solr/latest/getting-started/introduction.html [R=301,NE,L]
 RewriteRule ^guide/about-filters.html /guide/solr/latest/indexing-guide/filters.html [R=301,NE,L]
 RewriteRule ^guide/about-tokenizers.html /guide/solr/latest/indexing-guide/tokenizers.html [R=301,NE,L]
