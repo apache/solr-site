@@ -132,6 +132,34 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-8112-available">17 June 2022, Apache Solr™ 8.11.2 available
+    <a class="headerlink" href="#apache-solrtm-8112-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Lucene and Solr PMCs are pleased to announce the release of Apache Solr 8.11.2.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 8.11.2 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-8112-release-highlights">Solr 8.11.2 Release Highlights:</h3>
+<p>Security</p>
+<ul>
+<li>SOLR-15871: Update Log4J to 2.17.1</li>
+<li>SOLR-15961: Fix bug in PKIAuthenticationPlugin that can cause a request to fail with 401 Unauthorized instead of re-fetching expired remote keys from other nodes.</li>
+<li>SOLR-14569: Configuring a shardHandlerFactory on the /select requestHandler results in HTTP 401 when searching on alias in secured Solr.</li>
+<li>SOLR-16022: Enforce special character requirements on passwords with length less than 15</li>
+<li>SOLR-16075: ShowFileHandler path parameter is now validated to be relative to instance conf dir in standalone mode</li>
+</ul>
+<p>Bugfixes</p>
+<ul>
+<li>SOLR-15849: Fix the connection reset problem caused by the incorrect use of 4LW with \n when monitoring zooKeeper status</li>
+<li>SOLR-16199: Improve query syntax construction for SQL LIKE clause with phrases and wildcards</li>
+<li>SOLR-16143: SolrConfig can miss updates from ZooKeeper when deleting and recreating file items</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/8_11/solr-upgrade-notes.html">https://solr.apache.org/guide/8_11/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of bugfixes:</p>
+<p><a href="https://solr.apache.org/docs/8_11_2/changes/Changes.html">https://solr.apache.org/docs/8_11_2/changes/Changes.html</a></p>
+<p>Solr 8.11.2 also includes bugfixes in the corresponding Apache Lucene release:</p>
+<p><a href="https://lucene.apache.org/core/8_11_2/changes/Changes.html">https://lucene.apache.org/core/8_11_2/changes/Changes.html</a></p>
   <h2 id="apache-solrtm-900-available">12 May 2022, Apache Solr™ 9.0.0 available
     <a class="headerlink" href="#apache-solrtm-900-available" title="Permanent link">¶</a>
   </h2>
