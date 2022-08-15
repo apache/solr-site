@@ -127,6 +127,25 @@
   <h1 id="solr-operator-news">Solr Operator<sup>™</sup> News<a class="headerlink" href="#solr-operator-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/operator/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-operatortm-v060-available">14 August 2022, Apache Solr Operator™ v0.6.0 available
+    <a class="headerlink" href="#apache-solr-operatortm-v060-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.6.0.</p>
+<p>The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.</p>
+<p>This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/operator/artifacts.html">https://solr.apache.org/operator/artifacts.html</a></p>
+<h3 id="solr-operator-v060-release-highlights">Solr Operator v0.6.0 Release Highlights:</h3>
+<ul>
+<li>Users are now able to specify resource constraints for all init-containers.</li>
+<li>The default Solr image version used in newly created solrcloud's has been updated from 8.9 to 8.11</li>
+<li>solrcloud now has a 'solrZkOpts' field, allowing users to specify any system properties needed to connect to their ZooKeeper cluster.</li>
+<li>Users running in GKE can now omit the 'gcsCredentialSecret' field from the GCS backup repositories, and fallback on "Workload Identity" and other "credential-less" authentication mechanisms offered by Google Cloud.</li>
+</ul>
+<p>A summary of important changes is published in the documentation at:</p>
+<p><a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html">https://apache.github.io/solr-operator/docs/upgrade-notes.html</a></p>
+<p>For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.</p>
+<p><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog">https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog</a></p>
+<p><a href="https://github.com/apache/solr-operator/releases/tag/v0.6.0">https://github.com/apache/solr-operator/releases/tag/v0.6.0</a></p>
   <h2 id="apache-solr-operatortm-v051-available">21 March 2022, Apache Solr Operator™ v0.5.1 available
     <a class="headerlink" href="#apache-solr-operatortm-v051-available" title="Permanent link">¶</a>
   </h2>
