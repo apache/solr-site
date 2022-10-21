@@ -85,3 +85,4 @@ Modify `SOLR_LATEST_RELEASE` and `SOLR_PREVIOUS_MAJOR_RELEASE`, and
 [7]: https://lists.apache.org/list.html?commits@solr.apache.org
 [8]: https://wiki.apache.org/confluence/display/INFRA/Git+-+.asf.yaml+features
 [9]: http://daringfireball.net/projects/markdown/syntax
+ 
