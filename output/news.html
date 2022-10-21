@@ -132,6 +132,49 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="java-17-bug-affecting-solr">21 October 2022, Java 17 bug affecting Solr
+    <a class="headerlink" href="#java-17-bug-affecting-solr" title="Permanent link">¶</a>
+  </h2>
+  <p>Several users running Solr in production on OpenJDK 17 have experienced JVM crashes due to a known bug in the JDK. Read more about the bug in <a href="https://issues.apache.org/jira/browse/SOLR-16463">SOLR-16463</a>.</p>
+<p>Known mitigations are to either downgrade to JDK 11 or to start Solr with a Java startup flag that avoids the failure condition. Here is how to manually apply the flag:</p>
+<p>Edit your <code>solr.in.sh</code> or <code>solr.in.cmd</code> file to set the <code>SOLR_OPTS</code> environment variable as follows:</p>
+<p><em>Linux:</em> </p>
+<div class="codehilite"><pre><span></span><code><span class="nv">SOLR_OPTS</span><span class="o">=</span>-XX:CompileCommand<span class="o">=</span>exclude,com.github.benmanes.caffeine.cache.BoundedLocalCache::put
+</code></pre></div>
+
+<p><em>Windows:</em></p>
+<div class="codehilite"><pre><span></span><code>SET <span class="nv">SOLR_OPTS</span><span class="o">=</span>-XX:CompileCommand<span class="o">=</span>exclude,com.github.benmanes.caffeine.cache.BoundedLocalCache::put
+</code></pre></div>
+
+<p>Alternatively, you can inject the same flag with the <code>-a</code> argument, e.g:</p>
+<div class="codehilite"><pre><span></span><code>bin/solr -a <span class="s2">&quot;-XX:CompileCommand=exclude,com.github.benmanes.caffeine.cache.BoundedLocalCache::put&quot;</span>
+</code></pre></div>
+
+<p>If you run Solr 9 with the official Docker image, we have already pushed an updated Docker image to Docker Hub that will inject the flag for you.
+Just pull the image again to get it.
+The Docker image uses the <code>-a</code> option to set this java flag when running Solr, so if you are using the 
+<code>-a</code> option you will need to provide the JVM flag mentioned above in addition to the other flags you are setting.</p>
+  <h2 id="solr-8-docker-image-changes-to-eclipse-temurin-jdk">20 October 2022, Solr 8 Docker image changes to Eclipse Temurin JDK
+    <a class="headerlink" href="#solr-8-docker-image-changes-to-eclipse-temurin-jdk" title="Permanent link">¶</a>
+  </h2>
+  <p>The official docker image for Solr 8.11 has been running on <a href="https://hub.docker.com/_/openjdk">Oracle OpenJDK 11 JRE</a>. However, due to Oracle's new release policies, they now no longer provide support for JDK11. Since Solr 8.11 is still being supported by the Apache Solr project, we needed to switch to another OpenJDK vendor with JDK11 support. We chose <a href="https://hub.docker.com/_/eclipse-temurin">Eclipse Temurin</a> from the Adoptium project. This is the same vendor as we use for our Solr 9 image, and their <a href="https://adoptium.net/support/">JDK11 support lasts until October 2024</a>. </p>
+<p>Users should be aware that on your next <code>docker pull solr:8.11.2</code> you will be upgraded. For most users there will be no issues, as it is mainly a new distribution of the same upstream OpenJDK version. However, if you use our image as base image and rely on specific tools to be present, you may need to adapt. While <code>openjdk:11-jre</code> uses <code>Debian GNU/Linux 11 (bullseye)</code>, the <code>eclipse-temurin:11-jre-focal</code> image uses <code>Ubuntu 20.04.5 LTS (Focal Fossa)</code>.</p>
+<p>Furthermore, there is now no difference between the <code>solr:11-jre</code> and <code>solr:11-jre-slim</code> images, because our new vendor only offers one variant which is fairly slim already.</p>
+  <h2 id="solr-docker-images-now-pin-the-linux-release">20 October 2022, Solr Docker images now pin the Linux release
+    <a class="headerlink" href="#solr-docker-images-now-pin-the-linux-release" title="Permanent link">¶</a>
+  </h2>
+  <p>Solr 9 was released on May 12th, using the <code>eclipse-temurin:17-jre</code> base image. Thus, we are pinned to Java 17 and Solr's
+Docker image will thus always use an updated Java 17 version. If you pull the docker image from time to time that is.</p>
+<p>However, the base image tag <code>17-jre</code> did not give us pinning to a specific Ubuntu Linux major release. 
+At the time of <a href="http://localhost:8000/news.html#apache-solrtm-900-available">Solr 9 release</a> on May 12th
+it would pull Ubuntu 20.04 (Focal Fossa), but at the end of May, it was <a href="https://github.com/docker-library/official-images/commit/6d689db4846a3eb4c2ebd0e5d06139c650ef3bbb">auto upgraded</a> to the brand new Ubuntu
+22.04 (Jammy Jellyfish). This was not our desire, and we have learnt that due to this, our image is no longer compatible
+with Docker client versions before 20.10.16. Having a "floating" linux release like this can also break the image in 
+other subtle ways, as well as breaking downstream images using us as a base image.</p>
+<p>We therefore decided to start pinning not only Java release, but also Linux release in our official Docker images.
+This means that Solr 9.0 is once again based on Ubuntu 20.04 Focal, i.e. a downgrade.</p>
+<p>Note that our images will still receive important Linux bug fixes from time to time, but you won't get them unless you
+re-pull the image. When we upgrade to Ubuntu 22.04 in the future, it will be a deliberate decision and not by accident.</p>
   <h2 id="apache-solrtm-8112-available">17 June 2022, Apache Solr™ 8.11.2 available
     <a class="headerlink" href="#apache-solrtm-8112-available" title="Permanent link">¶</a>
   </h2>
