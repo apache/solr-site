@@ -1,4 +1,4 @@
-Title: Solr 8 on Docker changes to Eclipse Temurin JDK
+Title: Solr 8 Docker image changes to Eclipse Temurin JDK
 category: solr/news
 save_as:
 
