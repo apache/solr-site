@@ -1,0 +1,280 @@
+<!doctype html>
+<html>
+  <head>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE- 2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link href='//fonts.googleapis.com/css?family=Raleway:400,300,600,500' rel='stylesheet' type='text/css'>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=4dd59757" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=4dd59757"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=4dd59757"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.css"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=4dd59757" />
+<meta name="Distribution" content="Global"/>
+<meta name="Robots" content="index,follow"/>
+
+<script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=4dd59757"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=4dd59757"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=4dd59757"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=4dd59757"></script>
+<script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=4dd59757"></script>
+<script src="/theme/javascript/main.js?v=4dd59757"></script>
+<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Editing this Website - Apache Solr</title>
+
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://solr.apache.org/editing-website.html"/>
+     <meta property="og:title" content="Editing this Website"/>
+     <meta property="og:description" content="Editing this Website This website is hosted in its own git repository solr-site (see Github and Gitbox). The content of the main..."/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=4dd59757"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=4dd59757"/>
+
+   <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
+  </head>
+
+  <body class="page "  x-ng-app="page" x-ng-controller="page.controllers.main">
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="/news.html">News</a>
+          </li>
+          <li>
+            <a href="/security.html">Security</a>
+          </li>
+          <li>
+            <a href="/features.html">Features</a>
+          </li>
+          <li>
+            <a href="/resources.html">Resources</a>
+          </li>
+          <li>
+            <a href="/community.html">Community</a>
+          </li>
+          <li>
+            <a href="/whoweare.html">Project</a>
+          </li>
+          <li>
+            <a href="/operator/">Solr Operator</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="/downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
+<div class="container">
+  <div class="row">
+<h1 id="editing-this-website">Editing this Website</h1>
+<p>This website is hosted in its own git repository <code>solr-site</code> (see <a href="https://github.com/apache/solr-site/">Github</a> and <a href="https://gitbox.apache.org/repos/asf/solr-site.git">Gitbox</a>).</p>
+<p>The content of the <code>main</code> branch will update the <a href="https://solr.staged.apache.org">staging site</a> while the content of the <code>production</code> branch will be published to the main website. Read the <a href="https://github.com/apache/solr-site/">README.md</a> file for further instructions.</p>
+<h2 id="contributing-content">Contributing content</h2>
+<p>If you want to contribute some content or bugfix to this website, you may follow these steps:</p>
+<ol>
+<li>Fork this repository in <a href="https://github.com/apache/solr-site">GitHub</a></li>
+<li>
+<p>Clone your fork to your computer</p>
+<div class="codehilite"><pre><span></span><code><span class="err">git clone https://github.com/&lt;your-github-id&gt;/lucene-site</span>
+<span class="err">cd lucene-site</span>
+<span class="err">git pull</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Create a new branch for your edits</p>
+<div class="codehilite"><pre><span></span><code><span class="err">git checkout -b my-typo-fix</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Edit the site following the instructions in <a href="https://github.com/apache/solr-site/">README</a></p>
+</li>
+<li>
+<p>When done, push your changes to your branch (in your fork)</p>
+<div class="codehilite"><pre><span></span><code><span class="err">git add .</span>
+<span class="err">git commit -m &quot;Fixing a typo on the resources page&quot;</span>
+<span class="err">git push origin</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>Visit your fork again on GitHub, and you'll se a button to add your branch as a Pull Request</p>
+</li>
+</ol>
+<p>For more detailed instructions, see <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork">GitHub documentation</a>.</p>
+<p><strong>TIP:</strong> For very simple edits to one page only, you may find the page (markdown or html) in GitHub, then click the edit button and submit your PR directly from the UI.</p>  </div>
+</div>
+    <footer>
+<div class="row">
+  <div class="small-6 medium-3 columns">
+    <h4>Features</h4>
+    <ul>
+      <li><a href="/features.html">Overview</a></li>
+      <li><a href="/features.html#data-handling">Data Handling</a></li>
+      <li><a href="/features.html#query">Querying</a></li>
+      <li><a href="/features.html#facets">Faceting</a></li>
+      <li><a href="/features.html#discovery">Discovery</a></li>
+      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
+      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
+      <li><a href="/features.html#spatial">Spatial</a></li>
+      <li><a href="/features.html#rich-content">Rich Content</a></li>
+      <li><a href="/features.html#performance">Performance</a></li>
+      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
+      <li><a href="/features.html#admin-ui">User Interface</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="/resources.html#documentation">Docs</a></li>
+      <li><a href="/resources.html#solr-books">Books</a></li>
+      <li><a href="/resources.html#presentations">Presentations</a></li>
+      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
+      <li><a href="/editing-website.html">Editing this Website</a></li>
+      <br/>
+      <li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+      <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+      <li><a href="https://www.apache.org/security/">Security</a></li>
+      <li><a href="https://www.apache.org/licenses/">License</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Get Started</h4>
+    <ul>
+      <li><a href="/downloads.html">Download</a></li>
+      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+      <li><a href="/resources.html">Level Up</a></li>
+    </ul>
+    <br/>
+    <h4>Community</h4>
+    <ul>
+      <li><a href="/community.html#support">Support</a></li>
+      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
+      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
+      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Related Projects</h4>
+    <ul>
+      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row copyright">
+<div class="large-centered columns">
+  <p>Copyright © 2022 The Apache Software Foundation, Licensed under the
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
+    Apache and the Apache feather logo are trademarks of The Apache Software Foundation. Apache Lucene,
+    Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
+    Please see the <a href="https://www.apache.org/foundation/marks/">Apache Trademark Policy</a> for more information.
+    All non-Apache logos are the trademarks of their respective owners.</p>
+</div></div>    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<script>
+  $(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+  });
+</script>  </body>
+</html>
