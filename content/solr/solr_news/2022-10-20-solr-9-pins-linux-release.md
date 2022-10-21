@@ -10,7 +10,7 @@ At the time of [Solr 9 release](http://localhost:8000/news.html#apache-solrtm-90
 it would pull Ubuntu 20.04 (Focal Fossa), but at the end of May, it was [auto upgraded](https://github.com/docker-library/official-images/commit/6d689db4846a3eb4c2ebd0e5d06139c650ef3bbb) to the brand new Ubuntu
 22.04 (Jammy Jellyfish). This was not our desire, and we have learnt that due to this, our image is no longer compatible
 with Docker client versions before 20.10.16. Having a "floating" linux release like this can also break the image in 
-other subtle, ways as well as breaking images using Solr official image as base.
+other subtle ways, as well as breaking downstream images using us as a base image.
 
 We therefore decided to start pinning not only Java release, but also Linux release in our official Docker images.
 This means that Solr 9.0 is once again based on Ubuntu 20.04 Focal, i.e. a downgrade.
