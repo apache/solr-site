@@ -8,6 +8,8 @@ If you believe you have discovered a vulnerability in Solr, you may first want t
 Then please disclose responsibly by following [these ASF guidelines](https://www.apache.org/security/) for reporting.
 
 The Solr PMC will not accept the output of a vulnerability scan as a security report.
+The main problem scanning tools have is that they doesn't know which vulnerabilities have been deemed non-exploitable based on how Solr (or other software) use them.
+Consult the list above.
 Please do not email the security list with issues on Solr dependencies or outputs from vulnerability scanning tools.
 
 You may file your request by email to <mailto:security@solr.apache.org>.
