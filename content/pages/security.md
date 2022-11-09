@@ -11,7 +11,7 @@ Every CVE that is detected by a software scanner is by definition already public
 To find a path forward in addressing a detected CVE we suggest the following process for fastest results:
 
 1. Check further down this page to see if the CVE is listed as exploitable in Solr.
-2. Check the [officially published non-exploitable vulnerabilities](https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools) list to see if the CVE is listed as not exploitable in Solr
+2. Check the [officially published non-exploitable vulnerabilities](https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools) list to see if the CVE is listed as not exploitable in Solr.
 3. Search through the [Solr users mailing list archive](https://lists.apache.org/list.html?users@solr.apache.org)  to see if anyone else has brought up this dependency CVE.
 4. If no one has, then please do [subscribe to the users mailing list](https://solr.apache.org/community.html#mailing-lists-chat) and then send an email asking about the CVE.
 
