@@ -27,7 +27,10 @@ Jira is for discussing specific development modifications. Any Jira that contain
 
 ### New Exploits <span style="color:blue">You</span> Discover in Solr
 
-The Solr PMC greatly appreciates the reporting of new security vulnerabilities found in Solr itself or demonstrations of exploit vulnerability via dependencies. **It is important not to publish a previously unknown exploit**, or exploit demonstration code on public mailing lists. Please disclose new exploits responsibly by following these [ASF guidelines](https://www.apache.org/security/) for reporting. The contact email for reporting newly discovered exploits in Solr is <mailto:security@solr.apache.org>.
+The Solr PMC greatly appreciates reports of new security vulnerabilities found in Solr itself or demonstrations of exploiting vulnerabilities via dependencies.
+**It is important not to publish a previously unknown exploit**, or exploit demonstration code on public mailing lists.
+Please disclose new exploits responsibly by following these [ASF guidelines](https://www.apache.org/security/) for reporting.
+The contact email for reporting newly discovered exploits in Solr is <mailto:security@solr.apache.org>.
 
 Before reporting a new exploit ensure that you have tested it against an instance of Solr that has been properly configured with:
 
