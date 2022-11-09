@@ -32,7 +32,7 @@ The Solr PMC greatly appreciates reports of new security vulnerabilities found i
 Please disclose new exploits responsibly by following these [ASF guidelines](https://www.apache.org/security/) for reporting.
 The contact email for reporting newly discovered exploits in Solr is <mailto:security@solr.apache.org>.
 
-Before reporting a new exploit ensure that you have tested it against an instance of Solr that has been properly configured with:
+Before reporting a new exploit ensure that you have tested it against an instance of Solr that is running a [supported version](https://solr.apache.org/downloads.html) and has been properly configured with:
 
 1. **Authentication** - Exploits demonstrated without login waste our time because Solr is not meant to run such that the entire world has access to all of its APIs. Running without forcing users to log in is no more valid than running linux with a widely known default root password, or a database with a root account that has no password.
 2. **Authorization** - It is not an exploit unless the authenticated user was configured with a role that should have prohibited the action, or the action should never be allowed for any user regardless of role. Your report should say why you think this action is not acceptable for the role(s) you tested it with.
