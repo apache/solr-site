@@ -22,7 +22,7 @@ To find a path forward in addressing a detected CVE we suggest the following pro
 * Please DO NOT attach a scan report, or paste output of a scan into Jira (just link the CVE instead)
 * Please DO NOT email the security email below with a scan report it will be ignored.
 
-### Use of Jira
+#### Use of Jira
 Jira is for discussing specific development modifications. Any Jira that contains only scan report output, or references multiple dependencies at the same time is likely to be ignored/closed. The large number of folks sending us reports of things that are already known is a serious drag on our (volunteer) time so **please search Jira** before opening a new issue. 
 
 ### New Exploits <span style="color:blue">You</span> Discover in Solr
