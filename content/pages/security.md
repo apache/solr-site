@@ -15,7 +15,7 @@ To find a path forward in addressing a detected CVE we suggest the following pro
 3. Search through the [Solr users mailing list archive](https://lists.apache.org/list.html?users@solr.apache.org)  to see if anyone else has brought up this dependency CVE.
 4. If no one has, then please do [subscribe to the users mailing list](https://solr.apache.org/community.html#mailing-lists-chat) and then send an email asking about the CVE.
 
-### Dos and Don'ts
+#### Dos and Don'ts
 * Please DO discuss the possible need for library upgrades on the user list. 
 * Please DO search Jira for the CVE number to see if we are addressing it already.
 * Please DO create Jira issues and associated pull requests to propose and discuss upgrades of *a single specific* dependency.
