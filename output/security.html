@@ -46,7 +46,7 @@
      <meta property="og:type" content="website" />
      <meta property="og:url" content="https://solr.apache.org/security.html"/>
      <meta property="og:title" content="Solr™ Security News"/>
-     <meta property="og:description" content="How to report a security issue CVEs in Solr dependencies The Solr PMC will not accept the output of a vulnerability scan as a..."/>
+     <meta property="og:description" content="How to report a security issue Published CVEs Detected by Scanners Every CVE that is detected by a software scanner is by definition..."/>
      <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=4dd59757"/>
      <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=4dd59757"/>
 
@@ -125,22 +125,37 @@
   </style>
   <h1 id="solr-news">Solr<sup>™</sup> Security News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <h2 id="how-to-report-a-security-issue">How to report a security issue</h2>
-<h3 id="cves-in-solr-dependencies">CVEs in Solr dependencies</h3>
-<p>The Solr PMC will not accept the output of a vulnerability scan as a security report.</p>
-<p>Solr depends on lots of other open-source software -- "dependencies".
-If a CVE is published (a publicly identified vulnerability) against one of them, the Solr project will review it to see if it's actually exploitable in Solr -- usually they aren't.
-Please review the <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools">officially published non-exploitable vulnerabilities</a> before taking any steps.
-If you <strong>don't</strong> see a CVE there, you should take the following steps:</p>
+<h3 id="published-cves-detected-by-scanners">Published CVEs Detected by Scanners</h3>
+<p>Every CVE that is detected by a software scanner is by definition already public knowledge. That means the Solr PMC and the rest of the world probably already know about it.</p>
+<p>To find a path forward in addressing a detected CVE we suggest the following process for fastest results:</p>
 <ol>
-<li>Search through the <a href="https://lists.apache.org/list.html?users@solr.apache.org">Solr users mailing list</a> to see if anyone else has brought up this dependency CVE.</li>
+<li>Check further down this page to see if the CVE is listed as exploitable in Solr.</li>
+<li>Check the <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools">officially published non-exploitable vulnerabilities</a> list to see if the CVE is listed as not exploitable in Solr.</li>
+<li>Search through the <a href="https://lists.apache.org/list.html?users@solr.apache.org">Solr users mailing list archive</a>  to see if anyone else has brought up this dependency CVE.</li>
 <li>If no one has, then please do <a href="https://solr.apache.org/community.html#mailing-lists-chat">subscribe to the users mailing list</a> and then send an email asking about the CVE.</li>
 </ol>
-<h3 id="exploits-found-in-solr">Exploits found in Solr</h3>
-<p>The Solr PMC greatly appreciates the reporting of security vulnerabilities found in Solr itself.</p>
-<p>Then please disclose responsibly by following <a href="https://www.apache.org/security/">these ASF guidelines</a> for reporting.
-You may file your request by email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#115;&#111;&#108;&#114;&#46;&#97;&#112;&#97;&#99;&#104;&#101;&#46;&#111;&#114;&#103;">&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#115;&#111;&#108;&#114;&#46;&#97;&#112;&#97;&#99;&#104;&#101;&#46;&#111;&#114;&#103;</a>.</p>
-<h2 id="more-information">More information</h2>
-<p>You will find more security related information on our Wiki: <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a>, such as information on how to treat the automated reports from security scanning tools.</p>
+<h4 id="dos-and-donts">Dos and Don'ts</h4>
+<ul>
+<li>Please DO discuss the possible need for library upgrades on the user list. </li>
+<li>Please DO search Jira for the CVE number to see if we are addressing it already.</li>
+<li>Please DO create Jira issues and associated pull requests to propose and discuss upgrades of <em>a single specific</em> dependency.</li>
+<li>Please DO NOT attach a scan report, or paste output of a scan into Jira (just link the CVE instead)</li>
+<li>Please DO NOT email the security email below with a scan report it will be ignored.</li>
+</ul>
+<h4 id="use-of-jira">Use of Jira</h4>
+<p>Jira is for discussing specific development modifications. Any Jira that contains only scan report output, or references multiple dependencies at the same time is likely to be ignored/closed. The large number of folks sending us reports of things that are already known is a serious drag on our (volunteer) time so <strong>please search Jira</strong> before opening a new issue. </p>
+<h3 id="new-exploits-you-discover-in-solr">New Exploits <span style="color:blue">You</span> Discover in Solr</h3>
+<p>The Solr PMC greatly appreciates reports of new security vulnerabilities found in Solr itself or demonstrations of exploiting vulnerabilities via dependencies.
+<strong>It is important not to publish a previously unknown exploit</strong>, or exploit demonstration code on public mailing lists.
+Please disclose new exploits responsibly by following these <a href="https://www.apache.org/security/">ASF guidelines</a> for reporting.
+The contact email for reporting newly discovered exploits in Solr is <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#115;&#111;&#108;&#114;&#46;&#97;&#112;&#97;&#99;&#104;&#101;&#46;&#111;&#114;&#103;">&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#115;&#111;&#108;&#114;&#46;&#97;&#112;&#97;&#99;&#104;&#101;&#46;&#111;&#114;&#103;</a>.</p>
+<p>Before reporting a new exploit ensure that you have tested it against an instance of Solr that is running a <a href="https://solr.apache.org/downloads.html">supported version</a> and has been properly configured with:</p>
+<ol>
+<li><strong>Authentication</strong> - Exploits demonstrated without login waste our time because Solr is not meant to run such that the entire world has access to all of its APIs. Running without forcing users to log in is no more valid than running linux with a widely known default root password, or a database with a root account that has no password.</li>
+<li><strong>Authorization</strong> - It is not an exploit unless the authenticated user was configured with a role that should have prohibited the action, or the action should never be allowed for any user regardless of role. Your report should say why you think this action is not acceptable for the role(s) you tested it with.</li>
+</ol>
+<h3 id="more-information">More information</h3>
+<p>You will find more security related information on our Wiki: <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></p>
 <h1 id="recent-cve-reports-for-apache-solr">Recent CVE reports for Apache Solr</h1>
 <p>Below is a list of already announced CVE vulnerabilities. These are also available as an <a href="/feeds/solr/security.atom.xml">ATOM feed</a>:</p>
 
