@@ -166,6 +166,11 @@ The contact email for reporting newly discovered exploits in Solr is <a href="&#
             <th>Announcement</th>
         </tr>
         <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-39135">CVE-2022-39135</a></td>
+            <td>2022-11-20</td>
+            <td><a href="#apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler">Apache Solr is vulnerable to CVE-2022-39135 via /sql handler</a></td>
+        </tr>
+        <tr>
             <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44548">CVE-2021-44548</a></td>
             <td>2021-12-18</td>
             <td><a href="#cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler">Apache Solr information disclosure vulnerability through DataImportHandler</a></td>
@@ -235,13 +240,30 @@ The contact email for reporting newly discovered exploits in Solr is <a href="&#
             <td>2019-02-12</td>
             <td><a href="#cve-2017-3164-ssrf-issue-in-apache-solr">SSRF issue in Apache Solr</a></td>
         </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1308">CVE-2018-1308</a></td>
-            <td>2018-04-08</td>
-            <td><a href="#cve-2018-1308-xxe-attack-through-apache-solrs-dihs-dataconfig-request-parameter">XXE attack through Apache Solr's DIH's dataConfig request parameter</a></td>
-        </tr>
     </table>
 
+  <h2 id="apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler">2022-11-20, Apache Solr is vulnerable to CVE-2022-39135 via /sql handler
+    <a class="headerlink" href="#apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Versions Affected:</strong>
+Solr 6.5 to 8.11.2
+Solr 9.0</p>
+<p><strong>Description:</strong>
+Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode.  If an untrusted user can supply SQL queries to Solr’s “/sql” handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack.  This might have been exposed by some deployers of Solr in order for internal analysts to use JDBC based tooling, but would have unlikely been granted to wider audiences.</p>
+<p><strong>Impact:</strong>
+An XXE attack may lead to the disclosure of confidential data, denial of service, server side request forgery (SSRF), port scanning from the Solr node, and other system impacts.</p>
+<p><strong>Mitigation:</strong>
+Most Solr installations don’t make use of the SQL functionality.  For such users, the standard Solr security advice of using a firewall should be adequate.  Nonetheless, the functionality can be disabled.  As of Solr 9, it has been modularized and thus became opt-in, so nothing is needed for Solr 9 users that don’t use it.  Users <em>not</em> using SolrCloud can’t use the functionality at all.  For other users that wish to disable it, you must register a request handler that masks the underlying functionality in solrconfig.xml like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">  &lt;requestHandler name=&quot;/sql&quot; class=&quot;solr.NotFoundRequestHandler&quot;/&gt;</span>
+</code></pre></div>
+
+<p>Users needing this SQL functionality are forced to upgrade to Solr 9.1.  If Solr 8.11.3 is released, then it will be an option as well.  Simply replacing Calcite and other JAR files may mostly work but could fail depending on the particulars of the query.  Users interested in this or in patching their own versions of Solr should examine SOLR-16421 for a source patch.</p>
+<p><strong>Credit:</strong>
+Andreas Hubold at CoreMedia GmbH</p>
+<p><strong>References:</strong>
+https://nvd.nist.gov/vuln/detail/CVE-2022-39135
+https://issues.apache.org/jira/browse/SOLR-16421</p>
+  <hr/>
   <h2 id="cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler">2021-12-18, CVE-2021-44548: Apache Solr information disclosure vulnerability through DataImportHandler
     <a class="headerlink" href="#cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler" title="Permanent link">¶</a>
   </h2>
@@ -635,43 +657,6 @@ dk from Chaitin Tech</p>
 <li><a href="https://issues.apache.org/jira/browse/SOLR-12770">https://issues.apache.org/jira/browse/SOLR-12770</a></li>
 <li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
 </ul>
-  <hr/>
-  <h2 id="cve-2018-1308-xxe-attack-through-apache-solrs-dihs-dataconfig-request-parameter">2018-04-08, CVE-2018-1308: XXE attack through Apache Solr's DIH's dataConfig request parameter
-    <a class="headerlink" href="#cve-2018-1308-xxe-attack-through-apache-solrs-dihs-dataconfig-request-parameter" title="Permanent link">¶</a>
-  </h2>
-  <p>CVE-2018-1308: XXE attack through Apache Solr's DIH's dataConfig request parameter</p>
-<p><strong>Severity:</strong> Major</p>
-<p><strong>Vendor:</strong><br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected:</strong></p>
-<ul>
-<li>Solr 1.2 to 6.6.2</li>
-<li>Solr 7.0.0 to 7.2.1</li>
-</ul>
-<p><strong>Description:</strong><br>
-The details of this vulnerability were reported to the Apache Security mailing list. </p>
-<p>This vulnerability relates to an XML external entity expansion (XXE) in the
-<code>&amp;dataConfig=&lt;inlinexml&gt;</code> parameter of Solr's DataImportHandler. It can be
-used as XXE using file/ftp/http protocols in order to read arbitrary local
-files from the Solr server or the internal network. See [1] for more details.</p>
-<p><strong>Mitigation:</strong><br>
-Users are advised to upgrade to either Solr 6.6.3 or Solr 7.3.0 releases both
-of which address the vulnerability. Once upgrade is complete, no other steps
-are required. Those releases disable external entities in anonymous XML files
-passed through this request parameter. </p>
-<p>If users are unable to upgrade to Solr 6.6.3 or Solr 7.3.0 then they are
-advised to disable data import handler in their solrconfig.xml file and
-restart their Solr instances. Alternatively, if Solr instances are only used
-locally without access to public internet, the vulnerability cannot be used
-directly, so it may not be required to update, and instead reverse proxies or
-Solr client applications should be guarded to not allow end users to inject
-<code>dataConfig</code> request parameters. Please refer to [2] on how to correctly
-secure Solr servers.</p>
-<p><strong>Credit:</strong><br>
-麦 香浓郁</p>
-<p><strong>References:</strong></p>
-<p>[1] <a href="https://issues.apache.org/jira/browse/SOLR-11971">https://issues.apache.org/jira/browse/SOLR-11971</a><br>
-[2] <a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity">https://cwiki.apache.org/confluence/display/solr/SolrSecurity</a></p>
   <hr/>
 </div>
   </div>
