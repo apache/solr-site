@@ -132,6 +132,27 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler">20 November 2022, Apache Solr is vulnerable to CVE-2022-39135 via /sql handler
+    <a class="headerlink" href="#apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Versions Affected:</strong>
+Solr 6.5 to 8.11.2
+Solr 9.0</p>
+<p><strong>Description:</strong>
+Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode.  If an untrusted user can supply SQL queries to Solr’s “/sql” handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack.  This might have been exposed by some deployers of Solr in order for internal analysts to use JDBC based tooling, but would have unlikely been granted to wider audiences.</p>
+<p><strong>Impact:</strong>
+An XXE attack may lead to the disclosure of confidential data, denial of service, server side request forgery (SSRF), port scanning from the Solr node, and other system impacts.</p>
+<p><strong>Mitigation:</strong>
+Most Solr installations don’t make use of the SQL functionality.  For such users, the standard Solr security advice of using a firewall should be adequate.  Nonetheless, the functionality can be disabled.  As of Solr 9, it has been modularized and thus became opt-in, so nothing is needed for Solr 9 users that don’t use it.  Users <em>not</em> using SolrCloud can’t use the functionality at all.  For other users that wish to disable it, you must register a request handler that masks the underlying functionality in solrconfig.xml like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="err">  &lt;requestHandler name=&quot;/sql&quot; class=&quot;solr.NotFoundRequestHandler&quot;/&gt;</span>
+</code></pre></div>
+
+<p>Users needing this SQL functionality are forced to upgrade to Solr 9.1.  If Solr 8.11.3 is released, then it will be an option as well.  Simply replacing Calcite and other JAR files may mostly work but could fail depending on the particulars of the query.  Users interested in this or in patching their own versions of Solr should examine SOLR-16421 for a source patch.</p>
+<p><strong>Credit:</strong>
+Andreas Hubold at CoreMedia GmbH</p>
+<p><strong>References:</strong>
+https://nvd.nist.gov/vuln/detail/CVE-2022-39135
+https://issues.apache.org/jira/browse/SOLR-16421</p>
   <h2 id="apache-solrtm-910-available">17 November 2022, Apache Solr™ 9.1.0 available
     <a class="headerlink" href="#apache-solrtm-910-available" title="Permanent link">¶</a>
   </h2>

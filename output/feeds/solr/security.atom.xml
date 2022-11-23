@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2021-12-18T00:00:00+00:00</updated><subtitle></subtitle><subtitle></subtitle><entry><title>CVE-2021-44548: Apache Solr information disclosure vulnerability through DataImportHandler</title><link href="/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html" rel="alternate"></link><published>2021-12-18T00:00:00+00:00</published><updated>2021-12-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-12-18:/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2022-11-20T00:00:00+00:00</updated><subtitle></subtitle><subtitle></subtitle><entry><title>Apache Solr is vulnerable to CVE-2022-39135 via /sql handler</title><link href="/apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler.html" rel="alternate"></link><published>2022-11-20T00:00:00+00:00</published><updated>2022-11-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-11-20:/apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+Solr 6.5 to 8.11.2
+Solr 9.0&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode.  If an untrusted user can supply SQL queries to Solr’s “/sql” handler (even indirectly via proxies / other apps), then the user …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+Solr 6.5 to 8.11.2
+Solr 9.0&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode.  If an untrusted user can supply SQL queries to Solr’s “/sql” handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack.  This might have been exposed by some deployers of Solr in order for internal analysts to use JDBC based tooling, but would have unlikely been granted to wider audiences.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Impact:&lt;/strong&gt;
+An XXE attack may lead to the disclosure of confidential data, denial of service, server side request forgery (SSRF), port scanning from the Solr node, and other system impacts.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
+Most Solr installations don’t make use of the SQL functionality.  For such users, the standard Solr security advice of using a firewall should be adequate.  Nonetheless, the functionality can be disabled.  As of Solr 9, it has been modularized and thus became opt-in, so nothing is needed for Solr 9 users that don’t use it.  Users &lt;em&gt;not&lt;/em&gt; using SolrCloud can’t use the functionality at all.  For other users that wish to disable it, you must register a request handler that masks the underlying functionality in solrconfig.xml like so:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;  &amp;lt;requestHandler name=&amp;quot;/sql&amp;quot; class=&amp;quot;solr.NotFoundRequestHandler&amp;quot;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Users needing this SQL functionality are forced to upgrade to Solr 9.1.  If Solr 8.11.3 is released, then it will be an option as well.  Simply replacing Calcite and other JAR files may mostly work but could fail depending on the particulars of the query.  Users interested in this or in patching their own versions of Solr should examine SOLR-16421 for a source patch.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Andreas Hubold at CoreMedia GmbH&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
+https://nvd.nist.gov/vuln/detail/CVE-2022-39135
+https://issues.apache.org/jira/browse/SOLR-16421&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2021-44548: Apache Solr information disclosure vulnerability through DataImportHandler</title><link href="/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html" rel="alternate"></link><published>2021-12-18T00:00:00+00:00</published><updated>2021-12-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-12-18:/cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
 Moderate&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;br&gt;
 All versions prior to 8.11.1. Affected platforms: Windows.&lt;/p&gt;
