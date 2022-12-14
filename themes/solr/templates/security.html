@@ -16,6 +16,9 @@
   <h1 id="solr-news">Solr<sup>™</sup> Security News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   {{page.content}}
 
+  <h1 id="recent-cve-reports-for-apache-solr">Recent CVE reports for Apache Solr</h1>
+  <p>Below is a list of already announced CVE vulnerabilities. These are also available as an <a href="/feeds/solr/security.atom.xml">ATOM feed</a>:</p>
+
     <table>
         <tr>
             <th width="130">CVE#</th>
@@ -38,5 +41,38 @@
   {{article.content}}
   <hr/>
   {% endfor %}
+  <h1 id="cve-reports-for-apache-solr-dependencies">CVE reports for Apache Solr dependencies</h1>
+  <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies, and the state of their applicability to Solr.</p>
+  <p>We are currently experimenting with providing this information in a <a href="#vex">machine-readable VEX format</a> and encourage you to participate.</p>
+    <table>
+      <tr>
+        <th>id</th>
+        <th>versions</th>
+        <th>jars</th>
+        <th>state</th>
+        <th>detail</th>
+      </tr>
+      {# CVE's that do affect Solr have their own advisory page above #}
+      {% for v in (vex | selectattr("analysis.state", "ne", "exploitable")) %}
+      <tr>
+        <td>
+          {% for id in v.ids %}
+            {% if id.startswith('CVE') %}<a href="https://nvd.nist.gov/vuln/detail/{{ id }}">{{ id }}</a>{% else %}{{ id }}{% endif %}
+            {%- if not loop.last %}, {% endif %}
+          {% endfor %}
+        </td>
+        <td>
+          {{ v.versions }}
+        </td>
+        <td>
+          {% for jar in v.jars %}
+            {{ jar }}{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </td>
+        <td>{{ v.analysis.state.replace('_', ' ') }}</td>
+        <td>{{ sub("(https://.*?)([.;]\s)", "<a href=\"\\1\">\\1</a>\\2", v.analysis.detail) }}</td>
+      </tr>
+      {% endfor %}
+    </table>
 </div>
 {% endblock content_inner %}

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "title": "CycloneDX Software Bill of Materials Standard",
+  "items": {
+    "type": "object",
+    "required": [
+      "ids",
+      "versions",
+      "jars",
+      "analysis"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "jars": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "versions": {
+        "type": "string"
+      },
+      "analysis": {
+        "$ref": "file:bom-1.4.schema.json#/definitions/vulnerability/properties/analysis"
+      }
+    }
+  }
+}
