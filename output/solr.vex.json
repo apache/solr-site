@@ -1,0 +1,750 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "name": "solr",
+      "version": "SNAPSHOT",
+      "type": "application",
+      "bom-ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+    }
+  },
+  "vulnerabilities": [
+    {
+      "id": "CVE-2022-33980",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr uses commons-configuration2 for \"hadoop-auth\" only (for Kerberos). It is only used for loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted)."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2022-42889",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr uses commons-text directly (StringEscapeUtils.escapeEcmaScript) in LoadAdminUiServlet that is not vulnerable. Solr also has a \"hadoop-auth\" module that uses Apache Hadoop which uses commons-text through commons-configuration2. For Solr, the concern is limited to loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted)."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2022-25168",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "The vulnerable code won't be used by Solr because Solr only is only using HDFS as a client."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2021-44832",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr's default log configuration doesn't use JDBCAppender and we don't imagine a user would want to use it or other obscure appenders."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2021-45105",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "The MDC data used by Solr are for the collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Furthermore, Solr's default log configuration doesn't use double-dollar-sign and we don't imagine a user would want to do that."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2021-45046",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "The MDC data used by Solr are for the collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Furthermore, Solr's default log configuration doesn't use double-dollar-sign and we don't imagine a user would want to do that."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2020-13955",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr's SQL adapter does not use the vulnerable class \"HttpUtils\". Calcite only used it to talk to Druid or Splunk."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-10237",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only used with the Carrot2 clustering engine."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2014-0114",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "This is only used at compile time and it cannot be used to attack Solr. Since it is generally unnecessary, the dependency has been removed as of 7.5.0. See SOLR-12617."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-10086",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "While commons-beanutils was removed in 7.5, it was added back in 8.0 in error and removed again in 8.3. The vulnerable class was not used in any Solr code path. This jar remains a dependency of both Velocity and hadoop-common, but Solr does not use it in our implementations."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2012-2098",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only used in test framework and at build time."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-1324",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only used in test framework and at build time."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-11771",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only used in test framework and at build time."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Used only in DataImportHandler tests and example implementation, which should not be used in production."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-1000632",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only used in Solr tests."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-10237",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only used in tests."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-15718",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Does not impact Solr because Solr uses Hadoop as a client library."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-14952",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Issue applies only to the C++ release of ICU and not ICU4J, which is what Lucene uses. ICU4J is at v63.2 as of Lucene/Solr 7.6.0"
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-15095",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-17485",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-7525",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-5968",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-7489",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-12086",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-12384",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-12814",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-14379",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-14439",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2020-35490",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2020-35491",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2021-20190",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-14540",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-16335",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-10241",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr upgraded to Jetty 9.4.19 for the 8.2 release. Additionally, the path to exploit these vulnerabilities was fixed in 8.1 and 7.7.2. Earlier versions can manually patch their configurations as described in SOLR-13409."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-10247",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr upgraded to Jetty 9.4.19 for the 8.2 release. Additionally, the path to exploit these vulnerabilities was fixed in 8.1 and 7.7.2. Earlier versions can manually patch their configurations as described in SOLR-13409."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2020-27218",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only exploitable through use of Jetty's GzipHandler, which is only implemented in Embedded Solr Server."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2020-27223",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only exploitable if Solr's webapp directory is deployed as a symlink, which is not Solr's default."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2021-33813",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "JDOM is only used in Solr Cell, which should not be used in production which makes the vulnerability unexploitable. It is a dependency of Apache Tika, which has analyzed the issue and determined the vulnerability is limited to two libraries not commonly used in search applications, see TIKA-3488 for details. Since Tika should be used outside of Solr, use a version of Tika which updates the affected libraries if concerned about exposure to this issue."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-1000056",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "JUnit only used in tests; CVE only refers to a Jenkins plugin not used by Solr."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2014-7940",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2016-6293",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2016-7415",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-14952",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-17484",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-7867",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-7868",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2019-16869",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "This is not included in Solr but is a dependency of ZooKeeper 3.5.5. The version was upgraded in ZooKeeper 3.5.6, included with Solr 8.3. The specific classes mentioned in the CVE are not used in Solr (nor in ZooKeeper as far as the Solr community can determine)."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-14868",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr should not be exposed outside a firewall where bad actors can send HTTP requests. These two CVEs specifically involve classes (SimpleXMLProvider and XmlRepresentation, respectively) that Solr does not use in any code path."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2017-14949",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr should not be exposed outside a firewall where bad actors can send HTTP requests. These two CVEs specifically involve classes (SimpleXMLProvider and XmlRepresentation, respectively) that Solr does not use in any code path."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2015-5237",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Dependency for Hadoop and Calcite. ??"
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-1471",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Dependency of Carrot2 and used during compilation, not at runtime (see SOLR-769. This .jar was replaced in Solr 8.3 and backported to 7.7.3 (see SOLR-13779)."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-8088",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "The reported CVE impacts org.slf4j.ext.EventData, which is not used in Solr."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-1335",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr does not run tika-server, so this is not a problem."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "All Tika issues that could be Solr vulnerabilities would only be exploitable if untrusted files are indexed with SolrCell. This is not recommended in production systems, so Solr does not consider these valid CVEs for Solr."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Solr does not ship a Struts jar. This is a transitive POM listing and not included with Solr (see comment in SOLR-2849)."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2016-6809",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-1335",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-1338",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2018-1339",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2012-0881",
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Only used in Lucene Benchmarks and Solr tests."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2022-39135",
+      "analysis": {
+        "state": "exploitable",
+        "response": [
+          "update"
+        ],
+        "detail": "Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode. If an untrusted user can supply SQL queries to Solr's '/sql' handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack. This might have been exposed by some deployers of Solr in order for internal analysts to use JDBC based tooling, but would have unlikely been granted to wider audiences."
+      },
+      "affects": [
+        {
+          "ref": "0e896fc3-d1b2-5546-80a4-a3c6931d7c11"
+        }
+      ]
+    }
+  ]
+}
