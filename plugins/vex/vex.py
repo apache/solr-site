@@ -56,8 +56,9 @@ def pelican_init(pelicanobj):
     with open('plugins/vex/schema/bom-1.4.schema.json', 'r') as schema:
         validate(vex, json.load(schema))
 
-    os.makedirs('output', exist_ok=True)
-    with open('output/solr.vex.json', 'w') as out:
+    output_path = pelicanobj.settings['OUTPUT_PATH']
+    os.makedirs(output_path, exist_ok=True)
+    with open('%s/solr.vex.json' % output_path, 'w') as out:
         json.dump(vex, out, indent=2)
 
 def generator_initialized(generator):
