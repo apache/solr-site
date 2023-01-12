@@ -129,21 +129,22 @@
 <p>Every CVE that is detected by a software scanner is by definition already public knowledge. That means the Solr PMC and the rest of the world probably already know about it.</p>
 <p>To find a path forward in addressing a detected CVE we suggest the following process for fastest results:</p>
 <ol>
-<li>Check further down this page to see if the CVE is listed as exploitable in Solr.</li>
-<li>Check the <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity#SolrSecurity-SolrandVulnerabilityScanningTools">officially published non-exploitable vulnerabilities</a> list to see if the CVE is listed as not exploitable in Solr.</li>
+<li>Check <a href="#recent-cve-reports-for-apache-solr">further down this page</a> to see if the CVE is listed as exploitable in Solr.</li>
+<li>Check the <a href="#cve-reports-for-apache-solr-dependencies">officially published non-exploitable vulnerabilities</a> list to see if the CVE is listed as not exploitable in Solr.</li>
 <li>Search through the <a href="https://lists.apache.org/list.html?users@solr.apache.org">Solr users mailing list archive</a>  to see if anyone else has brought up this dependency CVE.</li>
 <li>If no one has, then please do <a href="https://solr.apache.org/community.html#mailing-lists-chat">subscribe to the users mailing list</a> and then send an email asking about the CVE.</li>
 </ol>
 <h4 id="dos-and-donts">Dos and Don'ts</h4>
 <ul>
-<li>Please DO discuss the possible need for library upgrades on the user list. </li>
+<li>Please DO discuss the possible need for library upgrades on the user list.</li>
 <li>Please DO search Jira for the CVE number to see if we are addressing it already.</li>
 <li>Please DO create Jira issues and associated pull requests to propose and discuss upgrades of <em>a single specific</em> dependency.</li>
 <li>Please DO NOT attach a scan report, or paste output of a scan into Jira (just link the CVE instead)</li>
 <li>Please DO NOT email the security email below with a scan report it will be ignored.</li>
+<li>Please DO look into automating some of this with <a href="#vex">VEX</a> and share your experience.</li>
 </ul>
 <h4 id="use-of-jira">Use of Jira</h4>
-<p>Jira is for discussing specific development modifications. Any Jira that contains only scan report output, or references multiple dependencies at the same time is likely to be ignored/closed. The large number of folks sending us reports of things that are already known is a serious drag on our (volunteer) time so <strong>please search Jira</strong> before opening a new issue. </p>
+<p>Jira is for discussing specific development modifications. Any Jira that contains only scan report output, or references multiple dependencies at the same time is likely to be ignored/closed. The large number of folks sending us reports of things that are already known is a serious drag on our (volunteer) time so <strong>please search Jira</strong> before opening a new issue.</p>
 <h3 id="new-exploits-you-discover-in-solr">New Exploits <span style="color:blue">You</span> Discover in Solr</h3>
 <p>The Solr PMC greatly appreciates reports of new security vulnerabilities found in Solr itself or demonstrations of exploiting vulnerabilities via dependencies.
 <strong>It is important not to publish a previously unknown exploit</strong>, or exploit demonstration code on public mailing lists.
@@ -154,10 +155,31 @@ The contact email for reporting newly discovered exploits in Solr is <a href="&#
 <li><strong>Authentication</strong> - Exploits demonstrated without login waste our time because Solr is not meant to run such that the entire world has access to all of its APIs. Running without forcing users to log in is no more valid than running linux with a widely known default root password, or a database with a root account that has no password.</li>
 <li><strong>Authorization</strong> - It is not an exploit unless the authenticated user was configured with a role that should have prohibited the action, or the action should never be allowed for any user regardless of role. Your report should say why you think this action is not acceptable for the role(s) you tested it with.</li>
 </ol>
+<h4 id="vex">VEX</h4>
+<p>Since the process of checking whether CVEs in dependencies of Solr affect your
+Solr deployment is tedious and error-prone, we are experimenting with sharing
+information about advisories that are known (not) to affect Solr in a
+machine-readable way.</p>
+<p>File formats to share this information are called 'VEX' formats. A number of
+such formats are under active development, such as based on
+<a href="https://cyclonedx.org/capabilities/vex/">CycloneDX</a> and
+<a href="https://github.com/oasis-tcs/csaf/blob/master/csaf_2.0/prose/csaf-v2-editor-draft.md#45-profile-5-vex">CSAF</a>.</p>
+<p>We are currently providing vulnerability information in a CycloneDX JSON-based
+format <a href="/solr.vex.json">here</a>. We are very curious to hear about your experience,
+and to find out what is still missing to reduce the signal/noise ratio and make
+these tools more effective. We invite you to join the discussion at the
+<a href="mailto:security-discuss@community.apache.org">security-discuss</a>
+<a href="https://www.apache.org/foundation/mailinglists.html">mailinglist</a> or,
+if you prefer to collaborate in private, contact
+<a href="mailto:security@apache.org">security@apache.org</a>. It will likely be interesting
+to know what security scanning/reporting tool you are using, exactly on which
+artifacts, and if/how its vendor appears to support VEX. We'd be happy to work
+with you to see if we can provide this information in other variations or formats.</p>
 <h3 id="more-information">More information</h3>
 <p>You will find more security related information on our Wiki: <a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></p>
-<h1 id="recent-cve-reports-for-apache-solr">Recent CVE reports for Apache Solr</h1>
-<p>Below is a list of already announced CVE vulnerabilities. These are also available as an <a href="/feeds/solr/security.atom.xml">ATOM feed</a>:</p>
+
+  <h1 id="recent-cve-reports-for-apache-solr">Recent CVE reports for Apache Solr</h1>
+  <p>Below is a list of already announced CVE vulnerabilities. These are also available as an <a href="/feeds/solr/security.atom.xml">ATOM feed</a>:</p>
 
     <table>
         <tr>
@@ -658,6 +680,370 @@ dk from Chaitin Tech</p>
 <li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
 </ul>
   <hr/>
+  <h1 id="cve-reports-for-apache-solr-dependencies">CVE reports for Apache Solr dependencies</h1>
+  <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies, and the state of their applicability to Solr.</p>
+  <p>We are currently experimenting with providing this information in a <a href="#vex">machine-readable VEX format</a> and encourage you to participate.</p>
+    <table>
+      <tr>
+        <th>id</th>
+        <th>versions</th>
+        <th>jars</th>
+        <th>state</th>
+        <th>detail</th>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2022-33980">CVE-2022-33980</a>        </td>
+        <td>
+          < 9.1
+        </td>
+        <td>
+            commons-configuration2-2.7.jar        </td>
+        <td>not affected</td>
+        <td>Solr uses commons-configuration2 for "hadoop-auth" only (for Kerberos). It is only used for loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2022-42889">CVE-2022-42889</a>        </td>
+        <td>
+          < 9.1
+        </td>
+        <td>
+            commons-text-1.9.jar        </td>
+        <td>not affected</td>
+        <td>Solr uses commons-text directly (StringEscapeUtils.escapeEcmaScript) in LoadAdminUiServlet that is not vulnerable. Solr also has a "hadoop-auth" module that uses Apache Hadoop which uses commons-text through commons-configuration2. For Solr, the concern is limited to loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2022-25168">CVE-2022-25168</a>        </td>
+        <td>
+          < 9.1
+        </td>
+        <td>
+            hadoop-common-3.2.2.jar        </td>
+        <td>not affected</td>
+        <td>The vulnerable code won't be used by Solr because Solr only is only using HDFS as a client.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44832">CVE-2021-44832</a>        </td>
+        <td>
+          7.4-8.11.1
+        </td>
+        <td>
+            log4j-core-2.14.1.jar,             log4j-core-2.16.0.jar        </td>
+        <td>not affected</td>
+        <td>Solr's default log configuration doesn't use JDBCAppender and we don't imagine a user would want to use it or other obscure appenders.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2021-45105">CVE-2021-45105</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-45046">CVE-2021-45046</a>        </td>
+        <td>
+          7.4-8.11.1
+        </td>
+        <td>
+            log4j-core-2.14.1.jar,             log4j-core-2.16.0.jar        </td>
+        <td>not affected</td>
+        <td>The MDC data used by Solr are for the collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Furthermore, Solr's default log configuration doesn't use double-dollar-sign and we don't imagine a user would want to do that.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13955">CVE-2020-13955</a>        </td>
+        <td>
+          8.1.0- today
+        </td>
+        <td>
+            avatica-core-1.13.0.jar,             calcite-core-1.18.0.jar        </td>
+        <td>not affected</td>
+        <td>Solr's SQL adapter does not use the vulnerable class "HttpUtils". Calcite only used it to talk to Druid or Splunk.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a>        </td>
+        <td>
+          5.4.0-today
+        </td>
+        <td>
+            carrot2-guava-18.0.jar        </td>
+        <td>not affected</td>
+        <td>Only used with the Carrot2 clustering engine.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2014-0114">CVE-2014-0114</a>        </td>
+        <td>
+          4.9.0-7.5.0
+        </td>
+        <td>
+            commons-beanutils-1.8.3.jar        </td>
+        <td>not affected</td>
+        <td>This is only used at compile time and it cannot be used to attack Solr. Since it is generally unnecessary, the dependency has been removed as of 7.5.0. See SOLR-12617.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10086">CVE-2019-10086</a>        </td>
+        <td>
+          8.0.0-8.3.0
+        </td>
+        <td>
+            commons-beanutils-1.9.3.jar        </td>
+        <td>not affected</td>
+        <td>While commons-beanutils was removed in 7.5, it was added back in 8.0 in error and removed again in 8.3. The vulnerable class was not used in any Solr code path. This jar remains a dependency of both Velocity and hadoop-common, but Solr does not use it in our implementations.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2012-2098">CVE-2012-2098</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1324">CVE-2018-1324</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-11771">CVE-2018-11771</a>        </td>
+        <td>
+          4.6.0-today
+        </td>
+        <td>
+            commons-compress (only as part of Ant 1.8.2)        </td>
+        <td>not affected</td>
+        <td>Only used in test framework and at build time.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-">CVE-</a>        </td>
+        <td>
+          4.6.0-today
+        </td>
+        <td>
+            derby-10.9.1.0.jar        </td>
+        <td>not affected</td>
+        <td>Used only in DataImportHandler tests and example implementation, which should not be used in production.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000632">CVE-2018-1000632</a>        </td>
+        <td>
+          4.6.0-today
+        </td>
+        <td>
+            dom4j-1.6.1.jar        </td>
+        <td>not affected</td>
+        <td>Only used in Solr tests.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a>        </td>
+        <td>
+          4.6.0-today
+        </td>
+        <td>
+            guava-*.jar        </td>
+        <td>not affected</td>
+        <td>Only used in tests.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2017-15718">CVE-2017-15718</a>        </td>
+        <td>
+          6.6.1-7.6.0
+        </td>
+        <td>
+            hadoop-auth-2.7.4.jar,             hadoop-hdfs-2.7.4.jar (all Hadoop)        </td>
+        <td>not affected</td>
+        <td>Does not impact Solr because Solr uses Hadoop as a client library.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14952">CVE-2017-14952</a>        </td>
+        <td>
+          6.0.0-7.5.0
+        </td>
+        <td>
+            icu4j-56.1.jar,             icu4j-59.1.jar        </td>
+        <td>not affected</td>
+        <td>Issue applies only to the C++ release of ICU and not ICU4J, which is what Lucene uses. ICU4J is at v63.2 as of Lucene/Solr 7.6.0</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2017-15095">CVE-2017-15095</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-17485">CVE-2017-17485</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7525">CVE-2017-7525</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-5968">CVE-2018-5968</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-7489">CVE-2018-7489</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12086">CVE-2019-12086</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12384">CVE-2019-12384</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-12814">CVE-2018-12814</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14379">CVE-2019-14379</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14439">CVE-2019-14439</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35490">CVE-2020-35490</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35491">CVE-2020-35491</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-20190">CVE-2021-20190</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14540">CVE-2019-14540</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16335">CVE-2019-16335</a>        </td>
+        <td>
+          4.7.0-today
+        </td>
+        <td>
+            jackson-databind-*.jar        </td>
+        <td>not affected</td>
+        <td>These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See <a href="https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062">https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062</a>. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10241">CVE-2019-10241</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10247">CVE-2019-10247</a>        </td>
+        <td>
+          7.7.0-8.2
+        </td>
+        <td>
+            jetty-9.4.14        </td>
+        <td>not affected</td>
+        <td>Solr upgraded to Jetty 9.4.19 for the 8.2 release. Additionally, the path to exploit these vulnerabilities was fixed in 8.1 and 7.7.2. Earlier versions can manually patch their configurations as described in SOLR-13409.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27218">CVE-2020-27218</a>        </td>
+        <td>
+          7.3.0-8.8.0
+        </td>
+        <td>
+            jetty-9.4.0 to 9.4.34        </td>
+        <td>not affected</td>
+        <td>Only exploitable through use of Jetty's GzipHandler, which is only implemented in Embedded Solr Server.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27223">CVE-2020-27223</a>        </td>
+        <td>
+          7.3.0-present
+        </td>
+        <td>
+            jetty-9.4.6 to 9.4.36        </td>
+        <td>not affected</td>
+        <td>Only exploitable if Solr's webapp directory is deployed as a symlink, which is not Solr's default.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2021-33813">CVE-2021-33813</a>        </td>
+        <td>
+          to present
+        </td>
+        <td>
+            jdom-*.jar        </td>
+        <td>not affected</td>
+        <td>JDOM is only used in Solr Cell, which should not be used in production which makes the vulnerability unexploitable. It is a dependency of Apache Tika, which has analyzed the issue and determined the vulnerability is limited to two libraries not commonly used in search applications, see TIKA-3488 for details. Since Tika should be used outside of Solr, use a version of Tika which updates the affected libraries if concerned about exposure to this issue.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000056">CVE-2018-1000056</a>        </td>
+        <td>
+          4.6.0-7.6.0
+        </td>
+        <td>
+            junit-4.10.jar        </td>
+        <td>not affected</td>
+        <td>JUnit only used in tests; CVE only refers to a Jenkins plugin not used by Solr.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2014-7940">CVE-2014-7940</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6293">CVE-2016-6293</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-7415">CVE-2016-7415</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14952">CVE-2017-14952</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-17484">CVE-2017-17484</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7867">CVE-2017-7867</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7868">CVE-2017-7868</a>        </td>
+        <td>
+          7.3.1
+        </td>
+        <td>
+            lucene-analyzers-icu-7.3.1.jar        </td>
+        <td>not affected</td>
+        <td>All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16869">CVE-2019-16869</a>        </td>
+        <td>
+          8.2-8.3
+        </td>
+        <td>
+            netty-all-4.1.29.Final.jar        </td>
+        <td>not affected</td>
+        <td>This is not included in Solr but is a dependency of ZooKeeper 3.5.5. The version was upgraded in ZooKeeper 3.5.6, included with Solr 8.3. The specific classes mentioned in the CVE are not used in Solr (nor in ZooKeeper as far as the Solr community can determine).</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14868">CVE-2017-14868</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14949">CVE-2017-14949</a>        </td>
+        <td>
+          5.2.0-today
+        </td>
+        <td>
+            org.restlet-2.3.0.jar        </td>
+        <td>not affected</td>
+        <td>Solr should not be exposed outside a firewall where bad actors can send HTTP requests. These two CVEs specifically involve classes (SimpleXMLProvider and XmlRepresentation, respectively) that Solr does not use in any code path.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2015-5237">CVE-2015-5237</a>        </td>
+        <td>
+          6.5.0-today
+        </td>
+        <td>
+            protobuf-java-3.1.0.jar        </td>
+        <td>not affected</td>
+        <td>Dependency for Hadoop and Calcite. ??</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1471">CVE-2018-1471</a>        </td>
+        <td>
+          5.4.0-7.7.2, 8.0-8.3
+        </td>
+        <td>
+            simple-xml-2.7.1.jar        </td>
+        <td>not affected</td>
+        <td>Dependency of Carrot2 and used during compilation, not at runtime (see SOLR-769. This .jar was replaced in Solr 8.3 and backported to 7.7.3 (see SOLR-13779).</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2018-8088">CVE-2018-8088</a>        </td>
+        <td>
+          4.x-today
+        </td>
+        <td>
+            slf4j-api-1.7.24.jar,             jcl-over-slf4j-1.7.24.jar,             jul-to-slf4j-1.7.24.jar        </td>
+        <td>not affected</td>
+        <td>The reported CVE impacts org.slf4j.ext.EventData, which is not used in Solr.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1335">CVE-2018-1335</a>        </td>
+        <td>
+          7.3.1-7.5.0
+        </td>
+        <td>
+            tika-core.1.17.jar        </td>
+        <td>not affected</td>
+        <td>Solr does not run tika-server, so this is not a problem.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-">CVE-</a>        </td>
+        <td>
+          7.3.1-today
+        </td>
+        <td>
+            tika-core.*.jar        </td>
+        <td>not affected</td>
+        <td>All Tika issues that could be Solr vulnerabilities would only be exploitable if untrusted files are indexed with SolrCell. This is not recommended in production systems, so Solr does not consider these valid CVEs for Solr.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-">CVE-</a>        </td>
+        <td>
+          6.6.2-today
+        </td>
+        <td>
+            velocity-tools-2.0.jar        </td>
+        <td>not affected</td>
+        <td>Solr does not ship a Struts jar. This is a transitive POM listing and not included with Solr (see comment in SOLR-2849).</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6809">CVE-2016-6809</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1335">CVE-2018-1335</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1338">CVE-2018-1338</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1339">CVE-2018-1339</a>        </td>
+        <td>
+          5.5.5, 6.2.0-today
+        </td>
+        <td>
+            vorbis-java-tika-0.8.jar        </td>
+        <td>not affected</td>
+        <td>See <a href="https://github.com/Gagravarr/VorbisJava/issues/30">https://github.com/Gagravarr/VorbisJava/issues/30</a>; reported CVEs are not related to OggVorbis at all.</td>
+      </tr>
+      <tr>
+        <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2012-0881">CVE-2012-0881</a>        </td>
+        <td>
+          ~2.9-today
+        </td>
+        <td>
+            xercesImpl-2.9.1.jar        </td>
+        <td>not affected</td>
+        <td>Only used in Lucene Benchmarks and Solr tests.</td>
+      </tr>
+    </table>
 </div>
   </div>
 </div>
@@ -731,7 +1117,7 @@ dk from Chaitin Tech</p>
 </div>
 <div class="row copyright">
 <div class="large-centered columns">
-  <p>Copyright © 2022 The Apache Software Foundation, Licensed under the
+  <p>Copyright © 2023 The Apache Software Foundation, Licensed under the
     <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
     Apache and the Apache feather logo are trademarks of The Apache Software Foundation. Apache Lucene,
     Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
