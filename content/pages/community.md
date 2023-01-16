@@ -100,7 +100,7 @@ discussed on the mailing list and/or via IRC before creating an issue.
 
 ## How To Contribute ##
 
-Looking to contribute to Solr?  Read the [instructions](https://cwiki.apache.org/confluence/display/SOLR/HowToContribute) on
+Looking to contribute to Solr?  Read the [instructions](https://github.com/apache/solr/blob/main/CONTRIBUTING.md) on
 contributing and then submit a patch!
 
 ## Code of Conduct ##
@@ -134,9 +134,7 @@ To work on the code locally, you may clone the git repository:
     git clone https://github.com/apache/solr.git
 
 Then use GitHub's [fork feature](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
-to obtain a personal fork from which you can later contribute your changes through a
-[Pull Request](https://cwiki.apache.org/confluence/display/solr/HowToContribute#HowToContribute-WorkingwithGitHub)
-or a [patch in Jira](https://cwiki.apache.org/confluence/display/solr/HowToContribute#HowToContribute-Generatingapatch).
+to obtain a personal fork from which you can later contribute your changes based on the [how to contribute](https://github.com/apache/solr/blob/main/CONTRIBUTING.md) page.
 
 You may alternatively choose to clone apache's git mirror at `https://gitbox.apache.org/repos/asf/solr.git`.
 
