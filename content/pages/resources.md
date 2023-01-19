@@ -214,7 +214,7 @@ This cookbook will show you how to get the most out of your search engine. Each 
 
 ## Presentations ##
 
-If you have a Solr presentation that you would like to see listed here, please submit a [patch](https://cwiki.apache.org/confluence/display/solr/HowToContribute) via a JIRA with the appropriate content.
+If you have a Solr presentation that you would like to see listed here, please submit a [patch](https://github.com/apache/solr/blob/main/CONTRIBUTING.md) via a JIRA with the appropriate content.
 
 <h3 class="offset" id="slideshare">Slideshare</h3>
 

@@ -96,7 +96,8 @@ PLUGINS = [
     'extract_toc',
     'jinja2content',
     'regex_replace',
-    'age_days_lt'
+    'age_days_lt',
+    'vex'
 #    'md_inline_extension',
 ]
 
