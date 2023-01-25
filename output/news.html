@@ -132,6 +132,34 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-911-available">25 January 2023, Apache Solr™ 9.1.1 available
+    <a class="headerlink" href="#apache-solrtm-911-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.1.1.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 9.1.1 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-911-release-highlights">Solr 9.1.1 Release Highlights:</h3>
+<p>Bugfixes</p>
+<ul>
+<li>SOLR-16589: Fixed issue where large fields with large=true could be truncated when using unicode values</li>
+<li>SOLR-16585: Fixed NPE when paginating MatchAllDocs with non-zero start offset, like <code>q=*:*&amp;start=10</code></li>
+<li>SOLR-16165: Fixed rare deadlock in SlotAcc static initialization</li>
+<li>SOLR-16622: Fixed issue where replicas could fail to register as active after node restart</li>
+</ul>
+<p>Other</p>
+<ul>
+<li>SOLR-16443: Upgrade Jackson bom to 2.13.4.20221013</li>
+<li>SOLR-16568: Upgrade woodstox-core to 6.4.0</li>
+<li>SOLR-16598: Upgrade Protobuf to 3.21.12</li>
+<li>SOLR-16567: Fixed problem with filtering and KNN search, especially when using post-filters</li>
+<li>SOLR-16588: Fixed problem with default knn algorithm</li>
+<li>SOLR-16480: ConfigSets now have an overridable allow-list for filetypes</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/9_1/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/9_1/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of bugfixes:</p>
+<p><a href="https://solr.apache.org/9_1_1/changes/Changes.html">https://solr.apache.org/9_1_1/changes/Changes.html</a></p>
   <h2 id="apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler">20 November 2022, Apache Solr is vulnerable to CVE-2022-39135 via /sql handler
     <a class="headerlink" href="#apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler" title="Permanent link">¶</a>
   </h2>
