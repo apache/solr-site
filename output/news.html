@@ -132,6 +132,31 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-920-available">24 March 2023, Apache Solr™ 9.2.0 available
+    <a class="headerlink" href="#apache-solrtm-920-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.2.0.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 9.2.0 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-920-release-highlights">Solr 9.2.0 Release Highlights:</h3>
+<ul>
+<li>Solr has upgraded to use Jetty 10 instead of Jetty 9.</li>
+<li>Solr now includes an opentracing module, with support for OTEL tracing in OTLP  format using gRPC.<ul>
+<li>This module is meant to replace the jaegertracer-configurator module, which has been deprecated. </li>
+</ul>
+</li>
+<li>The base operating system of the Solr Docker image has been upgraded to Ubuntu 22 (Jammy).</li>
+<li>Streaming Expressions have been moved out of Solrj core into its own module called solrj-streaming.</li>
+<li>SolrJ Solr clients now use a builder/setter pattern to enable easier setup.</li>
+<li>Solr ConfigSet management has been optimized to improve the startup time of nodes with multiple replicas.</li>
+<li>SolrJ can again be used with the default Java truststore.</li>
+<li>The "Films" example has been updated to demonstrate Dense Vector search.</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/9_2/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/9_2/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of new features, changes and bugfixes:</p>
+<p><a href="https://solr.apache.org/9_2_0/changes/Changes.html">https://solr.apache.org/9_2_0/changes/Changes.html</a></p>
   <h2 id="apache-solrtm-911-available">25 January 2023, Apache Solr™ 9.1.1 available
     <a class="headerlink" href="#apache-solrtm-911-available" title="Permanent link">¶</a>
   </h2>
