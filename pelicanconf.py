@@ -14,9 +14,9 @@ SOLR_LATEST_RELEASE = '9.2.0'
 SOLR_LATEST_RELEASE_DATE = datetime(2023, 3, 24)
 SOLR_PREVIOUS_MAJOR_RELEASE = '8.11.2'
 
-SOLR_OPERATOR_LATEST_RELEASE = 'v0.6.0'
-SOLR_OPERATOR_LATEST_RELEASE_DATE = datetime(2022, 8, 14)
-SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE = 'v0.5.1'
+SOLR_OPERATOR_LATEST_RELEASE = 'v0.7.0'
+SOLR_OPERATOR_LATEST_RELEASE_DATE = datetime(2023, 4, 23)
+SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE = 'v0.6.0'
 
 # This string will be appended to all unversioned css and js resources to prevent caching surprises on edits.
 # The theme's htaccess file also sets a cache-control header with longer lifetime, if the v=XXXX query string is added.
