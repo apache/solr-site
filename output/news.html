@@ -132,6 +132,29 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-921-available">1 May 2023, Apache Solr™ 9.2.1 available
+    <a class="headerlink" href="#apache-solrtm-921-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.2.1.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 9.2.1 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-921-release-highlights">Solr 9.2.1 Release Highlights:</h3>
+<ul>
+<li>Fix Classloading Exception for inter-node requests when using SSL and HTTP2</li>
+<li>Use the right cluster property for displaying if TLS is enabled</li>
+<li>Fix NPE in SystemInfoHandler for inter-node requests that would cause the Nodes page not to load</li>
+<li>Fixing bin/solr's '-noprompt' option to work for examples</li>
+<li>Allow custom configuration of Jetty's SecureRequestCustomizer</li>
+<li>Fix KerberosPlugin module classloading when using the hadoop-auth module</li>
+<li>Fixing SOLR_DATA_HOME to be honored outside of verbose mode</li>
+<li>Use the correct instance of ReponseParser for Http2SolrClient.processErrorsAndResponse</li>
+<li>Fix Java version detection when <code>_JAVA_OPTIONS</code> is set`</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/9_2/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/9_2/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of bugfixes:</p>
+<p><a href="https://solr.apache.org/9_2_1/changes/Changes.html">https://solr.apache.org/9_2_1/changes/Changes.html</a></p>
   <h2 id="apache-solrtm-920-available">24 March 2023, Apache Solr™ 9.2.0 available
     <a class="headerlink" href="#apache-solrtm-920-available" title="Permanent link">¶</a>
   </h2>
