@@ -45,6 +45,7 @@ This is a list of emeritus project members. We appreciate your contributions!
 - Mike Klaas (klaas)
 - Erick Erickson (erick)
 - Dawid Weiss (dweiss)
+- Adrien Grand (jpountz)
 
 #### Emeritus committers
 
