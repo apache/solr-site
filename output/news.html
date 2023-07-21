@@ -132,6 +132,51 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-930-available">21 July 2023, Apache Solr™ 9.3.0 available
+    <a class="headerlink" href="#apache-solrtm-930-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.3.0.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 9.3.0 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-930-release-highlights">Solr 9.3.0 Release Highlights:</h3>
+<ul>
+<li>The Lucene version used by Solr has been upgraded to 9.7.</li>
+<li>Solr releases now have a slim variant, both for the binary release and the docker image.<ul>
+<li>The Slim variant is the same as the normal variant, except that it does not include Solr modules or the Prometheus exporter.</li>
+</ul>
+</li>
+<li>Vector Search<ul>
+<li>Added support for byte vector encoding in DenseVectorField and KnnQParser</li>
+<li>High dimensional vectors are now supported in Solr</li>
+<li>Solr can now take advantage of SIMD optimizations for Vector calculations, when run with Java 20 or 21.</li>
+<li>A new "vectorSimilarity" function query has been added to calculate similarity scores for DenseVectorFields</li>
+</ul>
+</li>
+<li>Solr now provides an <a href="https://solr.apache.org/guide/solr/9_3/deployment-guide/shard-management.html#installsharddata">"Install Shard" API</a> to allow users who have built (per-shard) indices offline to import them into SolrCloud shards.</li>
+<li>Solr’s experimental "v2" API has seen a number of improvements in the 9.3 release.<ul>
+<li>It is now approaching parity with the functionality offered by Solr’s v1 API.</li>
+<li>The v2 API as a whole is being redesigned to be more REST-ful and intuitive<br/>
+  See the Changelog and upgrade notes for information on which v2 APIs have backward-incompatible changes.</li>
+</ul>
+</li>
+<li>New APIs for MigrateReplicas and BalanceReplicas. These work out-of-the-box with the built-in PlacementPlugins.<ul>
+<li>The AffinityPlacementPlugin now supports co-location of shards between collections, using the "withCollectionShards" parameter.</li>
+</ul>
+</li>
+<li>Join Queries may handle equally sharded collections on both sides.<ul>
+<li>Collections shards should be collocated via AffinityPlacementPlugin.withCollectionShards</li>
+<li>This operation doesn't support SplitShard</li>
+</ul>
+</li>
+<li>Unknown cores are no longer deleted by default when Solr starts. Use "solr.deleteUnknownCores=true" to use the previous behavior.</li>
+<li>Warning: Solr cannot be used with Java 20 on MacOS with the Java Security Manager.<br/>
+  Please use the environment variable SOLR_SECURITY_MANAGER_ENABLED=false when running with Java 20 on MacOS.</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/9_3/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/9_3/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of new features, changes and bugfixes:</p>
+<p><a href="https://solr.apache.org/9_3_0/changes/Changes.html">https://solr.apache.org/9_3_0/changes/Changes.html</a></p>
   <h2 id="apache-solrtm-921-available">1 May 2023, Apache Solr™ 9.2.1 available
     <a class="headerlink" href="#apache-solrtm-921-available" title="Permanent link">¶</a>
   </h2>
