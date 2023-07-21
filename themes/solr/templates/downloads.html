@@ -32,9 +32,13 @@
       <a href="https://www.apache.org/dyn/closer.lua/solr/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.tgz?action=download">solr-{{ SOLR_LATEST_RELEASE }}.tgz</a>
       [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.tgz.asc">PGP</a>]
       [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}.tgz.sha512">SHA512</a>]
+      ,
+      <a href="https://www.apache.org/dyn/closer.lua/solr/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}-slim.tgz?action=download">solr-{{ SOLR_LATEST_RELEASE }}-slim.tgz</a>
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}-slim.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_LATEST_RELEASE }}/solr-{{ SOLR_LATEST_RELEASE }}-slim.tgz.sha512">SHA512</a>]
     </li>
 
-    <li>Docker: <a href="https://hub.docker.com/_/solr">solr:{{ SOLR_LATEST_RELEASE }}</a></li>
+    <li>Docker: <a href="https://hub.docker.com/_/solr">solr:{{ SOLR_LATEST_RELEASE }}</a>, <a href="https://hub.docker.com/_/solr">solr:{{ SOLR_LATEST_RELEASE }}-slim</a></li>
 
     <li><a href="{{ SITEURL }}/{{ SOLR_LATEST_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
