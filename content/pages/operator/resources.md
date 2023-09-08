@@ -8,9 +8,11 @@ All resources are currently found in the [Solr Operator repository](https://gith
 ## Tutorials ##
 
 * [Solr Operator Quick Start](https://apache.github.io/solr-operator/docs/local_tutorial)  
-  This is a basic tutorial designed for users new to Kubernetes and the Solr Opertor
+  This is a basic tutorial designed for users new to Kubernetes and the Solr Operator
 * [Exploring the Apache Solr Operator v0.3.0 on GKE]({filename}/pages/operator/articles/explore-v030-gke.md)  
   This is an advanced tutorial for users ready to use the Solr Operator for Solr Clouds running in a production environment.
+* [Guide to Autoscaling Solr on Kubernetes](https://sematext.com/blog/solr-operator-autoscaling-tutorial/)  
+  This is a tutorial designed to help users to setup a basic implementation of Autoscaling using the [HorizontalPodAutoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 Users who have completed the tutorial are encouraged to review the [other documentation available](#documentation).
 
@@ -42,15 +44,19 @@ Additional documentation, including upgrade notes, can be found in the [Solr Ope
 
 ***
 
-## Presentations ##
-
-If you have a Solr Operator presentation that you would like to see listed here, please [edit this website and submit a Pull Request](/editing-website.html).
-
-## Videos ##
-
-If you have a Solr Operator video that you would like to see listed here, please [edit this website and submit a Pull Request](/editing-website.html).
+## Presentations and Videos ##
 
 <!-- TODO: WOULD BE NICE TO HAVE A SLIDER OR RANDOMLY PICKED VIDEO HERE -->
+
+<h3 class="offset" id="youtube">YouTube</h3>
+
+[Introducing the Solr Operator - Activate 2019](https://youtu.be/MD6NXTrA3xo?si=_ALWWzxKgBWqiCjX)
+
+[Demystifying the Solr Operator - Berlin Buzzwords 2021](https://youtu.be/zl22KyzWqtM?si=OdQKJYY6EnpQufXw)
+
+[Using Solr unconventionally to serve 26bn+ documents - Berlin Buzzwords 2022](https://youtu.be/tr4XYE2r0dE?si=PZfUPMLHkDkFw_Ow)
+
+[Rethinking Autoscaling for Apache Solr using Kubernetes - Berlin Buzzwords 2023](https://youtu.be/HfHa4Q4YaTU?si=cCiadyOmjlo86sVF)
 
 <h3 class="offset" id="youtube">Conferences with Solr talks</h3>
 
@@ -58,9 +64,7 @@ If you have a Solr Operator video that you would like to see listed here, please
 
 [Videos from past Berlin Buzzwords events](https://www.youtube.com/c/PlainSchwarzUG/playlists?view=50&sort=dd&shelf_id=1)
 
-<h3 class="offset" id="youtube">YouTube</h3>
-
-[Introducing the Solr Operator - Activate 2019](https://www.youtube.com/watch?v=MD6NXTrA3xo&t=719s)
-
 [Search YouTube for Solr](https://www.youtube.com/results?search_query=solr+operator)
+
+If you have a Solr Operator video or presentationthat you would like to see listed here, please [edit this website and submit a Pull Request](/editing-website.html).
 
