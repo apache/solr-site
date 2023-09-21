@@ -1,11 +1,3 @@
-# Do not index old reference guide pages on search engines, except for pages that don't exist in 9+
-<If "%{REQUEST_URI} =~ m#/?guide/(6|7|8)_.*#">
-  Header always set X-Robots-Tag "noindex,nofollow,noarchive"
-</If>
-<If "%{REQUEST_URI} =~ m#/?guide/8_11/(adding-custom-plugins-in-solrcloud-mode|blob-store-api|blockjoin-faceting|cdcr-api|cdcr-architecture|cdcr-config|cdcr-operations|colocating-collections|cross-data-center-replication-cdcr|dataimport-screen|errata|metrics-history|migrate-to-policy-rule|putting-the-pieces-together|rule-based-replica-placement|solrcloud-autoscaling-api|solrcloud-autoscaling-auto-add-replicas|solrcloud-autoscaling-fault-tolerance|solrcloud-autoscaling-listeners|solrcloud-autoscaling-overview|solrcloud-autoscaling-policy-preferences|solrcloud-autoscaling-trigger-actions|solrcloud-autoscaling-triggers|solrcloud-autoscaling|suggestions-screen|uploading-structured-data-store-data-with-the-data-import-handler|velocity-response-writer|velocity-search-ui)\.html$#">
-  Header always unset X-Robots-Tag
-</If>
-
 # Existing pages moved to sub path in the 9.0 guide
 RedirectMatch 301 ^/guide/(about-this-guide|relevance|solr-glossary|solr-tutorial)\.html /guide/solr/latest/getting-started/$1.html
 RedirectMatch 301 ^/guide/(aliases|audit-logging|authentication-and-authorization-plugins|basic-authentication-plugin|circuit-breakers|client-apis|cloud-screens|cluster-node-management|collection-management|collections-core-admin|configuring-logging|enabling-ssl|hadoop-authentication-plugin|indexupgrader-tool|installing-solr|jvm-settings|jwt-authentication-plugin|kerberos-authentication-plugin|mbean-request-handler|metrics-reporting|performance-statistics-reference|ping|plugins-stats-screen|replica-management|rule-based-authorization-plugin|securing-solr|security-ui|shard-management|solr-control-script-reference|solrcloud-recoveries-and-write-tolerance|solrcloud-with-legacy-configuration-files|taking-solr-to-production|thread-dump|upgrading-a-solr-cluster|zookeeper-access-control|cert-authentication-plugin)\.html /guide/solr/latest/deployment-guide/$1.html
