@@ -132,6 +132,29 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-940-available">15 October 2023, Apache Solr™ 9.4.0 available
+    <a class="headerlink" href="#apache-solrtm-940-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.4.0.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 9.4.0 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-940-release-highlights">Solr 9.4.0 Release Highlights:</h3>
+<ul>
+<li>The Lucene version used by Solr has been upgraded to 9.8 – see its release notes.</li>
+<li>The Jetty version has been updated to 10.0.17 to address CVE-2023-44487</li>
+<li>Added support for node-level caches</li>
+<li>Circuit Breakers available for Update Requests</li>
+<li>A new Circuit breaker for percentage of CPU utilization is added. The former "CPU" circuit breaker is now more correctly named LoadAverageCircuitBreaker as it trips on system load average which is not a percentage.</li>
+<li>Solr now includes an always-on trace id generator. This will inject trace id headers for every Solr request, propagating the client supplied value or generating a new id as needed and replaces the existing <code>rid</code> mechanism.</li>
+<li>Solr now limits the number of concurrent expensive core operations (such as "backup", "restore", and "split") that are submitted asynchronously by running them in a dedicated thread pool.</li>
+<li>Added support of OAuth 2.0/OIDC 'code with PKCE' flow</li>
+<li>Multiple bug fixes for TLS and mTLS</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/9_4/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/9_4/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of new features, changes and bugfixes:</p>
+<p><a href="https://solr.apache.org/9_4_0/changes/Changes.html">https://solr.apache.org/9_4_0/changes/Changes.html</a></p>
   <h2 id="apache-solrtm-930-available">21 July 2023, Apache Solr™ 9.3.0 available
     <a class="headerlink" href="#apache-solrtm-930-available" title="Permanent link">¶</a>
   </h2>
