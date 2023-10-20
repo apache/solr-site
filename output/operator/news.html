@@ -127,6 +127,35 @@
   <h1 id="solr-operator-news">Solr Operator<sup>™</sup> News<a class="headerlink" href="#solr-operator-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/operator/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-operatortm-v080-available">20 October 2023, Apache Solr Operator™ v0.8.0 available
+    <a class="headerlink" href="#apache-solr-operatortm-v080-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.8.0.</p>
+<p>The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.</p>
+<p>This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/operator/artifacts.html">https://solr.apache.org/operator/artifacts.html</a></p>
+<h3 id="solr-operator-v080-release-highlights">Solr Operator v0.8.0 Release Highlights:</h3>
+<ul>
+<li>The minimum supported version of Solr has been set to Solr 8.11</li>
+<li>The minimum Kubernetes version supported is now v1.22</li>
+<li>Managed scale up and scale down are now supported for SolrClouds.<ul>
+<li>By default, when scaling down a SolrCloud, replicas will be migrated off Pods before they are deleted.</li>
+<li>By default, when scaling up a SolrCloud, replicas will be balanced across all Pods after the SolrCloud has been scaled up. (Only supported for Solr 9.3+)</li>
+</ul>
+</li>
+<li>SSL bugs with Solr 9 have been fixed, and v0.8.0 will successfully support SSL for Solr 8.11 and 9.4+</li>
+<li>Solr 8.11 features are now supported by default, such as maxBooleanClauses, metrics disabling, health endpoint for readinessCheck</li>
+<li>Keystore/Truststore passwords can be explicitly set in the SolrCloud CRD for mountedDir SSL. This enables the use of the CertManager CSI Driver with Solr.</li>
+<li>Rolling Updates for SolrClouds using ephemeral storage are now safer and replicas are balanced at the end of the operation to ensure optimal resource utilization.<ul>
+<li>Replica balancing is only supported when Solr 9.3+ is used.</li>
+</ul>
+</li>
+</ul>
+<p>A summary of important changes is published in the documentation at:</p>
+<p><a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html">https://apache.github.io/solr-operator/docs/upgrade-notes.html</a></p>
+<p>For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.</p>
+<p><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog">https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog</a></p>
+<p><a href="https://github.com/apache/solr-operator/releases/tag/v0.8.0">https://github.com/apache/solr-operator/releases/tag/v0.8.0</a></p>
   <h2 id="apache-solr-operatortm-v071-available">21 July 2023, Apache Solr Operator™ v0.7.1 available
     <a class="headerlink" href="#apache-solr-operatortm-v071-available" title="Permanent link">¶</a>
   </h2>
