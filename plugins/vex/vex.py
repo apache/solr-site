@@ -26,8 +26,19 @@ def pelican_init(pelicanobj):
     vulns = []
     for v in vex_input:
         for id in v['ids']:
+            source = {}
+            if id.startswith("CVE"):
+                # dependency-track uses 'NVD' as source name for CVEs
+                # https://github.com/DependencyTrack/dependency-track/blob/8673aab774214300b45e9c8ee4f67a2dbed7514f/src/main/java/org/dependencytrack/model/Vulnerability.java#L102
+                source['name'] = "NVD";
+                source['url'] = f"https://nvd.nist.gov/vuln/detail/{id}"
+            elif id.startswith("GHSA"):
+                source['name'] = "GITHUB";
+                source['url'] = f"https://github.com/advisories/{id}"
+
             vulns.append({
                 "id": id,
+                "source": source,
                 "analysis": v['analysis'],
                 "affects": [
                     {
