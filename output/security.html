@@ -267,42 +267,44 @@ with you to see if we can provide this information in other variations or format
   <h2 id="cve-2023-50290-apache-solr-allows-read-access-to-host-environment-variables">2024-01-12, CVE-2023-50290: Apache Solr allows read access to host environment variables
     <a class="headerlink" href="#cve-2023-50290-apache-solr-allows-read-access-to-host-environment-variables" title="Permanent link">¶</a>
   </h2>
-  <p><strong>Versions Affected:</strong>
+  <p><strong>Severity:</strong><br>
+Important</p>
+<p><strong>Versions Affected:</strong><br>
 Solr 9.0 to 9.2.1</p>
-<p><strong>Description:</strong>
+<p><strong>Description:</strong><br>
 Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.
 The Solr Metrics API publishes all unprotected environment variables available to each Apache Solr instance.
 Users are able to specify which environment variables to hide, however, the default list is designed to work for known secret Java system properties.
 Environment variables cannot be strictly defined in Solr, like Java system properties can be, and may be set for the entire host, unlike Java system properties which are set per-Java-process.</p>
 <p>The Solr Metrics API is protected by the "metrics-read" permission.
 Therefore, Solr Clouds with Authorization setup will only be vulnerable via users with the "metrics-read" permission.</p>
-<p><strong>Mitigation:</strong>
+<p><strong>Mitigation:</strong><br>
 Users are recommended to upgrade to version 9.3.0 or later, in which environment variables are not published via the Metrics API.</p>
-<p><strong>References:</strong>
-https://nvd.nist.gov/vuln/detail/CVE-2023-50290
-https://issues.apache.org/jira/browse/SOLR-16808</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-16808">SOLR-15233</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50290">CVE-2023-50290</a></p>
   <hr/>
   <h2 id="apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler">2022-11-20, Apache Solr is vulnerable to CVE-2022-39135 via /sql handler
     <a class="headerlink" href="#apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler" title="Permanent link">¶</a>
   </h2>
-  <p><strong>Versions Affected:</strong>
+  <p><strong>Versions Affected:</strong><br>
 Solr 6.5 to 8.11.2
 Solr 9.0</p>
-<p><strong>Description:</strong>
+<p><strong>Description:</strong><br>
 Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode.  If an untrusted user can supply SQL queries to Solr’s “/sql” handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack.  This might have been exposed by some deployers of Solr in order for internal analysts to use JDBC based tooling, but would have unlikely been granted to wider audiences.</p>
-<p><strong>Impact:</strong>
+<p><strong>Impact:</strong><br>
 An XXE attack may lead to the disclosure of confidential data, denial of service, server side request forgery (SSRF), port scanning from the Solr node, and other system impacts.</p>
-<p><strong>Mitigation:</strong>
+<p><strong>Mitigation:</strong><br>
 Most Solr installations don’t make use of the SQL functionality.  For such users, the standard Solr security advice of using a firewall should be adequate.  Nonetheless, the functionality can be disabled.  As of Solr 9, it has been modularized and thus became opt-in, so nothing is needed for Solr 9 users that don’t use it.  Users <em>not</em> using SolrCloud can’t use the functionality at all.  For other users that wish to disable it, you must register a request handler that masks the underlying functionality in solrconfig.xml like so:</p>
 <div class="codehilite"><pre><span></span><code><span class="err">  &lt;requestHandler name=&quot;/sql&quot; class=&quot;solr.NotFoundRequestHandler&quot;/&gt;</span>
 </code></pre></div>
 
 <p>Users needing this SQL functionality are forced to upgrade to Solr 9.1.  If Solr 8.11.3 is released, then it will be an option as well.  Simply replacing Calcite and other JAR files may mostly work but could fail depending on the particulars of the query.  Users interested in this or in patching their own versions of Solr should examine SOLR-16421 for a source patch.</p>
-<p><strong>Credit:</strong>
+<p><strong>Credit:</strong><br>
 Andreas Hubold at CoreMedia GmbH</p>
-<p><strong>References:</strong>
-https://nvd.nist.gov/vuln/detail/CVE-2022-39135
-https://issues.apache.org/jira/browse/SOLR-16421</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-16421">SOLR-16421</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-39135">CVE-2022-39135</a></p>
   <hr/>
   <h2 id="cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler">2021-12-18, CVE-2021-44548: Apache Solr information disclosure vulnerability through DataImportHandler
     <a class="headerlink" href="#cve-2021-44548-apache-solr-information-disclosure-vulnerability-through-dataimporthandler" title="Permanent link">¶</a>
