@@ -132,6 +132,23 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solr-allows-read-access-to-host-environment-variables">12 January 2024, Apache Solr allows read access to host environment variables
+    <a class="headerlink" href="#apache-solr-allows-read-access-to-host-environment-variables" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Versions Affected:</strong>
+Solr 9.0 to 9.2.1</p>
+<p><strong>Description:</strong>
+Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.
+The Solr Metrics API publishes all unprotected environment variables available to each Apache Solr instance.
+Users are able to specify which environment variables to hide, however, the default list is designed to work for known secret Java system properties.
+Environment variables cannot be strictly defined in Solr, like Java system properties can be, and may be set for the entire host, unlike Java system properties which are set per-Java-process.</p>
+<p>The Solr Metrics API is protected by the "metrics-read" permission.
+Therefore, Solr Clouds with Authorization setup will only be vulnerable via users with the "metrics-read" permission.</p>
+<p><strong>Mitigation:</strong>
+Users are recommended to upgrade to version 9.3.0 or later, in which environment variables are not published via the Metrics API.</p>
+<p><strong>References:</strong>
+https://nvd.nist.gov/vuln/detail/CVE-2023-50290
+https://issues.apache.org/jira/browse/SOLR-16808</p>
   <h2 id="apache-solrtm-940-available">15 October 2023, Apache Solr™ 9.4.0 available
     <a class="headerlink" href="#apache-solrtm-940-available" title="Permanent link">¶</a>
   </h2>
@@ -4069,7 +4086,7 @@ file included with the release for a full list of details.</p>
 </div>
 <div class="row copyright">
 <div class="large-centered columns">
-  <p>Copyright © 2023 The Apache Software Foundation, Licensed under the
+  <p>Copyright © 2024 The Apache Software Foundation, Licensed under the
     <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
     Apache and the Apache feather logo are trademarks of The Apache Software Foundation. Apache Lucene,
     Apache Solr and their respective logos are trademarks of the Apache Software Foundation.

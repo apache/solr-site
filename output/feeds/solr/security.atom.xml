@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2022-11-20T00:00:00+00:00</updated><subtitle></subtitle><subtitle></subtitle><entry><title>Apache Solr is vulnerable to CVE-2022-39135 via /sql handler</title><link href="/apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler.html" rel="alternate"></link><published>2022-11-20T00:00:00+00:00</published><updated>2022-11-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-11-20:/apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2024-01-12T00:00:00+00:00</updated><subtitle></subtitle><subtitle></subtitle><entry><title>Apache Solr allows read access to host environment variables</title><link href="/apache-solr-allows-read-access-to-host-environment-variables.html" rel="alternate"></link><published>2024-01-12T00:00:00+00:00</published><updated>2024-01-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-01-12:/apache-solr-allows-read-access-to-host-environment-variables.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+Solr 9.0 to 9.2.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.
+The Solr Metrics API publishes all unprotected environment variables available to each Apache Solr instance.
+Users are able to specify which environment variables to hide, however, the default …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
+Solr 9.0 to 9.2.1&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
+Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.
+The Solr Metrics API publishes all unprotected environment variables available to each Apache Solr instance.
+Users are able to specify which environment variables to hide, however, the default list is designed to work for known secret Java system properties.
+Environment variables cannot be strictly defined in Solr, like Java system properties can be, and may be set for the entire host, unlike Java system properties which are set per-Java-process.&lt;/p&gt;
+&lt;p&gt;The Solr Metrics API is protected by the "metrics-read" permission.
+Therefore, Solr Clouds with Authorization setup will only be vulnerable via users with the "metrics-read" permission.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
+Users are recommended to upgrade to version 9.3.0 or later, in which environment variables are not published via the Metrics API.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
+https://nvd.nist.gov/vuln/detail/CVE-2023-50290
+https://issues.apache.org/jira/browse/SOLR-16808&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>Apache Solr is vulnerable to CVE-2022-39135 via /sql handler</title><link href="/apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler.html" rel="alternate"></link><published>2022-11-20T00:00:00+00:00</published><updated>2022-11-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-11-20:/apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
 Solr 6.5 to 8.11.2
 Solr 9.0&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;

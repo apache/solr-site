@@ -188,6 +188,11 @@ with you to see if we can provide this information in other variations or format
             <th>Announcement</th>
         </tr>
         <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50290">CVE-2023-50290</a></td>
+            <td>2024-01-12</td>
+            <td><a href="#apache-solr-allows-read-access-to-host-environment-variables">Apache Solr allows read access to host environment variables</a></td>
+        </tr>
+        <tr>
             <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-39135">CVE-2022-39135</a></td>
             <td>2022-11-20</td>
             <td><a href="#apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler">Apache Solr is vulnerable to CVE-2022-39135 via /sql handler</a></td>
@@ -257,13 +262,26 @@ with you to see if we can provide this information in other variations or format
             <td>2019-03-06</td>
             <td><a href="#cve-2019-0192-deserialization-of-untrusted-data-via-jmxserviceurl-in-apache-solr">Deserialization of untrusted data via jmx.serviceUrl in Apache Solr</a></td>
         </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-3164">CVE-2017-3164</a></td>
-            <td>2019-02-12</td>
-            <td><a href="#cve-2017-3164-ssrf-issue-in-apache-solr">SSRF issue in Apache Solr</a></td>
-        </tr>
     </table>
 
+  <h2 id="apache-solr-allows-read-access-to-host-environment-variables">2024-01-12, Apache Solr allows read access to host environment variables
+    <a class="headerlink" href="#apache-solr-allows-read-access-to-host-environment-variables" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Versions Affected:</strong>
+Solr 9.0 to 9.2.1</p>
+<p><strong>Description:</strong>
+Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.
+The Solr Metrics API publishes all unprotected environment variables available to each Apache Solr instance.
+Users are able to specify which environment variables to hide, however, the default list is designed to work for known secret Java system properties.
+Environment variables cannot be strictly defined in Solr, like Java system properties can be, and may be set for the entire host, unlike Java system properties which are set per-Java-process.</p>
+<p>The Solr Metrics API is protected by the "metrics-read" permission.
+Therefore, Solr Clouds with Authorization setup will only be vulnerable via users with the "metrics-read" permission.</p>
+<p><strong>Mitigation:</strong>
+Users are recommended to upgrade to version 9.3.0 or later, in which environment variables are not published via the Metrics API.</p>
+<p><strong>References:</strong>
+https://nvd.nist.gov/vuln/detail/CVE-2023-50290
+https://issues.apache.org/jira/browse/SOLR-16808</p>
+  <hr/>
   <h2 id="apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler">2022-11-20, Apache Solr is vulnerable to CVE-2022-39135 via /sql handler
     <a class="headerlink" href="#apache-solr-is-vulnerable-to-cve-2022-39135-via-sql-handler" title="Permanent link">¶</a>
   </h2>
@@ -654,29 +672,6 @@ Michael Stepankin</p>
 <p><strong>References:</strong></p>
 <ul>
 <li><a href="https://issues.apache.org/jira/browse/SOLR-13301">https://issues.apache.org/jira/browse/SOLR-13301</a></li>
-<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
-</ul>
-  <hr/>
-  <h2 id="cve-2017-3164-ssrf-issue-in-apache-solr">2019-02-12, CVE-2017-3164: SSRF issue in Apache Solr
-    <a class="headerlink" href="#cve-2017-3164-ssrf-issue-in-apache-solr" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong> High</p>
-<p><strong>Vendor:</strong><br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected:</strong>
-Apache Solr versions from 1.3 to 7.6.0</p>
-<p><strong>Description:</strong><br>
-The "shards" parameter does not have a corresponding whitelist mechanism,
-so it can request any URL.</p>
-<p><strong>Mitigation:</strong><br>
-Upgrade to Apache Solr 7.7.0 or later.
-Ensure your network settings are configured so that only trusted traffic is
-allowed to ingress/egress your hosts running Solr.</p>
-<p><strong>Credit:</strong><br>
-dk from Chaitin Tech</p>
-<p><strong>References:</strong></p>
-<ul>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-12770">https://issues.apache.org/jira/browse/SOLR-12770</a></li>
 <li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
 </ul>
   <hr/>
@@ -1106,7 +1101,7 @@ dk from Chaitin Tech</p>
 </div>
 <div class="row copyright">
 <div class="large-centered columns">
-  <p>Copyright © 2023 The Apache Software Foundation, Licensed under the
+  <p>Copyright © 2024 The Apache Software Foundation, Licensed under the
     <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
     Apache and the Apache feather logo are trademarks of The Apache Software Foundation. Apache Lucene,
     Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
