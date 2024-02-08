@@ -132,6 +132,43 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-8113-available">8 February 2024, Apache Solr™ 8.11.3 available
+    <a class="headerlink" href="#apache-solrtm-8113-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Lucene and Solr PMCs are pleased to announce the release of Apache Solr 8.11.3.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 8.11.3 is available for immediate download at:</p>
+<p><a href="https://lucene.apache.org/solr/downloads.html">https://lucene.apache.org/solr/downloads.html</a></p>
+<h3 id="solr-8113-release-highlights">Solr 8.11.3 Release Highlights:</h3>
+<h4 id="security">Security</h4>
+<ul>
+<li>Converted enableRemoteStreaming and enableStreamBody solrconfig options into system properties and env vars.</li>
+<li>Restrict certain file types from being uploaded to or downloaded from Config Sets</li>
+<li>ZK Credentials and ACLs are no longer sent to all ZK Servers when using Streaming Expressions. They will only be used when sent to the default ZK Host.</li>
+<li>Schema Designer now correctly manages trust of the ConfigSets it is managing.</li>
+<li>More sysProps are redacted in the UI by default.</li>
+<li>Upgrades of various client libraries, including Jetty, Tika, Netty and Calcite.</li>
+</ul>
+<h4 id="bugfixes">Bugfixes</h4>
+<ul>
+<li>TLOGs on TLOG replicas no longer grow continuously.</li>
+<li>Various fixes for clusters using PRS.</li>
+<li>Collection RENAME api no longer creates broken alias.</li>
+<li>Using Schema/Config API no longer breaks the File-Upload of Config Set File.</li>
+<li>Fixed NPE in FieldLengthFeature with non-stored/missing fields.</li>
+<li>HEAD request for managed resource no longer returns 500 Server Error.</li>
+</ul>
+<h4 id="features">Features</h4>
+<ul>
+<li>AWS STS support has been added for the s3-repository module.</li>
+<li>Node roles and dedicated query coordinator nodes have been added.</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/8_11/solr-upgrade-notes.html">https://solr.apache.org/guide/8_11/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of bugfixes:</p>
+<p><a href="https://solr.apache.org/docs/8_11_3/changes/Changes.html">https://solr.apache.org/docs/8_11_3/changes/Changes.html</a></p>
+<p>Solr 8.11.3 also includes bugfixes in the corresponding Apache Lucene release:</p>
+<p><a href="https://lucene.apache.org/core/8_11_3/changes/Changes.html">https://lucene.apache.org/core/8_11_3/changes/Changes.html</a></p>
   <h2 id="apache-solrtm-941-available">18 January 2024, Apache Solr™ 9.4.1 available
     <a class="headerlink" href="#apache-solrtm-941-available" title="Permanent link">¶</a>
   </h2>
