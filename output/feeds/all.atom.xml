@@ -33,7 +33,132 @@
 &lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/docs/8_11_3/changes/Changes.html"&gt;https://solr.apache.org/docs/8_11_3/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Solr 8.11.3 also includes bugfixes in the corresponding Apache Lucene release:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://lucene.apache.org/core/8_11_3/changes/Changes.html"&gt;https://lucene.apache.org/core/8_11_3/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>Apache Solr™ 9.4.1 available</title><link href="/apache-solrtm-941-available.html" rel="alternate"></link><published>2024-01-18T00:00:00+00:00</published><updated>2024-01-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-01-18:/apache-solrtm-941-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.4.1.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://lucene.apache.org/core/8_11_3/changes/Changes.html"&gt;https://lucene.apache.org/core/8_11_3/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>CVE-2023-50291: Apache Solr can leak certain passwords due to System Property redaction logic inconsistencies</title><link href="/cve-2023-50291-apache-solr-can-leak-certain-passwords-due-to-system-property-redaction-logic-inconsistencies.html" rel="alternate"></link><published>2024-02-08T00:00:00+00:00</published><updated>2024-02-08T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-02-08:/cve-2023-50291-apache-solr-can-leak-certain-passwords-due-to-system-property-redaction-logic-inconsistencies.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.0.0 through 8.11.2&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.3.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Insufficiently Protected Credentials vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;This issue affects Apache Solr: from 6.0.0 through 8.11.2, from 9.0.0 before 9.3 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.0.0 through 8.11.2&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.3.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Insufficiently Protected Credentials vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;This issue affects Apache Solr: from 6.0.0 through 8.11.2, from 9.0.0 before 9.3.0.
+One of the two endpoints that publishes the Solr process' Java system properties, /admin/info/properties, was only setup to hide system properties that had "password" contained in the name.
+There are a number of sensitive system properties, such as "basicauth" and "aws.secretKey" do not contain "password", thus their values were published via the "/admin/info/properties" endpoint.
+This endpoint populates the list of System Properties on the home screen of the Solr Admin page, making the exposed credentials visible in the UI.&lt;/p&gt;
+&lt;p&gt;This /admin/info/properties endpoint is protected under the "config-read" permission.
+Therefore, Solr Clouds with Authorization enabled will only be vulnerable through logged-in users that have the "config-read" permission.
+Users are recommended to upgrade to version 9.3.0 or 8.11.3, which fixes the issue.
+A single option now controls hiding Java system property for all endpoints, "-Dsolr.hiddenSysProps".
+By default all known sensitive properties are hidden (including "-Dbasicauth"), as well as any property with a name containing "secret" or "password".&lt;/p&gt;
+&lt;p&gt;Users who cannot upgrade can also use the following Java system property to fix the issue:&lt;br&gt;
+&lt;code&gt;-Dsolr.redaction.system.pattern=".*(password|secret|basicauth).*"&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+Users are recommended to upgrade to version 8.11.3, 9.3.0 or later, which has consistent systemProperty redaction logic.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Michael Taggart (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-16809"&gt;SOLR-16809&lt;/a&gt;&lt;br&gt;
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50291"&gt;CVE-2023-50291&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2023-50292: Apache Solr Schema Designer blindly "trusts" all configsets, possibly leading to RCE by unauthenticated users</title><link href="/cve-2023-50292-apache-solr-schema-designer-blindly-trusts-all-configsets-possibly-leading-to-rce-by-unauthenticated-users.html" rel="alternate"></link><published>2024-02-08T00:00:00+00:00</published><updated>2024-02-08T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-02-08:/cve-2023-50292-apache-solr-schema-designer-blindly-trusts-all-configsets-possibly-leading-to-rce-by-unauthenticated-users.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.0.0 through 8.11.2&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.3.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Incorrect Permission Assignment for Critical Resource, Improper Control of Dynamically-Managed Code Resources vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;This issue affects Apache Solr: from 8.10.0 through 8 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.0.0 through 8.11.2&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.3.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Incorrect Permission Assignment for Critical Resource, Improper Control of Dynamically-Managed Code Resources vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;This issue affects Apache Solr: from 8.10.0 through 8.11.2, from 9.0.0 before 9.3.0.&lt;/p&gt;
+&lt;p&gt;The Schema Designer was introduced to allow users to more easily configure and test new Schemas and configSets.
+However, when the feature was created, the "trust" (authentication) of these configSets was not considered.
+External library loading is only available to configSets that are "trusted" (created by authenticated users), thus non-authenticated users are unable to perform Remote Code Execution.
+Since the Schema Designer loaded configSets without taking their "trust" into account, configSets that were created by unauthenticated users were allowed to load external libraries when used in the Schema Designer.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+Users are recommended to upgrade to version 8.11.3, 9.3.0 or later.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Skay (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-16777"&gt;SOLR-16777&lt;/a&gt;&lt;br&gt;
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50292"&gt;CVE-2023-50292&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2023-50298: Apache Solr can expose ZooKeeper credentials via Streaming Expressions</title><link href="/cve-2023-50298-apache-solr-can-expose-zookeeper-credentials-via-streaming-expressions.html" rel="alternate"></link><published>2024-02-08T00:00:00+00:00</published><updated>2024-02-08T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-02-08:/cve-2023-50298-apache-solr-can-expose-zookeeper-credentials-via-streaming-expressions.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Low&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.0.0 through 8.11.2&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.4.1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.This issue affects Apache Solr: from 6.0.0 through 8.11.2, from 9 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Low&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.0.0 through 8.11.2&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.4.1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.This issue affects Apache Solr: from 6.0.0 through 8.11.2, from 9.0.0 before 9.4.1.&lt;/p&gt;
+&lt;p&gt;Solr Streaming Expressions allows users to extract data from other Solr Clouds, using a "zkHost" parameter.
+When original SolrCloud is setup to use ZooKeeper credentials and ACLs, they will be sent to whatever "zkHost" the user provides.
+An attacker could setup a server to mock ZooKeeper, that accepts ZooKeeper requests with credentials and ACLs and extracts the sensitive information,
+then send a streaming expression using the mock server's address in "zkHost".
+Streaming Expressions are exposed via the "/streaming" handler, with "read" permissions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+Users are recommended to upgrade to version 8.11.3 or 9.4.1, which fix the issue.
+From these versions on, only zkHost values that have the same server address (regardless of chroot), will use the given ZooKeeper credentials and ACLs when connecting.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Qing Xu (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-17098"&gt;SOLR-17098&lt;/a&gt;&lt;br&gt;
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50298"&gt;CVE-2023-50298&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2023-50386: Apache Solr: Backup/Restore APIs allow for deployment of executables in malicious ConfigSets</title><link href="/cve-2023-50386-apache-solr-backuprestore-apis-allow-for-deployment-of-executables-in-malicious-configsets.html" rel="alternate"></link><published>2024-02-08T00:00:00+00:00</published><updated>2024-02-08T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-02-08:/cve-2023-50386-apache-solr-backuprestore-apis-allow-for-deployment-of-executables-in-malicious-configsets.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.0.0 through 8.11.2&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.4.1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Improper Control of Dynamically-Managed Code Resources, Unrestricted Upload of File with Dangerous Type, Inclusion of Functionality from Untrusted Control Sphere vulnerability in Apache Solr.This issue affects …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.0.0 through 8.11.2&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.4.1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Improper Control of Dynamically-Managed Code Resources, Unrestricted Upload of File with Dangerous Type, Inclusion of Functionality from Untrusted Control Sphere vulnerability in Apache Solr.This issue affects Apache Solr: from 6.0.0 through 8.11.2, from 9.0.0 before 9.4.1.&lt;/p&gt;
+&lt;p&gt;In the affected versions, Solr ConfigSets accepted Java jar and class files to be uploaded through the ConfigSets API.
+When backing up Solr Collections, these configSet files would be saved to disk when using the LocalFileSystemRepository (the default for backups).
+If the backup was saved to a directory that Solr uses in its ClassPath/ClassLoaders, then the jar and class files would be available to use with any ConfigSet, trusted or untrusted.&lt;/p&gt;
+&lt;p&gt;When Solr is run in a secure way (Authorization enabled), as is strongly suggested, this vulnerability is limited to extending the Backup permissions with the ability to add libraries.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+Users are recommended to upgrade to version 8.11.3 or 9.4.1, which fix the issue.
+In these versions, the following protections have been added:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Users are no longer able to upload files to a configSet that could be executed via a Java ClassLoader.&lt;/li&gt;
+&lt;li&gt;The Backup API restricts saving backups to directories that are used in the ClassLoader.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+L3yx (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-16949"&gt;SOLR-16949&lt;/a&gt;&lt;br&gt;
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50386"&gt;CVE-2023-50386&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>Apache Solr™ 9.4.1 available</title><link href="/apache-solrtm-941-available.html" rel="alternate"></link><published>2024-01-18T00:00:00+00:00</published><updated>2024-01-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-01-18:/apache-solrtm-941-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.4.1.&lt;/p&gt;
 &lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.4.1.&lt;/p&gt;
 &lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
 &lt;p&gt;Solr 9.4.1 is available for immediate download at:&lt;/p&gt;
