@@ -188,6 +188,26 @@ with you to see if we can provide this information in other variations or format
             <th>Announcement</th>
         </tr>
         <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50291">CVE-2023-50291</a></td>
+            <td>2024-02-08</td>
+            <td><a href="#cve-2023-50291-apache-solr-can-leak-certain-passwords-due-to-system-property-redaction-logic-inconsistencies">Apache Solr can leak certain passwords due to System Property redaction logic inconsistencies</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50292">CVE-2023-50292</a></td>
+            <td>2024-02-08</td>
+            <td><a href="#cve-2023-50292-apache-solr-schema-designer-blindly-trusts-all-configsets-possibly-leading-to-rce-by-unauthenticated-users">Apache Solr Schema Designer blindly "trusts" all configsets, possibly leading to RCE by unauthenticated users</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50298">CVE-2023-50298</a></td>
+            <td>2024-02-08</td>
+            <td><a href="#cve-2023-50298-apache-solr-can-expose-zookeeper-credentials-via-streaming-expressions">Apache Solr can expose ZooKeeper credentials via Streaming Expressions</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50386">CVE-2023-50386</a></td>
+            <td>2024-02-08</td>
+            <td><a href="#cve-2023-50386-apache-solr-backuprestore-apis-allow-for-deployment-of-executables-in-malicious-configsets">Apache Solr: Backup/Restore APIs allow for deployment of executables in malicious ConfigSets</a></td>
+        </tr>
+        <tr>
             <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50290">CVE-2023-50290</a></td>
             <td>2024-01-12</td>
             <td><a href="#cve-2023-50290-apache-solr-allows-read-access-to-host-environment-variables">Apache Solr allows read access to host environment variables</a></td>
@@ -242,28 +262,119 @@ with you to see if we can provide this information in other variations or format
             <td>2019-11-18</td>
             <td><a href="#cve-2019-12409-apache-solr-rce-vulnerability-due-to-bad-config-default">Apache Solr RCE vulnerability due to bad config default</a></td>
         </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12401">CVE-2019-12401</a></td>
-            <td>2019-09-09</td>
-            <td><a href="#cve-2019-12401-xml-bomb-in-apache-solr-versions-prior-to-50">XML Bomb in Apache Solr versions prior to 5.0</a></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>2019-08-14</td>
-            <td><a href="#announce-811-and-820-users-check-enable_remote_jmx_opts-setting">[ANNOUNCE] 8.1.1 and 8.2.0 users check ENABLE_REMOTE_JMX_OPTS setting</a></td>
-        </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-0193">CVE-2019-0193</a></td>
-            <td>2019-07-31</td>
-            <td><a href="#cve-2019-0193-apache-solr-remote-code-execution-via-dataimporthandler">Apache Solr, Remote Code Execution via DataImportHandler</a></td>
-        </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-0192">CVE-2019-0192</a></td>
-            <td>2019-03-06</td>
-            <td><a href="#cve-2019-0192-deserialization-of-untrusted-data-via-jmxserviceurl-in-apache-solr">Deserialization of untrusted data via jmx.serviceUrl in Apache Solr</a></td>
-        </tr>
     </table>
 
+  <h2 id="cve-2023-50291-apache-solr-can-leak-certain-passwords-due-to-system-property-redaction-logic-inconsistencies">2024-02-08, CVE-2023-50291: Apache Solr can leak certain passwords due to System Property redaction logic inconsistencies
+    <a class="headerlink" href="#cve-2023-50291-apache-solr-can-leak-certain-passwords-due-to-system-property-redaction-logic-inconsistencies" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Moderate</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Apache Solr 6.0.0 through 8.11.2</li>
+<li>Apache Solr 9.0.0 before 9.3.0</li>
+</ul>
+<p><strong>Description:</strong><br>
+Insufficiently Protected Credentials vulnerability in Apache Solr.</p>
+<p>This issue affects Apache Solr: from 6.0.0 through 8.11.2, from 9.0.0 before 9.3.0.
+One of the two endpoints that publishes the Solr process' Java system properties, /admin/info/properties, was only setup to hide system properties that had "password" contained in the name.
+There are a number of sensitive system properties, such as "basicauth" and "aws.secretKey" do not contain "password", thus their values were published via the "/admin/info/properties" endpoint.
+This endpoint populates the list of System Properties on the home screen of the Solr Admin page, making the exposed credentials visible in the UI.</p>
+<p>This /admin/info/properties endpoint is protected under the "config-read" permission.
+Therefore, Solr Clouds with Authorization enabled will only be vulnerable through logged-in users that have the "config-read" permission.
+Users are recommended to upgrade to version 9.3.0 or 8.11.3, which fixes the issue.
+A single option now controls hiding Java system property for all endpoints, "-Dsolr.hiddenSysProps".
+By default all known sensitive properties are hidden (including "-Dbasicauth"), as well as any property with a name containing "secret" or "password".</p>
+<p>Users who cannot upgrade can also use the following Java system property to fix the issue:<br>
+<code>-Dsolr.redaction.system.pattern=".*(password|secret|basicauth).*"</code></p>
+<p><strong>Mitigation:</strong><br>
+Users are recommended to upgrade to version 8.11.3, 9.3.0 or later, which has consistent systemProperty redaction logic.</p>
+<p><strong>Credit:</strong>
+Michael Taggart (reporter)</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-16809">SOLR-16809</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50291">CVE-2023-50291</a></p>
+  <hr/>
+  <h2 id="cve-2023-50292-apache-solr-schema-designer-blindly-trusts-all-configsets-possibly-leading-to-rce-by-unauthenticated-users">2024-02-08, CVE-2023-50292: Apache Solr Schema Designer blindly "trusts" all configsets, possibly leading to RCE by unauthenticated users
+    <a class="headerlink" href="#cve-2023-50292-apache-solr-schema-designer-blindly-trusts-all-configsets-possibly-leading-to-rce-by-unauthenticated-users" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Moderate</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Apache Solr 6.0.0 through 8.11.2</li>
+<li>Apache Solr 9.0.0 before 9.3.0</li>
+</ul>
+<p><strong>Description:</strong><br>
+Incorrect Permission Assignment for Critical Resource, Improper Control of Dynamically-Managed Code Resources vulnerability in Apache Solr.</p>
+<p>This issue affects Apache Solr: from 8.10.0 through 8.11.2, from 9.0.0 before 9.3.0.</p>
+<p>The Schema Designer was introduced to allow users to more easily configure and test new Schemas and configSets.
+However, when the feature was created, the "trust" (authentication) of these configSets was not considered.
+External library loading is only available to configSets that are "trusted" (created by authenticated users), thus non-authenticated users are unable to perform Remote Code Execution.
+Since the Schema Designer loaded configSets without taking their "trust" into account, configSets that were created by unauthenticated users were allowed to load external libraries when used in the Schema Designer.</p>
+<p><strong>Mitigation:</strong><br>
+Users are recommended to upgrade to version 8.11.3, 9.3.0 or later.</p>
+<p><strong>Credit:</strong>
+Skay (reporter)</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-16777">SOLR-16777</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50292">CVE-2023-50292</a></p>
+  <hr/>
+  <h2 id="cve-2023-50298-apache-solr-can-expose-zookeeper-credentials-via-streaming-expressions">2024-02-08, CVE-2023-50298: Apache Solr can expose ZooKeeper credentials via Streaming Expressions
+    <a class="headerlink" href="#cve-2023-50298-apache-solr-can-expose-zookeeper-credentials-via-streaming-expressions" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Low</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Apache Solr 6.0.0 through 8.11.2</li>
+<li>Apache Solr 9.0.0 before 9.4.1</li>
+</ul>
+<p><strong>Description:</strong><br>
+Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.This issue affects Apache Solr: from 6.0.0 through 8.11.2, from 9.0.0 before 9.4.1.</p>
+<p>Solr Streaming Expressions allows users to extract data from other Solr Clouds, using a "zkHost" parameter.
+When original SolrCloud is setup to use ZooKeeper credentials and ACLs, they will be sent to whatever "zkHost" the user provides.
+An attacker could setup a server to mock ZooKeeper, that accepts ZooKeeper requests with credentials and ACLs and extracts the sensitive information,
+then send a streaming expression using the mock server's address in "zkHost".
+Streaming Expressions are exposed via the "/streaming" handler, with "read" permissions.</p>
+<p><strong>Mitigation:</strong><br>
+Users are recommended to upgrade to version 8.11.3 or 9.4.1, which fix the issue.
+From these versions on, only zkHost values that have the same server address (regardless of chroot), will use the given ZooKeeper credentials and ACLs when connecting.</p>
+<p><strong>Credit:</strong>
+Qing Xu (reporter)</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-17098">SOLR-17098</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50298">CVE-2023-50298</a></p>
+  <hr/>
+  <h2 id="cve-2023-50386-apache-solr-backuprestore-apis-allow-for-deployment-of-executables-in-malicious-configsets">2024-02-08, CVE-2023-50386: Apache Solr: Backup/Restore APIs allow for deployment of executables in malicious ConfigSets
+    <a class="headerlink" href="#cve-2023-50386-apache-solr-backuprestore-apis-allow-for-deployment-of-executables-in-malicious-configsets" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Moderate</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Apache Solr 6.0.0 through 8.11.2</li>
+<li>Apache Solr 9.0.0 before 9.4.1</li>
+</ul>
+<p><strong>Description:</strong><br>
+Improper Control of Dynamically-Managed Code Resources, Unrestricted Upload of File with Dangerous Type, Inclusion of Functionality from Untrusted Control Sphere vulnerability in Apache Solr.This issue affects Apache Solr: from 6.0.0 through 8.11.2, from 9.0.0 before 9.4.1.</p>
+<p>In the affected versions, Solr ConfigSets accepted Java jar and class files to be uploaded through the ConfigSets API.
+When backing up Solr Collections, these configSet files would be saved to disk when using the LocalFileSystemRepository (the default for backups).
+If the backup was saved to a directory that Solr uses in its ClassPath/ClassLoaders, then the jar and class files would be available to use with any ConfigSet, trusted or untrusted.</p>
+<p>When Solr is run in a secure way (Authorization enabled), as is strongly suggested, this vulnerability is limited to extending the Backup permissions with the ability to add libraries.</p>
+<p><strong>Mitigation:</strong><br>
+Users are recommended to upgrade to version 8.11.3 or 9.4.1, which fix the issue.
+In these versions, the following protections have been added:</p>
+<ul>
+<li>Users are no longer able to upload files to a configSet that could be executed via a Java ClassLoader.</li>
+<li>The Backup API restricts saving backups to directories that are used in the ClassLoader.</li>
+</ul>
+<p><strong>Credit:</strong>
+L3yx (reporter)</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-16949">SOLR-16949</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50386">CVE-2023-50386</a></p>
+  <hr/>
   <h2 id="cve-2023-50290-apache-solr-allows-read-access-to-host-environment-variables">2024-01-12, CVE-2023-50290: Apache Solr allows read access to host environment variables
     <a class="headerlink" href="#cve-2023-50290-apache-solr-allows-read-access-to-host-environment-variables" title="Permanent link">¶</a>
   </h2>
@@ -551,131 +662,6 @@ Solr JIRA user 'jnyryan' (John)</p>
 <p><strong>References:</strong><br>
 [1] https://issues.apache.org/jira/browse/SOLR-13647<br>
 [3] https://solr.apache.org/news.html</p>
-  <hr/>
-  <h2 id="cve-2019-12401-xml-bomb-in-apache-solr-versions-prior-to-50">2019-09-09, CVE-2019-12401: XML Bomb in Apache Solr versions prior to 5.0
-    <a class="headerlink" href="#cve-2019-12401-xml-bomb-in-apache-solr-versions-prior-to-50" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong> Medium</p>
-<p><strong>Vendor:</strong><br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected:</strong></p>
-<ul>
-<li>1.3.0 to 1.4.1</li>
-<li>3.1.0 to 3.6.2</li>
-<li>4.0.0 to 4.10.4</li>
-</ul>
-<p><strong>Description:</strong><br>
-Solr versions prior to 5.0.0 are vulnerable to an XML resource
-consumption attack (a.k.a. Lol Bomb) via it’s update handler. By leveraging
-XML DOCTYPE and ENTITY type elements, the attacker can create a pattern
-that will expand when the server parses the XML causing OOMs</p>
-<p><strong>Mitigation:</strong>  </p>
-<ul>
-<li>Upgrade to Apache Solr 5.0 or later.</li>
-<li>Ensure your network settings are configured so that only trusted traffic is allowed to post documents to the running Solr instances.</li>
-</ul>
-<p><strong>Credit:</strong><br>
-Matei "Mal" Badanoiu</p>
-<p><strong>References:</strong></p>
-<ul>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-13750">https://issues.apache.org/jira/browse/SOLR-13750</a></li>
-<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
-</ul>
-  <hr/>
-  <h2 id="announce-811-and-820-users-check-enable_remote_jmx_opts-setting">2019-08-14, [ANNOUNCE] 8.1.1 and 8.2.0 users check ENABLE_REMOTE_JMX_OPTS setting
-    <a class="headerlink" href="#announce-811-and-820-users-check-enable_remote_jmx_opts-setting" title="Permanent link">¶</a>
-  </h2>
-  <div class="codehilite"><pre><span></span><code><span class="n">Severity</span><span class="o">:</span> <span class="n">Low</span>
-
-<span class="n">Versions</span> <span class="n">Affected</span><span class="o">:</span>
-<span class="mf">8.1</span><span class="o">.</span><span class="mi">1</span> <span class="n">and</span> <span class="mf">8.2</span><span class="o">.</span><span class="mi">0</span> <span class="k">for</span> <span class="n">Linux</span>
-
-<span class="n">Description</span><span class="o">:</span>
-<span class="n">It</span> <span class="n">has</span> <span class="n">been</span> <span class="n">discovered</span> <span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="n">that</span> <span class="n">the</span> <span class="mf">8.1</span><span class="o">.</span><span class="mi">1</span> <span class="n">and</span> <span class="mf">8.2</span><span class="o">.</span><span class="mi">0</span> <span class="n">releases</span> <span class="n">contain</span> <span class="n">a</span> <span class="n">bad</span> <span class="k">default</span>
-<span class="n">setting</span> <span class="k">for</span> <span class="n">the</span> <span class="n">ENABLE_REMOTE_JMX_OPTS</span> <span class="n">setting</span> <span class="k">in</span> <span class="n">the</span> <span class="k">default</span> <span class="n">solr</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">sh</span> <span class="n">file</span>
-<span class="n">shipping</span> <span class="k">with</span> <span class="n">Solr</span><span class="o">.</span>
-
-<span class="n">Windows</span> <span class="n">users</span> <span class="n">and</span> <span class="n">users</span> <span class="k">with</span> <span class="n">custom</span> <span class="n">solr</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">sh</span> <span class="n">files</span> <span class="n">are</span> <span class="n">not</span> <span class="n">affected</span><span class="o">.</span>
-
-<span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">using</span> <span class="n">the</span> <span class="k">default</span> <span class="n">solr</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">sh</span> <span class="n">file</span> <span class="n">from</span> <span class="n">the</span> <span class="n">affected</span> <span class="n">releases</span><span class="o">,</span> <span class="n">then</span>
-<span class="n">JMX</span> <span class="n">monitoring</span> <span class="n">will</span> <span class="n">be</span> <span class="n">enabled</span> <span class="n">and</span> <span class="n">exposed</span> <span class="n">on</span> <span class="n">JMX_PORT</span> <span class="o">(</span><span class="k">default</span> <span class="o">=</span> <span class="mi">18983</span><span class="o">),</span>
-<span class="n">without</span> <span class="n">any</span> <span class="n">authentication</span><span class="o">.</span> <span class="n">So</span> <span class="k">if</span> <span class="n">your</span> <span class="n">firewalls</span> <span class="n">allows</span> <span class="n">inbound</span> <span class="n">traffic</span> <span class="n">on</span>
-<span class="n">JMX_PORT</span><span class="o">,</span> <span class="n">then</span> <span class="n">anyone</span> <span class="k">with</span> <span class="n">network</span> <span class="n">access</span> <span class="n">to</span> <span class="n">your</span> <span class="n">Solr</span> <span class="n">nodes</span> <span class="n">will</span> <span class="n">be</span> <span class="n">able</span> <span class="n">to</span>
-<span class="n">access</span> <span class="n">monitoring</span> <span class="n">data</span> <span class="n">exposed</span> <span class="n">over</span> <span class="n">JMX</span><span class="o">.</span>
-
-<span class="n">Mitigation</span><span class="o">:</span>
-<span class="n">Edit</span> <span class="n">solr</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">sh</span><span class="o">,</span> <span class="kd">set</span> <span class="n">ENABLE_REMOTE_JMX_OPTS</span><span class="o">=</span><span class="kc">false</span> <span class="n">and</span> <span class="n">restart</span> <span class="n">Solr</span><span class="o">.</span>
-<span class="n">Alternatively</span> <span class="n">wait</span> <span class="k">for</span> <span class="n">the</span> <span class="n">future</span> <span class="mf">8.3</span><span class="o">.</span><span class="mi">0</span> <span class="n">release</span> <span class="n">and</span> <span class="n">upgrade</span><span class="o">.</span>
-
-<span class="n">References</span><span class="o">:</span>
-<span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="n">https</span><span class="o">://</span><span class="n">issues</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">org</span><span class="sr">/jira/browse/</span><span class="n">SOLR</span><span class="o">-</span><span class="mi">13647</span>
-</code></pre></div>
-  <hr/>
-  <h2 id="cve-2019-0193-apache-solr-remote-code-execution-via-dataimporthandler">2019-07-31, CVE-2019-0193: Apache Solr, Remote Code Execution via DataImportHandler
-    <a class="headerlink" href="#cve-2019-0193-apache-solr-remote-code-execution-via-dataimporthandler" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong> High</p>
-<p><strong>Vendor:</strong><br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected:</strong></p>
-<ul>
-<li>5.0.0 to 5.5.5</li>
-<li>6.0.0 to 6.6.5</li>
-</ul>
-<p><strong>Description:</strong><br>
-The DataImportHandler, an optional but popular module to pull in data from
-databases and other sources, has a feature in which the whole DIH
-configuration can come from a request's "dataConfig" parameter. The debug
-mode of the DIH admin screen uses this to allow convenient debugging /
-development of a DIH config. Since a DIH config can contain scripts, this
-parameter is a security risk. Starting with version 8.2.0 of Solr, use of
-this parameter requires setting the Java System property
-<code>enable.dih.dataConfigParam</code> to true.</p>
-<p><strong>Mitigation:</strong>  </p>
-<ul>
-<li>Upgrade to 8.2.0 or later, which is secure by default.</li>
-<li>or, edit solrconfig.xml to configure all DataImportHandler usages with an "invariants" section listing the "dataConfig" parameter set to am empty string.</li>
-<li>Ensure your network settings are configured so that only trusted traffic communicates with Solr, especially to the DIH request handler.  This is a best practice to all of Solr.</li>
-</ul>
-<p><strong>Credit:</strong><br>
-Michael Stepankin (JPMorgan Chase)</p>
-<p><strong>References:</strong></p>
-<ul>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-13669">https://issues.apache.org/jira/browse/SOLR-13669</a></li>
-<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
-</ul>
-  <hr/>
-  <h2 id="cve-2019-0192-deserialization-of-untrusted-data-via-jmxserviceurl-in-apache-solr">2019-03-06, CVE-2019-0192: Deserialization of untrusted data via jmx.serviceUrl in Apache Solr
-    <a class="headerlink" href="#cve-2019-0192-deserialization-of-untrusted-data-via-jmxserviceurl-in-apache-solr" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong> High</p>
-<p><strong>Vendor:</strong><br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected:</strong></p>
-<ul>
-<li>5.0.0 to 5.5.5</li>
-<li>6.0.0 to 6.6.5</li>
-</ul>
-<p><strong>Description:</strong><br>
-ConfigAPI allows to configure Solr's JMX server via an HTTP POST request.
-By pointing it to a malicious RMI server, an attacker could take advantage
-of Solr's unsafe deserialization to trigger remote code execution on the
-Solr side.</p>
-<p><strong>Mitigation:</strong><br>
-Any of the following are enough to prevent this vulnerability:</p>
-<ul>
-<li>Upgrade to Apache Solr 7.0 or later.</li>
-<li>Disable the ConfigAPI if not in use, by running Solr with the system property “disable.configEdit=true”</li>
-<li>If upgrading or disabling the Config API are not viable options, apply patch in [1] and re-compile Solr.</li>
-<li>Ensure your network settings are configured so that only trusted traffic is allowed to ingress/egress your hosts running Solr.</li>
-</ul>
-<p><strong>Credit:</strong><br>
-Michael Stepankin</p>
-<p><strong>References:</strong></p>
-<ul>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-13301">https://issues.apache.org/jira/browse/SOLR-13301</a></li>
-<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
-</ul>
   <hr/>
   <h1 id="cve-reports-for-apache-solr-dependencies">CVE reports for Apache Solr dependencies</h1>
   <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies, and the state of their applicability to Solr.</p>
