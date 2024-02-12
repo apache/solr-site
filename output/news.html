@@ -132,6 +132,26 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-950-available">12 February 2024, Apache Solr™ 9.5.0 available
+    <a class="headerlink" href="#apache-solrtm-950-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.5.0.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 9.5.0 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-950-release-highlights">Solr 9.5.0 Release Highlights:</h3>
+<ul>
+<li>Solr now supports "node-level" Memory and CPU circuit breakers, that serve as a default inherited by all cores on that node.</li>
+<li>Collection and Replica Properties may now be used as property substitution variables in configuration files (e.g. solrconfig.xml).</li>
+<li>Solr now auto-reloads updated keystore and truststore files when TLS is enabled.</li>
+<li>Tracing support has received a number of quality-of-life improvements, including improved tracking of distributed collection commands and increased coverage for internal requests made with the Apache and Jetty HTTP clients.</li>
+<li>Solr now offers the <code>&lt;clusterSingleton&gt;</code>  solr.xml tag as a means of configuring node-level plugins in an "immutable infrastructure"-friendly way.  This offers an alternative to using the <code>/cluster/plugins</code>  API for managing plugins in "live" clusters.</li>
+<li>Starting with 9.5.0, Solr releases now produce an OpenAPI specification covering many of their v2 APIs. Consumers may use this spec with an array of OpenAPI-compatible tooling to generate documentation, clients in various programming languages, etc.  See https://www.openapis.org/what-is-openapi for more details.</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/9_5/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/9_5/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of new features, changes and bugfixes:</p>
+<p><a href="https://solr.apache.org/9_5_0/changes/Changes.html">https://solr.apache.org/9_5_0/changes/Changes.html</a></p>
   <h2 id="apache-solrtm-8113-available">8 February 2024, Apache Solr™ 8.11.3 available
     <a class="headerlink" href="#apache-solrtm-8113-available" title="Permanent link">¶</a>
   </h2>
