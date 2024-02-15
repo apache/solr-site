@@ -452,5 +452,19 @@
       ],
       "detail": "Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode. If an untrusted user can supply SQL queries to Solr's '/sql' handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack. This might have been exposed by some deployers of Solr in order for internal analysts to use JDBC based tooling, but would have unlikely been granted to wider audiences."
     }
+  },
+  {
+    "ids": [
+      "CVE-2023-51074",
+      "GHSA-pfh2-hfmq-phg5"
+    ],
+    "versions": "all",
+    "jars": [
+      "json-path-2.8.0.jar"
+    ],
+    "analysis": {
+      "state": "not_affected",
+      "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr."
+    }
   }
 ]
