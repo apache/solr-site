@@ -188,6 +188,11 @@ with you to see if we can provide this information in other variations or format
             <th>Announcement</th>
         </tr>
         <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-31391">CVE-2024-31391</a></td>
+            <td>2024-04-12</td>
+            <td><a href="#cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials">Solr-Operator liveness and readiness probes may leak basic auth credentials</a></td>
+        </tr>
+        <tr>
             <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50291">CVE-2023-50291</a></td>
             <td>2024-02-08</td>
             <td><a href="#cve-2023-50291-apache-solr-can-leak-certain-passwords-due-to-system-property-redaction-logic-inconsistencies">Apache Solr can leak certain passwords due to System Property redaction logic inconsistencies</a></td>
@@ -257,13 +262,28 @@ with you to see if we can provide this information in other variations or format
             <td>2019-12-30</td>
             <td><a href="#cve-2019-17558-apache-solr-rce-through-velocityresponsewriter">Apache Solr RCE through VelocityResponseWriter</a></td>
         </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12409">CVE-2019-12409</a></td>
-            <td>2019-11-18</td>
-            <td><a href="#cve-2019-12409-apache-solr-rce-vulnerability-due-to-bad-config-default">Apache Solr RCE vulnerability due to bad config default</a></td>
-        </tr>
     </table>
 
+  <h2 id="cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials">2024-04-12, CVE-2024-31391: Solr-Operator liveness and readiness probes may leak basic auth credentials
+    <a class="headerlink" href="#cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Moderate</p>
+<p><strong>Versions Affected:</strong><br>
+Solr Operator 0.3.0 to 0.8.0</p>
+<p><strong>Description:</strong>
+Insertion of Sensitive Information into Log File vulnerability in the Apache Solr Operator.</p>
+<p>The Solr sked to bootstrap Solr security, the operator will enable basic authentication and create several accounts for accessing Solr: including the "solr" and "admin" accounts for use by end-users, and a "k8s-oper" account which the operator uses for its own requests to Solr.
+One common source of these operator requests is healthchecks: liveness, readiness, and startup probes are all used to determine Solr's health and ability to receive traffic.
+By default, the operator configures the Solr APIs used for these probes to be exempt from authentication, but users may specifically request that authentication be required on probe endpoints as well.
+Whenever one of these probes would fail, if authentication was in use, the Solr Operator would create a Kubernetes "event" containing the username and password of the "k8s-oper" account.</p>
+<p>Within the affected version range, this vulnerability affects any solrcloud resource which (1) bootstrapped security through use of the <code>.solrOptions.security.authenticationType=basic</code> option, and (2) required authentication be used on probes by setting <code>.solrOptions.security.probesRequireAuth=true</code>.</p>
+<p><strong>Mitigation:</strong>
+Users are recommended to upgrade to Solr Operator version 0.8.1, which fixes this issue by ensuring that probes no longer print the credentials used for Solr requests.  Users may also mitigate the vulnerability by disabling authentication on their healthcheck probes using the setting <code>.solrOptions.security.probesRequireAuth=false</code>.</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-17216">SOLR-17216</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-31391">CVE-2024-31391</a></p>
+  <hr/>
   <h2 id="cve-2023-50291-apache-solr-can-leak-certain-passwords-due-to-system-property-redaction-logic-inconsistencies">2024-02-08, CVE-2023-50291: Apache Solr can leak certain passwords due to System Property redaction logic inconsistencies
     <a class="headerlink" href="#cve-2023-50291-apache-solr-can-leak-certain-passwords-due-to-system-property-redaction-logic-inconsistencies" title="Permanent link">¶</a>
   </h2>
@@ -621,47 +641,6 @@ Github user <code>s00py</code></p>
 <li><a href="https://issues.apache.org/jira/browse/SOLR-14025">https://issues.apache.org/jira/browse/SOLR-14025</a></li>
 <li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
 </ul>
-  <hr/>
-  <h2 id="cve-2019-12409-apache-solr-rce-vulnerability-due-to-bad-config-default">2019-11-18, CVE-2019-12409: Apache Solr RCE vulnerability due to bad config default
-    <a class="headerlink" href="#cve-2019-12409-apache-solr-rce-vulnerability-due-to-bad-config-default" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong>
-High</p>
-<p><strong>Vendor:</strong><br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected:</strong><br>
-Solr 8.1.1 and 8.2.0 for Linux</p>
-<p><strong>Description:</strong><br>
-The 8.1.1 and 8.2.0 releases of Apache Solr contain an
-insecure setting for the ENABLE_REMOTE_JMX_OPTS configuration option
-in the default solr.in.sh configuration file shipping with Solr.</p>
-<p>Windows users are not affected.</p>
-<p>If you use the default solr.in.sh file from the affected releases, then
-JMX monitoring will be enabled and exposed on RMI_PORT (default=18983),
-without any authentication. If this port is opened for inbound traffic
-in your firewall, then anyone with network access to your Solr nodes
-will be able to access JMX, which may in turn allow them to upload
-malicious code for execution on the Solr server.</p>
-<p>The vulnerability is already public [1] and mitigation steps were
-announced on project mailing lists and news page [3] on August 14th,
-without mentioning RCE at that time.</p>
-<p><strong>Mitigation:</strong><br>
-Make sure your effective solr.in.sh file has ENABLE_REMOTE_JMX_OPTS set
-to 'false' on every Solr node and then restart Solr. Note that the
-effective solr.in.sh file may reside in /etc/defaults/ or another
-location depending on the install. You can then validate that the
-'com.sun.management.jmxremote*' family of properties are not listed in
-the "Java Properties" section of the Solr Admin UI, or configured in a
-secure way.</p>
-<p>There is no need to upgrade or update any code.</p>
-<p>Remember to follow the Solr Documentation's advice to never expose Solr
-nodes directly in a hostile network environment.</p>
-<p><strong>Credit:</strong><br>
-Matei "Mal" Badanoiu<br>
-Solr JIRA user 'jnyryan' (John)</p>
-<p><strong>References:</strong><br>
-[1] https://issues.apache.org/jira/browse/SOLR-13647<br>
-[3] https://solr.apache.org/news.html</p>
   <hr/>
   <h1 id="cve-reports-for-apache-solr-dependencies">CVE reports for Apache Solr dependencies</h1>
   <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies, and the state of their applicability to Solr.</p>
