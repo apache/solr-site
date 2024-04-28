@@ -132,6 +132,29 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-960-available">27 April 2024, Apache Solr™ 9.6.0 available
+    <a class="headerlink" href="#apache-solrtm-960-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.6.0.</p>
+<p>Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.</p>
+<p>Solr 9.6.0 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-960-release-highlights">Solr 9.6.0 Release Highlights:</h3>
+<ul>
+<li>Solrj now offers a lightweight client based on java.net.http.HttpClient: HttpJdkSolrClient</li>
+<li>SolrJ now offers an improved async request API</li>
+<li>Inactive shards (from splits) can now be cleaned up periodically</li>
+<li>Distributed (sharded) IDF can be disabled via request parameter</li>
+<li>Query timeouts (limits) may now be based on either CPU time as well as wall clock</li>
+<li>Upgraded Lucene to 9.10.0 </li>
+<li>bin/solr post now supports --dry-run mode.</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/9_6/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/9_6/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of new features, changes and bugfixes:</p>
+<p><a href="https://solr.apache.org/9_6_0/changes/Changes.html">https://solr.apache.org/9_6_0/changes/Changes.html</a></p>
+<p>Thanks to all contributors! </p>
+<p>hossman, David Smiley, Michael Gibney, Paul McArthur, Jan Høydahl, James Dyer, Eric Pugh, Andrey Bozhko, Andrzej Bialecki, Rahul Goswami, Bruno Roustant, Jason Gerlowski, Sanjay Dutt, Vincent Primault, Christine Poerschke, Gus Heck, Shawn Heisey, Vincenzo D'Amore, Yohann Callea, Julien Pilourdault, Wei Wang, Mikhail Khludnev, Antoine Bursaux, Rishi Sankar, Pierre Salagnac, Aparna Suresh, Alessandro Benedetti, Mathieu Marie, Przemyslaw Ciezkowski</p>
   <h2 id="cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials">12 April 2024, CVE-2024-31391: Solr-Operator liveness and readiness probes may leak basic auth credentials
     <a class="headerlink" href="#cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials" title="Permanent link">¶</a>
   </h2>
