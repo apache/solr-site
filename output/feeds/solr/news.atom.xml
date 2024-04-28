@@ -8,8 +8,8 @@
 &lt;ul&gt;
 &lt;li&gt;Solrj now offers a lightweight client based on java.net.http.HttpClient: HttpJdkSolrClient&lt;/li&gt;
 &lt;li&gt;SolrJ now offers an improved async request API&lt;/li&gt;
-&lt;li&gt;Inactive shards will now be cleaned up periodically&lt;/li&gt;
-&lt;li&gt;Distributed stats can be disabled via request parameter&lt;/li&gt;
+&lt;li&gt;Inactive shards (from splits) can now be cleaned up periodically&lt;/li&gt;
+&lt;li&gt;Distributed (sharded) IDF can be disabled via request parameter&lt;/li&gt;
 &lt;li&gt;Query timeouts (limits) may now be based on either CPU time as well as wall clock&lt;/li&gt;
 &lt;li&gt;Upgraded Lucene to 9.10.0 &lt;/li&gt;
 &lt;li&gt;bin/solr post now supports --dry-run mode.&lt;/li&gt;
