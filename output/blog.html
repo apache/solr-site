@@ -38,15 +38,15 @@
 <script src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"/></script>
 <script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=4dd59757"></script>
 <script src="/theme/javascript/main.js?v=4dd59757"></script>
-<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Solr Reference Guide - Apache Solr</title>
+<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Blog Posts - Apache Solr</title>
 
     <meta name="keywords"
           content="apache, apache lucene, apache solr, solr, lucene,
                    search, information retrieval, spell checking, faceting, inverted index, open source"/>
      <meta property="og:type" content="website" />
-     <meta property="og:url" content="https://solr.apache.org/guide/index.html"/>
-     <meta property="og:title" content="Solr Reference Guide"/>
-     <meta property="og:description" content="Apache Solr Reference Guide The Apache Solr Reference Guide is the official Solr documentation. Latest release: Solr 9.0 Earlier..."/>
+     <meta property="og:url" content="https://solr.apache.org/blog.html"/>
+     <meta property="og:title" content="Blog Posts"/>
+     <meta property="og:description" content="Welcome to the Apache Solr Blog, where we periodically showcase Solr-related articles, tutorials, and other content. Have something..."/>
      <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=4dd59757"/>
      <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=4dd59757"/>
 
@@ -54,7 +54,7 @@
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
   </head>
 
-  <body class="page "  x-ng-app="page" x-ng-controller="page.controllers.main">
+  <body class="page " x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
 <div class="contain-to-grid">
   <div class="header-section">
     <nav class="top-bar" data-topbar role="navigation">
@@ -117,40 +117,45 @@
 <div class="header-fill"></div>
 <div class="container">
   <div class="row">
-<h1 id="apache-solr-reference-guide">Apache Solr Reference Guide</h1>
-<p>The Apache Solr Reference Guide is the official Solr documentation.</p>
-<p><strong>Latest release</strong>:</p>
-<ul>
-<li><a href="solr/9_0/">Solr 9.0</a></li>
-</ul>
-<p><strong>Earlier versions</strong>:</p>
-<ul>
-<li><a href="8_11/">Solr 8.11</a></li>
-<li><a href="8_10/">Solr 8.10</a></li>
-<li><a href="8_9/">Solr 8.9</a></li>
-<li><a href="8_8/">Solr 8.8</a></li>
-<li><a href="8_7/">Solr 8.7</a></li>
-<li><a href="8_6/">Solr 8.6</a></li>
-<li><a href="8_5/">Solr 8.5</a></li>
-<li><a href="8_4/">Solr 8.4</a></li>
-<li><a href="8_3/">Solr 8.3</a></li>
-<li><a href="8_2/">Solr 8.2</a></li>
-<li><a href="8_1/">Solr 8.1</a></li>
-<li><a href="8_0/">Solr 8.0</a></li>
-<li><a href="7_7/">Solr 7.7</a></li>
-<li><a href="7_6/">Solr 7.6</a></li>
-<li><a href="7_5/">Solr 7.5</a></li>
-<li><a href="7_4/">Solr 7.4</a></li>
-<li><a href="7_3/">Solr 7.3</a></li>
-<li><a href="7_2/">Solr 7.2</a></li>
-<li><a href="7_1/">Solr 7.1</a></li>
-<li><a href="7_0/">Solr 7.0</a></li>
-<li><a href="6_6/">Solr 6.6</a></li>
-</ul>
-<p>Prior to Solr 8.2, a PDF version was also published. You can access these older version from the Apache archives.</p>
-<ul>
-<li><a href="http://archive.apache.org/dist/lucene/solr/ref-guide/">Archived PDFs for earlier releases</a></li>
-</ul>  </div>
+<div class="small-12 columns">
+
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible;
+    }
+    h2 {
+      /* Avoid title being hidden behind header when linked by anchor link */
+      padding-top: 70px;
+      margin-top: -70px;
+    }
+  </style>
+  <h1 id="solr-blogs">Solr<sup>™</sup> Blog Posts<a class="headerlink" href="#solr-blog-posts" title="Permanent link">¶</a></h1>
+  <p>Welcome to the Apache Solr Blog, where we periodically showcase Solr-related articles, tutorials, and other content.</p>
+<p>Have something to share?
+We're always looking for new articles!
+If you have one you'd like to contribute, or would like to link out to an external post, create a PR using the instructions <a href="https://github.com/apache/solr-site">here</a>.</p>
+
+  <hr/>
+
+  <h2 id="welcome-to-the-apache-solr-blog">
+    <a href="blogposts/welcome-to-the-apache-solr-blog.html">
+      Welcome to the Apache Solr Blog
+    </a>
+  </h2>
+  <h5>Published: 22 April 2024</h5>
+  <p><p>We have a blog?  What is it, and why do we have it?</p></p>
+  <h2 id="contribute-to-the-apache-solr-blog">
+    <a href="blogposts/contribute-to-the-apache-solr-blog.html">
+      How To: Contribute to the Apache Solr Blog
+    </a>
+  </h2>
+  <h5>Published: 23 April 2024</h5>
+  <p><p>You have a brilliant idea for Solr's new blog.  But what next?  How does the blog work, and how can writers contribute posts?</p></p>
+</div>
+  </div>
 </div>
     <footer>
 <div class="row">
