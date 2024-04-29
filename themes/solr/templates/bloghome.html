@@ -1,0 +1,36 @@
+{% extends "page.html" %}
+
+{% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
+
+{% block content_inner %}
+<div class="small-12 columns">
+
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible;
+    }
+    h2 {
+      /* Avoid title being hidden behind header when linked by anchor link */
+      padding-top: 70px;
+      margin-top: -70px;
+    }
+  </style>
+  <h1 id="solr-blogs">Solr<sup>™</sup> Blog Posts<a class="headerlink" href="#solr-blog-posts" title="Permanent link">¶</a></h1>
+  {{page.content}}
+
+  <hr/>
+
+  {% for article in (pages | selectattr("category.name", "in", ["solr/blogposts"]) |list | sort(attribute="locale_date")) %}
+  <h2 id="{{ article.slug }}">
+    <a href="{{article.url}}">
+      {{ article.title }}
+    </a>
+  </h2>
+  <h5>Published: {{ article.locale_date }}</h5>
+  <p>{{ article.summary | truncate(512)}}</p>
+  {% endfor %}
+</div>
+{% endblock content_inner %}
