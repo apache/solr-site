@@ -7,7 +7,7 @@ template: resources
 
 * [Solr Quick Start](/guide/solr-tutorial.html)
 
-* [Solr on Docker](https://github.com/docker-solr/docker-solr#getting-started-with-the-docker-image)
+* [Solr on Docker](/guide/solr/latest/deployment-guide/solr-in-docker.html)
 
 * [Solr on Kubernetes](/operator/resources.html#tutorials)
 
