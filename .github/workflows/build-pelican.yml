@@ -3,6 +3,13 @@ name: Build Solr website with ASF Pelican action
 on:
   push:
     branches: [ "main", "production" ]
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+      - 'build.sh'
+      - '.editorconfig'
+      - '.gitignore'
+      - '.gitattributes'
   workflow_dispatch:
 
 jobs:
