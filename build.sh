@@ -14,51 +14,53 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Using https://hub.docker.com/r/qwe1/docker-pelican as pelican image, supports both AMD64 and ARM64
+PELICAN_IMAGE="qwe1/docker-pelican:4.8.0"
+DOCKER_CMD="docker run --rm -w /work -p 8000:8000 -v $(pwd):/work $PELICAN_IMAGE"
+unset SERVE
+PIP_CMD="pip3 install -r requirements.txt"
+PELICAN_CMD="pelican content -o output"
+export SITEURL="https://solr.apache.org/"
+
+function usage {
+   echo "Usage: ./build.sh [-l] [<other pelican arguments>]"
+   echo "       -l     Live build and reload source changes on localhost:8000"
+   echo "       --help Show full help for options that Pelican accepts"
+}
+
+if ! docker -v >/dev/null 2>&1
+then
+  echo "ERROR: This script requires docker."
+  echo "       Please install Docker and try again."
+  echo
+  usage
+  exit 2
+fi
+
 if [[ ! -z $1 ]]; then
   if [[ "$1" == "-l" ]]; then
     SERVE=true
     shift
   else
-    echo "Usage: ./build.sh [-l] [<other pelican arguments>]"
-    echo "       -l     Live build and reload source changes on localhost:8000"
-    echo "       --help Show full help for options that Pelican accepts"
+    usage
     if [[ "$1" == "-h" ]]; then
       exit 0
     elif [[ "$1" == "--help" ]]; then
       echo
       echo "Below is a list of other arguments you can use which will be passed to pelican."
       echo
-      pelican --help
+      $DOCKER_CMD pelican -h
       exit 0
     fi
-  fi
-fi
-if [[ ! $(python3 -h 2>/dev/null) ]]; then
-  echo "No python installed"
-  echo "Try one of"
-  echo "  brew install python3"
-  echo "  apt install python3"
-  exit 2
-fi
-if [[ -d env ]]; then
-  source env/bin/activate && pip -q install --upgrade pip && pip -q install -r requirements.txt >/dev/null
-fi
-if [[ ! $(pelican -h 2>/dev/null) ]]; then
-  echo "No pelican installed, attempting install"
-  python3 -m venv env && source env/bin/activate && pip -q install --upgrade pip && pip install -r requirements.txt
-  if [[ $? -gt 0 ]]; then
-    echo "Failed pelican install, exiting."
-    exit 2
-  else
-    echo "Install OK" && echo && echo
   fi
 fi
 if [[ $SERVE ]]; then
   echo "Building Solr site locally. Goto http://localhost:8000 to view."
   echo "Edits you do to the source tree will be compiled immediately!"
-  pelican --autoreload --listen $@
+  echo "$DOCKER_CMD $PIP_CMD; $PELICAN_CMD --autoreload --listen -b 0.0.0.0"
+  $DOCKER_CMD $PIP_CMD; $PELICAN_CMD --autoreload --listen -b 0.0.0.0 $@
 else
   echo "Building Solr site."
   echo "To build and serve live edits locally, run this script with -l argument. Use -h for help."
-  pelican $@
+  $DOCKER_CMD $PIP_CMD; $PELICAN_CMD $@
 fi
