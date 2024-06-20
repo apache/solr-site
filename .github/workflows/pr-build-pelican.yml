@@ -3,18 +3,14 @@ name: Build Solr website with ASF Pelican action for PRs
 on:
   pull_request:
     branches:
-      - 'main'
-  workflow_dispatch:
+      - '**'
 
 jobs:
   build-pelican:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
-      - name: Checkout code
+      - name: Checkout PR branch
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
 
       - name: Build Pelican Site
         uses: apache/infrastructure-actions/pelican@main
