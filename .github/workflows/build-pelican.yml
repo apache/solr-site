@@ -1,0 +1,22 @@
+name: Build Solr website with ASF Pelican action
+
+on:
+  push:
+    branches: [ "main", "production" ]
+  workflow_dispatch:
+
+jobs:
+  build-pelican:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref == 'refs/heads/production' && 'production' || 'main' }}
+
+      - name: Build Pelican Site
+        uses: apache/infrastructure-actions/pelican@main
+        with:
+          destination: ${{ github.ref == 'refs/heads/production' && 'asf-site' || 'asf-staging' }}
+          gfm: 'false'
