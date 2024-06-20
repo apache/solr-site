@@ -57,7 +57,6 @@ fi
 if [[ $SERVE ]]; then
   echo "Building Solr site locally. Goto http://localhost:8000 to view."
   echo "Edits you do to the source tree will be compiled immediately!"
-  echo "$DOCKER_CMD $PIP_CMD; $PELICAN_CMD --autoreload --listen -b 0.0.0.0"
   $DOCKER_CMD $PIP_CMD; $PELICAN_CMD --autoreload --listen -b 0.0.0.0 $@
 else
   echo "Building Solr site."
