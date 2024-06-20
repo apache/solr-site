@@ -147,9 +147,9 @@ Nearly everything you can read on <a href="https://solr.apache.org">solr.apache.
 Blog posts are no exception: each post on our blog is "just" a Markdown-formatted text file.</p>
 <p>So the first step in sharing your writeup is to get a copy of this repo to work with.
 You haven't edited the Solr website before, so you create a local "clone" (i.e. copy) of <code>solr-site</code>, "fork" the repo in Github (not shown below), register your Github "fork" as a "remote", and create a "branch" locally to put your changes on.</p>
-<div class="codehilite"><pre><span></span><code>$ git clone git@github.com:apache/solr-site.git
-$ git remote add myGHfork git@github.com:myGHusername/solr-site.git
-$ git checkout -b blog-post-highlighting-graph-query
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:apache/solr-site.git
+$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>myGHfork<span class="w"> </span>git@github.com:myGHusername/solr-site.git
+$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>blog-post-highlighting-graph-query
 </code></pre></div>
 
 <h1 id="first-edits-creating-a-file-for-your-post">First Edits - Creating a File For your Post</h1>
@@ -162,15 +162,15 @@ If the review process (more on this below) takes longer than expected, authors o
 <p>Images or other static files used by your post can be placed in <code>content/images/blog/</code> and referenced with Markdown syntax like <code>![Alt Text]({static}/images/blog/imageFileName.png)</code></p>
 <p>Knowing all this, you create a new file at <code>content/pages/blogposts/2024-04-23-graph-query-is-great.md</code> and copy in the draft text you've been working on.
 When finished, it appears as:</p>
-<div class="codehilite"><pre><span></span><code>$ git status
-On branch blog-post-highlighting-graph-query
-Untracked files:
-  (use &quot;git add <span class="nt">&lt;file&gt;</span>...&quot; to include in what will be committed)
-    content/pages/blogposts/2024-04-23-graph-query-is-great.md
-$ cat content/pages/blogposts/2024-04-23-graph-query-is-great.md
-<span class="nt">&lt;b&gt;</span>Lorem ipsum<span class="nt">&lt;/b&gt;</span>
-dolor sit amet,
-consectetur adipiscing elit.
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>status
+On<span class="w"> </span>branch<span class="w"> </span>blog-post-highlighting-graph-query
+Untracked<span class="w"> </span>files:
+<span class="w">  </span>(use<span class="w"> </span>&quot;git<span class="w"> </span>add<span class="w"> </span><span class="nt">&lt;file&gt;</span>...&quot;<span class="w"> </span>to<span class="w"> </span>include<span class="w"> </span>in<span class="w"> </span>what<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>committed)
+<span class="w">    </span>content/pages/blogposts/2024-04-23-graph-query-is-great.md
+$<span class="w"> </span>cat<span class="w"> </span>content/pages/blogposts/2024-04-23-graph-query-is-great.md
+<span class="nt">&lt;b&gt;</span>Lorem<span class="w"> </span>ipsum<span class="nt">&lt;/b&gt;</span>
+dolor<span class="w"> </span>sit<span class="w"> </span>amet,
+consectetur<span class="w"> </span>adipiscing<span class="w"> </span>elit.
 </code></pre></div>
 
 <h1 id="formatting">Formatting</h1>
@@ -195,16 +195,16 @@ Notable among these is <strong>summary</strong>, which Solr's blog displays as a
 (The first few sentences will be chosen for this by default, if no explicit summary value is specified.)
 For more information on valid metadata values, see the Pelican docs <a href="https://docs.getpelican.com/en/latest/content.html#file-metadata">here</a>.</p>
 <p>You tweak your blog post title one last time, and add the necessary metadata at the top of <code>2024-04-23-graph-query-is-great.md</code>:</p>
-<div class="codehilite"><pre><span></span><code>$ cat content/pages/blogposts/2024-04-23-graph-query-is-great.md
-Title: <span class="s1">&#39;Node&#39;</span>-doubt about it<span class="p">;</span> Solr <span class="s1">&#39;Edges&#39;</span> Out the Rest!
-category: solr/blogposts
-slug: highlight-graph-query
-URL: blogposts/highlight-graph-query.html
-save_as: blogposts/highlight-graph-query.html
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>cat<span class="w"> </span>content/pages/blogposts/2024-04-23-graph-query-is-great.md
+Title:<span class="w"> </span><span class="s1">&#39;Node&#39;</span>-doubt<span class="w"> </span>about<span class="w"> </span>it<span class="p">;</span><span class="w"> </span>Solr<span class="w"> </span><span class="s1">&#39;Edges&#39;</span><span class="w"> </span>Out<span class="w"> </span>the<span class="w"> </span>Rest!
+category:<span class="w"> </span>solr/blogposts
+slug:<span class="w"> </span>highlight-graph-query
+URL:<span class="w"> </span>blogposts/highlight-graph-query.html
+save_as:<span class="w"> </span>blogposts/highlight-graph-query.html
 
 <span class="c1">## Lorem ipsum</span>
-dolor sit amet,
-consectetur adipiscing elit.
+dolor<span class="w"> </span>sit<span class="w"> </span>amet,
+consectetur<span class="w"> </span>adipiscing<span class="w"> </span>elit.
 </code></pre></div>
 
 <h1 id="previewing-your-work">Previewing your Work</h1>
@@ -221,9 +221,9 @@ When you fix the syntax errors, Pelican detects the changes and rebuilds the sit
 <p>You're ready to publish for review!</p>
 <h1 id="sharing-with-others">Sharing with Others</h1>
 <p>First, you push your changes up to the Github "fork" you created earlier:</p>
-<div class="codehilite"><pre><span></span><code>$ git add -A
-$ git commit -m <span class="s2">&quot;Add a blog post about Solr&#39;s graph query support&quot;</span>
-$ git push myGHfork blog-post-highlighting-graph-query:blog-post-highlighting-graph-query
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>-A
+$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add a blog post about Solr&#39;s graph query support&quot;</span>
+$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>myGHfork<span class="w"> </span>blog-post-highlighting-graph-query:blog-post-highlighting-graph-query
 </code></pre></div>
 
 <p>With that done, you open the GitHub <a href="https://github.com/apache/solr-site">solr-site</a> page in your browser and create a PR from the <code>blog-post-highlighting-graph-query</code> branch now available on your Github fork.

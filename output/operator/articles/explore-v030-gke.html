@@ -135,45 +135,45 @@ If you’re new to GKE, work through the <a href="https://cloud.google.com/kuber
 To achieve better HA, you should deploy a <strong>regional</strong> GKE cluster across three zones (at least one Solr pod per zone).
 Of course, you can deploy a zonal cluster to one zone for dev / testing purposes but the examples I show are based on a 3-node GKE cluster running in the us-central1 region with one node in each of three zones.</p>
 <p>To get started, we need to install the nginx ingress controller into ingress-nginx namespace:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.45.0/deploy/static/provider/cloud/deploy.yaml</span>
+<div class="codehilite"><pre><span></span><code>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.45.0/deploy/static/provider/cloud/deploy.yaml
 </code></pre></div>
 
 <p>For more information, see <a href="https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke">Deploy Nginx Ingress on GKE</a>.</p>
 <p>To verify the ingress controller is operating normally, do:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get pods -l app.kubernetes.io/name=ingress-nginx -n ingress-nginx \</span>
-<span class="err">  --field-selector status.phase=Running</span>
+<div class="codehilite"><pre><span></span><code>kubectl get pods -l app.kubernetes.io/name=ingress-nginx -n ingress-nginx \
+  --field-selector status.phase=Running
 </code></pre></div>
 
 <p>Should see expected output similar to:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">NAME                                        READY   STATUS    RESTARTS   AGE</span>
-<span class="err">ingress-nginx-controller-6c94f69c74-fxzp7   1/1     Running   0          6m23s</span>
+<div class="codehilite"><pre><span></span><code>NAME                                        READY   STATUS    RESTARTS   AGE
+ingress-nginx-controller-6c94f69c74-fxzp7   1/1     Running   0          6m23s
 </code></pre></div>
 
 <p>For this document, we’re going to deploy the operator and Solr to a namespace named <strong><code>sop030</code></strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl create ns sop030</span>
-<span class="err">kubectl config set-context --current --namespace=sop030</span>
+<div class="codehilite"><pre><span></span><code>kubectl create ns sop030
+kubectl config set-context --current --namespace=sop030
 </code></pre></div>
 
 <h3 id="solr-operator-setup">Solr Operator Setup</h3>
 <p>If you installed previous versions of the Solr operator, then please upgrade to the <strong>Apache Solr</strong> version using these instructions: <a href="https://apache.github.io/solr-operator/docs/upgrading-to-apache.html">Upgrading to Apache</a>. 
 Otherwise, add the Apache Solr Helm repo, install the <a href="#solr-crds">Solr CRDs</a> and <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator">install the Solr operator</a>:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">helm</span> <span class="n">repo</span> <span class="k">add</span> <span class="n">apache</span><span class="o">-</span><span class="n">solr</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">solr</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">charts</span>
-<span class="n">helm</span> <span class="n">repo</span> <span class="k">update</span>
+<div class="codehilite"><pre><span></span><code><span class="n">helm</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">apache</span><span class="o">-</span><span class="n">solr</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">solr</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">charts</span>
+<span class="n">helm</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="n">update</span>
 
-<span class="n">kubectl</span> <span class="k">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">solr</span><span class="p">.</span><span class="n">apache</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="k">operator</span><span class="o">/</span><span class="n">downloads</span><span class="o">/</span><span class="n">crds</span><span class="o">/</span><span class="n">v0</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="mi">0</span><span class="o">/</span><span class="k">all</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">dependencies</span><span class="p">.</span><span class="n">yaml</span>
+<span class="n">kubectl</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">solr</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">operator</span><span class="o">/</span><span class="n">downloads</span><span class="o">/</span><span class="n">crds</span><span class="o">/</span><span class="n">v0</span><span class="o">.</span><span class="mf">3.0</span><span class="o">/</span><span class="n">all</span><span class="o">-</span><span class="n">with</span><span class="o">-</span><span class="n">dependencies</span><span class="o">.</span><span class="n">yaml</span>
 
-<span class="n">helm</span> <span class="n">upgrade</span> <span class="c1">--install solr-operator apache-solr/solr-operator \</span>
-  <span class="c1">--version 0.3.0</span>
+<span class="n">helm</span><span class="w"> </span><span class="n">upgrade</span><span class="w"> </span><span class="o">--</span><span class="n">install</span><span class="w"> </span><span class="n">solr</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span><span class="n">apache</span><span class="o">-</span><span class="n">solr</span><span class="o">/</span><span class="n">solr</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span>\
+<span class="w">  </span><span class="o">--</span><span class="n">version</span><span class="w"> </span><span class="mf">0.3</span><span class="o">.</span><span class="mi">0</span>
 </code></pre></div>
 
 <p>At this point, verify you have a Solr operator pod running in your namespace:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get pod -l control-plane=solr-operator</span>
-<span class="err">kubectl describe pod -l control-plane=solr-operator</span>
+<div class="codehilite"><pre><span></span><code>kubectl get pod -l control-plane=solr-operator
+kubectl describe pod -l control-plane=solr-operator
 </code></pre></div>
 
 <p>Notice I’m using a label selector filter instead of addressing the pods by ID, which saves me having to look up the ID to get pod details.</p>
 <p>There should also be a <a href="https://github.com/pravega/zookeeper-operator">Zookeeper Operator</a> pod running in your namespace, verify using:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get pod -l component=zookeeper-operator</span>
+<div class="codehilite"><pre><span></span><code>kubectl get pod -l component=zookeeper-operator
 </code></pre></div>
 
 <h3 id="solr-crds">Solr CRDs</h3>
@@ -188,72 +188,72 @@ This provides a number of benefits:</p>
 <p>The Solr operator defines CRDs that represent Solr specific objects, such as a SolrCloud resource, metrics exporter resource, and a backup/restore resource.
 The SolrCloud CRD defines the configuration settings needed to deploy and manage a Solr cluster in a Kubernetes namespace.
 First, let’s look at the SolrCloud CRD using kubectl:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">#</span> <span class="k">get</span> <span class="n">a</span> <span class="n">list</span> <span class="k">of</span> <span class="k">all</span> <span class="n">CRDs</span> <span class="k">in</span> <span class="n">the</span> <span class="k">cluster</span>
-<span class="n">kubectl</span> <span class="k">get</span> <span class="n">crds</span>
+<div class="codehilite"><pre><span></span><code># get a list of all CRDs in the cluster
+kubectl get crds
 
-<span class="o">#</span> <span class="k">get</span> <span class="n">details</span> <span class="n">about</span> <span class="n">the</span> <span class="n">SolrCloud</span> <span class="n">CRD</span> <span class="n">Spec</span>
-<span class="n">kubectl</span> <span class="k">explain</span> <span class="n">solrclouds</span><span class="p">.</span><span class="n">spec</span>
-<span class="n">kubectl</span> <span class="k">explain</span> <span class="n">solrclouds</span><span class="p">.</span><span class="n">spec</span><span class="p">.</span><span class="n">solrImage</span>
+# get details about the SolrCloud CRD Spec
+kubectl explain solrclouds.spec
+kubectl explain solrclouds.spec.solrImage
 
-<span class="o">#</span> <span class="k">get</span> <span class="n">details</span> <span class="n">about</span> <span class="n">the</span> <span class="n">SolrCloud</span> <span class="n">CRD</span> <span class="n">Status</span>
-<span class="n">kubectl</span> <span class="k">explain</span> <span class="n">solrclouds</span><span class="p">.</span><span class="n">status</span>
+# get details about the SolrCloud CRD Status
+kubectl explain solrclouds.status
 </code></pre></div>
 
 <p>Take a moment to look over the output from the <code>explain</code> command above; the various structures and fields should seem familiar.
 Feel free to dig down, exploring different parts of the SolrCloud CRD Spec and Status.</p>
 <h3 id="creating-a-solr-cloud">Creating a Solr Cloud</h3>
 <p>To deploy an instance of a SolrCloud object in a Kubernetes namespace, we craft a bit of YAML, such as the example shown below:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">apiVersion</span><span class="o">:</span> <span class="n">solr</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">org</span><span class="o">/</span><span class="n">v1beta1</span>
-<span class="n">kind</span><span class="o">:</span> <span class="n">SolrCloud</span>
+<div class="codehilite"><pre><span></span><code><span class="n">apiVersion</span><span class="o">:</span><span class="w"> </span><span class="n">solr</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">org</span><span class="o">/</span><span class="n">v1beta1</span>
+<span class="n">kind</span><span class="o">:</span><span class="w"> </span><span class="n">SolrCloud</span>
 <span class="n">metadata</span><span class="o">:</span>
-  <span class="n">name</span><span class="o">:</span> <span class="n">explore</span>
+<span class="w">  </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">explore</span>
 <span class="n">spec</span><span class="o">:</span>
-  <span class="n">customSolrKubeOptions</span><span class="o">:</span>
-    <span class="n">podOptions</span><span class="o">:</span>
-      <span class="n">resources</span><span class="o">:</span>
-        <span class="n">limits</span><span class="o">:</span>
-          <span class="n">memory</span><span class="o">:</span> <span class="mi">3</span><span class="n">Gi</span>
-        <span class="n">requests</span><span class="o">:</span>
-          <span class="n">cpu</span><span class="o">:</span> <span class="mi">700</span><span class="n">m</span>
-          <span class="n">memory</span><span class="o">:</span> <span class="mi">3</span><span class="n">Gi</span>
-  <span class="n">dataStorage</span><span class="o">:</span>
-    <span class="n">persistent</span><span class="o">:</span>
-      <span class="n">pvcTemplate</span><span class="o">:</span>
-        <span class="n">spec</span><span class="o">:</span>
-          <span class="n">resources</span><span class="o">:</span>
-            <span class="n">requests</span><span class="o">:</span>
-              <span class="n">storage</span><span class="o">:</span> <span class="mi">2</span><span class="n">Gi</span>
-      <span class="n">reclaimPolicy</span><span class="o">:</span> <span class="n">Delete</span>
-  <span class="n">replicas</span><span class="o">:</span> <span class="mi">3</span>
-  <span class="n">solrImage</span><span class="o">:</span>
-    <span class="n">repository</span><span class="o">:</span> <span class="n">solr</span>
-    <span class="n">tag</span><span class="o">:</span> <span class="mf">8.8</span><span class="o">.</span><span class="mi">2</span>
-  <span class="n">solrJavaMem</span><span class="o">:</span> <span class="o">-</span><span class="n">Xms500M</span> <span class="o">-</span><span class="n">Xmx500M</span>
-  <span class="n">updateStrategy</span><span class="o">:</span>
-    <span class="n">method</span><span class="o">:</span> <span class="n">StatefulSet</span>
-  <span class="n">zookeeperRef</span><span class="o">:</span>
-    <span class="n">provided</span><span class="o">:</span>
-      <span class="n">chroot</span><span class="o">:</span> <span class="o">/</span><span class="n">explore</span>
-      <span class="n">image</span><span class="o">:</span>
-        <span class="n">pullPolicy</span><span class="o">:</span> <span class="n">IfNotPresent</span>
-        <span class="n">repository</span><span class="o">:</span> <span class="n">pravega</span><span class="o">/</span><span class="n">zookeeper</span>
-        <span class="n">tag</span><span class="o">:</span> <span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
-      <span class="n">persistence</span><span class="o">:</span>
-        <span class="n">reclaimPolicy</span><span class="o">:</span> <span class="n">Delete</span>
-        <span class="n">spec</span><span class="o">:</span>
-          <span class="n">accessModes</span><span class="o">:</span>
-          <span class="o">-</span> <span class="n">ReadWriteOnce</span>
-          <span class="n">resources</span><span class="o">:</span>
-            <span class="n">requests</span><span class="o">:</span>
-              <span class="n">storage</span><span class="o">:</span> <span class="mi">2</span><span class="n">Gi</span>
-      <span class="n">replicas</span><span class="o">:</span> <span class="mi">3</span>
-      <span class="n">zookeeperPodPolicy</span><span class="o">:</span>
-        <span class="n">resources</span><span class="o">:</span>
-          <span class="n">limits</span><span class="o">:</span>
-            <span class="n">memory</span><span class="o">:</span> <span class="mi">500</span><span class="n">Mi</span>
-          <span class="n">requests</span><span class="o">:</span>
-            <span class="n">cpu</span><span class="o">:</span> <span class="mi">250</span><span class="n">m</span>
-            <span class="n">memory</span><span class="o">:</span> <span class="mi">500</span><span class="n">Mi</span>
+<span class="w">  </span><span class="n">customSolrKubeOptions</span><span class="o">:</span>
+<span class="w">    </span><span class="n">podOptions</span><span class="o">:</span>
+<span class="w">      </span><span class="n">resources</span><span class="o">:</span>
+<span class="w">        </span><span class="n">limits</span><span class="o">:</span>
+<span class="w">          </span><span class="n">memory</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="n">Gi</span>
+<span class="w">        </span><span class="n">requests</span><span class="o">:</span>
+<span class="w">          </span><span class="n">cpu</span><span class="o">:</span><span class="w"> </span><span class="mi">700</span><span class="n">m</span>
+<span class="w">          </span><span class="n">memory</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="n">Gi</span>
+<span class="w">  </span><span class="n">dataStorage</span><span class="o">:</span>
+<span class="w">    </span><span class="n">persistent</span><span class="o">:</span>
+<span class="w">      </span><span class="n">pvcTemplate</span><span class="o">:</span>
+<span class="w">        </span><span class="n">spec</span><span class="o">:</span>
+<span class="w">          </span><span class="n">resources</span><span class="o">:</span>
+<span class="w">            </span><span class="n">requests</span><span class="o">:</span>
+<span class="w">              </span><span class="n">storage</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="n">Gi</span>
+<span class="w">      </span><span class="n">reclaimPolicy</span><span class="o">:</span><span class="w"> </span><span class="n">Delete</span>
+<span class="w">  </span><span class="n">replicas</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="n">solrImage</span><span class="o">:</span>
+<span class="w">    </span><span class="n">repository</span><span class="o">:</span><span class="w"> </span><span class="n">solr</span>
+<span class="w">    </span><span class="n">tag</span><span class="o">:</span><span class="w"> </span><span class="mf">8.8</span><span class="o">.</span><span class="mi">2</span>
+<span class="w">  </span><span class="n">solrJavaMem</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="n">Xms500M</span><span class="w"> </span><span class="o">-</span><span class="n">Xmx500M</span>
+<span class="w">  </span><span class="n">updateStrategy</span><span class="o">:</span>
+<span class="w">    </span><span class="n">method</span><span class="o">:</span><span class="w"> </span><span class="n">StatefulSet</span>
+<span class="w">  </span><span class="n">zookeeperRef</span><span class="o">:</span>
+<span class="w">    </span><span class="n">provided</span><span class="o">:</span>
+<span class="w">      </span><span class="n">chroot</span><span class="o">:</span><span class="w"> </span><span class="o">/</span><span class="n">explore</span>
+<span class="w">      </span><span class="n">image</span><span class="o">:</span>
+<span class="w">        </span><span class="n">pullPolicy</span><span class="o">:</span><span class="w"> </span><span class="n">IfNotPresent</span>
+<span class="w">        </span><span class="n">repository</span><span class="o">:</span><span class="w"> </span><span class="n">pravega</span><span class="o">/</span><span class="n">zookeeper</span>
+<span class="w">        </span><span class="n">tag</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
+<span class="w">      </span><span class="n">persistence</span><span class="o">:</span>
+<span class="w">        </span><span class="n">reclaimPolicy</span><span class="o">:</span><span class="w"> </span><span class="n">Delete</span>
+<span class="w">        </span><span class="n">spec</span><span class="o">:</span>
+<span class="w">          </span><span class="n">accessModes</span><span class="o">:</span>
+<span class="w">          </span><span class="o">-</span><span class="w"> </span><span class="n">ReadWriteOnce</span>
+<span class="w">          </span><span class="n">resources</span><span class="o">:</span>
+<span class="w">            </span><span class="n">requests</span><span class="o">:</span>
+<span class="w">              </span><span class="n">storage</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="n">Gi</span>
+<span class="w">      </span><span class="n">replicas</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">      </span><span class="n">zookeeperPodPolicy</span><span class="o">:</span>
+<span class="w">        </span><span class="n">resources</span><span class="o">:</span>
+<span class="w">          </span><span class="n">limits</span><span class="o">:</span>
+<span class="w">            </span><span class="n">memory</span><span class="o">:</span><span class="w"> </span><span class="mi">500</span><span class="n">Mi</span>
+<span class="w">          </span><span class="n">requests</span><span class="o">:</span>
+<span class="w">            </span><span class="n">cpu</span><span class="o">:</span><span class="w"> </span><span class="mi">250</span><span class="n">m</span>
+<span class="w">            </span><span class="n">memory</span><span class="o">:</span><span class="w"> </span><span class="mi">500</span><span class="n">Mi</span>
 </code></pre></div>
 
 <p>Play close attention to the resource requests / limits and disk sizes for Solr and Zookeeper; allocating the correct amount of memory, CPU, and disk for each Solr pod is an essential task when designing your cluster. 
@@ -263,12 +263,12 @@ Sizing for production is beyond the scope of this document and is very use-case 
 Your ops team will keep this YAML in source control, allowing them to automate the process of creating SolrCloud clusters in Kubernetes. 
 You could even build a Helm chart to manage your SolrCloud YAML and related objects, such as backup/restore and Prometheus exporter CRD definitions.</p>
 <p>Open a shell and run the following to tail the operator pod logs:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl logs -l control-plane=solr-operator -f</span>
+<div class="codehilite"><pre><span></span><code>kubectl logs -l control-plane=solr-operator -f
 </code></pre></div>
 
 <p>Note that I’m using a label selector (<code>-l ...</code>) instead of addressing the pod by its ID; this alleviates having to find the pod ID every time I want to view the operator logs.</p>
 <p>To deploy the <code>explore</code> SolrCloud to K8s, save the YAML shown above to a file named <strong>explore-SolrCloud.yaml</strong> and then run the following in another shell tab:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl apply -f explore-SolrCloud.yaml</span>
+<div class="codehilite"><pre><span></span><code>kubectl apply -f explore-SolrCloud.yaml
 </code></pre></div>
 
 <p><em>We'll make updates to the <code>explore-SolrCloud.yaml</code> file throughout the rest of this document.<br>
@@ -277,22 +277,22 @@ Any code section that starts with "<code>spec:</code>", refers to this file.</em
 This initiates a reconcile process in the operator where it creates the various K8s objects needed to run the <code>explore</code> SolrCloud cluster (see diagram above).
 Take a brief look at the logs for the operator as the SolrCloud instance gets deployed.</p>
 <p>One of the main benefits of CRDs is you can interact with them using <code>kubectl</code> just like native K8s objects:</p>
-<div class="codehilite"><pre><span></span><code>$ kubectl get solrclouds
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>solrclouds
 
-NAME     VERSION   TARGETVERSION   DESIREDNODES   NODES   READYNODES   AGE
-explore  <span class="m">8</span>.8.2                     <span class="m">3</span>              <span class="m">3</span>       <span class="m">3</span>            73s
+NAME<span class="w">     </span>VERSION<span class="w">   </span>TARGETVERSION<span class="w">   </span>DESIREDNODES<span class="w">   </span>NODES<span class="w">   </span>READYNODES<span class="w">   </span>AGE
+explore<span class="w">  </span><span class="m">8</span>.8.2<span class="w">                     </span><span class="m">3</span><span class="w">              </span><span class="m">3</span><span class="w">       </span><span class="m">3</span><span class="w">            </span>73s
 
-$ kubectl get solrclouds explore -o yaml
+$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>solrclouds<span class="w"> </span>explore<span class="w"> </span>-o<span class="w"> </span>yaml
 </code></pre></div>
 
 <p>Behind the scenes, the operator created a <a href="https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/">StatefulSet</a> for managing a set of Solr pods.
 Take a look at the <code>explore</code> StatefulSet using:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get sts explore -o yaml</span>
+<div class="codehilite"><pre><span></span><code>kubectl get sts explore -o yaml
 </code></pre></div>
 
 <p>There's one slightly nuanced setting I'm relying on for this initial SolrCloud definition:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">  updateStrategy:</span>
-<span class="err">    method: StatefulSet</span>
+<div class="codehilite"><pre><span></span><code>  updateStrategy:
+    method: StatefulSet
 </code></pre></div>
 
 <p>We need to start with <code>StatefulSet</code> as the <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#update-strategy"><code>updateStrategy</code> method</a> so that we can enable TLS on an existing SolrCloud. 
@@ -324,86 +324,86 @@ If not already installed in your cluster, follow the basic instructions provided
 <p>First, let’s get started with a self-signed certificate.
 You’ll need to create a self-signed issuer (cert-manager CRD), certificate (cert-manager CRD), and a secret holding a keystore password.
 Save the following yaml to a file, and apply it via <code>kubectl apply -f</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">---</span>
-<span class="n">apiVersion</span><span class="p">:</span> <span class="n">v1</span>
-<span class="n">kind</span><span class="p">:</span> <span class="n">Secret</span>
-<span class="n">metadata</span><span class="p">:</span>
-  <span class="n">name</span><span class="p">:</span> <span class="n">pkcs12</span><span class="o">-</span><span class="n">keystore</span><span class="o">-</span><span class="n">password</span>
-<span class="n">stringData</span><span class="p">:</span>
-  <span class="n">password</span><span class="o">-</span><span class="k">key</span><span class="p">:</span> <span class="n">Test1234</span>
+<div class="codehilite"><pre><span></span><code>---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pkcs12-keystore-password
+stringData:
+  password-key: Test1234
 
-<span class="c1">---</span>
-<span class="n">apiVersion</span><span class="p">:</span> <span class="n">cert</span><span class="o">-</span><span class="n">manager</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
-<span class="n">kind</span><span class="p">:</span> <span class="n">Issuer</span>
-<span class="n">metadata</span><span class="p">:</span>
-  <span class="n">name</span><span class="p">:</span> <span class="n">selfsigned</span><span class="o">-</span><span class="n">issuer</span>
-<span class="n">spec</span><span class="p">:</span>
-  <span class="n">selfSigned</span><span class="p">:</span> <span class="err">{}</span>
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
 
-<span class="c1">---</span>
-<span class="n">apiVersion</span><span class="p">:</span> <span class="n">cert</span><span class="o">-</span><span class="n">manager</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
-<span class="n">kind</span><span class="p">:</span> <span class="n">Certificate</span>
-<span class="n">metadata</span><span class="p">:</span>
-  <span class="n">name</span><span class="p">:</span> <span class="n">explore</span><span class="o">-</span><span class="n">selfsigned</span><span class="o">-</span><span class="n">cert</span>
-<span class="n">spec</span><span class="p">:</span>
-  <span class="n">subject</span><span class="p">:</span>
-    <span class="n">organizations</span><span class="p">:</span> <span class="p">[</span><span class="ss">&quot;self&quot;</span><span class="p">]</span>
-  <span class="n">dnsNames</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">localhost</span>
-  <span class="n">secretName</span><span class="p">:</span> <span class="n">explore</span><span class="o">-</span><span class="n">selfsigned</span><span class="o">-</span><span class="n">cert</span><span class="o">-</span><span class="n">tls</span>
-  <span class="n">issuerRef</span><span class="p">:</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">selfsigned</span><span class="o">-</span><span class="n">issuer</span>
-  <span class="n">keystores</span><span class="p">:</span>
-    <span class="n">pkcs12</span><span class="p">:</span>
-      <span class="k">create</span><span class="p">:</span> <span class="k">true</span>
-      <span class="n">passwordSecretRef</span><span class="p">:</span>
-        <span class="k">key</span><span class="p">:</span> <span class="n">password</span><span class="o">-</span><span class="k">key</span>
-        <span class="n">name</span><span class="p">:</span> <span class="n">pkcs12</span><span class="o">-</span><span class="n">keystore</span><span class="o">-</span><span class="n">password</span>
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: explore-selfsigned-cert
+spec:
+  subject:
+    organizations: [&quot;self&quot;]
+  dnsNames:
+    - localhost
+  secretName: explore-selfsigned-cert-tls
+  issuerRef:
+    name: selfsigned-issuer
+  keystores:
+    pkcs12:
+      create: true
+      passwordSecretRef:
+        key: password-key
+        name: pkcs12-keystore-password
 </code></pre></div>
 
 <p>Notice I requested a PKCS12 keystore to be generated for my certificate using:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">  keystores:</span>
-<span class="err">    pkcs12:</span>
-<span class="err">      create: true</span>
+<div class="codehilite"><pre><span></span><code>  keystores:
+    pkcs12:
+      create: true
 </code></pre></div>
 
 <p>This is a nice feature of cert-manager when working with Java based applications as Java supports reading PKCS12 natively whereas you’d need to convert the tls.crt and tls.key files using keytool if cert-manager did not do this for you automatically.</p>
 <p>Cert-manager creates a Kubernetes secret holding the X.509 certificate, private key, and PKCS12 compliant keystore used by Solr. 
 Take a moment to inspect the contents of the secret using:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get secret explore-selfsigned-cert-tls -o yaml</span>
+<div class="codehilite"><pre><span></span><code>kubectl get secret explore-selfsigned-cert-tls -o yaml
 </code></pre></div>
 
 <p>Update your SolrCloud CRD definition in <code>explore-SolrCloud.yaml</code> to enable TLS and point to the secret holding the keystore:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">spec</span><span class="p">:</span>
-  <span class="p">...</span>
+<div class="codehilite"><pre><span></span><code>spec:
+  ...
 
-  <span class="n">solrAddressability</span><span class="p">:</span>
-    <span class="n">commonServicePort</span><span class="p">:</span> <span class="mi">443</span>
-    <span class="k">external</span><span class="p">:</span>
-      <span class="n">domainName</span><span class="p">:</span> <span class="n">YOUR_DOMAIN_NAME_HERE</span>
-      <span class="k">method</span><span class="p">:</span> <span class="n">Ingress</span>
-      <span class="n">nodePortOverride</span><span class="p">:</span> <span class="mi">443</span>
-      <span class="n">useExternalAddress</span><span class="p">:</span> <span class="k">false</span>
-    <span class="n">podPort</span><span class="p">:</span> <span class="mi">8983</span>
+  solrAddressability:
+    commonServicePort: 443
+    external:
+      domainName: YOUR_DOMAIN_NAME_HERE
+      method: Ingress
+      nodePortOverride: 443
+      useExternalAddress: false
+    podPort: 8983
 
-  <span class="n">solrTLS</span><span class="p">:</span>
-    <span class="n">restartOnTLSSecretUpdate</span><span class="p">:</span> <span class="k">true</span>
-    <span class="n">pkcs12Secret</span><span class="p">:</span>
-      <span class="n">name</span><span class="p">:</span> <span class="n">explore</span><span class="o">-</span><span class="n">selfsigned</span><span class="o">-</span><span class="n">cert</span><span class="o">-</span><span class="n">tls</span>
-      <span class="k">key</span><span class="p">:</span> <span class="n">keystore</span><span class="p">.</span><span class="n">p12</span>
-    <span class="n">keyStorePasswordSecret</span><span class="p">:</span>
-      <span class="n">name</span><span class="p">:</span> <span class="n">pkcs12</span><span class="o">-</span><span class="n">keystore</span><span class="o">-</span><span class="n">password</span>
-      <span class="k">key</span><span class="p">:</span> <span class="n">password</span><span class="o">-</span><span class="k">key</span>
+  solrTLS:
+    restartOnTLSSecretUpdate: true
+    pkcs12Secret:
+      name: explore-selfsigned-cert-tls
+      key: keystore.p12
+    keyStorePasswordSecret:
+      name: pkcs12-keystore-password
+      key: password-key
 </code></pre></div>
 
 <p>Notice that I'm also exposing Solr externally via an Ingress and switching the common service port to 443, which is more intuitive when working with TLS enabled services.
 Apply your changes to the SolrCloud CRD using:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl apply -f explore-SolrCloud.yaml</span>
+<div class="codehilite"><pre><span></span><code>kubectl apply -f explore-SolrCloud.yaml
 </code></pre></div>
 
 <p>This will trigger a rolling restart of the Solr pods to enable TLS using your self-signed cert. Verify Solr is serving
 traffic over HTTPS by opening a port-forward to one of the Solr pods (port 8983) and then do:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">curl https://localhost:8983/solr/admin/info/system -k</span>
+<div class="codehilite"><pre><span></span><code>curl https://localhost:8983/solr/admin/info/system -k
 </code></pre></div>
 
 <h3 id="lets-encrypt-issued-tls-certs">Let’s Encrypt Issued TLS Certs</h3>
@@ -412,67 +412,67 @@ I’m going to use Let’s Encrypt to issue a cert for my Solr cluster for a dom
 If you don't have a domain name for your Solr cluster, you can just skip this section and refer back to it when needed.
 The process I’m using here is based on the docs at: <a href="https://cert-manager.io/docs/configuration/acme/dns01/google/">ACME DNS01 Resolver for Google</a>.</p>
 <p>Here’s the Let’s Encrypt issuer I created for my GKE environment:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">---</span>
-<span class="n">apiVersion</span><span class="p">:</span> <span class="n">cert</span><span class="o">-</span><span class="n">manager</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
-<span class="n">kind</span><span class="p">:</span> <span class="n">Issuer</span>
-<span class="n">metadata</span><span class="p">:</span>
-  <span class="n">name</span><span class="p">:</span> <span class="n">acme</span><span class="o">-</span><span class="n">letsencrypt</span><span class="o">-</span><span class="n">issuer</span>
-<span class="n">spec</span><span class="p">:</span>
-  <span class="n">acme</span><span class="p">:</span>
-    <span class="n">server</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">acme</span><span class="o">-</span><span class="n">v02</span><span class="p">.</span><span class="n">api</span><span class="p">.</span><span class="n">letsencrypt</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">directory</span>
-    <span class="n">email</span><span class="p">:</span> <span class="o">***</span> <span class="n">REDACTED</span> <span class="o">***</span>
-    <span class="n">privateKeySecretRef</span><span class="p">:</span>
-      <span class="n">name</span><span class="p">:</span> <span class="n">acme</span><span class="o">-</span><span class="n">letsencrypt</span><span class="o">-</span><span class="n">issuer</span><span class="o">-</span><span class="n">pk</span>
-    <span class="n">solvers</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">dns01</span><span class="p">:</span>
-        <span class="n">cloudDNS</span><span class="p">:</span>
-          <span class="n">project</span><span class="p">:</span> <span class="n">GCP_PROJECT</span>
-          <span class="n">serviceAccountSecretRef</span><span class="p">:</span>
-            <span class="n">name</span><span class="p">:</span> <span class="n">clouddns</span><span class="o">-</span><span class="n">dns01</span><span class="o">-</span><span class="n">solver</span><span class="o">-</span><span class="n">svc</span><span class="o">-</span><span class="n">acct</span>
-            <span class="k">key</span><span class="p">:</span> <span class="k">key</span><span class="p">.</span><span class="n">json</span>
+<div class="codehilite"><pre><span></span><code>---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: acme-letsencrypt-issuer
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: *** REDACTED ***
+    privateKeySecretRef:
+      name: acme-letsencrypt-issuer-pk
+    solvers:
+    <span class="k">-</span> dns01:
+        cloudDNS:
+          project: GCP_PROJECT
+          serviceAccountSecretRef:
+            name: clouddns-dns01-solver-svc-acct
+            key: key.json
 
-<span class="c1">---</span>
-<span class="n">apiVersion</span><span class="p">:</span> <span class="n">cert</span><span class="o">-</span><span class="n">manager</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
-<span class="n">kind</span><span class="p">:</span> <span class="n">Certificate</span>
-<span class="n">metadata</span><span class="p">:</span>
-  <span class="n">name</span><span class="p">:</span> <span class="n">explore</span><span class="o">-</span><span class="n">solr</span><span class="o">-</span><span class="n">tls</span><span class="o">-</span><span class="n">cert</span>
-<span class="n">spec</span><span class="p">:</span>
-  <span class="n">dnsNames</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">YOUR_DOMAIN_NAME_HERE</span>
-  <span class="n">issuerRef</span><span class="p">:</span>
-    <span class="n">kind</span><span class="p">:</span> <span class="n">Issuer</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n">acme</span><span class="o">-</span><span class="n">letsencrypt</span><span class="o">-</span><span class="n">issuer</span>
-  <span class="n">keystores</span><span class="p">:</span>
-    <span class="n">pkcs12</span><span class="p">:</span>
-      <span class="k">create</span><span class="p">:</span> <span class="k">true</span>
-      <span class="n">passwordSecretRef</span><span class="p">:</span>
-        <span class="k">key</span><span class="p">:</span> <span class="n">password</span><span class="o">-</span><span class="k">key</span>
-        <span class="n">name</span><span class="p">:</span> <span class="n">pkcs12</span><span class="o">-</span><span class="n">keystore</span><span class="o">-</span><span class="n">password</span>
-  <span class="n">secretName</span><span class="p">:</span> <span class="n">explore</span><span class="o">-</span><span class="n">solr</span><span class="o">-</span><span class="n">tls</span><span class="o">-</span><span class="n">letsencrypt</span>
-  <span class="n">subject</span><span class="p">:</span>
-    <span class="n">countries</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">USA</span>
-    <span class="n">organizationalUnits</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">k8s</span>
-    <span class="n">organizations</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">solr</span>
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: explore-solr-tls-cert
+spec:
+  dnsNames:
+  <span class="k">-</span> YOUR_DOMAIN_NAME_HERE
+  issuerRef:
+    kind: Issuer
+    name: acme-letsencrypt-issuer
+  keystores:
+    pkcs12:
+      create: true
+      passwordSecretRef:
+        key: password-key
+        name: pkcs12-keystore-password
+  secretName: explore-solr-tls-letsencrypt
+  subject:
+    countries:
+    <span class="k">-</span> USA
+    organizationalUnits:
+    <span class="k">-</span> k8s
+    organizations:
+    <span class="k">-</span> solr
 </code></pre></div>
 
 <p>Creating a certificate issuer typically involves some platform specific configuration. 
 For GKE, notice I’m using the DNS01 resolver, which requires credentials for a service account that has DNS admin permission, which you’ll need to configure in your GCP console or using the gcloud CLI. 
 In my environment, I’m storing the credentials in a secret named: <code>clouddns-dns01-solver-svc-acct</code>.</p>
 <p>You can tail the logs on the cert-manager pod (in the cert-manager namespace) to track the progress of the issuing process. </p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl logs -l app.kubernetes.io/name=cert-manager -n cert-manager</span>
+<div class="codehilite"><pre><span></span><code>kubectl logs -l app.kubernetes.io/name=cert-manager -n cert-manager
 </code></pre></div>
 
 <p>Once the TLS cert is issued by Let's Encrypt, re-configure (assuming you worked through the self-signed process above) your SolrCloud instance to expose Solr via an Ingress and use the PKCS12 keystore holding the certificate and private key stored in the TLS secret created by cert-manager:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">spec</span><span class="p">:</span>
-  <span class="p">...</span>
+<div class="codehilite"><pre><span></span><code>spec:
+  ...
 
-  <span class="n">solrTLS</span><span class="p">:</span>
-    <span class="n">pkcs12Secret</span><span class="p">:</span>
-      <span class="n">name</span><span class="p">:</span> <span class="n">explore</span><span class="o">-</span><span class="n">solr</span><span class="o">-</span><span class="n">tls</span><span class="o">-</span><span class="n">letsencrypt</span>
-      <span class="k">key</span><span class="p">:</span> <span class="n">keystore</span><span class="p">.</span><span class="n">p12</span>
+  solrTLS:
+    pkcs12Secret:
+      name: explore-solr-tls-letsencrypt
+      key: keystore.p12
 </code></pre></div>
 
 <p>The final step is to create a DNS A record to map the IP address of your Ingress (created by the Solr operator) to the hostname for your Ingress.</p>
@@ -484,17 +484,17 @@ Refer to the Solr Operator documentation for <a href="https://apache.github.io/s
 As of <code>v0.3.0</code>, the Solr operator supports basic authentication and Solr’s rule based authorization controls.</p>
 <p>The easiest way to get started is to have the operator bootstrap basic authentication and authorization controls. 
 For detailed instructions, see: <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#authentication-and-authorization">Authentication and Authorization</a></p>
-<div class="codehilite"><pre><span></span><code><span class="n">spec</span><span class="p">:</span>
-  <span class="p">...</span>
+<div class="codehilite"><pre><span></span><code>spec:
+  ...
 
-  <span class="n">solrSecurity</span><span class="p">:</span>
-    <span class="n">authenticationType</span><span class="p">:</span> <span class="n">Basic</span>
+  solrSecurity:
+    authenticationType: Basic
 </code></pre></div>
 
 <p>The operator configures credentials for three Solr users: <code>admin</code>, <code>k8s-oper</code>, and <code>solr</code>.</p>
 <p>Login to the Solr admin Web UI as the admin user by doing:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get secret explore-solrcloud-security-bootstrap \</span>
-<span class="err">  -o jsonpath=&#39;{.data.admin}&#39; | base64 --decode</span>
+<div class="codehilite"><pre><span></span><code>kubectl get secret explore-solrcloud-security-bootstrap \
+  -o jsonpath=&#39;{.data.admin}&#39; | base64 --decode
 </code></pre></div>
 
 <p>At this point, all traffic into and between Solr pods is encrypted using TLS and API endpoints are locked down via Solr’s Rule-based authorization controls and basic authentication. 
@@ -509,44 +509,44 @@ At some point, the healthy replicas may become overloaded by requests, so any av
 <p>To begin our exploration of high availability with the Solr operator, let’s ensure Solr pods are evenly distributed around the cluster using pod anti-affinity.</p>
 <p>Once you determine the number of Solr pods you need, you’ll also want to distribute the pods across your Kubernetes cluster in a balanced manner in order to withstand random node failures as well as zone-level outages (for multi-zone clusters) using <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">Pod Anti-affinity</a> rules.</p>
 <p>To see the zones for each node in your cluster, do:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get nodes -L topology.kubernetes.io/zone</span>
+<div class="codehilite"><pre><span></span><code>kubectl get nodes -L topology.kubernetes.io/zone
 </code></pre></div>
 
 <p>In the following <strong>podAntiAffinity</strong> example, pods that match the <strong>solr-cloud=explore</strong> label selector are distributed across different nodes and zones in the cluster.</p>
 <p><em>Tip: The Solr operator sets the “solr-cloud” label to the name of your SolrCloud instance on all pods.</em></p>
-<div class="codehilite"><pre><span></span><code><span class="n">spec</span><span class="p">:</span>
-  <span class="p">...</span>
+<div class="codehilite"><pre><span></span><code>spec:
+  ...
 
-  <span class="n">customSolrKubeOptions</span><span class="p">:</span>
-    <span class="n">podOptions</span><span class="p">:</span>
-      <span class="n">affinity</span><span class="p">:</span>
-        <span class="n">podAntiAffinity</span><span class="p">:</span>
-          <span class="n">preferredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span>
-          <span class="o">-</span> <span class="n">weight</span><span class="p">:</span> <span class="mi">100</span>
-            <span class="n">podAffinityTerm</span><span class="p">:</span>
-              <span class="n">labelSelector</span><span class="p">:</span>
-                <span class="n">matchExpressions</span><span class="p">:</span>
-                <span class="o">-</span> <span class="k">key</span><span class="p">:</span> <span class="ss">&quot;technology&quot;</span>
-                  <span class="k">operator</span><span class="p">:</span> <span class="k">In</span>
-                  <span class="k">values</span><span class="p">:</span>
-                  <span class="o">-</span> <span class="n">solr</span><span class="o">-</span><span class="n">cloud</span>
-                <span class="o">-</span> <span class="k">key</span><span class="p">:</span> <span class="ss">&quot;solr-cloud&quot;</span>
-                  <span class="k">operator</span><span class="p">:</span> <span class="k">In</span>
-                  <span class="k">values</span><span class="p">:</span>
-                  <span class="o">-</span> <span class="n">explore</span>
-              <span class="n">topologyKey</span><span class="p">:</span> <span class="n">topology</span><span class="p">.</span><span class="n">kubernetes</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="k">zone</span>
-          <span class="n">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span>
-            <span class="o">-</span> <span class="n">labelSelector</span><span class="p">:</span>
-                <span class="n">matchExpressions</span><span class="p">:</span>
-                <span class="o">-</span> <span class="k">key</span><span class="p">:</span> <span class="ss">&quot;technology&quot;</span>
-                  <span class="k">operator</span><span class="p">:</span> <span class="k">In</span>
-                  <span class="k">values</span><span class="p">:</span>
-                  <span class="o">-</span> <span class="n">solr</span><span class="o">-</span><span class="n">cloud</span>
-                <span class="o">-</span> <span class="k">key</span><span class="p">:</span> <span class="ss">&quot;solr-cloud&quot;</span>
-                  <span class="k">operator</span><span class="p">:</span> <span class="k">In</span>
-                  <span class="k">values</span><span class="p">:</span>
-                  <span class="o">-</span> <span class="n">explore</span>
-              <span class="n">topologyKey</span><span class="p">:</span> <span class="n">kubernetes</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">hostname</span>
+  customSolrKubeOptions:
+    podOptions:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: &quot;technology&quot;
+                  operator: In
+                  values:
+                  - solr-cloud
+                - key: &quot;solr-cloud&quot;
+                  operator: In
+                  values:
+                  - explore
+              topologyKey: topology.kubernetes.io/zone
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: &quot;technology&quot;
+                  operator: In
+                  values:
+                  - solr-cloud
+                - key: &quot;solr-cloud&quot;
+                  operator: In
+                  values:
+                  - explore
+              topologyKey: kubernetes.io/hostname
 </code></pre></div>
 
 <p><em>Obviously this doesn't matter much when you have 3 nodes across 3 zones with 3 Solr pods, you'd get a balanced distribution with just the hostname anti-affinity rule; for large clusters, it's important to have rules for both hostnames and zones.</em></p>
@@ -559,8 +559,8 @@ Thus, it's a good idea to plan your pod affinity rules before rolling out SolrCl
 Kubernetes does its best to distribute pods evenly across nodes, but multiple pods will get scheduled on the same node at some point (obviously).</p>
 <p>Assuming you requested 3 replicas for the “explore” SolrCloud, you should have an even distribution of pods across the three zones.
 Run the following command to get the number of unique nodes that your Solr Pods are running on, and count how many there are.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get po -l solr-cloud=explore,technology=solr-cloud \</span>
-<span class="err">  -o json | jq -r &#39;.items | sort_by(.spec.nodeName)[] | [.spec.nodeName] | @tsv&#39; | uniq | wc -l</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kubectl</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">po</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="n">solr</span><span class="o">-</span><span class="n">cloud</span><span class="o">=</span><span class="n">explore</span><span class="p">,</span><span class="n">technology</span><span class="o">=</span><span class="n">solr</span><span class="o">-</span><span class="n">cloud</span><span class="w"> </span><span class="err">\</span>
+<span class="w">  </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">jq</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="w"> </span><span class="s1">&#39;.items | sort_by(.spec.nodeName)[] | [.spec.nodeName] | @tsv&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">uniq</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">wc</span><span class="w"> </span><span class="o">-</span><span class="n">l</span>
 </code></pre></div>
 
 <p><em>Output should be: 3</em></p>
@@ -570,7 +570,7 @@ Run the following command to get the number of unique nodes that your Solr Pods 
 you still need to ensure all replicas for the collections that require HA get placed in order to take advantage of the cluster layout. 
 In other words, it doesn't do any good to distribute pods around the cluster to support HA if all the replicas for the same shard end up on the same node or zone. 
 On the Solr side, a good rule to start with is to have replicas for the same shard prefer other hosts using:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{&quot;node&quot;: &quot;#ANY&quot;, &quot;shard&quot;: &quot;#EACH&quot;, &quot;replica&quot;:&quot;&lt;2&quot;},</span>
+<div class="codehilite"><pre><span></span><code>{&quot;node&quot;: &quot;#ANY&quot;, &quot;shard&quot;: &quot;#EACH&quot;, &quot;replica&quot;:&quot;&lt;2&quot;},
 </code></pre></div>
 
 <p>See <a href="https://solr.apache.org/guide/solrcloud-autoscaling-overview.html">Solr Auto-scaling</a> for more information about this another other types of rules.</p>
@@ -579,39 +579,39 @@ On the Solr side, a good rule to start with is to have replicas for the same sha
 see: <a href="https://github.com/apache/solr/blob/main/solr/core/src/java/org/apache/solr/cluster/placement/plugins/AffinityPlacementFactory.java">solr/core/src/java/org/apache/solr/cluster/placement/plugins/AffinityPlacementFactory.java</a> for details.</em></p>
 <p>For multi-AZ clusters, each Solr pod in a StatefulSet needs the <strong>availability_zone</strong> Java system property set, which is a unique label that identifies the zone for that pod.
 The <strong>availability_zone</strong> property can be used in an auto-scaling rule to distribute replicas across all available zones in the SolrCloud cluster.</p>
-<div class="codehilite"><pre><span></span><code><span class="err">{&quot;replica&quot;:&quot;#EQUAL&quot;, &quot;shard&quot;:&quot;#EACH&quot;, &quot;sysprop.availability_zone&quot;:&quot;#EACH&quot;},</span>
+<div class="codehilite"><pre><span></span><code>{&quot;replica&quot;:&quot;#EQUAL&quot;, &quot;shard&quot;:&quot;#EACH&quot;, &quot;sysprop.availability_zone&quot;:&quot;#EACH&quot;},
 </code></pre></div>
 
 <p>If the service account for your Solr pods has the get nodes permission, you can get the zone from the node metadata using the <a href="https://kubernetes.io/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api">Downward API</a>. 
 However, many admins are reluctant to give out this permission. 
 A GCP specific solution where we <code>curl</code> the <a href="http://metadata.google.internal/computeMetadata/v1/instance/zone">http://metadata.google.internal/computeMetadata/v1/instance/zone</a> API is shown below:</p>
-<div class="codehilite"><pre><span></span><code>spec:
-  ...
+<div class="codehilite"><pre><span></span><code><span class="n">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="o">...</span>
 
-  customSolrKubeOptions:
-    podOptions:
-      initContainers: # additional init containers for the Solr pods
-        - name: set-zone # GKE specific, avoids giving get nodes permission to the service account
-          image: curlimages/curl:latest
-          command:
-            - &#39;/bin/sh&#39;
-            - &#39;-c&#39;
-            - |
-              zone=$(curl -sS http://metadata.google.internal/computeMetadata/v1/instance/zone -H &#39;Metadata-Flavor: Google&#39;)
-              zone=<span class="cp">${</span><span class="n">zone</span><span class="c1">##*/</span><span class="cp">}</span>
-              if [ &quot;<span class="cp">${</span><span class="n">zone</span><span class="cp">}</span>&quot; != &quot;&quot; ]; then
-                echo &quot;export SOLR_OPTS=\&quot;\<span class="cp">${</span><span class="n">SOLR_OPTS</span><span class="cp">}</span> -Davailability_zone=<span class="cp">${</span><span class="n">zone</span><span class="cp">}</span>\&quot;&quot; &gt; /docker-entrypoint-initdb.d/set-zone.sh
-              fi
-          volumeMounts:
-            - name: initdb
-              mountPath: /docker-entrypoint-initdb.d
-      volumes:
-      - defaultContainerMount:
-          mountPath: /docker-entrypoint-initdb.d
-          name: initdb
-        name: initdb
-        source:
-          emptyDir: {}
+<span class="w">  </span><span class="n">customSolrKubeOptions</span><span class="p">:</span>
+<span class="w">    </span><span class="n">podOptions</span><span class="p">:</span>
+<span class="w">      </span><span class="n">initContainers</span><span class="p">:</span><span class="w"> </span><span class="c1"># additional init containers for the Solr pods</span>
+<span class="w">        </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">set</span><span class="o">-</span><span class="n">zone</span><span class="w"> </span><span class="c1"># GKE specific, avoids giving get nodes permission to the service account</span>
+<span class="w">          </span><span class="n">image</span><span class="p">:</span><span class="w"> </span><span class="n">curlimages</span><span class="o">/</span><span class="n">curl</span><span class="p">:</span><span class="n">latest</span>
+<span class="w">          </span><span class="n">command</span><span class="p">:</span>
+<span class="w">            </span><span class="o">-</span><span class="w"> </span><span class="s1">&#39;/bin/sh&#39;</span>
+<span class="w">            </span><span class="o">-</span><span class="w"> </span><span class="s1">&#39;-c&#39;</span>
+<span class="w">            </span><span class="o">-</span><span class="w"> </span><span class="o">|</span>
+<span class="w">              </span><span class="n">zone</span><span class="o">=$</span><span class="p">(</span><span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">sS</span><span class="w"> </span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">metadata</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">internal</span><span class="o">/</span><span class="n">computeMetadata</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">instance</span><span class="o">/</span><span class="n">zone</span><span class="w"> </span><span class="o">-</span><span class="n">H</span><span class="w"> </span><span class="s1">&#39;Metadata-Flavor: Google&#39;</span><span class="p">)</span>
+<span class="w">              </span><span class="n">zone</span><span class="o">=$</span><span class="p">{</span><span class="n">zone</span><span class="c1">##*/}</span>
+<span class="w">              </span><span class="k">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;${zone}&quot;</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="n">then</span>
+<span class="w">                </span><span class="n">echo</span><span class="w"> </span><span class="s2">&quot;export SOLR_OPTS=</span><span class="se">\&quot;</span><span class="s2">\${SOLR_OPTS} -Davailability_zone=${zone}</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">entrypoint</span><span class="o">-</span><span class="n">initdb</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">set</span><span class="o">-</span><span class="n">zone</span><span class="o">.</span><span class="n">sh</span>
+<span class="w">              </span><span class="n">fi</span>
+<span class="w">          </span><span class="n">volumeMounts</span><span class="p">:</span>
+<span class="w">            </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">initdb</span>
+<span class="w">              </span><span class="n">mountPath</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">entrypoint</span><span class="o">-</span><span class="n">initdb</span><span class="o">.</span><span class="n">d</span>
+<span class="w">      </span><span class="n">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">defaultContainerMount</span><span class="p">:</span>
+<span class="w">          </span><span class="n">mountPath</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">entrypoint</span><span class="o">-</span><span class="n">initdb</span><span class="o">.</span><span class="n">d</span>
+<span class="w">          </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">initdb</span>
+<span class="w">        </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">initdb</span>
+<span class="w">        </span><span class="n">source</span><span class="p">:</span>
+<span class="w">          </span><span class="n">emptyDir</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
 </code></pre></div>
 
 <p>Notice the initContainer adds the <code>set-zone.sh</code> script to <code>/docker-entrypoint-initdb.d</code>. 
@@ -641,14 +641,14 @@ What’s more, these custom reconcile processes adhere to the idea of idempotenc
 The reconcile can be called 100 times given the same starting state, the results should be identical from the 1st and 100th.</p>
 <p>Recall that I originally used the <code>StatefulSet</code> method so that we could migrate an existing cluster to use TLS. 
 Let's switch that to use the <code>Managed</code> method using the following config:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">spec</span><span class="p">:</span>
-  <span class="p">...</span>
+<div class="codehilite"><pre><span></span><code>spec:
+  ...
 
-  <span class="n">updateStrategy</span><span class="p">:</span>
-    <span class="n">managed</span><span class="p">:</span>
-      <span class="n">maxPodsUnavailable</span><span class="p">:</span> <span class="mi">2</span>
-      <span class="n">maxShardReplicasUnavailable</span><span class="p">:</span> <span class="mi">2</span>
-    <span class="k">method</span><span class="p">:</span> <span class="n">Managed</span>
+  updateStrategy:
+    managed:
+      maxPodsUnavailable: 2
+      maxShardReplicasUnavailable: 2
+    method: Managed
 </code></pre></div>
 
 <p><em>Add this to your <code>explore-SolrCloud.yaml</code> and apply the changes.</em> </p>
@@ -663,62 +663,62 @@ use the <a href="https://apache.github.io/solr-operator/docs/solr-prometheus-exp
 <h3 id="prometheus-exporter">Prometheus Exporter</h3>
 <p>The operator <a href="https://apache.github.io/solr-operator/docs/solr-prometheus-exporter/">documentation</a> covers how to deploy a Prometheus exporter for your SolrCloud instance. 
 Since we enabled basic auth and TLS, you’ll need to ensure the exporter can talk to the secured Solr pods using the following config settings:</p>
-<div class="codehilite"><pre><span></span><code><span class="err"> solrReference:</span>
-<span class="err">    cloud:</span>
-<span class="err">      name: &quot;explore&quot;</span>
-<span class="err">    basicAuthSecret: explore-solrcloud-basic-auth</span>
-<span class="err"> solrTLS:</span>
-<span class="err">    restartOnTLSSecretUpdate: true</span>
-<span class="err">    pkcs12Secret:</span>
-<span class="err">      name: explore-selfsigned-cert-tls</span>
-<span class="err">      key: keystore.p12</span>
-<span class="err">    keyStorePasswordSecret:</span>
-<span class="err">      name: pkcs12-keystore-password</span>
-<span class="err">      key: password-key</span>
+<div class="codehilite"><pre><span></span><code> solrReference:
+    cloud:
+      name: &quot;explore&quot;
+    basicAuthSecret: explore-solrcloud-basic-auth
+ solrTLS:
+    restartOnTLSSecretUpdate: true
+    pkcs12Secret:
+      name: explore-selfsigned-cert-tls
+      key: keystore.p12
+    keyStorePasswordSecret:
+      name: pkcs12-keystore-password
+      key: password-key
 </code></pre></div>
 
 <p><em>Make sure the <code>pkcs12Secret.name</code> is correct depending on whether you're using the self-signed cert or one issued by another CA such as Let's Encrypt.</em> </p>
 <p>Ensure the service the Prometheus operator scrapes metrics from is correct:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl get svc -l solr-prometheus-exporter=explore-prom-exporter</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kubectl</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">svc</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="n">solr</span><span class="o">-</span><span class="n">prometheus</span><span class="o">-</span><span class="n">exporter</span><span class="o">=</span><span class="n">explore</span><span class="o">-</span><span class="n">prom</span><span class="o">-</span><span class="n">exporter</span>
 </code></pre></div>
 
 <p>If this shows a healthy service, then create a <a href="https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md">service monitor</a> 
 to trigger Prometheus to start scraping metrics from the exporter pod via the <code>explore-prom-exporter-solr-metrics</code> service.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">apiVersion</span><span class="o">:</span> <span class="n">monitoring</span><span class="o">.</span><span class="na">coreos</span><span class="o">.</span><span class="na">com</span><span class="o">/</span><span class="n">v1</span>
-<span class="n">kind</span><span class="o">:</span> <span class="n">ServiceMonitor</span>
+<div class="codehilite"><pre><span></span><code><span class="n">apiVersion</span><span class="o">:</span><span class="w"> </span><span class="n">monitoring</span><span class="o">.</span><span class="na">coreos</span><span class="o">.</span><span class="na">com</span><span class="o">/</span><span class="n">v1</span>
+<span class="n">kind</span><span class="o">:</span><span class="w"> </span><span class="n">ServiceMonitor</span>
 <span class="n">metadata</span><span class="o">:</span>
-  <span class="n">name</span><span class="o">:</span> <span class="n">solr</span><span class="o">-</span><span class="n">metrics</span>
-  <span class="n">labels</span><span class="o">:</span>
-    <span class="n">release</span><span class="o">:</span> <span class="n">prometheus</span><span class="o">-</span><span class="n">stack</span>
+<span class="w">  </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">solr</span><span class="o">-</span><span class="n">metrics</span>
+<span class="w">  </span><span class="n">labels</span><span class="o">:</span>
+<span class="w">    </span><span class="n">release</span><span class="o">:</span><span class="w"> </span><span class="n">prometheus</span><span class="o">-</span><span class="n">stack</span>
 <span class="n">spec</span><span class="o">:</span>
-  <span class="n">selector</span><span class="o">:</span>
-    <span class="n">matchLabels</span><span class="o">:</span>
-      <span class="n">solr</span><span class="o">-</span><span class="n">prometheus</span><span class="o">-</span><span class="n">exporter</span><span class="o">:</span> <span class="n">explore</span><span class="o">-</span><span class="n">prom</span><span class="o">-</span><span class="n">exporter</span>
-  <span class="n">namespaceSelector</span><span class="o">:</span>
-    <span class="n">matchNames</span><span class="o">:</span>
-    <span class="o">-</span> <span class="n">sop030</span>
-  <span class="n">endpoints</span><span class="o">:</span>
-  <span class="o">-</span> <span class="n">port</span><span class="o">:</span> <span class="n">solr</span><span class="o">-</span><span class="n">metrics</span>
-    <span class="n">interval</span><span class="o">:</span> <span class="mi">15</span><span class="n">s</span>
+<span class="w">  </span><span class="n">selector</span><span class="o">:</span>
+<span class="w">    </span><span class="n">matchLabels</span><span class="o">:</span>
+<span class="w">      </span><span class="n">solr</span><span class="o">-</span><span class="n">prometheus</span><span class="o">-</span><span class="n">exporter</span><span class="o">:</span><span class="w"> </span><span class="n">explore</span><span class="o">-</span><span class="n">prom</span><span class="o">-</span><span class="n">exporter</span>
+<span class="w">  </span><span class="n">namespaceSelector</span><span class="o">:</span>
+<span class="w">    </span><span class="n">matchNames</span><span class="o">:</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">sop030</span>
+<span class="w">  </span><span class="n">endpoints</span><span class="o">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">port</span><span class="o">:</span><span class="w"> </span><span class="n">solr</span><span class="o">-</span><span class="n">metrics</span>
+<span class="w">    </span><span class="n">interval</span><span class="o">:</span><span class="w"> </span><span class="mi">15</span><span class="n">s</span>
 </code></pre></div>
 
 <p><em>You'll need at least one collection created in your cluster before the exporter starts generating useful metrics.</em></p>
 <h3 id="grafana-dashboards">Grafana Dashboards</h3>
 <p>Use kubectl expose to create a LoadBalancer (external IP) for Grafana:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl expose deployment prometheus-stack-grafana --type=LoadBalancer \</span>
-<span class="err">   --name=grafana -n monitoring</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">kubectl</span><span class="w"> </span><span class="nx">expose</span><span class="w"> </span><span class="nx">deployment</span><span class="w"> </span><span class="nx">prometheus</span><span class="o">-</span><span class="nx">stack</span><span class="o">-</span><span class="nx">grafana</span><span class="w"> </span><span class="o">--</span><span class="k">type</span><span class="p">=</span><span class="nx">LoadBalancer</span><span class="w"> </span>\
+<span class="w">   </span><span class="o">--</span><span class="nx">name</span><span class="p">=</span><span class="nx">grafana</span><span class="w"> </span><span class="o">-</span><span class="nx">n</span><span class="w"> </span><span class="nx">monitoring</span>
 </code></pre></div>
 
 <p>After waiting a bit, get the external IP address for the grafana service by doing:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">kubectl -n monitoring get service grafana \</span>
-<span class="err">  -o jsonpath=&#39;{.status.loadBalancer.ingress[0].ip}&#39;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">kubectl</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">monitoring</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">service</span><span class="w"> </span><span class="n">grafana</span><span class="w"> </span>\
+<span class="w">  </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.loadBalancer.ingress[0].ip}&#39;</span>
 </code></pre></div>
 
 <p>Alternatively, you can just open a port-forward to the Grafana pod listening on port 3000. </p>
 <p>Login to Grafana using <code>admin</code> and <code>prom-operator</code></p>
 <p>Download the default Solr dashboard from the source distribution:</p>
-<div class="codehilite"><pre><span></span><code><span class="err">wget -q -O grafana-solr-dashboard.json \</span>
-<span class="err">  &quot;https://raw.githubusercontent.com/apache/lucene-solr/branch_8x/solr/contrib/prometheus-exporter/conf/grafana-solr-dashboard.json&quot;</span>
+<div class="codehilite"><pre><span></span><code><span class="n">wget</span><span class="w"> </span><span class="o">-</span><span class="n">q</span><span class="w"> </span><span class="o">-</span><span class="n">O</span><span class="w"> </span><span class="n">grafana</span><span class="o">-</span><span class="n">solr</span><span class="o">-</span><span class="n">dashboard</span><span class="o">.</span><span class="n">json</span><span class="w"> </span>\
+<span class="w">  </span><span class="s2">&quot;https://raw.githubusercontent.com/apache/lucene-solr/branch_8x/solr/contrib/prometheus-exporter/conf/grafana-solr-dashboard.json&quot;</span>
 </code></pre></div>
 
 <p>Manually import the <code>grafana-solr-dashboard.json</code> file into Grafana.</p>
@@ -726,7 +726,7 @@ to trigger Prometheus to start scraping metrics from the exporter pod via the <c
 then be sure to add the following query parameter to your query requests to prefer replicas in the same zone 
 (which helps cut down on cross-zone traffic per request when all zones have healthy replicas). 
 If you don’t have a query load test tool, then I recommend looking at Gatling (gatling.io).</p>
-<div class="codehilite"><pre><span></span><code><span class="err">shards.preference=node.sysprop:sysprop.availability_zone,replica.location:local</span>
+<div class="codehilite"><pre><span></span><code>shards.preference=node.sysprop:sysprop.availability_zone,replica.location:local
 </code></pre></div>
 
 <h2 id="wrap-up">Wrap-up</h2>
@@ -737,218 +737,218 @@ Hopefully I’ll be able to cover some of these additional aspects in a future p
 Let’s us know, we’re on slack <a href="https://kubernetes.slack.com/messages/solr-operator">#solr-operator</a> or via <a href="https://github.com/apache/solr-operator/issues">GitHub Issues</a>.</p>
 <p>Here’s a final listing of the SolrCloud, Prometheus Exporter, and supporting objects YAML I used in this post. Enjoy!</p>
 <div class="codehilite"><pre><span></span><code><span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
 <span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pkcs12-keystore-password</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkcs12-keystore-password</span>
 <span class="nt">stringData</span><span class="p">:</span>
-  <span class="nt">password-key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Test1234</span>
+<span class="w">  </span><span class="nt">password-key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test1234</span>
 
 <span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cert-manager.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Issuer</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cert-manager.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Issuer</span>
 <span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">selfsigned-issuer</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">selfsigned-issuer</span>
 <span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">selfSigned</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+<span class="w">  </span><span class="nt">selfSigned</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 
 <span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cert-manager.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Certificate</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cert-manager.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Certificate</span>
 <span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">explore-selfsigned-cert</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore-selfsigned-cert</span>
 <span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">subject</span><span class="p">:</span>
-    <span class="nt">organizations</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;self&quot;</span><span class="p p-Indicator">]</span>
-  <span class="nt">dnsNames</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">localhost</span>
-  <span class="nt">secretName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">explore-selfsigned-cert-tls</span>
-  <span class="nt">issuerRef</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">selfsigned-issuer</span>
-  <span class="nt">keystores</span><span class="p">:</span>
-    <span class="nt">pkcs12</span><span class="p">:</span>
-      <span class="nt">create</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-      <span class="nt">passwordSecretRef</span><span class="p">:</span>
-        <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">password-key</span>
-        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pkcs12-keystore-password</span>
+<span class="w">  </span><span class="nt">subject</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">organizations</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;self&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">dnsNames</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">  </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore-selfsigned-cert-tls</span>
+<span class="w">  </span><span class="nt">issuerRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">selfsigned-issuer</span>
+<span class="w">  </span><span class="nt">keystores</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">pkcs12</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">create</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">passwordSecretRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password-key</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkcs12-keystore-password</span>
 
 <span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">solr.apache.org/v1beta1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">SolrCloud</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solr.apache.org/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SolrCloud</span>
 <span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">explore</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore</span>
 <span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">customSolrKubeOptions</span><span class="p">:</span>
-    <span class="nt">podOptions</span><span class="p">:</span>
-      <span class="nt">resources</span><span class="p">:</span>
-        <span class="nt">limits</span><span class="p">:</span>
-          <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3Gi</span>
-        <span class="nt">requests</span><span class="p">:</span>
-          <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">700m</span>
-          <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3Gi</span>
-      <span class="nt">affinity</span><span class="p">:</span>
-        <span class="nt">podAntiAffinity</span><span class="p">:</span>
-          <span class="nt">preferredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">weight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
-            <span class="nt">podAffinityTerm</span><span class="p">:</span>
-              <span class="nt">labelSelector</span><span class="p">:</span>
-                <span class="nt">matchExpressions</span><span class="p">:</span>
-                <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;technology&quot;</span>
-                  <span class="nt">operator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">In</span>
-                  <span class="nt">values</span><span class="p">:</span>
-                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">solr-cloud</span>
-                <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;solr-cloud&quot;</span>
-                  <span class="nt">operator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">In</span>
-                  <span class="nt">values</span><span class="p">:</span>
-                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">explore</span>
-              <span class="nt">topologyKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">topology.kubernetes.io/zone</span>
-          <span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">labelSelector</span><span class="p">:</span>
-                <span class="nt">matchExpressions</span><span class="p">:</span>
-                <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;technology&quot;</span>
-                  <span class="nt">operator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">In</span>
-                  <span class="nt">values</span><span class="p">:</span>
-                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">solr-cloud</span>
-                <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;solr-cloud&quot;</span>
-                  <span class="nt">operator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">In</span>
-                  <span class="nt">values</span><span class="p">:</span>
-                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">explore</span>
-              <span class="nt">topologyKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubernetes.io/hostname</span>
-      <span class="nt">initContainers</span><span class="p">:</span> <span class="c1"># additional init containers for the Solr pods</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">set-zone</span> <span class="c1"># GKE specific, avoids giving get nodes permission to the service account</span>
-          <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">curlimages/curl:latest</span>
-          <span class="nt">command</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="s">&#39;/bin/sh&#39;</span>
-            <span class="p p-Indicator">-</span> <span class="s">&#39;-c&#39;</span>
-            <span class="p p-Indicator">-</span> <span class="p p-Indicator">|</span>
-              <span class="no">zone=$(curl -sS http://metadata.google.internal/computeMetadata/v1/instance/zone -H &#39;Metadata-Flavor: Google&#39;)</span>
-              <span class="no">zone=${zone##*/}</span>
-              <span class="no">if [ &quot;${zone}&quot; != &quot;&quot; ]; then</span>
-                <span class="no">echo &quot;export SOLR_OPTS=\&quot;\${SOLR_OPTS} -Davailability_zone=${zone}\&quot;&quot; &gt; /docker-entrypoint-initdb.d/set-zone.sh</span>
-              <span class="no">fi</span>
-          <span class="nt">volumeMounts</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">initdb</span>
-              <span class="nt">mountPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/docker-entrypoint-initdb.d</span>
-      <span class="nt">volumes</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="nt">defaultContainerMount</span><span class="p">:</span>
-          <span class="nt">mountPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/docker-entrypoint-initdb.d</span>
-          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">initdb</span>
-        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">initdb</span>
-        <span class="nt">source</span><span class="p">:</span>
-          <span class="nt">emptyDir</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+<span class="w">  </span><span class="nt">customSolrKubeOptions</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">podOptions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3Gi</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">700m</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3Gi</span>
+<span class="w">      </span><span class="nt">affinity</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">podAntiAffinity</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">preferredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">            </span><span class="nt">podAffinityTerm</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">labelSelector</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">matchExpressions</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;technology&quot;</span>
+<span class="w">                  </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">In</span>
+<span class="w">                  </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solr-cloud</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;solr-cloud&quot;</span>
+<span class="w">                  </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">In</span>
+<span class="w">                  </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore</span>
+<span class="w">              </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">topology.kubernetes.io/zone</span>
+<span class="w">          </span><span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">labelSelector</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">matchExpressions</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;technology&quot;</span>
+<span class="w">                  </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">In</span>
+<span class="w">                  </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solr-cloud</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;solr-cloud&quot;</span>
+<span class="w">                  </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">In</span>
+<span class="w">                  </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">                  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore</span>
+<span class="w">              </span><span class="nt">topologyKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/hostname</span>
+<span class="w">      </span><span class="nt">initContainers</span><span class="p">:</span><span class="w"> </span><span class="c1"># additional init containers for the Solr pods</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set-zone</span><span class="w"> </span><span class="c1"># GKE specific, avoids giving get nodes permission to the service account</span>
+<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">curlimages/curl:latest</span>
+<span class="w">          </span><span class="nt">command</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;/bin/sh&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;-c&#39;</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">              </span><span class="no">zone=$(curl -sS http://metadata.google.internal/computeMetadata/v1/instance/zone -H &#39;Metadata-Flavor: Google&#39;)</span>
+<span class="w">              </span><span class="no">zone=${zone##*/}</span>
+<span class="w">              </span><span class="no">if [ &quot;${zone}&quot; != &quot;&quot; ]; then</span>
+<span class="w">                </span><span class="no">echo &quot;export SOLR_OPTS=\&quot;\${SOLR_OPTS} -Davailability_zone=${zone}\&quot;&quot; &gt; /docker-entrypoint-initdb.d/set-zone.sh</span>
+<span class="w">              </span><span class="no">fi</span>
+<span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">initdb</span>
+<span class="w">              </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/docker-entrypoint-initdb.d</span>
+<span class="w">      </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">defaultContainerMount</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/docker-entrypoint-initdb.d</span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">initdb</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">initdb</span>
+<span class="w">        </span><span class="nt">source</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 
-  <span class="nt">dataStorage</span><span class="p">:</span>
-    <span class="nt">persistent</span><span class="p">:</span>
-      <span class="nt">pvcTemplate</span><span class="p">:</span>
-        <span class="nt">spec</span><span class="p">:</span>
-          <span class="nt">resources</span><span class="p">:</span>
-            <span class="nt">requests</span><span class="p">:</span>
-              <span class="nt">storage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2Gi</span>
-      <span class="nt">reclaimPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Delete</span>
-  <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
-  <span class="nt">solrImage</span><span class="p">:</span>
-    <span class="nt">repository</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">solr</span>
-    <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8.8.2</span>
-  <span class="nt">solrJavaMem</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">-Xms500M -Xmx510M</span>
-  <span class="nt">updateStrategy</span><span class="p">:</span>
-    <span class="nt">managed</span><span class="p">:</span>
-      <span class="nt">maxPodsUnavailable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-      <span class="nt">maxShardReplicasUnavailable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-    <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Managed</span>
+<span class="w">  </span><span class="nt">dataStorage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">persistent</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">pvcTemplate</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">      </span><span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Delete</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">solrImage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solr</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.8.2</span>
+<span class="w">  </span><span class="nt">solrJavaMem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-Xms500M -Xmx510M</span>
+<span class="w">  </span><span class="nt">updateStrategy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">managed</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">maxPodsUnavailable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="nt">maxShardReplicasUnavailable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Managed</span>
 
-  <span class="nt">solrAddressability</span><span class="p">:</span>
-    <span class="nt">commonServicePort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">443</span>
-    <span class="nt">external</span><span class="p">:</span>
-      <span class="nt">domainName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR_DOMAIN_NAME_HERE</span>
-      <span class="nt">method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Ingress</span>
-      <span class="nt">nodePortOverride</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">443</span>
-      <span class="nt">useExternalAddress</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class="nt">podPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8983</span>
+<span class="w">  </span><span class="nt">solrAddressability</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">commonServicePort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+<span class="w">    </span><span class="nt">external</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">domainName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YOUR_DOMAIN_NAME_HERE</span>
+<span class="w">      </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
+<span class="w">      </span><span class="nt">nodePortOverride</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+<span class="w">      </span><span class="nt">useExternalAddress</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">podPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8983</span>
 
-  <span class="nt">solrTLS</span><span class="p">:</span>
-    <span class="nt">restartOnTLSSecretUpdate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">pkcs12Secret</span><span class="p">:</span>
-      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">explore-selfsigned-cert-tls</span>
-      <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">keystore.p12</span>
-    <span class="nt">keyStorePasswordSecret</span><span class="p">:</span>
-      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pkcs12-keystore-password</span>
-      <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">password-key</span>
+<span class="w">  </span><span class="nt">solrTLS</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">restartOnTLSSecretUpdate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">pkcs12Secret</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore-selfsigned-cert-tls</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystore.p12</span>
+<span class="w">    </span><span class="nt">keyStorePasswordSecret</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkcs12-keystore-password</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password-key</span>
 
-  <span class="nt">solrSecurity</span><span class="p">:</span>
-    <span class="nt">authenticationType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Basic</span>
+<span class="w">  </span><span class="nt">solrSecurity</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">authenticationType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Basic</span>
 
-  <span class="nt">zookeeperRef</span><span class="p">:</span>
-    <span class="nt">provided</span><span class="p">:</span>
-      <span class="nt">chroot</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/explore</span>
-      <span class="nt">image</span><span class="p">:</span>
-        <span class="nt">pullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
-        <span class="nt">repository</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pravega/zookeeper</span>
-        <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.2.9</span>
-      <span class="nt">persistence</span><span class="p">:</span>
-        <span class="nt">reclaimPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Delete</span>
-        <span class="nt">spec</span><span class="p">:</span>
-          <span class="nt">accessModes</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
-          <span class="nt">resources</span><span class="p">:</span>
-            <span class="nt">requests</span><span class="p">:</span>
-              <span class="nt">storage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2Gi</span>
-      <span class="nt">replicas</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
-      <span class="nt">zookeeperPodPolicy</span><span class="p">:</span>
-        <span class="nt">resources</span><span class="p">:</span>
-          <span class="nt">limits</span><span class="p">:</span>
-            <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500Mi</span>
-          <span class="nt">requests</span><span class="p">:</span>
-            <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">250m</span>
-            <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500Mi</span>
+<span class="w">  </span><span class="nt">zookeeperRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">provided</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">chroot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/explore</span>
+<span class="w">      </span><span class="nt">image</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">pullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+<span class="w">        </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pravega/zookeeper</span>
+<span class="w">        </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2.9</span>
+<span class="w">      </span><span class="nt">persistence</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">reclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Delete</span>
+<span class="w">        </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">accessModes</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
+<span class="w">          </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Gi</span>
+<span class="w">      </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">zookeeperPodPolicy</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
+<span class="w">          </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">250m</span>
+<span class="w">            </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500Mi</span>
 
 <span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">solr.apache.org/v1beta1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">SolrPrometheusExporter</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solr.apache.org/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SolrPrometheusExporter</span>
 <span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">labels</span><span class="p">:</span>
-    <span class="nt">controller-tools.k8s.io</span><span class="p">:</span> <span class="s">&quot;1.0&quot;</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">explore-prom-exporter</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">controller-tools.k8s.io</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore-prom-exporter</span>
 <span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">customKubeOptions</span><span class="p">:</span>
-    <span class="nt">podOptions</span><span class="p">:</span>
-      <span class="nt">resources</span><span class="p">:</span>
-        <span class="nt">requests</span><span class="p">:</span>
-          <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">300m</span>
-          <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">800Mi</span>
-  <span class="nt">solrReference</span><span class="p">:</span>
-    <span class="nt">cloud</span><span class="p">:</span>
-      <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;explore&quot;</span>
-    <span class="nt">basicAuthSecret</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">explore-solrcloud-basic-auth</span>
-    <span class="nt">solrTLS</span><span class="p">:</span>
-      <span class="nt">restartOnTLSSecretUpdate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-      <span class="nt">pkcs12Secret</span><span class="p">:</span>
-        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">explore-selfsigned-cert-tls</span>
-        <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">keystore.p12</span>
-      <span class="nt">keyStorePasswordSecret</span><span class="p">:</span>
-        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pkcs12-keystore-password</span>
-        <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">password-key</span>
-  <span class="nt">numThreads</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6</span>
-  <span class="nt">image</span><span class="p">:</span>
-    <span class="nt">repository</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">solr</span>
-    <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8.8.2</span>
+<span class="w">  </span><span class="nt">customKubeOptions</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">podOptions</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300m</span>
+<span class="w">          </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">800Mi</span>
+<span class="w">  </span><span class="nt">solrReference</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cloud</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;explore&quot;</span>
+<span class="w">    </span><span class="nt">basicAuthSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore-solrcloud-basic-auth</span>
+<span class="w">    </span><span class="nt">solrTLS</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">restartOnTLSSecretUpdate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">pkcs12Secret</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore-selfsigned-cert-tls</span>
+<span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keystore.p12</span>
+<span class="w">      </span><span class="nt">keyStorePasswordSecret</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkcs12-keystore-password</span>
+<span class="w">        </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password-key</span>
+<span class="w">  </span><span class="nt">numThreads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solr</span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8.8.2</span>
 
 <span class="nn">---</span>
-<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">monitoring.coreos.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ServiceMonitor</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring.coreos.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceMonitor</span>
 <span class="nt">metadata</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">solr-metrics</span>
-  <span class="nt">labels</span><span class="p">:</span>
-    <span class="nt">release</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">prometheus-stack</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solr-metrics</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">release</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus-stack</span>
 <span class="nt">spec</span><span class="p">:</span>
-  <span class="nt">selector</span><span class="p">:</span>
-    <span class="nt">matchLabels</span><span class="p">:</span>
-      <span class="nt">solr-prometheus-exporter</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">explore-prom-exporter</span>
-  <span class="nt">namespaceSelector</span><span class="p">:</span>
-    <span class="nt">matchNames</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sop030</span>
-  <span class="nt">endpoints</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">solr-metrics</span>
-    <span class="nt">interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15s</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">solr-prometheus-exporter</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">explore-prom-exporter</span>
+<span class="w">  </span><span class="nt">namespaceSelector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchNames</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sop030</span>
+<span class="w">  </span><span class="nt">endpoints</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">solr-metrics</span>
+<span class="w">    </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span>
 </code></pre></div>  </div>
 </div>
     <footer>
