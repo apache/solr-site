@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 from datetime import datetime, date
-from checksumdir import dirhash
+#from checksumdir import dirhash
 
 AUTHOR = 'Solr Developers'
 SITENAME = 'Apache Solr'
