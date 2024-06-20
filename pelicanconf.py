@@ -104,7 +104,6 @@ PLUGINS = [
 MARKDOWN = {
     'extension_configs': {
         'toc': {},
-        'mdx_include': {},
         'markdown.extensions.codehilite': {'css_class': 'codehilite'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
