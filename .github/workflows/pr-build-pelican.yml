@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: 'main'
+          ref: ${{ github.head_ref }}
 
       - name: Build Pelican Site
         uses: apache/infrastructure-actions/pelican@main
