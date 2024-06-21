@@ -1,6 +1,6 @@
 Title: Hybrid Search with Apache Solr
 category: solr/blogposts
-summary: This blog shows how to run a hybrid search (keyword-based search + vectors) in Apache Solr with code examples and explanations. Written by Alessandro Benedetti, Director at Sease and Apache Solr Committer and PMC member.
+summary: This blog post shows how to run a hybrid search (keyword-based search + vectors) in Apache Solr with code examples and explanations. Written by Alessandro Benedetti, Director at Sease and Apache Solr Committer and PMC member.
 slug: hybrid-search-with-apache-solr
 URL: blogposts/hybrid-search-with-apache-solr.html
 save_as: blogposts/hybrid-search-with-apache-solr.html
