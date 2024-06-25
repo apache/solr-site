@@ -13,7 +13,6 @@ jobs:
       - name: Build Pelican Site
         uses: apache/infrastructure-actions/pelican@main
         with:
-          destination: ${{ github.ref == 'refs/heads/production' && 'asf-site' || 'asf-staging' }}
           gfm: 'false'
-          version: '4.8.0'
+          version: '4.9.1'
           publish: 'false'
