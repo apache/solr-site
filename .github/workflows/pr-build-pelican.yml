@@ -10,25 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python
-        # This is the version of the action for setting up Python, not the Python version.
-        uses: actions/setup-python@v5
+      - name: Build Pelican Site
+        uses: apache/infrastructure-actions/pelican@main
         with:
-          python-version: '3.x'
-      - name: Display Python version
-        run: python -c "import sys; print(sys.version)"
-      - name: Install Pelican
-        shell: bash
-        # Install needs to run in separate shell so stdout is restored
-        run: |
-          (
-            pip3 install pelican==4.9.1 markdown bs4 ezt requests 
-          )
-          python3 -V
-          echo "Pelican version:"
-          pelican --version
-      # If the site uses Github Flavored Markdown, use this build branch
-      - name: Generate website from markdown
-        shell: bash
-        run: |
-          python3 -B -m pelican content
+          destination: ${{ github.ref == 'refs/heads/production' && 'asf-site' || 'asf-staging' }}
+          gfm: 'false'
+          version: '4.8.0'
+          publish: 'false'
