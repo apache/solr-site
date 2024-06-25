@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 from datetime import datetime, date
-#from checksumdir import dirhash
+from checksumdir import dirhash
 
 AUTHOR = 'Solr Developers'
 SITENAME = 'Apache Solr'
@@ -20,9 +20,7 @@ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE = 'v0.7.1'
 
 # This string will be appended to all unversioned css and js resources to prevent caching surprises on edits.
 # The theme's htaccess file also sets a cache-control header with longer lifetime, if the v=XXXX query string is added.
-#STATIC_RESOURCE_SUFFIX = "?v=%s" % dirhash('themes/solr/static', 'sha1')[-8:]
-# SOLR-17339: Dynamic hash disabled until we can install custom modules like checksumdir. Bump this manually on changes
-STATIC_RESOURCE_SUFFIX = "?v=4dd59757"
+STATIC_RESOURCE_SUFFIX = "?v=%s" % dirhash('themes/solr/static', 'sha1')[-8:]
 
 PATH = 'content'
 
@@ -99,8 +97,7 @@ PLUGINS = [
     'jinja2content',
     'regex_replace',
     'age_days_lt',
-# SOLR-17339: Vex disabled until https://github.com/apache/infrastructure-actions/pull/63 is merged
-#    'vex'
+    'vex'
 #    'md_inline_extension',
 ]
 
