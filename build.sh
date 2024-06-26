@@ -18,10 +18,9 @@
 set -e
 #set -x
 
-# Using https://hub.docker.com/r/qwe1/docker-pelican as pelican image, supports both AMD64 and ARM64
-PELICAN_IMAGE="qwe1/docker-pelican:4.8.0"
-SOLR_PELICAN_IMAGE="solr-pelican-image"
-DOCKER_CMD="docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work $SOLR_PELICAN_IMAGE"
+PYTHON_IMAGE="python:3-alpine"
+SOLR_LOCAL_PELICAN_IMAGE="solr-pelican-image"
+DOCKER_CMD="docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work $SOLR_LOCAL_PELICAN_IMAGE"
 unset SERVE
 PIP_CMD="pip3 install -r requirements.txt"
 PELICAN_CMD="pelican content -o output"
@@ -36,16 +35,16 @@ function usage {
 }
 
 function build_image {
-  echo "Building local Docker image for Pelican, called $SOLR_PELICAN_IMAGE."
+  echo "Building local Docker image for Pelican, called $SOLR_LOCAL_PELICAN_IMAGE."
   # Make a new local image with the pip packages installed
   docker rm -f solr-pelican >/dev/null 2>&1 || true
-  docker run --name solr-pelican -w /work -v $(pwd):/work $PELICAN_IMAGE sh -c "$PIP_CMD"
-  docker commit solr-pelican $SOLR_PELICAN_IMAGE
+  docker run --name solr-pelican -w /work -v $(pwd):/work $PYTHON_IMAGE sh -c "$PIP_CMD"
+  docker commit solr-pelican $SOLR_LOCAL_PELICAN_IMAGE
   docker rm -f solr-pelican >/dev/null 2>&1 || true
 }
 
 function ensure_image {
-  if ! docker inspect $SOLR_PELICAN_IMAGE >/dev/null 2>&1
+  if ! docker inspect $SOLR_LOCAL_PELICAN_IMAGE >/dev/null 2>&1
   then
     build_image
   fi

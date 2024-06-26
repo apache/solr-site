@@ -28,7 +28,7 @@ If you want to build the site without the docker image, you can install Python 3
 
 On Windows, you can use the Windows Subsystem for Linux (WSL) to run the build script. Or you can run the docker command directly in a Terminal:
 
-    docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work qwe1/docker-pelican:4.8.0 sh -c "pip3 install -r requirements.txt; pelican content -r -l -b 0.0.0.0"
+    docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work python:3-alpine sh -c "pip3 install -r requirements.txt; pelican content -r -l -b 0.0.0.0"
 
 ## Updating site during a Solr release
 
