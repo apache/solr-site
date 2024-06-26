@@ -15,9 +15,8 @@ If the staged site looks good, simply merge the changes to branch `production` a
 For larger edits it is recommended to build and preview the site locally. This lets you see the result of your changes instantly without committing anything.
 The bundled script uses a pelican docker image to build and serve the site locally. Please make sure you have docker installed.
 
-    # Usage: ./build.sh [-l] [-b] [<other pelican arguments>]
+    # Usage: ./build.sh [-l] [<other pelican arguments>]
     #        -l     Live build and reload source changes on localhost:8000
-    #        -b     Re-build local docker image, re-installing packages from requirements.txt
     ./build.sh -l
 
 Now go to <http://localhost:8000> to view the beautiful Solr web page served from your laptop with live-preview of updates :)

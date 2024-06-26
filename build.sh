@@ -28,9 +28,8 @@ PELICAN_OPTS=""
 export SITEURL="https://solr.apache.org/"
 
 function usage {
-   echo "Usage: ./build.sh [-l] [-b] [<other pelican arguments>]"
+   echo "Usage: ./build.sh [-l] [<other pelican arguments>]"
    echo "       -l     Live build and reload source changes on localhost:8000"
-   echo "       -b     Re-build local docker image, re-installing packages from requirements.txt"
    echo "       --help Show full help for options that Pelican accepts"
 }
 
@@ -46,6 +45,36 @@ function build_image {
 function ensure_image {
   if ! docker inspect $SOLR_LOCAL_PELICAN_IMAGE >/dev/null 2>&1
   then
+    build_image
+  fi
+}
+
+function check_requirements_update {
+  # Get the last modified time of requirements.txt
+  local req_mod_time
+  if [[ $(uname) == "Darwin" ]]; then
+    req_mod_time=$(stat -f "%m" requirements.txt)
+  else
+    req_mod_time=$(stat -c "%Y" requirements.txt)
+  fi
+
+  # Get the build timestamp of the docker image
+  local image_build_time
+  image_build_time=$(docker inspect --format='{{.Created}}' $SOLR_LOCAL_PELICAN_IMAGE)
+
+  # Parse the timestamp into seconds since epoch in UTC
+  if [[ $(uname) == "Darwin" ]]; then
+    # macOS date command workaround
+    image_build_time=$(echo "$image_build_time" | awk -F '.' '{print $1}')
+    image_build_time=$(date -ju -f "%Y-%m-%dT%H:%M:%S" "$image_build_time" "+%s")
+  else
+    # Linux date command
+    image_build_time=$(date -d "$(echo "$image_build_time" | cut -d'.' -f1 | sed 's/T/ /; s/Z//')" --utc "+%s")
+  fi
+
+  # Compare the timestamps and build the image if requirements.txt is newer
+  if [[ $req_mod_time -gt $image_build_time ]]; then
+    echo "requirements.txt has been updated since the last build, rebuilding image!"
     build_image
   fi
 }
@@ -93,14 +122,13 @@ done
 shift $((OPTIND -1))
 
 ensure_image
+check_requirements_update
 if [[ $SERVE ]]; then
   echo "Building Solr site locally. Goto http://localhost:8000 to view."
   echo "Edits you do to the source tree will be compiled immediately!"
-  echo "Changes to requirements.txt will require using -b option to rebuild the image."
   $DOCKER_CMD sh -c "$PELICAN_CMD --autoreload --listen -b 0.0.0.0 $PELICAN_OPTS $*"
 else
   echo "Building Solr site locally."
   echo "To build and serve live edits locally, run this script with -l argument. Use -h for help."
-  echo "Changes to requirements.txt will require using -b option to rebuild the image."
   $DOCKER_CMD sh -c "$PELICAN_CMD $PELICAN_OPTS $*"
 fi
