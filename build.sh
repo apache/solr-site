@@ -97,9 +97,11 @@ ensure_image
 if [[ $SERVE ]]; then
   echo "Building Solr site locally. Goto http://localhost:8000 to view."
   echo "Edits you do to the source tree will be compiled immediately!"
+  echo "Changes to requirements.txt will require using -b option to rebuild the image."
   $DOCKER_CMD sh -c "$PELICAN_CMD --autoreload --listen -b 0.0.0.0 $PELICAN_OPTS $*"
 else
-  echo "Building Solr site."
+  echo "Building Solr site locally."
   echo "To build and serve live edits locally, run this script with -l argument. Use -h for help."
+  echo "Changes to requirements.txt will require using -b option to rebuild the image."
   $DOCKER_CMD sh -c "$PELICAN_CMD $PELICAN_OPTS $*"
 fi
