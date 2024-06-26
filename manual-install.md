@@ -1,12 +1,13 @@
 # Installing Pelican by hand
 
-The site uses [Pelican][1] for static html generation. Pelican requires [Python 3.5+][4] and can be installed with pip.
+The site uses [Pelican][1] for static html generation. Pelican requires [Python 3.5+][2] and can be installed with pip.
 
-**The `build.sh` script mentioned in REAME is the easiest way of building the site**, and you can skip this part unless you want to understand the moving parts and install things by hand. 
+**The `build.sh` script mentioned in README is the easiest way of building the site using Docker**.
+If for some reason you want to install Python and Pelican by hand, here are the steps: 
 
 ## Install Python 3
 
-First, you need to install Python 3. You can download the latest version from the [Python website][4] or
+First, you need to install Python 3. You can download the latest version from the [Python website][2] or
 use your package manager to install it. For example, on macOS:
 
 ```shell
@@ -21,7 +22,7 @@ To install pelican and requirements, simply run the following command in the roo
 pip3 install -r requirements.txt
 ```
 
-If you run into conflicts with existing packages, a solution is to use a virtual Python environment. See the [Pelican installation page][2] for more details. These are quick commands, Linux flavor:
+If you run into conflicts with existing packages, a solution is to use a virtual Python environment. See the [Pelican installation page][3] for more details. These are quick commands, Linux flavor:
 
 ```sh
 python3 -m venv env
@@ -43,7 +44,6 @@ You can also tell Pelican to watch for your modifications, instead of manually r
 pelican --autoreload --listen
 ```
 
-Remember that on Mac/Linux you can use the `build.sh` script with `-l` option to do the same.
-
-[1]: https://blog.getpelican.com/
-[4]: https://www.python.org/downloads/
+[1]: https://getpelican.com
+[2]: https://www.python.org/downloads/
+[3]: https://docs.getpelican.com/en/stable/install.html
