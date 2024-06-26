@@ -15,9 +15,9 @@ If the staged site looks good, simply merge the changes to branch `production` a
 For larger edits it is recommended to build and preview the site locally. This lets you see the result of your changes instantly without committing anything.
 The bundled script uses a pelican docker image to build and serve the site locally. Please make sure you have docker installed.
 
-    # Usage: ./build.sh [-l] [<other pelican arguments>]
+    # Usage: ./build.sh [-l] [-b] [<other pelican arguments>]
     #        -l     Live build and reload source changes on localhost:8000
-    #        --help Show full help for options that Pelican accepts
+    #        -b     Re-build local docker image, re-installing packages from requirements.txt
     ./build.sh -l
 
 Now go to <http://localhost:8000> to view the beautiful Solr web page served from your laptop with live-preview of updates :)
@@ -28,7 +28,7 @@ If you want to build the site without the docker image, you can install Python 3
 
 On Windows, you can use the Windows Subsystem for Linux (WSL) to run the build script. Or you can run the docker command directly in a Terminal:
 
-    docker run --rm -w /work -p 8000:8000 -v $(pwd):/work qwe1/docker-pelican:4.8.0 pip3 install -r requirements.txt; pelican content -r -l -b 0.0.0.0
+    docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work qwe1/docker-pelican:4.8.0 sh -c "pip3 install -r requirements.txt; pelican content -r -l -b 0.0.0.0"
 
 ## Updating site during a Solr release
 
