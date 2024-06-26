@@ -28,7 +28,7 @@ PELICAN_OPTS=""
 export SITEURL="https://solr.apache.org/"
 
 function usage {
-   echo "Usage: ./build.sh [-l] [<other pelican arguments>]"
+   echo "Usage: ./build.sh [-l] [-h] [<other pelican arguments>]"
    echo "       -l     Live build and reload source changes on localhost:8000"
    echo "       --help Show full help for options that Pelican accepts"
 }
@@ -103,6 +103,7 @@ while getopts ":lbh-:" opt; do
     - )
       case "${OPTARG}" in
         help )
+          usage
           echo
           echo "Below is a list of other arguments you can use which will be passed to pelican."
           echo
