@@ -17,6 +17,7 @@ The bundled script uses a pelican docker image to build and serve the site local
 
     # Usage: ./build.sh [-l] [<other pelican arguments>]
     #        -l     Live build and reload source changes on localhost:8000
+    #        --help Show full help for options that Pelican accepts
     ./build.sh -l
 
 Now go to <http://localhost:8000> to view the beautiful Solr web page served from your laptop with live-preview of updates :)
