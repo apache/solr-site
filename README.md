@@ -13,9 +13,9 @@ If the staged site looks good, simply merge the changes to branch `production` a
 > **IMPORTANT**: Please never commit directly to `production` branch. All commits should go to `main, and then merge `main` to `production`. Note that it **is** possible to make a Pull Request for the merge from `main-->production`. If you do so, please merge using a merge commit rather than a squash merge.
 
 For larger edits it is recommended to build and preview the site locally. This lets you see the result of your changes instantly without committing anything.
-The bundled script uses a pelican docker image to build and serve the site locally. Please make sure you have docker installed.
+The bundled script uses a docker image to build and serve the site locally. Please make sure you have docker installed.
 
-    # Usage: ./build.sh [-l] [<other pelican arguments>]
+    # Usage: ./build.sh [-l] [-h] [<other pelican arguments>]
     #        -l     Live build and reload source changes on localhost:8000
     #        --help Show full help for options that Pelican accepts
     ./build.sh -l
