@@ -23,7 +23,7 @@
 
   <hr/>
 
-  {% for article in (pages | selectattr("category.name", "in", ["solr/blogposts"]) |list | sort(attribute="locale_date")) %}
+  {% for article in (pages | selectattr("category.name", "in", ["solr/blogposts"]) |list | reverse) %}
   <h2 id="{{ article.slug }}">
     <a href="{{article.url}}">
       {{ article.title }}
