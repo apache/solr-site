@@ -1,6 +1,6 @@
 Title: Impact of Large Stored fields on Apache Solr Query Performance
 category: solr/blogposts
-summary: This blog post will analyze the impact of large stored fields on Apache Solr query performance. Written by Elia Porciani, R&D Software Engineer at Sease.
+summary: This blog post analyzes the impact of large stored fields on Apache Solr query performance. Written by Elia Porciani, R&D Software Engineer at Sease.
 slug: impact-of-large-stored-fields-on-apache-solr-query-performance
 URL: blogposts/impact-of-large-stored-fields-on-apache-solr-query-performance.html
 save_as: blogposts/impact-of-large-stored-fields-on-apache-solr-query-performance.html
