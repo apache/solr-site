@@ -152,12 +152,14 @@
 <li>Solr CLI adopts "kebab" formatting for long options.  For example "-solrURL" becomes "--solr-url".  Previous style commands continue to be supported in 9x and will be removed in 10x.</li>
 <li>Solr CLI now supports all the ZooKeeper related operations that required the use of "zkcli.sh" including linkconfig, cluster, and updateacls commands.</li>
 </ul>
-<p>Performance:
- * Opt-in multithreaded search execution- Users can enable concurrent segment searching for reduced latency
- * Apache Lucene upgraded to 9.11.1 introducing tremendous performance improvements when using Java 21 for vector search among other things.
- * On Linux and Mac platforms with Java 21, MMapDirectory will now also use POSIX madvise for better paging and read-ahead of index files.
- * Reduced heap usage especially for high-core-count, high-field-count, high-thread-count cases for stored fields.
- * Async backup/restore and other operations scale to 100+ shards via tweaks to core asyncId caching.</p>
+<p>Performance improvements:</p>
+<ul>
+<li>Opt-in multithreaded search execution- Users can enable concurrent segment searching for reduced latency</li>
+<li>Apache Lucene upgraded to 9.11.1 introducing tremendous performance improvements when using Java 21 for vector search among other things.</li>
+<li>On Linux and Mac platforms with Java 21, MMapDirectory will now also use POSIX madvise for better paging and read-ahead of index files.</li>
+<li>Reduced heap usage especially for high-core-count, high-field-count, high-thread-count cases for stored fields.</li>
+<li>Async backup/restore and other operations scale to 100+ shards via tweaks to core asyncId caching.</li>
+</ul>
 <p>There were more changes and details to read; that was just an editorialized summary.</p>
 <p>Read CHANGES.txt for a detailed list of changes:</p>
 <p><a href="https://solr.apache.org/docs/9_7_0/changes/Changes.html">https://solr.apache.org/docs/9_7_0/changes/Changes.html</a></p>

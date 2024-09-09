@@ -14,12 +14,14 @@
 &lt;li&gt;Solr CLI adopts "kebab" formatting for long options.  For example "-solrURL" becomes "--solr-url".  Previous style commands continue to be supported in 9x and will be removed in 10x.&lt;/li&gt;
 &lt;li&gt;Solr CLI now supports all the ZooKeeper related operations that required the use of "zkcli.sh" including linkconfig, cluster, and updateacls commands.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Performance:
- * Opt-in multithreaded search execution- Users can enable concurrent segment searching for reduced latency
- * Apache Lucene upgraded to 9.11.1 introducing tremendous performance improvements when using Java 21 for vector search among other things.
- * On Linux and Mac platforms with Java 21, MMapDirectory will now also use POSIX madvise for better paging and read-ahead of index files.
- * Reduced heap usage especially for high-core-count, high-field-count, high-thread-count cases for stored fields.
- * Async backup/restore and other operations scale to 100+ shards via tweaks to core asyncId caching.&lt;/p&gt;
+&lt;p&gt;Performance improvements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Opt-in multithreaded search execution- Users can enable concurrent segment searching for reduced latency&lt;/li&gt;
+&lt;li&gt;Apache Lucene upgraded to 9.11.1 introducing tremendous performance improvements when using Java 21 for vector search among other things.&lt;/li&gt;
+&lt;li&gt;On Linux and Mac platforms with Java 21, MMapDirectory will now also use POSIX madvise for better paging and read-ahead of index files.&lt;/li&gt;
+&lt;li&gt;Reduced heap usage especially for high-core-count, high-field-count, high-thread-count cases for stored fields.&lt;/li&gt;
+&lt;li&gt;Async backup/restore and other operations scale to 100+ shards via tweaks to core asyncId caching.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;There were more changes and details to read; that was just an editorialized summary.&lt;/p&gt;
 &lt;p&gt;Read CHANGES.txt for a detailed list of changes:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/docs/9_7_0/changes/Changes.html"&gt;https://solr.apache.org/docs/9_7_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
