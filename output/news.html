@@ -135,6 +135,38 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-970-available">9 September 2024, Apache Solr™ 9.7.0 available
+    <a class="headerlink" href="#apache-solrtm-970-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.7.0.</p>
+<p>Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.</p>
+<p>The release is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-970-release-highlights">Solr 9.7.0 Release Highlights</h3>
+<ul>
+<li>DocValues enabled by default - Most fields/fieldTypes that support docValues will have them enabled by default in the latest schema version 1.7. This does not affect users who upgrade to this Solr version without updating their schema version.</li>
+<li>New "vectorSimilarity" QParser for matching documents based on a minimum vector similarity threshold</li>
+<li>Prometheus formatted metrics can now be exposed directly by Solr via ‘wt=prometheus’. There were improvements to the Prometheus Exporter as well.</li>
+<li>Limits / guard-rails for short prefix queries and for too many fields.</li>
+<li>Authentication improvements for the "MultiAuth" plugin.  And the Subquery transformer now support basic auth.</li>
+<li>Solr CLI adopts "kebab" formatting for long options.  For example "-solrURL" becomes "--solr-url".  Previous style commands continue to be supported in 9x and will be removed in 10x.</li>
+<li>Solr CLI now supports all the ZooKeeper related operations that required the use of "zkcli.sh" including linkconfig, cluster, and updateacls commands.</li>
+</ul>
+<p>Performance improvements:</p>
+<ul>
+<li>Opt-in multithreaded search execution- Users can enable concurrent segment searching for reduced latency</li>
+<li>Apache Lucene upgraded to 9.11.1 introducing tremendous performance improvements when using Java 21 for vector search among other things.</li>
+<li>On Linux and Mac platforms with Java 21, MMapDirectory will now also use POSIX madvise for better paging and read-ahead of index files.</li>
+<li>Reduced heap usage especially for high-core-count, high-field-count, high-thread-count cases for stored fields.</li>
+<li>Async backup/restore and other operations scale to 100+ shards via tweaks to core asyncId caching.</li>
+</ul>
+<p>There were more changes and details to read; that was just an editorialized summary.</p>
+<p>Read CHANGES.txt for a detailed list of changes:</p>
+<p><a href="https://solr.apache.org/docs/9_7_0/changes/Changes.html">https://solr.apache.org/docs/9_7_0/changes/Changes.html</a></p>
+<p>When upgrading, always read the upgrade notes:</p>
+<p><a href="https://github.com/apache/solr/blob/main/solr/solr-ref-guide/modules/upgrade-notes/pages/major-changes-in-solr-9.adoc#solr-97">https://github.com/apache/solr/blob/main/solr/solr-ref-guide/modules/upgrade-notes/pages/major-changes-in-solr-9.adoc#solr-97</a></p>
+<p>Thanks to all contributors:</p>
+<p>David Smiley, Eric Pugh, Jason Gerlowski, hossman, Houston Putman, Pierre Salagnac, Christine Poerschke, Christos Malliaridis, Michael Gibney, Sanjay Dutt, Yohann Callea, janhoy, Liu Huajin, Andrey Bozhko, Lamine Idjeraoui, Ishan Chattopadhyaya, Mark Miller, noble, Gus Heck, Matthew Biscocho, Alexey Serba, Rafał Harabień, Eivind Bergstøl, Calvin Smith, Tomás Fernández Löbbe, @charlygrappa, Alastair Porter, ellaeln, Patson Luk, Vinayak Hegde, Kevin Risden, Rudy Seitz, @hgdharold, Bostoi, Torsten Bøgh Köster, Hakan Özler, Andy Webb, Stephen Woods, Anshum Gupta</p>
   <h2 id="apache-solrtm-961-available">29 May 2024, Apache Solr™ 9.6.1 available
     <a class="headerlink" href="#apache-solrtm-961-available" title="Permanent link">¶</a>
   </h2>
