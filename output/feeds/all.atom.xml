@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2024-05-29T00:00:00+00:00</updated><entry><title>Apache Solr™ 9.6.1 available</title><link href="/apache-solrtm-961-available.html" rel="alternate"></link><published>2024-05-29T00:00:00+00:00</published><updated>2024-05-29T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-05-29:/apache-solrtm-961-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.6.1.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2024-09-09T00:00:00+00:00</updated><entry><title>Apache Solr™ 9.7.0 available</title><link href="/apache-solrtm-970-available.html" rel="alternate"></link><published>2024-09-09T00:00:00+00:00</published><updated>2024-09-09T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-09-09:/apache-solrtm-970-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.7.0.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.7.0.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.&lt;/p&gt;
+&lt;p&gt;The release is available for immediate download at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="solr-970-release-highlights"&gt;Solr 9.7.0 Release Highlights&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;DocValues enabled by default - Most fields/fieldTypes that support docValues will have them enabled by default in the latest schema version 1.7. This does not affect users who upgrade to this Solr version without updating their schema version.&lt;/li&gt;
+&lt;li&gt;New "vectorSimilarity" QParser for matching documents based on a minimum vector similarity threshold&lt;/li&gt;
+&lt;li&gt;Prometheus formatted metrics can now be exposed directly by Solr via ‘wt=prometheus’. There were improvements to the Prometheus Exporter as well.&lt;/li&gt;
+&lt;li&gt;Limits / guard-rails for short prefix queries and for too many fields.&lt;/li&gt;
+&lt;li&gt;Authentication improvements for the "MultiAuth" plugin.  And the Subquery transformer now support basic auth.&lt;/li&gt;
+&lt;li&gt;Solr CLI adopts "kebab" formatting for long options.  For example "-solrURL" becomes "--solr-url".  Previous style commands continue to be supported in 9x and will be removed in 10x.&lt;/li&gt;
+&lt;li&gt;Solr CLI now supports all the ZooKeeper related operations that required the use of "zkcli.sh" including linkconfig, cluster, and updateacls commands.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Performance:
+ * Opt-in multithreaded search execution- Users can enable concurrent segment searching for reduced latency
+ * Apache Lucene upgraded to 9.11.1 introducing tremendous performance improvements when using Java 21 for vector search among other things.
+ * On Linux and Mac platforms with Java 21, MMapDirectory will now also use POSIX madvise for better paging and read-ahead of index files.
+ * Reduced heap usage especially for high-core-count, high-field-count, high-thread-count cases for stored fields.
+ * Async backup/restore and other operations scale to 100+ shards via tweaks to core asyncId caching.&lt;/p&gt;
+&lt;p&gt;There were more changes and details to read; that was just an editorialized summary.&lt;/p&gt;
+&lt;p&gt;Read CHANGES.txt for a detailed list of changes:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/docs/9_7_0/changes/Changes.html"&gt;https://solr.apache.org/docs/9_7_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;When upgrading, always read the upgrade notes:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/apache/solr/blob/main/solr/solr-ref-guide/modules/upgrade-notes/pages/major-changes-in-solr-9.adoc#solr-97"&gt;https://github.com/apache/solr/blob/main/solr/solr-ref-guide/modules/upgrade-notes/pages/major-changes-in-solr-9.adoc#solr-97&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Thanks to all contributors:&lt;/p&gt;
+&lt;p&gt;David Smiley, Eric Pugh, Jason Gerlowski, hossman, Houston Putman, Pierre Salagnac, Christine Poerschke, Christos Malliaridis, Michael Gibney, Sanjay Dutt, Yohann Callea, janhoy, Liu Huajin, Andrey Bozhko, Lamine Idjeraoui, Ishan Chattopadhyaya, Mark Miller, noble, Gus Heck, Matthew Biscocho, Alexey Serba, Rafał Harabień, Eivind Bergstøl, Calvin Smith, Tomás Fernández Löbbe, @charlygrappa, Alastair Porter, ellaeln, Patson Luk, Vinayak Hegde, Kevin Risden, Rudy Seitz, @hgdharold, Bostoi, Torsten Bøgh Köster, Hakan Özler, Andy Webb, Stephen Woods, Anshum Gupta&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>Apache Solr™ 9.6.1 available</title><link href="/apache-solrtm-961-available.html" rel="alternate"></link><published>2024-05-29T00:00:00+00:00</published><updated>2024-05-29T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-05-29:/apache-solrtm-961-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.6.1.&lt;/p&gt;
 &lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.6.1.&lt;/p&gt;
 &lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
 &lt;p&gt;Solr 9.6.1 is available for immediate download at:&lt;/p&gt;
@@ -2369,30 +2396,4 @@ of many of the world's largest internet sites.&lt;/p&gt;
 &lt;p&gt;Solr 7 is tested with and verified to support Java 9.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;See the &lt;a href="/docs/7_0_0/changes/Changes.html"&gt;Solr CHANGES.txt&lt;/a&gt; files included with the release for a full list of details.&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>CVE-2017-9803: Security vulnerability in kerberos delegation token functionality**</title><link href="/cve-2017-9803-security-vulnerability-in-kerberos-delegation-token-functionality.html" rel="alternate"></link><published>2017-09-18T00:00:00+00:00</published><updated>2017-09-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2017-09-18:/cve-2017-9803-security-vulnerability-in-kerberos-delegation-token-functionality.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;CVE-2017-9803: Security vulnerability in kerberos delegation token functionality&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;: Important&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vendor&lt;/strong&gt;:&lt;br&gt;
-The Apache Software Foundation&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected&lt;/strong&gt;:&lt;br&gt;
-Solr 6.2.0 to 6.6.0&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;Solr's Kerberos plugin can be configured to use delegation tokens, which allows an application to reuse the authentication of an end-user or another application …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;CVE-2017-9803: Security vulnerability in kerberos delegation token functionality&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;: Important&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vendor&lt;/strong&gt;:&lt;br&gt;
-The Apache Software Foundation&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected&lt;/strong&gt;:&lt;br&gt;
-Solr 6.2.0 to 6.6.0&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;Solr's Kerberos plugin can be configured to use delegation tokens, which allows an application to reuse the authentication of an end-user or another application.
-There are two issues with this functionality (when using SecurityAwareZkACLProvider type of ACL provider e.g. SaslZkACLProvider),&lt;/p&gt;
-&lt;p&gt;Firstly, access to the security configuration can be leaked to users other than the solr super user. Secondly, malicious users can exploit this leaked configuration for privilege escalation to further expose/modify private data and/or disrupt operations in the Solr cluster.&lt;/p&gt;
-&lt;p&gt;The vulnerability is fixed from Solr 6.6.1 onwards.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mitigation&lt;/strong&gt;:&lt;br&gt;
-6.x users should upgrade to 6.6.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;:&lt;br&gt;
-This issue was discovered by Hrishikesh Gadre of Cloudera Inc.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://issues.apache.org/jira/browse/SOLR-11184"&gt;https://issues.apache.org/jira/browse/SOLR-11184&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity"&gt;https://cwiki.apache.org/confluence/display/solr/SolrSecurity&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/security"></category></entry></feed>
+&lt;p&gt;See the &lt;a href="/docs/7_0_0/changes/Changes.html"&gt;Solr CHANGES.txt&lt;/a&gt; files included with the release for a full list of details.&lt;/p&gt;</content><category term="solr/news"></category></entry></feed>
