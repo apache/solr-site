@@ -1,6 +1,6 @@
 Title: Join us at Community Over Code North America 2024
 category: solr/blogposts
-summary: Join us at Community Over Code NA 2024 in Denver, Oct 7-10, the premier conference organized by the Apache Software Foundation.
+summary: Join us at Community Over Code NA 2024 in Denver, Oct 7-10, the premier conference organized by The Apache Software Foundation.
 slug: community-over-code-north-america-2024
 URL: blogposts/community-over-code-north-america-2024.html
 save_as: blogposts/community-over-code-north-america-2024.html
@@ -18,7 +18,7 @@ We are happy to announce that **Community Over Code North America 2024** is happ
 - **Internet of Things**
 - **Geospatial**
 - **Community** 
-- And many more cutting-edge technologies!
+- And many more!
 
 The event is an excellent opportunity for Solr enthusiasts to connect with the broader Apache community and learn the latest trends and innovations across various Apache projects.
 
@@ -28,7 +28,7 @@ Each evening will feature **Birds of a Feather (BoF)** sessions—an informal, f
 
 ## Venue and Location
 
-The conference will take place at the luxurious **Grand Hyatt Denver**, located at:
+The conference will take place at the **Grand Hyatt Denver**, located at:
 
 **Grand Hyatt Denver**  
 1750 Welton Street  
