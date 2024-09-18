@@ -24,7 +24,7 @@ The event is an excellent opportunity for Solr enthusiasts to connect with the b
 
 ## Birds of a Feather (BoF) Sessions
 
-Each evening will feature **Birds of a Feather (BoF)** sessions—an informal, free-form opportunity for attendees to gather around topics they are passionate about. This is a great time to discuss specific projects, network with like-minded developers, and plan for the future. The Solr community will have its own BoF sessions, so be sure to join us to discuss what's next for Solr!
+Each evening will feature **Birds of a Feather (BoF)** sessions — an informal, free-form opportunity for attendees to gather around topics they are passionate about. This is a great time to discuss specific projects, network with like-minded developers, and plan for the future. The Solr community will have its own BoF sessions, so be sure to join us to discuss what's next for Solr!
 
 ## Venue and Location
 
