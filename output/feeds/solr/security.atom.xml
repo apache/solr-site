@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2024-04-12T00:00:00+00:00</updated><entry><title>CVE-2024-31391: Solr-Operator liveness and readiness probes may leak basic auth credentials</title><link href="/cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials.html" rel="alternate"></link><published>2024-04-12T00:00:00+00:00</published><updated>2024-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-04-12:/cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"></link><link href="/feeds/solr/security.atom.xml" rel="self"></link><id>/</id><updated>2024-10-14T00:00:00+00:00</updated><entry><title>CVE-2024-45216: Apache Solr: Authentication bypass possible using a fake URL Path ending</title><link href="/cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending.html" rel="alternate"></link><published>2024-10-14T00:00:00+00:00</published><updated>2024-10-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-14:/cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Critical&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 5.3.0 before 8.11.4&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.7.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Improper Authentication vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;Solr instances using the PKIAuthenticationPlugin, which is enabled by default when Solr Authentication is used, are vulnerable to Authentication bypass.
+A …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Critical&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 5.3.0 before 8.11.4&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.7.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Improper Authentication vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;Solr instances using the PKIAuthenticationPlugin, which is enabled by default when Solr Authentication is used, are vulnerable to Authentication bypass.
+A fake ending at the end of any Solr API URL path, will allow requests to skip Authentication while maintaining the API contract with the original URL Path.
+This fake ending looks like an unprotected API path, however it is stripped off internally after authentication but before API routing.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+Users are recommended to upgrade to version 9.7.0, or 8.11.4, which fix the issue.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Liu Huajin (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-17417"&gt;SOLR-17417&lt;/a&gt;&lt;br&gt;
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45216"&gt;CVE-2024-45216&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2024-45217: Apache Solr: ConfigSets created during a backup restore command are trusted implicitly</title><link href="/cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly.html" rel="alternate"></link><published>2024-10-14T00:00:00+00:00</published><updated>2024-10-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-14:/cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.6.0 before 8.11.4&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.7.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;Insecure Default Initialization of Resource vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;New ConfigSets that are created via a Restore command, which copy a configSet from the backup and give …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.6.0 before 8.11.4&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.7.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;Insecure Default Initialization of Resource vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;New ConfigSets that are created via a Restore command, which copy a configSet from the backup and give it a new name, are created without setting the "trusted" metadata.
+ConfigSets that do not contain the flag are trusted implicitly if the metadata is missing, therefore this leads to "trusted" ConfigSets that may not have been created with an Authenticated request.
+"trusted" ConfigSets are able to load custom code into classloaders, therefore the flag is supposed to only be set when the request that uploads the ConfigSet is Authenticated &amp;amp; Authorized.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+This issue affects Apache Solr: from 6.6.0 before 8.11.4, from 9.0.0 before 9.7.0. This issue does not affect Solr instances that are secured via Authentication/Authorization.&lt;/p&gt;
+&lt;p&gt;Users are primarily recommended to use Authentication and Authorization when running Solr. However, upgrading to version 9.7.0, or 8.11.4 will mitigate this issue otherwise.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Liu Huajin (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-17418"&gt;SOLR-17418&lt;/a&gt;&lt;br&gt;
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45217"&gt;CVE-2024-45217&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2024-31391: Solr-Operator liveness and readiness probes may leak basic auth credentials</title><link href="/cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials.html" rel="alternate"></link><published>2024-04-12T00:00:00+00:00</published><updated>2024-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-04-12:/cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
 Moderate&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;br&gt;
 Solr Operator 0.3.0 to 0.8.0&lt;/p&gt;

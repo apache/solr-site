@@ -191,6 +191,16 @@ with you to see if we can provide this information in other variations or format
             <th>Announcement</th>
         </tr>
         <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45216">CVE-2024-45216</a></td>
+            <td>2024-10-14</td>
+            <td><a href="#cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending">Apache Solr: Authentication bypass possible using a fake URL Path ending</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45217">CVE-2024-45217</a></td>
+            <td>2024-10-14</td>
+            <td><a href="#cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly">Apache Solr: ConfigSets created during a backup restore command are trusted implicitly</a></td>
+        </tr>
+        <tr>
             <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-31391">CVE-2024-31391</a></td>
             <td>2024-04-12</td>
             <td><a href="#cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials">Solr-Operator liveness and readiness probes may leak basic auth credentials</a></td>
@@ -255,18 +265,55 @@ with you to see if we can provide this information in other variations or format
             <td>2020-10-12</td>
             <td><a href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">The checks added to unauthenticated configset uploads in Apache Solr can be circumvented</a></td>
         </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13941">CVE-2020-13941</a></td>
-            <td>2020-08-14</td>
-            <td><a href="#cve-2020-13941-apache-solr-information-disclosure-vulnerability">Apache Solr information disclosure vulnerability</a></td>
-        </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-17558">CVE-2019-17558</a></td>
-            <td>2019-12-30</td>
-            <td><a href="#cve-2019-17558-apache-solr-rce-through-velocityresponsewriter">Apache Solr RCE through VelocityResponseWriter</a></td>
-        </tr>
     </table>
 
+  <h2 id="cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending">2024-10-14, CVE-2024-45216: Apache Solr: Authentication bypass possible using a fake URL Path ending
+    <a class="headerlink" href="#cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Critical</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Apache Solr 5.3.0 before 8.11.4</li>
+<li>Apache Solr 9.0.0 before 9.7.0</li>
+</ul>
+<p><strong>Description:</strong><br>
+Improper Authentication vulnerability in Apache Solr.</p>
+<p>Solr instances using the PKIAuthenticationPlugin, which is enabled by default when Solr Authentication is used, are vulnerable to Authentication bypass.
+A fake ending at the end of any Solr API URL path, will allow requests to skip Authentication while maintaining the API contract with the original URL Path.
+This fake ending looks like an unprotected API path, however it is stripped off internally after authentication but before API routing.</p>
+<p><strong>Mitigation:</strong><br>
+Users are recommended to upgrade to version 9.7.0, or 8.11.4, which fix the issue.</p>
+<p><strong>Credit:</strong>
+Liu Huajin (reporter)</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-17417">SOLR-17417</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45216">CVE-2024-45216</a></p>
+  <hr/>
+  <h2 id="cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly">2024-10-14, CVE-2024-45217: Apache Solr: ConfigSets created during a backup restore command are trusted implicitly
+    <a class="headerlink" href="#cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Moderate</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Apache Solr 6.6.0 before 8.11.4</li>
+<li>Apache Solr 9.0.0 before 9.7.0</li>
+</ul>
+<p><strong>Description:</strong>  </p>
+<p>Insecure Default Initialization of Resource vulnerability in Apache Solr.</p>
+<p>New ConfigSets that are created via a Restore command, which copy a configSet from the backup and give it a new name, are created without setting the "trusted" metadata.
+ConfigSets that do not contain the flag are trusted implicitly if the metadata is missing, therefore this leads to "trusted" ConfigSets that may not have been created with an Authenticated request.
+"trusted" ConfigSets are able to load custom code into classloaders, therefore the flag is supposed to only be set when the request that uploads the ConfigSet is Authenticated &amp; Authorized.</p>
+<p><strong>Mitigation:</strong><br>
+This issue affects Apache Solr: from 6.6.0 before 8.11.4, from 9.0.0 before 9.7.0. This issue does not affect Solr instances that are secured via Authentication/Authorization.</p>
+<p>Users are primarily recommended to use Authentication and Authorization when running Solr. However, upgrading to version 9.7.0, or 8.11.4 will mitigate this issue otherwise.</p>
+<p><strong>Credit:</strong>
+Liu Huajin (reporter)</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-17418">SOLR-17418</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45217">CVE-2024-45217</a></p>
+  <hr/>
   <h2 id="cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials">2024-04-12, CVE-2024-31391: Solr-Operator liveness and readiness probes may leak basic auth credentials
     <a class="headerlink" href="#cve-2024-31391-solr-operator-liveness-and-readiness-probes-may-leak-basic-auth-credentials" title="Permanent link">¶</a>
   </h2>
@@ -584,66 +631,6 @@ Any of the following are enough to prevent this vulnerability:</p>
 Tomás Fernández Löbbe, András Salamon</p>
 <p><strong>References:</strong>
 <a href="https://issues.apache.org/jira/browse/SOLR-14925">SOLR-14925</a>: CVE-2020-13957: The checks added to unauthenticated configset uploads can be circumvented</p>
-  <hr/>
-  <h2 id="cve-2020-13941-apache-solr-information-disclosure-vulnerability">2020-08-14, CVE-2020-13941: Apache Solr information disclosure vulnerability
-    <a class="headerlink" href="#cve-2020-13941-apache-solr-information-disclosure-vulnerability" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong> 
-Medium</p>
-<p><strong>Versions Affected:</strong><br>
-Before Solr 8.6.  Some risks are specific to Windows.</p>
-<p><strong>Description:</strong>
-Reported in SOLR-14515 (private) and fixed in SOLR-14561 (public), released in Solr version 8.6.0. 
-The Replication handler (https://solr.apache.org/guide/8_6/index-replication.html#http-api-commands-for-the-replicationhandler) allows commands backup, restore and deleteBackup. Each of these take a location parameter, which was not validated, i.e you could read/write to any location the solr user can access. </p>
-<p>On a windows system SMB paths such as \10.0.0.99\share\folder may also be used, leading to:</p>
-<ul>
-<li>The possibility of restoring another SolrCore from a server on the network (or mounted remote file system) may lead to:<ul>
-<li>Exposing search index data that the attacker should otherwise not have access to</li>
-<li>Replacing the index data entirely by loading it from a remote file system that the attacker controls</li>
-</ul>
-</li>
-<li>Launching SMB attacks which may result in:<ul>
-<li>The exfiltration of sensitive data such as OS user hashes (NTLM/LM hashes),</li>
-<li>In case of misconfigured systems, SMB Relay Attacks which can lead to user impersonation on SMB Shares or, in a worse-case scenario, Remote Code Execution </li>
-</ul>
-</li>
-</ul>
-<p><strong>Mitigation:</strong>
-Upgrade to Solr 8.6, and/or ensure only trusted clients can make requests of Solr's replication handler.</p>
-<p><strong>Credit:</strong>
-Matei "Mal" Badanoiu</p>
-  <hr/>
-  <h2 id="cve-2019-17558-apache-solr-rce-through-velocityresponsewriter">2019-12-30, CVE-2019-17558: Apache Solr RCE through VelocityResponseWriter
-    <a class="headerlink" href="#cve-2019-17558-apache-solr-rce-through-velocityresponsewriter" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong> High</p>
-<p><strong>Vendor:</strong><br>
-The Apache Software Foundation</p>
-<p><strong>Versions Affected:</strong>
-5.0.0 to 8.3.1</p>
-<p><strong>Description:</strong><br>
-The affected versions are vulnerable to a Remote Code Execution through the
-VelocityResponseWriter.  A Velocity template can be provided through
-Velocity templates in a configset <code>velocity/</code> directory or as a parameter.
-A user defined configset could contain renderable, potentially malicious,
-templates.  Parameter provided templates are disabled by default, but can
-be enabled by setting <code>params.resource.loader.enabled</code> by defining a
-response writer with that setting set to <code>true</code>.  Defining a response
-writer requires configuration API access.</p>
-<p>Solr 8.4 removed the params resource loader entirely, and only enables the
-configset-provided template rendering when the configset is <code>trusted</code> (has
-been uploaded by an authenticated user).</p>
-<p><strong>Mitigation:</strong><br>
-Ensure your network settings are configured so that only trusted traffic
-communicates with Solr, especially to the configuration APIs.</p>
-<p><strong>Credit:</strong><br>
-Github user <code>s00py</code></p>
-<p><strong>References:</strong></p>
-<ul>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-13971">https://issues.apache.org/jira/browse/SOLR-13971</a></li>
-<li><a href="https://issues.apache.org/jira/browse/SOLR-14025">https://issues.apache.org/jira/browse/SOLR-14025</a></li>
-<li><a href="https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity">https://cwiki.apache.org/confluence/display/SOLR/SolrSecurity</a></li>
-</ul>
   <hr/>
   <h1 id="cve-reports-for-apache-solr-dependencies">CVE reports for Apache Solr dependencies</h1>
   <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies, and the state of their applicability to Solr.</p>

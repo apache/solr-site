@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2024-09-24T00:00:00+00:00</updated><entry><title>Apache Solr™ 8.11.4 available</title><link href="/apache-solrtm-8114-available.html" rel="alternate"></link><published>2024-09-24T00:00:00+00:00</published><updated>2024-09-24T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-09-24:/apache-solrtm-8114-available.html</id><summary type="html">&lt;p&gt;The Lucene and Solr PMCs are pleased to announce the release of Apache Solr 8.11.4.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2024-10-14T00:00:00+00:00</updated><entry><title>CVE-2024-45216: Apache Solr: Authentication bypass possible using a fake URL Path ending</title><link href="/cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending.html" rel="alternate"></link><published>2024-10-14T00:00:00+00:00</published><updated>2024-10-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-14:/cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Critical&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 5.3.0 before 8.11.4&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.7.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Improper Authentication vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;Solr instances using the PKIAuthenticationPlugin, which is enabled by default when Solr Authentication is used, are vulnerable to Authentication bypass.
+A …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Critical&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 5.3.0 before 8.11.4&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.7.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
+Improper Authentication vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;Solr instances using the PKIAuthenticationPlugin, which is enabled by default when Solr Authentication is used, are vulnerable to Authentication bypass.
+A fake ending at the end of any Solr API URL path, will allow requests to skip Authentication while maintaining the API contract with the original URL Path.
+This fake ending looks like an unprotected API path, however it is stripped off internally after authentication but before API routing.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+Users are recommended to upgrade to version 9.7.0, or 8.11.4, which fix the issue.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Liu Huajin (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-17417"&gt;SOLR-17417&lt;/a&gt;&lt;br&gt;
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45216"&gt;CVE-2024-45216&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>CVE-2024-45217: Apache Solr: ConfigSets created during a backup restore command are trusted implicitly</title><link href="/cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly.html" rel="alternate"></link><published>2024-10-14T00:00:00+00:00</published><updated>2024-10-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-14:/cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.6.0 before 8.11.4&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.7.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;Insecure Default Initialization of Resource vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;New ConfigSets that are created via a Restore command, which copy a configSet from the backup and give …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+Moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 6.6.0 before 8.11.4&lt;/li&gt;
+&lt;li&gt;Apache Solr 9.0.0 before 9.7.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;Insecure Default Initialization of Resource vulnerability in Apache Solr.&lt;/p&gt;
+&lt;p&gt;New ConfigSets that are created via a Restore command, which copy a configSet from the backup and give it a new name, are created without setting the "trusted" metadata.
+ConfigSets that do not contain the flag are trusted implicitly if the metadata is missing, therefore this leads to "trusted" ConfigSets that may not have been created with an Authenticated request.
+"trusted" ConfigSets are able to load custom code into classloaders, therefore the flag is supposed to only be set when the request that uploads the ConfigSet is Authenticated &amp;amp; Authorized.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
+This issue affects Apache Solr: from 6.6.0 before 8.11.4, from 9.0.0 before 9.7.0. This issue does not affect Solr instances that are secured via Authentication/Authorization.&lt;/p&gt;
+&lt;p&gt;Users are primarily recommended to use Authentication and Authorization when running Solr. However, upgrading to version 9.7.0, or 8.11.4 will mitigate this issue otherwise.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
+Liu Huajin (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
+JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-17418"&gt;SOLR-17418&lt;/a&gt;&lt;br&gt;
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45217"&gt;CVE-2024-45217&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"></category></entry><entry><title>Apache Solr™ 8.11.4 available</title><link href="/apache-solrtm-8114-available.html" rel="alternate"></link><published>2024-09-24T00:00:00+00:00</published><updated>2024-09-24T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-09-24:/apache-solrtm-8114-available.html</id><summary type="html">&lt;p&gt;The Lucene and Solr PMCs are pleased to announce the release of Apache Solr 8.11.4.&lt;/p&gt;
 &lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Lucene and Solr PMCs are pleased to announce the release of Apache Solr 8.11.4.&lt;/p&gt;
 &lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.&lt;/p&gt;
 &lt;p&gt;Solr 8.11.4 is available for immediate download at:&lt;/p&gt;
@@ -2338,36 +2394,4 @@ release.&lt;/p&gt;
 &lt;code&gt;stream.body&lt;/code&gt; parameter by default, which will further help protect
 systems.&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/security"></category></entry><entry><title>Apache Solr™ 7.0.1 available</title><link href="/" rel="alternate"></link><published>2017-10-06T00:00:00+00:00</published><updated>2017-10-06T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2017-10-06:/</id><summary type="html">&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the
-Apache Lucene project. Its major features include powerful full-text search,
-hit highlighting, faceted search and analytics, rich document parsing,
-geospatial search, extensive REST APIs as well as parallel SQL. Solr is
-enterprise grade, secure and highly scalable …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the
-Apache Lucene project. Its major features include powerful full-text search,
-hit highlighting, faceted search and analytics, rich document parsing,
-geospatial search, extensive REST APIs as well as parallel SQL. Solr is
-enterprise grade, secure and highly scalable, providing fault tolerant
-distributed search and indexing, and powers the search and navigation
-features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 7.0.1 is available for immediate download at:
-&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;This release includes 2 bug fixes since the 7.0.0 release:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Solr 7.0 cannot read indexes from 6.x versions.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Message "Lock held by this virtual machine" during startup.
-  Solr is trying to start some cores twice.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Furthermore, this release includes Apache Lucene 7.0.1 which includes 1 bug
-fix since the 7.0.0 release.&lt;/p&gt;
-&lt;p&gt;The release is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://www.apache.org/dyn/closer.lua/lucene/solr/7.0.1"&gt;https://www.apache.org/dyn/closer.lua/lucene/solr/7.0.1&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a detailed list of changes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/7_0_1/changes/Changes.html"&gt;https://solr.apache.org/7_0_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>Apache Solr Reference Guide for 7.0 available</title><link href="/" rel="alternate"></link><published>2017-10-02T00:00:00+00:00</published><updated>2017-10-02T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2017-10-02:/</id><summary type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of the Apache Solr Reference Guide for Solr 7.0.&lt;/p&gt;
-&lt;p&gt;This 1,035-page PDF is the definitive guide to Solr. This version adds documentation for new features of Solr, plus detailed information about changes and deprecations you should know about when …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of the Apache Solr Reference Guide for Solr 7.0.&lt;/p&gt;
-&lt;p&gt;This 1,035-page PDF is the definitive guide to Solr. This version adds documentation for new features of Solr, plus detailed information about changes and deprecations you should know about when upgrading from Solr 6.x to Solr 7.0.&lt;/p&gt;
-&lt;p&gt;You can download the PDF from: &lt;a href="https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/apache-solr-ref-guide-7.0.pdf"&gt;https://www.apache.org/dyn/closer.cgi/lucene/solr/ref-guide/apache-solr-ref-guide-7.0.pdf&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;An HTML version is also available from: &lt;a href="https://solr.apache.org/guide/7_0/"&gt;https://solr.apache.org/guide/7_0/&lt;/a&gt;.&lt;/p&gt;</content><category term="solr/news"></category></entry></feed>
+&lt;/ul&gt;</content><category term="solr/security"></category></entry></feed>
