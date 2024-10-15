@@ -135,6 +135,51 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending">14 October 2024, CVE-2024-45216: Apache Solr: Authentication bypass possible using a fake URL Path ending
+    <a class="headerlink" href="#cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Critical</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Apache Solr 5.3.0 before 8.11.4</li>
+<li>Apache Solr 9.0.0 before 9.7.0</li>
+</ul>
+<p><strong>Description:</strong><br>
+Improper Authentication vulnerability in Apache Solr.</p>
+<p>Solr instances using the PKIAuthenticationPlugin, which is enabled by default when Solr Authentication is used, are vulnerable to Authentication bypass.
+A fake ending at the end of any Solr API URL path, will allow requests to skip Authentication while maintaining the API contract with the original URL Path.
+This fake ending looks like an unprotected API path, however it is stripped off internally after authentication but before API routing.</p>
+<p><strong>Mitigation:</strong><br>
+Users are recommended to upgrade to version 9.7.0, or 8.11.4, which fix the issue.</p>
+<p><strong>Credit:</strong>
+Liu Huajin (reporter)</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-17417">SOLR-17417</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45216">CVE-2024-45216</a></p>
+  <h2 id="cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly">14 October 2024, CVE-2024-45217: Apache Solr: ConfigSets created during a backup restore command are trusted implicitly
+    <a class="headerlink" href="#cve-2024-45217-apache-solr-configsets-created-during-a-backup-restore-command-are-trusted-implicitly" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong><br>
+Moderate</p>
+<p><strong>Versions Affected:</strong></p>
+<ul>
+<li>Apache Solr 6.6.0 before 8.11.4</li>
+<li>Apache Solr 9.0.0 before 9.7.0</li>
+</ul>
+<p><strong>Description:</strong>  </p>
+<p>Insecure Default Initialization of Resource vulnerability in Apache Solr.</p>
+<p>New ConfigSets that are created via a Restore command, which copy a configSet from the backup and give it a new name, are created without setting the "trusted" metadata.
+ConfigSets that do not contain the flag are trusted implicitly if the metadata is missing, therefore this leads to "trusted" ConfigSets that may not have been created with an Authenticated request.
+"trusted" ConfigSets are able to load custom code into classloaders, therefore the flag is supposed to only be set when the request that uploads the ConfigSet is Authenticated &amp; Authorized.</p>
+<p><strong>Mitigation:</strong><br>
+This issue affects Apache Solr: from 6.6.0 before 8.11.4, from 9.0.0 before 9.7.0. This issue does not affect Solr instances that are secured via Authentication/Authorization.</p>
+<p>Users are primarily recommended to use Authentication and Authorization when running Solr. However, upgrading to version 9.7.0, or 8.11.4 will mitigate this issue otherwise.</p>
+<p><strong>Credit:</strong>
+Liu Huajin (reporter)</p>
+<p><strong>References:</strong><br>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-17418">SOLR-17418</a><br>
+CVE - <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45217">CVE-2024-45217</a></p>
   <h2 id="apache-solrtm-8114-available">24 September 2024, Apache Solr™ 8.11.4 available
     <a class="headerlink" href="#apache-solrtm-8114-available" title="Permanent link">¶</a>
   </h2>
