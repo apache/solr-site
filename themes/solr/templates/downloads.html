@@ -115,7 +115,9 @@
   </h3>
 
   <p>Apache Solr is under active development with frequent feature releases on the current major version.
+  <!-- Uncomment when 10.0 is released
   The <strong>previous</strong> major version will see occasional critical security- or bug fixes releases.
+  -->
   Older versions are considered EOL (End Of Life) and will not be further
   updated. For this reason it may also be difficult to obtain community support for EOL versions.</p>
 
@@ -131,16 +133,21 @@
       <td>{{ SOLR_LATEST_RELEASE.split('.') | first }}.x</td>
       <td>Current major version for feature releases (STABLE)</td>
     </tr>
+    <!-- Uncomment when 10.0 is released
     <tr align=left>
       <td>{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}.x</td>
       <td>Previous major version may sometimes receive critical bugfix releases</td>
     </tr>
+    -->
     <tr align=left>
       <td>{{ SOLR_LATEST_RELEASE.split('.') | first | int + 1 }}</td>
       <td>Next major version, yet to be released (UNSTABLE)</td>
     </tr>
     <tr align=left>
+      <td>&lt;={{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}</td>
+      <!-- Replace above line with this when 10.0 is released
       <td>&lt;{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}</td>
+      -->
       <td>All older versions are End Of Life (EOL)</td>
     </tr>
   </table>
