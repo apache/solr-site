@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2024-10-14T00:00:00+00:00</updated><entry><title>CVE-2024-45216: Apache Solr: Authentication bypass possible using a fake URL Path ending</title><link href="/cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending.html" rel="alternate"></link><published>2024-10-14T00:00:00+00:00</published><updated>2024-10-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-14:/cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2024-10-25T00:00:00+00:00</updated><entry><title>Solr 8 reaches End-Of-Life</title><link href="/solr-8-reaches-end-of-life.html" rel="alternate"></link><published>2024-10-25T00:00:00+00:00</published><updated>2024-10-25T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-25:/solr-8-reaches-end-of-life.html</id><summary type="html">&lt;p&gt;With Lucene 10 having been released, and therefore Lucene 8 reaching EOL, the Apache Lucene and Solr PMCs are no longer able to provide new releases for Solr 8.
+Solr 8.11.4 will be the last release of Solr 8.&lt;/p&gt;
+&lt;p&gt;Users are strongly recommended to upgrade to Solr 9 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;With Lucene 10 having been released, and therefore Lucene 8 reaching EOL, the Apache Lucene and Solr PMCs are no longer able to provide new releases for Solr 8.
+Solr 8.11.4 will be the last release of Solr 8.&lt;/p&gt;
+&lt;p&gt;Users are strongly recommended to upgrade to Solr 9, and prepare for the soon-to-be-released Solr 10.&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>CVE-2024-45216: Apache Solr: Authentication bypass possible using a fake URL Path ending</title><link href="/cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending.html" rel="alternate"></link><published>2024-10-14T00:00:00+00:00</published><updated>2024-10-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-14:/cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
 Critical&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2345,53 +2349,4 @@ file re-maps the xmlparser to the edismax parser:
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You are encouraged to thoroughly read the "Upgrade Notes" at &lt;a href="https://solr.apache.org/7_1_0/changes/Changes.html"&gt;https://solr.apache.org/7_1_0/changes/Changes.html&lt;/a&gt; or in the CHANGES.txt file accompanying the release.&lt;/p&gt;
-&lt;p&gt;Solr 7.1 also includes many other new features as well as numerous optimizations and bugfixes of the corresponding Apache Lucene release.&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>Please secure your Apache Solr servers since a zero-day exploit has been reported on a public mailing list</title><link href="/solr-security-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list.html" rel="alternate"></link><published>2017-10-12T00:00:00+00:00</published><updated>2017-10-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2017-10-12:/solr-security-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list.html</id><summary type="html">&lt;p&gt;Please secure your Solr servers since a zero-day exploit has been
-reported on a &lt;a href="https://s.apache.org/FJDl"&gt;public mailing list&lt;/a&gt;.
-This has been assigned a public CVE (CVE-2017-12629) which we
-will reference in future communication about resolution and mitigation
-steps.&lt;/p&gt;
-&lt;p&gt;Here is what we're recommending and what we're doing now:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Until fixes are …&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Please secure your Solr servers since a zero-day exploit has been
-reported on a &lt;a href="https://s.apache.org/FJDl"&gt;public mailing list&lt;/a&gt;.
-This has been assigned a public CVE (CVE-2017-12629) which we
-will reference in future communication about resolution and mitigation
-steps.&lt;/p&gt;
-&lt;p&gt;Here is what we're recommending and what we're doing now:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Until fixes are available, all Solr users are advised to restart their
-Solr instances with the system property &lt;code&gt;-Ddisable.configEdit=true&lt;/code&gt;.
-This will disallow any changes to be made to configurations via the
-Config API. This is a key factor in this vulnerability, since it allows
-GET requests to add the RunExecutableListener to the config. This is
-sufficient to protect you from this type of attack, but means you cannot
-use the edit capabilities of the Config API until the other fixes
-described below are in place. Users are also advised to remap
-the XML Query Parser to another parser to mitigate the XXE
-vulnerability. For example, adding the following to the solrconfig.xml
-file maps the &lt;code&gt;xmlparser&lt;/code&gt; to the &lt;code&gt;edismax&lt;/code&gt; parser:
-&lt;code&gt;&amp;lt;queryParser name="xmlparser" class="solr.ExtendedDismaxQParserPlugin"/&amp;gt;&lt;/code&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A new release of Lucene/Solr was in the vote phase, but we have now
-pulled it back to be able to address these issues in the upcoming 7.1
-release. We will also determine mitigation steps for users on earlier
-versions, which may include a 6.6.2 release for users still on 6.x.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The RunExecutableListener will be removed in 7.1. It was previously
-used by Solr for index replication but has been replaced and is no
-longer needed.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The XML Parser will be fixed and the fixes will be included in the 7.1
-release.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The 7.1 release was already slated to include a change to disable the
-&lt;code&gt;stream.body&lt;/code&gt; parameter by default, which will further help protect
-systems.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/security"></category></entry></feed>
+&lt;p&gt;Solr 7.1 also includes many other new features as well as numerous optimizations and bugfixes of the corresponding Apache Lucene release.&lt;/p&gt;</content><category term="solr/news"></category></entry></feed>
