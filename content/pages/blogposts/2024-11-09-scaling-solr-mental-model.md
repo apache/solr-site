@@ -1,6 +1,6 @@
 Title: Scaling Solr: From Desktop to Cloud Scale
 category: solr/blogposts
-summary: This blog post is a opinion piece on how to make Solr deployments scale easily from small to massive. Written by Eric Pugh and Stefan Vodita.
+summary: This blog post is a opinion piece on how to make Solr deployments scale easily from small to massive. Written by Eric Pugh.
 slug: scaling-solr-mental-model
 URL: blogposts/scaling-solr-mental-model.html
 save_as: blogposts/scaling-solr-mental-model.html
