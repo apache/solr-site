@@ -13,7 +13,27 @@
 &lt;p&gt;&lt;a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html"&gt;https://apache.github.io/solr-operator/docs/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog"&gt;https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.9.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.9.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"></category></entry><entry><title>Solr 8 reaches End-Of-Life</title><link href="/solr-8-reaches-end-of-life.html" rel="alternate"></link><published>2024-10-25T00:00:00+00:00</published><updated>2024-10-25T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-25:/solr-8-reaches-end-of-life.html</id><summary type="html">&lt;p&gt;With Lucene 10 having been released, and therefore Lucene 8 reaching EOL, the Apache Lucene and Solr PMCs are no longer able to provide new releases for Solr 8.
+&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.9.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.9.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"></category></entry><entry><title>Apache Solr™ 9.8.0 available</title><link href="/apache-solrtm-980-available.html" rel="alternate"></link><published>2025-01-21T00:00:00+00:00</published><updated>2025-01-21T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-01-21:/apache-solrtm-980-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.8.0.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.8.0.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.&lt;/p&gt;
+&lt;p&gt;Solr 9.8.0 is available for immediate download at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="solr-980-release-highlights"&gt;Solr 9.8.0 Release Highlights:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The Solr Cross-DC Project has graduated from the sandbox repository into the Solr project as a supported capability.&lt;/li&gt;
+&lt;li&gt;Requests can specify the 'memAllowed' parameter to halt requests that have exceeded this amount of memory (similar to timeAllowed but for memory).&lt;/li&gt;
+&lt;li&gt;New knn_text_to_vector query parser that encodes query text into a vector (AKA "embedding") via external LLM services.&lt;/li&gt;
+&lt;li&gt;New ParallelHttpShardHandlerFactory for reducing distributed-search latency in collections with many shards. This is not used by default.&lt;/li&gt;
+&lt;li&gt;Cluster properties can now be listed or read individually using new v2 APIs ("GET /api/cluster/properties" and "GET /api/cluster/properties/propName")&lt;/li&gt;
+&lt;li&gt;SolrJ CloudSolrClient now performs reasonably when configured with Solr URLs, which is increasingly going to be preferred over ZK URLs.  Some big performance improvements occurred this release.&lt;/li&gt;
+&lt;li&gt;Shard splits now support indexes with nested documents.&lt;/li&gt;
+&lt;li&gt;"&lt;lib/&gt;" tags in solrconfig.xml are now quietly ignored by default unless explicitly enabled with the &lt;code&gt;SOLR_CONFIG_LIB_ENABLED=true&lt;/code&gt; environment variable (or corresponding sysprop)&lt;/li&gt;
+&lt;li&gt;multiThreaded=true no longer risks rejected exceptions under load.  But you may need to increase the thread pool to more fully utilize a machine than previously.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/apache/solr/blob/main/solr/solr-ref-guide/modules/upgrade-notes/pages/major-changes-in-solr-9.adoc#solr-98"&gt;https://github.com/apache/solr/blob/main/solr/solr-ref-guide/modules/upgrade-notes/pages/major-changes-in-solr-9.adoc#solr-98&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please read CHANGES.txt for a full list of new features, changes and bug-fixes:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/9_8_0/changes/Changes.html"&gt;https://solr.apache.org/9_8_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>Solr 8 reaches End-Of-Life</title><link href="/solr-8-reaches-end-of-life.html" rel="alternate"></link><published>2024-10-25T00:00:00+00:00</published><updated>2024-10-25T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-10-25:/solr-8-reaches-end-of-life.html</id><summary type="html">&lt;p&gt;With Lucene 10 having been released, and therefore Lucene 8 reaching EOL, the Apache Lucene and Solr PMCs are no longer able to provide new releases for Solr 8.
 Solr 8.11.4 will be the last release of Solr 8.&lt;/p&gt;
 &lt;p&gt;Users are strongly recommended to upgrade to Solr 9 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;With Lucene 10 having been released, and therefore Lucene 8 reaching EOL, the Apache Lucene and Solr PMCs are no longer able to provide new releases for Solr 8.
 Solr 8.11.4 will be the last release of Solr 8.&lt;/p&gt;
@@ -2260,66 +2280,4 @@ deserialisation support to protect against this vulnerability.&lt;/p&gt;
 &lt;p&gt;The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.apache.org/dyn/closer.lua/lucene/solr/6.6.2"&gt;https://www.apache.org/dyn/closer.lua/lucene/solr/6.6.2&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Please read CHANGES.txt for a detailed list of changes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/6_6_2/changes/Changes.html"&gt;https://solr.apache.org/6_6_2/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"></category></entry><entry><title>Several critical vulnerabilities discovered in Apache Solr (XXE &amp; RCE)</title><link href="/several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce.html" rel="alternate"></link><published>2017-10-18T00:00:00+00:00</published><updated>2017-10-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2017-10-18:/several-critical-vulnerabilities-discovered-in-apache-solr-xxe-rce.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
-Critical&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vendor:&lt;/strong&gt;&lt;br&gt;
-The Apache Software Foundation&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;  &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Solr 5.5.0 to 5.5.4&lt;/li&gt;
-&lt;li&gt;Solr 6.0.0 to 6.6.1&lt;/li&gt;
-&lt;li&gt;Solr 7.0.0 to 7.0.1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
-The details of this vulnerability were reported on public mailing
-lists. See https://s.apache.org …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
-Critical&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vendor:&lt;/strong&gt;&lt;br&gt;
-The Apache Software Foundation&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;  &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Solr 5.5.0 to 5.5.4&lt;/li&gt;
-&lt;li&gt;Solr 6.0.0 to 6.6.1&lt;/li&gt;
-&lt;li&gt;Solr 7.0.0 to 7.0.1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
-The details of this vulnerability were reported on public mailing
-lists. See https://s.apache.org/FJDl&lt;/p&gt;
-&lt;p&gt;The first vulnerability relates to XML external entity expansion in
-the XML Query Parser which is available, by default, for any query
-request with parameters deftype=xmlparser. This can be exploited to
-upload malicious data to the /upload request handler. It can also be
-used as Blind XXE using ftp wrapper in order to read arbitrary local
-files from the solr server.&lt;/p&gt;
-&lt;p&gt;The second vulnerability relates to remote code execution using the
-RunExecutableListener available on all affected versions of Solr.&lt;/p&gt;
-&lt;p&gt;At the time of the above report, this was a 0-day vulnerability with a
-working exploit affecting the versions of Solr mentioned in the
-previous section. However, mitigation steps were announced to protect
-Solr users the same day. See
-https://solr.apache.org/news.html#12-october-2017-please-secure-your-apache-solr-servers-since-a-zero-day-exploit-has-been-reported-on-a-public-mailing-list&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
-Users are advised to upgrade to either Solr 6.6.2 or Solr 7.1.0
-releases both of which address the two vulnerabilities. Once upgrade is
-complete, no other steps are required.&lt;/p&gt;
-&lt;p&gt;If users are unable to upgrade to Solr 6.6.2 or Solr 7.1.0 then they
-are advised to restart their Solr instances with the system parameter
-&lt;code&gt;-Ddisable.configEdit=true&lt;/code&gt;. This will disallow any changes to be made
-to your configurations via the Config API. This is a key factor in
-this vulnerability, since it allows GET requests to add the
-RunExecutableListener to your config. Users are also advised to re-map
-the XML Query Parser to another parser to mitigate the XXE
-vulnerability. For example, adding the following to the solrconfig.xml
-file re-maps the xmlparser to the edismax parser:
-&lt;code&gt;&amp;lt;queryParser name="xmlparser" class="solr.ExtendedDismaxQParserPlugin"/&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;  &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Michael Stepankin (JPMorgan Chase)&lt;/li&gt;
-&lt;li&gt;Olga Barinova (Gotham Digital Science)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;  &lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://issues.apache.org/jira/browse/SOLR-11482"&gt;https://issues.apache.org/jira/browse/SOLR-11482&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://issues.apache.org/jira/browse/SOLR-11477"&gt;https://issues.apache.org/jira/browse/SOLR-11477&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity"&gt;https://cwiki.apache.org/confluence/display/solr/SolrSecurity&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/security"></category></entry></feed>
+&lt;p&gt;&lt;a href="https://solr.apache.org/6_6_2/changes/Changes.html"&gt;https://solr.apache.org/6_6_2/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"></category></entry></feed>

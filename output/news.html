@@ -134,6 +134,29 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-980-available">21 January 2025, Apache Solr™ 9.8.0 available
+    <a class="headerlink" href="#apache-solrtm-980-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.8.0.</p>
+<p>Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.</p>
+<p>Solr 9.8.0 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-980-release-highlights">Solr 9.8.0 Release Highlights:</h3>
+<ul>
+<li>The Solr Cross-DC Project has graduated from the sandbox repository into the Solr project as a supported capability.</li>
+<li>Requests can specify the 'memAllowed' parameter to halt requests that have exceeded this amount of memory (similar to timeAllowed but for memory).</li>
+<li>New knn_text_to_vector query parser that encodes query text into a vector (AKA "embedding") via external LLM services.</li>
+<li>New ParallelHttpShardHandlerFactory for reducing distributed-search latency in collections with many shards. This is not used by default.</li>
+<li>Cluster properties can now be listed or read individually using new v2 APIs ("GET /api/cluster/properties" and "GET /api/cluster/properties/propName")</li>
+<li>SolrJ CloudSolrClient now performs reasonably when configured with Solr URLs, which is increasingly going to be preferred over ZK URLs.  Some big performance improvements occurred this release.</li>
+<li>Shard splits now support indexes with nested documents.</li>
+<li>"<lib/>" tags in solrconfig.xml are now quietly ignored by default unless explicitly enabled with the <code>SOLR_CONFIG_LIB_ENABLED=true</code> environment variable (or corresponding sysprop)</li>
+<li>multiThreaded=true no longer risks rejected exceptions under load.  But you may need to increase the thread pool to more fully utilize a machine than previously.</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://github.com/apache/solr/blob/main/solr/solr-ref-guide/modules/upgrade-notes/pages/major-changes-in-solr-9.adoc#solr-98">https://github.com/apache/solr/blob/main/solr/solr-ref-guide/modules/upgrade-notes/pages/major-changes-in-solr-9.adoc#solr-98</a></p>
+<p>Please read CHANGES.txt for a full list of new features, changes and bug-fixes:</p>
+<p><a href="https://solr.apache.org/9_8_0/changes/Changes.html">https://solr.apache.org/9_8_0/changes/Changes.html</a></p>
   <h2 id="solr-8-reaches-end-of-life">25 October 2024, Solr 8 reaches End-Of-Life
     <a class="headerlink" href="#solr-8-reaches-end-of-life" title="Permanent link">¶</a>
   </h2>
