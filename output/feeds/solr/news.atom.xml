@@ -13,7 +13,7 @@
 &lt;li&gt;Cluster properties can now be listed or read individually using new v2 APIs ("GET /api/cluster/properties" and "GET /api/cluster/properties/propName")&lt;/li&gt;
 &lt;li&gt;SolrJ CloudSolrClient now performs reasonably when configured with Solr URLs, which is increasingly going to be preferred over ZK URLs.  Some big performance improvements occurred this release.&lt;/li&gt;
 &lt;li&gt;Shard splits now support indexes with nested documents.&lt;/li&gt;
-&lt;li&gt;"&lt;lib/&gt;" tags in solrconfig.xml are now quietly ignored by default unless explicitly enabled with the &lt;code&gt;SOLR_CONFIG_LIB_ENABLED=true&lt;/code&gt; environment variable (or corresponding sysprop)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;"&amp;lt;lib\&amp;gt;"&lt;/code&gt; tags in solrconfig.xml are now quietly ignored by default unless explicitly enabled with the &lt;code&gt;SOLR_CONFIG_LIB_ENABLED=true&lt;/code&gt; environment variable (or corresponding sysprop)&lt;/li&gt;
 &lt;li&gt;multiThreaded=true no longer risks rejected exceptions under load.  But you may need to increase the thread pool to more fully utilize a machine than previously.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
