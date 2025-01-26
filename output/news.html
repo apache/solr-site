@@ -134,6 +134,46 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="cve-2024-52012-apache-solr-configset-upload-on-windows-allows-arbitrary-path-write-access">26 January 2025, CVE-2024-52012: Apache Solr: Configset upload on Windows allows arbitrary path write-access
+    <a class="headerlink" href="#cve-2024-52012-apache-solr-configset-upload-on-windows-allows-arbitrary-path-write-access" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity</strong>
+moderate</p>
+<p><strong>Versions Affected</strong></p>
+<ul>
+<li>Apache Solr 6.6 through 9.7.0</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>Relative Path Traversal vulnerability in Apache Solr.</p>
+<p>Solr instances running on Windows are vulnerable to arbitrary filepath write-access, due to a lack of input-sanitation in the "configset upload" API.  Commonly known as a "zipslip", maliciously constructed ZIP files can use relative filepaths to write data to unanticipated parts of the filesystem.<br>
+This issue affects Apache Solr: from 6.6 through 9.7.0.</p>
+<p><strong>Mitigation</strong></p>
+<p>Users are recommended to upgrade to version 9.8.0, which fixes the issue.  Users unable to upgrade may also safely prevent the issue by using Solr's "Rule-Based Authentication Plugin" to restrict access to the configset upload API, so that it can only be accessed by a trusted set of administrators/users.</p>
+<p><strong>Credit</strong>
+rry (reporter)</p>
+<p><strong>References</strong>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-17543">SOLR-17543</a>
+CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2024-52012">CVE-2024-52012</a></p>
+  <h2 id="cve-2025-24814-apache-solr-core-creation-with-trusted-configset-can-use-arbitrary-untrusted-files">26 January 2025, CVE-2025-24814: Apache Solr: Core-creation with "trusted" configset can use arbitrary untrusted files
+    <a class="headerlink" href="#cve-2025-24814-apache-solr-core-creation-with-trusted-configset-can-use-arbitrary-untrusted-files" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity</strong>
+moderate</p>
+<p><strong>Versions Affected</strong></p>
+<ul>
+<li>Apache Solr through 9.7</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>Core creation allows users to replace "trusted" configset files with arbitrary configuration</p>
+<p>Solr instances that (1) use the "FileSystemConfigSetService" component (the default in "standalone" or "user-managed" mode), and (2) are running without authentication and authorization are vulnerable to a sort of privilege escalation wherein individual "trusted" configset files can be ignored in favor of potentially-untrusted replacements available elsewhere on the filesystem.  These replacement config files are treated as "trusted" and can use "<lib>" tags to add to Solr's classpath, which an attacker might use to load malicious code as a searchComponent or other plugin.</p>
+<p>This issue affects all Apache Solr versions up through Solr 9.7.</p>
+<p><strong>Mitigation</strong></p>
+<p>Users can protect against the vulnerability by enabling authentication and authorization on their Solr clusters or switching to SolrCloud (and away from "FileSystemConfigSetService").  Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue by disabling use of "<lib>" tags by default.</p>
+<p><strong>Credit</strong>
+pwn null (reporter)</p>
+<p><strong>References</strong>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-16781">SOLR-16781</a>
+CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2025-24814">CVE-2025-24814</a></p>
   <h2 id="apache-solrtm-980-available">23 January 2025, Apache Solr™ 9.8.0 available
     <a class="headerlink" href="#apache-solrtm-980-available" title="Permanent link">¶</a>
   </h2>
