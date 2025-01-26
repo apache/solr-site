@@ -190,6 +190,16 @@ with you to see if we can provide this information in other variations or format
             <th>Announcement</th>
         </tr>
         <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-52012">CVE-2024-52012</a></td>
+            <td>2025-01-26</td>
+            <td><a href="#cve-2024-52012-apache-solr-configset-upload-on-windows-allows-arbitrary-path-write-access">Apache Solr: Configset upload on Windows allows arbitrary path write-access</a></td>
+        </tr>
+        <tr>
+            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-24814">CVE-2025-24814</a></td>
+            <td>2025-01-26</td>
+            <td><a href="#cve-2025-24814-apache-solr-core-creation-with-trusted-configset-can-use-arbitrary-untrusted-files">Apache Solr: Core-creation with "trusted" configset can use arbitrary untrusted files</a></td>
+        </tr>
+        <tr>
             <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45216">CVE-2024-45216</a></td>
             <td>2024-10-14</td>
             <td><a href="#cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending">Apache Solr: Authentication bypass possible using a fake URL Path ending</a></td>
@@ -254,18 +264,50 @@ with you to see if we can provide this information in other variations or format
             <td>2021-04-12</td>
             <td><a href="#cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings">Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</a></td>
         </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-29943">CVE-2021-29943</a></td>
-            <td>2021-04-12</td>
-            <td><a href="#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections">Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections</a></td>
-        </tr>
-        <tr>
-            <td><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13957">CVE-2020-13957</a></td>
-            <td>2020-10-12</td>
-            <td><a href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">The checks added to unauthenticated configset uploads in Apache Solr can be circumvented</a></td>
-        </tr>
     </table>
 
+  <h2 id="cve-2024-52012-apache-solr-configset-upload-on-windows-allows-arbitrary-path-write-access">2025-01-26, CVE-2024-52012: Apache Solr: Configset upload on Windows allows arbitrary path write-access
+    <a class="headerlink" href="#cve-2024-52012-apache-solr-configset-upload-on-windows-allows-arbitrary-path-write-access" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity</strong>
+moderate</p>
+<p><strong>Versions Affected</strong></p>
+<ul>
+<li>Apache Solr 6.6 through 9.7.0</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>Relative Path Traversal vulnerability in Apache Solr.</p>
+<p>Solr instances running on Windows are vulnerable to arbitrary filepath write-access, due to a lack of input-sanitation in the "configset upload" API.  Commonly known as a "zipslip", maliciously constructed ZIP files can use relative filepaths to write data to unanticipated parts of the filesystem.<br>
+This issue affects Apache Solr: from 6.6 through 9.7.0.</p>
+<p><strong>Mitigation</strong></p>
+<p>Users are recommended to upgrade to version 9.8.0, which fixes the issue.  Users unable to upgrade may also safely prevent the issue by using Solr's "Rule-Based Authentication Plugin" to restrict access to the configset upload API, so that it can only be accessed by a trusted set of administrators/users.</p>
+<p><strong>Credit</strong>
+rry (reporter)</p>
+<p><strong>References</strong>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-17543">SOLR-17543</a>
+CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2024-52012">CVE-2024-52012</a></p>
+  <hr/>
+  <h2 id="cve-2025-24814-apache-solr-core-creation-with-trusted-configset-can-use-arbitrary-untrusted-files">2025-01-26, CVE-2025-24814: Apache Solr: Core-creation with "trusted" configset can use arbitrary untrusted files
+    <a class="headerlink" href="#cve-2025-24814-apache-solr-core-creation-with-trusted-configset-can-use-arbitrary-untrusted-files" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity</strong>
+moderate</p>
+<p><strong>Versions Affected</strong></p>
+<ul>
+<li>Apache Solr through 9.7</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>Core creation allows users to replace "trusted" configset files with arbitrary configuration</p>
+<p>Solr instances that (1) use the "FileSystemConfigSetService" component (the default in "standalone" or "user-managed" mode), and (2) are running without authentication and authorization are vulnerable to a sort of privilege escalation wherein individual "trusted" configset files can be ignored in favor of potentially-untrusted replacements available elsewhere on the filesystem.  These replacement config files are treated as "trusted" and can use "<lib>" tags to add to Solr's classpath, which an attacker might use to load malicious code as a searchComponent or other plugin.</p>
+<p>This issue affects all Apache Solr versions up through Solr 9.7.</p>
+<p><strong>Mitigation</strong></p>
+<p>Users can protect against the vulnerability by enabling authentication and authorization on their Solr clusters or switching to SolrCloud (and away from "FileSystemConfigSetService").  Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue by disabling use of "<lib>" tags by default.</p>
+<p><strong>Credit</strong>
+pwn null (reporter)</p>
+<p><strong>References</strong>
+JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-16781">SOLR-16781</a>
+CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2025-24814">CVE-2025-24814</a></p>
+  <hr/>
   <h2 id="cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending">2024-10-14, CVE-2024-45216: Apache Solr: Authentication bypass possible using a fake URL Path ending
     <a class="headerlink" href="#cve-2024-45216-apache-solr-authentication-bypass-possible-using-a-fake-url-path-ending" title="Permanent link">¶</a>
   </h2>
@@ -583,53 +625,6 @@ Any of the following are enough to prevent this vulnerability:</p>
 Timothy Potter and Mike Drob, Apple Cloud Services</p>
 <p><strong>References:</strong>
 <a href="https://issues.apache.org/jira/browse/SOLR-15249">SOLR-15249</a>: CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</p>
-  <hr/>
-  <h2 id="cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections">2021-04-12, CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections
-    <a class="headerlink" href="#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong>
-High</p>
-<p><strong>Versions Affected:</strong>
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1</p>
-<p><strong>Description:</strong>
-When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect authorization resolution on the receiving hosts.</p>
-<p><strong>Mitigation:</strong>
-Any of the following are enough to prevent this vulnerability:</p>
-<ul>
-<li>Upgrade to <code>Solr 8.8.2</code> or greater.</li>
-<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-15233">SOLR-15233</a></li>
-<li>Use a different authentication plugin, such as the KerberosPlugin or HadoopAuthPlugin</li>
-</ul>
-<p><strong>Credit:</strong>
-Geza Nagy</p>
-<p><strong>References:</strong>
-<a href="https://issues.apache.org/jira/browse/SOLR-15233">SOLR-15233</a>: CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections </p>
-  <hr/>
-  <h2 id="cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">2020-10-12, CVE-2020-13957: The checks added to unauthenticated configset uploads in Apache Solr can be circumvented
-    <a class="headerlink" href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong>
-High</p>
-<p><strong>Versions Affected:</strong>
-6.6.0 to 6.6.6
-7.0.0 to 7.7.3
-8.0.0 to 8.6.2</p>
-<p><strong>Description:</strong>
-Solr prevents some features considered dangerous (which could be used for remote code execution) to be configured in a ConfigSet that's uploaded via API without authentication/authorization. The checks in place to prevent such features can be circumvented by using a combination of UPLOAD/CREATE actions.</p>
-<p><strong>Mitigation:</strong>
-Any of the following are enough to prevent this vulnerability:</p>
-<ul>
-<li>Disable UPLOAD command in ConfigSets API if not used by setting the system property: <code>configset.upload.enabled</code> to <code>false</code> (<a href="https://solr.apache.org/guide/8_6/configsets-api.html">see docs</a>)</li>
-<li>Use Authentication/Authorization and make sure unknown requests aren't allowed (<a href="https://solr.apache.org/guide/8_6/authentication-and-authorization-plugins.html">see docs</a>)</li>
-<li>Upgrade to <code>Solr 8.6.3</code> or greater.</li>
-<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-14663">SOLR-14663</a></li>
-<li>No Solr API, including the Admin UI, is designed to be exposed to non-trusted parties. Tune your firewall so that only trusted computers and people are allowed access</li>
-</ul>
-<p><strong>Credit:</strong>
-Tomás Fernández Löbbe, András Salamon</p>
-<p><strong>References:</strong>
-<a href="https://issues.apache.org/jira/browse/SOLR-14925">SOLR-14925</a>: CVE-2020-13957: The checks added to unauthenticated configset uploads can be circumvented</p>
   <hr/>
   <h1 id="cve-reports-for-apache-solr-dependencies">CVE reports for Apache Solr dependencies</h1>
   <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies, and the state of their applicability to Solr.</p>
