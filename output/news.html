@@ -150,6 +150,31 @@
   <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as an <a href="/feeds/solr/news.atom.xml">ATOM feed</a>.</p>
 
+  <h2 id="apache-solrtm-981-available">11 March 2025, Apache Solr™ 9.8.1 available
+    <a class="headerlink" href="#apache-solrtm-981-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 9.8.1.</p>
+<p>Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.</p>
+<p>Solr 9.8.1 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h3 id="solr-981-changes">Solr 9.8.1 Changes:</h3>
+<ul>
+<li>Disabled the new/experimental multiThreaded=true more deeply via solr.xml's indexSearcherExecutorThreads defaulting to 0 now.  It doesn't yet perform well.</li>
+<li>Fixed wt=prometheus (metrics) format compliance issue relating to duplicate TYPE lines</li>
+<li>Fixed LBHttp2SolrClient (in SolrCloud &amp; SolrJ) that silently failed to complete async requests in certain scenarios. This could cause multi-sharded query requests to hang indefinitely.</li>
+<li>Fixed a SolrCloud bug that could cause long leader elections to leave PULL replicas in DOWN state forever.</li>
+<li>Fixed a regression from 9.x:  Faceting on multi-valued EnumFieldType.</li>
+<li>Fixed an issue in Solr sharded queries when the parameter keys only vary by case</li>
+<li>Fixed a regression from 9.8.0: SolrCloud Replica Placement Plugins and Basic Auth could produce errors</li>
+<li>Improved delete-by-query error message when the query parser doesn't support being used in this way (joins).</li>
+<li>Optimization:  Use less memory when a large reRankDocs parameter is provided.  Was an OOM risk.</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/9_8/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/9_8/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGES.txt for a full list of bugfixes:</p>
+<p><a href="https://solr.apache.org/9_8_1/changes/Changes.html">https://solr.apache.org/9_8_1/changes/Changes.html</a></p>
+<h2 id="thanks-to-all-contributors">Thanks to all contributors</h2>
+<p>Matthew Biscocho, David Smiley, Houston Putman, Varun Thacker, Luke Kot-Zaniewski, Chris Hostetter, Thomas Wöckinger, Yue Yu, JiaBao Gao, Jason Gerlowski, Sanjay Dutt, Christine Poerschke, Jeanie Lam</p>
   <h2 id="cve-2024-52012-apache-solr-configset-upload-on-windows-allows-arbitrary-path-write-access">26 January 2025, CVE-2024-52012: Apache Solr: Configset upload on Windows allows arbitrary path write-access
     <a class="headerlink" href="#cve-2024-52012-apache-solr-configset-upload-on-windows-allows-arbitrary-path-write-access" title="Permanent link">¶</a>
   </h2>
