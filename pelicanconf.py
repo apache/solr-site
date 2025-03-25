@@ -14,8 +14,8 @@ SOLR_LATEST_RELEASE = '9.8.1'
 SOLR_LATEST_RELEASE_DATE = datetime(2025, 3, 11)
 SOLR_PREVIOUS_MAJOR_RELEASE = '8.11.4'
 
-SOLR_OPERATOR_LATEST_RELEASE = 'v0.9.0'
-SOLR_OPERATOR_LATEST_RELEASE_DATE = datetime(2025, 1, 22)
+SOLR_OPERATOR_LATEST_RELEASE = 'v0.9.1'
+SOLR_OPERATOR_LATEST_RELEASE_DATE = datetime(2025, 3, 25)
 SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE = 'v0.8.1'
 
 # This string will be appended to all unversioned css and js resources to prevent caching surprises on edits.
