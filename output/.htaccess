@@ -220,6 +220,8 @@ RewriteRule ^(docs|guide)/\d+(?!.+\.\w+$|.+/$).+$          $0/ [R=301,L]
 
 # __root/docs.solr.apache.org/ is a special alias added by INFRA-19439, so we can refer to stuff in other places like SVN
 RewriteRule ^docs/\d+.*$  __root/docs.solr.apache.org/$0 [PT]
+# Static pages that should be servable
+RewriteRule ^guide/(search-index\.js|sitemap\.xml|404\.html)$  __root/docs.solr.apache.org/$0 [PT]
 # For debugging - can remove later
 RewriteRule ^guide/go.*$  __root/docs.solr.apache.org/$0 [PT]
 # Ref-guides up to 8.x
