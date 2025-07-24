@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2025-03-25T00:00:00+00:00</updated><entry><title>Apache Solr Operator™ v0.9.1 available</title><link href="/apache-solr-operatortm-v091-available.html" rel="alternate"/><published>2025-03-25T00:00:00+00:00</published><updated>2025-03-25T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-03-25:/apache-solr-operatortm-v091-available.html</id><summary type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.9.1.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2025-07-24T00:00:00+00:00</updated><entry><title>Apache Solr™ 9.9.0 available</title><link href="/apache-solrtm-990-available.html" rel="alternate"/><published>2025-07-24T00:00:00+00:00</published><updated>2025-07-24T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-07-24:/apache-solrtm-990-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.9.0.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.9.0.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.&lt;/p&gt;
+&lt;p&gt;Solr 9.9.0 is available for immediate download at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="solr-990-release-highlights"&gt;Solr 9.9.0 Release Highlights:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Solr now supports encoding text to vectors during indexing using external LLM services.&lt;/li&gt;
+&lt;li&gt;More query capabilities in Fuzzy queries and Rank queries.&lt;/li&gt;
+&lt;li&gt;Function queries can now be expressed with a numerical subset of JavaScript and access the fields and score.  Powered by Lucene's Expressions module.&lt;/li&gt;
+&lt;li&gt;Solr now supports Jetty's Graceful Shutdown module (via SOLR_JETTY_GRACEFUL=true) to prevent client connections from being abruptly terminated on orderly shutdown.&lt;/li&gt;
+&lt;li&gt;PKI Auth now utilizes caching, and is much more performant for high-throughput clusters.&lt;/li&gt;
+&lt;li&gt;Optimizations in certain queries: MatchAllDocs (&lt;em&gt;:&lt;/em&gt;), rows=0, function queries in "fl".&lt;/li&gt;
+&lt;li&gt;Numerous optimization and bug fixes for SolrJ clients.&lt;/li&gt;
+&lt;li&gt;Performance issues in ParallelHttpShardHandler have been fixed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_9/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_9/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please read CHANGES.txt for a full list of new features, changes and bugfixes:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/9_9_0/changes/Changes.html"&gt;https://solr.apache.org/9_9_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="thanks-to-all-contributors"&gt;Thanks to all contributors&lt;/h4&gt;
+&lt;p&gt;David Smiley, Houston Putman, Jason Gerlowski, Pierre Salagnac, Kevin Risden, Matthew Biscocho, hossman, Luke Kot-Zaniewski, Christine Poerschke, Siju Varghese, Rahul Goswami, Bruno Roustant, Renato Haeberli, Alessandro Benedetti, Eric Pugh, Lamine Idjeraoui, Gus Heck, Ryan Ernst, Torsten Koster, Mark Miller, Jude Muriithi, Martin Anzinger, Yura Korolov, Aparna Suresh, Alex Deparvu, Ilaria Petreti, Anna Ruggero, Uwe Schindler, Tyler Bertrand, Sanjay Dutt, Paul Blanchaert, Gaurav Tuli&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr Operator™ v0.9.1 available</title><link href="/apache-solr-operatortm-v091-available.html" rel="alternate"/><published>2025-03-25T00:00:00+00:00</published><updated>2025-03-25T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-03-25:/apache-solr-operatortm-v091-available.html</id><summary type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.9.1.&lt;/p&gt;
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, and optimizations, some of which are highlighted below. The …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.9.1.&lt;/p&gt;
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
@@ -2276,18 +2297,4 @@ fix since the 7.2.0 release.&lt;/p&gt;
 &lt;p&gt;The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.apache.org/dyn/closer.lua/lucene/solr/7.2.1"&gt;https://www.apache.org/dyn/closer.lua/lucene/solr/7.2.1&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Please read CHANGES.txt for a detailed list of changes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/7_2_1/changes/Changes.html"&gt;https://solr.apache.org/7_2_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr™ 7.2.0 available</title><link href="/" rel="alternate"/><published>2017-12-21T00:00:00+00:00</published><updated>2017-12-21T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2017-12-21:/</id><summary type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 7.2.0&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 7.2.0&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 7.2.0 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of new features and changes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/7_2_0/changes/Changes.html"&gt;https://solr.apache.org/7_2_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-720-release-highlights"&gt;Solr 7.2.0 Release Highlights:&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Bi-directional syncing of CDCR clusters is now supported.&lt;/li&gt;
-&lt;li&gt;The new synonymQueryStyle field type option allows for better scoring when terms at the same position are hyponyms/hypernyms rather than synonyms.&lt;/li&gt;
-&lt;li&gt;More stream evaluators, including: matrix operations; spline; derivative; regression; normalization; scaling; correlation; markov chains; time series differencing; and triangular and geometric distributions.&lt;/li&gt;
-&lt;li&gt;The new facet.matches parameter returns facet buckets only for terms that match a regular expression.&lt;/li&gt;
-&lt;li&gt;New Autoscaling features: the autoscaling/suggestions API end-point; the UTILIZENODE command, which moves replicas according to autoscaling policies and preferences; and the Autoscaling set-property command.&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/news"/></entry></feed>
+&lt;p&gt;&lt;a href="https://solr.apache.org/7_2_1/changes/Changes.html"&gt;https://solr.apache.org/7_2_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
