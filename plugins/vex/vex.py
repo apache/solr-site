@@ -1,12 +1,15 @@
-import os
-import sys
 import json
+import os
+from hashlib import md5
 from re import sub
 from uuid import UUID, uuid5
-from hashlib import md5
-from pelican import signals
-from jsonschema import validate
+
 import jsonref
+from jsonschema import validate
+from pelican import signals
+
+from vex.enrich_metadata import enrich_content_metadata
+
 
 def pelican_init(pelicanobj):
     with open('vex-input.json', 'r') as input:
@@ -72,11 +75,15 @@ def pelican_init(pelicanobj):
     with open('%s/solr.vex.json' % output_path, 'w') as out:
         json.dump(vex, out, indent=2)
 
+
 def generator_initialized(generator):
     generator.context["vex"] = json.load(open('vex-input.json'))
     generator.context["sub"] = sub
+
 
 def register():
     """Plugin registration"""
     signals.initialized.connect(pelican_init)
     signals.generator_init.connect(generator_initialized)
+    # Callback to enrich content metadata, so it can be used in security templates.
+    signals.content_object_init.connect(enrich_content_metadata)
