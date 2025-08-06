@@ -67,7 +67,7 @@ def pelican_init(pelicanobj):
         "vulnerabilities": vulns
     }
     # From https://github.com/CycloneDX/specification/tree/master/schema
-    with open('plugins/vex/schema/bom-1.4.schema.json', 'r') as schema:
+    with open('plugins/vex/schema/bom-1.6.schema.json', 'r') as schema:
         validate(vex, json.load(schema))
 
     output_path = pelicanobj.settings['OUTPUT_PATH']

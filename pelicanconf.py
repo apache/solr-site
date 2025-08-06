@@ -102,6 +102,13 @@ PLUGINS = [
 #    'md_inline_extension',
 ]
 
+JINJA_ENVIRONMENT = {
+    'extensions': [
+        'jinja2.ext.do',
+        'jinja2.ext.loopcontrols'
+    ]
+}
+
 MARKDOWN = {
     'extension_configs': {
         'toc': {},

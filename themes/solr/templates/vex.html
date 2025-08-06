@@ -1,0 +1,145 @@
+{% extends "page.html" %}
+
+{% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
+{% block rss %}
+    <link rel="alternate" type="application/atom+xml" title="Solr security announce feed"
+          href="/feeds/solr/security.atom.xml"/>{% endblock %}
+
+{% block content_inner %}
+    <div class="small-12 columns">
+        {{ page.content }}
+
+        <h1>CVEs involving Apache Solr by version</h1>
+
+        {% macro impacted_table(heading, lower_bound, upper_bound_excl) %}
+            <h3>{{ heading }}</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>CVE</th>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set matches = [] %}
+                {% for article in articles if article.category.name == 'solr/vex' %}
+                    {% set component = article.metadata.impacted_component %}
+                    {% for version_range in component.versions
+                       if (version_range.start is none or version_range.start < upper_bound_excl)
+                         and (version_range.end > lower_bound or version_range.end_inclusive and version_range.end == lower_bound) %}
+                        {% do matches.append(article) %}
+                        <tr>
+                            <td><a href="https://nvd.nist.gov/vuln/detail/{{ article.cve }}">{{ article.cve }}</a>
+                            </td>
+                            <td>{{ article.metadata.date | strftime("%Y-%m-%d") }}</td>
+                            <td><a href="#{{ article.slug }}">{{ article.title }}</a></td>
+                            <td class="cdx-{{ article.metadata.analysis.state|replace('_', '-') }}">
+                                {{ article.metadata.analysis.state }}
+                            </td>
+                        </tr>
+                        {% break %} {# avoid duplicate rows for the same article #}
+                    {% endfor %}
+                {% endfor %}
+
+                {% if matches | length == 0 %}
+                    <tr>
+                        <td colspan="4">No CVE found for this version range.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        {% endmacro %}
+
+        {{ impacted_table('Apache Solr 9.9.x', '9.9', '9.10') }}
+        {{ impacted_table('Apache Solr 9.8.x', '9.8', '9.9') }}
+        {{ impacted_table('Older Apache Solr 9.x releases', '9', '9.8') }}
+
+        <h1>List of CVEs</h1>
+
+        {% macro format_version_range(version_range) %}
+            {% if version_range.start %}
+                {{ version_range.start }}
+                {{ 'through' if version_range.end_inclusive else 'up to' }}
+                {{ version_range.end }}
+                {{ '(inclusive)' if version_range.end_inclusive else '(exclusive)' }}
+            {% elif version_range.end_inclusive %}
+                {{ version_range.end }} and earlier
+            {% else %}
+                up to {{ version_range.end }} (exclusive)
+            {% endif %}
+        {% endmacro %}
+
+        {% for article in articles if article.category.name == 'solr/vex' %}
+            {% set impacted_component = article.metadata.impacted_component %}
+            {% set vulnerable_component = article.metadata.vulnerable_component %}
+
+            <article id="{{ article.slug }}" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title">{{ article.cve }}, {{ article.title }}</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Published:</strong>
+                            <time datetime="{{ article.date.isoformat() }}">
+                                {{ article.date | strftime("%Y-%m-%d") }}
+                            </time>
+                        </p>
+                        <p class="subheader"><strong>Severity:</strong> {{ article.severity }}</p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-{{ article.metadata.analysis.state|replace('_', '-') }}">{{ article.metadata.analysis.state }}</span>
+                        </p>
+                        {% if vulnerable_component.name != 'Apache Solr' %}
+                            <p><strong>Vulnerable dependency:</strong></p>
+                            <ul>
+                                {% for version_range in vulnerable_component.versions %}
+                                    <li>
+                                        <code>{{ vulnerable_component.name }}</code> {{ format_version_range(version_range) }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                            <p><strong>Apache Solr versions affected:</strong></p>
+                            <ul>
+                                {% for version_range in impacted_component.versions %}
+                                    <li>
+                                        <code>{{ impacted_component.name }}</code> {{ format_version_range(version_range) }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p><strong>Apache Solr versions affected:</strong></p>
+                            <ul>
+                                {% for version_range in vulnerable_component.versions %}
+                                    <li>
+                                        <code>{{ vulnerable_component.name }}</code> {{ format_version_range(version_range) }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                {{ article.content }}
+
+
+                <h4>References</h4>
+
+                <ul>
+                    {% if article.jira %}
+                        <li>JIRA: <a
+                                href="https://issues.apache.org/jira/browse/{{ article.jira }}">{{ article.jira }}</a>
+                        </li>
+                    {% endif %}
+                    {% if article.cve %}
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/{{ article.cve }}">{{ article.cve }}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </article>
+
+        {% endfor %}
+    </div>
+{% endblock content_inner %}
