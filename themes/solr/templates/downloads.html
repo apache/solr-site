@@ -49,11 +49,16 @@
     <li><a href="{{ SITEURL }}/{{ SOLR_LATEST_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
 
+  <h2>Solr 8.x</h2>
+  <p>Solr 8.x is already EOL (End Of Life) as we prepare for releasing version 10. Read more in <a href="/news.html#solr-8-reaches-end-of-life">the EOL news post</a></p>
+  {# DISABLE 8.x as it is EOL already
+
   <h3 id="solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }}
     <a class="headerlink" href="#solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}" title="Permanent link">¶</a>
   </h3>
 
-  <p>Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }} is the last release in the {{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.x series.</p>
+  <p>Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }} is the last release in the {{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.x series.
+  </p>
 
   <ul>
     <li>Source release:
@@ -75,7 +80,7 @@
     <li>Docker: <a href="https://hub.docker.com/_/solr">solr:{{ SOLR_PREVIOUS_MAJOR_RELEASE }}</a></li>
 
     <li><a href="{{ SITEURL }}/{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
-  </ul>
+  </ul>#}
 
   <h2 id="solr-reference-guide" class="offset">Solr Reference Guide
     <a class="headerlink" href="#solr-reference-guide" title="Permanent link">¶</a>
