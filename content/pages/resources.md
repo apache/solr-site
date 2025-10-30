@@ -121,6 +121,18 @@ Click [here](http://bit.ly/1Q2AGS8) to read more about the Solr Cookbook - Third
 
 ***
 
+<h3 class="offset" id="book-inside-solr-lucene">Inside Apache Solr and Lucene: Algorithms and Engineering Deep Dive</h3>
+
+[Rauf Aliev](https://www.linkedin.com/in/raufaliev/) is proud to announce his book, "[Inside Apache Solr and Lucene: Algorithms and Engineering Deep Dive](https://testmysearch.com/books/inside-solr.html)". This book dives deep into the core of Apache Solr and Lucene, offering answers from a system engineer's perspective. It explores the architectural decisions, data structures, and algorithms that enable these world-class search platforms to deliver exceptional performance and scalability, providing a blueprint for designing high-performance systems.
+
+What sets this book apart is its focus on the 'why' behind the 'how'. It follows an engineering-first approach, often starting with a core problem (like high memory usage or slow queries), examining naive solutions, and then detailing the specific data structures and underlying algorithms Solr and Lucene's developers implemented. This deep dive covers not just the inverted index, but the inner workings of Finite-State Transducers (FSTs), Pulsing Codecs, HNSW for vector search, Roaring Bitmaps, Delta Encoding, Skip Lists, PackedInts, LZ4 compression, Memory-Mapped I/O, and SIMD vectorization.
+
+The insights in this book extend beyond the Solr and Lucene ecosystem. By using these platforms as a masterclass in pragmatic engineering, it offers valuable lessons for building any complex, data-intensive application. This book breaks down these complex systems, distilling years of development and thousands of lines of code into core principles and patterns. It's an opportunity to learn from the architectural choices of high-load systems, offering useful information for architects and engineers. Paperback and e-book versions are available. A preview of the first part of the book is also available for download.
+
+[Buy here](https://testmysearch.com/books/inside-solr.html)
+
+***
+
 <h3 class="offset" id="mastering-apache-solr">Mastering Apache Solr</h3>
 
 <a href="https://www.linkedin.com/in/mathieun">Mathieu Nayrolles</a> and Inkstall Publications are proud to announce their latest book — [Mastering Apache Solr](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509).  This book will empower you to provide a world-class search experience to your end users through the discovery of the powerful mechanisms presented in it.
