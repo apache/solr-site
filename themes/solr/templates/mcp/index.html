@@ -1,0 +1,79 @@
+{% extends "mcp/fullwidth.html" %}
+
+{% block bodyclass %}homepage{% endblock %}
+
+{% block solr_security_warning %}
+{% set latest_sec_articles = (articles | selectattr("category.name", "eq", "solr/security") | list)[:1] %}
+{% if (latest_sec_articles | length) > 0 %}
+{% set latest_sec_date = latest_sec_articles[0].date | strftime("%Y-%m-%d") %}
+<section class="security" latest-date="{{ latest_sec_date }}">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <h2><a href="/security.html">&#x26A0; There are recent security announcements. Read more on the Solr Security page.</a></h2>
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block content_inner %}
+<section class="gray offset-medium" id="learn-more"></section>
+
+<section class="gray col-4">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">
+        &nbsp;
+      </div>
+      <h1>
+        Learn more about the Solr MCP Server.
+      </h1>
+      <p>
+      Solr MCP Server gives your LLM Solr superpowers.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-4">
+      <li>
+        <a href="/mcp/features.html"><div class="box"><div class="img"><img src="{{ SITEURL }}/theme/images/icon-features.svg"/></div>
+            <div class="title">
+              <h3>Features</h3>
+            </div>
+            <p>What is included?</p>
+            <span class="btn1">Learn More</span>
+          </div></a>
+      </li>
+      <li>
+        <a href="/mcp/community.html">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/icon-community.svg"/></div>
+            <div class="title">
+              <h3>Solr MCP Server Community</h3>
+            </div>
+            <p>Get support and give back. Contribute to the Solr MCP Server project.</p>
+            <span class="btn1">Learn More</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+  
+<section class="white">
+  <div class="row">
+    <div class="large-12 columns text-center">
+      <h1>
+        The Apache Software Foundation
+      </h1>
+      <p>
+        The Apache Software Foundation provides support for the Apache community of open-source software projects. The Apache projects are defined by collaborative consensus based processes, an open, pragmatic software license and a desire to create high quality software that leads the way in its field. Apache Lucene, Apache Solr, Apache PyLucene, Apache Open Relevance Project and their respective logos are trademarks of The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+      </p>
+      <hr/>
+      <p>
+        <a class="acevent" data-format="wide" data-mode="light" data-width="480"></a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock content_inner %}

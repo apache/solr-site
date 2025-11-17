@@ -1,0 +1,39 @@
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="{{ SITEURL }}/mcp/"><img class="logo" src="{{ SITEURL }}/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="{{ SITEURL }}/mcp/features.html">Features</a>
+          </li>
+          <li>
+            <a href="{{ SITEURL }}/mcp/downloads.html">Downloads</a>
+          </li>
+          <li>
+            <a href="{{ SITEURL }}/mcp/community.html">Community</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+              {% include "_search.html" %}
+            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="{{ SITEURL }}/">ᐱ Solr TLP</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
