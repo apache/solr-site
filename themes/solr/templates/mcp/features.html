@@ -1,0 +1,113 @@
+{% extends "mcp/fullwidth.html" %}
+
+{% block fullwidth_title %}<h1>Extension</h1>{% endblock %}
+
+{% block hero_header_inner %}
+<div class="large-12 columns">
+  <div class="annotation">
+    Apache Solr MCP Server<sup>&trade;</sup> {{ SOLR_MCP_LATEST_RELEASE }}
+  </div>
+  <h1>
+    Solr MCP Server Features
+  </h1>
+  <p>
+  The Solr MCP Server is a Model Context Protocol (MCP) server that provides a declarative API for managing Solr Clouds.
+  </p>
+  <div class="down-arrow"><a data-scroll href="#crds"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+</div>
+{% endblock %}
+
+{% block content_inner %}
+<section class="gray col-4 offset-small" id="crds">
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-3">
+      <li>
+          <div class="box">
+            <a href="#solr-mcp">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_fast_near_real-time.svg"/></div>
+            <div class="content">
+              <h3>Super</h3>
+              <p>MCP is super</p>
+            </div>
+            </a>
+          </div>
+      </li>
+      <li>
+        <div class="box">
+        <a href="#solr-metrics">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_monitorable_logging.svg"/></div>
+            <div class="content">
+              <h3>Duper</h3>
+              <p>Must find icons for these</p>
+            </div>
+        </a>
+        </div>
+      </li>
+      <li>
+        <a href="#solr-backup">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_multiple_search_indices.svg"/></div>
+            <div class="content">
+              <h3>Standards based</h3>
+              <p>Yea</p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="hero alternate" id="solr-mcp">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="annotation">
+        Really super MCP server
+      </div>
+      <h1>
+        AI all the way
+      </h1>
+      <div class="down-arrow"><a data-scroll href="#solr-mcp-features"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="gray col-4 offset-small" id="solr-mcp-features">
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-3">
+      <li>
+        <a href="https://github.com/apache/solr-mcp/blob/main/dev-docs/ARCHITECTURE.md" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_standards_based_open_interfaces.svg"/></div>
+            <div class="content">
+              <h3>Modern architecture</h3>
+              <p>The Solr MCP Server is built on Spring AI and complies with latest standards</p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+  
+
+<section class="gray col-4 offset-small" id="solr-backup-features">
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-3">
+      <li>
+        <a href="https://github.com/apache/solr-mcp/" target="_blank">
+          <div class="box">
+            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_an_ajax_based.svg"/></div>
+            <div class="content">
+              <h3>Access control</h3>
+              <p>Easily control what the server is </p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{{ super() }}
+{% endblock content_inner %}
