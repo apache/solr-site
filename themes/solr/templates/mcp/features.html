@@ -1,109 +1,188 @@
 {% extends "mcp/fullwidth.html" %}
 
-{% block fullwidth_title %}<h1>Extension</h1>{% endblock %}
+{% block fullwidth_title %}<h1>Features</h1>{% endblock %}
 
 {% block hero_header_inner %}
 <div class="large-12 columns">
   <div class="annotation">
     Apache Solr MCP Server<sup>&trade;</sup> {{ SOLR_MCP_LATEST_RELEASE }}
   </div>
-  <h1>
-    Solr MCP Server Features
-  </h1>
+  <h1>Powerful MCP Tools for Solr</h1>
   <p>
-  The Solr MCP Server is a Model Context Protocol (MCP) server that provides a declarative API for managing Solr Clouds.
+    A comprehensive set of AI-ready tools to search, index, and manage your Solr collections. Designed to work seamlessly with Claude and other LLM assistants through the Model Context Protocol.
   </p>
-  <div class="down-arrow"><a data-scroll href="#crds"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+  <div class="down-arrow"><a data-scroll href="#search-tools"><i class="fa fa-angle-down fa-2x red"></i></a></div>
 </div>
 {% endblock %}
 
 {% block content_inner %}
-<section class="gray col-4 offset-small" id="crds">
+<section class="gray col-4 offset-small" id="search-tools">
   <div class="row">
-    <ul class="small-block-grid-1 medium-block-grid-3">
-      <li>
-          <div class="box">
-            <a href="#solr-mcp">
-            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_fast_near_real-time.svg"/></div>
-            <div class="content">
-              <h3>Super</h3>
-              <p>MCP is super</p>
-            </div>
-            </a>
-          </div>
-      </li>
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">
+        Search Capabilities
+      </div>
+      <h1>Advanced Search Tools</h1>
+      <p>Execute complex searches with filters, faceting, and pagination—all driven by natural language instructions.</p>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
       <li>
         <div class="box">
-        <a href="#solr-metrics">
-            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_monitorable_logging.svg"/></div>
-            <div class="content">
-              <h3>Duper</h3>
-              <p>Must find icons for these</p>
-            </div>
-        </a>
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_advanced_full-text_search.svg"/></div>
+          <div class="content">
+            <h3>Full-Text Search</h3>
+            <p>Execute complex search queries across your collections with support for boolean operators and phrase queries</p>
+          </div>
         </div>
       </li>
       <li>
-        <a href="#solr-backup">
-          <div class="box">
-            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_multiple_search_indices.svg"/></div>
-            <div class="content">
-              <h3>Standards based</h3>
-              <p>Yea</p>
-            </div>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_flexible_and_adaptable.svg"/></div>
+          <div class="content">
+            <h3>Flexible Filtering</h3>
+            <p>Filter results by field values with support for ranges, wildcards, and complex filter queries</p>
           </div>
-        </a>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_monitorable_logging.svg"/></div>
+          <div class="content">
+            <h3>Faceted Search</h3>
+            <p>Get faceted counts across dimensions to power AI-driven analytics and categorization</p>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
 </section>
 
-<section class="hero alternate" id="solr-mcp">
+<section class="gray col-4 offset-small" id="indexing-tools">
   <div class="row">
-    <div class="large-12 columns">
+    <div class="large-10 large-offset-1 columns">
       <div class="annotation">
-        Really super MCP server
+        Indexing & Data Management
       </div>
-      <h1>
-        AI all the way
-      </h1>
-      <div class="down-arrow"><a data-scroll href="#solr-mcp-features"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+      <h1>Flexible Document Indexing</h1>
+      <p>Index documents in multiple formats with automatic field normalization and error handling.</p>
     </div>
   </div>
-</section>
-
-<section class="gray col-4 offset-small" id="solr-mcp-features">
   <div class="row">
-    <ul class="small-block-grid-1 medium-block-grid-3">
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
       <li>
-        <a href="https://github.com/apache/solr-mcp/blob/main/dev-docs/ARCHITECTURE.md" target="_blank">
-          <div class="box">
-            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_standards_based_open_interfaces.svg"/></div>
-            <div class="content">
-              <h3>Modern architecture</h3>
-              <p>The Solr MCP Server is built on Spring AI and complies with latest standards</p>
-            </div>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_json,_xml.svg"/></div>
+          <div class="content">
+            <h3>Multi-Format Support</h3>
+            <p>Index documents in JSON, CSV, or XML formats with automatic parsing and validation</p>
           </div>
-        </a>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_highly_configurable.svg"/></div>
+          <div class="content">
+            <h3>Field Normalization</h3>
+            <p>Automatically sanitize and normalize field names to match Solr's schema requirements</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_rich_document.svg"/></div>
+          <div class="content">
+            <h3>Nested Structure Support</h3>
+            <p>Handle complex nested documents and multi-valued fields with intelligent flattening</p>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
 </section>
-  
 
-<section class="gray col-4 offset-small" id="solr-backup-features">
+<section class="gray col-4 offset-small" id="collection-tools">
   <div class="row">
-    <ul class="small-block-grid-1 medium-block-grid-3">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">
+        Collection & Schema Management
+      </div>
+      <h1>Collection Intelligence</h1>
+      <p>Introspect and understand your collections and schemas dynamically within your AI workflows.</p>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
       <li>
-        <a href="https://github.com/apache/solr-mcp/" target="_blank">
-          <div class="box">
-            <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_an_ajax_based.svg"/></div>
-            <div class="content">
-              <h3>Access control</h3>
-              <p>Easily control what the server is </p>
-            </div>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_multiple_search_indices.svg"/></div>
+          <div class="content">
+            <h3>Collection Discovery</h3>
+            <p>List and inspect all available collections in your Solr instance</p>
           </div>
-        </a>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_highy_scalable.svg"/></div>
+          <div class="content">
+            <h3>Schema Introspection</h3>
+            <p>Dynamically discover field types, analyzers, and schema configuration for intelligent indexing</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_powerful_extensions.svg"/></div>
+          <div class="content">
+            <h3>Field Metadata</h3>
+            <p>Access detailed field information including type, analysis chains, and configuration</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="gray col-4 offset-small" id="platform-tools">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">
+        Platform & Integration
+      </div>
+      <h1>Built for Enterprise Deployment</h1>
+      <p>Deploy with confidence using proven Spring Boot technologies and comprehensive error handling.</p>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_standards_based_open_interfaces.svg"/></div>
+          <div class="content">
+            <h3>Standards Compliance</h3>
+            <p>Full implementation of the Model Context Protocol specification for AI assistant integration</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_an_ajax_based.svg"/></div>
+          <div class="content">
+            <h3>Multiple Transports</h3>
+            <p>Run in STDIO mode for Claude Desktop or HTTP mode for remote deployments and testing</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_security.svg"/></div>
+          <div class="content">
+            <h3>Error Handling</h3>
+            <p>Comprehensive error reporting and validation ensures clear feedback to AI assistants</p>
+          </div>
+        </div>
       </li>
     </ul>
   </div>
