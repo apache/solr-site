@@ -1,0 +1,20 @@
+{% extends "mcp/page.html" %}
+
+{% block content_inner %}
+<div class="small-12 columns">
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible
+    }
+  </style>
+
+  <h1 id="mcp-downloads">{{ page.title }}
+    <a class="headerlink" href="#mcp-downloads" title="Permanent link">¶</a>
+  </h1>
+  {{ page.content }}
+  <p>This project is incubating and has not made any releases yet.</p>
+</div>
+{% endblock content_inner %}
