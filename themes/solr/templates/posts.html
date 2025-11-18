@@ -1,0 +1,65 @@
+{% extends "page.html" %}
+
+{% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
+{% block rss %}<link rel="alternate" type="application/atom+xml" title="Solr news except security news" href="/feeds/solr/news.atom.xml" />{% endblock %}
+
+{% block content_inner %}
+<div class="small-12 columns">
+
+
+  <h1 id="solr-posts">Solr<sup>™</sup> Posts<a class="headerlink" href="#solr-posts" title="Permanent link">¶</a></h1>
+  {{page.content}}
+
+  <div class="posts-filter">
+    <strong>View:</strong>
+    <a href="{{ SITEURL }}/posts.html" class="active">All Posts</a>
+    <a href="{{ SITEURL }}/blog.html">Blog</a>
+    <a href="{{ SITEURL }}/news.html">News</a>
+  </div>
+
+  {% for article in posts %}
+    <h2 id="{{ article.slug }}" class="post-item-title">
+      {% if article.save_as %}
+        {# Blog post - has its own page #}
+        <a href="{{ article.url }}">{{ article.title }}</a>
+      {% else %}
+        {# News/Security article - link to news.html with anchor #}
+        <a href="{{ SITEURL }}/news.html#{{ article.slug }}">{{ article.title }}</a>
+      {% endif %}
+      <a class="headerlink" href="#{{ article.slug }}" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+      {% if article.category and article.category.name in ['solr/news', 'solr/security'] %}
+        <strong>{{ article.category.name | replace('solr/', '') | title }}:</strong>
+      {% endif %}
+      {{ article.locale_date }}
+    </h5>
+    {% if article.summary %}
+      <p>{{ article.summary | striptags | truncate(512) }}</p>
+    {% else %}
+      <p>{{ article.content | striptags | truncate(512) }}</p>
+    {% endif %}
+    {% if article.category and article.category.name in ['solr/news', 'solr/security'] %}
+      <div class="read-more">
+        <a href="{{ SITEURL }}/news.html#{{ article.slug }}">Read full article on news page →</a>
+      </div>
+    {% endif %}
+    <hr/>
+  {% endfor %}
+
+  {% if posts_paginator and posts_paginator.num_pages > 1 %}
+  <div class="pagination">
+    {% if posts_page.has_previous() %}
+      <a href="{{ SITEURL }}/{% if posts_page.previous_page_number() == 1 %}posts.html{% else %}posts{{ posts_page.previous_page_number() }}.html{% endif %}">← Previous</a>
+    {% endif %}
+    <span class="pagination-info">
+      Page {{ posts_page.number }} of {{ posts_paginator.num_pages }}
+    </span>
+    {% if posts_page.has_next() %}
+      <a href="{{ SITEURL }}/posts{{ posts_page.next_page_number() }}.html">Next →</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+{% endblock content_inner %}

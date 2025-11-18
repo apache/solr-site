@@ -97,9 +97,13 @@ PLUGINS = [
     'jinja2content',
     'regex_replace',
     'age_days_lt',
-    'vex'
+    'vex',
+    'combined_posts',
 #    'md_inline_extension',
 ]
+
+# Configuration for combined posts pagination
+COMBINED_POSTS_PER_PAGE = 20
 
 MARKDOWN = {
     'extension_configs': {
