@@ -6,15 +6,32 @@
 {% block content_inner %}
 <div class="small-12 columns">
 
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible;
+    }
+    h2 {
+      /* Avoid news title being hidden behind header when linked by anchor link */
+      padding-top: 70px;
+      margin-top: -70px;
+    }
+    .breadcrumb {
+      margin-bottom: 20px;
+      font-size: 0.9em;
+    }
+  </style>
 
-  <h1 id="solr-posts">Solr<sup>™</sup> Posts<a class="headerlink" href="#solr-posts" title="Permanent link">¶</a></h1>
+  <h1 id="solr-posts">Solr<sup>™</sup> News<a class="headerlink" href="#solr-posts" title="Permanent link">¶</a></h1>
   {{page.content}}
 
   <div class="posts-filter">
     <strong>View:</strong>
-    <a href="{{ SITEURL }}/posts.html" class="active">All Posts</a>
+    <a href="{{ SITEURL }}/posts.html" class="active">All News</a>
     <a href="{{ SITEURL }}/blog.html">Blog</a>
-    <a href="{{ SITEURL }}/news.html">News</a>
+    <a href="{{ SITEURL }}/news.html">Announcements</a>
   </div>
 
   {% for article in posts %}
