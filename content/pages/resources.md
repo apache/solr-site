@@ -58,6 +58,18 @@ If you want to run Solr on Kubernetes, the easiest way to get started is via ins
 
 If you have a Solr book that you would like to see listed here, please [edit this website and submit a Pull Request](/editing-website.html).
 
+<h3 class="offset" id="book-llms-in-search">How Large Language Models Can Help Your Search Project</h3>
+
+<a href="https://link.springer.com/book/10.1007/978-3-032-01563-1"><img alt="How Large Language Models Can Help Your Search Project (cover)" class="float-right" src="{static}/images/solr/LLMs-in-search.jpg"></a> [Alessandro Benedetti](https://www.linkedin.com/in/alexbenedetti/) and [Sease](https://www.sease.io)  are proud to introduce the book, "[How Large Language Models Can Help Your Search Project](https://link.springer.com/book/10.1007/978-3-032-01563-1)". 
+The primary scope of this book is to communicate the current state of the art of large language model applications in the domain of information retrieval and search with a pragmatic perspective on industrial adoption via open source software.
+
+To this end, the book is organised in three parts: “Large Language Models” gives an introduction to artificial intelligence and large language models, including an overview of open source and commercial options. Next, “Large Language Models and Search” describes techniques and strategies to integrate large language models in search projects, including how to choose the right model for a specific use case and how to avoid the classic mistakes that can happen in the process. Eventually, “How to Use Open Source Software to Interact with Large Language Models” gives an overview of open source technologies to interact with large language models and gives a detailed survey of how the most popular open source search engines support them.
+
+The book lays the foundations, deeply analyses the building blocks and shows examples how to implement the ideas described. It highlights both the positives, negatives and possible mitigations of the limitations. This way, it caters primarily software engineers, data scientists and practitioners in artificial intelligence or information retrieval who are curious to learn about the latest trends, research and industrial applications related to search and large language models.
+
+[Buy Here](https://link.springer.com/book/10.1007/978-3-032-01563-1)
+
+***
 <h3 class="offset" id="book-inside-solr-lucene">Inside Apache Solr and Lucene: Algorithms and Engineering Deep Dive</h3>
 
 <a href="https://testmysearch.com/books/inside-solr.html"><img alt="Inside Apache Solr and Lucene (cover)" class="float-right" src="{static}/images/solr/book_inside_solr_lucene.png"></a>[Rauf Aliev](https://www.linkedin.com/in/raufaliev/) is proud to announce his book, "[Inside Apache Solr and Lucene: Algorithms and Engineering Deep Dive](https://testmysearch.com/books/inside-solr.html)". This book dives deep into the core of Apache Solr and Lucene, offering answers from a system engineer's perspective. It explores the architectural decisions, data structures, and algorithms that enable these world-class search platforms to deliver exceptional performance and scalability, providing a blueprint for designing high-performance systems.
