@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/news</title><link href="/" rel="alternate"/><link href="/feeds/solr/news.atom.xml" rel="self"/><id>/</id><updated>2025-11-06T00:00:00+00:00</updated><entry><title>Apache Solr™ 9.10.0 available</title><link href="/apache-solrtm-9100-available.html" rel="alternate"/><published>2025-11-06T00:00:00+00:00</published><updated>2025-11-06T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-11-06:/apache-solrtm-9100-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.10.0.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/news</title><link href="/" rel="alternate"/><link href="/feeds/solr/news.atom.xml" rel="self"/><id>/</id><updated>2026-01-20T00:00:00+00:00</updated><entry><title>Apache Solr™ 9.10.1 available</title><link href="/apache-solrtm-9101-available.html" rel="alternate"/><published>2026-01-20T00:00:00+00:00</published><updated>2026-01-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-01-20:/apache-solrtm-9101-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.10.1.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.10.1.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.&lt;/p&gt;
+&lt;p&gt;Solr 9.10.1 is available for immediate download at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="solr-9101-release-highlights"&gt;Solr 9.10.1 Release Highlights:&lt;/h3&gt;
+&lt;p&gt;Solr 9.10.1 contains a number of bugfixes and quality-of-life improvements, including:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reversing a performance regression impacting "no rows" Solr queries.&lt;/li&gt;
+&lt;li&gt;Fixing an error previously triggered when sorting on spatial field types.&lt;/li&gt;
+&lt;li&gt;Preventing a deadlock that caused "hanging" / "orphaning" for distributed request threads when using ParallelHttpShardHandler&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr 9.10.1 also includes fixes for two recently published security issues, CVE-2026-22444 and CVE-2026-22022.  Administrators should either upgrade their deployments to Solr 9.10.1 to include these fixes and/or ensure that adequate remediation is in place as described in the CVE descriptions.&lt;/p&gt;
+&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_10/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_10/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please read CHANGELOG.md for a full list of bugfixes:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/9_10_1/changes/Changes.html"&gt;https://solr.apache.org/9_10_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr™ 9.10.0 available</title><link href="/apache-solrtm-9100-available.html" rel="alternate"/><published>2025-11-06T00:00:00+00:00</published><updated>2025-11-06T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-11-06:/apache-solrtm-9100-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.10.0.&lt;/p&gt;
 &lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.10.0.&lt;/p&gt;
 &lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.&lt;/p&gt;
 &lt;p&gt;Solr 9.10.0 is available for immediate download at:&lt;/p&gt;
@@ -2543,31 +2559,4 @@ file included with the release for a full list of details.&lt;/p&gt;</content><c
 &lt;li&gt;Use of timeAllowed can cause incomplete filters to be cached and incorrect results to be returned on subsequent requests&lt;/li&gt;
 &lt;li&gt;VelocityResponseWriter's $resource.get(key,baseName,locale) to use specified locale.&lt;/li&gt;
 &lt;li&gt;Resolve XSS issue in Admin UI stats page&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr 5.3.0 and Reference Guide for 5.3 available</title><link href="/" rel="alternate"/><published>2015-08-24T00:00:00+00:00</published><updated>2015-08-24T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2015-08-24:/</id><summary type="html">&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform
-from the Apache Lucene project. Its major features include powerful
-full-text search, hit highlighting, faceted search, dynamic
-clustering, database integration, rich document (e.g., Word, PDF)
-handling, and geospatial search.  Solr is highly scalable, providing
-fault tolerant distributed search …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform
-from the Apache Lucene project. Its major features include powerful
-full-text search, hit highlighting, faceted search, dynamic
-clustering, database integration, rich document (e.g., Word, PDF)
-handling, and geospatial search.  Solr is highly scalable, providing
-fault tolerant distributed search and indexing, and powers the search
-and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 5.3.0 is available for immediate download at:
-&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Solr 5.3 Release Highlights:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;In addition to many other improvements in the security framework, Solr now includes an AuthenticationPlugin implementing HTTP Basic Auth that stores credentials securely in ZooKeeper. This is a simple way to require a username and password for anyone accessing Solr’s admin screen or APIs.&lt;/li&gt;
-&lt;li&gt;In built AuthorizationPlugin that provides fine grained control over implementing ACLs for various resources with permisssion rules which are stored in ZooKeeper.&lt;/li&gt;
-&lt;li&gt;The JSON Facet API can now change the domain for facet commands, essentially doing a block join and moving from parents to children, or children to parents before calculating the facet data.&lt;/li&gt;
-&lt;li&gt;Major improvements in performance of the new Facet Module / JSON Facet API.&lt;/li&gt;
-&lt;li&gt;Query and Range Facets under Pivot Facets. Just like the JSON Facet API, pivot facets can how nest other facet types such as range and query facets.&lt;/li&gt;
-&lt;li&gt;More Like This Query Parser options. The MoreLikeThis QParser now supports all options provided by the MLT Handler. The query parser is much more versatile than the handler as it works in cloud mode as well as anywhere a normal query can be specified.&lt;/li&gt;
-&lt;li&gt;Added Schema API support in SolrJ&lt;/li&gt;
-&lt;li&gt;Added Scoring mode for query-time join and block join.&lt;/li&gt;
-&lt;li&gt;Added Smile response format&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;See the &lt;a href="/docs/5_3_0/changes/Changes.html"&gt;CHANGES.txt&lt;/a&gt; file included with the release for a full list of details.&lt;/p&gt;
-&lt;p&gt;Please report any feedback to the &lt;a href="https://solr.apache.org/discussion.html"&gt;mailing lists&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
+&lt;/ul&gt;</content><category term="solr/news"/></entry></feed>
