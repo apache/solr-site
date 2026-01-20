@@ -15,7 +15,50 @@
 &lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_10/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_10/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Please read CHANGELOG.md for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_10_1/changes/Changes.html"&gt;https://solr.apache.org/9_10_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>CVE-2025-66516: Apache Solr extraction module vulnerable to XXE attacks via XFA content in PDFs</title><link href="/cve-2025-66516-apache-solr-extraction-module-vulnerable-to-xxe-attacks-via-xfa-content-in-pdfs.html" rel="alternate"/><published>2025-12-09T00:00:00+00:00</published><updated>2025-12-09T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-12-09:/cve-2025-66516-apache-solr-extraction-module-vulnerable-to-xxe-attacks-via-xfa-content-in-pdfs.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/9_10_1/changes/Changes.html"&gt;https://solr.apache.org/9_10_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>CVE-2026-22022: Unauthorized bypass of certain "predefined permission" rules in the RuleBasedAuthorizationPlugin</title><link href="/cve-2026-22022-unauthorized-bypass-of-certain-predefined-permission-rules-in-the-rulebasedauthorizationplugin.html" rel="alternate"/><published>2026-01-20T00:00:00+00:00</published><updated>2026-01-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-01-20:/cve-2026-22022-unauthorized-bypass-of-certain-predefined-permission-rules-in-the-rulebasedauthorizationplugin.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;
+Deployments of Apache Solr 5.3.0 through 9.10.0 that rely on Solr's "Rule Based Authorization Plugin" are vulnerable to allowing unauthorized access to certain Solr APIs, due to insufficiently strict input validation in those components.  Only deployments that meet all of the following criteria …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;
+Deployments of Apache Solr 5.3.0 through 9.10.0 that rely on Solr's "Rule Based Authorization Plugin" are vulnerable to allowing unauthorized access to certain Solr APIs, due to insufficiently strict input validation in those components.  Only deployments that meet all of the following criteria are impacted by this vulnerability:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Use of Solr's "RuleBasedAuthorizationPlugin"&lt;/li&gt;
+&lt;li&gt;A RuleBasedAuthorizationPlugin config (see security.json) that specifies multiple "roles"&lt;/li&gt;
+&lt;li&gt;A RuleBasedAuthorizationPlugin permission list (see security.json) that uses one or more of the following pre-defined permission rules: "config-read", "config-edit", "schema-read", "metrics-read", or "security-read".&lt;/li&gt;
+&lt;li&gt;A RuleBasedAuthorizationPlugin permission list that doesn't define the "all" pre-defined permission&lt;/li&gt;
+&lt;li&gt;A networking setup that allows clients to make unfiltered network requests to Solr. (i.e. user-submitted HTTP/HTTPS requests reach Solr as-is, unmodified or restricted by any intervening proxy or gateway)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Users can mitigate this vulnerability by ensuring that their RuleBasedAuthorizationPlugin configuration specifies the "all" pre-defined permission and associates the permission with an "admin" or other privileged role.  Users can also upgrade to a Solr version outside of the impacted range, such as the recently released Solr 9.10.1.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;
+monkeontheroof (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-18054"&gt;SOLR-18054&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CVE - &lt;a href="https://www.cve.org/CVERecord?id=CVE-2026-22022"&gt;CVE-2026-22022&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>CVE-2026-22444: Insufficient file-access checking in standalone core-creation requests</title><link href="/cve-2026-22444-insufficient-file-access-checking-in-standalone-core-creation-requests.html" rel="alternate"/><published>2026-01-20T00:00:00+00:00</published><updated>2026-01-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-01-20:/cve-2026-22444-insufficient-file-access-checking-in-standalone-core-creation-requests.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The "create core" API of Apache Solr 8.6 through 9.10.0 lacks sufficient input validation on some API parameters, which can cause Solr to check the existence of and attempt to read file-system paths that should be disallowed by Solr's "allowPaths" security setting.  These read-only …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The "create core" API of Apache Solr 8.6 through 9.10.0 lacks sufficient input validation on some API parameters, which can cause Solr to check the existence of and attempt to read file-system paths that should be disallowed by Solr's "allowPaths" security setting.  These read-only accesses can allow users to create cores using unexpected configsets if any are accessible via the filesystem.  On Windows systems configured to allow UNC paths this can additionally cause disclosure of NTLM "user" hashes.&lt;/p&gt;
+&lt;p&gt;Solr deployments are subject to this vulnerability if they meet the following criteria:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Solr is running in its "standalone" mode.&lt;/li&gt;
+&lt;li&gt;Solr's "allowPath" setting is being used to restrict file access to certain directories.&lt;/li&gt;
+&lt;li&gt;Solr's "create core" API is exposed and accessible to untrusted users.  This can happen if Solr's RuleBasedAuthorizationPlugin is disabled, or if it is enabled but the "core-admin-edit" predefined permission (or an equivalent custom permission) is given to low-trust (i.e. non-admin) user roles.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Users can mitigate this by enabling Solr's RuleBasedAuthorizationPlugin (if disabled) and configuring a permission-list that prevents untrusted users from creating new Solr cores.  Users should also upgrade to Apache Solr 9.10.1 or greater, which contain fixes for this issue.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;
+Damon Toey (reporter)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-18058"&gt;SOLR-18058&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CVE - &lt;a href="https://www.cve.org/CVERecord?id=CVE-2026-22444"&gt;CVE-2026-22444&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>CVE-2025-66516: Apache Solr extraction module vulnerable to XXE attacks via XFA content in PDFs</title><link href="/cve-2025-66516-apache-solr-extraction-module-vulnerable-to-xxe-attacks-via-xfa-content-in-pdfs.html" rel="alternate"/><published>2025-12-09T00:00:00+00:00</published><updated>2025-12-09T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-12-09:/cve-2025-66516-apache-solr-extraction-module-vulnerable-to-xxe-attacks-via-xfa-content-in-pdfs.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;High&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Versions Affected&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -2248,71 +2291,4 @@ features of many of the world's largest internet sites.&lt;/p&gt;
 &lt;p&gt;The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://www.apache.org/dyn/closer.lua/lucene/solr/6.6.4"&gt;https://www.apache.org/dyn/closer.lua/lucene/solr/6.6.4&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Please read CHANGES.txt for a detailed list of changes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/6_6_4/changes/Changes.html"&gt;https://solr.apache.org/6_6_4/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr™ 7.3.1 available</title><link href="/" rel="alternate"/><published>2018-05-15T00:00:00+00:00</published><updated>2018-05-15T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2018-05-15:/</id><summary type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 7.3.1&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the
-Apache Lucene project. Its major features include powerful full-text search,
-hit highlighting, faceted search and analytics, rich document parsing,
-geospatial search, extensive …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 7.3.1&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the
-Apache Lucene project. Its major features include powerful full-text search,
-hit highlighting, faceted search and analytics, rich document parsing,
-geospatial search, extensive REST APIs as well as parallel SQL. Solr is
-enterprise grade, secure and highly scalable, providing fault tolerant
-distributed search and indexing, and powers the search and navigation
-features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;This release includes 9 bug fixes since the 7.3.0 release. Some of the major fixes are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Upgrade commons-fileupload dependency to 1.3.3 to address CVE-2016-1000031&lt;/li&gt;
-&lt;li&gt;Deleting replicas sometimes fails and causes the replicas to exist in the down state&lt;/li&gt;
-&lt;li&gt;A successful restore collection should mark the shard state as active and not buffering&lt;/li&gt;
-&lt;li&gt;Do not allow to use absolute URIs for including other files in solrconfig.xml and schema parsing&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Furthermore, this release includes Apache Lucene 7.3.1 which includes 1 bug
-fix since the 7.3.0 release.&lt;/p&gt;
-&lt;p&gt;The release is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://www.apache.org/dyn/closer.lua/lucene/solr/7.3.1"&gt;https://www.apache.org/dyn/closer.lua/lucene/solr/7.3.1&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a detailed list of changes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/7_3_1/changes/Changes.html"&gt;https://solr.apache.org/7_3_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>CVE-2018-1308: XXE attack through Apache Solr's DIH's dataConfig request parameter</title><link href="/cve-2018-1308-xxe-attack-through-apache-solrs-dihs-dataconfig-request-parameter.html" rel="alternate"/><published>2018-04-08T00:00:00+00:00</published><updated>2018-04-08T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2018-04-08:/cve-2018-1308-xxe-attack-through-apache-solrs-dihs-dataconfig-request-parameter.html</id><summary type="html">&lt;p&gt;CVE-2018-1308: XXE attack through Apache Solr's DIH's dataConfig request parameter&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt; Major&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vendor:&lt;/strong&gt;&lt;br&gt;
-The Apache Software Foundation&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Solr 1.2 to 6.6.2&lt;/li&gt;
-&lt;li&gt;Solr 7.0.0 to 7.2.1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
-The details of this vulnerability were reported to the Apache Security mailing list. &lt;/p&gt;
-&lt;p&gt;This vulnerability …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2018-1308: XXE attack through Apache Solr's DIH's dataConfig request parameter&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt; Major&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Vendor:&lt;/strong&gt;&lt;br&gt;
-The Apache Software Foundation&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Solr 1.2 to 6.6.2&lt;/li&gt;
-&lt;li&gt;Solr 7.0.0 to 7.2.1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
-The details of this vulnerability were reported to the Apache Security mailing list. &lt;/p&gt;
-&lt;p&gt;This vulnerability relates to an XML external entity expansion (XXE) in the
-&lt;code&gt;&amp;amp;dataConfig=&amp;lt;inlinexml&amp;gt;&lt;/code&gt; parameter of Solr's DataImportHandler. It can be
-used as XXE using file/ftp/http protocols in order to read arbitrary local
-files from the Solr server or the internal network. See [1] for more details.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
-Users are advised to upgrade to either Solr 6.6.3 or Solr 7.3.0 releases both
-of which address the vulnerability. Once upgrade is complete, no other steps
-are required. Those releases disable external entities in anonymous XML files
-passed through this request parameter. &lt;/p&gt;
-&lt;p&gt;If users are unable to upgrade to Solr 6.6.3 or Solr 7.3.0 then they are
-advised to disable data import handler in their solrconfig.xml file and
-restart their Solr instances. Alternatively, if Solr instances are only used
-locally without access to public internet, the vulnerability cannot be used
-directly, so it may not be required to update, and instead reverse proxies or
-Solr client applications should be guarded to not allow end users to inject
-&lt;code&gt;dataConfig&lt;/code&gt; request parameters. Please refer to [2] on how to correctly
-secure Solr servers.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;&lt;br&gt;
-麦 香浓郁&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;[1] &lt;a href="https://issues.apache.org/jira/browse/SOLR-11971"&gt;https://issues.apache.org/jira/browse/SOLR-11971&lt;/a&gt;&lt;br&gt;
-[2] &lt;a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity"&gt;https://cwiki.apache.org/confluence/display/solr/SolrSecurity&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"/></entry></feed>
+&lt;p&gt;&lt;a href="https://solr.apache.org/6_6_4/changes/Changes.html"&gt;https://solr.apache.org/6_6_4/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
