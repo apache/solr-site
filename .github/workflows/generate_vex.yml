@@ -1,0 +1,64 @@
+# SPDX-License-Identifier: Apache-2.0
+name: Generate VEX
+run-name: Generate VEX for ${{ inputs.cve_id }}
+on:
+  workflow_dispatch:
+    inputs:
+      sbom_file:
+        description: 'Path to the SBOM file'
+        required: true
+        type: string
+      artifact_purl:
+        description: 'PURL of the vulnerable artifact'
+        required: true
+        type: string
+      cve_id:
+        description: 'CVE identifier'
+        required: true
+        type: string
+
+# No permissions by default, permissions are granted at the job level
+permissions: { }
+
+jobs:
+  generate_vex:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # 6.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # 6.1.0
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate VEX Document
+        env:
+          SBOM_FILE: ${{ github.event.inputs.sbom_file }}
+          ARTIFACT_PURL: ${{ github.event.inputs.artifact_purl }}
+          CVE_ID: ${{ github.event.inputs.cve_id }}
+        run: |
+          python scripts/generate_vex.py "$SBOM_FILE" "$ARTIFACT_PURL" "$CVE_ID"
+
+      - name: Commit changes
+        env:
+          CVE_ID: ${{ github.event.inputs.cve_id }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b vex/${CVE_ID}
+          git add vex-input vexplanation
+          git commit -F "$RUNNER_TEMP/commit-message.md"
+          git push --set-upstream origin vex/${CVE_ID}
+          gh pr create --base main --fill-first
