@@ -187,9 +187,11 @@ Deployments of Apache Solr 5.3.0 through 9.10.0 that rely on Solr's "Rule Based 
 <p>Users can mitigate this vulnerability by ensuring that their RuleBasedAuthorizationPlugin configuration specifies the "all" pre-defined permission and associates the permission with an "admin" or other privileged role.  Users can also upgrade to a Solr version outside of the impacted range, such as the recently released Solr 9.10.1.</p>
 <p><strong>Credit</strong>
 monkeontheroof (reporter)</p>
-<p><strong>References</strong>
-* JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-18054">SOLR-18054</a>
-* CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2026-22022">CVE-2026-22022</a></p>
+<p><strong>References</strong></p>
+<ul>
+<li>JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-18054">SOLR-18054</a></li>
+<li>CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2026-22022">CVE-2026-22022</a></li>
+</ul>
   <h2 id="cve-2026-22444-insufficient-file-access-checking-in-standalone-core-creation-requests">20 January 2026, CVE-2026-22444: Insufficient file-access checking in standalone core-creation requests
     <a class="headerlink" href="#cve-2026-22444-insufficient-file-access-checking-in-standalone-core-creation-requests" title="Permanent link">¶</a>
   </h2>
@@ -207,9 +209,11 @@ moderate</p>
 <p>Users can mitigate this by enabling Solr's RuleBasedAuthorizationPlugin (if disabled) and configuring a permission-list that prevents untrusted users from creating new Solr cores.  Users should also upgrade to Apache Solr 9.10.1 or greater, which contain fixes for this issue.</p>
 <p><strong>Credit</strong>
 Damon Toey (reporter)</p>
-<p><strong>References</strong>
-* JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-18058">SOLR-18058</a>
-* CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2026-22444">CVE-2026-22444</a></p>
+<p><strong>References</strong></p>
+<ul>
+<li>JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-18058">SOLR-18058</a></li>
+<li>CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2026-22444">CVE-2026-22444</a></li>
+</ul>
   <h2 id="cve-2025-66516-apache-solr-extraction-module-vulnerable-to-xxe-attacks-via-xfa-content-in-pdfs">9 December 2025, CVE-2025-66516: Apache Solr extraction module vulnerable to XXE attacks via XFA content in PDFs
     <a class="headerlink" href="#cve-2025-66516-apache-solr-extraction-module-vulnerable-to-xxe-attacks-via-xfa-content-in-pdfs" title="Permanent link">¶</a>
   </h2>
