@@ -1,6 +1,20 @@
 [
   {
     "ids": [
+      "CVE-2025-48924"
+    ],
+    "versions": "9.0.0\u20139.9.0",
+    "jars": [
+      "commons-lang3-<version>.jar"
+    ],
+    "analysis": {
+      "state": "not_affected",
+      "justification": "code_not_reachable",
+      "detail": "The vulnerable functionality is only reachable via `commons-configuration2`, which is used in Solr's Hadoop Kerberos support (`solr-hadoop-auth`) to load administrator-provided Hadoop configuration files. As such, the vulnerability is not exploitable in Solr."
+    }
+  },
+  {
+    "ids": [
       "CVE-2024-51504"
     ],
     "versions": "9.4.0\u20139.8.1",
