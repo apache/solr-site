@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    {% include "mcp/_head.html" %}
+    <title>{% block title %}{{ page.title }}{% endblock %} - Apache Solr MCP Server</title>
+    {% block css %}{% endblock %}
+
+    {% block metakeys %}
+    <meta name="keywords"
+          content="apache, apache solr, solr, apache solr mcp server, solr mcp, ai, model context protocol,
+                   search, information retrieval, inverted index, open source"/>
+   {% endblock %}
+    {% block ogmeta %}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://solr.apache.org/{{ page.url }}"/>
+    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:description" content="{{ page.content | striptags | replace("\"", "&quot;") | truncate(137, False, '...') }}"/>
+    <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png{{ STATIC_RESOURCE_SUFFIX }}"/>
+    <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png{{ STATIC_RESOURCE_SUFFIX }}"/>
+    {% endblock %}
+
+   {% block favicon %}
+   <link rel="icon" href="{{ SITEURL }}/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="{{ SITEURL }}/theme/images/favicon.ico" type="image/x-icon">
+   {% endblock %}
+   {% block rss %}{% endblock %}
+   {% block javascript %}{% endblock %}
+   {% include "_matomo.html" %}
+  </head>
+
+  <body class="page {% block bodyclass %}{% endblock %}" {% block ng_directives %}{% endblock %} x-ng-app="page" x-ng-controller="page.controllers.main">
+    {% include "mcp/_header.html" %}
+
+    {% block solr_security_warning %}
+    {% endblock %}
+    {% block hero_header %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    <footer>
+      {% include "mcp/_footer.html" %}
+    </footer>
+
+    {% include "_last_scripts.html" %}
+  </body>
+</html>
