@@ -97,9 +97,17 @@ PLUGINS = [
     'jinja2content',
     'regex_replace',
     'age_days_lt',
-    'vex'
+    'vex',
+    'yaml_front_matter'
 #    'md_inline_extension',
 ]
+
+JINJA_ENVIRONMENT = {
+    'extensions': [
+        'jinja2.ext.do',
+        'jinja2.ext.loopcontrols'
+    ]
+}
 
 MARKDOWN = {
     'extension_configs': {
