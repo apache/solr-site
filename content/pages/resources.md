@@ -58,7 +58,25 @@ If you want to run Solr on Kubernetes, the easiest way to get started is via ins
 
 If you have a Solr book that you would like to see listed here, please [edit this website and submit a Pull Request](/editing-website.html).
 
-<h3 class="offset" id="book-inside-solr-lucene">Inside Apache Solr and Lucene: Algorithms and Engineering Deep Dive</h3>
+<h3 class="offset" id="book-llms-in-search">How Large Language Models Can Help Your Search Project [2025]</h3>
+
+<a href="https://link.springer.com/book/10.1007/978-3-032-01563-1"><img alt="How Large Language Models Can Help Your Search Project (cover)" class="float-right" src="{static}/images/solr/LLMs-in-search.jpg"></a> [Alessandro Benedetti](https://www.linkedin.com/in/alexbenedetti/) and [Sease](https://www.sease.io)  are proud to introduce the book, "[How Large Language Models Can Help Your Search Project](https://link.springer.com/book/10.1007/978-3-032-01563-1)". 
+The primary scope of this book is to communicate the current state of the art of large language model applications in the domain of information retrieval and search with a pragmatic perspective on industrial adoption via open source software.
+
+To this end, the book is organised in three parts: “Large Language Models” gives an introduction to artificial intelligence and large language models, including an overview of open source and commercial options. Next, “Large Language Models and Search” describes techniques and strategies to integrate large language models in search projects, including how to choose the right model for a specific use case and how to avoid the classic mistakes that can happen in the process. Eventually, “How to Use Open Source Software to Interact with Large Language Models” gives an overview of open source technologies to interact with large language models and gives a detailed survey of how the most popular open source search engines support them.
+
+The book lays the foundations, deeply analyses the building blocks and shows examples how to implement the ideas described. It highlights both the positives, negatives and possible mitigations of the limitations. This way, it caters primarily software engineers, data scientists and practitioners in artificial intelligence or information retrieval who are curious to learn about the latest trends, research and industrial applications related to search and large language models.
+
+The book has a chapter dedicated to Apache Solr, exploring the ways you can interact with Large Language Models related features, specifically:
+
+- dense vector search, quantisation and nested vectors
+- text vectorisation using LLM fine tuned for sentence similarity
+- Intro to Future features such as Retrieval augmented generation, Semantic highlighting and LLM query parser
+
+[Buy Here](https://link.springer.com/book/10.1007/978-3-032-01563-1)
+
+***
+<h3 class="offset" id="book-inside-solr-lucene">Inside Apache Solr and Lucene: Algorithms and Engineering Deep Dive [2025]</h3>
 
 <a href="https://testmysearch.com/books/inside-solr.html"><img alt="Inside Apache Solr and Lucene (cover)" class="float-right" src="{static}/images/solr/book_inside_solr_lucene.png"></a>[Rauf Aliev](https://www.linkedin.com/in/raufaliev/) is proud to announce his book, "[Inside Apache Solr and Lucene: Algorithms and Engineering Deep Dive](https://testmysearch.com/books/inside-solr.html)". This book dives deep into the core of Apache Solr and Lucene, offering answers from a system engineer's perspective. It explores the architectural decisions, data structures, and algorithms that enable these world-class search platforms to deliver exceptional performance and scalability, providing a blueprint for designing high-performance systems.
 
@@ -70,7 +88,7 @@ The insights in this book extend beyond the Solr and Lucene ecosystem. By using 
 
 ***
 
-<h3 class="offset" id="book-relevant-search">Relevant Search</h3>
+<h3 class="offset" id="book-relevant-search">Relevant Search [2016]</h3>
 Doug Turnbull, John Berryman and Manning Publications are proud to announce *Relevant Search*.
 
 This book demystifies relevance work and shows you that a search engine is a programmable relevance framework. You'll learn how to apply Elasticsearch or Solr to your business' unique ranking problems. The book demonstrates how to program relevance and how to incorporate secondary data sources, taxonomies, text analytics, and personalization. By the end, you’ll be able to achieve a virtuous cycle of provable, measurable relevance improvements over a search product’s lifetime.
@@ -79,7 +97,7 @@ This book demystifies relevance work and shows you that a search engine is a pro
 
 ***
 
-<h3 class="offset" id="book-asess-3ed">Apache Solr Enterprise Search Server, 3rd Edition</h3>
+<h3 class="offset" id="book-asess-3ed">Apache Solr Enterprise Search Server, 3rd Edition [2015]</h3>
 
 [David Smiley](https://www.linkedin.com/in/davidwsmiley), [Eric Pugh](https://www.linkedin.com/in/epugh), [Kranti Parisa](https://www.linkedin.com/in/krantiparisa), and [Matt Mitchell](https://www.linkedin.com/in/mattmitchell4) are proud to *finally* announce the book “[Apache Solr Enterprise Search Server, Third Edition](http://www.solrenterprisesearchserver.com)” by [Packt Publishing](https://www.packtpub.com/).  You can find links to buy it at Packt’s site & Amazon from our book’s official website: [solrenterprisesearchserver.com](http://www.solrenterprisesearchserver.com).  You'll find a useful search parameter quick-reference sheet (the appendix) online there too.
 
@@ -94,7 +112,7 @@ Solr 4 was Solr's biggest release ever. We updated the previous edition to cover
 
 ***
 
-<h3 class="offset" id="book-scaling-big-data-hadoop-solr-II">Scaling Big Data with Hadoop and Solr - Second Edition</h3>
+<h3 class="offset" id="book-scaling-big-data-hadoop-solr-II">Scaling Big Data with Hadoop and Solr - Second Edition [2015]</h3>
 
 [Hrishikesh Karambelkar](https://www.linkedin.com/in/hrishik/) is proud to announce the book "[Scaling Big Data with Hadoop and Solr - Second Edition](https://www.packtpub.com/big-data-and-business-intelligence/scaling-big-data-hadoop-and-solr-second-edition)" by [Packt Publishing](https://www.packtpub.com/). This book will help the readers understand, design, build, and optimize their big data search engine with Hadoop and Apache Solr.
 
@@ -107,7 +125,7 @@ Click [here](https://www.packtpub.com/big-data-and-business-intelligence/scaling
 
 ***
 
-<h3 class="offset" id="book-solr-search-patterns">Apache Solr Search Patterns</h3>
+<h3 class="offset" id="book-solr-search-patterns">Apache Solr Search Patterns [2015]</h3>
 
 [Jayant Kumar](https://www.linkedin.com/in/jayantkumar) is proud to announce the book "[Apache Solr Search Patterns](http://bit.ly/1J2neZ9)" by [Packt Publishing](https://www.packtpub.com/). This book is for developers who have prior knowledge on Solr and are looking at procuring advanced strategies for improving their search using Solr. Also, if you work with analytics to generate graphs and reports using Solr and you are a search architect who is looking forward to scale your search using Solr, then this book is a perfect guide for you.
 
@@ -120,7 +138,7 @@ Click [here](http://bit.ly/1J2neZ9) to read more about the Apache Solr Search Pa
 
 ***
 
-<h3 class="offset" id="book-solr-cookbook-3ed">Solr Cookbook - Third Edition</h3>
+<h3 class="offset" id="book-solr-cookbook-3ed">Solr Cookbook - Third Edition [2015]</h3>
 
 [Rafał Kuć](https://pl.linkedin.com/in/rafalkuc) is proud to *finally* announce the book "[Solr Cookbook - Third Edition](http://bit.ly/1Q2AGS8)" by [Packt Publishing](https://www.packtpub.com/). This edition will specifically appeal to developers who wish to quickly get to grips with the changes and new features of Apache Solr 5.
 
@@ -133,7 +151,7 @@ Click [here](http://bit.ly/1Q2AGS8) to read more about the Solr Cookbook - Third
 
 ***
 
-<h3 class="offset" id="mastering-apache-solr">Mastering Apache Solr</h3>
+<h3 class="offset" id="mastering-apache-solr">Mastering Apache Solr [2014]</h3>
 
 <a href="https://www.linkedin.com/in/mathieun">Mathieu Nayrolles</a> and Inkstall Publications are proud to announce their latest book — [Mastering Apache Solr](http://www.amazon.com/Mastering-Apache-Solr-practical-guide/dp/8192784509).  This book will empower you to provide a world-class search experience to your end users through the discovery of the powerful mechanisms presented in it.
 
@@ -148,7 +166,7 @@ Click [here](http://bit.ly/1Q2AGS8) to read more about the Solr Cookbook - Third
 
 ***
 
-<h3 class="offset" id="solr-in-action">Solr in Action</h3>
+<h3 class="offset" id="solr-in-action">Solr in Action [2014]</h3>
 
 Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [Solr in Action](http://solrinaction.com), a comprehensive (638 pg.), example-driven guide covering through Solr 4.7.
 
@@ -158,7 +176,7 @@ Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [S
 [Buy here](http://solrinaction.com)
 
 ***
-<h3 class="offset" id="einfuehrung-in-apache-solr">Einführung in Apache Solr</h3>
+<h3 class="offset" id="einfuehrung-in-apache-solr">Einführung in Apache Solr [2014]</h3>
 
 <a href="https://www.oreilly.com/library/view/einfuhrung-in-apache/9783955614249/" title="Einführung in Apache Solr"><img alt="Einführung in Apache Solr Cover" class="float-right" src="{static}/images/solr/book-eias.jpg"></a>
 <p>Markus Klose, Daniel Wrigley and O’Reilly are proud to present the first book on Apache Solr in German.</p>
@@ -174,7 +192,7 @@ Trey Grainger, Timothy Potter, and Manning Publications are proud to announce [S
 
 ***
 
-<h3 class="offset" id="instant-apache-solr-for-indexing-data-how-to">Instant Apache Solr for Indexing Data How-to</h3>
+<h3 class="offset" id="instant-apache-solr-for-indexing-data-how-to">Instant Apache Solr for Indexing Data How-to [2013]</h3>
 
 <a href="https://www.amazon.com/Instant-Apache-Solr-Indexing-Data/dp/1782164847" title="Packt: Instant Apache Solr for Indexing Data How-to"><img alt="Instant Apache Solr for Indexing Data How-to - cover" class="float-right" src="{static}/images/solr/book_s4index.jpg"></a>
 Alexandre Rafalovitch and Packt Publishing are proud to announce [Instant Apache Solr for Indexing Data How-to](https://www.amazon.com/Instant-Apache-Solr-Indexing-Data/dp/1782164847) - an example-driven guide that will take you on a journey from the basic collection of data to a multi-lingual, multi-field, multi-type schema.
@@ -185,7 +203,7 @@ Content and data searching is a very important part of the modern user experienc
 
 ***
 
-<h3 class="offset" id="apache-solr-4-cookbook">Apache Solr 4 Cookbook</h3>
+<h3 class="offset" id="apache-solr-4-cookbook">Apache Solr 4 Cookbook [2013]</h3>
 
 <a href="http://www.packtpub.com/apache-solr-4-cookbook/book" title="Packt: Apache Solr 4 Cookbook"><img alt="Apache Solr 4 Cookbook cover" class="float-right" src="{static}/images/solr/book_s4c.jpg"></a>
 Rafał Kuć and Packt Publishing are proud to announce the second edition of [Apache Solr 4 Cookbook](http://www.packtpub.com/apache-solr-4-cookbook/book). The Cookbook is newly updated and improved with new chapters on SolrCloud and every chapter updated to Solr 4.
@@ -200,7 +218,7 @@ With numerous practical chapters centered on important Solr techniques and metho
 
 ***
 
-<h3 class="offset" id="taming-text">Taming Text</h3>
+<h3 class="offset" id="taming-text">Taming Text [2012]</h3>
 
 <a href="http://www.manning.com/ingersoll/" title="Taming Text"><img alt="Taming Text cover" class="float-right" src="{static}/images/solr/book_tt.png"></a>
 Taming Text is a hands-on, example-driven guide to working with unstructured text in the context of real-world applications. This book explores how to automatically organize text using approaches such as full-text search with Apache Solr (v3), proper name recognition,
@@ -211,7 +229,7 @@ is available on [Github](https://github.com/tamingtext/book).
 
 ***
 
-<h3 class="offset" id="apache-solr-3.1-cookbook">Apache Solr 3.1 Cookbook</h3>
+<h3 class="offset" id="apache-solr-3.1-cookbook">Apache Solr 3.1 Cookbook [2011]</h3>
 
 <a href="http://www.packtpub.com/solr-3-1-enterprise-search-server-cookbook/book" title="PACKT: Apache Solr 3.1 Cookbook"><img alt="Solr Cookbook cover" class="float-right" src="{static}/images/solr/book_s3c.png"></a>
 Rafał Kuć is proud to introduce a new book on Solr, [Apache Solr 3.1 Cookbook](http://www.packtpub.com/solr-3-1-enterprise-search-server-cookbook/book) from Packt Publishing.
@@ -249,6 +267,8 @@ If you have a Solr video that you would like to see listed here, please [edit th
 [Videos from past Haystack events (search relevance)](https://www.youtube.com/channel/UCiuXt-f2Faan4Es37nADUdQ/playlists)
 
 [Videos from Lucidwork's Lucene Eurocon](https://vimeo.com/search?q=lucene%20eurocon)
+
+[Videos from past London Information Retrieval & AI Meetups](https://www.youtube.com/playlist?list=PL3MGdCOBPhsccrQRGrUjQlzRSdlWrcF9N)
 
 <h3 class="offset" id="youtube">YouTube</h3>
 
