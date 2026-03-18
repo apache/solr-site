@@ -1,0 +1,570 @@
+<!doctype html>
+<html>
+  <head>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE- 2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=cabdb916" />
+<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=cabdb916" />
+<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=cabdb916" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=cabdb916" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=cabdb916"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=cabdb916"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=cabdb916" />
+<meta name="Distribution" content="Global"/>
+<meta name="Robots" content="index,follow"/>
+
+<script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=cabdb916"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=cabdb916"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=cabdb916"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=cabdb916"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=cabdb916"></script>
+<script src="/theme/javascript/main.js?v=cabdb916"></script>
+<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title> - Apache Solr</title>
+
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://solr.apache.org/posts4"/>
+     <meta property="og:title" content=""/>
+     <meta property="og:description" content=""/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=cabdb916"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=cabdb916"/>
+
+   <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/atom+xml" title="Solr news except security news" href="/feeds/solr/news.atom.xml" /><!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDoNotTrack", true]);
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://analytics.apache.org/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '76']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->  </head>
+
+  <body class="page " x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="/posts.html">News</a>
+          </li>
+          <li>
+            <a href="/security.html">Security</a>
+          </li>
+          <li>
+            <a href="/features.html">Features</a>
+          </li>
+          <li>
+            <a href="/resources.html">Resources</a>
+          </li>
+          <li>
+            <a href="/community.html">Community</a>
+          </li>
+          <li>
+            <a href="/whoweare.html">Project</a>
+          </li>
+          <li>
+            <a href="/operator/">Solr Operator</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="/downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
+<div class="container">
+<div class="row">
+  <div class="small-12 text-center columns">
+    <h1>Solr™ News<br/>
+      <small></small></h1>
+  </div>
+</div>
+<div class="sub-nav-container">
+  <div class="row sub-nav-border anchor-top">
+    <div class="small-12 text-center columns">
+      <dl class="sub-nav">
+<dd><a href="/posts.html" class="selected">All News</a></dd>
+<dd><a href="/blog.html">Blog</a></dd>
+<dd><a href="/news.html">Announcements</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+  <div class="row">
+<div class="small-12 columns">
+
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible;
+    }
+    h2 {
+      /* Avoid news title being hidden behind header when linked by anchor link */
+      padding-top: 70px;
+      margin-top: -70px;
+    }
+    .breadcrumb {
+      margin-bottom: 20px;
+      font-size: 0.9em;
+    }
+  </style>
+
+  
+
+    <h2 id="apache-solrtm-882-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-882-available">Apache Solr™ 8.8.2 available</a>
+      <a class="headerlink" href="#apache-solrtm-882-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      12 April 2021
+    </h5>
+      <p>The Solr PMC is pleased to announce the release of Apache Solr 8.8.2. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-882-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="cve-2021-27905-ssrf-vulnerability-with-the-replication-handler" class="post-item-title">
+        <a href="/news.html#cve-2021-27905-ssrf-vulnerability-with-the-replication-handler">CVE-2021-27905: SSRF vulnerability with the Replication handler</a>
+      <a class="headerlink" href="#cve-2021-27905-ssrf-vulnerability-with-the-replication-handler" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>Security:</strong>
+      12 April 2021
+    </h5>
+      <p>Severity: High Versions Affected: 7.0.0 to 7.7.3 8.0.0 to 8.8.1 Description: The ReplicationHandler (normally registered at "/replication" under a Solr core) has a "masterUrl" (also "leaderUrl" alias) parameter that is used to designate another ReplicationHandler on another Solr core to replicate index …</p>
+      <div class="read-more">
+        <a href="/news.html#cve-2021-27905-ssrf-vulnerability-with-the-replication-handler">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings" class="post-item-title">
+        <a href="/news.html#cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings">CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</a>
+      <a class="headerlink" href="#cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>Security:</strong>
+      12 April 2021
+    </h5>
+      <p>Severity: High Versions Affected: 7.0.0 to 7.7.3 8.0.0 to 8.8.1 Description: When starting Apache Solr versions prior to 8.8.2, configured with the SaslZkACLProvider or VMParamsAllAndReadonlyDigestZkACLProvider and no existing security.json znode, if the optional read-only user is configured then Solr …</p>
+      <div class="read-more">
+        <a href="/news.html#cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections" class="post-item-title">
+        <a href="/news.html#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections">CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections</a>
+      <a class="headerlink" href="#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>Security:</strong>
+      12 April 2021
+    </h5>
+      <p>Severity: High Versions Affected: 7.0.0 to 7.7.3 8.0.0 to 8.8.1 Description: When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect …</p>
+      <div class="read-more">
+        <a href="/news.html#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-881-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-881-available">Apache Solr™ 8.8.1 available</a>
+      <a class="headerlink" href="#apache-solrtm-881-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      22 February 2021
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.8.1. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-881-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solr-becomes-an-apache-tlp" class="post-item-title">
+        <a href="/news.html#apache-solr-becomes-an-apache-tlp">Apache Solr becomes an Apache TLP</a>
+      <a class="headerlink" href="#apache-solr-becomes-an-apache-tlp" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      17 February 2021
+    </h5>
+      <p>The Apache Software Foundation's board today established Solr as a Top Level Project (TLP). Solr has been a Lucene sub-project since its incubation in 2006, governed by the Lucene PMC, and has since the 3.1 release also shared source code repository with Lucene. What's the background? The change was …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solr-becomes-an-apache-tlp">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-880-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-880-available">Apache Solr™ 8.8.0 available</a>
+      <a class="headerlink" href="#apache-solrtm-880-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      29 January 2021
+    </h5>
+      <p>29/01/2021, Apache Solr™ 8.8 available The Lucene PMC is pleased to announce the release of Apache Solr 8.8 Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-880-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-870-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-870-available">Apache Solr™ 8.7.0 available</a>
+      <a class="headerlink" href="#apache-solrtm-870-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      3 November 2020
+    </h5>
+      <p>3/11/2020, Apache Solr™ 8.7 available The Lucene PMC is pleased to announce the release of Apache Solr 8.7 Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-870-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented" class="post-item-title">
+        <a href="/news.html#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">CVE-2020-13957: The checks added to unauthenticated configset uploads in Apache Solr can be circumvented</a>
+      <a class="headerlink" href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>Security:</strong>
+      12 October 2020
+    </h5>
+      <p>Severity: High Versions Affected: 6.6.0 to 6.6.6 7.0.0 to 7.7.3 8.0.0 to 8.6.2 Description: Solr prevents some features considered dangerous (which could be used for remote code execution) to be configured in a ConfigSet that's uploaded via API …</p>
+      <div class="read-more">
+        <a href="/news.html#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-863-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-863-available">Apache Solr™ 8.6.3 available</a>
+      <a class="headerlink" href="#apache-solrtm-863-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      7 October 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.6.3. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-863-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-862-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-862-available">Apache Solr™ 8.6.2 available</a>
+      <a class="headerlink" href="#apache-solrtm-862-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      1 September 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.6.2. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-862-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="cve-2020-13941-apache-solr-information-disclosure-vulnerability" class="post-item-title">
+        <a href="/news.html#cve-2020-13941-apache-solr-information-disclosure-vulnerability">CVE-2020-13941: Apache Solr information disclosure vulnerability</a>
+      <a class="headerlink" href="#cve-2020-13941-apache-solr-information-disclosure-vulnerability" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>Security:</strong>
+      14 August 2020
+    </h5>
+      <p>Severity: Medium Versions Affected: Before Solr 8.6. Some risks are specific to Windows. Description: Reported in SOLR-14515 (private) and fixed in SOLR-14561 (public), released in Solr version 8.6.0. The Replication handler (https://solr.apache.org/guide/8_6/index-replication.html#http-api-commands-for-the-replicationhandler) allows commands backup, restore and deleteBackup. Each …</p>
+      <div class="read-more">
+        <a href="/news.html#cve-2020-13941-apache-solr-information-disclosure-vulnerability">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-861-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-861-available">Apache Solr™ 8.6.1 available</a>
+      <a class="headerlink" href="#apache-solrtm-861-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      13 August 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.6.1. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-861-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-860-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-860-available">Apache Solr™ 8.6.0 available</a>
+      <a class="headerlink" href="#apache-solrtm-860-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      15 July 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.6.0. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-860-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-852-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-852-available">Apache Solr™ 8.5.2 available</a>
+      <a class="headerlink" href="#apache-solrtm-852-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      26 May 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.5.2. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-852-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-773-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-773-available">Apache Solr™ 7.7.3 available</a>
+      <a class="headerlink" href="#apache-solrtm-773-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      28 April 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 7.7.3. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-773-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-851-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-851-available">Apache Solr™ 8.5.1 available</a>
+      <a class="headerlink" href="#apache-solrtm-851-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      16 April 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.5.1 Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search and analytics, rich document parsing, geospatial search, extensive …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-851-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-850-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-850-available">Apache Solr™ 8.5.0 available</a>
+      <a class="headerlink" href="#apache-solrtm-850-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      24 March 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.5.0. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-850-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="apache-solrtm-841-available" class="post-item-title">
+        <a href="/news.html#apache-solrtm-841-available">Apache Solr™ 8.4.1 available</a>
+      <a class="headerlink" href="#apache-solrtm-841-available" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>News:</strong>
+      13 January 2020
+    </h5>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 8.4.1. Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …</p>
+      <div class="read-more">
+        <a href="/news.html#apache-solrtm-841-available">Read full article on news page →</a>
+      </div>
+    <hr/>
+    <h2 id="cve-2019-17558-apache-solr-rce-through-velocityresponsewriter" class="post-item-title">
+        <a href="/news.html#cve-2019-17558-apache-solr-rce-through-velocityresponsewriter">CVE-2019-17558: Apache Solr RCE through VelocityResponseWriter</a>
+      <a class="headerlink" href="#cve-2019-17558-apache-solr-rce-through-velocityresponsewriter" title="Permanent link">¶</a>
+    </h2>
+    <h5>
+        <strong>Security:</strong>
+      30 December 2019
+    </h5>
+      <p>Severity: High Vendor: The Apache Software Foundation Versions Affected: 5.0.0 to 8.3.1 Description: The affected versions are vulnerable to a Remote Code Execution through the VelocityResponseWriter. A Velocity template can be provided through Velocity templates in a configset velocity/ directory or as a parameter. A user …</p>
+      <div class="read-more">
+        <a href="/news.html#cve-2019-17558-apache-solr-rce-through-velocityresponsewriter">Read full article on news page →</a>
+      </div>
+    <hr/>
+
+  <div class="pagination">
+      <a href="/posts3.html">← Previous</a>
+    <span class="pagination-info">
+      Page 4 of 9
+    </span>
+      <a href="/posts5.html">Next →</a>
+  </div>
+
+</div>
+  </div>
+</div>
+    <footer>
+<div class="row">
+  <div class="small-6 medium-3 columns">
+    <h4>Features</h4>
+    <ul>
+      <li><a href="/features.html">Overview</a></li>
+      <li><a href="/features.html#data-handling">Data Handling</a></li>
+      <li><a href="/features.html#query">Querying</a></li>
+      <li><a href="/features.html#facets">Faceting</a></li>
+      <li><a href="/features.html#discovery">Discovery</a></li>
+      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
+      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
+      <li><a href="/features.html#spatial">Spatial</a></li>
+      <li><a href="/features.html#rich-content">Rich Content</a></li>
+      <li><a href="/features.html#performance">Performance</a></li>
+      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
+      <li><a href="/features.html#admin-ui">User Interface</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="/resources.html#documentation">Docs</a></li>
+      <li><a href="/resources.html#solr-books">Books</a></li>
+      <li><a href="/resources.html#presentations">Presentations</a></li>
+      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
+      <li><a href="/editing-website.html">Editing this Website</a></li>
+      <br/>
+      <li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+      <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+      <li><a href="https://www.apache.org/security/">Security</a></li>
+      <li><a href="https://www.apache.org/licenses/">License</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Get Started</h4>
+    <ul>
+      <li><a href="/downloads.html">Download</a></li>
+      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+      <li><a href="/resources.html">Level Up</a></li>
+    </ul>
+    <br/>
+    <h4>Community</h4>
+    <ul>
+      <li><a href="/community.html#support">Support</a></li>
+      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
+      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
+      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Related Projects</h4>
+    <ul>
+      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row copyright">
+<div class="large-centered columns">
+  <p>Copyright © 2026 The Apache Software Foundation, Licensed under the
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
+    Apache and the Apache logo are trademarks of The Apache Software Foundation. Apache Lucene,
+    Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
+    Please see the <a href="https://www.apache.org/foundation/marks/">Apache Trademark Policy</a> for more information.
+    All non-Apache logos are the trademarks of their respective owners.</p>
+</div></div>    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<!-- TODO: This script is commented out because we do not use slick slider.
+<script>
+  $(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+  });
+</script>
+-->
+  </body>
+</html>
