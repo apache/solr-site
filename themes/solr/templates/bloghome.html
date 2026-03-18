@@ -1,4 +1,11 @@
-{% extends "page.html" %}
+{% extends "subnav.html" %}
+
+{% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
+{% block subnav_nav_items %}
+<dd><a href="{{ SITEURL }}/posts.html">All News</a></dd>
+<dd><a href="{{ SITEURL }}/blog.html" class="selected">Blog</a></dd>
+<dd><a href="{{ SITEURL }}/news.html">Announcements</a></dd>
+{% endblock %}
 
 {% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
 
@@ -18,6 +25,7 @@
       margin-top: -70px;
     }
   </style>
+
   <h1 id="solr-blogs">Solr<sup>™</sup> Blog Posts<a class="headerlink" href="#solr-blog-posts" title="Permanent link">¶</a></h1>
   {{page.content}}
 
