@@ -1,22 +1,31 @@
 import os
-import sys
 import json
 from re import sub
 from uuid import UUID, uuid5
 from hashlib import md5
+from pathlib import Path
 from pelican import signals
 from jsonschema import validate
 import jsonref
 
+def __get_vex_input():
+    input_dir = Path("vex-input")
+    vex_input = []
+    if not input_dir.exists():
+        raise FileNotFoundError("`vex-input` folder not found")
+    for path in sorted(input_dir.glob('*.json')):
+        with path.open('r', encoding='utf-8') as f:
+            data = json.load(f)
+            vex_input.append(data)
+    return vex_input
+
 def pelican_init(pelicanobj):
-    with open('vex-input.json', 'r') as input:
-        vex_input = json.loads(input.read())
+    vex_input = __get_vex_input()
 
     # Our own input format - feel free to change as needed,
     # but remember to also update this plugin and the templates in
     # /themes/solr/templates/security.html
     with open('plugins/vex/schema/vex-input.schema.json', 'r') as file:
-        from pathlib import Path
         loaded = jsonref.load(file, base_uri=Path('./plugins/vex/schema/base').absolute().as_uri())
         validate(vex_input, loaded)
 
@@ -72,9 +81,11 @@ def pelican_init(pelicanobj):
     with open('%s/solr.vex.json' % output_path, 'w') as out:
         json.dump(vex, out, indent=2)
 
+
 def generator_initialized(generator):
-    generator.context["vex"] = json.load(open('vex-input.json'))
+    generator.context["vex"] = __get_vex_input()
     generator.context["sub"] = sub
+
 
 def register():
     """Plugin registration"""

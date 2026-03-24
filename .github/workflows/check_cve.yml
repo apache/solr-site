@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: Apache-2.0
+name: Check CVEs
+run-name: Check CVEs for ${{ inputs.sbom_file }}
+on:
+  workflow_dispatch:
+    inputs:
+      sbom_file:
+        description: 'Path to the SBOM file'
+        required: true
+        default: "sboms/solr-9.10.0.json"
+        type: string
+
+# No permissions by default, permissions are granted at the job level
+permissions: { }
+
+jobs:
+  check_cve:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # 6.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # 6.1.0
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate VEX entries for new CVEs
+        env:
+          SBOM_FILE: ${{ github.event.inputs.sbom_file }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python scripts/check_cve.py "$SBOM_FILE" | while read -r inputs; do
+            gh workflow run generate_vex.yml --json <<<"$inputs"
+          done
