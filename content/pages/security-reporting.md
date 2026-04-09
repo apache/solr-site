@@ -20,8 +20,7 @@ For PMC members, the ASF provides detailed
 
 Ensure you have tested against a [supported Solr version](https://solr.apache.org/downloads.html)
 with both **authentication** and **authorization** properly configured.
-Exploits demonstrated without authentication are not valid — running Solr without authentication is a
-misconfiguration, not a vulnerability.
+Solr's admin level APIs are designed to be used only by authenticated and trusted administrators.
 
 <h2 id="submission-rules">Submission Rules <a class="headerlink" href="#submission-rules" title="Permanent link">¶</a></h2>
 
@@ -62,7 +61,7 @@ Public disclosure follows the ASF standard process and is announced on the
 <h2 id="canned-responses">Canned Email Responses <a class="headerlink" href="#canned-responses" title="Permanent link">¶</a></h2>
 
 The following templates are provided for PMC members responding to incoming reports.
-Click each entry to expand and copy the template.
+Click each entry to expand and view the template.
 
 <details>
 <summary>Response A: Acknowledgment — report received and under review</summary>
@@ -175,7 +174,7 @@ Subject: Re: [Original Subject]
 Thank you for your security report.
 
 After reviewing your report, we are unable to treat this as a security
-vulnerability because of either of the following reasons:
+vulnerability due to either of the following reasons:
 
   a) The behavior requires Solr to be running without authentication.
      Solr is not designed for unauthenticated operation in any networked
