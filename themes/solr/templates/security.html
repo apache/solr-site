@@ -1,5 +1,6 @@
 {% extends "subnav.html" %}
 
+{% block bodyclass %}nav-security{% endblock %}
 {% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
 {% block subnav_nav_items %}{% set subnav_selected = 'security' %}{% include "_subnav_security.html" %}{% endblock %}
 

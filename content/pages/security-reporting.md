@@ -56,6 +56,9 @@ A valid security report to [security@solr.apache.org](mailto:security@solr.apach
 Public disclosure follows the ASF standard process and is announced on the
 [oss-security mailing list](https://oss-security.openwall.org/wiki/mailing-lists/oss-security).
 
+---
+**For PMC members:** The following section documents the internal triage process and provides email templates for responding to incoming reports.
+
 <h2 id="canned-responses">Canned Email Responses <a class="headerlink" href="#canned-responses" title="Permanent link">¶</a></h2>
 
 The following templates are provided for PMC members responding to incoming reports.

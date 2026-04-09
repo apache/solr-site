@@ -1,5 +1,6 @@
 {% extends "subnav.html" %}
 
+{% block bodyclass %}nav-news{% endblock %}
 {% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
 {% block subnav_nav_items %}{% set subnav_selected = 'security' %}{% include "_subnav_news.html" %}{% endblock %}
 
@@ -7,13 +8,6 @@
 
 {% block content_inner %}
 <div class="small-12 columns">
-  <style type="text/css">
-    h2 {
-      padding-top: 70px;
-      margin-top: -70px;
-    }
-  </style>
-
   <h1 id="solr-security-news">Solr<sup>™</sup> Security News<a class="headerlink" href="#solr-security-news" title="Permanent link">¶</a></h1>
   <p>Full history of Apache Solr security advisories. Subscribe to the <a href="/feeds/solr/security.atom.xml">security ATOM feed</a> to be notified of new advisories.</p>
 

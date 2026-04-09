@@ -1,5 +1,6 @@
 {% extends "subnav.html" %}
 
+{% block bodyclass %}nav-news{% endblock %}
 {% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
 {% block subnav_nav_items %}{% set subnav_selected = 'blog' %}{% include "_subnav_news.html" %}{% endblock %}
 
@@ -7,14 +8,6 @@
 
 {% block content_inner %}
 <div class="small-12 columns">
-
-  <style type="text/css">
-    h2 {
-      /* Avoid title being hidden behind header when linked by anchor link */
-      padding-top: 70px;
-      margin-top: -70px;
-    }
-  </style>
 
   <h1 id="solr-blogs">Solr<sup>™</sup> Blog Posts<a class="headerlink" href="#solr-blog-posts" title="Permanent link">¶</a></h1>
   {{page.content}}
