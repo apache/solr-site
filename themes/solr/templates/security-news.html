@@ -1,0 +1,53 @@
+{% extends "subnav.html" %}
+
+{% block subnav_title %}Solr™ Security News{% endblock %}
+{% block subnav_nav_items %}
+<dd><a href="{{ SITEURL }}/posts.html">All News</a></dd>
+<dd><a href="{{ SITEURL }}/security-news.html" class="selected">Security News</a></dd>
+<dd><a href="{{ SITEURL }}/blog.html">Blog</a></dd>
+<dd><a href="{{ SITEURL }}/news.html">Announcements</a></dd>
+{% endblock %}
+
+{% block rss %}<link rel="alternate" type="application/atom+xml" title="Solr security announce feed" href="/feeds/solr/security.atom.xml" />{% endblock %}
+
+{% block content_inner %}
+<div class="small-12 columns">
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible;
+    }
+    h2 {
+      padding-top: 70px;
+      margin-top: -70px;
+    }
+  </style>
+
+  <p>Full history of Apache Solr security advisories. Subscribe to the <a href="/feeds/solr/security.atom.xml">security ATOM feed</a> to be notified of new advisories.</p>
+
+  {% for article in posts %}
+  <h2 id="{{ article.slug }}">{{ article.date | strftime("%Y-%m-%d") }}, {{ article.title }}
+    <a class="headerlink" href="#{{ article.slug }}" title="Permanent link">¶</a>
+  </h2>
+  {{ article.content }}
+  <hr/>
+  {% endfor %}
+
+  {% if posts_paginator and posts_paginator.num_pages > 1 %}
+  <div class="pagination">
+    {% if posts_page.has_previous() %}
+      <a href="{{ SITEURL }}/{% if posts_page.previous_page_number() == 1 %}security-news.html{% else %}security-news{{ posts_page.previous_page_number() }}.html{% endif %}">← Newer</a>
+    {% endif %}
+    <span class="pagination-info">
+      Page {{ posts_page.number }} of {{ posts_paginator.num_pages }}
+    </span>
+    {% if posts_page.has_next() %}
+      <a href="{{ SITEURL }}/security-news{{ posts_page.next_page_number() }}.html">Older →</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+{% endblock content_inner %}

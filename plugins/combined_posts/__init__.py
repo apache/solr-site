@@ -100,9 +100,69 @@ class CombinedPostsGenerator(Generator):
             logger.info(f'Writing {url} ({page_num}/{paginator.num_pages})')
 
 
+class SecurityNewsGenerator(Generator):
+    """
+    Generator for creating a paginated security news page.
+
+    Lists only articles from the 'solr/security' category, sorted
+    chronologically, and generates security-news.html (+ security-newsN.html).
+    """
+
+    def generate_output(self, writer):
+        """Generate paginated security news pages."""
+
+        articles = self.context.get('articles', [])
+
+        security_articles = [
+            a for a in articles
+            if hasattr(a, 'category') and a.category and
+               a.category.name == 'solr/security'
+        ]
+
+        security_articles.sort(key=lambda x: x.date, reverse=True)
+
+        per_page = self.settings.get('COMBINED_POSTS_PER_PAGE', 20)
+
+        paginator = Paginator('security-news', 'security-news{number}.html',
+                              security_articles, self.settings, per_page)
+
+        template = self.get_template('security-news')
+
+        for page_num in range(1, paginator.num_pages + 1):
+            posts_page = paginator.page(page_num)
+
+            context = self.context.copy()
+            context.update({
+                'posts': posts_page.object_list,
+                'posts_page': posts_page,
+                'posts_paginator': paginator,
+                'page': posts_page,
+                'title': 'Solr Security News',
+                'slug': 'security-news',
+            })
+
+            if page_num == 1:
+                output_path = os.path.join(self.output_path, 'security-news.html')
+                url = 'security-news.html'
+            else:
+                output_path = os.path.join(
+                    self.output_path,
+                    f'security-news{page_num}.html'
+                )
+                url = f'security-news{page_num}.html'
+
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+            output = template.render(context)
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(output)
+
+            logger.info(f'Writing {url} ({page_num}/{paginator.num_pages})')
+
+
 def get_generators(pelican):
-    """Register the CombinedPostsGenerator."""
-    return CombinedPostsGenerator
+    """Register the CombinedPostsGenerator and SecurityNewsGenerator."""
+    return [CombinedPostsGenerator, SecurityNewsGenerator]
 
 
 def register():

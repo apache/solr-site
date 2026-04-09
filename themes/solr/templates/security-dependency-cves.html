@@ -1,0 +1,65 @@
+{% extends "subnav.html" %}
+
+{% block subnav_title %}CVE Status for Dependencies{% endblock %}
+{% block subnav_nav_items %}
+<dd><a href="{{ SITEURL }}/security.html">Security</a></dd>
+<dd><a href="{{ SITEURL }}/security-reporting.html">Vulnerability Reporting Procedure</a></dd>
+<dd><a href="{{ SITEURL }}/security-dependency-cves.html" class="selected">CVE Status for Dependencies</a></dd>
+{% endblock %}
+
+{% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
+
+{% block content_inner %}
+<div class="small-12 columns">
+  <style type="text/css">
+    .headerlink, .elementid-permalink {
+      visibility: hidden;
+    }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
+      visibility: visible;
+    }
+    .vex-download {
+      margin: 1.5em 0;
+    }
+  </style>
+
+  {{ page.content }}
+
+  <div class="vex-download">
+    <a href="/solr.vex.json" class="button large" download>&#11123; Download Solr VEX File (JSON)</a>
+  </div>
+
+  <h2 id="cve-table">CVE Reports for Apache Solr Dependencies <a class="headerlink" href="#cve-table" title="Permanent link">¶</a></h2>
+  <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies and their applicability to Solr.
+     CVEs assessed as exploitable in Solr have their own advisory on the
+     <a href="{{ SITEURL }}/security-news.html">security news page</a>.</p>
+
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Versions</th>
+      <th>JARs</th>
+      <th>State</th>
+      <th>Detail</th>
+    </tr>
+    {% for v in (vex | selectattr("analysis.state", "ne", "exploitable")) %}
+    <tr>
+      <td>
+        {% for id in v.ids %}
+          {% if id.startswith('CVE') %}<a href="https://nvd.nist.gov/vuln/detail/{{ id }}">{{ id }}</a>{% else %}{{ id }}{% endif %}
+          {%- if not loop.last %}, {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{ v.versions }}</td>
+      <td>
+        {% for jar in v.jars %}
+          {{ jar }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{ v.analysis.state.replace('_', ' ') }}</td>
+      <td>{{ sub("(https://.*?)([.;]\s)", "<a href=\"\\1\">\\1</a>\\2", v.analysis.detail) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock content_inner %}
