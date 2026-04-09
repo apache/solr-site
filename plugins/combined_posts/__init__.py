@@ -2,7 +2,7 @@
 Pelican plugin to generate a combined posts page with pagination.
 
 Combines articles (solr/news, solr/security) with pages (solr/blogposts),
-sorts them chronologically, and generates paginated output.
+sorts them newest-first, and generates paginated output.
 """
 
 from pelican import signals
@@ -20,7 +20,7 @@ class CombinedPostsGenerator(Generator):
     Generator for creating a combined posts page with pagination.
 
     Combines articles from 'solr/news' and 'solr/security' categories
-    with pages from 'solr/blogposts' category, sorts chronologically,
+    with pages from 'solr/blogposts' category, sorts newest-first,
     and generates paginated HTML pages.
     """
 
@@ -104,8 +104,8 @@ class SecurityNewsGenerator(Generator):
     """
     Generator for creating a paginated security news page.
 
-    Lists only articles from the 'solr/security' category, sorted
-    chronologically, and generates security-news.html (+ security-newsN.html).
+    Lists only articles from the 'solr/security' category, sorted newest-first,
+    and generates security-news.html (+ security-newsN.html).
     """
 
     def generate_output(self, writer):
