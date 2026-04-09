@@ -196,16 +196,15 @@ Apache Solr Security Team
 </pre>
 </details>
 
-<h2 id="jira-process">After Acceptance: JIRA Process <a class="headerlink" href="#jira-process" title="Permanent link">¶</a></h2>
+<h2 id="pmc-process">After Acceptance: PMC Process <a class="headerlink" href="#pmc-process" title="Permanent link">¶</a></h2>
 
 Once a report passes initial triage, the PMC follows these steps:
 
 1. Create a **private JIRA issue** with the appropriate security level (not publicly visible)
 2. Send the **acknowledgment email** to the reporter (Response A above)
-3. The issue is included in the **weekly security-issues digest** email for PMC awareness
-4. PMC coordinates the investigation via private JIRA, the security mailing list, and security Slack
-5. When a fix is ready, request a **CVE ID from the ASF Security Team** (the CNA for all Apache projects) via the CVE portal
-6. **Notify the reporter** of the planned disclosure date
-7. **Publish the fix release**, then publish the CVE advisory on the security page
-8. The ASF Security Team announces the advisory on **oss-security@lists.openwall.com**
-9. **Update security.html** with the new CVE entry and close the JIRA issue
+3. PMC coordinates the investigation through private channels
+4. When a fix is ready, request a **CVE ID from the ASF Security Team**, via the CVE portal
+5. **Notify the reporter** of the chosen fix and planned disclosure date
+6. **Publish the fix release**, then publish the CVE advisory on the security page
+7. The ASF Security Team announces the advisory on **oss-security@lists.openwall.com**
+8. **Update security-news** page with the new CVE entry and close the JIRA issue
