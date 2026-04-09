@@ -106,6 +106,8 @@ Solr uses those libraries. Before filing a security report, please:
 For dependency upgrade discussions, the public Solr users list is the
 right venue: users@solr.apache.org
 
+Please read https://solr.apache.org/security-reporting.html for the full process.
+
 Apache Solr Security Team
 </pre>
 </details>
@@ -117,7 +119,7 @@ Subject: Re: [Original Subject]
 
 Thank you for your security report.
 
-Your email appears to describe [N] separate potential vulnerabilities.
+Your email appears to describe several separate potential vulnerabilities.
 To allow each issue to be tracked, fixed, and disclosed independently,
 please re-submit each as a separate email to security@solr.apache.org.
 
@@ -128,6 +130,8 @@ Each email should cover exactly one vulnerability with:
   - The impact and attack scenario
 
 We will begin reviewing each issue once we receive the separate reports.
+
+Please read https://solr.apache.org/security-reporting.html for the full process.
 
 Apache Solr Security Team
 </pre>
@@ -154,6 +158,8 @@ security@solr.apache.org, including:
 
 We look forward to reviewing your report once re-submitted in plaintext.
 
+Please read https://solr.apache.org/security-reporting.html for the full process.
+
 Apache Solr Security Team
 </pre>
 </details>
@@ -166,7 +172,7 @@ Subject: Re: [Original Subject]
 Thank you for your security report.
 
 After reviewing your report, we are unable to treat this as a security
-vulnerability because [choose applicable]:
+vulnerability because of either of the following reasons:
 
   a) The behavior requires Solr to be running without authentication.
      Solr is not designed for unauthenticated operation in any networked
@@ -180,6 +186,8 @@ vulnerability because [choose applicable]:
 If you believe our assessment is incorrect, please reply with details
 explaining why the behavior should not be possible under your tested
 configuration and role.
+
+Please read https://solr.apache.org/security-reporting.html for the full process.
 
 Apache Solr Security Team
 </pre>
