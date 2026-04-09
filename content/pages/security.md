@@ -20,10 +20,9 @@ Before contacting the security team about a dependency CVE, please:
 
 1. Check the [dependency CVE status page](security-dependency-cves.html) to see if the CVE has already
    been assessed as not exploitable in Solr.
-2. Download our [VEX file](security-dependency-cves.html) if your scanner supports VEX, to automatically suppress known non-applicable findings.
-3. Search the [Solr users mailing list archive](https://lists.apache.org/list.html?users@solr.apache.org)
+2. Search the [Solr users mailing list archive](https://lists.apache.org/list.html?users@solr.apache.org)
    to see if the CVE has been discussed.
-4. If nothing is found, [subscribe to the users list](https://solr.apache.org/community.html#mailing-lists-chat)
+3. If nothing is found, [subscribe to the users list](https://solr.apache.org/community.html#mailing-lists-chat)
    and ask there.
 
 #### Dos and Don'ts

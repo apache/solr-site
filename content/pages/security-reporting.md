@@ -16,7 +16,7 @@ If you have concerns about how the project team is handling a report, you may al
 For PMC members, the ASF provides detailed
 [committer guidance on vulnerability handling](https://www.apache.org/security/committers.html).
 
-## Before You Report
+<h2 id="before-you-report">Before You Report <a class="headerlink" href="#before-you-report" title="Permanent link">¶</a></h2>
 
 Ensure you have tested against a [supported Solr version](https://solr.apache.org/downloads.html)
 with both **authentication** and **authorization** properly configured.
