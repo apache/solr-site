@@ -50,7 +50,7 @@ A valid security report to [security@solr.apache.org](mailto:security@solr.apach
 | Initial triage / acknowledgment | PMC volunteers | Up to 7 days |
 | Full investigation | PMC volunteers | Up to 30 days |
 | CVE ID allocation | PMC + ASF Security Team (CNA) | During fix development |
-| Fix + CVE publication | PMC + ASF Security Team | Coordinated with you |
+| Fix + CVE publication | PMC + ASF Security Team | Coordinated with you, the reporter |
 | Credit in advisory | PMC | At public disclosure |
 
 Public disclosure follows the ASF standard process and is announced on the
