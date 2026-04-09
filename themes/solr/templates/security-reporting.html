@@ -9,47 +9,6 @@
 
 {% block content_inner %}
 <div class="small-12 columns">
-  <style type="text/css">
-    details {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      margin-bottom: 1em;
-      padding: 0;
-    }
-    summary {
-      background: #f5f5f5;
-      cursor: pointer;
-      font-weight: bold;
-      padding: 0.75em 1em;
-      border-radius: 4px;
-    }
-    details[open] summary {
-      border-bottom: 1px solid #ddd;
-      border-radius: 4px 4px 0 0;
-    }
-    details pre {
-      background: #fafafa;
-      border: none;
-      margin: 0;
-      padding: 1em 1.5em;
-      white-space: pre-wrap;
-      font-size: 0.9em;
-    }
-    .workflow-figure {
-      margin: 2em 0;
-    }
-    .workflow-figure img {
-      width: 100%;
-      height: auto;
-      border: 1px solid #e8e8e8;
-      border-radius: 4px;
-    }
-    .workflow-figure figcaption {
-      color: #666;
-      font-size: 0.9em;
-      margin-top: 0.5em;
-    }
-  </style>
   {{ page.content }}
 </div>
 {% endblock content_inner %}
