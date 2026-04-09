@@ -7,6 +7,8 @@ template: security
 
 The Solr PMC greatly appreciates responsible disclosure of new security vulnerabilities found in Solr itself
 or demonstrating exploitation via a dependency.
+**It is important not to publish a previously unknown exploit**, or exploit demonstration code, on public
+mailing lists or issue trackers before coordinating with the PMC.
 
 See the [vulnerability reporting procedure](security-reporting.html) for the full reporting rules,
 the workflow diagram, and what to expect after you report.
@@ -29,6 +31,14 @@ Before contacting the security team about a dependency CVE, please:
 * **DO** discuss dependency upgrade needs on the users mailing list
 * **DO** search Jira for the CVE number before opening a new issue
 * **DO** open a focused Jira issue with a PR to upgrade a *single specific* dependency
+* **DO** look into automating CVE triage with [VEX](security-dependency-cves.html) and share your experience
 * **DO NOT** email the security address with scanner reports — they will not be processed
 * **DO NOT** paste scan output into Jira or attach reports — link the CVE instead
+
+#### Use of Jira
+
+Jira is for discussing specific development modifications. Any Jira that contains only scan report
+output, or references multiple dependencies at the same time is likely to be ignored or closed.
+The large number of reports about already-known issues is a serious drag on our volunteer time —
+**please search Jira** before opening a new issue.
 

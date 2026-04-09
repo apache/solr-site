@@ -10,7 +10,10 @@ it depends on whether Solr actually exercises the affected code path in a way th
 We publish our assessment of dependency CVEs in a machine-readable
 **[VEX (Vulnerability Exploitability eXchange)](https://cyclonedx.org/capabilities/vex/)** file.
 VEX is an emerging standard that lets vendors state explicitly whether a CVE applies to their product,
-and why. Our file follows the [CycloneDX 1.4](https://cyclonedx.org/) JSON format.
+and why. A number of formats are under active development, including
+[CycloneDX](https://cyclonedx.org/capabilities/vex/) and
+[CSAF](https://github.com/oasis-tcs/csaf/blob/master/csaf_2.0/prose/csaf-v2-editor-draft.md#45-profile-5-vex).
+We currently publish in CycloneDX 1.4 JSON format.
 
 If your scanner supports VEX, download the file below and point your scanner at it to automatically
 suppress known non-applicable findings. If your scanner does not yet support VEX, you can use the
