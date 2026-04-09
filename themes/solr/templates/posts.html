@@ -1,12 +1,7 @@
 {% extends "subnav.html" %}
 
-{% block subnav_title %}Solr™ News{% endblock %}
-{% block subnav_nav_items %}
-<dd><a href="{{ SITEURL }}/posts.html" class="selected">All News</a></dd>
-<dd><a href="{{ SITEURL }}/security-news.html">Security News</a></dd>
-<dd><a href="{{ SITEURL }}/blog.html">Blog</a></dd>
-<dd><a href="{{ SITEURL }}/news.html">Announcements</a></dd>
-{% endblock %}
+{% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
+{% block subnav_nav_items %}{% set subnav_selected = 'all' %}{% include "_subnav_news.html" %}{% endblock %}
 
 {% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
 {% block rss %}<link rel="alternate" type="application/atom+xml" title="Solr news except security news" href="/feeds/solr/news.atom.xml" />{% endblock %}
@@ -26,6 +21,7 @@
     }
   </style>
 
+  <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   {{page.content}}
 
   {% for article in posts %}

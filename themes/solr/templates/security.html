@@ -1,17 +1,14 @@
 {% extends "subnav.html" %}
 
-{% block subnav_title %}Solr™ Security{% endblock %}
-{% block subnav_nav_items %}
-<dd><a href="{{ SITEURL }}/security.html" class="selected">Security</a></dd>
-<dd><a href="{{ SITEURL }}/security-reporting.html">Vulnerability Reporting Procedure</a></dd>
-<dd><a href="{{ SITEURL }}/security-dependency-cves.html">CVE Status for Dependencies</a></dd>
-{% endblock %}
+{% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
+{% block subnav_nav_items %}{% set subnav_selected = 'security' %}{% include "_subnav_security.html" %}{% endblock %}
 
 {% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
 {% block rss %}<link rel="alternate" type="application/atom+xml" title="Solr security announce feed" href="/feeds/solr/security.atom.xml" />{% endblock %}
 
 {% block content_inner %}
 <div class="small-12 columns">
+  <h1 id="solr-security">Solr<sup>™</sup> Security<a class="headerlink" href="#solr-security" title="Permanent link">¶</a></h1>
   {{page.content}}
 
   <h2 id="recent-cve-reports-for-apache-solr">Recent CVE Reports for Apache Solr

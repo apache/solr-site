@@ -1,16 +1,13 @@
 {% extends "subnav.html" %}
 
-{% block subnav_title %}CVE Status for Dependencies{% endblock %}
-{% block subnav_nav_items %}
-<dd><a href="{{ SITEURL }}/security.html">Security</a></dd>
-<dd><a href="{{ SITEURL }}/security-reporting.html">Vulnerability Reporting Procedure</a></dd>
-<dd><a href="{{ SITEURL }}/security-dependency-cves.html" class="selected">CVE Status for Dependencies</a></dd>
-{% endblock %}
+{% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
+{% block subnav_nav_items %}{% set subnav_selected = 'cves' %}{% include "_subnav_security.html" %}{% endblock %}
 
 {% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
 
 {% block content_inner %}
 <div class="small-12 columns">
+  <h1 id="cve-status-for-dependencies">CVE Status for Dependencies<a class="headerlink" href="#cve-status-for-dependencies" title="Permanent link">¶</a></h1>
   {{ page.content }}
 
   <div class="vex-download">

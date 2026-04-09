@@ -1,12 +1,7 @@
 {% extends "subnav.html" %}
 
-{% block subnav_title %}Solr™ Security News{% endblock %}
-{% block subnav_nav_items %}
-<dd><a href="{{ SITEURL }}/posts.html">All News</a></dd>
-<dd><a href="{{ SITEURL }}/security-news.html" class="selected">Security News</a></dd>
-<dd><a href="{{ SITEURL }}/blog.html">Blog</a></dd>
-<dd><a href="{{ SITEURL }}/news.html">Announcements</a></dd>
-{% endblock %}
+{% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
+{% block subnav_nav_items %}{% set subnav_selected = 'security' %}{% include "_subnav_news.html" %}{% endblock %}
 
 {% block rss %}<link rel="alternate" type="application/atom+xml" title="Solr security announce feed" href="/feeds/solr/security.atom.xml" />{% endblock %}
 
@@ -19,6 +14,7 @@
     }
   </style>
 
+  <h1 id="solr-security-news">Solr<sup>™</sup> Security News<a class="headerlink" href="#solr-security-news" title="Permanent link">¶</a></h1>
   <p>Full history of Apache Solr security advisories. Subscribe to the <a href="/feeds/solr/security.atom.xml">security ATOM feed</a> to be notified of new advisories.</p>
 
   {% for article in posts %}
