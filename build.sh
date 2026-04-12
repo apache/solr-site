@@ -18,7 +18,7 @@
 set -e
 #set -x
 
-PYTHON_IMAGE="python:3-alpine"
+PYTHON_IMAGE="python:3.12-alpine"
 SOLR_LOCAL_PELICAN_IMAGE="solr-pelican-image"
 DOCKER_CMD="docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work $SOLR_LOCAL_PELICAN_IMAGE"
 unset SERVE
