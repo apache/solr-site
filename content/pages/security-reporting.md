@@ -28,7 +28,7 @@ A valid security report to [security@solr.apache.org](mailto:security@solr.apach
 
 1. **Be sent as plaintext** — no zip file attachments, no links to Google Docs, Dropbox, or similar services
 2. **Cover exactly one vulnerability** — if you have multiple findings, send one email per issue
-3. **Include step-by-step reproduction steps** — scanner output alone is not a report
+3. **Include step-by-step reproduction steps** — scanner output or LLM generated reports are not sufficient by themselves.
 4. **Demonstrate the issue with authentication and authorization enabled** — running Solr
    without authentication is a misconfiguration, not a vulnerability
 5. **Target a [supported Solr version](https://solr.apache.org/downloads.html)** — reports
@@ -38,7 +38,7 @@ A valid security report to [security@solr.apache.org](mailto:security@solr.apach
 
 <figure class="workflow-figure">
   <img src="{{ SITEURL }}/theme/images/security-vuln-process.png"
-       alt="Flowchart showing the Solr vulnerability reporting process: reporter submits plaintext email, PMC triages within 7 days (reject / needs changes / accepted), accepted reports get a private JIRA and ACK email, followed by full investigation up to 30 days, then either won't fix or confirmed vuln leading to fix, coordinated disclosure, CVE publication, and credit in advisory." />
+       alt="Flowchart showing the Solr vulnerability reporting process: reporter submits plaintext email, PMC triages within 7 days (reject / needs changes / accepted), accepted reports get a private JIRA and ACK email, followed by full investigation up to 90 days, then either won't fix or confirmed vuln leading to fix, coordinated disclosure, CVE publication, and credit in advisory." />
   <figcaption>Solr vulnerability reporting workflow</figcaption>
 </figure>
 
@@ -47,12 +47,12 @@ A valid security report to [security@solr.apache.org](mailto:security@solr.apach
 | Step | Who | Timeframe |
 |------|-----|-----------|
 | Initial triage / acknowledgment | PMC volunteers | Up to 7 days |
-| Full investigation | PMC volunteers | Up to 30 days |
+| Full investigation | PMC volunteers | Up to 90 days |
 | CVE ID allocation | PMC + ASF Security Team (CNA) | During fix development |
 | Fix + CVE publication | PMC + ASF Security Team | Coordinated with you, the reporter |
 | Credit in advisory | PMC | At public disclosure |
 
-Public disclosure follows the ASF standard process and is announced on the
+Public disclosure follows the [ASF standard process](https://www.apache.org/security/committers.html) and is announced on the
 [oss-security mailing list](https://oss-security.openwall.org/wiki/mailing-lists/oss-security).
 
 ---
