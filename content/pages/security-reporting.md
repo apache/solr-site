@@ -36,11 +36,57 @@ A valid security report to [security@solr.apache.org](mailto:security@solr.apach
 
 <h2 id="workflow">Workflow <a class="headerlink" href="#workflow" title="Permanent link">¶</a></h2>
 
-<figure class="workflow-figure">
-  <img src="{{ SITEURL }}/theme/images/security-vuln-process.png"
-       alt="Flowchart showing the Solr vulnerability reporting process: reporter submits plaintext email, PMC triages within 7 days (reject / needs changes / accepted), accepted reports get a private JIRA and ACK email, followed by full investigation up to 90 days, then either won't fix or confirmed vuln leading to fix, coordinated disclosure, CVE publication, and credit in advisory." />
-  <figcaption>Solr vulnerability reporting workflow</figcaption>
-</figure>
+<pre class="mermaid">
+flowchart TD
+    A["`**Submit security report**
+    *Plaintext · one issue · repro steps · auth enabled*
+    security@solr.apache.org`"]
+
+    D["`**PMC triage**
+    *up to 7 days*`"]
+
+    E["`**Rejected**
+    *No repro / no auth / zip or link / multiple issues*`"]
+
+    F["`**Needs changes**
+    *PMC requests clarification*`"]
+
+    G["`**Accepted**
+    *ACK email + private JIRA within 7 days*`"]
+
+    I["`**Full investigation**
+    *up to 90 days*`"]
+
+    J["`**Won't fix**
+    *Reporter notified*`"]
+
+    K["`**Fix & coordinated disclosure**
+    *CVE published · reporter credited in advisory*`"]
+
+    A --> D
+    D -->|rejected| E
+    D -->|needs changes| F
+    D -->|accepted| G
+    F -->|revise & re-send| A
+    G --> I
+    I -->|not confirmed| J
+    I -->|confirmed| K
+
+    classDef submit    fill:#eae6f5,stroke:#9b93d0,color:#3d3a6b
+    classDef process   fill:#fdf4e8,stroke:#c8a86b,color:#5a4520
+    classDef rejected  fill:#fde8e8,stroke:#d08080,color:#7a2020
+    classDef changes   fill:#fdefd8,stroke:#d4a060,color:#7a4010
+    classDef accepted  fill:#dff5ec,stroke:#6dbfa0,color:#1a5a40
+    classDef wontfix   fill:#fde8e8,stroke:#d08080,color:#7a2020
+    classDef disclosure fill:#f5f0e0,stroke:#b8ad80,color:#4a4020
+
+    class A submit
+    class D,G,I process
+    class E rejected
+    class F changes
+    class J wontfix
+    class K disclosure
+</pre>
 
 <h2 id="what-to-expect">What to Expect <a class="headerlink" href="#what-to-expect" title="Permanent link">¶</a></h2>
 

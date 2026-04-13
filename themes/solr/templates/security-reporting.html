@@ -4,6 +4,11 @@
 {% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
 {% block subnav_nav_items %}{% set subnav_selected = 'reporting' %}{% include "_subnav_security.html" %}{% endblock %}
 
+{% block javascript %}
+<script src="{{ SITEURL }}/theme/javascript/lib/mermaid/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad: true });</script>
+{% endblock %}
+
 {% block content_inner %}
 <div class="small-12 columns">
   <h1 id="vulnerability-reporting">Vulnerability Reporting Procedure<a class="headerlink" href="#vulnerability-reporting" title="Permanent link">¶</a></h1>
