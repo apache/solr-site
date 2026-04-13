@@ -39,29 +39,33 @@ A valid security report to [security@solr.apache.org](mailto:security@solr.apach
 <pre class="mermaid">
 flowchart TD
     A["`**Submit security report**
-    *Plaintext · one issue · repro steps · auth enabled*
-    security@solr.apache.org`"]
+  *Plaintext · one issue*
+  *repro steps · auth enabled*
+  security@solr.apache.org`"]
 
     D["`**PMC triage**
-    *up to 7 days*`"]
+  *up to 7 days*`"]
 
     E["`**Rejected**
-    *No repro / no auth / zip or link / multiple issues*`"]
+  *No repro / no auth*
+  *zip or link / multiple issues*`"]
 
     F["`**Needs changes**
-    *PMC requests clarification*`"]
+  *PMC requests clarification*`"]
 
     G["`**Accepted**
-    *ACK email + private JIRA within 7 days*`"]
+  *ACK email + private JIRA*
+  *within 7 days*`"]
 
     I["`**Full investigation**
-    *up to 90 days*`"]
+  *up to 90 days*`"]
 
     J["`**Won't fix**
-    *Reporter notified*`"]
+  *Reporter notified*`"]
 
     K["`**Fix & coordinated disclosure**
-    *CVE published · reporter credited in advisory*`"]
+  *CVE published*
+  *reporter credited in advisory*`"]
 
     A --> D
     D -->|rejected| E
@@ -86,7 +90,7 @@ flowchart TD
     class F changes
     class J wontfix
     class K disclosure
-</pre>
+</pre> 
 
 <h2 id="what-to-expect">What to Expect <a class="headerlink" href="#what-to-expect" title="Permanent link">¶</a></h2>
 
