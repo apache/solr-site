@@ -66,8 +66,6 @@ Click each entry to expand and view the template.
 <details>
 <summary>Response A: Acknowledgment — report received and under review</summary>
 <pre>
-Subject: Re: [Original Subject]
-
 Thank you for your security report.
 
 We have received your report and created a private issue to track it.
@@ -88,8 +86,6 @@ https://solr.apache.org/security.html
 <details>
 <summary>Response B: Reject — scanner output without reproduction steps</summary>
 <pre>
-Subject: Re: [Original Subject]
-
 Thank you for contacting the Solr security team.
 
 We are unable to process reports that consist solely of scanner tool output
@@ -117,8 +113,6 @@ Apache Solr Security Team
 <details>
 <summary>Response C: Reject — multiple distinct vulnerabilities in one email</summary>
 <pre>
-Subject: Re: [Original Subject]
-
 Thank you for your security report.
 
 Your email appears to describe several separate potential vulnerabilities.
@@ -142,8 +136,6 @@ Apache Solr Security Team
 <details>
 <summary>Response D: Reject — report sent as zip file or external link</summary>
 <pre>
-Subject: Re: [Original Subject]
-
 Thank you for your security report.
 
 For security reasons, the Solr PMC does not open zip file attachments
@@ -169,8 +161,6 @@ Apache Solr Security Team
 <details>
 <summary>Response E: Reject — no authentication configured or behavior within expected role</summary>
 <pre>
-Subject: Re: [Original Subject]
-
 Thank you for your security report.
 
 After reviewing your report, we are unable to treat this as a security
