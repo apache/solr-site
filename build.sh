@@ -18,11 +18,13 @@
 set -e
 #set -x
 
-PYTHON_IMAGE="python:3-alpine"
+# Pinned to python:3.13-alpine by digest to prevent silent base-image substitution
+PYTHON_IMAGE="python:3.13-alpine@sha256:70dd89363f8665af9a8076ef505bfd8b8bf2fb0b3ab45860cd3494ab7197fe73"
 SOLR_LOCAL_PELICAN_IMAGE="solr-pelican-image"
 DOCKER_CMD="docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work $SOLR_LOCAL_PELICAN_IMAGE"
 unset SERVE
-PIP_CMD="pip3 install -r requirements.txt"
+# To regenerate requirements.lock.txt after changing requirements.txt, see README.md#updating-the-dependency-lockfile
+PIP_CMD="pip3 install --require-hashes -r requirements.lock.txt"
 PELICAN_CMD="pelican content -o output"
 PELICAN_OPTS=""
 export SITEURL="https://solr.apache.org/"

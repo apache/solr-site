@@ -9,12 +9,12 @@ jobs:
   build-pelican:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
       - name: Build Pelican Site
-        uses: apache/infrastructure-actions/pelican@main
+        uses: apache/infrastructure-actions/pelican@4deec7dce934d27491a0b1a8216f8d292548f7a4  # main 2025-04-13
         with:
           gfm: 'false'
           version: '4.9.1'
           publish: 'false'
           debug: 'false'
-          requirements: 'requirements.txt'
+          requirements: 'requirements.lock.txt'

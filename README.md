@@ -22,6 +22,19 @@ The bundled script uses a docker image to build and serve the site locally. Plea
 
 Now go to <http://localhost:8000> to view the beautiful Solr web page served from your laptop with live-preview of updates :)
 
+### Updating the dependency lockfile
+
+`requirements.lock.txt` is a fully pinned, hash-verified lockfile generated from `requirements.txt`.
+It must be regenerated whenever `requirements.txt` changes (new package, version bump, etc.):
+
+```bash
+pip install pip-tools
+pip-compile --allow-unsafe --generate-hashes --output-file=requirements.lock.txt requirements.txt
+```
+
+Commit both `requirements.txt` and the updated `requirements.lock.txt` together.
+The lockfile is used by `build.sh` (via `pip install --require-hashes`) and by the GitHub Actions workflows.
+
 ### Other options
 
 If you want to build the site without the docker image, you can install Python 3 and Pelican, see [manual install](./manual-install.md) for details.
