@@ -24,15 +24,16 @@ Now go to <http://localhost:8000> to view the beautiful Solr web page served fro
 
 ### Updating the dependency lockfile
 
-`requirements.lock.txt` is a fully pinned, hash-verified lockfile generated from `requirements.txt`.
-It must be regenerated whenever `requirements.txt` changes (new package, version bump, etc.):
+`requirements.in` is the human-editable list of direct dependencies. `requirements.txt` is the
+fully pinned, hash-verified lockfile generated from it. Dependabot updates both files automatically
+when it opens a pip bump PR. To regenerate manually after editing `requirements.in`:
 
 ```bash
 pip install pip-tools
-pip-compile --allow-unsafe --generate-hashes --output-file=requirements.lock.txt requirements.txt
+pip-compile --allow-unsafe --generate-hashes --output-file=requirements.txt requirements.in
 ```
 
-Commit both `requirements.txt` and the updated `requirements.lock.txt` together.
+Commit both `requirements.in` and the updated `requirements.txt` together.
 The lockfile is used by `build.sh` (via `pip install --require-hashes`) and by the GitHub Actions workflows.
 
 ### Other options

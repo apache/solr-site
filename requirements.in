@@ -13,23 +13,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Build Solr website with ASF Pelican action for PRs
+# Add dependencies here, we prefer to pin versions.
+# Remember to update requirements.txt too, see README.md
 
-on:
-  pull_request:
-    branches:
-      - '**'
+setuptools==82.0.1
+pelican==4.9.1
+Markdown==3.10.2
+checksumdir==1.2.0
 
-jobs:
-  build-pelican:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
-      - name: Build Pelican Site
-        uses: apache/infrastructure-actions/pelican@4deec7dce934d27491a0b1a8216f8d292548f7a4  # main 2025-04-13
-        with:
-          gfm: 'false'
-          version: '4.9.1'
-          publish: 'false'
-          debug: 'false'
-          requirements: 'requirements.txt'
+# Pelican plugins
+beautifulsoup4==4.12.3
+# Dependencies of the vex plugin
+jsonschema==4.22.0
+jsonref==1.1.0
+
+# Dev tools
+invoke==2.2.1
+livereload==2.6.3
+
+# Patch for bug https://github.com/pallets/markupsafe/issues/284
+markupsafe==2.1.5

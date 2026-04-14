@@ -18,13 +18,11 @@
 set -e
 #set -x
 
-# Pinned to python:3.13-alpine by digest to prevent silent base-image substitution
-PYTHON_IMAGE="python:3.13-alpine@sha256:70dd89363f8665af9a8076ef505bfd8b8bf2fb0b3ab45860cd3494ab7197fe73"
+# Base image and packages are defined in Dockerfile (digest-pinned, tracked by Dependabot).
+# To regenerate requirements.txt after changing requirements.in, see README.md#updating-the-dependency-lockfile
 SOLR_LOCAL_PELICAN_IMAGE="solr-pelican-image"
 DOCKER_CMD="docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work $SOLR_LOCAL_PELICAN_IMAGE"
 unset SERVE
-# To regenerate requirements.lock.txt after changing requirements.txt, see README.md#updating-the-dependency-lockfile
-PIP_CMD="pip3 install --require-hashes -r requirements.lock.txt"
 PELICAN_CMD="pelican content -o output"
 PELICAN_OPTS=""
 export SITEURL="https://solr.apache.org/"
@@ -37,11 +35,7 @@ function usage {
 
 function build_image {
   echo "Building local Docker image for Pelican, called $SOLR_LOCAL_PELICAN_IMAGE."
-  # Make a new local image with the pip packages installed
-  docker rm -f solr-pelican >/dev/null 2>&1 || true
-  docker run --name solr-pelican -w /work -v $(pwd):/work $PYTHON_IMAGE sh -c "$PIP_CMD"
-  docker commit solr-pelican $SOLR_LOCAL_PELICAN_IMAGE
-  docker rm -f solr-pelican >/dev/null 2>&1 || true
+  docker build -t $SOLR_LOCAL_PELICAN_IMAGE .
 }
 
 function ensure_image {
@@ -52,7 +46,7 @@ function ensure_image {
 }
 
 function check_requirements_update {
-  # Get the last modified time of requirements.txt
+  # Check requirements.txt — that is what is COPY'd into the Dockerfile
   local req_mod_time
   if [[ $(uname) == "Darwin" ]]; then
     req_mod_time=$(stat -f "%m" requirements.txt)
@@ -74,7 +68,7 @@ function check_requirements_update {
     image_build_time=$(date -d "$(echo "$image_build_time" | cut -d'.' -f1 | sed 's/T/ /; s/Z//')" --utc "+%s")
   fi
 
-  # Compare the timestamps and build the image if requirements.txt is newer
+  # Compare the timestamps and rebuild if requirements.txt is newer than the image
   if [[ $req_mod_time -gt $image_build_time ]]; then
     echo "requirements.txt has been updated since the last build, rebuilding image!"
     build_image
