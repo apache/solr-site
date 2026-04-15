@@ -15,12 +15,36 @@ If the staged site looks good, simply merge the changes to branch `production` a
 For larger edits it is recommended to build and preview the site locally. This lets you see the result of your changes instantly without committing anything.
 The bundled script uses a docker image to build and serve the site locally. Please make sure you have docker installed.
 
-    # Usage: ./build.sh [-l] [-h] [<other pelican arguments>]
-    #        -l     Live build and reload source changes on localhost:8000
-    #        --help Show full help for options that Pelican accepts
-    ./build.sh -l
+    ./build.sh -l       # live-reload on http://localhost:8000
+    ./build.sh --help   # show all options
 
 Now go to <http://localhost:8000> to view the beautiful Solr web page served from your laptop with live-preview of updates :)
+
+### Updating the dependency lockfile
+
+`requirements.in` is the human-editable list of direct dependencies. `requirements.txt` is the
+fully pinned, hash-verified lockfile generated from it. Dependabot updates both files automatically
+when it opens a pip bump PR. To regenerate manually after editing `requirements.in`:
+
+```bash
+./build.sh --lock
+```
+
+This runs `pip-compile` inside the Docker image (no local pip-tools install needed) and updates
+`requirements.txt`. Afterwards, rebuild the Docker image to pick up the changes:
+
+```bash
+./build.sh -b
+```
+
+Or combine both steps in one command:
+
+```bash
+./build.sh --lock -b
+```
+
+Commit both `requirements.in` and the updated `requirements.txt` together.
+The lockfile is used by `build.sh` (via `pip install --require-hashes`) and by the GitHub Actions workflows.
 
 ### Other options
 
