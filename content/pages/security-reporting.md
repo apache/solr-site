@@ -13,8 +13,13 @@ to the security of the project.
 
 If you have concerns about how the project team is handling a report, you may also contact
 [security@apache.org](mailto:security@apache.org) directly.
-For PMC members, the ASF provides detailed
-[committer guidance on vulnerability handling](https://www.apache.org/security/committers.html).
+
+<h2 id="incident-response-plan">Incident Response Plan <a class="headerlink" href="#incident-response-plan" title="Permanent link">¶</a></h2>
+
+Apache Solr follows the [Apache Software Foundation's security process](https://www.apache.org/security/committers.html),
+which covers reporting, responsibility, private discussion, and CVE disclosure in detail.
+The rest of this page details this plan for the Solr project. If you have questions to these procedures,
+feel free to use our [public mailing lists](community.html).
 
 <h2 id="before-you-report">Before You Report <a class="headerlink" href="#before-you-report" title="Permanent link">¶</a></h2>
 
@@ -105,8 +110,9 @@ flowchart TD
 Public disclosure follows the [ASF standard process](https://www.apache.org/security/committers.html) and is announced on the
 [oss-security mailing list](https://oss-security.openwall.org/wiki/mailing-lists/oss-security).
 
----
-**For PMC members:** The following section documents the internal triage process and provides email templates for responding to incoming reports.
+# For the PMC
+
+The following section documents the internal triage process and provides email templates for responding to incoming reports.
 
 <h2 id="canned-responses">Canned Email Responses <a class="headerlink" href="#canned-responses" title="Permanent link">¶</a></h2>
 
