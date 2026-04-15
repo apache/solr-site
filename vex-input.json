@@ -495,5 +495,69 @@
       "state": "not_affected",
       "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr."
     }
+  },
+  {
+    "ids": [
+      "CVE-2026-34480",
+      "CVE-2026-34478",
+      "CVE-2026-34477",
+      "CVE-2026-34479",
+      "CVE-2026-34481"
+    ],
+    "versions": "10.0.0",
+    "jars": [
+      "log4j-core-2.25.3.jar",
+      "log4j-1.2-api-2.25.3.jar",
+      "log4j-layout-template-json-2.25.3.jar"
+    ],
+    "analysis": {
+      "state": "not_affected",
+      "justification": "requires_configuration",
+      "detail": "All five CVEs require non-default Log4j layout or appender configurations that Solr does not use. CVE-2026-34480 affects XmlLayout (Solr uses PatternLayout). CVE-2026-34478 affects Rfc5424Layout with TCP/TLS syslog framing (Solr does not configure a SyslogAppender with TCP framing). CVE-2026-34477 is an incomplete fix for SSL hostname verification in SMTP/Socket/Syslog appenders — Solr does not configure these appenders with TLS. CVE-2026-34479 affects Log4j1XmlLayout in the 1.x bridge (Solr does not use Log4j 1.x XML layout). CVE-2026-34481 affects JsonTemplateLayout when logging MapMessage with attacker-controlled floating-point values — Solr does not use JsonTemplateLayout. Solr's default log configuration uses PatternLayout and does not include any of the affected appender/layout types."
+    }
+  },
+  {
+    "ids": [
+      "CVE-2026-33870",
+      "CVE-2026-33871"
+    ],
+    "versions": "10.0.0",
+    "jars": [
+      "netty-codec-http-4.2.6.Final.jar",
+      "netty-codec-http2-4.2.6.Final.jar"
+    ],
+    "analysis": {
+      "state": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "detail": "CVE-2026-33870 is an HTTP/1.1 request smuggling vulnerability via malformed chunked transfer encoding extension values in Netty's server-side HTTP codec. CVE-2026-33871 is an HTTP/2 CONTINUATION frame flood DoS against a Netty HTTP/2 server. Both require Netty to be used as an HTTP server accepting connections from untrusted clients. In Solr, Netty is a transitive dependency (via ZooKeeper 3.9.x and optionally the OpenTelemetry OTLP exporter); it is used exclusively as an HTTP client and for ZooKeeper's own non-HTTP binary protocol. Solr's HTTP server is Jetty, not Netty. No Netty ServerBootstrap or HTTP server pipeline is configured in Solr. Therefore neither CVE can be triggered against a running Solr instance."
+    }
+  },
+  {
+    "ids": [
+      "CVE-2025-48734"
+    ],
+    "versions": "10.0.0",
+    "jars": [
+      "commons-beanutils-1.9.4.jar"
+    ],
+    "analysis": {
+      "state": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "detail": "CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr does not call PropertyUtilsBean.getProperty(), BeanUtilsBean, or any Commons BeanUtils introspection APIs directly. The commons-beanutils-1.9.4.jar is present only as a transitive dependency of hadoop-common (used in the optional Hadoop/Kerberos authentication module); the Hadoop auth code reads administrator-supplied Kerberos configuration files and does not expose BeanUtils property paths to untrusted external users."
+    }
+  },
+  {
+    "ids": [
+      "GHSA-72hv-8253-57qq"
+    ],
+    "versions": "10.0.0",
+    "jars": [
+      "jackson-core-2.20.0.jar"
+    ],
+    "analysis": {
+      "state": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "detail": "GHSA-72hv-8253-57qq is a DoS vulnerability in the non-blocking (async) JSON parser API of jackson-core (NonBlockingByteArrayJsonParser), which bypasses the maxNumberLength constraint. Exploitation requires an application to use the async/non-blocking parser API (factory.createNonBlockingByteArrayParser()). Solr uses the standard synchronous Jackson parser to deserialize JSON from HTTP request bodies and internal data structures. Solr is built on Jetty with synchronous request handling, not a reactive framework. The async parser API is not used anywhere in Solr's codebase. The synchronous parser correctly enforces the maxNumberLength constraint and is not affected."
+    }
   }
 ]
