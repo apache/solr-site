@@ -42,5 +42,5 @@ jobs:
         with:
           destination: ${{ github.ref == 'refs/heads/production' && 'asf-site' || 'asf-staging' }}
           gfm: 'false'
-          version: '4.9.1'
+          version: '4.11.0.post0'
           requirements: 'requirements.txt'
