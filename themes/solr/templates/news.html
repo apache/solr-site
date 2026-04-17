@@ -1,31 +1,14 @@
 {% extends "subnav.html" %}
 
+{% block bodyclass %}nav-news{% endblock %}
 {% block subnav_header %}<style>.container { padding-top: 0; }</style>{% endblock %}
-{% block subnav_nav_items %}
-<dd><a href="{{ SITEURL }}/posts.html">All News</a></dd>
-<dd><a href="{{ SITEURL }}/blog.html">Blog</a></dd>
-<dd><a href="{{ SITEURL }}/news.html" class="selected">Announcements</a></dd>
-{% endblock %}
+{% block subnav_nav_items %}{% set subnav_selected = 'announcements' %}{% include "_subnav_news.html" %}{% endblock %}
 
 {% block ng_directives %}x-ng-app-root="/solr"{% endblock %}
 {% block rss %}<link rel="alternate" type="application/atom+xml" title="Solr news except security news" href="/feeds/solr/news.atom.xml" />{% endblock %}
 
 {% block content_inner %}
 <div class="small-12 columns">
-
-  <style type="text/css">
-    .headerlink, .elementid-permalink {
-      visibility: hidden;
-    }
-    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
-      visibility: visible;
-    }
-    h2 {
-      /* Avoid news title being hidden behind header when linked by anchor link */
-      padding-top: 70px;
-      margin-top: -70px;
-    }
-  </style>
 
   <h1 id="solr-news">Solr<sup>™</sup> Announcements<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   {{page.content}}
