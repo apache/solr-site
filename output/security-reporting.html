@@ -1,0 +1,546 @@
+<!doctype html>
+<html>
+  <head>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE- 2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=033782dc"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=033782dc"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=033782dc" />
+<meta name="Distribution" content="Global"/>
+<meta name="Robots" content="index,follow"/>
+
+<script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=033782dc"></script>
+<script src="/theme/javascript/main.js?v=033782dc"></script>
+<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Solr™ Vulnerability Reporting Procedure - Apache Solr</title>
+
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://solr.apache.org/security-reporting.html"/>
+     <meta property="og:title" content="Solr™ Vulnerability Reporting Procedure"/>
+     <meta property="og:description" content="This page documents the procedure for reporting a security vulnerability in Apache Solr and explains what happens after a report is..."/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=033782dc"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=033782dc"/>
+
+   <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
+<script src="/theme/javascript/lib/mermaid/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad: true });</script>
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDoNotTrack", true]);
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://analytics.apache.org/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '76']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->  </head>
+
+  <body class="page nav-security"  x-ng-app="page" x-ng-controller="page.controllers.main">
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="/posts.html">News</a>
+          </li>
+          <li>
+            <a href="/security.html">Security</a>
+          </li>
+          <li>
+            <a href="/features.html">Features</a>
+          </li>
+          <li>
+            <a href="/resources.html">Resources</a>
+          </li>
+          <li>
+            <a href="/community.html">Community</a>
+          </li>
+          <li>
+            <a href="/whoweare.html">Project</a>
+          </li>
+          <li>
+            <a href="/operator/">Solr Operator</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="/downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
+<div class="container">
+<style>.container { padding-top: 0; }</style><div class="sub-nav-container">
+  <div class="row sub-nav-border anchor-top">
+    <div class="small-12 text-center columns">
+      <dl class="sub-nav">
+<dd><a href="/security.html">Security</a></dd>
+<dd><a href="/security-reporting.html" class="selected">Reporting Procedure</a></dd>
+<dd><a href="/security-dependency-cves.html">CVE Status for Dependencies</a></dd>      </dl>
+    </div>
+  </div>
+</div>
+  <div class="row">
+<div class="small-12 columns">
+  <h1 id="vulnerability-reporting">Vulnerability Reporting Procedure<a class="headerlink" href="#vulnerability-reporting" title="Permanent link">¶</a></h1>
+  <p>This page documents the procedure for reporting a security vulnerability in Apache Solr and
+explains what happens after a report is submitted. It also provides canned email templates
+for PMC members to use when responding to reports.</p>
+<p>Apache Solr is maintained by volunteers. The PMC will make every effort to respond promptly,
+but cannot guarantee specific response times. We appreciate your patience and your contribution
+to the security of the project.</p>
+<p>If you have concerns about how the project team is handling a report, you may also contact
+<a href="mailto:security@apache.org">security@apache.org</a> directly.</p>
+<h2 id="incident-response-plan">Incident Response Plan <a class="headerlink" href="#incident-response-plan" title="Permanent link">¶</a></h2>
+
+<p>Apache Solr follows the <a href="https://www.apache.org/security/committers.html">Apache Software Foundation's security process</a>,
+which covers reporting, responsibility, private discussion, and CVE disclosure in detail.
+The rest of this page details this plan for the Solr project. If you have questions to these procedures,
+feel free to use our <a href="community.html">public mailing lists</a>.</p>
+<h2 id="before-you-report">Before You Report <a class="headerlink" href="#before-you-report" title="Permanent link">¶</a></h2>
+
+<p>Ensure you have tested against a <a href="https://solr.apache.org/downloads.html">supported Solr version</a>
+with both <strong>authentication</strong> and <strong>authorization</strong> properly configured.
+Solr's admin level APIs are designed to be used only by authenticated and trusted administrators.</p>
+<h2 id="submission-rules">Submission Rules <a class="headerlink" href="#submission-rules" title="Permanent link">¶</a></h2>
+
+<p>A valid security report to <a href="mailto:security@solr.apache.org">security@solr.apache.org</a> must:</p>
+<ol>
+<li><strong>Be sent as plaintext</strong> — no zip file attachments, no links to Google Docs, Dropbox, or similar services</li>
+<li><strong>Cover exactly one vulnerability</strong> — if you have multiple findings, send one email per issue</li>
+<li><strong>Include step-by-step reproduction steps</strong> — scanner output or LLM generated reports are not sufficient by themselves.</li>
+<li><strong>Demonstrate the issue with authentication and authorization enabled</strong> — running Solr
+   without authentication is a misconfiguration, not a vulnerability</li>
+<li><strong>Target a <a href="https://solr.apache.org/downloads.html">supported Solr version</a></strong> — reports
+   against unsupported versions will not be accepted</li>
+</ol>
+<h2 id="workflow">Workflow <a class="headerlink" href="#workflow" title="Permanent link">¶</a></h2>
+
+<pre class="mermaid">
+flowchart TD
+    A["`**Submit security report**
+  *Plaintext · one issue*
+  *repro steps · auth enabled*
+  security@solr.apache.org`"]
+
+    D["`**PMC triage**
+  *up to 7 days*`"]
+
+    E["`**Rejected**
+  *No repro / no auth*
+  *zip or link / multiple issues*`"]
+
+    F["`**Needs changes**
+  *PMC requests clarification*`"]
+
+    G["`**Accepted**
+  *ACK email + private JIRA*
+  *within 7 days*`"]
+
+    I["`**Full investigation**
+  *up to 90 days*`"]
+
+    J["`**Won't fix**
+  *Reporter notified*`"]
+
+    K["`**Fix & coordinated disclosure**
+  *CVE published*
+  *reporter credited in advisory*`"]
+
+    A --> D
+    D -->|rejected| E
+    D -->|needs changes| F
+    D -->|accepted| G
+    F -->|revise & re-send| A
+    G --> I
+    I -->|not confirmed| J
+    I -->|confirmed| K
+
+    classDef submit    fill:#eae6f5,stroke:#9b93d0,color:#3d3a6b
+    classDef process   fill:#fdf4e8,stroke:#c8a86b,color:#5a4520
+    classDef rejected  fill:#fde8e8,stroke:#d08080,color:#7a2020
+    classDef changes   fill:#fdefd8,stroke:#d4a060,color:#7a4010
+    classDef accepted  fill:#dff5ec,stroke:#6dbfa0,color:#1a5a40
+    classDef wontfix   fill:#fde8e8,stroke:#d08080,color:#7a2020
+    classDef disclosure fill:#f5f0e0,stroke:#b8ad80,color:#4a4020
+
+    class A submit
+    class D,G,I process
+    class E rejected
+    class F changes
+    class J wontfix
+    class K disclosure
+</pre>
+
+<h2 id="what-to-expect">What to Expect <a class="headerlink" href="#what-to-expect" title="Permanent link">¶</a></h2>
+
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Who</th>
+<th>Timeframe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Initial triage / acknowledgment</td>
+<td>PMC volunteers</td>
+<td>Up to 7 days</td>
+</tr>
+<tr>
+<td>Full investigation</td>
+<td>PMC volunteers</td>
+<td>Up to 90 days</td>
+</tr>
+<tr>
+<td>CVE ID allocation</td>
+<td>PMC + ASF Security Team (CNA)</td>
+<td>During fix development</td>
+</tr>
+<tr>
+<td>Fix + CVE publication</td>
+<td>PMC + ASF Security Team</td>
+<td>Coordinated with you, the reporter</td>
+</tr>
+<tr>
+<td>Credit in advisory</td>
+<td>PMC</td>
+<td>At public disclosure</td>
+</tr>
+</tbody>
+</table>
+<p>Public disclosure follows the <a href="https://www.apache.org/security/committers.html">ASF standard process</a> and is announced on the
+<a href="https://oss-security.openwall.org/wiki/mailing-lists/oss-security">oss-security mailing list</a>.</p>
+<h1 id="for-the-pmc">For the PMC<a class="headerlink" href="#for-the-pmc" title="Permanent link">&para;</a></h1>
+<p>The following section documents the internal triage process and provides email templates for responding to incoming reports.</p>
+<h2 id="canned-responses">Canned Email Responses <a class="headerlink" href="#canned-responses" title="Permanent link">¶</a></h2>
+
+<p>The following templates are provided for PMC members responding to incoming reports.
+Click each entry to expand and view the template.</p>
+<details>
+<summary>Response A: Acknowledgment — report received and under review</summary>
+<pre>
+Thank you for your security report.
+
+We have received your report and created a private issue to track it.
+The Solr PMC will review your report and aim to update you within 30 days.
+We will keep you informed through this email thread.
+
+Please do not discuss this report on public channels (mailing lists,
+GitHub, social media) until we have coordinated public disclosure with you.
+
+If you have additional information, please reply to this email.
+
+Apache Solr Security Team
+security@solr.apache.org
+https://solr.apache.org/security.html
+</pre>
+</details>
+
+<details>
+<summary>Response B: Reject — scanner output without reproduction steps</summary>
+<pre>
+Thank you for contacting the Solr security team.
+
+We are unable to process reports that consist solely of scanner tool output
+without a demonstrated reproduction of the vulnerability in Apache Solr.
+
+Scanner reports list dependency CVEs that are often not applicable to how
+Solr uses those libraries. Before filing a security report, please:
+
+1. Check https://solr.apache.org/security-dependency-cves.html — we publish
+   a VEX file listing CVEs already assessed as not exploitable in Solr.
+2. Verify the issue is actually exploitable in a properly configured Solr
+   instance (with authentication and authorization enabled).
+3. Write step-by-step reproduction steps that demonstrate the impact on
+   Solr specifically.
+
+For dependency upgrade discussions, the public Solr users list is the
+right venue: users@solr.apache.org
+
+Please read https://solr.apache.org/security-reporting.html for the full process.
+
+Apache Solr Security Team
+</pre>
+</details>
+
+<details>
+<summary>Response C: Reject — multiple distinct vulnerabilities in one email</summary>
+<pre>
+Thank you for your security report.
+
+Your email appears to describe several separate potential vulnerabilities.
+To allow each issue to be tracked, fixed, and disclosed independently,
+please re-submit each as a separate email to security@solr.apache.org.
+
+Each email should cover exactly one vulnerability with:
+  - A clear description of the issue
+  - Step-by-step reproduction instructions
+  - The Solr version tested
+  - The impact and attack scenario
+
+We will begin reviewing each issue once we receive the separate reports.
+
+Please read https://solr.apache.org/security-reporting.html for the full process.
+
+Apache Solr Security Team
+</pre>
+</details>
+
+<details>
+<summary>Response D: Reject — report sent as zip file or external link</summary>
+<pre>
+Thank you for your security report.
+
+For security reasons, the Solr PMC does not open zip file attachments
+or follow external links (Google Docs, Dropbox, etc.) in security reports.
+
+Please re-send your report as plaintext in the body of an email to
+security@solr.apache.org, including:
+
+  - Description of the vulnerability
+  - Step-by-step reproduction instructions
+  - Solr version and configuration tested
+  - Expected vs. actual behavior
+  - Any relevant log output, pasted directly into the email
+
+We look forward to reviewing your report once re-submitted in plaintext.
+
+Please read https://solr.apache.org/security-reporting.html for the full process.
+
+Apache Solr Security Team
+</pre>
+</details>
+
+<details>
+<summary>Response E: Reject — no authentication configured or behavior within expected role</summary>
+<pre>
+Thank you for your security report.
+
+After reviewing your report, we are unable to treat this as a security
+vulnerability due to either of the following reasons:
+
+  a) The behavior requires Solr to be running without authentication.
+     Solr is not designed for unauthenticated operation in any networked
+     environment. Running without authentication is a misconfiguration,
+     not a Solr vulnerability.
+
+  b) The action performed was permitted by the role used in your test.
+     A vulnerability requires either that the action exceeded what the
+     role should allow, or that it should never be permitted for any role.
+
+If you believe our assessment is incorrect, please reply with details
+explaining why the behavior should not be possible under your tested
+configuration and role.
+
+Please read https://solr.apache.org/security-reporting.html for the full process.
+
+Apache Solr Security Team
+</pre>
+</details>
+
+<h2 id="pmc-process">After Acceptance: PMC Process <a class="headerlink" href="#pmc-process" title="Permanent link">¶</a></h2>
+
+<p>Once a report passes initial triage, the PMC follows these steps:</p>
+<ol>
+<li>Create a <strong>private JIRA issue</strong> with the appropriate security level (not publicly visible)</li>
+<li>Send the <strong>acknowledgment email</strong> to the reporter (Response A above)</li>
+<li>PMC coordinates the investigation through private channels</li>
+<li>When a fix is ready, request a <strong>CVE ID from the ASF Security Team</strong>, via the CVE portal</li>
+<li><strong>Notify the reporter</strong> of the chosen fix and planned disclosure date</li>
+<li><strong>Publish the fix release</strong>, then publish the CVE advisory on the security page</li>
+<li>The ASF Security Team announces the advisory on <strong>oss-security@lists.openwall.com</strong></li>
+<li><strong>Update security-news</strong> page with the new CVE entry and close the JIRA issue</li>
+</ol>
+</div>
+  </div>
+</div>
+    <footer>
+<div class="row">
+  <div class="small-6 medium-3 columns">
+    <h4>Features</h4>
+    <ul>
+      <li><a href="/features.html">Overview</a></li>
+      <li><a href="/features.html#data-handling">Data Handling</a></li>
+      <li><a href="/features.html#query">Querying</a></li>
+      <li><a href="/features.html#facets">Faceting</a></li>
+      <li><a href="/features.html#discovery">Discovery</a></li>
+      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
+      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
+      <li><a href="/features.html#spatial">Spatial</a></li>
+      <li><a href="/features.html#rich-content">Rich Content</a></li>
+      <li><a href="/features.html#performance">Performance</a></li>
+      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
+      <li><a href="/features.html#admin-ui">User Interface</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="/resources.html#documentation">Docs</a></li>
+      <li><a href="/resources.html#solr-books">Books</a></li>
+      <li><a href="/resources.html#presentations">Presentations</a></li>
+      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
+      <li><a href="/editing-website.html">Editing this Website</a></li>
+      <br/>
+      <li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+      <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+      <li><a href="https://www.apache.org/security/">Security</a></li>
+      <li><a href="https://www.apache.org/licenses/">License</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Get Started</h4>
+    <ul>
+      <li><a href="/downloads.html">Download</a></li>
+      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+      <li><a href="/resources.html">Level Up</a></li>
+    </ul>
+    <br/>
+    <h4>Community</h4>
+    <ul>
+      <li><a href="/community.html#support">Support</a></li>
+      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
+      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
+      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Related Projects</h4>
+    <ul>
+      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row copyright">
+<div class="large-centered columns">
+  <p>Copyright © 2026 The Apache Software Foundation, Licensed under the
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
+    Apache and the Apache logo are trademarks of The Apache Software Foundation. Apache Lucene,
+    Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
+    Please see the <a href="https://www.apache.org/foundation/marks/">Apache Trademark Policy</a> for more information.
+    All non-Apache logos are the trademarks of their respective owners.</p>
+</div></div>    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<!-- TODO: This script is commented out because we do not use slick slider.
+<script>
+  $(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+  });
+</script>
+-->
+  </body>
+</html>

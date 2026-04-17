@@ -5,7 +5,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, and optimizations, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v091-release-highlights"&gt;Solr Operator v0.9.1 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v091-release-highlights"&gt;Solr Operator v0.9.1 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v091-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;initContainers can once again connect to ZooKeeper when Solr 9.8.x images are used&lt;/li&gt;
 &lt;li&gt;podReadinessGates on existing solrcloud resources are now properly updated following an operator upgrade&lt;/li&gt;
@@ -20,7 +20,7 @@
 &lt;p&gt;Please report any …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.9.0, available for immediate download at: https://solr.apache.org/operator/artifacts.html&lt;/p&gt;
 &lt;p&gt;The Apache Solr Operator is the official and recommended way of managing your Solr ecosystem on Kubernetes.&lt;/p&gt;
 &lt;p&gt;Please report any feedback to the mailing lists &lt;a href="https://solr.apache.org/operator/community.html#mailing-lists-chat"&gt;https://solr.apache.org/operator/community.html#mailing-lists-chat&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v090-release-highlights"&gt;Solr Operator v0.9.0 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v090-release-highlights"&gt;Solr Operator v0.9.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v090-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Security Configuration&lt;/strong&gt;: 0.9.0 gives users greater control over their security configuration than ever before, including new settings to specify the "securityContext" used by each Solr container and an "imagePullSecret" to use when pulling the operator image.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Resource Cleanup&lt;/strong&gt;: The operator now safely cleans up ingresses and node-services as necessary when externalAddressability settings are modified.&lt;/li&gt;
@@ -35,7 +35,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v081-release-highlights"&gt;Solr Operator v0.8.1 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v081-release-highlights"&gt;Solr Operator v0.8.1 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v081-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Miscellaneous bugfixes and hardening for the "managed scaling" feature adding in v0.8.0.&lt;/li&gt;
 &lt;li&gt;Init-containers now avoid writing to "/tmp" and other root FS locations, to better support "read-only" root filesystems&lt;/li&gt;
@@ -51,7 +51,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v080-release-highlights"&gt;Solr Operator v0.8.0 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v080-release-highlights"&gt;Solr Operator v0.8.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v080-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;The minimum supported version of Solr has been set to Solr 8.11&lt;/li&gt;
 &lt;li&gt;The minimum Kubernetes version supported is now v1.22&lt;/li&gt;
@@ -78,7 +78,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v071-release-highlights"&gt;Solr Operator v0.7.1 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v071-release-highlights"&gt;Solr Operator v0.7.1 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v071-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;The Kubernetes API client has been upgraded to fix a bug found when running on Kubernetes v1.27&lt;/li&gt;
 &lt;/ul&gt;
@@ -92,7 +92,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v070-release-highlights"&gt;Solr Operator v0.7.0 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v070-release-highlights"&gt;Solr Operator v0.7.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v070-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;The minimum Kubernetes version supported is now v1.21.&lt;/li&gt;
 &lt;li&gt;The required Zookeeper Operator version has been upgraded to v0.2.15.&lt;/li&gt;
@@ -114,7 +114,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v060-release-highlights"&gt;Solr Operator v0.6.0 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v060-release-highlights"&gt;Solr Operator v0.6.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v060-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Users are now able to specify resource constraints for all init-containers.&lt;/li&gt;
 &lt;li&gt;The default Solr image version used in newly created solrcloud's has been updated from 8.9 to 8.11&lt;/li&gt;
@@ -129,7 +129,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v051-release-highlights"&gt;Solr Operator v0.5.1 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v051-release-highlights"&gt;Solr Operator v0.5.1 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v051-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Copy from the draft release notes&lt;/li&gt;
 &lt;li&gt;Upgrade GoLang to 1.17&lt;/li&gt;
@@ -149,7 +149,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v050-release-highlights"&gt;Solr Operator v0.5.0 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v050-release-highlights"&gt;Solr Operator v0.5.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v050-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Support for Kubernetes v1.22+ (including the new Ingress APIs)&lt;/li&gt;
 &lt;li&gt;Support for cloud-native backups, and multiple backup repositories per-SolrCloud&lt;/li&gt;
@@ -180,7 +180,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v040-release-highlights"&gt;Solr Operator v0.4.0 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v040-release-highlights"&gt;Solr Operator v0.4.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v040-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;A new Helm chart for templating the Solr resource.&lt;/li&gt;
 &lt;li&gt;Users must still run the Solr Operator, preferably through the Solr Operator Helm chart.&lt;/li&gt;
@@ -210,7 +210,7 @@
 &lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
 &lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v030-release-highlights"&gt;Solr Operator v0.3.0 Release Highlights:&lt;/h3&gt;
+&lt;h3 id="solr-operator-v030-release-highlights"&gt;Solr Operator v0.3.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v030-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;The Solr Operator is now an Apache project managed by the Apache Solr PMC.&lt;/li&gt;
 &lt;li&gt;The CRDs are now under the solr.apache.org group instead of solr.bloomberg.com.&lt;/li&gt;
@@ -229,13 +229,13 @@
 &lt;p&gt;&lt;a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html"&gt;https://apache.github.io/solr-operator/docs/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;For the most exhaustive list, see the full release notes in the Github Releases or by viewing the git history in the solr-operator repo.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.3.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.3.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry><entry><title>Solr Operator donated to Apache Solr</title><link href="/solr-operator-donated-to-apache-solr.html" rel="alternate"/><published>2021-01-14T00:00:00+00:00</published><updated>2021-01-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-01-14:/solr-operator-donated-to-apache-solr.html</id><summary type="html">&lt;p&gt;The Apache Software Foundation's board today accepted Bloomberg's donation of the Solr Operator as a sub-project of the Apache Solr project.&lt;/p&gt;
-&lt;h3 id="whats-the-background"&gt;What's the background?&lt;/h3&gt;
+&lt;h3 id="whats-the-background"&gt;What's the background?&lt;a class="headerlink" href="#whats-the-background" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The Solr Operator is software that manages an environment to run Solr and related services on Kubernetes.
 It was created and open sourced by &lt;a href="https://www.techatbloomberg.com/"&gt;Bloomberg&lt;/a&gt; in …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Apache Software Foundation's board today accepted Bloomberg's donation of the Solr Operator as a sub-project of the Apache Solr project.&lt;/p&gt;
-&lt;h3 id="whats-the-background"&gt;What's the background?&lt;/h3&gt;
+&lt;h3 id="whats-the-background"&gt;What's the background?&lt;a class="headerlink" href="#whats-the-background" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The Solr Operator is software that manages an environment to run Solr and related services on Kubernetes.
 It was created and open sourced by &lt;a href="https://www.techatbloomberg.com/"&gt;Bloomberg&lt;/a&gt; in early 2019.&lt;/p&gt;
-&lt;h3 id="how-does-this-affect-users"&gt;How does this affect users?&lt;/h3&gt;
+&lt;h3 id="how-does-this-affect-users"&gt;How does this affect users?&lt;a class="headerlink" href="#how-does-this-affect-users" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The Solr Operator repo is now maintained by the Apache Solr PMC, and lives at a new location:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;The code base can now be found under the apache organization on Github, &lt;a href="https://github.com/apache/solr-operator"&gt;apache/solr-operator&lt;/a&gt;.&lt;/li&gt;
@@ -244,6 +244,6 @@ It was created and open sourced by &lt;a href="https://www.techatbloomberg.com/"
    Old versions, released before the project was donated to Apache, can still be found at &lt;a href="https://hub.docker.com/r/bloomberg/solr-operator"&gt;bloomberg/solr-operator&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;The Helm charts for installing the Solr Operator now live in the &lt;a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator"&gt;Apache Solr helm repo&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id="how-does-this-affect-developers"&gt;How does this affect developers?&lt;/h3&gt;
+&lt;h3 id="how-does-this-affect-developers"&gt;How does this affect developers?&lt;a class="headerlink" href="#how-does-this-affect-developers" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Developers will not need to make many changes to their workflow.
 Make sure to run the new &lt;code&gt;make prepare&lt;/code&gt; command before submitting a PR and you should be good to go.&lt;/p&gt;</content><category term="solr/operator/news"/></entry></feed>

@@ -20,23 +20,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
 
-<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=cabdb916" />
-<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=cabdb916" />
-<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=cabdb916" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=cabdb916" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=cabdb916"/>
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=cabdb916"/>
-<link rel="stylesheet" href="/theme/css/operator.css?v=cabdb916" />
+<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=033782dc"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=033782dc"/>
+<link rel="stylesheet" href="/theme/css/operator.css?v=033782dc" />
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="index,follow"/>
 
 <script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
-<script src="/theme/javascript/lib/foundation/modernizr.js?v=cabdb916"></script>
-<script src="/theme/javascript/lib/angularjs/angular.min.js?v=cabdb916"></script>
-<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=cabdb916"></script>
-<script src="/theme/javascript/lib/foundation/foundation.min.js?v=cabdb916"></script>
-<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=cabdb916"></script>
-<script src="/theme/javascript/main.js?v=cabdb916"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=033782dc"></script>
+<script src="/theme/javascript/main.js?v=033782dc"></script>
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Exploring the Apache Solr Operator on GKE - Apache Solr Operator</title>
 
     <meta name="keywords"
@@ -46,9 +46,9 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://solr.apache.org/operator/articles/explore-v030-gke.html"/>
     <meta property="og:title" content="Exploring the Apache Solr Operator on GKE"/>
-    <meta property="og:description" content="Exploring the Apache Solr Operator v0.3.0 on GKE Author: Tim Potter Earlier this year, Bloomberg graciously donated the Solr operator..."/>
-    <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=cabdb916"/>
-    <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=cabdb916"/>
+    <meta property="og:description" content="Exploring the Apache Solr Operator v0.3.0 on GKE¶ Author: Tim Potter Earlier this year, Bloomberg graciously donated the Solr..."/>
+    <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=033782dc"/>
+    <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=033782dc"/>
 
    <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
@@ -124,13 +124,13 @@
 <div class="header-fill"></div>
 <div class="container">
   <div class="row">
-<h1 id="exploring-the-apache-solr-operator-v030-on-gke">Exploring the Apache Solr Operator v0.3.0 on GKE</h1>
+<h1 id="exploring-the-apache-solr-operator-v030-on-gke">Exploring the Apache Solr Operator v0.3.0 on GKE<a class="headerlink" href="#exploring-the-apache-solr-operator-v030-on-gke" title="Permanent link">&para;</a></h1>
 <p><small><em>Author: Tim Potter</em></small></p>
 <p>Earlier this year, Bloomberg graciously donated the Solr operator to the Apache Software Foundation.
 The latest <a href="/operator/artifacts.html">v0.3.0 release</a> is the first under Apache and represents a significant milestone for the Apache Solr community at large.
 The operator is Solr’s first satellite project that is managed by the Solr PMC but released independently of Apache Solr.
 The community now has a powerful vehicle to translate hard-earned lessons and best practices running Solr at scale into automated solutions on Kubernetes.</p>
-<h2 id="introduction">Introduction</h2>
+<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>In this post, I explore the <code>v0.3.0</code> release from the perspective of a DevOps engineer needing to deploy a well-configured Solr cluster on Kubernetes.</p>
 <p>The Solr operator makes getting started with Solr on Kubernetes very easy.
 If you follow the <a href="https://apache.github.io/solr-operator/docs/local_tutorial">local tutorial</a>, you can have a Solr cluster up and running locally in no time.
@@ -139,12 +139,12 @@ The purpose of this guide is to help you plan for and implement these important 
 <p>Before getting into the details, take a moment to review the diagram below, which depicts the primary components, configuration, and interactions for a Solr cluster deployed to Kubernetes by the operator.
 Of course there are many other Kubernetes objects at play (secrets, service accounts, and so on) but the diagram only shows the primary objects.</p>
 <p><img alt="Solr Operator Components" src="/images/operator/k8s-primary-components.png"></p>
-<h2 id="getting-started">Getting Started</h2>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <p>Let’s get a base deployment of the Solr operator, Solr cluster, and supporting services running on GKE.
 I have no formal affiliation with Google and am using GKE for this post because of its ease of use, but the same basic process will work on other cloud managed Kubernetes like Amazon’s EKS or AKS.
 We’ll improve on this initial configuration as we work through the sections of this document.
 At the end, we’ll have the CRD definitions and supporting scripts needed to run a production ready Solr cluster in the cloud.</p>
-<h3 id="kubernetes-setup">Kubernetes Setup</h3>
+<h3 id="kubernetes-setup">Kubernetes Setup<a class="headerlink" href="#kubernetes-setup" title="Permanent link">&para;</a></h3>
 <p>I encourage you to follow along at home, so fire up a GKE cluster and open your terminal.
 If you’re new to GKE, work through the <a href="https://cloud.google.com/kubernetes-engine/docs/quickstart">GKE Quickstart</a> before proceeding with this document.
 To achieve better HA, you should deploy a <strong>regional</strong> GKE cluster across three zones (at least one Solr pod per zone).
@@ -169,7 +169,7 @@ ingress-nginx-controller-6c94f69c74-fxzp7   1/1     Running   0          6m23s
 kubectl config set-context --current --namespace=sop030
 </code></pre></div>
 
-<h3 id="solr-operator-setup">Solr Operator Setup</h3>
+<h3 id="solr-operator-setup">Solr Operator Setup<a class="headerlink" href="#solr-operator-setup" title="Permanent link">&para;</a></h3>
 <p>If you installed previous versions of the Solr operator, then please upgrade to the <strong>Apache Solr</strong> version using these instructions: <a href="https://apache.github.io/solr-operator/docs/upgrading-to-apache.html">Upgrading to Apache</a>. 
 Otherwise, add the Apache Solr Helm repo, install the <a href="#solr-crds">Solr CRDs</a> and <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator">install the Solr operator</a>:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">helm</span><span class="w"> </span><span class="n">repo</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">apache</span><span class="o">-</span><span class="n">solr</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">solr</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">charts</span>
@@ -191,7 +191,7 @@ kubectl describe pod -l control-plane=solr-operator
 <div class="codehilite"><pre><span></span><code>kubectl get pod -l component=zookeeper-operator
 </code></pre></div>
 
-<h3 id="solr-crds">Solr CRDs</h3>
+<h3 id="solr-crds">Solr CRDs<a class="headerlink" href="#solr-crds" title="Permanent link">&para;</a></h3>
 <p>A <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">Custom Resource Definition</a> (CRD) allows application developers to define a new type of object in Kubernetes.
 This provides a number of benefits:</p>
 <ol>
@@ -216,7 +216,7 @@ kubectl explain solrclouds.status
 
 <p>Take a moment to look over the output from the <code>explain</code> command above; the various structures and fields should seem familiar.
 Feel free to dig down, exploring different parts of the SolrCloud CRD Spec and Status.</p>
-<h3 id="creating-a-solr-cloud">Creating a Solr Cloud</h3>
+<h3 id="creating-a-solr-cloud">Creating a Solr Cloud<a class="headerlink" href="#creating-a-solr-cloud" title="Permanent link">&para;</a></h3>
 <p>To deploy an instance of a SolrCloud object in a Kubernetes namespace, we craft a bit of YAML, such as the example shown below:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">apiVersion</span><span class="o">:</span><span class="w"> </span><span class="n">solr</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">org</span><span class="o">/</span><span class="n">v1beta1</span>
 <span class="n">kind</span><span class="o">:</span><span class="w"> </span><span class="n">SolrCloud</span>
@@ -315,7 +315,7 @@ We'll switch this to <code>Managed</code> in the HA section after enabling TLS. 
 collections API to get <code>CLUSTERSTATUS</code> which doesn't work while a cluster is converting from HTTP to HTTPs. 
 In a real deployment, you should just start with TLS enabled initially vs. upgrading to TLS on an existing cluster.</p>
 <p>Also, let’s not create any collections or load data just yet as we want to lock down the cluster before moving forward.</p>
-<h4 id="zookeeper-connection">Zookeeper Connection</h4>
+<h4 id="zookeeper-connection">Zookeeper Connection<a class="headerlink" href="#zookeeper-connection" title="Permanent link">&para;</a></h4>
 <p>Solr Cloud depends on Apache Zookeeper. 
 In the <code>explore</code> SolrCloud definition, I'm using the <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#zookeeper-reference">provided</a> option, which means the Solr operator <em>provides</em> a Zookeeper ensemble for the SolrCloud instance. 
 Behind the scenes, the Solr operator defines a <code>ZookeeperCluster</code> CRD instance, which is managed by the Zookeeper operator.
@@ -323,11 +323,11 @@ The <code>provided</code> option is useful for getting started and development b
 For production deployments, consider defining your own <code>ZookeeperCluster</code> outside of the SolrCloud CRD definition and then simply pointing to the Zookeeper ensemble connection string using <code>connectionInfo</code> under <code>spec.zookeeperRef</code>.
 This gives you full control over your Zookeeper cluster deployment, allows for multiple SolrCloud instances (and other applications) to share the same Zookeeper service (with different chroot of course), and provides a nice separation of concerns.
 Alternatively, the Solr operator does not require using the Zookeeper operator, so you can use a <a href="https://bitnami.com/stack/zookeeper/helm">Helm chart</a> to deploy your Zookeeper cluster, if the Zookeeper operator does not meet your needs.</p>
-<h4 id="custom-log4j-config">Custom Log4J Config</h4>
+<h4 id="custom-log4j-config">Custom Log4J Config<a class="headerlink" href="#custom-log4j-config" title="Permanent link">&para;</a></h4>
 <p>Before moving on, I wanted to point out a handy feature in the operator that allows you to load a custom Log4j config from a user-provided ConfigMap.
 I mention this feature because you may face a situation where you need to customize the Log4j config for Solr to help troubleshoot a problem in production.
 I won't go into the details here, but use the <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#custom-log-configuration">Custom Log Configuration</a> documentation to configure your own custom Log4J config.</p>
-<h2 id="security">Security</h2>
+<h2 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
 <p>Security should be your first and main concern at all times, especially when running in public clouds like GKE; you don’t want to be that ops engineer who’s system gets compromised. 
 In this section we’re going to enable TLS, basic authentication, and authorization controls for Solr’s API endpoints. 
 For a more detailed explanation of all configuration options, see the <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html">SolrCloud CRD</a> documentation.</p>
@@ -335,7 +335,7 @@ For a more detailed explanation of all configuration options, see the <a href="h
 The Kubernetes ecosystem provides a powerful tool for issuing and managing certificates: <a href="https://cert-manager.io/">cert-manager</a>. 
 If not already installed in your cluster, follow the basic instructions provided by the Solr operator to get the latest version of cert-manager installed:
 <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#use-cert-manager-to-issue-the-certificate">Use cert-manager to issue the certificate</a>.</p>
-<h3 id="cert-manager-and-lets-encrypt">Cert-manager and Let’s Encrypt</h3>
+<h3 id="cert-manager-and-lets-encrypt">Cert-manager and Let’s Encrypt<a class="headerlink" href="#cert-manager-and-lets-encrypt" title="Permanent link">&para;</a></h3>
 <p>First, let’s get started with a self-signed certificate.
 You’ll need to create a self-signed issuer (cert-manager CRD), certificate (cert-manager CRD), and a secret holding a keystore password.
 Save the following yaml to a file, and apply it via <code>kubectl apply -f</code>.</p>
@@ -421,7 +421,7 @@ traffic over HTTPS by opening a port-forward to one of the Solr pods (port 8983)
 <div class="codehilite"><pre><span></span><code>curl https://localhost:8983/solr/admin/info/system -k
 </code></pre></div>
 
-<h3 id="lets-encrypt-issued-tls-certs">Let’s Encrypt Issued TLS Certs</h3>
+<h3 id="lets-encrypt-issued-tls-certs">Let’s Encrypt Issued TLS Certs<a class="headerlink" href="#lets-encrypt-issued-tls-certs" title="Permanent link">&para;</a></h3>
 <p>Self-signed certificates are great for local testing but for exposing services on the Web, we need a certificate issued by a trusted CA. 
 I’m going to use Let’s Encrypt to issue a cert for my Solr cluster for a domain I own. 
 If you don't have a domain name for your Solr cluster, you can just skip this section and refer back to it when needed.
@@ -491,10 +491,10 @@ In my environment, I’m storing the credentials in a secret named: <code>cloudd
 </code></pre></div>
 
 <p>The final step is to create a DNS A record to map the IP address of your Ingress (created by the Solr operator) to the hostname for your Ingress.</p>
-<h3 id="mtls">mTLS</h3>
+<h3 id="mtls">mTLS<a class="headerlink" href="#mtls" title="Permanent link">&para;</a></h3>
 <p>The Solr operator supports mTLS-enabled Solr clusters but is a bit beyond the scope of this document. 
 Refer to the Solr Operator documentation for <a href="https://apache.github.io/solr-operator/docs/running-the-operator.html#client-auth-for-mtls-enabled-solr-clusters">configuring mTLS</a>.</p>
-<h3 id="authentication-authorization">Authentication &amp; Authorization</h3>
+<h3 id="authentication-authorization">Authentication &amp; Authorization<a class="headerlink" href="#authentication-authorization" title="Permanent link">&para;</a></h3>
 <p>If you followed the process in the previous section, then traffic on the wire between Solr pods is encrypted, but we also need to make sure incoming requests have a user identity (authentication) and the requesting user is authorized to perform the request. 
 As of <code>v0.3.0</code>, the Solr operator supports basic authentication and Solr’s rule based authorization controls.</p>
 <p>The easiest way to get started is to have the operator bootstrap basic authentication and authorization controls. 
@@ -514,13 +514,13 @@ For detailed instructions, see: <a href="https://apache.github.io/solr-operator/
 
 <p>At this point, all traffic into and between Solr pods is encrypted using TLS and API endpoints are locked down via Solr’s Rule-based authorization controls and basic authentication. 
 Now that Solr is properly locked down, let’s move on to configuring our cluster for high availability (HA).</p>
-<h2 id="high-availability">High Availability</h2>
+<h2 id="high-availability">High Availability<a class="headerlink" href="#high-availability" title="Permanent link">&para;</a></h2>
 <p>In this section, we cover several key topics to achieving high availability for Solr pods in Kubernetes.
 Ensuring node availability is only part of the equation.
 You also need to ensure replicas for each shard of each collection that needs high availability are properly distributed across the pods so that losing a node or even an entire AZ will not result in a loss of service.
 However, ensuring some replicas remain online in the event of an outage only goes so far.
 At some point, the healthy replicas may become overloaded by requests, so any availability strategy you put in place also needs to plan for a sudden increase in load on the healthy replicas. </p>
-<h3 id="pod-anti-affinity">Pod Anti-Affinity</h3>
+<h3 id="pod-anti-affinity">Pod Anti-Affinity<a class="headerlink" href="#pod-anti-affinity" title="Permanent link">&para;</a></h3>
 <p>To begin our exploration of high availability with the Solr operator, let’s ensure Solr pods are evenly distributed around the cluster using pod anti-affinity.</p>
 <p>Once you determine the number of Solr pods you need, you’ll also want to distribute the pods across your Kubernetes cluster in a balanced manner in order to withstand random node failures as well as zone-level outages (for multi-zone clusters) using <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">Pod Anti-affinity</a> rules.</p>
 <p>To see the zones for each node in your cluster, do:</p>
@@ -580,7 +580,7 @@ Run the following command to get the number of unique nodes that your Solr Pods 
 
 <p><em>Output should be: 3</em></p>
 <p>You should employ a similar anti-affinity config for Zookeeper pods to distribute those across zones as well.</p>
-<h3 id="zone-aware-replica-placement">Zone Aware Replica Placement</h3>
+<h3 id="zone-aware-replica-placement">Zone Aware Replica Placement<a class="headerlink" href="#zone-aware-replica-placement" title="Permanent link">&para;</a></h3>
 <p>Once your cluster’s pods are properly sized and distributed around the cluster to facilitate HA, 
 you still need to ensure all replicas for the collections that require HA get placed in order to take advantage of the cluster layout. 
 In other words, it doesn't do any good to distribute pods around the cluster to support HA if all the replicas for the same shard end up on the same node or zone. 
@@ -638,14 +638,14 @@ The key is getting the <code>availability_zone</code> system property set using 
 This query routing preference also helps reduce queries that span across zones when both zones are healthy. 
 For more detail, consult the Solr Ref Guide - <a href="https://solr.apache.org/guide/8_8/cluster-node-management.html#default-shard-preferences">Shard Preferences</a></p>
 <p>I’ll leave it as an exercise for the reader to apply an auto-scaling policy that uses the <code>availability_zone</code> system property to influence replica placement.</p>
-<h3 id="replica-types">Replica Types</h3>
+<h3 id="replica-types">Replica Types<a class="headerlink" href="#replica-types" title="Permanent link">&para;</a></h3>
 <p>If you use the operator to deploy multiple SolrCloud instances, but they all use the same Zookeeper connection string (and chroot), then it behaves like a single Solr Cloud cluster from a Solr perspective. 
 You can use this approach to assign Solr pods to different nodes in your Kubernetes cluster. 
 For instance, you may want to run <code>TLOG</code> replicas on one set of nodes and <code>PULL</code> replicas on another set to isolate write and read traffic
 (see: <a href="https://solr.apache.org/guide/shards-and-indexing-data-in-solrcloud.html#types-of-replicas">Replica Types</a>). 
 Isolating traffic by replica type is beyond the scope of this document, but you can use the operator to deploy multiple SolrCloud instances to achieve the isolation. 
 Each instance will need a Java system property set, such as <strong>solr_node_type</strong>, to differentiate the Solr pods from each other; Solr’s auto-scaling policy engine supports assigning replicas by type using a System property.</p>
-<h3 id="rolling-restarts">Rolling restarts</h3>
+<h3 id="rolling-restarts">Rolling restarts<a class="headerlink" href="#rolling-restarts" title="Permanent link">&para;</a></h3>
 <p>One of the major benefits of an operator is we can extend Kubernetes default behavior to take into account application specific state. 
 For instance, when performing a rolling restart of a StatefulSet, K8s will start with the pod with the highest ordinal value and work down to zero, waiting in between for the restarted pod to reach the <code>Running</code> state. 
 While this approach works, it’s typically too slow for large clusters, and could possibly be harmful without knowledge of whether replicas on that node are recovering.</p>
@@ -669,13 +669,13 @@ Let's switch that to use the <code>Managed</code> method using the following con
 <p><em>Add this to your <code>explore-SolrCloud.yaml</code> and apply the changes.</em> </p>
 <p><em>* As you see above, the <code>Managed</code> update strategy is customizable and can be configured to be as safe or as fast as you require.
 See the <a href="https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#update-strategy">update documentation</a> for more information.</em></p>
-<h2 id="performance-monitoring">Performance Monitoring</h2>
+<h2 id="performance-monitoring">Performance Monitoring<a class="headerlink" href="#performance-monitoring" title="Permanent link">&para;</a></h2>
 <p>So now we have a secured, HA-capable Solr cluster, deployed and managed by the Solr operator. 
 This last piece I want to cover is performance monitoring with the <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack">Prometheus stack</a>.</p>
-<h3 id="prometheus-stack">Prometheus Stack</h3>
+<h3 id="prometheus-stack">Prometheus Stack<a class="headerlink" href="#prometheus-stack" title="Permanent link">&para;</a></h3>
 <p>You’re probably already using Prometheus for monitoring but if not installed in your cluster, 
 use the <a href="https://apache.github.io/solr-operator/docs/solr-prometheus-exporter/#prometheus-stack">installation instructions</a> to install the Prometheus stack which includes Grafana.</p>
-<h3 id="prometheus-exporter">Prometheus Exporter</h3>
+<h3 id="prometheus-exporter">Prometheus Exporter<a class="headerlink" href="#prometheus-exporter" title="Permanent link">&para;</a></h3>
 <p>The operator <a href="https://apache.github.io/solr-operator/docs/solr-prometheus-exporter/">documentation</a> covers how to deploy a Prometheus exporter for your SolrCloud instance. 
 Since we enabled basic auth and TLS, you’ll need to ensure the exporter can talk to the secured Solr pods using the following config settings:</p>
 <div class="codehilite"><pre><span></span><code> solrReference:
@@ -718,7 +718,7 @@ to trigger Prometheus to start scraping metrics from the exporter pod via the <c
 </code></pre></div>
 
 <p><em>You'll need at least one collection created in your cluster before the exporter starts generating useful metrics.</em></p>
-<h3 id="grafana-dashboards">Grafana Dashboards</h3>
+<h3 id="grafana-dashboards">Grafana Dashboards<a class="headerlink" href="#grafana-dashboards" title="Permanent link">&para;</a></h3>
 <p>Use kubectl expose to create a LoadBalancer (external IP) for Grafana:</p>
 <div class="codehilite"><pre><span></span><code><span class="nx">kubectl</span><span class="w"> </span><span class="nx">expose</span><span class="w"> </span><span class="nx">deployment</span><span class="w"> </span><span class="nx">prometheus</span><span class="o">-</span><span class="nx">stack</span><span class="o">-</span><span class="nx">grafana</span><span class="w"> </span><span class="o">--</span><span class="k">type</span><span class="p">=</span><span class="nx">LoadBalancer</span><span class="w"> </span>\
 <span class="w">   </span><span class="o">--</span><span class="nx">name</span><span class="p">=</span><span class="nx">grafana</span><span class="w"> </span><span class="o">-</span><span class="nx">n</span><span class="w"> </span><span class="nx">monitoring</span>
@@ -744,7 +744,7 @@ If you don’t have a query load test tool, then I recommend looking at Gatling 
 <div class="codehilite"><pre><span></span><code>shards.preference=node.sysprop:sysprop.availability_zone,replica.location:local
 </code></pre></div>
 
-<h2 id="wrap-up">Wrap-up</h2>
+<h2 id="wrap-up">Wrap-up<a class="headerlink" href="#wrap-up" title="Permanent link">&para;</a></h2>
 <p>At this point, you now have a blueprint for creating a secure, HA-capable, balanced Solr cluster with performance monitoring via Prometheus and Grafana. 
 Before rolling out to production, you also need to consider backup/restore, automated scaling, and alerting for key health indicators. 
 Hopefully I’ll be able to cover some of these additional aspects in a future post.</p>
