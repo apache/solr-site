@@ -1131,15 +1131,15 @@ This issue was discovered by ﻿Hrishikesh Gadre of Cloudera Inc.&lt;/p&gt;
 &lt;li&gt;&lt;a href="https://cwiki.apache.org/confluence/display/solr/SolrSecurity"&gt;https://cwiki.apache.org/confluence/display/solr/SolrSecurity&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>CVE-2014-3529, CVE-2014-3574: Recommendation to update Apache POI in Apache Solr 4.8.0, 4.8.1, and 4.9.0 installations</title><link href="/" rel="alternate"/><published>2014-08-18T00:00:00+00:00</published><updated>2014-08-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2014-08-18:/</id><summary type="html">&lt;p&gt;Apache Solr versions 4.8.0, 4.8.1, 4.9.0 bundle Apache POI 3.10-beta2 with its binary release tarball.
 This version (and all previous ones) of Apache POI are vulnerable to the following issues:&lt;/p&gt;
-&lt;h3 id="cve-2014-3529-xml-external-entity-xxe-problem-in-apache-pois-openxml-parser"&gt;CVE-2014-3529: XML External Entity (XXE) problem in Apache POI's OpenXML parser&lt;/h3&gt;
+&lt;h3 id="cve-2014-3529-xml-external-entity-xxe-problem-in-apache-pois-openxml-parser"&gt;CVE-2014-3529: XML External Entity (XXE) problem in Apache POI's OpenXML parser&lt;a class="headerlink" href="#cve-2014-3529-xml-external-entity-xxe-problem-in-apache-pois-openxml-parser" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Information disclosure …&lt;/em&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Apache Solr versions 4.8.0, 4.8.1, 4.9.0 bundle Apache POI 3.10-beta2 with its binary release tarball.
 This version (and all previous ones) of Apache POI are vulnerable to the following issues:&lt;/p&gt;
-&lt;h3 id="cve-2014-3529-xml-external-entity-xxe-problem-in-apache-pois-openxml-parser"&gt;CVE-2014-3529: XML External Entity (XXE) problem in Apache POI's OpenXML parser&lt;/h3&gt;
+&lt;h3 id="cve-2014-3529-xml-external-entity-xxe-problem-in-apache-pois-openxml-parser"&gt;CVE-2014-3529: XML External Entity (XXE) problem in Apache POI's OpenXML parser&lt;a class="headerlink" href="#cve-2014-3529-xml-external-entity-xxe-problem-in-apache-pois-openxml-parser" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Information disclosure:&lt;/em&gt; Apache POI uses Java's XML components to parse OpenXML files produced by Microsoft Office products (DOCX, XLSX, PPTX,...).
 Applications that accept such files from end-users are vulnerable to XML External Entity (XXE) attacks, which allows remote attackers to bypass
 security restrictions and read arbitrary files via a crafted OpenXML document that provides an XML external entity declaration in conjunction
 with an entity reference.&lt;/p&gt;
-&lt;h3 id="cve-2014-3574-xml-entity-expansion-xee-problem-in-apache-pois-openxml-parser"&gt;CVE-2014-3574: XML Entity Expansion (XEE) problem in Apache POI's OpenXML parser&lt;/h3&gt;
+&lt;h3 id="cve-2014-3574-xml-entity-expansion-xee-problem-in-apache-pois-openxml-parser"&gt;CVE-2014-3574: XML Entity Expansion (XEE) problem in Apache POI's OpenXML parser&lt;a class="headerlink" href="#cve-2014-3574-xml-entity-expansion-xee-problem-in-apache-pois-openxml-parser" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Denial of service:&lt;/em&gt; Apache POI uses Java's XML components and Apache Xmlbeans to parse OpenXML files produced by Microsoft Office products
 (DOCX, XLSX, PPTX,...). Applications that accept such files from end-users are vulnerable to XML Entity Expansion (XEE) attacks ("XML bombs"),
 which allows remote hackers to consume large amounts of CPU resources.&lt;/p&gt;
@@ -1150,7 +1150,7 @@ contrib module from the folder "contrib/extraction" of the release tarball.&lt;/
 Alternatively, users of Apache Solr 4.8.0, 4.8.1, or 4.9.0 can update the affected libraries by
 replacing the vulnerable JAR files in the distribution folder. Users of previous versions have
 to update their Solr release first, patching older versions is impossible.&lt;/p&gt;
-&lt;h3 id="to-replace-the-vulnerable-jar-files-follow-these-steps"&gt;To replace the vulnerable JAR files follow these steps:&lt;/h3&gt;
+&lt;h3 id="to-replace-the-vulnerable-jar-files-follow-these-steps"&gt;To replace the vulnerable JAR files follow these steps:&lt;a class="headerlink" href="#to-replace-the-vulnerable-jar-files-follow-these-steps" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Download the &lt;a href="http://poi.apache.org/download.html#POI-3.10.1"&gt;Apache POI 3.10.1&lt;/a&gt; binary release.&lt;/p&gt;

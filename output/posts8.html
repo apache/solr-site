@@ -20,23 +20,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
 
-<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=cabdb916" />
-<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=cabdb916" />
-<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=cabdb916" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=cabdb916" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=cabdb916"/>
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=cabdb916"/>
-<link rel="stylesheet" href="/theme/css/base.css?v=cabdb916" />
+<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=033782dc" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=033782dc"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=033782dc"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=033782dc" />
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="index,follow"/>
 
 <script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
-<script src="/theme/javascript/lib/foundation/modernizr.js?v=cabdb916"></script>
-<script src="/theme/javascript/lib/angularjs/angular.min.js?v=cabdb916"></script>
-<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=cabdb916"></script>
-<script src="/theme/javascript/lib/foundation/foundation.min.js?v=cabdb916"></script>
-<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=cabdb916"></script>
-<script src="/theme/javascript/main.js?v=cabdb916"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=033782dc"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=033782dc"></script>
+<script src="/theme/javascript/main.js?v=033782dc"></script>
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title> - Apache Solr</title>
 
     <meta name="keywords"
@@ -46,8 +46,8 @@
      <meta property="og:url" content="https://solr.apache.org/posts8"/>
      <meta property="og:title" content=""/>
      <meta property="og:description" content=""/>
-     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=cabdb916"/>
-     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=cabdb916"/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=033782dc"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=033782dc"/>
 
    <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
@@ -69,7 +69,7 @@
 </script>
 <!-- End Matomo Code -->  </head>
 
-  <body class="page " x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+  <body class="page nav-news" x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
 <div class="contain-to-grid">
   <div class="header-section">
     <nav class="top-bar" data-topbar role="navigation">
@@ -128,20 +128,14 @@
 
 <div class="header-fill"></div>
 <div class="container">
-<div class="row">
-  <div class="small-12 text-center columns">
-    <h1>Solr™ News<br/>
-      <small></small></h1>
-  </div>
-</div>
-<div class="sub-nav-container">
+<style>.container { padding-top: 0; }</style><div class="sub-nav-container">
   <div class="row sub-nav-border anchor-top">
     <div class="small-12 text-center columns">
       <dl class="sub-nav">
 <dd><a href="/posts.html" class="selected">All News</a></dd>
 <dd><a href="/blog.html">Blog</a></dd>
 <dd><a href="/news.html">Announcements</a></dd>
-      </dl>
+<dd><a href="/security-news.html">Security News</a></dd>      </dl>
     </div>
   </div>
 </div>
@@ -149,23 +143,13 @@
 <div class="small-12 columns">
 
   <style type="text/css">
-    .headerlink, .elementid-permalink {
-      visibility: hidden;
-    }
-    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
-      visibility: visible;
-    }
-    h2 {
-      /* Avoid news title being hidden behind header when linked by anchor link */
-      padding-top: 70px;
-      margin-top: -70px;
-    }
     .breadcrumb {
       margin-bottom: 20px;
       font-size: 0.9em;
     }
   </style>
 
+  <h1 id="solr-news">Solr<sup>™</sup> News<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   
 
     <h2 id="apache-solr-551-available" class="post-item-title">
@@ -280,7 +264,7 @@
         <strong>News:</strong>
       14 December 2015
     </h5>
-      <p>The Lucene PMC is pleased to announce the release of Apache Solr 5.4.0 The release can be downloaded from https://solr.apache.org/downloads.html Highlights of this Solr release include: UI Changes The rearchitected Admin UI is now prominently linked to from the existing UI, and includes …</p>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 5.4.0 The release can be downloaded from https://solr.apache.org/downloads.html Highlights of this Solr release include:¶ UI Changes¶ The rearchitected Admin UI is now prominently linked to from the existing UI, and includes …</p>
       <div class="read-more">
         <a href="/news.html#apache-solr-540-available">Read full article on news page →</a>
       </div>
@@ -293,7 +277,7 @@
         <strong>News:</strong>
       24 September 2015
     </h5>
-      <p>The Lucene PMC is pleased to announce the release of Apache Solr 5.3.1 The release can be downloaded from https://solr.apache.org/downloads.html Highlights of this Solr release include: Bug Fixes security.json is not loaded on server start RuleBasedAuthorization plugin does not work for the …</p>
+      <p>The Lucene PMC is pleased to announce the release of Apache Solr 5.3.1 The release can be downloaded from https://solr.apache.org/downloads.html Highlights of this Solr release include:¶ Bug Fixes¶ security.json is not loaded on server start RuleBasedAuthorization plugin does not work for the …</p>
       <div class="read-more">
         <a href="/news.html#apache-solr-531-available">Read full article on news page →</a>
       </div>
