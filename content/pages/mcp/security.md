@@ -102,7 +102,7 @@ curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
     http://localhost:8080/mcp
 ```
 
-For the full step-by-step guide, see [Auth0 Setup Guide](https://github.com/apache/solr-mcp/blob/main/security-docs/AUTH0_SETUP.md).
+For the full step-by-step guide, see [Auth0 Setup Guide](https://github.com/apache/solr-mcp/blob/main/docs/development/AUTH0_SETUP.md).
 
 ***
 
@@ -156,7 +156,7 @@ curl -X POST "http://localhost:8180/realms/solr-mcp/protocol/openid-connect/toke
     -d "grant_type=password"
 ```
 
-For the full guide including role-based access control and production deployment, see [Keycloak Setup Guide](https://github.com/apache/solr-mcp/blob/main/dev-docs/KEYCLOAK_SETUP.md).
+For the full guide including role-based access control and production deployment, see [Keycloak Setup Guide](https://github.com/apache/solr-mcp/blob/main/docs/development/keycloak.md).
 
 ***
 
