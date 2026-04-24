@@ -21,7 +21,7 @@ export OAUTH2_ISSUER_URI=https://your-provider.example.com/
 ./gradlew bootRun
 ```
 
-Or with Docker:
+Or with Docker (local image &mdash; build first with `./gradlew jibDockerBuild`):
 
 ```bash
 docker run -p 8080:8080 --rm \
@@ -29,7 +29,7 @@ docker run -p 8080:8080 --rm \
     -e SECURITY_ENABLED=true \
     -e OAUTH2_ISSUER_URI=https://your-provider.example.com/ \
     -e SOLR_URL=http://host.docker.internal:8983/solr/ \
-    ghcr.io/apache/solr-mcp:latest
+    solr-mcp:latest
 ```
 
 ***

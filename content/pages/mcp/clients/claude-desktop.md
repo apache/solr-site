@@ -18,24 +18,9 @@ Restart Claude Desktop after any configuration change.
 
 STDIO mode communicates via stdin/stdout. This is the simplest setup for local use.
 
-### Docker ###
-
-```json
-{
-  "mcpServers": {
-    "solr-mcp": {
-      "command": "docker",
-      "args": ["run", "-i", "--rm",
-               "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
-               "ghcr.io/apache/solr-mcp:latest"]
-    }
-  }
-}
-```
-
-**Linux users**: add `"--add-host=host.docker.internal:host-gateway"` to the `args` array.
-
 ### JAR ###
+
+Requires Java 25+ and a [built JAR](https://github.com/apache/solr-mcp#running-the-server) (`./gradlew build`).
 
 ```json
 {
@@ -51,7 +36,24 @@ STDIO mode communicates via stdin/stdout. This is the simplest setup for local u
 }
 ```
 
-Requires Java 25+ and a [built JAR](https://github.com/apache/solr-mcp#running-the-server).
+### Docker (local image) ###
+
+Build the image first: `./gradlew jibDockerBuild`
+
+```json
+{
+  "mcpServers": {
+    "solr-mcp": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm",
+               "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
+               "solr-mcp:latest"]
+    }
+  }
+}
+```
+
+**Linux users**: add `"--add-host=host.docker.internal:host-gateway"` to the `args` array.
 
 ***
 
@@ -62,14 +64,17 @@ HTTP mode connects to a running MCP server via REST endpoints. Start the server 
 ### Start the Server ###
 
 ```bash
-# Docker
-docker run -p 8080:8080 --rm \
-    -e PROFILES=http \
-    -e SOLR_URL=http://host.docker.internal:8983/solr/ \
-    ghcr.io/apache/solr-mcp:latest
+# JAR
+PROFILES=http java -jar build/libs/solr-mcp-1.0.0-SNAPSHOT.jar
 
 # Or Gradle
 PROFILES=http ./gradlew bootRun
+
+# Or Docker (local image)
+docker run -p 8080:8080 --rm \
+    -e PROFILES=http \
+    -e SOLR_URL=http://host.docker.internal:8983/solr/ \
+    solr-mcp:latest
 ```
 
 ### Configure Claude Desktop ###

@@ -13,6 +13,23 @@ template: mcp/client
 
 Create `.vscode/mcp.json` in your project root:
 
+**JAR:**
+
+```json
+{
+  "servers": {
+    "solr-mcp": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-jar", "/absolute/path/to/solr-mcp-1.0.0-SNAPSHOT.jar"],
+      "env": { "SOLR_URL": "http://localhost:8983/solr/" }
+    }
+  }
+}
+```
+
+**Docker (local image &mdash; build first with `./gradlew jibDockerBuild`):**
+
 ```json
 {
   "servers": {
@@ -21,7 +38,7 @@ Create `.vscode/mcp.json` in your project root:
       "command": "docker",
       "args": ["run", "-i", "--rm",
                "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
-               "ghcr.io/apache/solr-mcp:latest"]
+               "solr-mcp:latest"]
     }
   }
 }
@@ -37,10 +54,9 @@ Open VS Code Settings (JSON) and add:
     "servers": {
       "solr-mcp": {
         "type": "stdio",
-        "command": "docker",
-        "args": ["run", "-i", "--rm",
-                 "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
-                 "ghcr.io/apache/solr-mcp:latest"]
+        "command": "java",
+        "args": ["-jar", "/absolute/path/to/solr-mcp-1.0.0-SNAPSHOT.jar"],
+        "env": { "SOLR_URL": "http://localhost:8983/solr/" }
       }
     }
   }
