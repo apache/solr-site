@@ -19,14 +19,17 @@ This starts the Inspector UI at `http://localhost:6274`.
 
 1. Start the server in HTTP mode:
 
-        # Docker
-        docker run -p 8080:8080 --rm \
-            -e PROFILES=http \
-            -e SOLR_URL=http://host.docker.internal:8983/solr/ \
-            ghcr.io/apache/solr-mcp:latest
+        # JAR
+        PROFILES=http java -jar build/libs/solr-mcp-1.0.0-SNAPSHOT.jar
 
         # Or Gradle
         PROFILES=http ./gradlew bootRun
+
+        # Or Docker (local image — build first with ./gradlew jibDockerBuild)
+        docker run -p 8080:8080 --rm \
+            -e PROFILES=http \
+            -e SOLR_URL=http://host.docker.internal:8983/solr/ \
+            solr-mcp:latest
 
 2. In MCP Inspector, enter: `http://localhost:8080/mcp`
 3. Click **Connect**
@@ -36,8 +39,8 @@ This starts the Inspector UI at `http://localhost:6274`.
 ## STDIO Mode ##
 
 1. In MCP Inspector, select **STDIO** transport
-2. **Command**: `docker`
-3. **Arguments**: `run -i --rm -e SOLR_URL=http://host.docker.internal:8983/solr/ ghcr.io/apache/solr-mcp:latest`
+2. **Command**: `java`
+3. **Arguments**: `-jar /absolute/path/to/solr-mcp-1.0.0-SNAPSHOT.jar`
 4. Click **Connect**
 
 ***
