@@ -13,6 +13,22 @@ template: mcp/client
 
 Create `.cursor/mcp.json` in your project root:
 
+**JAR:**
+
+```json
+{
+  "mcpServers": {
+    "solr-mcp": {
+      "command": "java",
+      "args": ["-jar", "/absolute/path/to/solr-mcp-1.0.0-SNAPSHOT.jar"],
+      "env": { "SOLR_URL": "http://localhost:8983/solr/" }
+    }
+  }
+}
+```
+
+**Docker (local image &mdash; build first with `./gradlew jibDockerBuild`):**
+
 ```json
 {
   "mcpServers": {
@@ -20,7 +36,7 @@ Create `.cursor/mcp.json` in your project root:
       "command": "docker",
       "args": ["run", "-i", "--rm",
                "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
-               "ghcr.io/apache/solr-mcp:latest"]
+               "solr-mcp:latest"]
     }
   }
 }
@@ -34,7 +50,7 @@ Create `.cursor/mcp.json` in your project root:
 4. Enter:
     * **Name**: `solr-mcp`
     * **Type**: `command`
-    * **Command**: `docker run -i --rm -e SOLR_URL=http://host.docker.internal:8983/solr/ ghcr.io/apache/solr-mcp:latest`
+    * **Command**: `java -jar /absolute/path/to/solr-mcp-1.0.0-SNAPSHOT.jar`
 
 ***
 

@@ -12,20 +12,37 @@ template: mcp/client
 ### CLI ###
 
 ```bash
-# Docker
-claude mcp add --transport stdio solr-mcp -- \
-    docker run -i --rm -e SOLR_URL=http://host.docker.internal:8983/solr/ \
-    ghcr.io/apache/solr-mcp:latest
-
 # JAR
 claude mcp add --transport stdio \
     -e SOLR_URL=http://localhost:8983/solr/ \
     solr-mcp -- java -jar /absolute/path/to/solr-mcp-1.0.0-SNAPSHOT.jar
+
+# Docker (local image — build first with ./gradlew jibDockerBuild)
+claude mcp add --transport stdio solr-mcp -- \
+    docker run -i --rm -e SOLR_URL=http://host.docker.internal:8983/solr/ \
+    solr-mcp:latest
 ```
 
 ### `.mcp.json` ###
 
 Add to your project root:
+
+**JAR:**
+
+```json
+{
+  "mcpServers": {
+    "solr-mcp": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-jar", "/absolute/path/to/solr-mcp-1.0.0-SNAPSHOT.jar"],
+      "env": { "SOLR_URL": "http://localhost:8983/solr/" }
+    }
+  }
+}
+```
+
+**Docker (local image):**
 
 ```json
 {
@@ -35,7 +52,7 @@ Add to your project root:
       "command": "docker",
       "args": ["run", "-i", "--rm",
                "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
-               "ghcr.io/apache/solr-mcp:latest"]
+               "solr-mcp:latest"]
     }
   }
 }

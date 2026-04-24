@@ -5,6 +5,7 @@ template: mcp/quick-start
 
 ## Prerequisites ##
 
+* Java 25+ ([Eclipse Temurin](https://adoptium.net/) recommended)
 * [Docker](https://docs.docker.com/get-docker/) and Docker Compose
 * An MCP client &mdash; this guide uses [Claude Desktop](https://claude.ai/download), but any MCP-compatible client works. See [Adding to AI Clients](/mcp/clients/claude-desktop.html) for other options.
 
@@ -25,6 +26,14 @@ This starts Solr with ZooKeeper and creates two sample collections pre-loaded wi
 
 Wait ~30 seconds for Solr to fully initialize. Verify at [http://localhost:8983/solr/](http://localhost:8983/solr/).
 
+## Build the Server ##
+
+```bash
+./gradlew build
+```
+
+This produces `build/libs/solr-mcp-1.0.0-SNAPSHOT.jar`.
+
 ## Configure Your MCP Client ##
 
 Add the following to your Claude Desktop configuration file:
@@ -36,10 +45,9 @@ Add the following to your Claude Desktop configuration file:
 {
   "mcpServers": {
     "solr-mcp": {
-      "command": "docker",
-      "args": ["run", "-i", "--rm",
-               "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
-               "ghcr.io/apache/solr-mcp:latest"]
+      "command": "java",
+      "args": ["-jar", "/absolute/path/to/solr-mcp/build/libs/solr-mcp-1.0.0-SNAPSHOT.jar"],
+      "env": { "SOLR_URL": "http://localhost:8983/solr/" }
     }
   }
 }
@@ -47,7 +55,28 @@ Add the following to your Claude Desktop configuration file:
 
 Restart Claude Desktop after saving.
 
-**Linux users**: add `--add-host=host.docker.internal:host-gateway` to the args array to connect to Solr on the host machine.
+**Alternatively**, you can use a local Docker image:
+
+```bash
+./gradlew jibDockerBuild
+```
+
+Then configure Claude Desktop with:
+
+```json
+{
+  "mcpServers": {
+    "solr-mcp": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm",
+               "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
+               "solr-mcp:latest"]
+    }
+  }
+}
+```
+
+**Linux users**: add `"--add-host=host.docker.internal:host-gateway"` to the args array.
 
 ## Try It Out ##
 
