@@ -1,0 +1,194 @@
+{% extends "mcp/fullwidth.html" %}
+
+{% block fullwidth_title %}<h1>Features</h1>{% endblock %}
+
+{% block hero_header_inner %}
+<div class="large-12 columns">
+  <div class="annotation">
+    Apache Solr MCP Server<sup>&trade;</sup> {{ SOLR_MCP_LATEST_RELEASE }}
+  </div>
+  <h1>Powerful MCP Tools for Solr</h1>
+  <p>
+    9 tools and 2 resources that let AI assistants search, index, and manage your Solr collections through natural language.
+  </p>
+  <div class="down-arrow"><a data-scroll href="#tools"><i class="fa fa-angle-down fa-2x red"></i></a></div>
+</div>
+{% endblock %}
+
+{% block content_inner %}
+
+<section class="gray offset-small" id="tools">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">MCP Tools</div>
+      <h1>Tool Reference</h1>
+      <p>Each tool is callable by any MCP-compatible AI client. The AI translates natural language into the right tool calls automatically.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-10 large-offset-1 columns" style="text-align:left;">
+
+      <h2 id="search">Search</h2>
+      <table style="width:100%">
+        <thead><tr><th>Tool</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>search</code></td>
+            <td>Full-text search with filtering, faceting, sorting, and pagination. Accepts query strings, filter queries, facet fields, sort clauses, start offset, and row count.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="indexing">Indexing</h2>
+      <table style="width:100%">
+        <thead><tr><th>Tool</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>index-json-documents</code></td>
+            <td>Index documents from a JSON array string. Handles batch processing (1,000 per batch), field name sanitization, and automatic commits.</td>
+          </tr>
+          <tr>
+            <td><code>index-csv-documents</code></td>
+            <td>Index documents from a CSV string. First row is used as headers. Same batch processing and field normalization.</td>
+          </tr>
+          <tr>
+            <td><code>index-xml-documents</code></td>
+            <td>Index documents from a Solr XML string (<code>&lt;add&gt;&lt;doc&gt;...</code>).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="collections">Collections</h2>
+      <table style="width:100%">
+        <thead><tr><th>Tool</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>list-collections</code></td>
+            <td>List all available Solr collections in the cluster.</td>
+          </tr>
+          <tr>
+            <td><code>get-collection-stats</code></td>
+            <td>Comprehensive metrics: index stats, query performance, cache hit ratios, handler throughput.</td>
+          </tr>
+          <tr>
+            <td><code>check-health</code></td>
+            <td>Health check returning status, document count, and responsiveness.</td>
+          </tr>
+          <tr>
+            <td><code>create-collection</code></td>
+            <td>Create a new collection with configurable shards, replicas, and configset. Defaults: <code>_default</code> configset, 1 shard, 1 replica.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="schema">Schema</h2>
+      <table style="width:100%">
+        <thead><tr><th>Tool</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>get-schema</code></td>
+            <td>Retrieve the complete schema definition: field definitions, field types, dynamic fields, copy fields, unique key, and schema attributes.</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</section>
+
+<section class="gray offset-small" id="resources">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">MCP Resources</div>
+      <h1>Read-Only Data</h1>
+      <p>MCP Resources provide data that clients can access directly without calling a tool. The schema resource supports autocompletion for collection names.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-10 large-offset-1 columns" style="text-align:left;">
+      <table style="width:100%">
+        <thead><tr><th>Resource URI</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>solr://collections</code></td>
+            <td>List of all Solr collections available in the cluster.</td>
+          </tr>
+          <tr>
+            <td><code>solr://{collection}/schema</code></td>
+            <td>Schema definition for a specific collection. Supports autocompletion&mdash;MCP clients can query for available collection names.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="gray col-4 offset-small" id="platform">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">Platform</div>
+      <h1>Enterprise-Ready Infrastructure</h1>
+    </div>
+  </div>
+  <div class="row">
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_standards_based_open_interfaces.svg"/></div>
+          <div class="content">
+            <h3>STDIO & HTTP Transports</h3>
+            <p>STDIO for local AI clients (Claude Desktop). HTTP for remote access, multi-client, and MCP Inspector.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_security.svg"/></div>
+          <div class="content">
+            <h3>OAuth2 Security</h3>
+            <p>JWT validation with Auth0, Keycloak, or any OAuth2/OIDC provider. <a href="/mcp/security.html">Setup guide &rarr;</a></p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="box">
+          <div class="img"><img src="{{ SITEURL }}/theme/images/Solr_Icons_monitorable_logging.svg"/></div>
+          <div class="content">
+            <h3>Observability</h3>
+            <p>OpenTelemetry traces, Prometheus metrics, structured logs via LGTM stack. <a href="/mcp/observability.html">Learn more &rarr;</a></p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="gray offset-small" id="config">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">Configuration</div>
+      <h1>Environment Variables</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-10 large-offset-1 columns" style="text-align:left;">
+      <table style="width:100%">
+        <thead><tr><th>Variable</th><th>Description</th><th>Default</th></tr></thead>
+        <tbody>
+          <tr><td><code>SOLR_URL</code></td><td>Solr base URL</td><td><code>http://localhost:8983/solr/</code></td></tr>
+          <tr><td><code>PROFILES</code></td><td>Transport mode: <code>stdio</code> or <code>http</code></td><td><code>stdio</code></td></tr>
+          <tr><td><code>SECURITY_ENABLED</code></td><td>Enable OAuth2 authentication (HTTP only)</td><td><code>false</code></td></tr>
+          <tr><td><code>OAUTH2_ISSUER_URI</code></td><td>OAuth2 issuer URL (Auth0, Keycloak, Okta)</td><td>&mdash;</td></tr>
+          <tr><td><code>OTEL_SAMPLING_PROBABILITY</code></td><td>Tracing sampling rate (0.0&ndash;1.0)</td><td><code>1.0</code></td></tr>
+          <tr><td><code>OTEL_TRACES_URL</code></td><td>OTLP collector endpoint</td><td><code>http://localhost:4317</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{{ super() }}
+{% endblock content_inner %}
