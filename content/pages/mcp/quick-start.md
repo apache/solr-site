@@ -1,0 +1,69 @@
+Title: Quick Start
+URL: mcp/quick-start.html
+save_as: mcp/quick-start.html
+template: mcp/quick-start
+
+## Prerequisites ##
+
+* [Docker](https://docs.docker.com/get-docker/) and Docker Compose
+* An MCP client &mdash; this guide uses [Claude Desktop](https://claude.ai/download), but any MCP-compatible client works. See [Adding to AI Clients](/mcp/clients/claude-desktop.html) for other options.
+
+## Start Solr with Sample Data ##
+
+Clone the repository and start Solr in SolrCloud mode:
+
+```bash
+git clone https://github.com/apache/solr-mcp.git
+cd solr-mcp
+docker compose up -d
+```
+
+This starts Solr with ZooKeeper and creates two sample collections pre-loaded with data:
+
+* **films** &mdash; 1,100+ movie records with titles, directors, genres, and release dates
+* **books** &mdash; empty collection ready for indexing
+
+Wait ~30 seconds for Solr to fully initialize. Verify at [http://localhost:8983/solr/](http://localhost:8983/solr/).
+
+## Configure Your MCP Client ##
+
+Add the following to your Claude Desktop configuration file:
+
+* **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+* **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "solr-mcp": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm",
+               "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
+               "ghcr.io/apache/solr-mcp:latest"]
+    }
+  }
+}
+```
+
+Restart Claude Desktop after saving.
+
+**Linux users**: add `--add-host=host.docker.internal:host-gateway` to the args array to connect to Solr on the host machine.
+
+## Try It Out ##
+
+Open Claude Desktop and try these prompts:
+
+* *"Search the films collection for movies directed by Steven Spielberg"*
+* *"What collections are available in Solr?"*
+* *"Show me the schema for the films collection"*
+* *"Find all sci-fi movies released after 2000 and show the genre breakdown"*
+* *"Index this JSON into the books collection: [{"id": "1", "title": "The Great Gatsby", "author": "F. Scott Fitzgerald"}]"*
+
+***
+
+## Next Steps ##
+
+* **[Adding to AI Clients](/mcp/clients/claude-desktop.html)** &mdash; configure Claude Code, VS Code, Cursor, JetBrains, or MCP Inspector
+* **[Features](/mcp/features.html)** &mdash; explore all available tools and resources
+* **[Security](/mcp/security.html)** &mdash; set up OAuth2 authentication for HTTP mode
+* **[Observability](/mcp/observability.html)** &mdash; enable tracing, metrics, and logging
