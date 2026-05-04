@@ -78,6 +78,33 @@ Then configure Claude Desktop with:
 
 **Linux users**: add `"--add-host=host.docker.internal:host-gateway"` to the args array.
 
+## Native Image (experimental) ##
+
+An opt-in GraalVM native image build is available for the **STDIO** profile. The native binary starts in milliseconds and uses substantially less memory than the JVM image. HTTP transport is JVM-only on this release; native HTTP support requires a separate native image AOT-locked to the http profile and is tracked as a future enhancement.
+
+```bash
+# Build the native Docker image (works on any host OS — compiles inside a Linux builder container)
+./gradlew bootBuildImage
+# Produces: solr-mcp:1.0.0-SNAPSHOT-native (also tagged :latest-native)
+```
+
+Configure Claude Desktop:
+
+```json
+{
+  "mcpServers": {
+    "solr-mcp": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm",
+               "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
+               "solr-mcp:latest-native"]
+    }
+  }
+}
+```
+
+The native image is AOT-compiled for the STDIO profile — Spring Boot bakes a profile-specific bean graph at build time, so a single native image cannot serve both transports. HTTP-mode deployments should use the JVM Jib image above.
+
 ## Try It Out ##
 
 Open Claude Desktop and try these prompts:
