@@ -80,15 +80,19 @@ Then configure Claude Desktop with:
 
 ## Native Image (experimental) ##
 
-An opt-in GraalVM native image build is available for the **STDIO** profile. The native binary starts in milliseconds and uses substantially less memory than the JVM image. HTTP transport is JVM-only on this release; native HTTP support requires a separate native image AOT-locked to the http profile and is tracked as a future enhancement.
+Opt-in GraalVM native image builds are available for both **STDIO** and **HTTP** transports. Native binaries start in milliseconds and use substantially less memory than the JVM image. Spring AOT bakes a profile-specific bean graph at build time, so each native image is single-transport — pick the one that matches your client.
 
 ```bash
-# Build the native Docker image (works on any host OS — compiles inside a Linux builder container)
-./gradlew bootBuildImage
-# Produces: solr-mcp:1.0.0-SNAPSHOT-native (also tagged :latest-native)
+# Build the native STDIO image
+./gradlew bootBuildImage -Pnative
+# Produces: solr-mcp:1.0.0-SNAPSHOT-native-stdio (also tagged :latest-native-stdio)
+
+# Build the native HTTP image
+./gradlew bootBuildImage -Pnative -Pprofile=http
+# Produces: solr-mcp:1.0.0-SNAPSHOT-native-http (also tagged :latest-native-http)
 ```
 
-Configure Claude Desktop:
+Configure Claude Desktop with the native STDIO image:
 
 ```json
 {
@@ -97,13 +101,13 @@ Configure Claude Desktop:
       "command": "docker",
       "args": ["run", "-i", "--rm",
                "-e", "SOLR_URL=http://host.docker.internal:8983/solr/",
-               "solr-mcp:latest-native"]
+               "solr-mcp:latest-native-stdio"]
     }
   }
 }
 ```
 
-The native image is AOT-compiled for the STDIO profile — Spring Boot bakes a profile-specific bean graph at build time, so a single native image cannot serve both transports. HTTP-mode deployments should use the JVM Jib image above.
+For dual-transport support from a single image (e.g. switch between modes via `PROFILES` env var without rebuilding), use the JVM Jib image above. The JVM image trades startup time and memory footprint for transport flexibility.
 
 ## Try It Out ##
 
