@@ -25,13 +25,11 @@ You may be affected if **all** of the following are true:
 1. You use the JWT Authentication Plugin (`solr.JWTAuthPlugin`) in `security.json`
 2. Your intention is to block all unauthenticated requests
 3. Your `security.json` does **not** explicitly set `"blockUnknown": true`
-4. Solr is reachable from clients that should not have unauthenticated access
 
 You are **not** affected if any of the following applies:
 
 - `blockUnknown` is explicitly set to `true` in `security.json`
 - An AuthorizationPlugin (e.g. `RuleBasedAuthorizationPlugin`) independently denies access to unauthenticated users
-- Solr is not reachable from untrusted clients (e.g. firewall-protected)
 
 **Mitigation**
 
