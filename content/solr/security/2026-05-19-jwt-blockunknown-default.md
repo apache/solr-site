@@ -24,7 +24,7 @@ You may be affected if **all** of the following are true:
 
 1. You use the JWT Authentication Plugin (`solr.JWTAuthPlugin`) in `security.json`
 2. Your intention is to block all unauthenticated requests
-3. Your `security.json` does **not** explicitly set `"blockUnknown": true`
+3. Your `security.json` does **not** explicitly set `blockUnknown` to `true`
 
 You are **not** affected if any of the following applies:
 
@@ -37,7 +37,7 @@ Check the `authentication` section of your `security.json`. If `blockUnknown` is
 
 **Fix**
 
-Future Solr 9.11 and 10.1 releases will change the code default to `true`, matching the documentation.
+Upcoming Solr 9.11 and 10.1 releases will change the code default of `blockUnknown` to `true`.
 Explicitly setting `blockUnknown` to `true` in a current release is sufficient; upgrading is not required.
 
 **References**
