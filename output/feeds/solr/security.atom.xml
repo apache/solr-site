@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"/><link href="/feeds/solr/security.atom.xml" rel="self"/><id>/</id><updated>2026-01-20T00:00:00+00:00</updated><entry><title>CVE-2026-22022: Unauthorized bypass of certain "predefined permission" rules in the RuleBasedAuthorizationPlugin</title><link href="/cve-2026-22022-unauthorized-bypass-of-certain-predefined-permission-rules-in-the-rulebasedauthorizationplugin.html" rel="alternate"/><published>2026-01-20T00:00:00+00:00</published><updated>2026-01-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-01-20:/cve-2026-22022-unauthorized-bypass-of-certain-predefined-permission-rules-in-the-rulebasedauthorizationplugin.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/security</title><link href="/" rel="alternate"/><link href="/feeds/solr/security.atom.xml" rel="self"/><id>/</id><updated>2026-05-19T00:00:00+00:00</updated><entry><title>JWT Authentication: blockUnknown default allows unauthenticated access contrary to documentation</title><link href="/jwt-authentication-blockunknown-default-allows-unauthenticated-access-contrary-to-documentation.html" rel="alternate"/><published>2026-05-19T00:00:00+00:00</published><updated>2026-05-19T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-19:/jwt-authentication-blockunknown-default-allows-unauthenticated-access-contrary-to-documentation.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 9.0.0 through 9.10.1&lt;/li&gt;
+&lt;li&gt;Apache Solr 10.0.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Apache Solr JWT Authentication Plugin has a configuration parameter &lt;code&gt;blockUnknown&lt;/code&gt;
+that controls whether anonymous (unauthenticated) requests are blocked. The Reference Guide
+has documented this as defaulting to &lt;code&gt;true&lt;/code&gt; since Solr …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 9.0.0 through 9.10.1&lt;/li&gt;
+&lt;li&gt;Apache Solr 10.0.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Apache Solr JWT Authentication Plugin has a configuration parameter &lt;code&gt;blockUnknown&lt;/code&gt;
+that controls whether anonymous (unauthenticated) requests are blocked. The Reference Guide
+has documented this as defaulting to &lt;code&gt;true&lt;/code&gt; since Solr 9.0, but the code default has always
+been &lt;code&gt;false&lt;/code&gt;. Operators who did not explicitly set this parameter may therefore have been
+unknowingly accepting anonymous requests.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Am I Affected?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You may be affected if &lt;strong&gt;all&lt;/strong&gt; of the following are true:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;You use the JWT Authentication Plugin (&lt;code&gt;solr.JWTAuthPlugin&lt;/code&gt;) in &lt;code&gt;security.json&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Your intention is to block all unauthenticated requests&lt;/li&gt;
+&lt;li&gt;Your &lt;code&gt;security.json&lt;/code&gt; does &lt;strong&gt;not&lt;/strong&gt; explicitly set &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;You are &lt;strong&gt;not&lt;/strong&gt; affected if any of the following applies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;blockUnknown&lt;/code&gt; is explicitly set to &lt;code&gt;true&lt;/code&gt; in &lt;code&gt;security.json&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;An AuthorizationPlugin (e.g. &lt;code&gt;RuleBasedAuthorizationPlugin&lt;/code&gt;) independently denies access to unauthenticated users&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Check the &lt;code&gt;authentication&lt;/code&gt; section of your &lt;code&gt;security.json&lt;/code&gt;. If &lt;code&gt;blockUnknown&lt;/code&gt; is absent, set it explicitly to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Fix&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Upcoming Solr 9.11 and 10.1 releases will change the code default of &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;.
+Explicitly setting &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in a current release is sufficient; upgrading is not required.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://solr.apache.org/guide/solr/latest/deployment-guide/jwt-authentication-plugin.html"&gt;JWT Authentication Plugin documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>CVE-2026-22022: Unauthorized bypass of certain "predefined permission" rules in the RuleBasedAuthorizationPlugin</title><link href="/cve-2026-22022-unauthorized-bypass-of-certain-predefined-permission-rules-in-the-rulebasedauthorizationplugin.html" rel="alternate"/><published>2026-01-20T00:00:00+00:00</published><updated>2026-01-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-01-20:/cve-2026-22022-unauthorized-bypass-of-certain-predefined-permission-rules-in-the-rulebasedauthorizationplugin.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
 moderate&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;
 Deployments of Apache Solr 5.3.0 through 9.10.0 that rely on Solr's "Rule Based Authorization Plugin" are vulnerable to allowing unauthorized access to certain Solr APIs, due to insufficiently strict input validation in those components.  Only deployments that meet all of the following criteria …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;

@@ -145,6 +145,43 @@
   <h1 id="solr-news">Solr<sup>™</sup> Announcements<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as ATOM feeds: <a href="/feeds/solr/news.atom.xml">Announcements</a>, <a href="/feeds/solr/security.atom.xml">Security Announcements</a>..</p>
 
+  <h2 id="jwt-authentication-blockunknown-default-allows-unauthenticated-access-contrary-to-documentation">19 May 2026, JWT Authentication: blockUnknown default allows unauthenticated access contrary to documentation
+    <a class="headerlink" href="#jwt-authentication-blockunknown-default-allows-unauthenticated-access-contrary-to-documentation" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity</strong>
+moderate</p>
+<p><strong>Versions Affected</strong></p>
+<ul>
+<li>Apache Solr 9.0.0 through 9.10.1</li>
+<li>Apache Solr 10.0.0</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>The Apache Solr JWT Authentication Plugin has a configuration parameter <code>blockUnknown</code>
+that controls whether anonymous (unauthenticated) requests are blocked. The Reference Guide
+has documented this as defaulting to <code>true</code> since Solr 9.0, but the code default has always
+been <code>false</code>. Operators who did not explicitly set this parameter may therefore have been
+unknowingly accepting anonymous requests.</p>
+<p><strong>Am I Affected?</strong></p>
+<p>You may be affected if <strong>all</strong> of the following are true:</p>
+<ol>
+<li>You use the JWT Authentication Plugin (<code>solr.JWTAuthPlugin</code>) in <code>security.json</code></li>
+<li>Your intention is to block all unauthenticated requests</li>
+<li>Your <code>security.json</code> does <strong>not</strong> explicitly set <code>blockUnknown</code> to <code>true</code></li>
+</ol>
+<p>You are <strong>not</strong> affected if any of the following applies:</p>
+<ul>
+<li><code>blockUnknown</code> is explicitly set to <code>true</code> in <code>security.json</code></li>
+<li>An AuthorizationPlugin (e.g. <code>RuleBasedAuthorizationPlugin</code>) independently denies access to unauthenticated users</li>
+</ul>
+<p><strong>Mitigation</strong></p>
+<p>Check the <code>authentication</code> section of your <code>security.json</code>. If <code>blockUnknown</code> is absent, set it explicitly to <code>true</code>.</p>
+<p><strong>Fix</strong></p>
+<p>Upcoming Solr 9.11 and 10.1 releases will change the code default of <code>blockUnknown</code> to <code>true</code>.
+Explicitly setting <code>blockUnknown</code> to <code>true</code> in a current release is sufficient; upgrading is not required.</p>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://solr.apache.org/guide/solr/latest/deployment-guide/jwt-authentication-plugin.html">JWT Authentication Plugin documentation</a></li>
+</ul>
   <h2 id="apache-solrtm-1000-available">3 March 2026, Apache Solr™ 10.0.0 available
     <a class="headerlink" href="#apache-solrtm-1000-available" title="Permanent link">¶</a>
   </h2>
