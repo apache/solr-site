@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2026-03-03T00:00:00+00:00</updated><entry><title>Apache Solr™ 10.0.0 available</title><link href="/apache-solrtm-1000-available.html" rel="alternate"/><published>2026-03-03T00:00:00+00:00</published><updated>2026-03-03T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-03-03:/apache-solrtm-1000-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.0.0.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2026-05-19T00:00:00+00:00</updated><entry><title>JWT Authentication: blockUnknown default allows unauthenticated access contrary to documentation</title><link href="/jwt-authentication-blockunknown-default-allows-unauthenticated-access-contrary-to-documentation.html" rel="alternate"/><published>2026-05-19T00:00:00+00:00</published><updated>2026-05-19T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-19:/jwt-authentication-blockunknown-default-allows-unauthenticated-access-contrary-to-documentation.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 9.0.0 through 9.10.1&lt;/li&gt;
+&lt;li&gt;Apache Solr 10.0.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Apache Solr JWT Authentication Plugin has a configuration parameter &lt;code&gt;blockUnknown&lt;/code&gt;
+that controls whether anonymous (unauthenticated) requests are blocked. The Reference Guide
+has documented this as defaulting to &lt;code&gt;true&lt;/code&gt; since Solr …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity&lt;/strong&gt;
+moderate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Versions Affected&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Apache Solr 9.0.0 through 9.10.1&lt;/li&gt;
+&lt;li&gt;Apache Solr 10.0.0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Apache Solr JWT Authentication Plugin has a configuration parameter &lt;code&gt;blockUnknown&lt;/code&gt;
+that controls whether anonymous (unauthenticated) requests are blocked. The Reference Guide
+has documented this as defaulting to &lt;code&gt;true&lt;/code&gt; since Solr 9.0, but the code default has always
+been &lt;code&gt;false&lt;/code&gt;. Operators who did not explicitly set this parameter may therefore have been
+unknowingly accepting anonymous requests.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Am I Affected?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You may be affected if &lt;strong&gt;all&lt;/strong&gt; of the following are true:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;You use the JWT Authentication Plugin (&lt;code&gt;solr.JWTAuthPlugin&lt;/code&gt;) in &lt;code&gt;security.json&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Your intention is to block all unauthenticated requests&lt;/li&gt;
+&lt;li&gt;Your &lt;code&gt;security.json&lt;/code&gt; does &lt;strong&gt;not&lt;/strong&gt; explicitly set &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;You are &lt;strong&gt;not&lt;/strong&gt; affected if any of the following applies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;blockUnknown&lt;/code&gt; is explicitly set to &lt;code&gt;true&lt;/code&gt; in &lt;code&gt;security.json&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;An AuthorizationPlugin (e.g. &lt;code&gt;RuleBasedAuthorizationPlugin&lt;/code&gt;) independently denies access to unauthenticated users&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Mitigation&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Check the &lt;code&gt;authentication&lt;/code&gt; section of your &lt;code&gt;security.json&lt;/code&gt;. If &lt;code&gt;blockUnknown&lt;/code&gt; is absent, set it explicitly to &lt;code&gt;true&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Fix&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Upcoming Solr 9.11 and 10.1 releases will change the code default of &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;.
+Explicitly setting &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt; in a current release is sufficient; upgrading is not required.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://solr.apache.org/guide/solr/latest/deployment-guide/jwt-authentication-plugin.html"&gt;JWT Authentication Plugin documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>Apache Solr™ 10.0.0 available</title><link href="/apache-solrtm-1000-available.html" rel="alternate"/><published>2026-03-03T00:00:00+00:00</published><updated>2026-03-03T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-03-03:/apache-solrtm-1000-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.0.0.&lt;/p&gt;
 &lt;p&gt;Apache Solr is the blazing-fast, open source, multi-modal search platform built on the full-text, vector, and geospatial search capabilities of Apache Lucene. Its major features include powerful full-text search, vector search, hit highlighting, faceted search …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.0.0.&lt;/p&gt;
 &lt;p&gt;Apache Solr is the blazing-fast, open source, multi-modal search platform built on the full-text, vector, and geospatial search capabilities of Apache Lucene. Its major features include powerful full-text search, vector search, hit highlighting, faceted search and analytics, rich document parsing, geospatial search, extensive REST APIs as well as parallel SQL. Solr is enterprise grade, secure and highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
 &lt;p&gt;Solr 10.0.0 is available for immediate download at:&lt;/p&gt;
@@ -2302,27 +2345,4 @@ features of many of the world's largest internet sites.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Ability to disable configset upload via -Dconfigset.upload.enabled=false startup parameter&lt;/li&gt;
 &lt;li&gt;Referal to external resources in various config files now disallowed&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr™ 7.4.0 available</title><link href="/" rel="alternate"/><published>2018-06-27T00:00:00+00:00</published><updated>2018-06-27T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2018-06-27:/</id><summary type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 7.4.0&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the
-Apache Lucene project. Its major features include powerful full-text search,
-hit highlighting, faceted search and analytics, rich document parsing,
-geospatial search, extensive …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 7.4.0&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the
-Apache Lucene project. Its major features include powerful full-text search,
-hit highlighting, faceted search and analytics, rich document parsing,
-geospatial search, extensive REST APIs as well as parallel SQL. Solr is
-enterprise grade, secure and highly scalable, providing fault tolerant
-distributed search and indexing, and powers the search and navigation
-features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 7.4.0 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of new features and changes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/7_4_0/changes/Changes.html"&gt;https://solr.apache.org/7_4_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-740-release-highlights"&gt;Solr 7.4.0 Release Highlights:&lt;a class="headerlink" href="#solr-740-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;A new 'relatedness()' aggregate function for JSON Faceting to enable building Semantic Knowledge Graphs.&lt;/li&gt;
-&lt;li&gt;Added the TaggerRequestHandler (AKA SolrTextTagger) for tagging text. It's used as a component of NER/ERD systems including query-understanding.&lt;/li&gt;
-&lt;li&gt;The "Auto Scaling" feature area has been added to and enhanced a lot.&lt;/li&gt;
-&lt;li&gt;The "Streaming Expressions" feature area has been added to and enhanced a lot.&lt;/li&gt;
-&lt;li&gt;Upgraded from Log4j 1.x to 2.x.  Solr continues to log via SLF4J.&lt;/li&gt;
 &lt;/ul&gt;</content><category term="solr/news"/></entry></feed>
