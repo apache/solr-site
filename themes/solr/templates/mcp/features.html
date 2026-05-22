@@ -9,7 +9,7 @@
   </div>
   <h1>Powerful MCP Tools for Solr</h1>
   <p>
-    9 tools and 2 resources that let AI assistants search, index, and manage your Solr collections through natural language.
+    11 tools, 6 prompts, and 2 resources that let AI assistants search, index, and manage your Solr collections through natural language.
   </p>
   <div class="down-arrow"><a data-scroll href="#tools"><i class="fa fa-angle-down fa-2x red"></i></a></div>
 </div>
@@ -90,8 +90,18 @@
             <td><code>get-schema</code></td>
             <td>Retrieve the complete schema definition: field definitions, field types, dynamic fields, copy fields, unique key, and schema attributes.</td>
           </tr>
+          <tr>
+            <td><code>add-fields</code></td>
+            <td>Additively extend a collection's schema with new fields. Takes a list of Solr Schema API field definitions; batched via <code>SchemaRequest.MultiUpdate</code>.</td>
+          </tr>
+          <tr>
+            <td><code>add-field-types</code></td>
+            <td>Additively extend a collection's schema with new field types: custom analyzers, dense vector fields for semantic search, autocomplete chains.</td>
+          </tr>
         </tbody>
       </table>
+
+      <p style="margin-top:1.5em;">Every tool advertises MCP behavior hints (<code>readOnlyHint</code>, <code>destructiveHint</code>, <code>idempotentHint</code>) so clients can build sensible approval UX rather than treating every call as worst-case destructive.</p>
 
     </div>
   </div>
@@ -117,7 +127,57 @@
           </tr>
           <tr>
             <td><code>solr://{collection}/schema</code></td>
-            <td>Schema definition for a specific collection. Supports autocompletion&mdash;MCP clients can query for available collection names.</td>
+            <td>Schema definition for a specific collection. Supports prefix-filtered autocompletion &mdash; MCP clients can query for collection names matching what the user has typed (case-insensitive, capped at 100).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="gray offset-small" id="prompts">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">MCP Prompts</div>
+      <h1>Guided Workflows</h1>
+      <p>Slash-command-style entry points that point the AI at the right tools in the right order for canonical Solr workflows. The framework wraps each prompt's return value as a single user-role <code>PromptMessage</code>.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-10 large-offset-1 columns" style="text-align:left;">
+      <table style="width:100%">
+        <thead><tr><th>Prompt</th><th>Arguments</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>explore-collections</code></td>
+            <td>&mdash;</td>
+            <td>Read-only walkthrough: list collections, characterise each by stats and health.</td>
+          </tr>
+          <tr>
+            <td><code>setup-collection</code></td>
+            <td><code>name</code>, <code>purpose</code> (optional)</td>
+            <td>Validate a name, pick configset / shards / replication factor, create the collection, verify it.</td>
+          </tr>
+          <tr>
+            <td><code>view-schema</code></td>
+            <td><code>collection</code></td>
+            <td>Read-only schema walkthrough.</td>
+          </tr>
+          <tr>
+            <td><code>design-schema</code></td>
+            <td><code>collection</code>, <code>datasetDescription</code>, <code>sampleDocument</code> (optional)</td>
+            <td>Inspect schema, choose field types, apply additive schema changes.</td>
+          </tr>
+          <tr>
+            <td><code>index-data</code></td>
+            <td><code>collection</code>, <code>format</code> (json / csv / xml), <code>sample</code> (optional)</td>
+            <td>Verify the target schema, pick the right indexing tool, confirm the result.</td>
+          </tr>
+          <tr>
+            <td><code>search-collection</code></td>
+            <td><code>collection</code>, <code>question</code></td>
+            <td>Translate a natural-language question into a Solr query.</td>
           </tr>
         </tbody>
       </table>
