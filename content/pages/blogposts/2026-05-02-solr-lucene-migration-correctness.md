@@ -10,3 +10,4 @@ save_as: blogposts/solr-lucene-migration-correctness.html
 Major Solr/Lucene upgrades can introduce subtle ranking behavior changes even when functional tests continue to pass. This article discusses a practical side-by-side validation approach for detecting candidate-set changes, rank deltas, score distribution drift, and latency differences during migration testing.
 
 The complete post can be read here: [Validating Ranking Correctness During Solr/Lucene Migrations](https://dzone.com/articles/solr5-to-solr8-migration-ads-system).
+A companion comparison harness and detailed checklist are available at [solr-lucene-migration-correctness](https://github.com/parveensaini/solr-lucene-migration-correctness).
