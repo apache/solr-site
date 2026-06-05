@@ -107,7 +107,7 @@ COMBINED_POSTS_PER_PAGE = 20
 
 MARKDOWN = {
     'extension_configs': {
-        'toc': {},
+        'toc': {'permalink': True, 'permalink_class': 'headerlink', 'permalink_title': 'Permanent link'},
         'markdown.extensions.codehilite': {'css_class': 'codehilite'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},

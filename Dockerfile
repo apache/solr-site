@@ -15,7 +15,7 @@
 
 # Base image pinned by digest — updated automatically by Dependabot (docker ecosystem).
 # When Dependabot opens a bump PR, also regenerate requirements.txt (see README.md).
-FROM python:3.13-alpine@sha256:70dd89363f8665af9a8076ef505bfd8b8bf2fb0b3ab45860cd3494ab7197fe73
+FROM python:3.14-alpine@sha256:5a824eb82cc75361f98611f3cfc5091ea33f10a6ccea4d4ebdabbc523b9a1614
 WORKDIR /work
 COPY requirements.txt .
 RUN pip3 install --require-hashes -r requirements.txt && rm requirements.txt
