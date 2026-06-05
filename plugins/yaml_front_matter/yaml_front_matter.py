@@ -3,7 +3,7 @@ from markdown.extensions import Extension
 from markdown.extensions.meta import BEGIN_RE, END_RE
 from markdown.postprocessors import Postprocessor
 from markdown.preprocessors import Preprocessor
-from pelican import Readers
+from pelican.readers import Readers
 from pelican.plugins import signals
 from strictyaml import load
 from strictyaml.ruamel import YAMLError
