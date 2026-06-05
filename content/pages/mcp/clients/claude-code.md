@@ -7,14 +7,27 @@ template: mcp/client
 
 ***
 
+## CLI Syntax ##
+
+The general form of `claude mcp add` is (see [Claude Code MCP docs](https://code.claude.com/docs/en/mcp)):
+
+```bash
+claude mcp add [options] <name> -- <command> [args...]
+```
+
+The `--` separates Claude Code's own options from the subprocess command and its arguments — everything after `--` is passed to the server untouched, so its flags aren't reparsed by Claude Code. When using `-e KEY=value` (a variadic flag), put at least one other option (e.g. `--transport stdio`) between `-e` and `<name>`; otherwise the variadic greedily reads the name as another env entry and the CLI rejects it.
+
+***
+
 ## STDIO Mode (Recommended) ##
 
 ### CLI ###
 
 ```bash
 # JAR
-claude mcp add --transport stdio \
+claude mcp add \
     -e SOLR_URL=http://localhost:8983/solr/ \
+    --transport stdio \
     solr-mcp -- java -jar /absolute/path/to/solr-mcp-1.0.0-SNAPSHOT.jar
 
 # Docker (local image — build first with ./gradlew jibDockerBuild)
