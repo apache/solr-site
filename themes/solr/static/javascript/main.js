@@ -101,7 +101,13 @@
           scope.$watch(function() { return window.location.pathname }, function(n, o, s) {
             scope.model.path = window.location.pathname
             $(el).find('a').removeClass('selected')
-            $(el).find('a[href="' + scope.model.path + '"]').addClass('selected')
+            var path = scope.model.path
+            var newsPages = ['/news.html', '/blog.html']
+            if (newsPages.indexOf(path) !== -1) {
+              $(el).find('a[href$="/posts.html"]').addClass('selected')
+            } else {
+              $(el).find('a[href="' + path + '"]').addClass('selected')
+            }
           })
 
         }

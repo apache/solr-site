@@ -13,23 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Build Solr website with ASF Pelican action for PRs
-
-on:
-  pull_request:
-    branches:
-      - '**'
-
-jobs:
-  build-pelican:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
-      - name: Build Pelican Site
-        uses: apache/infrastructure-actions/pelican@4deec7dce934d27491a0b1a8216f8d292548f7a4  # main 2025-04-13
-        with:
-          gfm: 'false'
-          version: '4.12.0'
-          publish: 'false'
-          debug: 'false'
-          requirements: 'requirements.txt'
+# Base image pinned by digest — updated automatically by Dependabot (docker ecosystem).
+# When Dependabot opens a bump PR, also regenerate requirements.txt (see README.md).
+FROM python:3.14-alpine@sha256:5a824eb82cc75361f98611f3cfc5091ea33f10a6ccea4d4ebdabbc523b9a1614
+WORKDIR /work
+COPY requirements.txt .
+RUN pip3 install --require-hashes -r requirements.txt && rm requirements.txt

@@ -10,9 +10,9 @@ SITESUBTITLE = ''
 SITEURL = ''
 CURRENTYEAR = date.today().year
 
-SOLR_LATEST_RELEASE = '9.9.0'
-SOLR_LATEST_RELEASE_DATE = datetime(2025, 7, 24)
-SOLR_PREVIOUS_MAJOR_RELEASE = '8.11.4'
+SOLR_LATEST_RELEASE = '10.0.0'
+SOLR_LATEST_RELEASE_DATE = datetime(2026, 3, 3)
+SOLR_PREVIOUS_MAJOR_RELEASE = '9.10.1'
 
 SOLR_OPERATOR_LATEST_RELEASE = 'v0.9.1'
 SOLR_OPERATOR_LATEST_RELEASE_DATE = datetime(2025, 3, 25)
@@ -98,7 +98,8 @@ PLUGINS = [
     'regex_replace',
     'age_days_lt',
     'vex',
-    'yaml_front_matter'
+    'yaml_front_matter',
+    'combined_posts',
 #    'md_inline_extension',
 ]
 
@@ -109,9 +110,12 @@ JINJA_ENVIRONMENT = {
     ]
 }
 
+# Configuration for combined posts pagination
+COMBINED_POSTS_PER_PAGE = 20
+
 MARKDOWN = {
     'extension_configs': {
-        'toc': {},
+        'toc': {'permalink': True, 'permalink_class': 'headerlink', 'permalink_title': 'Permanent link'},
         'markdown.extensions.codehilite': {'css_class': 'codehilite'},
         'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
