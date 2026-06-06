@@ -2,11 +2,41 @@ import glob
 import json
 import os
 from hashlib import md5
+from pathlib import Path
 from uuid import UUID, uuid5
 
-from jsonschema import validate
+import jsonref
+from jsonschema import ValidationError, validate
 from pelican import signals
 from strictyaml import load
+from strictyaml.ruamel import YAML
+
+SCHEMA_DIR = Path(__file__).resolve().parent / 'schema'
+
+# Lazily loaded, ref-resolved JSON Schema for VEX Markdown front matter.
+_article_schema = None
+
+
+def article_schema():
+    """Load plugins/vex/schema/vex_article.schema.yaml, resolving its $ref into
+    bom-1.6.schema.json. Cached after the first call."""
+    global _article_schema
+    if _article_schema is None:
+        raw = (SCHEMA_DIR / 'vex_article.schema.yaml').read_text()
+        schema = YAML(typ='safe').load(raw)
+        _article_schema = jsonref.replace_refs(
+            schema, base_uri=SCHEMA_DIR.as_uri() + '/')
+    return _article_schema
+
+
+def vex_anchor(path):
+    """Unique per-entry anchor/slug derived from the source filename: the stem
+    without the leading 'YYYY-MM-DD-' date prefix and the '.md' extension.
+
+    Used both for the on-page anchors and as each VEX article's slug, because
+    titles repeat across entries (e.g. 'log4j-core') while filenames are unique.
+    """
+    return os.path.basename(path)[11:-3]
 
 
 def split_front_matter(path):
@@ -45,6 +75,11 @@ def read_vex_articles(content_path):
         if front_matter is None:
             continue
         meta = load(front_matter).data
+        try:
+            validate(instance=meta, schema=article_schema())
+        except ValidationError as e:
+            raise ValueError(
+                'Invalid VEX front matter in %s: %s' % (path, e.message)) from e
         # 'cve' may be absent (catch-all dependency notes), a single id, or a list
         cve = meta.get('cve') or []
         ids = cve if isinstance(cve, list) else [cve]
@@ -57,10 +92,8 @@ def read_vex_articles(content_path):
             'versions': meta.get('versions', ''),
             'jars': meta.get('jars', []),
             'title': meta.get('title', ''),
-            # Anchor on vex.html: the filename stem without the
-            # "YYYY-MM-DD-" date prefix and ".md" extension (must match the
-            # anchor() macro in vex.html).
-            'anchor': os.path.basename(path)[11:-3],
+            # Anchor on vex.html (matches each VEX article's slug, see set_vex_slug).
+            'anchor': vex_anchor(path),
         })
     return articles
 
@@ -131,7 +164,16 @@ def generator_initialized(generator):
     generator.context["vex"] = [a for a in articles if a['jars']]
 
 
+def set_vex_slug(content):
+    """Give each VEX article a unique slug from its filename, so entries that
+    share a title (e.g. two 'log4j-core' CVEs) don't collide on slug."""
+    category = getattr(content, 'category', None)
+    if category is not None and category.name == 'solr/vex':
+        content.slug = vex_anchor(content.source_path)
+
+
 def register():
     """Plugin registration"""
     signals.initialized.connect(pelican_init)
     signals.generator_init.connect(generator_initialized)
+    signals.content_object_init.connect(set_vex_slug)

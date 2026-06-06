@@ -21,10 +21,8 @@
             {%- endif -%}
         {% endmacro %}
 
-        {# Stable, unique per-entry anchor from the source filename stem; must match the
-           'anchor' field built in plugins/vex/vex.py for security-dependency-cves.html.
-           Strips the leading "YYYY-MM-DD-" date prefix and the ".md" extension. #}
-        {% macro anchor(article) %}{{ (article.source_path.split('/') | last)[11:-3] }}{% endmacro %}
+        {# article.slug is set per-VEX-entry from the filename in plugins/vex/vex.py
+           (set_vex_slug) and matches the 'anchor' linked from security-dependency-cves.html. #}
 
         {{ page.content }}
 
@@ -34,7 +32,7 @@
         {# Sorted by source filename (which begins with the YYYY-MM-DD date prefix), newest first,
            to match the order used by security-dependency-cves.html. #}
         {% for article in articles | sort(attribute='source_path', reverse=true) if article.category.name == 'solr/vex' %}
-            <article id="{{ anchor(article) | trim }}" class="post panel radius">
+            <article id="{{ article.slug }}" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title">{% if article.cve %}{{ render_ids(article) }}, {% endif %}{{ article.title }}</h3>
                     <div class="panel callout">
