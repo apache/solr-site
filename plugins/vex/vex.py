@@ -2,7 +2,6 @@ import glob
 import json
 import os
 from hashlib import md5
-from re import sub
 from uuid import UUID, uuid5
 
 from jsonschema import validate
@@ -57,6 +56,11 @@ def read_vex_articles(content_path):
             'analysis': analysis,
             'versions': meta.get('versions', ''),
             'jars': meta.get('jars', []),
+            'title': meta.get('title', ''),
+            # Anchor on vex.html: the filename stem without the
+            # "YYYY-MM-DD-" date prefix and ".md" extension (must match the
+            # anchor() macro in vex.html).
+            'anchor': os.path.basename(path)[11:-3],
         })
     return articles
 
@@ -125,7 +129,6 @@ def generator_initialized(generator):
     # that name vulnerable JARs; advisory-only entries (no 'jars') are excluded.
     articles = read_vex_articles(generator.settings['PATH'])
     generator.context["vex"] = [a for a in articles if a['jars']]
-    generator.context["sub"] = sub
 
 
 def register():
