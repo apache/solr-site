@@ -1,18 +1,20 @@
 $schema: "http://json-schema.org/draft/2020-12/schema"
-title: CVE Front Matter
+title: VEX Front Matter
 type: object
 required:
-  - cve
-  - jira
   - category
-  - vulnerable_component
   - analysis
   - title
 properties:
   cve:
-    type: string
-    pattern: "^CVE-[0-9]{4}-[0-9]{4,}$"
-    description: CVE identifier.
+    description: |
+      CVE identifier(s) this entry covers. May be a single id or a list.
+      Omitted for catch-all dependency notes that have no assigned CVE.
+    oneOf:
+      - type: string
+      - type: array
+        items:
+          type: string
   jira:
     type: string
     description: Related JIRA issue ID.
@@ -22,46 +24,19 @@ properties:
     items:
       type: string
     description: List of categories this vulnerability belongs to.
-  vulnerable_component:
-    $ref: "#/$defs/component"
-    description: Component that contains the vulnerability.
-  impacted_component:
-    $ref: "#/$defs/component"
-    description: Component that not necessarily contains the vulnerability but is impacted by it.
+  versions:
+    type: string
+    description: Affected Apache Solr versions, as a free-form display string.
+  jars:
+    type: array
+    items:
+      type: string
+    description: Vulnerable JAR files (present for dependency CVEs).
   analysis:
     "$ref": "bom-1.6.schema.json#/definitions/vulnerability/properties/analysis"
     description: |
       Analysis of the vulnerability in CycloneDX format.
-      Currently only the `state`, `justification`, and `responses` properties are used.
+      Currently only the `state`, `justification`, and `response` properties are used.
   title:
     type: string
 additionalProperties: false
-
-$defs:
-  component:
-    type: object
-    required: [ name, versions ]
-    properties:
-      name:
-        type: string
-        description: Name of the component.
-      versions:
-        type: array
-        minItems: 1
-        items:
-          type: object
-          properties:
-            introduced:
-              type: string
-              description: Version in which the vulnerability was introduced.
-            fixed:
-              type: string
-              description: Version in which the vulnerability was fixed.
-            last_affected:
-              type: string
-              description: The last version that was affected by the vulnerability.
-          additionalProperties: false
-          anyOf:
-            - required: [ fixed ]
-            - required: [ last_affected ]
-    additionalProperties: false

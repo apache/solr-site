@@ -9,8 +9,6 @@ from jsonschema import validate
 from pelican import signals
 from strictyaml import load
 
-from vex.enrich_metadata import enrich_content_metadata
-
 
 def split_front_matter(path):
     """Return (front_matter, body) for a Markdown file with YAML front matter.
@@ -134,5 +132,3 @@ def register():
     """Plugin registration"""
     signals.initialized.connect(pelican_init)
     signals.generator_init.connect(generator_initialized)
-    # Callback to enrich content metadata, so it can be used in security templates.
-    signals.content_object_init.connect(enrich_content_metadata)
