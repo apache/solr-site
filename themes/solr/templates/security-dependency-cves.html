@@ -28,7 +28,8 @@
       <th>State</th>
       <th>Title</th>
     </tr>
-    {% for v in (vex | selectattr("analysis.state", "ne", "exploitable")) %}
+    {# vex is in ascending filename (date) order; reverse for newest first #}
+    {% for v in (vex | reverse | selectattr("analysis.state", "ne", "exploitable")) %}
     <tr>
       <td>
         {% for id in v.ids %}

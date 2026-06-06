@@ -31,7 +31,9 @@
         <h1>Apache Solr VEX</h1>
         <p><a href="/security-dependency-cves.html">← Back to the dependency CVE table</a></p>
 
-        {% for article in articles | sort(attribute='title') if article.category.name == 'solr/vex' %}
+        {# Sorted by source filename (which begins with the YYYY-MM-DD date prefix), newest first,
+           to match the order used by security-dependency-cves.html. #}
+        {% for article in articles | sort(attribute='source_path', reverse=true) if article.category.name == 'solr/vex' %}
             <article id="{{ anchor(article) | trim }}" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title">{% if article.cve %}{{ render_ids(article) }}, {% endif %}{{ article.title }}</h3>
