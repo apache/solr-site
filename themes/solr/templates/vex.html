@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
                 {% set matches = [] %}
-                {% for article in articles if article.category.name == 'solr/vex' %}
+                {% for article in articles if article.category.name == 'solr/vex' and article.metadata.impacted_component is defined %}
                     {% set component = article.metadata.impacted_component %}
                     {% for version_range in component.versions
                        if (version_range.start is none or version_range.start < upper_bound_excl)
@@ -71,7 +71,7 @@
             {% endif %}
         {% endmacro %}
 
-        {% for article in articles if article.category.name == 'solr/vex' %}
+        {% for article in articles if article.category.name == 'solr/vex' and article.metadata.impacted_component is defined %}
             {% set impacted_component = article.metadata.impacted_component %}
             {% set vulnerable_component = article.metadata.vulnerable_component %}
 
@@ -85,7 +85,6 @@
                                 {{ article.date | strftime("%Y-%m-%d") }}
                             </time>
                         </p>
-                        <p class="subheader"><strong>Severity:</strong> {{ article.severity }}</p>
                         <p class="subheader">
                             <strong>Status:</strong>
                             <span class="cdx-{{ article.metadata.analysis.state|replace('_', '-') }}">{{ article.metadata.analysis.state }}</span>
