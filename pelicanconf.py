@@ -98,7 +98,7 @@ PLUGINS = [
     'regex_replace',
     'age_days_lt',
     'vex',
-    'yaml_front_matter',
+    'yaml_metadata',
     'combined_posts',
 #    'md_inline_extension',
 ]
