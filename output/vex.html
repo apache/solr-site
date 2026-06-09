@@ -1,0 +1,1053 @@
+<!doctype html>
+<html>
+  <head>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE- 2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=d20084a9" />
+<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=d20084a9" />
+<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=d20084a9" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=d20084a9" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=d20084a9"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=d20084a9"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=d20084a9" />
+<meta name="Distribution" content="Global"/>
+<meta name="Robots" content="index,follow"/>
+
+<script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=d20084a9"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=d20084a9"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=d20084a9"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=d20084a9"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=d20084a9"></script>
+<script src="/theme/javascript/main.js?v=d20084a9"></script>
+<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Apache Solr VEX - Apache Solr</title>
+
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://solr.apache.org/vex.html"/>
+     <meta property="og:title" content="Apache Solr VEX"/>
+     <meta property="og:description" content=""/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=d20084a9"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=d20084a9"/>
+
+   <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" title="Solr security announce feed"
+          href="/feeds/solr/security.atom.xml"/><!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDoNotTrack", true]);
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://analytics.apache.org/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '76']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->  </head>
+
+  <body class="page " x-ng-app-root="/solr" x-ng-app="page" x-ng-controller="page.controllers.main">
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="/posts.html">News</a>
+          </li>
+          <li>
+            <a href="/security.html">Security</a>
+          </li>
+          <li>
+            <a href="/features.html">Features</a>
+          </li>
+          <li>
+            <a href="/resources.html">Resources</a>
+          </li>
+          <li>
+            <a href="/community.html">Community</a>
+          </li>
+          <li>
+            <a href="/whoweare.html">Project</a>
+          </li>
+          <li>
+            <a href="/operator/">Solr Operator</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="/downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
+<div class="container">
+  <div class="row">
+    <div class="small-12 columns">
+
+
+
+        
+
+        <h1>Apache Solr VEX</h1>
+        <p><a href="/security-dependency-cves.html">← Back to the dependency CVE table</a></p>
+
+            <article id="cve-2024-7254" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-7254">CVE-2024-7254</a>, protobuf-java: Potential Denial of Service issue</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-08-02T00:00:00+00:00">2025-08-02</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-in-triage">in_triage</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.9.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>When parsing unknown fields in the Protobuf Java Lite and Full library, a maliciously crafted message can cause a StackOverflow error and lead to a program crash.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17833">SOLR-17833</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-7254">CVE-2024-7254</a></li>
+                </ul>
+            </article>
+            <article id="cve-2024-51504" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-51504">CVE-2024-51504</a>, Apache ZooKeeper: Authentication bypass with IP-based authentication in Admin Server</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-07-25T00:00:00+00:00">2025-07-25</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.4.0–9.8.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2024-51504 is <strong>not</strong> considered exploitable in typical <strong>production</strong> deployments of Apache Solr.
+Successful exploitation requires a very specific and non-standard configuration.
+The following conditions <strong>must all be met</strong>:</p>
+<ul>
+<li>Solr must be deployed in <a href="https://solr.apache.org/guide/solr/latest/deployment-guide/cluster-types.html#solrcloud-mode">SolrCloud mode</a>, which relies on ZooKeeper for coordination.</li>
+<li>The <strong>embedded ZooKeeper server</strong> must be in use: a setup that is explicitly discouraged for production.
+  Solr emits a warning when this configuration is detected, and it is not commonly used outside of development or experimentation.</li>
+<li>The <strong>ZooKeeper Admin Server</strong> must be <strong>manually enabled</strong> in the ZooKeeper configuration file (<code>server/solr/zoo.cfg</code>).
+  By default, this feature is disabled:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Disable ZK AdminServer since we do not use it</span>
+<span class="na">admin.enableServer</span><span class="o">=</span><span class="s">false</span>
+</code></pre></div>
+
+<p>Because these conditions are highly unlikely in secure, production-grade environments,
+the Solr community considers this vulnerability <strong>non-exploitable under standard operating conditions</strong>.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17809">SOLR-17809</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-51504">CVE-2024-51504</a></li>
+                </ul>
+            </article>
+            <article id="cve-2024-6763" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-6763">CVE-2024-6763</a>, jetty-http</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.8</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr does not use the Jetty "HttpURI" utility class necessary for the vulnerability.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-6763">CVE-2024-6763</a></li>
+                </ul>
+            </article>
+            <article id="cve-2025-24814" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-24814">CVE-2025-24814</a>, Apache Solr: Core-creation with "trusted" configset can use arbitrary untrusted files</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-01-26T00:00:00+00:00">2025-01-26</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-exploitable">exploitable</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.8.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Core creation allows users to replace "trusted" configset files with arbitrary configuration</p>
+<p>Solr instances are vulnerable if they:</p>
+<ol>
+<li>use the <code>FileSystemConfigSetService</code> component (the default in "standalone" or "user-managed" mode), and</li>
+<li>run without authentication and authorization enabled</li>
+</ol>
+<p>In this configuration, attackers can exploit a privilege escalation issue by replacing individual "trusted" configset files with potentially untrusted files from elsewhere on the filesystem.
+These replacements are incorrectly treated as "trusted" and can leverage <code>&lt;lib&gt;</code> tags to add arbitrary code to Solr's classpath, potentially allowing malicious plugins or components to be loaded.</p>
+<p>This issue affects all Apache Solr versions up through Solr 9.7.</p>
+<h4 id="mitigation">Mitigation<a class="headerlink" href="#mitigation" title="Permanent link">&para;</a></h4>
+<p>Users can protect against the vulnerability by enabling authentication and authorization on their Solr clusters or switching to SolrCloud (and away from "FileSystemConfigSetService").
+Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue by disabling use of "<lib>" tags by default.</p>
+<h4 id="credit">Credit<a class="headerlink" href="#credit" title="Permanent link">&para;</a></h4>
+<p>pwn null (reporter)</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-16781">SOLR-16781</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-24814">CVE-2025-24814</a></li>
+                </ul>
+            </article>
+            <article id="cve-2023-51074" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-51074">CVE-2023-51074</a>, <a href="https://github.com/advisories/GHSA-pfh2-hfmq-phg5">GHSA-pfh2-hfmq-phg5</a>, json-path</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> all</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-51074">CVE-2023-51074</a>, <a href="https://github.com/advisories/GHSA-pfh2-hfmq-phg5">GHSA-pfh2-hfmq-phg5</a></li>
+                </ul>
+            </article>
+            <article id="cve-velocity-tools" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title">velocity-tools</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.6.2-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr does not ship a Struts jar. This is a transitive POM listing and not included with Solr (see comment in SOLR-2849).</p>
+
+                <h4>References</h4>
+                <ul>
+                </ul>
+            </article>
+            <article id="cve-tika-core" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title">tika-core.*</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.1-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>All Tika issues that could be Solr vulnerabilities would only be exploitable if untrusted files are indexed with SolrCell. This is not recommended in production systems, so Solr does not consider these valid CVEs for Solr.</p>
+
+                <h4>References</h4>
+                <ul>
+                </ul>
+            </article>
+            <article id="cve-2022-42889" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-42889">CVE-2022-42889</a>, commons-text</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr uses commons-text directly (StringEscapeUtils.escapeEcmaScript) in LoadAdminUiServlet that is not vulnerable. Solr also has a "hadoop-auth" module that uses Apache Hadoop which uses commons-text through commons-configuration2. For Solr, the concern is limited to loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-42889">CVE-2022-42889</a></li>
+                </ul>
+            </article>
+            <article id="cve-2022-39135" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-39135">CVE-2022-39135</a>, calcite</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-exploitable">exploitable</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.5-8.11.2, 9.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode. If an untrusted user can supply SQL queries to Solr's '/sql' handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack. This might have been exposed by some deployers of Solr in order for internal analysts to use JDBC based tooling, but would have unlikely been granted to wider audiences.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-39135">CVE-2022-39135</a></li>
+                </ul>
+            </article>
+            <article id="cve-2022-33980" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-33980">CVE-2022-33980</a>, commons-configuration2</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr uses commons-configuration2 for "hadoop-auth" only (for Kerberos). It is only used for loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-33980">CVE-2022-33980</a></li>
+                </ul>
+            </article>
+            <article id="cve-2022-25168" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-25168">CVE-2022-25168</a>, hadoop-common</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>The vulnerable code won't be used by Solr because Solr only is only using HDFS as a client.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-25168">CVE-2022-25168</a></li>
+                </ul>
+            </article>
+            <article id="cve-2021-45105" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-45105">CVE-2021-45105</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-45046">CVE-2021-45046</a>, log4j-core</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.4-8.11.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>The MDC data used by Solr are for the collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Furthermore, Solr's default log configuration doesn't use double-dollar-sign and we don't imagine a user would want to do that.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-45105">CVE-2021-45105</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-45046">CVE-2021-45046</a></li>
+                </ul>
+            </article>
+            <article id="cve-2021-44832" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44832">CVE-2021-44832</a>, log4j-core</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.4-8.11.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr's default log configuration doesn't use JDBCAppender and we don't imagine a user would want to use it or other obscure appenders.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-44832">CVE-2021-44832</a></li>
+                </ul>
+            </article>
+            <article id="cve-2021-33813" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-33813">CVE-2021-33813</a>, jdom-*</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> to present</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>JDOM is only used in Solr Cell, which should not be used in production which makes the vulnerability unexploitable. It is a dependency of Apache Tika, which has analyzed the issue and determined the vulnerability is limited to two libraries not commonly used in search applications, see TIKA-3488 for details. Since Tika should be used outside of Solr, use a version of Tika which updates the affected libraries if concerned about exposure to this issue.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-33813">CVE-2021-33813</a></li>
+                </ul>
+            </article>
+            <article id="cve-2020-27223" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27223">CVE-2020-27223</a>, jetty-9.4.6 to 9.4.36</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-present</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Only exploitable if Solr's webapp directory is deployed as a symlink, which is not Solr's default.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27223">CVE-2020-27223</a></li>
+                </ul>
+            </article>
+            <article id="cve-2020-27218" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27218">CVE-2020-27218</a>, jetty-9.4.0 to 9.4.34</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-8.8.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Only exploitable through use of Jetty's GzipHandler, which is only implemented in Embedded Solr Server.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27218">CVE-2020-27218</a></li>
+                </ul>
+            </article>
+            <article id="cve-2020-13955" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13955">CVE-2020-13955</a>, avatica-core</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.1.0- today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr's SQL adapter does not use the vulnerable class "HttpUtils". Calcite only used it to talk to Druid or Splunk.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13955">CVE-2020-13955</a></li>
+                </ul>
+            </article>
+            <article id="cve-2019-16869" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16869">CVE-2019-16869</a>, netty-all</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.2-8.3</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>This is not included in Solr but is a dependency of ZooKeeper 3.5.5. The version was upgraded in ZooKeeper 3.5.6, included with Solr 8.3. The specific classes mentioned in the CVE are not used in Solr (nor in ZooKeeper as far as the Solr community can determine).</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16869">CVE-2019-16869</a></li>
+                </ul>
+            </article>
+            <article id="cve-2019-10241" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10241">CVE-2019-10241</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10247">CVE-2019-10247</a>, jetty</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.7.0-8.2</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr upgraded to Jetty 9.4.19 for the 8.2 release. Additionally, the path to exploit these vulnerabilities was fixed in 8.1 and 7.7.2. Earlier versions can manually patch their configurations as described in SOLR-13409.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10241">CVE-2019-10241</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10247">CVE-2019-10247</a></li>
+                </ul>
+            </article>
+            <article id="cve-2019-10086" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10086">CVE-2019-10086</a>, commons-beanutils</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.0.0-8.3.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>While commons-beanutils was removed in 7.5, it was added back in 8.0 in error and removed again in 8.3. The vulnerable class was not used in any Solr code path. This jar remains a dependency of both Velocity and hadoop-common, but Solr does not use it in our implementations.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-10086">CVE-2019-10086</a></li>
+                </ul>
+            </article>
+            <article id="cve-2018-8088" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-8088">CVE-2018-8088</a>, slf4j-api</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.x-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>The reported CVE impacts org.slf4j.ext.EventData, which is not used in Solr.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-8088">CVE-2018-8088</a></li>
+                </ul>
+            </article>
+            <article id="cve-2018-1471" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1471">CVE-2018-1471</a>, simple-xml</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.4.0-7.7.2, 8.0-8.3</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Dependency of Carrot2 and used during compilation, not at runtime (see SOLR-769. This .jar was replaced in Solr 8.3 and backported to 7.7.3 (see SOLR-13779).</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1471">CVE-2018-1471</a></li>
+                </ul>
+            </article>
+            <article id="cve-2018-1335" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1335">CVE-2018-1335</a>, tika-core.1.17</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.1-7.5.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr does not run tika-server, so this is not a problem.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1335">CVE-2018-1335</a></li>
+                </ul>
+            </article>
+            <article id="cve-2018-10237" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a>, carrot2-guava</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.4.0-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Only used with the Carrot2 clustering engine.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a></li>
+                </ul>
+            </article>
+            <article id="cve-2018-10237-guava" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a>, guava-*</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Only used in tests.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a></li>
+                </ul>
+            </article>
+            <article id="cve-2018-1000632" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000632">CVE-2018-1000632</a>, dom4j</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Only used in Solr tests.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000632">CVE-2018-1000632</a></li>
+                </ul>
+            </article>
+            <article id="cve-2018-1000056" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000056">CVE-2018-1000056</a>, junit</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-7.6.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>JUnit only used in tests; CVE only refers to a Jenkins plugin not used by Solr.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000056">CVE-2018-1000056</a></li>
+                </ul>
+            </article>
+            <article id="cve-2017-15718" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-15718">CVE-2017-15718</a>, hadoop-auth</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.6.1-7.6.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Does not impact Solr because Solr uses Hadoop as a client library.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-15718">CVE-2017-15718</a></li>
+                </ul>
+            </article>
+            <article id="cve-2017-15095" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-15095">CVE-2017-15095</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-17485">CVE-2017-17485</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7525">CVE-2017-7525</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-5968">CVE-2018-5968</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-7489">CVE-2018-7489</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12086">CVE-2019-12086</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12384">CVE-2019-12384</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-12814">CVE-2018-12814</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14379">CVE-2019-14379</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14439">CVE-2019-14439</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35490">CVE-2020-35490</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35491">CVE-2020-35491</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-20190">CVE-2021-20190</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14540">CVE-2019-14540</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16335">CVE-2019-16335</a>, jackson-databind-*</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.7.0-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 &amp; 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-15095">CVE-2017-15095</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-17485">CVE-2017-17485</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7525">CVE-2017-7525</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-5968">CVE-2018-5968</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-7489">CVE-2018-7489</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12086">CVE-2019-12086</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12384">CVE-2019-12384</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-12814">CVE-2018-12814</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14379">CVE-2019-14379</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14439">CVE-2019-14439</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35490">CVE-2020-35490</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35491">CVE-2020-35491</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-20190">CVE-2021-20190</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14540">CVE-2019-14540</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16335">CVE-2019-16335</a></li>
+                </ul>
+            </article>
+            <article id="cve-2017-14952" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14952">CVE-2017-14952</a>, icu4j</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.0.0-7.5.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Issue applies only to the C++ release of ICU and not ICU4J, which is what Lucene uses. ICU4J is at v63.2 as of Lucene/Solr 7.6.0</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14952">CVE-2017-14952</a></li>
+                </ul>
+            </article>
+            <article id="cve-2017-14868" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14868">CVE-2017-14868</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14949">CVE-2017-14949</a>, org.restlet</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.2.0-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Solr should not be exposed outside a firewall where bad actors can send HTTP requests. These two CVEs specifically involve classes (SimpleXMLProvider and XmlRepresentation, respectively) that Solr does not use in any code path.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14868">CVE-2017-14868</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14949">CVE-2017-14949</a></li>
+                </ul>
+            </article>
+            <article id="cve-2016-6809" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6809">CVE-2016-6809</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1335">CVE-2018-1335</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1338">CVE-2018-1338</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1339">CVE-2018-1339</a>, vorbis-java-tika</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.5.5, 6.2.0-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6809">CVE-2016-6809</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1335">CVE-2018-1335</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1338">CVE-2018-1338</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1339">CVE-2018-1339</a></li>
+                </ul>
+            </article>
+            <article id="cve-2015-5237" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2015-5237">CVE-2015-5237</a>, protobuf-java</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.5.0-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Dependency for Hadoop and Calcite. ??</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2015-5237">CVE-2015-5237</a></li>
+                </ul>
+            </article>
+            <article id="cve-2014-7940" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2014-7940">CVE-2014-7940</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6293">CVE-2016-6293</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-7415">CVE-2016-7415</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14952">CVE-2017-14952</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-17484">CVE-2017-17484</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7867">CVE-2017-7867</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7868">CVE-2017-7868</a>, lucene-analyzers-icu</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2014-7940">CVE-2014-7940</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6293">CVE-2016-6293</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-7415">CVE-2016-7415</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14952">CVE-2017-14952</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-17484">CVE-2017-17484</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7867">CVE-2017-7867</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7868">CVE-2017-7868</a></li>
+                </ul>
+            </article>
+            <article id="cve-2014-0114" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2014-0114">CVE-2014-0114</a>, commons-beanutils</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.9.0-7.5.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>This is only used at compile time and it cannot be used to attack Solr. Since it is generally unnecessary, the dependency has been removed as of 7.5.0. See SOLR-12617.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2014-0114">CVE-2014-0114</a></li>
+                </ul>
+            </article>
+            <article id="cve-2012-2098" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2012-2098">CVE-2012-2098</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1324">CVE-2018-1324</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-11771">CVE-2018-11771</a>, commons-compress (only as part of Ant 1.8.2)</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Only used in test framework and at build time.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2012-2098">CVE-2012-2098</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1324">CVE-2018-1324</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-11771">CVE-2018-11771</a></li>
+                </ul>
+            </article>
+            <article id="cve-2012-0881" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2012-0881">CVE-2012-0881</a>, xercesImpl</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ~2.9-today</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Only used in Lucene Benchmarks and Solr tests.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2012-0881">CVE-2012-0881</a></li>
+                </ul>
+            </article>
+    </div>
+  </div>
+</div>
+    <footer>
+<div class="row">
+  <div class="small-6 medium-3 columns">
+    <h4>Features</h4>
+    <ul>
+      <li><a href="/features.html">Overview</a></li>
+      <li><a href="/features.html#data-handling">Data Handling</a></li>
+      <li><a href="/features.html#query">Querying</a></li>
+      <li><a href="/features.html#facets">Faceting</a></li>
+      <li><a href="/features.html#discovery">Discovery</a></li>
+      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
+      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
+      <li><a href="/features.html#spatial">Spatial</a></li>
+      <li><a href="/features.html#rich-content">Rich Content</a></li>
+      <li><a href="/features.html#performance">Performance</a></li>
+      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
+      <li><a href="/features.html#admin-ui">User Interface</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="/resources.html#documentation">Docs</a></li>
+      <li><a href="/resources.html#solr-books">Books</a></li>
+      <li><a href="/resources.html#presentations">Presentations</a></li>
+      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
+      <li><a href="/editing-website.html">Editing this Website</a></li>
+      <br/>
+      <li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+      <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+      <li><a href="https://www.apache.org/security/">Security</a></li>
+      <li><a href="https://www.apache.org/licenses/">License</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Get Started</h4>
+    <ul>
+      <li><a href="/downloads.html">Download</a></li>
+      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+      <li><a href="/resources.html">Level Up</a></li>
+    </ul>
+    <br/>
+    <h4>Community</h4>
+    <ul>
+      <li><a href="/community.html#support">Support</a></li>
+      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
+      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
+      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Related Projects</h4>
+    <ul>
+      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row copyright">
+<div class="large-centered columns">
+  <p>Copyright © 2026 The Apache Software Foundation, Licensed under the
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
+    Apache and the Apache logo are trademarks of The Apache Software Foundation. Apache Lucene,
+    Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
+    Please see the <a href="https://www.apache.org/foundation/marks/">Apache Trademark Policy</a> for more information.
+    All non-Apache logos are the trademarks of their respective owners.</p>
+</div></div>    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<!-- TODO: This script is commented out because we do not use slick slider.
+<script>
+  $(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+  });
+</script>
+-->
+  </body>
+</html>
