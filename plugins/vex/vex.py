@@ -135,7 +135,7 @@ def pelican_init(pelicanobj):
         # up with, but it seems like one of the promising formats, so
         # let's align with it as much as possible:
         "bomFormat": "CycloneDX",
-        "specVersion": "1.4",
+        "specVersion": "1.6",
         "version": 1,
         "metadata": {
             "component": {
