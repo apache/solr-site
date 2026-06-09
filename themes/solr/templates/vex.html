@@ -8,13 +8,25 @@
 {% block content_inner %}
     <div class="small-12 columns">
 
+        {# Renders a single CVE / GHSA id as an NVD / GitHub advisory link (matching the source
+           linking in plugins/vex/vex.py), or as plain text for any other identifier. #}
+        {% macro render_id(id) -%}
+            {%- if id.startswith('CVE') -%}
+                <a href="https://nvd.nist.gov/vuln/detail/{{ id }}">{{ id }}</a>
+            {%- elif id.startswith('GHSA') -%}
+                <a href="https://github.com/advisories/{{ id }}">{{ id }}</a>
+            {%- else -%}
+                {{ id }}
+            {%- endif -%}
+        {%- endmacro -%}
+
         {# Renders the CVE / GHSA id(s) of an entry as NVD/GitHub links, or an em dash if none. #}
         {% macro render_ids(article) %}
             {%- if article.cve is string -%}
-                <a href="https://nvd.nist.gov/vuln/detail/{{ article.cve }}">{{ article.cve }}</a>
+                {{ render_id(article.cve) }}
             {%- elif article.cve -%}
                 {%- for id in article.cve -%}
-                    {% if id.startswith('CVE') %}<a href="https://nvd.nist.gov/vuln/detail/{{ id }}">{{ id }}</a>{% else %}{{ id }}{% endif %}{%- if not loop.last %}, {% endif -%}
+                    {{ render_id(id) }}{%- if not loop.last %}, {% endif -%}
                 {%- endfor -%}
             {%- else -%}
                 —
