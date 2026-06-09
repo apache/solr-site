@@ -53,7 +53,7 @@ def split_front_matter(path):
     for i in range(1, len(lines)):
         if lines[i].strip() == '---':
             return '\n'.join(lines[1:i]), '\n'.join(lines[i + 1:])
-    return None, text
+    raise ValueError(f"Unterminated YAML front matter in {path}")
 
 
 def read_vex_articles(content_path):
