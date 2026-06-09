@@ -33,7 +33,7 @@
     <tr>
       <td>
         {% for id in v.ids %}
-          {% if id.startswith('CVE') %}<a href="https://nvd.nist.gov/vuln/detail/{{ id }}">{{ id }}</a>{% else %}{{ id }}{% endif %}
+          {% if id.startswith('CVE') %}<a href="https://nvd.nist.gov/vuln/detail/{{ id }}">{{ id }}</a>{% elif id.startswith('GHSA') %}<a href="https://github.com/advisories/{{ id }}">{{ id }}</a>{% else %}{{ id }}{% endif %}
           {%- if not loop.last %}, {% endif %}
         {% endfor %}
       </td>
