@@ -26,13 +26,14 @@
       <th>Versions</th>
       <th>JARs</th>
       <th>State</th>
-      <th>Detail</th>
+      <th>Title</th>
     </tr>
-    {% for v in (vex | selectattr("analysis.state", "ne", "exploitable")) %}
+    {# vex is in ascending filename (date) order; reverse for newest first #}
+    {% for v in (vex | reverse | selectattr("analysis.state", "ne", "exploitable")) %}
     <tr>
       <td>
         {% for id in v.ids %}
-          {% if id.startswith('CVE') %}<a href="https://nvd.nist.gov/vuln/detail/{{ id }}">{{ id }}</a>{% else %}{{ id }}{% endif %}
+          {% if id.startswith('CVE') %}<a href="https://nvd.nist.gov/vuln/detail/{{ id }}">{{ id }}</a>{% elif id.startswith('GHSA') %}<a href="https://github.com/advisories/{{ id }}">{{ id }}</a>{% else %}{{ id }}{% endif %}
           {%- if not loop.last %}, {% endif %}
         {% endfor %}
       </td>
@@ -43,7 +44,7 @@
         {% endfor %}
       </td>
       <td>{{ v.analysis.state.replace('_', ' ') }}</td>
-      <td>{{ sub("(https://.*?)([.;]\s)", "<a href=\"\\1\">\\1</a>\\2", v.analysis.detail) }}</td>
+      <td><a href="/vex.html#{{ v.anchor }}">{{ v.title }}</a></td>
     </tr>
     {% endfor %}
   </table>
