@@ -25,6 +25,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+      # MCP docs content lives in apache/solr-mcp so it travels with the code.
+      # Assemble it into content/ so the PR build validates the full site.
+      - name: Fetch MCP docs from apache/solr-mcp
+        env:
+          MCP_DOCS_REF: main
+        run: |
+          git clone --quiet --depth 1 --branch "$MCP_DOCS_REF" \
+            https://github.com/apache/solr-mcp.git /tmp/solr-mcp
+          rm -rf content/pages/mcp
+          mkdir -p content/pages content/doap
+          cp -R /tmp/solr-mcp/docs/site/content/pages/mcp content/pages/mcp
+          cp -R /tmp/solr-mcp/docs/site/content/doap/. content/doap/
       - name: Build Pelican Site
         uses: apache/infrastructure-actions/pelican@4deec7dce934d27491a0b1a8216f8d292548f7a4  # main 2025-04-13
         with:
