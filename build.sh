@@ -39,6 +39,14 @@ OPTIONS=(
   ":pelican-help:Show all options accepted by Pelican"
 )
 
+# MCP documentation content is sourced from the apache/solr-mcp repo so that docs
+# travel with the code (see https://github.com/apache/solr-mcp/tree/main/docs/site).
+# It is assembled into content/ before Pelican runs. A sibling local checkout is used
+# when present (for live preview); otherwise the pinned ref is cloned.
+MCP_DOCS_REPO="${MCP_DOCS_REPO:-https://github.com/apache/solr-mcp.git}"
+MCP_DOCS_REF="${MCP_DOCS_REF:-main}"
+MCP_DOCS_LOCAL="${MCP_DOCS_LOCAL:-../solr-mcp/docs/site/content}"
+
 function usage {
   echo "Usage: ./build.sh [OPTIONS] [-- <pelican arguments>]"
   echo ""
@@ -68,6 +76,26 @@ function _getopt_specs {
     long+="${long:+,}${l}"
   done
   echo "${short}|${long}"
+}
+
+function fetch_mcp_docs {
+  local src tmp
+  if [[ -d "$MCP_DOCS_LOCAL" ]]; then
+    echo "Assembling MCP docs from local checkout: $MCP_DOCS_LOCAL"
+    src="$MCP_DOCS_LOCAL"
+  else
+    echo "Fetching MCP docs from $MCP_DOCS_REPO @ $MCP_DOCS_REF"
+    tmp="$(mktemp -d)"
+    git clone --quiet --depth 1 --branch "$MCP_DOCS_REF" "$MCP_DOCS_REPO" "$tmp"
+    src="$tmp/docs/site/content"
+  fi
+  # Pages: replace wholesale so removed pages don't linger.
+  rm -rf content/pages/mcp
+  mkdir -p content/pages content/doap
+  cp -R "$src/pages/mcp" content/pages/mcp
+  # DOAP: copy the MCP descriptor alongside the others (do not touch them).
+  cp -R "$src/doap/." content/doap/
+  [[ -n "$tmp" ]] && rm -rf "$tmp"
 }
 
 function build_image {
@@ -174,6 +202,7 @@ else
   check_requirements_update
 fi
 
+fetch_mcp_docs
 if [[ $SERVE ]]; then
   echo "Building Solr site locally. Goto http://localhost:8000 to view."
   echo "Edits you do to the source tree will be compiled immediately!"

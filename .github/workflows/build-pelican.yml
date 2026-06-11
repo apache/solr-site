@@ -21,11 +21,17 @@ on:
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
-      - 'build.sh'
       - '.editorconfig'
       - '.gitignore'
       - '.gitattributes'
+  # MCP docs are sourced from apache/solr-mcp (see "Fetch MCP docs" below). Changes
+  # there do not push here, so refresh asf-staging from solr-mcp main on a schedule.
+  # solr-mcp CI may also trigger this immediately via repository_dispatch / the API.
+  schedule:
+    - cron: '17 6 * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types: [ mcp-docs-updated ]
 
 jobs:
   build-pelican:
@@ -36,6 +42,20 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
         with:
           ref: ${{ github.ref == 'refs/heads/production' && 'production' || 'main' }}
+
+      # MCP docs content lives in apache/solr-mcp so it travels with the code.
+      # Assemble it into content/ before Pelican renders the site. MCP_DOCS_REF is a
+      # fixed branch name (never untrusted event input) to avoid ref/command injection.
+      - name: Fetch MCP docs from apache/solr-mcp
+        env:
+          MCP_DOCS_REF: main
+        run: |
+          git clone --quiet --depth 1 --branch "$MCP_DOCS_REF" \
+            https://github.com/apache/solr-mcp.git /tmp/solr-mcp
+          rm -rf content/pages/mcp
+          mkdir -p content/pages content/doap
+          cp -R /tmp/solr-mcp/docs/site/content/pages/mcp content/pages/mcp
+          cp -R /tmp/solr-mcp/docs/site/content/doap/. content/doap/
 
       - name: Build Pelican Site
         uses: apache/infrastructure-actions/pelican@4deec7dce934d27491a0b1a8216f8d292548f7a4  # main 2025-04-13
