@@ -156,6 +156,13 @@ button.white:hover {
   padding: 15px 0 15px 0;
 }
 
+/* Keep the logo above the full-height nav section (Foundation gives it z-index:98)
+   so the section's full-width box doesn't intercept clicks on the logo */
+.top-bar .title-area {
+  position: relative;
+  z-index: 100;
+}
+
 .top-bar-section {
   height: 100%;
 }
