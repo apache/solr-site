@@ -16,7 +16,7 @@
  specific language governing permissions and limitations
  under the License.
 */
-;(function() {
+;(function($) {
 
   /*
    * --------------------------------------------------------------------------
@@ -53,13 +53,16 @@
    */
   $(function() {
     var header = $(".top-bar")
+    var subNav = $(".anchor-top")
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
-        if (scroll >= 150) {
+        if (scroll >= 50) {
             $(header).addClass("shrink");
+            $(subNav).addClass("anchor-fixed");
         }
-        if (scroll < 150) {
+        if (scroll < 50) {
             $(header).removeClass("shrink");
+            $(subNav).removeClass("anchor-fixed");
         }
     });
   });
@@ -163,32 +166,4 @@
 
     }])
 
-    .directive('anchorTop', ['$window', function($window) {
-      return {
-        restrict: 'C',
-        scopr: true,
-        link: function(scope, el, attrs) {
-
-          var windowEl = angular.element($window),
-            offset = el.offset().top,
-            handler = function() {
-              scope.scroll = windowEl.scrollTop()
-            }
-
-          windowEl.on('scroll', scope.$apply.bind(scope, handler))
-          handler();
-
-          scope.$watch('scroll', function(n, o, s) {
-            var difference = (-1 * (offset - n)) + 57;
-            if(difference > 0) {
-              el.addClass('anchor-fixed')
-            } else {
-              el.removeClass('anchor-fixed')
-            }
-          })
-
-        }
-      }
-    }])
-
-})()
+})(jQuery)

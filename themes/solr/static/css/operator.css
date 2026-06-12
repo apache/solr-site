@@ -22,7 +22,7 @@ html, body {
 }
 
 body {
-  overflow-x:hidden;
+  overflow-x: clip; /* clip (not hidden) so it doesn't create a scroll container that breaks position:sticky */
   pointer-events: none;
 }
 
@@ -153,8 +153,17 @@ button.white:hover {
   height: 100%;
   position:relative;
   left: 15px;
-  padding: 20px 0 25px 0;
+  padding: 15px 0 15px 0;
 }
+
+.top-bar-section {
+  height: 100%;
+}
+
+.top-bar-section ul li {
+  height: 100%;
+  align-content: center;
+ }
 
 .top-bar-section ul li, .top-bar-section li:not(.has-form) a:not(.button) {
   background: #865981;
@@ -201,7 +210,7 @@ button.white:hover {
 /* full-width nav styles */
 @media only screen and (min-width: 47.5em) {
   .top-bar-section .navigation {
-    margin: 20px 20px 20px 0;
+    height: 100% !important;
   }
   .top-bar .name .logo {
     left: 15px;
@@ -237,10 +246,6 @@ button.white:hover {
 
 .top-bar.shrink .top-bar-section li:not(.has-form) a:not(.button) {
   line-height: 35px;
-}
-
-.top-bar.shrink .navigation {
-  margin: 10px 15px 10px 0;
 }
 
 .top-bar.shrink.expanded .navigation {
@@ -794,10 +799,16 @@ section.list ul li ul li {
 }
 
 
+.anchor-top {
+  z-index: 10;
+  top: 90px;
+  position: sticky;
+  width: 100%;
+  max-width: 100%;
+}
+
 .anchor-fixed {
-  top: 57px;
-  z-index: 1000;
-  position: fixed;
+  top: 55px;
 }
 
 /*
@@ -809,9 +820,9 @@ section.list ul li ul li {
 }
 
 .sub-nav-container {
-  height: 100px;
-  width: 1000px;
-  margin: 0 auto;
+  /* display:contents so the sticky .anchor-top child is contained by the tall
+     .container (not this short wrapper), giving it room to stay pinned */
+  display: contents;
 }
 
 .sub-nav-border {
@@ -819,7 +830,6 @@ section.list ul li ul li {
   background: white;
   border-top: 1px solid #e4e2dd;
   border-bottom: 1px solid #e4e2dd;
-  margin: 0 auto 30px auto;
 }
 
 .sub-nav dd {
@@ -831,7 +841,7 @@ section.list ul li ul li {
   padding-left: 15px;
   border-right:1px solid #e4e2dd;
   position: relative;
-  z-index: 2000;
+  z-index: 10;
 }
 
 .codehilite {
@@ -1030,4 +1040,8 @@ ul li div.box div.img.logo-container.orange-background {
 .full-width .gray .box.logo-box {
   position: relative; 
   border: 1px solid #CCC;
+}
+
+:target {
+  scroll-margin-top: -5px; /* By default some cut off text will be included otherwise */
 }
