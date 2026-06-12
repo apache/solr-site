@@ -235,7 +235,7 @@ Also, let’s not create any collections or load data just yet as we want to loc
 #### Zookeeper Connection
 
 Solr Cloud depends on Apache Zookeeper. 
-In the `explore` SolrCloud definition, I'm using the [provided](https://solr.apache.org/guide/operator/latest/solr-cloud/solr-cloud-crd.html#zookeeper-reference) option, which means the Solr operator _provides_ a Zookeeper ensemble for the SolrCloud instance. 
+In the `explore` SolrCloud definition, I'm using the [provided](https://solr.apache.org/guide/operator/latest/solr-cloud/zookeeper.html) option, which means the Solr operator _provides_ a Zookeeper ensemble for the SolrCloud instance. 
 Behind the scenes, the Solr operator defines a `ZookeeperCluster` CRD instance, which is managed by the Zookeeper operator.
 The `provided` option is useful for getting started and development but does not expose all the configuration options supported by the Zookeeper operator. 
 For production deployments, consider defining your own `ZookeeperCluster` outside of the SolrCloud CRD definition and then simply pointing to the Zookeeper ensemble connection string using `connectionInfo` under `spec.zookeeperRef`.
