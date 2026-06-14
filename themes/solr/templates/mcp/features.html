@@ -9,7 +9,7 @@
   </div>
   <h1>Powerful MCP Tools for Solr</h1>
   <p>
-    11 tools, 6 prompts, and 2 resources that let AI assistants search, index, and manage your Solr collections through natural language.
+    11 tools, 6 prompts, 2 resources, and argument autocompletion that let AI assistants search, index, and manage your Solr collections through natural language.
   </p>
   <div class="down-arrow"><a data-scroll href="#tools"><i class="fa fa-angle-down fa-2x red"></i></a></div>
 </div>
@@ -185,6 +185,51 @@
   </div>
 </section>
 
+<section class="gray offset-small" id="completions">
+  <div class="row">
+    <div class="large-10 large-offset-1 columns">
+      <div class="annotation">MCP Completions</div>
+      <h1>Argument Autocompletion</h1>
+      <p>The server implements MCP completions, so clients can suggest valid values as the user types &mdash; for resource-template variables and prompt arguments. Suggestions are matched case-insensitively by prefix and capped at 100 per request.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-10 large-offset-1 columns" style="text-align:left;">
+      <table style="width:100%">
+        <thead><tr><th>Completion target</th><th>Argument</th><th>Suggests</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>solr://{collection}/schema</code> resource</td>
+            <td><code>collection</code></td>
+            <td>Live collection names in the cluster.</td>
+          </tr>
+          <tr>
+            <td><code>search-collection</code> prompt</td>
+            <td><code>collection</code></td>
+            <td>Live collection names in the cluster.</td>
+          </tr>
+          <tr>
+            <td><code>index-data</code> prompt</td>
+            <td><code>collection</code></td>
+            <td>Live collection names in the cluster.</td>
+          </tr>
+          <tr>
+            <td><code>view-schema</code> prompt</td>
+            <td><code>collection</code></td>
+            <td>Live collection names in the cluster.</td>
+          </tr>
+          <tr>
+            <td><code>design-schema</code> prompt</td>
+            <td><code>collection</code></td>
+            <td>Live collection names in the cluster.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <section class="gray col-4 offset-small" id="platform">
   <div class="row">
     <div class="large-10 large-offset-1 columns">
@@ -240,7 +285,7 @@
         <tbody>
           <tr><td><code>SOLR_URL</code></td><td>Solr base URL</td><td><code>http://localhost:8983/solr/</code></td></tr>
           <tr><td><code>PROFILES</code></td><td>Transport mode: <code>stdio</code> or <code>http</code></td><td><code>stdio</code></td></tr>
-          <tr><td><code>SECURITY_ENABLED</code></td><td>Enable OAuth2 authentication (HTTP only)</td><td><code>false</code></td></tr>
+          <tr><td><code>HTTP_SECURITY_ENABLED</code></td><td>OAuth2 enforcement in HTTP mode (set <code>false</code> to disable for local dev)</td><td><code>true</code></td></tr>
           <tr><td><code>OAUTH2_ISSUER_URI</code></td><td>OAuth2 issuer URL (Auth0, Keycloak, Okta)</td><td>&mdash;</td></tr>
           <tr><td><code>OTEL_SAMPLING_PROBABILITY</code></td><td>Tracing sampling rate (0.0&ndash;1.0)</td><td><code>1.0</code></td></tr>
           <tr><td><code>OTEL_TRACES_URL</code></td><td>OTLP collector endpoint</td><td><code>http://localhost:4317</code></td></tr>
