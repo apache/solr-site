@@ -49,6 +49,20 @@
   });
 
   /*
+   * Mobile: tap a top-nav dropdown parent (Learn/About) to expand its submenu
+   * instead of navigating. Desktop (hover) is unaffected.
+   */
+  $(function() {
+    $('.top-bar-section .has-dropdown > a').on('click', function(e) {
+      if (window.matchMedia('(max-width: 40em)').matches) {
+        e.preventDefault();
+        e.stopPropagation(); // keep Foundation's topbar handler from also firing
+        $(this).parent('.has-dropdown').toggleClass('mobile-open');
+      }
+    });
+  });
+
+  /*
    * Shrinking top-bar
    */
   $(function() {

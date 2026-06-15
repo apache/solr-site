@@ -1217,6 +1217,11 @@ details pre {
   min-width: 190px;
 }
 
+/* Drop the "Back" / duplicated-title items Foundation's topbar JS injects */
+.top-bar-section .navigation .dropdown li.js-generated, li.parent-link {
+  display: none !important;
+}
+
 .top-bar-section .has-dropdown>a {
   height: 100%;
   align-content: center;
@@ -1234,6 +1239,7 @@ details pre {
   white-space: nowrap;
   text-align: left;
   color: #fff;
+  font-size: 0.92rem; /* match the top-level nav items */
   z-index: 100;
 }
 
@@ -1247,3 +1253,35 @@ details pre {
    background: #D9411E;
    color: #25202f;
  }
+
+/*
+ * Thin screens: the top bar collapses to Foundation's hamburger menu. Undo the
+ * desktop full-height layout, and make the Learn/About submenus tap-to-expand
+ * accordions (collapsed by default; main.js toggles .mobile-open on tap).
+ */
+@media only screen and (max-width: 40em) {
+  .top-bar-section,
+  .top-bar-section ul li,
+  .top-bar-section .navigation li.has-dropdown > a {
+    height: auto;
+  }
+  .top-bar-section .navigation li.has-dropdown > ul.dropdown {
+    position: static !important;
+    width: 100% !important;
+    min-width: 0;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    display: none !important; /* collapsed until the parent is tapped */
+  }
+  .top-bar-section .navigation li.has-dropdown.mobile-open > ul.dropdown {
+    display: block !important;
+  }
+  /* Flip the caret to indicate expanded state */
+  .top-bar-section .navigation li.has-dropdown.mobile-open > a:after {
+    transform: rotate(180deg);
+  }
+}

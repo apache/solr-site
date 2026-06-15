@@ -1052,3 +1052,14 @@ ul li div.box div.img.logo-container.orange-background {
 :target {
   scroll-margin-top: -5px; /* By default some cut off text will be included otherwise */
 }
+
+/*
+ * Thin screens: the top bar collapses to Foundation's hamburger menu. Undo the
+ * desktop full-height layout so the menu items stack and size to their content.
+ */
+@media only screen and (max-width: 40em) {
+  .top-bar-section,
+  .top-bar-section ul li {
+    height: auto;
+  }
+}
