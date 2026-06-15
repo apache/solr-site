@@ -1265,6 +1265,11 @@ details pre {
   .top-bar-section .navigation li.has-dropdown > a {
     height: auto;
   }
+  /* Anchor the caret to the parent link, not the (now in-flow, tall) li,
+     so it stays on the title row instead of dropping onto the first sub-item */
+  .top-bar-section .navigation li.has-dropdown > a {
+    position: relative;
+  }
   .top-bar-section .navigation li.has-dropdown > ul.dropdown {
     position: static !important;
     width: 100% !important;
