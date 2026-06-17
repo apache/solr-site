@@ -158,10 +158,9 @@ def pelican_init(pelicanobj):
 
 
 def generator_initialized(generator):
-    # The dependency-CVE table (security-dependency-cves.html) lists the entries
-    # that name vulnerable JARs; advisory-only entries (no 'jars') are excluded.
-    articles = read_vex_articles(generator.settings['PATH'])
-    generator.context["vex"] = [a for a in articles if a['jars']]
+    # The CVE table (security-dependency-cves.html) lists every VEX entry,
+    # regardless of state or whether it names vulnerable JARs.
+    generator.context["vex"] = read_vex_articles(generator.settings['PATH'])
 
 
 def set_vex_slug(content):
