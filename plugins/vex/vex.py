@@ -158,8 +158,7 @@ def pelican_init(pelicanobj):
 
 
 def generator_initialized(generator):
-    # The CVE table (security-dependency-cves.html) lists every VEX entry,
-    # regardless of state or whether it names vulnerable JARs.
+    # The CVE table (security-dependency-cves.html) lists every VEX entry.
     generator.context["vex"] = read_vex_articles(generator.settings['PATH'])
 
 
