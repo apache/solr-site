@@ -42,7 +42,119 @@ Explicitly setting &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;true&lt;
 &lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://solr.apache.org/guide/solr/latest/deployment-guide/jwt-authentication-plugin.html"&gt;JWT Authentication Plugin documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>Apache Log4j Core: TLS hostname verification silently ignored in Socket, SMTP and Syslog appenders</title><link href="/cve-2026-34477.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34477.html</id><summary type="html">&lt;p&gt;CVE-2026-34477 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+&lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>Apache OpenNLP: XXE in dictionary parsing</title><link href="/cve-2026-40682.html" rel="alternate"/><published>2026-05-04T00:00:00+00:00</published><updated>2026-05-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-04:/cve-2026-40682.html</id><summary type="html">&lt;p&gt;CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's
+dictionary parsing. The &lt;code&gt;DictionaryEntryPersistor&lt;/code&gt; class and the public &lt;code&gt;Dictionary(InputStream)&lt;/code&gt;
+constructor create a SAX parser without enabling &lt;code&gt;FEATURE_SECURE_PROCESSING&lt;/code&gt; or disabling DTD
+processing, so external entity resolution and DOCTYPE declarations remain fully enabled. An attacker
+who can …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's
+dictionary parsing. The &lt;code&gt;DictionaryEntryPersistor&lt;/code&gt; class and the public &lt;code&gt;Dictionary(InputStream)&lt;/code&gt;
+constructor create a SAX parser without enabling &lt;code&gt;FEATURE_SECURE_PROCESSING&lt;/code&gt; or disabling DTD
+processing, so external entity resolution and DOCTYPE declarations remain fully enabled. An attacker
+who can supply a crafted dictionary file — either directly or embedded in a model archive that
+OpenNLP deserializes — can therefore read local files from the server or trigger outbound requests
+(server-side request forgery). Other OpenNLP XML parsing paths route through the hardened
+&lt;code&gt;XmlUtil.createSaxParser()&lt;/code&gt; helper, but this code path does not.&lt;/p&gt;
+&lt;p&gt;The vulnerable code is present in the &lt;code&gt;opennlp-tools-1.9.4.jar&lt;/code&gt; that Solr pulls in transitively via
+&lt;code&gt;lucene-analysis-opennlp&lt;/code&gt; (Lucene 9.12.3). There is a &lt;code&gt;opennlp-tools-1.9.5&lt;/code&gt; release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which parse dictionaries with secure
+XML processing that rejects DOCTYPE declarations and external entities.&lt;/p&gt;
+&lt;h4 id="when-solr-is-exposed"&gt;When Solr is exposed&lt;a class="headerlink" href="#when-solr-is-exposed" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;OpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed
+modules are enabled. The vulnerable dictionary-parsing code path becomes reachable when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;analysis-extras&lt;/code&gt; and/or &lt;code&gt;langid&lt;/code&gt; modules are enabled — they are not loaded by default.&lt;/li&gt;
+&lt;li&gt;OpenNLP analysis components or update processors are configured to load OpenNLP model or
+  dictionary files (the schema-configured OpenNLP analyzers — tokenizer, POS, chunker, lemmatizer,
+  name-finder — or the &lt;code&gt;langid&lt;/code&gt; / &lt;code&gt;analysis-extras&lt;/code&gt; update processors).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Any deployment that enables these modules and parses an OpenNLP model or dictionary an attacker can
+influence is exploitable. A deployment that does not enable them never parses an OpenNLP dictionary
+and is not exposed.&lt;/p&gt;
+&lt;h4 id="mitigation"&gt;Mitigation&lt;a class="headerlink" href="#mitigation" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The most reliable mitigation is to &lt;strong&gt;not enable the OpenNLP-backed &lt;code&gt;analysis-extras&lt;/code&gt; or &lt;code&gt;langid&lt;/code&gt;
+modules&lt;/strong&gt; unless they are required. If you do use OpenNLP, load model and dictionary files only from
+locations you fully control, since the bundled OpenNLP 1.9.4 does not disable external entities when
+parsing dictionaries.&lt;/p&gt;
+&lt;p&gt;Every OpenNLP model and dictionary is loaded as a resource through Solr's resource loaders, so the
+archive passes through a single chokepoint before OpenNLP is allowed to deserialize it. This applies
+to both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments, and whether the
+dictionary is loaded by the &lt;code&gt;langid&lt;/code&gt; / &lt;code&gt;analysis-extras&lt;/code&gt; update processors or by the
+schema-configured OpenNLP analyzers.&lt;/p&gt;
+&lt;p&gt;Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via &lt;code&gt;lucene-analysis-opennlp&lt;/code&gt;) to 2.5.9.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache OpenNLP: Arbitrary class instantiation via model manifest</title><link href="/cve-2026-42027.html" rel="alternate"/><published>2026-05-04T00:00:00+00:00</published><updated>2026-05-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-04:/cve-2026-42027.html</id><summary type="html">&lt;p&gt;CVE-2026-42027 (CVSS 9.8) is an arbitrary class instantiation issue in Apache OpenNLP's
+&lt;code&gt;ExtensionLoader&lt;/code&gt;. The &lt;code&gt;instantiateExtension(Class, String)&lt;/code&gt; method loads a class named in a
+model archive's &lt;code&gt;manifest.properties&lt;/code&gt; via &lt;code&gt;Class.forName()&lt;/code&gt; and only performs its
+&lt;code&gt;isAssignableFrom&lt;/code&gt; type check &lt;em&gt;after&lt;/em&gt; the class has been loaded. Because &lt;code&gt;Class.forName()&lt;/code&gt;
+runs the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-42027 (CVSS 9.8) is an arbitrary class instantiation issue in Apache OpenNLP's
+&lt;code&gt;ExtensionLoader&lt;/code&gt;. The &lt;code&gt;instantiateExtension(Class, String)&lt;/code&gt; method loads a class named in a
+model archive's &lt;code&gt;manifest.properties&lt;/code&gt; via &lt;code&gt;Class.forName()&lt;/code&gt; and only performs its
+&lt;code&gt;isAssignableFrom&lt;/code&gt; type check &lt;em&gt;after&lt;/em&gt; the class has been loaded. Because &lt;code&gt;Class.forName()&lt;/code&gt;
+runs the target class's static initializer at load time, an attacker who can supply a crafted
+model archive can trigger the static initializer of any class on the classpath (e.g. one that
+performs a JNDI lookup, outbound network I/O, or filesystem access), regardless of the
+type check that follows.&lt;/p&gt;
+&lt;p&gt;The vulnerable code is present in the &lt;code&gt;opennlp-tools-1.9.4.jar&lt;/code&gt; that Solr pulls in transitively
+via &lt;code&gt;lucene-analysis-opennlp&lt;/code&gt; (Lucene 9.12.3). There is a &lt;code&gt;opennlp-tools-1.9.5&lt;/code&gt; release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which consults a
+package-prefix allowlist &lt;em&gt;before&lt;/em&gt; calling &lt;code&gt;Class.forName()&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id="when-solr-is-exposed"&gt;When Solr is exposed&lt;a class="headerlink" href="#when-solr-is-exposed" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;OpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed
+modules are enabled. The vulnerable code path becomes reachable when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;analysis-extras&lt;/code&gt; and/or &lt;code&gt;langid&lt;/code&gt; modules are enabled — they are not loaded by default.&lt;/li&gt;
+&lt;li&gt;OpenNLP analysis components or update processors are configured to load model files.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Any deployment that enables these modules and loads an OpenNLP model an attacker can influence is
+exploitable. A deployment that does not enable them never invokes &lt;code&gt;ExtensionLoader&lt;/code&gt; and is not
+exposed.&lt;/p&gt;
+&lt;h4 id="mitigation"&gt;Mitigation&lt;a class="headerlink" href="#mitigation" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The most reliable mitigation is to &lt;strong&gt;not enable the OpenNLP-backed &lt;code&gt;analysis-extras&lt;/code&gt; or &lt;code&gt;langid&lt;/code&gt;
+modules&lt;/strong&gt; unless they are required. If you do use OpenNLP, load model files only from locations you
+fully control and never from untrusted or user-supplied sources.&lt;/p&gt;
+&lt;p&gt;In Solr 9.11.0 the upstream allowlist defense is backfilled at the application layer, since the
+vulnerable jar cannot yet be upgraded (Solr must track the OpenNLP version used by
+&lt;code&gt;lucene-analysis-opennlp&lt;/code&gt;). Every OpenNLP model is loaded as a resource through Solr's resource
+loaders, so the archive is validated at that single chokepoint before OpenNLP is allowed to
+deserialize it:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The archive is opened as a ZIP and every class name it declares — the &lt;code&gt;manifest.properties&lt;/code&gt;
+  &lt;code&gt;factory&lt;/code&gt; entry and any class referenced from embedded feature-generator XML descriptors — must
+  resolve under the &lt;code&gt;opennlp.&lt;/code&gt; package prefix.&lt;/li&gt;
+&lt;li&gt;A model that names a class outside that prefix is rejected and never reaches &lt;code&gt;ExtensionLoader&lt;/code&gt;,
+  so no attacker-controlled static initializer can run.&lt;/li&gt;
+&lt;li&gt;Validation covers both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments,
+  and applies whether the model is loaded by the &lt;code&gt;langid&lt;/code&gt; / &lt;code&gt;analysis-extras&lt;/code&gt; update processors or
+  by the schema-configured OpenNLP analyzers (tokenizer, POS, chunker, lemmatizer, name-finder).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr's own usage only ever references built-in &lt;code&gt;opennlp.*&lt;/code&gt; factories, so legitimate models load
+unchanged; only crafted models that try to instantiate arbitrary classes are blocked.&lt;/p&gt;
+&lt;p&gt;Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via &lt;code&gt;lucene-analysis-opennlp&lt;/code&gt;) to 2.5.9.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache OpenNLP: Out-of-memory denial of service via crafted model file</title><link href="/cve-2026-42440.html" rel="alternate"/><published>2026-05-04T00:00:00+00:00</published><updated>2026-05-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-04:/cve-2026-42440.html</id><summary type="html">&lt;p&gt;CVE-2026-42440 (CVSS 7.5) is an out-of-memory denial-of-service issue in Apache OpenNLP's binary
+model reader. The &lt;code&gt;AbstractModelReader&lt;/code&gt; methods &lt;code&gt;getOutcomes()&lt;/code&gt;, &lt;code&gt;getOutcomePatterns()&lt;/code&gt; and
+&lt;code&gt;getPredicates()&lt;/code&gt; read a 32-bit signed integer count field from a binary model stream and pass it
+directly to an array allocation without validating it. An attacker who can supply …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-42440 (CVSS 7.5) is an out-of-memory denial-of-service issue in Apache OpenNLP's binary
+model reader. The &lt;code&gt;AbstractModelReader&lt;/code&gt; methods &lt;code&gt;getOutcomes()&lt;/code&gt;, &lt;code&gt;getOutcomePatterns()&lt;/code&gt; and
+&lt;code&gt;getPredicates()&lt;/code&gt; read a 32-bit signed integer count field from a binary model stream and pass it
+directly to an array allocation without validating it. An attacker who can supply a crafted &lt;code&gt;.bin&lt;/code&gt;
+model file with a count set to &lt;code&gt;Integer.MAX_VALUE&lt;/code&gt; triggers an immediate &lt;code&gt;OutOfMemoryError&lt;/code&gt; during
+model deserialization, before any substantial data is consumed.&lt;/p&gt;
+&lt;p&gt;The vulnerable code is present in the &lt;code&gt;opennlp-tools-1.9.4.jar&lt;/code&gt; that Solr pulls in transitively via
+&lt;code&gt;lucene-analysis-opennlp&lt;/code&gt; (Lucene 9.12.3). There is a &lt;code&gt;opennlp-tools-1.9.5&lt;/code&gt; release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which validate the count against an
+upper bound (default 10,000,000, configurable via the &lt;code&gt;OPENNLP_MAX_ENTRIES&lt;/code&gt; system property) before
+allocating.&lt;/p&gt;
+&lt;h4 id="when-solr-is-exposed"&gt;When Solr is exposed&lt;a class="headerlink" href="#when-solr-is-exposed" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;OpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed
+modules are enabled. The vulnerable model-loading code path becomes reachable when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;analysis-extras&lt;/code&gt; and/or &lt;code&gt;langid&lt;/code&gt; modules are enabled — they are not loaded by default.&lt;/li&gt;
+&lt;li&gt;OpenNLP analysis components or update processors are configured to load OpenNLP model files (the
+  schema-configured OpenNLP analyzers — tokenizer, POS, chunker, lemmatizer, name-finder — or the
+  &lt;code&gt;langid&lt;/code&gt; / &lt;code&gt;analysis-extras&lt;/code&gt; update processors).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Any deployment that enables these modules and loads an OpenNLP model an attacker can influence is
+exploitable. A deployment that does not enable them never deserializes an OpenNLP model and is not
+exposed.&lt;/p&gt;
+&lt;h4 id="mitigation"&gt;Mitigation&lt;a class="headerlink" href="#mitigation" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The most reliable mitigation is to &lt;strong&gt;not enable the OpenNLP-backed &lt;code&gt;analysis-extras&lt;/code&gt; or &lt;code&gt;langid&lt;/code&gt;
+modules&lt;/strong&gt; unless they are required. If you do use OpenNLP, load model files only from locations you
+fully control and never from untrusted or user-supplied sources.&lt;/p&gt;
+&lt;p&gt;Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via &lt;code&gt;lucene-analysis-opennlp&lt;/code&gt;) to 2.5.9.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Log4j Core: TLS hostname verification silently ignored in Socket, SMTP and Syslog appenders</title><link href="/cve-2026-34477.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34477.html</id><summary type="html">&lt;p&gt;CVE-2026-34477 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
 Successful exploitation requires a specific, non-default logging configuration together with a privileged network position.
 The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
@@ -1517,70 +1629,4 @@ See &lt;a href="https://lists.apache.org/thread/kgh63sncrsm2bls884pg87mnt8vqztmz
 &lt;p&gt;&lt;a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html"&gt;https://apache.github.io/solr-operator/docs/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog"&gt;https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.4.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.4.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry><entry><title>Apache Solr™ 8.9.0 available</title><link href="/apache-solrtm-890-available.html" rel="alternate"/><published>2021-06-16T00:00:00+00:00</published><updated>2021-06-16T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-06-16:/apache-solrtm-890-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 8.9.0.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 8.9.0.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 8.9.0 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-890-release-highlights"&gt;Solr 8.9.0 Release Highlights:&lt;a class="headerlink" href="#solr-890-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Backup/Restore: Support for incremental backups, support for storing backups in Google Cloud Storage (GCS), ability to restore on top of an existing collection. Improved v2 API. Please see CHANGES.txt for details. (SOLR-15087, SOLR-15090, SOLR-13608, SOLR-15101)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Monitoring: New "Solr Cluster" row in Grafana dashboard, improved Zookeeper monitoring, new shard health info in CLUSTERSTATUS and more. Please see CHANGES.txt for details. (SOLR-15365, SOLR-15397, SOLR-15300, SOLR-15081, SOLR-15383)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Deprecations: The Metrics history feature has been deprecated and will be removed in 9.0 (SOLR-15416)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Admin UI: Query page now stores state in URL and can easily be shared (SOLR-6152)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Security: Jetty server upgraded to 9.4.41 which fixes some known vulnerabilities (SOLR-15316)&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A summary of important changes is published in the Solr Reference Guide at &lt;a href="https://solr.apache.org/guide/8_9/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/8_9/solr-upgrade-notes.html&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;For the most exhaustive list, see the full release notes at &lt;a href="https://solr.apache.org/8_9_0/changes/Changes.html"&gt;https://solr.apache.org/8_9_0/changes/Changes.html&lt;/a&gt; or by viewing the CHANGES.txt file accompanying the distribution.&lt;/p&gt;
-&lt;p&gt;Solr's release notes usually don't include Lucene layer changes.  Lucene's release notes are at &lt;a href="https://lucene.apache.org/core/8_9_0/changes/Changes.html"&gt;https://lucene.apache.org/core/8_9_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr Operator™ v0.3.0 available</title><link href="/apache-solr-operatortm-v030-available.html" rel="alternate"/><published>2021-04-29T00:00:00+00:00</published><updated>2021-04-29T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-29:/apache-solr-operatortm-v030-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of the Apache Solr Operator v0.3.0.&lt;/p&gt;
-&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
-&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of the Apache Solr Operator v0.3.0.&lt;/p&gt;
-&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
-&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v030-release-highlights"&gt;Solr Operator v0.3.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v030-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The Solr Operator is now an Apache project managed by the Apache Solr PMC.&lt;/li&gt;
-&lt;li&gt;The CRDs are now under the solr.apache.org group instead of solr.bloomberg.com.&lt;/li&gt;
-&lt;li&gt;The Solr Operator now fully supports running Solr in a secure and locked down way:&lt;/li&gt;
-&lt;li&gt;Basic Auth support is now built in when requested in the SolrCloud CRD&lt;/li&gt;
-&lt;li&gt;Solr can be run with TLS (optional mTLS, if provided to the operator)&lt;/li&gt;
-&lt;li&gt;More helm chart options are provided to customize running the Solr Operator&lt;/li&gt;
-&lt;li&gt;The Zookeeper Operator is now up-to-date with the most recent release, v0.2.9.&lt;/li&gt;
-&lt;li&gt;It can now be installed as a helm-chart dependency with the Solr Operator.&lt;/li&gt;
-&lt;li&gt;Users can now provide custom Solr log4j.xml and Prometheus Exporter config xml configMaps&lt;/li&gt;
-&lt;li&gt;Fixed a bug in custom probes for Solr pods&lt;/li&gt;
-&lt;li&gt;Solr pod shutdown is more graceful, has better coordination between Kubernetes and Solr.&lt;/li&gt;
-&lt;li&gt;SolrCloud can now be used with the Kubernetes HPA to autoscale Solr Cloud pods.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A summary of important changes is published in the documentation at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html"&gt;https://apache.github.io/solr-operator/docs/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;For the most exhaustive list, see the full release notes in the Github Releases or by viewing the git history in the solr-operator repo.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.3.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.3.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry><entry><title>Apache Solr™ 8.8.2 available</title><link href="/apache-solrtm-882-available.html" rel="alternate"/><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/apache-solrtm-882-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 8.8.2.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 8.8.2.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 8.8.2 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-882-release-highlights"&gt;Solr 8.8.2 Release Highlights:&lt;a class="headerlink" href="#solr-882-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;SOLR-15249: Properly set ZK ACLs on /security.json&lt;/li&gt;
-&lt;li&gt;SOLR-15233: Set doAs param in ConfigurableInternodeAuthHadoopPlugin&lt;/li&gt;
-&lt;li&gt;SOLR-15217: Use shardsWhitelist in ReplicationHandler&lt;/li&gt;
-&lt;li&gt;SOLR-15288: Hardening NODEDOWN event in collections using PerReplicaStates&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/8_8/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/8_8/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/8_8_2/changes/Changes.html"&gt;https://solr.apache.org/8_8_2/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Solr 8.8.2 also includes bugfixes in the corresponding Apache Lucene release:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://lucene.apache.org/core/8_8_2/changes/Changes.html"&gt;https://lucene.apache.org/core/8_8_2/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
+&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.4.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.4.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry></feed>

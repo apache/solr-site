@@ -1,5 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/vex</title><link href="/" rel="alternate"/><link href="/feeds/solr/vex.atom.xml" rel="self"/><id>/</id><updated>2026-04-10T00:00:00+00:00</updated><entry><title>Apache Log4j Core: TLS hostname verification silently ignored in Socket, SMTP and Syslog appenders</title><link href="/cve-2026-34477.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34477.html</id><summary type="html">&lt;p&gt;CVE-2026-34477 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/vex</title><link href="/" rel="alternate"/><link href="/feeds/solr/vex.atom.xml" rel="self"/><id>/</id><updated>2026-05-04T00:00:00+00:00</updated><entry><title>Apache OpenNLP: XXE in dictionary parsing</title><link href="/cve-2026-40682.html" rel="alternate"/><published>2026-05-04T00:00:00+00:00</published><updated>2026-05-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-04:/cve-2026-40682.html</id><summary type="html">&lt;p&gt;CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's
+dictionary parsing. The &lt;code&gt;DictionaryEntryPersistor&lt;/code&gt; class and the public &lt;code&gt;Dictionary(InputStream)&lt;/code&gt;
+constructor create a SAX parser without enabling &lt;code&gt;FEATURE_SECURE_PROCESSING&lt;/code&gt; or disabling DTD
+processing, so external entity resolution and DOCTYPE declarations remain fully enabled. An attacker
+who can …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's
+dictionary parsing. The &lt;code&gt;DictionaryEntryPersistor&lt;/code&gt; class and the public &lt;code&gt;Dictionary(InputStream)&lt;/code&gt;
+constructor create a SAX parser without enabling &lt;code&gt;FEATURE_SECURE_PROCESSING&lt;/code&gt; or disabling DTD
+processing, so external entity resolution and DOCTYPE declarations remain fully enabled. An attacker
+who can supply a crafted dictionary file — either directly or embedded in a model archive that
+OpenNLP deserializes — can therefore read local files from the server or trigger outbound requests
+(server-side request forgery). Other OpenNLP XML parsing paths route through the hardened
+&lt;code&gt;XmlUtil.createSaxParser()&lt;/code&gt; helper, but this code path does not.&lt;/p&gt;
+&lt;p&gt;The vulnerable code is present in the &lt;code&gt;opennlp-tools-1.9.4.jar&lt;/code&gt; that Solr pulls in transitively via
+&lt;code&gt;lucene-analysis-opennlp&lt;/code&gt; (Lucene 9.12.3). There is a &lt;code&gt;opennlp-tools-1.9.5&lt;/code&gt; release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which parse dictionaries with secure
+XML processing that rejects DOCTYPE declarations and external entities.&lt;/p&gt;
+&lt;h4 id="when-solr-is-exposed"&gt;When Solr is exposed&lt;a class="headerlink" href="#when-solr-is-exposed" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;OpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed
+modules are enabled. The vulnerable dictionary-parsing code path becomes reachable when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;analysis-extras&lt;/code&gt; and/or &lt;code&gt;langid&lt;/code&gt; modules are enabled — they are not loaded by default.&lt;/li&gt;
+&lt;li&gt;OpenNLP analysis components or update processors are configured to load OpenNLP model or
+  dictionary files (the schema-configured OpenNLP analyzers — tokenizer, POS, chunker, lemmatizer,
+  name-finder — or the &lt;code&gt;langid&lt;/code&gt; / &lt;code&gt;analysis-extras&lt;/code&gt; update processors).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Any deployment that enables these modules and parses an OpenNLP model or dictionary an attacker can
+influence is exploitable. A deployment that does not enable them never parses an OpenNLP dictionary
+and is not exposed.&lt;/p&gt;
+&lt;h4 id="mitigation"&gt;Mitigation&lt;a class="headerlink" href="#mitigation" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The most reliable mitigation is to &lt;strong&gt;not enable the OpenNLP-backed &lt;code&gt;analysis-extras&lt;/code&gt; or &lt;code&gt;langid&lt;/code&gt;
+modules&lt;/strong&gt; unless they are required. If you do use OpenNLP, load model and dictionary files only from
+locations you fully control, since the bundled OpenNLP 1.9.4 does not disable external entities when
+parsing dictionaries.&lt;/p&gt;
+&lt;p&gt;Every OpenNLP model and dictionary is loaded as a resource through Solr's resource loaders, so the
+archive passes through a single chokepoint before OpenNLP is allowed to deserialize it. This applies
+to both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments, and whether the
+dictionary is loaded by the &lt;code&gt;langid&lt;/code&gt; / &lt;code&gt;analysis-extras&lt;/code&gt; update processors or by the
+schema-configured OpenNLP analyzers.&lt;/p&gt;
+&lt;p&gt;Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via &lt;code&gt;lucene-analysis-opennlp&lt;/code&gt;) to 2.5.9.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache OpenNLP: Arbitrary class instantiation via model manifest</title><link href="/cve-2026-42027.html" rel="alternate"/><published>2026-05-04T00:00:00+00:00</published><updated>2026-05-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-04:/cve-2026-42027.html</id><summary type="html">&lt;p&gt;CVE-2026-42027 (CVSS 9.8) is an arbitrary class instantiation issue in Apache OpenNLP's
+&lt;code&gt;ExtensionLoader&lt;/code&gt;. The &lt;code&gt;instantiateExtension(Class, String)&lt;/code&gt; method loads a class named in a
+model archive's &lt;code&gt;manifest.properties&lt;/code&gt; via &lt;code&gt;Class.forName()&lt;/code&gt; and only performs its
+&lt;code&gt;isAssignableFrom&lt;/code&gt; type check &lt;em&gt;after&lt;/em&gt; the class has been loaded. Because &lt;code&gt;Class.forName()&lt;/code&gt;
+runs the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-42027 (CVSS 9.8) is an arbitrary class instantiation issue in Apache OpenNLP's
+&lt;code&gt;ExtensionLoader&lt;/code&gt;. The &lt;code&gt;instantiateExtension(Class, String)&lt;/code&gt; method loads a class named in a
+model archive's &lt;code&gt;manifest.properties&lt;/code&gt; via &lt;code&gt;Class.forName()&lt;/code&gt; and only performs its
+&lt;code&gt;isAssignableFrom&lt;/code&gt; type check &lt;em&gt;after&lt;/em&gt; the class has been loaded. Because &lt;code&gt;Class.forName()&lt;/code&gt;
+runs the target class's static initializer at load time, an attacker who can supply a crafted
+model archive can trigger the static initializer of any class on the classpath (e.g. one that
+performs a JNDI lookup, outbound network I/O, or filesystem access), regardless of the
+type check that follows.&lt;/p&gt;
+&lt;p&gt;The vulnerable code is present in the &lt;code&gt;opennlp-tools-1.9.4.jar&lt;/code&gt; that Solr pulls in transitively
+via &lt;code&gt;lucene-analysis-opennlp&lt;/code&gt; (Lucene 9.12.3). There is a &lt;code&gt;opennlp-tools-1.9.5&lt;/code&gt; release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which consults a
+package-prefix allowlist &lt;em&gt;before&lt;/em&gt; calling &lt;code&gt;Class.forName()&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id="when-solr-is-exposed"&gt;When Solr is exposed&lt;a class="headerlink" href="#when-solr-is-exposed" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;OpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed
+modules are enabled. The vulnerable code path becomes reachable when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;analysis-extras&lt;/code&gt; and/or &lt;code&gt;langid&lt;/code&gt; modules are enabled — they are not loaded by default.&lt;/li&gt;
+&lt;li&gt;OpenNLP analysis components or update processors are configured to load model files.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Any deployment that enables these modules and loads an OpenNLP model an attacker can influence is
+exploitable. A deployment that does not enable them never invokes &lt;code&gt;ExtensionLoader&lt;/code&gt; and is not
+exposed.&lt;/p&gt;
+&lt;h4 id="mitigation"&gt;Mitigation&lt;a class="headerlink" href="#mitigation" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The most reliable mitigation is to &lt;strong&gt;not enable the OpenNLP-backed &lt;code&gt;analysis-extras&lt;/code&gt; or &lt;code&gt;langid&lt;/code&gt;
+modules&lt;/strong&gt; unless they are required. If you do use OpenNLP, load model files only from locations you
+fully control and never from untrusted or user-supplied sources.&lt;/p&gt;
+&lt;p&gt;In Solr 9.11.0 the upstream allowlist defense is backfilled at the application layer, since the
+vulnerable jar cannot yet be upgraded (Solr must track the OpenNLP version used by
+&lt;code&gt;lucene-analysis-opennlp&lt;/code&gt;). Every OpenNLP model is loaded as a resource through Solr's resource
+loaders, so the archive is validated at that single chokepoint before OpenNLP is allowed to
+deserialize it:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The archive is opened as a ZIP and every class name it declares — the &lt;code&gt;manifest.properties&lt;/code&gt;
+  &lt;code&gt;factory&lt;/code&gt; entry and any class referenced from embedded feature-generator XML descriptors — must
+  resolve under the &lt;code&gt;opennlp.&lt;/code&gt; package prefix.&lt;/li&gt;
+&lt;li&gt;A model that names a class outside that prefix is rejected and never reaches &lt;code&gt;ExtensionLoader&lt;/code&gt;,
+  so no attacker-controlled static initializer can run.&lt;/li&gt;
+&lt;li&gt;Validation covers both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments,
+  and applies whether the model is loaded by the &lt;code&gt;langid&lt;/code&gt; / &lt;code&gt;analysis-extras&lt;/code&gt; update processors or
+  by the schema-configured OpenNLP analyzers (tokenizer, POS, chunker, lemmatizer, name-finder).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr's own usage only ever references built-in &lt;code&gt;opennlp.*&lt;/code&gt; factories, so legitimate models load
+unchanged; only crafted models that try to instantiate arbitrary classes are blocked.&lt;/p&gt;
+&lt;p&gt;Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via &lt;code&gt;lucene-analysis-opennlp&lt;/code&gt;) to 2.5.9.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache OpenNLP: Out-of-memory denial of service via crafted model file</title><link href="/cve-2026-42440.html" rel="alternate"/><published>2026-05-04T00:00:00+00:00</published><updated>2026-05-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-04:/cve-2026-42440.html</id><summary type="html">&lt;p&gt;CVE-2026-42440 (CVSS 7.5) is an out-of-memory denial-of-service issue in Apache OpenNLP's binary
+model reader. The &lt;code&gt;AbstractModelReader&lt;/code&gt; methods &lt;code&gt;getOutcomes()&lt;/code&gt;, &lt;code&gt;getOutcomePatterns()&lt;/code&gt; and
+&lt;code&gt;getPredicates()&lt;/code&gt; read a 32-bit signed integer count field from a binary model stream and pass it
+directly to an array allocation without validating it. An attacker who can supply …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-42440 (CVSS 7.5) is an out-of-memory denial-of-service issue in Apache OpenNLP's binary
+model reader. The &lt;code&gt;AbstractModelReader&lt;/code&gt; methods &lt;code&gt;getOutcomes()&lt;/code&gt;, &lt;code&gt;getOutcomePatterns()&lt;/code&gt; and
+&lt;code&gt;getPredicates()&lt;/code&gt; read a 32-bit signed integer count field from a binary model stream and pass it
+directly to an array allocation without validating it. An attacker who can supply a crafted &lt;code&gt;.bin&lt;/code&gt;
+model file with a count set to &lt;code&gt;Integer.MAX_VALUE&lt;/code&gt; triggers an immediate &lt;code&gt;OutOfMemoryError&lt;/code&gt; during
+model deserialization, before any substantial data is consumed.&lt;/p&gt;
+&lt;p&gt;The vulnerable code is present in the &lt;code&gt;opennlp-tools-1.9.4.jar&lt;/code&gt; that Solr pulls in transitively via
+&lt;code&gt;lucene-analysis-opennlp&lt;/code&gt; (Lucene 9.12.3). There is a &lt;code&gt;opennlp-tools-1.9.5&lt;/code&gt; release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which validate the count against an
+upper bound (default 10,000,000, configurable via the &lt;code&gt;OPENNLP_MAX_ENTRIES&lt;/code&gt; system property) before
+allocating.&lt;/p&gt;
+&lt;h4 id="when-solr-is-exposed"&gt;When Solr is exposed&lt;a class="headerlink" href="#when-solr-is-exposed" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;OpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed
+modules are enabled. The vulnerable model-loading code path becomes reachable when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;analysis-extras&lt;/code&gt; and/or &lt;code&gt;langid&lt;/code&gt; modules are enabled — they are not loaded by default.&lt;/li&gt;
+&lt;li&gt;OpenNLP analysis components or update processors are configured to load OpenNLP model files (the
+  schema-configured OpenNLP analyzers — tokenizer, POS, chunker, lemmatizer, name-finder — or the
+  &lt;code&gt;langid&lt;/code&gt; / &lt;code&gt;analysis-extras&lt;/code&gt; update processors).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Any deployment that enables these modules and loads an OpenNLP model an attacker can influence is
+exploitable. A deployment that does not enable them never deserializes an OpenNLP model and is not
+exposed.&lt;/p&gt;
+&lt;h4 id="mitigation"&gt;Mitigation&lt;a class="headerlink" href="#mitigation" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;The most reliable mitigation is to &lt;strong&gt;not enable the OpenNLP-backed &lt;code&gt;analysis-extras&lt;/code&gt; or &lt;code&gt;langid&lt;/code&gt;
+modules&lt;/strong&gt; unless they are required. If you do use OpenNLP, load model files only from locations you
+fully control and never from untrusted or user-supplied sources.&lt;/p&gt;
+&lt;p&gt;Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via &lt;code&gt;lucene-analysis-opennlp&lt;/code&gt;) to 2.5.9.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Log4j Core: TLS hostname verification silently ignored in Socket, SMTP and Syslog appenders</title><link href="/cve-2026-34477.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34477.html</id><summary type="html">&lt;p&gt;CVE-2026-34477 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
 Successful exploitation requires a specific, non-default logging configuration together with a privileged network position.
 The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
 &lt;ul&gt;
