@@ -42,7 +42,144 @@ Explicitly setting &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;true&lt;
 &lt;p&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://solr.apache.org/guide/solr/latest/deployment-guide/jwt-authentication-plugin.html"&gt;JWT Authentication Plugin documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>Apache Solr™ 10.0.0 available</title><link href="/apache-solrtm-1000-available.html" rel="alternate"/><published>2026-03-03T00:00:00+00:00</published><updated>2026-03-03T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-03-03:/apache-solrtm-1000-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.0.0.&lt;/p&gt;
+&lt;/ul&gt;</content><category term="solr/security"/></entry><entry><title>Apache Log4j Core: TLS hostname verification silently ignored in Socket, SMTP and Syslog appenders</title><link href="/cve-2026-34477.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34477.html</id><summary type="html">&lt;p&gt;CVE-2026-34477 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration together with a privileged network position.
+The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Log4j configuration is modified to add an &lt;code&gt;SMTP&lt;/code&gt;, &lt;code&gt;Socket&lt;/code&gt; or &lt;code&gt;Syslog&lt;/code&gt; appender that ships logs over TLS …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;CVE-2026-34477 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration together with a privileged network position.
+The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Log4j configuration is modified to add an &lt;code&gt;SMTP&lt;/code&gt;, &lt;code&gt;Socket&lt;/code&gt; or &lt;code&gt;Syslog&lt;/code&gt; appender that ships logs over TLS through a nested &lt;code&gt;&amp;lt;Ssl&amp;gt;&lt;/code&gt; element.&lt;/li&gt;
+&lt;li&gt;That appender relies on the &lt;code&gt;verifyHostName&lt;/code&gt; attribute to authenticate the remote receiver, which was silently ignored through Log4j Core 2.25.3.&lt;/li&gt;
+&lt;li&gt;A man-in-the-middle attacker can intercept the connection and present a certificate issued by a CA trusted by the configured (or default) trust store.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;None of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution define such an appender.
+They only use &lt;code&gt;Console&lt;/code&gt; and &lt;code&gt;RollingRandomAccessFile&lt;/code&gt; appenders, which open no network connection,
+so no TLS hostname verification ever takes place.
+The &lt;code&gt;HTTP&lt;/code&gt; appender is not affected either, as it uses a separate &lt;code&gt;verifyHostname&lt;/code&gt; attribute that verifies host names by default.&lt;/p&gt;
+&lt;p&gt;A configuration that does meet the conditions above looks like this:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;Appenders&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;Socket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;remote&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;host=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;logs.example.com&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;port=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;6514&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="cm"&gt;&amp;lt;!-- verifyHostName=&amp;quot;true&amp;quot; was silently ignored through 2.25.3 --&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;Ssl&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;verifyHostName=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;true&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;KeyStore&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;location=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;...&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;password=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;...&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;TrustStore&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;location=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;...&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;password=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;...&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/Ssl&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;PatternLayout&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;pattern=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%m%n&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/Socket&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Appenders&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Operators who do configure TLS network appenders should replace the vulnerable JAR file
+(&lt;code&gt;server/lib/ext/log4j-core-2.25.3.jar&lt;/code&gt;)
+with &lt;code&gt;log4j-core-2.25.4.jar&lt;/code&gt;.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Log4j Core: Log injection via CRLF sequences in Rfc5424Layout</title><link href="/cve-2026-34478.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34478.html</id><summary type="html">&lt;p&gt;CVE-2026-34478 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Log4j configuration is modified to send logs to a stream-based (TCP or TLS) syslog service using &lt;code&gt;Rfc5424Layout&lt;/code&gt; directly.&lt;/li&gt;
+&lt;li&gt;An attacker is able to …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;CVE-2026-34478 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Log4j configuration is modified to send logs to a stream-based (TCP or TLS) syslog service using &lt;code&gt;Rfc5424Layout&lt;/code&gt; directly.&lt;/li&gt;
+&lt;li&gt;An attacker is able to inject CRLF sequences into the logged data.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Because the &lt;code&gt;newLineEscape&lt;/code&gt; and &lt;code&gt;useTlsMessageFormat&lt;/code&gt; attributes were silently renamed in Log4j Core 2.21.0,
+newline escaping stopped working and TLS framing was downgraded to plain TCP,
+leaving such configurations exposed to CRLF log injection.&lt;/p&gt;
+&lt;p&gt;None of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution reference &lt;code&gt;Rfc5424Layout&lt;/code&gt;.
+They only use &lt;code&gt;PatternLayout&lt;/code&gt;, so the issue cannot be triggered.
+Users of the &lt;code&gt;Syslog&lt;/code&gt; appender are not affected either, since its attributes were not renamed.&lt;/p&gt;
+&lt;p&gt;A configuration that does meet the conditions above looks like this:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;Appenders&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;Socket&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;syslog&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;host=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;logs.example.com&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;port=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;601&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;protocol=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;TCP&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;Rfc5424Layout&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;appName=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Solr&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;newLineEscape=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;\\n&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/Socket&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Appenders&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Operators who do configure &lt;code&gt;Rfc5424Layout&lt;/code&gt; should either:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;replace &lt;code&gt;newLineEscape&lt;/code&gt; with &lt;code&gt;escapeNL&lt;/code&gt; and &lt;code&gt;useTlsMessageFormat&lt;/code&gt; with &lt;code&gt;useTLSMessageFormat&lt;/code&gt;
+  (note the capitalization), or&lt;/li&gt;
+&lt;li&gt;replace the vulnerable JAR file
+  (&lt;code&gt;server/lib/ext/log4j-core-2.25.3.jar&lt;/code&gt;)
+  with &lt;code&gt;log4j-core-2.25.4.jar&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Log4j 1.x bridge: Malformed XML output from Log4j1XmlLayout</title><link href="/cve-2026-34479.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34479.html</id><summary type="html">&lt;p&gt;CVE-2026-34479 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Log4j 1-to-Log4j 2 bridge emits logs through &lt;code&gt;Log4j1XmlLayout&lt;/code&gt;,
+  either configured directly in a Log4j 2 configuration
+  or selected as &lt;code&gt;org.apache.log4j.xml …&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;CVE-2026-34479 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Log4j 1-to-Log4j 2 bridge emits logs through &lt;code&gt;Log4j1XmlLayout&lt;/code&gt;,
+  either configured directly in a Log4j 2 configuration
+  or selected as &lt;code&gt;org.apache.log4j.xml.XMLLayout&lt;/code&gt; through the Log4j 1 compatibility layer.&lt;/li&gt;
+&lt;li&gt;The logged data contains characters forbidden by the XML 1.0 specification.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;code&gt;log4j-1.2-api&lt;/code&gt; JAR is shipped so that third-party libraries that still call the Log4j 1 API keep working.
+However, Solr is configured through Log4j 2 configuration files that only use &lt;code&gt;PatternLayout&lt;/code&gt;,
+and the distribution ships no Log4j 1 (&lt;code&gt;log4j.properties&lt;/code&gt; or &lt;code&gt;log4j.xml&lt;/code&gt;) configuration file,
+so the vulnerable layout is never instantiated.&lt;/p&gt;
+&lt;p&gt;A configuration that does meet the conditions above looks like this:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;Appenders&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;File&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;xml&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;fileName=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;${sys:solr.log.dir}/solr-events.xml&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;Log4j1XmlLayout/&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/File&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Appenders&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Operators who use legacy Log4j 1 configuration files or &lt;code&gt;Log4j1XmlLayout&lt;/code&gt; should replace the vulnerable JAR file
+(&lt;code&gt;server/lib/ext/log4j-1.2-api-2.25.3.jar&lt;/code&gt;)
+with &lt;code&gt;log4j-1.2-api-2.25.4.jar&lt;/code&gt;.
+Support for &lt;code&gt;Log4j1XmlLayout&lt;/code&gt; and legacy Log4j 1 configuration files may be removed in a future Solr release,
+so migrating to a native Log4j 2 configuration is recommended.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Log4j Core: Invalid XML output from XmlLayout</title><link href="/cve-2026-34480.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34480.html</id><summary type="html">&lt;p&gt;CVE-2026-34480 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Log4j configuration is modified to write events through &lt;code&gt;XmlLayout&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A log message or MDC value contains characters forbidden by the XML 1.0 …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;CVE-2026-34480 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions &lt;strong&gt;must all be met&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The Log4j configuration is modified to write events through &lt;code&gt;XmlLayout&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A log message or MDC value contains characters forbidden by the XML 1.0 specification.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;When triggered, the layout produces malformed XML, which downstream log processors may reject:
+silently with the JRE built-in StAX, or by dropping the event with alternative implementations such as Woodstox.&lt;/p&gt;
+&lt;p&gt;None of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution reference &lt;code&gt;XmlLayout&lt;/code&gt;.
+They only use &lt;code&gt;PatternLayout&lt;/code&gt;, so the vulnerable code path is never reached.
+The MDC values that Solr populates (collection, shard, replica, core and node names, plus a trace id) are not emitted as XML either.&lt;/p&gt;
+&lt;p&gt;A configuration that does meet the conditions above looks like this:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;Appenders&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;RollingFile&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;xml&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="na"&gt;fileName=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;${sys:solr.log.dir}/solr-events.xml&amp;quot;&lt;/span&gt;
+&lt;span class="w"&gt;               &lt;/span&gt;&lt;span class="na"&gt;filePattern=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;${sys:solr.log.dir}/solr-events.xml.%i&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;XmlLayout/&amp;gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/RollingFile&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Appenders&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Operators who do configure &lt;code&gt;XmlLayout&lt;/code&gt; should replace the vulnerable JAR file
+(&lt;code&gt;server/lib/ext/log4j-core-2.25.3.jar&lt;/code&gt;)
+with &lt;code&gt;log4j-core-2.25.4.jar&lt;/code&gt;.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Log4j JSON Template Layout: Invalid JSON for non-finite floating-point values</title><link href="/cve-2026-34481.html" rel="alternate"/><published>2026-04-10T00:00:00+00:00</published><updated>2026-04-10T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-04-10:/cve-2026-34481.html</id><summary type="html">&lt;p&gt;CVE-2026-34481 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in any deployment of the Apache Solr binary distribution.
+Successful exploitation requires the application to log a &lt;code&gt;MapMessage&lt;/code&gt; (or one of its subclasses)
+carrying a non-finite floating-point value (&lt;code&gt;NaN&lt;/code&gt;, &lt;code&gt;Infinity&lt;/code&gt; or &lt;code&gt;-Infinity&lt;/code&gt;) through &lt;code&gt;JsonTemplateLayout&lt;/code&gt;,
+which the layout then serializes as invalid JSON, in breach of …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-34481 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in any deployment of the Apache Solr binary distribution.
+Successful exploitation requires the application to log a &lt;code&gt;MapMessage&lt;/code&gt; (or one of its subclasses)
+carrying a non-finite floating-point value (&lt;code&gt;NaN&lt;/code&gt;, &lt;code&gt;Infinity&lt;/code&gt; or &lt;code&gt;-Infinity&lt;/code&gt;) through &lt;code&gt;JsonTemplateLayout&lt;/code&gt;,
+which the layout then serializes as invalid JSON, in breach of RFC 8259.&lt;/p&gt;
+&lt;p&gt;Producing a &lt;code&gt;MapMessage&lt;/code&gt; requires application code, and users of the binary distribution run only the code shipped by Apache Solr.
+A scan of the bytecode of all JAR files in the distribution confirms that the &lt;code&gt;MapMessage&lt;/code&gt; family
+(&lt;code&gt;MapMessage&lt;/code&gt;, &lt;code&gt;StringMapMessage&lt;/code&gt; and &lt;code&gt;StructuredDataMessage&lt;/code&gt;)
+is referenced only inside Log4j's own JARs.
+Neither Solr nor any of its bundled dependencies ever constructs or logs such a message.&lt;/p&gt;
+&lt;p&gt;Because no shipped code can hand a triggering value to the layout,
+the vulnerable code path cannot be reached regardless of the configured layout,
+and the Solr community considers this vulnerability &lt;strong&gt;non-exploitable&lt;/strong&gt; in the binary distribution.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Solr™ 10.0.0 available</title><link href="/apache-solrtm-1000-available.html" rel="alternate"/><published>2026-03-03T00:00:00+00:00</published><updated>2026-03-03T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-03-03:/apache-solrtm-1000-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.0.0.&lt;/p&gt;
 &lt;p&gt;Apache Solr is the blazing-fast, open source, multi-modal search platform built on the full-text, vector, and geospatial search capabilities of Apache Lucene. Its major features include powerful full-text search, vector search, hit highlighting, faceted search …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.0.0.&lt;/p&gt;
 &lt;p&gt;Apache Solr is the blazing-fast, open source, multi-modal search platform built on the full-text, vector, and geospatial search capabilities of Apache Lucene. Its major features include powerful full-text search, vector search, hit highlighting, faceted search and analytics, rich document parsing, geospatial search, extensive REST APIs as well as parallel SQL. Solr is enterprise grade, secure and highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
 &lt;p&gt;Solr 10.0.0 is available for immediate download at:&lt;/p&gt;
@@ -1421,105 +1558,4 @@ See &lt;a href="https://lists.apache.org/thread/kgh63sncrsm2bls884pg87mnt8vqztmz
 &lt;p&gt;A summary of important changes is published in the documentation at:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://apache.github.io/solr-operator/docs/upgrade-notes.html"&gt;https://apache.github.io/solr-operator/docs/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;For the most exhaustive list, see the full release notes in the Github Releases or by viewing the git history in the solr-operator repo.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.3.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.3.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry><entry><title>Apache Solr™ 8.8.2 available</title><link href="/apache-solrtm-882-available.html" rel="alternate"/><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/apache-solrtm-882-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 8.8.2.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 8.8.2.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 8.8.2 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-882-release-highlights"&gt;Solr 8.8.2 Release Highlights:&lt;a class="headerlink" href="#solr-882-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;SOLR-15249: Properly set ZK ACLs on /security.json&lt;/li&gt;
-&lt;li&gt;SOLR-15233: Set doAs param in ConfigurableInternodeAuthHadoopPlugin&lt;/li&gt;
-&lt;li&gt;SOLR-15217: Use shardsWhitelist in ReplicationHandler&lt;/li&gt;
-&lt;li&gt;SOLR-15288: Hardening NODEDOWN event in collections using PerReplicaStates&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/8_8/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/8_8/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/8_8_2/changes/Changes.html"&gt;https://solr.apache.org/8_8_2/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Solr 8.8.2 also includes bugfixes in the corresponding Apache Lucene release:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://lucene.apache.org/core/8_8_2/changes/Changes.html"&gt;https://lucene.apache.org/core/8_8_2/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>CVE-2021-27905: SSRF vulnerability with the Replication handler</title><link href="/cve-2021-27905-ssrf-vulnerability-with-the-replication-handler.html" rel="alternate"/><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/cve-2021-27905-ssrf-vulnerability-with-the-replication-handler.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
-High&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
-The ReplicationHandler (normally registered at "/replication" under a Solr core) has a "masterUrl" (also "leaderUrl" alias) parameter that is used to designate another ReplicationHandler on another Solr core to replicate index …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
-High&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
-The ReplicationHandler (normally registered at "/replication" under a Solr core) has a "masterUrl" (also "leaderUrl" alias) parameter that is used to designate another ReplicationHandler on another Solr core to replicate index data into the local core.
-To prevent a SSRF vulnerability, Solr ought to check these parameters against a similar configuration it uses for the "shards" parameter.  Prior to this bug getting fixed, it did not.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
-Any of the following are enough to prevent this vulnerability:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Upgrade to &lt;code&gt;Solr 8.8.2&lt;/code&gt; or greater.&lt;/li&gt;
-&lt;li&gt;If upgrading is not an option, consider applying the patch in &lt;a href="https://issues.apache.org/jira/browse/SOLR-15217"&gt;SOLR-15217&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Ensure that any access to the replication handler is purely internal to Solr.  Typically, it's only accessed externally for diagnostic/informational purposes.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
-Reported by Caolinhong(Skay) from QI-ANXIN Cert (QI-ANXIN Technology Group Inc.)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
-&lt;a href="https://issues.apache.org/jira/browse/SOLR-15217"&gt;SOLR-15217&lt;/a&gt;: CVE-2021-27905: SSRF vulnerability with the Replication handler&lt;/p&gt;</content><category term="solr/security"/></entry><entry><title>CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</title><link href="/cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings.html" rel="alternate"/><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
-High&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
-When starting Apache Solr versions prior to 8.8.2, configured with the SaslZkACLProvider or VMParamsAllAndReadonlyDigestZkACLProvider and no existing security.json znode, if the optional read-only user is configured then Solr …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
-High&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
-When starting Apache Solr versions prior to 8.8.2, configured with the SaslZkACLProvider or VMParamsAllAndReadonlyDigestZkACLProvider and no existing security.json znode, if the optional read-only user is configured then Solr would not treat that node as a sensitive path and would allow it to be readable.
-Additionally, with any ZkACLProvider, if the security.json is already present, Solr will not automatically update the ACLs.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
-Any of the following are enough to prevent this vulnerability:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Manually set appropriate ACLs on /security.json znode.&lt;/li&gt;
-&lt;li&gt;Upgrade to &lt;code&gt;Solr 8.8.2&lt;/code&gt; or greater.&lt;/li&gt;
-&lt;li&gt;If upgrading is not an option, consider applying the patch in &lt;a href="https://issues.apache.org/jira/browse/SOLR-15249"&gt;SOLR-15249&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Ensure that any access to zookeeper is only by trusted application.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
-Timothy Potter and Mike Drob, Apple Cloud Services&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
-&lt;a href="https://issues.apache.org/jira/browse/SOLR-15249"&gt;SOLR-15249&lt;/a&gt;: CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings&lt;/p&gt;</content><category term="solr/security"/></entry><entry><title>CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections</title><link href="/cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections.html" rel="alternate"/><published>2021-04-12T00:00:00+00:00</published><updated>2021-04-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-04-12:/cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
-High&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
-When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;
-High&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;
-When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect authorization resolution on the receiving hosts.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;
-Any of the following are enough to prevent this vulnerability:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Upgrade to &lt;code&gt;Solr 8.8.2&lt;/code&gt; or greater.&lt;/li&gt;
-&lt;li&gt;If upgrading is not an option, consider applying the patch in &lt;a href="https://issues.apache.org/jira/browse/SOLR-15233"&gt;SOLR-15233&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Use a different authentication plugin, such as the KerberosPlugin or HadoopAuthPlugin&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Credit:&lt;/strong&gt;
-Geza Nagy&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
-&lt;a href="https://issues.apache.org/jira/browse/SOLR-15233"&gt;SOLR-15233&lt;/a&gt;: CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections &lt;/p&gt;</content><category term="solr/security"/></entry><entry><title>Apache Solr™ 8.8.1 available</title><link href="/apache-solrtm-881-available.html" rel="alternate"/><published>2021-02-22T00:00:00+00:00</published><updated>2021-02-22T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2021-02-22:/apache-solrtm-881-available.html</id><summary type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 8.8.1.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 8.8.1.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 8.8.1 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-881-release-highlights"&gt;Solr 8.8.1 Release Highlights:&lt;a class="headerlink" href="#solr-881-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Fix for a SolrJ backwards compatibility issue when upgrading the server to 8.8.0 without upgrading SolrJ to 8.8.0. Users are encouraged to use 8.8.1 instead of 8.8.0.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/8_8/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/8_8/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/8_8_1/changes/Changes.html"&gt;https://solr.apache.org/8_8_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Solr 8.8.1 also includes bugfixes in the corresponding Apache Lucene release:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://lucene.apache.org/core/8_8_1/changes/Changes.html"&gt;https://lucene.apache.org/core/8_8_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
+&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.3.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.3.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry></feed>

@@ -139,6 +139,245 @@
         <h1>Apache Solr VEX</h1>
         <p><a href="/security-dependency-cves.html">← Back to the dependency CVE table</a></p>
 
+            <article id="cve-2026-34481" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34481">CVE-2026-34481</a>, Apache Log4j JSON Template Layout: Invalid JSON for non-finite floating-point values</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-04-10T00:00:00+00:00">2026-04-10</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.1, 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-34481 is <strong>not</strong> considered exploitable in any deployment of the Apache Solr binary distribution.
+Successful exploitation requires the application to log a <code>MapMessage</code> (or one of its subclasses)
+carrying a non-finite floating-point value (<code>NaN</code>, <code>Infinity</code> or <code>-Infinity</code>) through <code>JsonTemplateLayout</code>,
+which the layout then serializes as invalid JSON, in breach of RFC 8259.</p>
+<p>Producing a <code>MapMessage</code> requires application code, and users of the binary distribution run only the code shipped by Apache Solr.
+A scan of the bytecode of all JAR files in the distribution confirms that the <code>MapMessage</code> family
+(<code>MapMessage</code>, <code>StringMapMessage</code> and <code>StructuredDataMessage</code>)
+is referenced only inside Log4j's own JARs.
+Neither Solr nor any of its bundled dependencies ever constructs or logs such a message.</p>
+<p>Because no shipped code can hand a triggering value to the layout,
+the vulnerable code path cannot be reached regardless of the configured layout,
+and the Solr community considers this vulnerability <strong>non-exploitable</strong> in the binary distribution.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-18288">SOLR-18288</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34481">CVE-2026-34481</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-34480" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34480">CVE-2026-34480</a>, Apache Log4j Core: Invalid XML output from XmlLayout</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-04-10T00:00:00+00:00">2026-04-10</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.1, 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-34480 is <strong>not</strong> considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions <strong>must all be met</strong>:</p>
+<ul>
+<li>The Log4j configuration is modified to write events through <code>XmlLayout</code>.</li>
+<li>A log message or MDC value contains characters forbidden by the XML 1.0 specification.</li>
+</ul>
+<p>When triggered, the layout produces malformed XML, which downstream log processors may reject:
+silently with the JRE built-in StAX, or by dropping the event with alternative implementations such as Woodstox.</p>
+<p>None of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution reference <code>XmlLayout</code>.
+They only use <code>PatternLayout</code>, so the vulnerable code path is never reached.
+The MDC values that Solr populates (collection, shard, replica, core and node names, plus a trace id) are not emitted as XML either.</p>
+<p>A configuration that does meet the conditions above looks like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;Appenders&gt;</span>
+<span class="w">  </span><span class="nt">&lt;RollingFile</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;xml&quot;</span><span class="w"> </span><span class="na">fileName=</span><span class="s">&quot;${sys:solr.log.dir}/solr-events.xml&quot;</span>
+<span class="w">               </span><span class="na">filePattern=</span><span class="s">&quot;${sys:solr.log.dir}/solr-events.xml.%i&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;XmlLayout/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/RollingFile&gt;</span>
+<span class="nt">&lt;/Appenders&gt;</span>
+</code></pre></div>
+
+<p>Operators who do configure <code>XmlLayout</code> should replace the vulnerable JAR file
+(<code>server/lib/ext/log4j-core-2.25.3.jar</code>)
+with <code>log4j-core-2.25.4.jar</code>.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-18288">SOLR-18288</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34480">CVE-2026-34480</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-34479" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34479">CVE-2026-34479</a>, Apache Log4j 1.x bridge: Malformed XML output from Log4j1XmlLayout</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-04-10T00:00:00+00:00">2026-04-10</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.1, 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-34479 is <strong>not</strong> considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions <strong>must all be met</strong>:</p>
+<ul>
+<li>The Log4j 1-to-Log4j 2 bridge emits logs through <code>Log4j1XmlLayout</code>,
+  either configured directly in a Log4j 2 configuration
+  or selected as <code>org.apache.log4j.xml.XMLLayout</code> through the Log4j 1 compatibility layer.</li>
+<li>The logged data contains characters forbidden by the XML 1.0 specification.</li>
+</ul>
+<p>The <code>log4j-1.2-api</code> JAR is shipped so that third-party libraries that still call the Log4j 1 API keep working.
+However, Solr is configured through Log4j 2 configuration files that only use <code>PatternLayout</code>,
+and the distribution ships no Log4j 1 (<code>log4j.properties</code> or <code>log4j.xml</code>) configuration file,
+so the vulnerable layout is never instantiated.</p>
+<p>A configuration that does meet the conditions above looks like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;Appenders&gt;</span>
+<span class="w">  </span><span class="nt">&lt;File</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;xml&quot;</span><span class="w"> </span><span class="na">fileName=</span><span class="s">&quot;${sys:solr.log.dir}/solr-events.xml&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Log4j1XmlLayout/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/File&gt;</span>
+<span class="nt">&lt;/Appenders&gt;</span>
+</code></pre></div>
+
+<p>Operators who use legacy Log4j 1 configuration files or <code>Log4j1XmlLayout</code> should replace the vulnerable JAR file
+(<code>server/lib/ext/log4j-1.2-api-2.25.3.jar</code>)
+with <code>log4j-1.2-api-2.25.4.jar</code>.
+Support for <code>Log4j1XmlLayout</code> and legacy Log4j 1 configuration files may be removed in a future Solr release,
+so migrating to a native Log4j 2 configuration is recommended.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-18288">SOLR-18288</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34479">CVE-2026-34479</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-34478" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34478">CVE-2026-34478</a>, Apache Log4j Core: Log injection via CRLF sequences in Rfc5424Layout</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-04-10T00:00:00+00:00">2026-04-10</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.1, 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-34478 is <strong>not</strong> considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration.
+The following conditions <strong>must all be met</strong>:</p>
+<ul>
+<li>The Log4j configuration is modified to send logs to a stream-based (TCP or TLS) syslog service using <code>Rfc5424Layout</code> directly.</li>
+<li>An attacker is able to inject CRLF sequences into the logged data.</li>
+</ul>
+<p>Because the <code>newLineEscape</code> and <code>useTlsMessageFormat</code> attributes were silently renamed in Log4j Core 2.21.0,
+newline escaping stopped working and TLS framing was downgraded to plain TCP,
+leaving such configurations exposed to CRLF log injection.</p>
+<p>None of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution reference <code>Rfc5424Layout</code>.
+They only use <code>PatternLayout</code>, so the issue cannot be triggered.
+Users of the <code>Syslog</code> appender are not affected either, since its attributes were not renamed.</p>
+<p>A configuration that does meet the conditions above looks like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;Appenders&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Socket</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;syslog&quot;</span><span class="w"> </span><span class="na">host=</span><span class="s">&quot;logs.example.com&quot;</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;601&quot;</span><span class="w"> </span><span class="na">protocol=</span><span class="s">&quot;TCP&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Rfc5424Layout</span><span class="w"> </span><span class="na">appName=</span><span class="s">&quot;Solr&quot;</span><span class="w"> </span><span class="na">newLineEscape=</span><span class="s">&quot;\\n&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Socket&gt;</span>
+<span class="nt">&lt;/Appenders&gt;</span>
+</code></pre></div>
+
+<p>Operators who do configure <code>Rfc5424Layout</code> should either:</p>
+<ul>
+<li>replace <code>newLineEscape</code> with <code>escapeNL</code> and <code>useTlsMessageFormat</code> with <code>useTLSMessageFormat</code>
+  (note the capitalization), or</li>
+<li>replace the vulnerable JAR file
+  (<code>server/lib/ext/log4j-core-2.25.3.jar</code>)
+  with <code>log4j-core-2.25.4.jar</code>.</li>
+</ul>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-18288">SOLR-18288</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34478">CVE-2026-34478</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-34477" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34477">CVE-2026-34477</a>, Apache Log4j Core: TLS hostname verification silently ignored in Socket, SMTP and Syslog appenders</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-04-10T00:00:00+00:00">2026-04-10</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.1, 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-34477 is <strong>not</strong> considered exploitable in typical deployments of Apache Solr.
+Successful exploitation requires a specific, non-default logging configuration together with a privileged network position.
+The following conditions <strong>must all be met</strong>:</p>
+<ul>
+<li>The Log4j configuration is modified to add an <code>SMTP</code>, <code>Socket</code> or <code>Syslog</code> appender that ships logs over TLS through a nested <code>&lt;Ssl&gt;</code> element.</li>
+<li>That appender relies on the <code>verifyHostName</code> attribute to authenticate the remote receiver, which was silently ignored through Log4j Core 2.25.3.</li>
+<li>A man-in-the-middle attacker can intercept the connection and present a certificate issued by a CA trusted by the configured (or default) trust store.</li>
+</ul>
+<p>None of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution define such an appender.
+They only use <code>Console</code> and <code>RollingRandomAccessFile</code> appenders, which open no network connection,
+so no TLS hostname verification ever takes place.
+The <code>HTTP</code> appender is not affected either, as it uses a separate <code>verifyHostname</code> attribute that verifies host names by default.</p>
+<p>A configuration that does meet the conditions above looks like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;Appenders&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Socket</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;remote&quot;</span><span class="w"> </span><span class="na">host=</span><span class="s">&quot;logs.example.com&quot;</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;6514&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="cm">&lt;!-- verifyHostName=&quot;true&quot; was silently ignored through 2.25.3 --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Ssl</span><span class="w"> </span><span class="na">verifyHostName=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;KeyStore</span><span class="w"> </span><span class="na">location=</span><span class="s">&quot;...&quot;</span><span class="w"> </span><span class="na">password=</span><span class="s">&quot;...&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;TrustStore</span><span class="w"> </span><span class="na">location=</span><span class="s">&quot;...&quot;</span><span class="w"> </span><span class="na">password=</span><span class="s">&quot;...&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Ssl&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PatternLayout</span><span class="w"> </span><span class="na">pattern=</span><span class="s">&quot;%m%n&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Socket&gt;</span>
+<span class="nt">&lt;/Appenders&gt;</span>
+</code></pre></div>
+
+<p>Operators who do configure TLS network appenders should replace the vulnerable JAR file
+(<code>server/lib/ext/log4j-core-2.25.3.jar</code>)
+with <code>log4j-core-2.25.4.jar</code>.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-18288">SOLR-18288</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34477">CVE-2026-34477</a></li>
+                </ul>
+            </article>
             <article id="cve-2024-7254" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-7254">CVE-2024-7254</a>, protobuf-java: Potential Denial of Service issue</h3>
