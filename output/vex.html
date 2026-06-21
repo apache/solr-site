@@ -539,6 +539,26 @@ with <code>log4j-core-2.25.4.jar</code>.</p>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34477">CVE-2026-34477</a></li>
                 </ul>
             </article>
+            <article id="cve-2025-48924" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48924">CVE-2025-48924</a>, commons-lang3-<version>.jar</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.9.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>The vulnerable functionality is only reachable via <code>commons-configuration2</code>, which is used in Solr's Hadoop Kerberos support (<code>solr-hadoop-auth</code>) to load administrator-provided Hadoop configuration files. As such, the vulnerability is not exploitable in Solr.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48924">CVE-2025-48924</a></li>
+                </ul>
+            </article>
             <article id="cve-2024-7254" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-7254">CVE-2024-7254</a>, protobuf-java: Potential Denial of Service issue</h3>
