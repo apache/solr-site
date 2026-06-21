@@ -415,7 +415,7 @@ with <code>log4j-core-2.25.4.jar</code>.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.4.0–9.8.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.4.0-9.8.1</p>
                     </div>
                 </header>
 
@@ -451,7 +451,7 @@ the Solr community considers this vulnerability <strong>non-exploitable under st
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.8</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.7</p>
                     </div>
                 </header>
 
@@ -475,7 +475,7 @@ the Solr community considers this vulnerability <strong>non-exploitable under st
                             <strong>Status:</strong>
                             <span class="cdx-exploitable">exploitable</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.8.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.7</p>
                     </div>
                 </header>
 
@@ -509,54 +509,17 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> all</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.5</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
                 <p>The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.</p>
+<p>Regardless, Solr upgraded the bundled json-path to 2.9.0 — which fixes CVE-2023-51074 — in Solr 9.6.0, so the vulnerable json-path (≤ 2.8.0) only shipped through Solr 9.5.</p>
 
                 <h4>References</h4>
                 <ul>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-51074">CVE-2023-51074</a>, <a href="https://github.com/advisories/GHSA-pfh2-hfmq-phg5">GHSA-pfh2-hfmq-phg5</a></li>
-                </ul>
-            </article>
-            <article id="cve-velocity-tools" class="post panel radius">
-                <header class="post-header">
-                    <h3 class="title">velocity-tools</h3>
-                    <div class="panel callout">
-                        <p class="subheader">
-                            <strong>Status:</strong>
-                            <span class="cdx-not-affected">not_affected</span>
-                        </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.6.2-today</p>
-                    </div>
-                </header>
-
-                <h4>Description</h4>
-                <p>Solr does not ship a Struts jar. This is a transitive POM listing and not included with Solr (see comment in SOLR-2849).</p>
-
-                <h4>References</h4>
-                <ul>
-                </ul>
-            </article>
-            <article id="cve-tika-core" class="post panel radius">
-                <header class="post-header">
-                    <h3 class="title">tika-core.*</h3>
-                    <div class="panel callout">
-                        <p class="subheader">
-                            <strong>Status:</strong>
-                            <span class="cdx-not-affected">not_affected</span>
-                        </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.1-today</p>
-                    </div>
-                </header>
-
-                <h4>Description</h4>
-                <p>All Tika issues that could be Solr vulnerabilities would only be exploitable if untrusted files are indexed with SolrCell. This is not recommended in production systems, so Solr does not consider these valid CVEs for Solr.</p>
-
-                <h4>References</h4>
-                <ul>
                 </ul>
             </article>
             <article id="cve-2022-42889" class="post panel radius">
@@ -567,7 +530,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.0</p>
                     </div>
                 </header>
 
@@ -607,7 +570,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.0</p>
                     </div>
                 </header>
 
@@ -627,7 +590,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> < 9.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.0</p>
                     </div>
                 </header>
 
@@ -687,7 +650,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> to present</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 8.x</p>
                     </div>
                 </header>
 
@@ -707,7 +670,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-present</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-8.x</p>
                     </div>
                 </header>
 
@@ -747,7 +710,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.1.0- today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.1.0-8.x</p>
                     </div>
                 </header>
 
@@ -827,7 +790,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.x-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.x-9.1</p>
                     </div>
                 </header>
 
@@ -887,7 +850,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.4.0-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.4.0-8.x</p>
                     </div>
                 </header>
 
@@ -907,7 +870,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-8.x</p>
                     </div>
                 </header>
 
@@ -927,7 +890,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-8.x</p>
                     </div>
                 </header>
 
@@ -987,7 +950,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.7.0-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.7.0-8.x</p>
                     </div>
                 </header>
 
@@ -1027,7 +990,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.2.0-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.2.0-8.x</p>
                     </div>
                 </header>
 
@@ -1047,16 +1010,40 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.5.5, 6.2.0-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.5.5, 6.2.0-9.10</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
                 <p>See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.</p>
+<p>Tika as an in-process component was removed in Solr 9.11.</p>
 
                 <h4>References</h4>
                 <ul>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6809">CVE-2016-6809</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1335">CVE-2018-1335</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1338">CVE-2018-1338</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1339">CVE-2018-1339</a></li>
+                </ul>
+            </article>
+            <article id="cve-2016-1181" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2015-0899">CVE-2015-0899</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-1181">CVE-2016-1181</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-1182">CVE-2016-1182</a>, Apache Struts 1 CVEs via velocity-tools transitive dependency</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.6.2-8.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Scanners flag <code>velocity-tools-2.0.jar</code> with Apache Struts 1 CVEs because its POM declares a
+transitive dependency on <code>struts-core</code>, <code>struts-taglib</code> and <code>struts-tiles</code> 1.3.8. Solr does not
+ship any Struts jar — the dependency is excluded and only appears as a transitive POM listing
+(see SOLR-2849) — so these Struts vulnerabilities are not present in, or exploitable through, Solr.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2015-0899">CVE-2015-0899</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-1181">CVE-2016-1181</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-1182">CVE-2016-1182</a></li>
                 </ul>
             </article>
             <article id="cve-2015-5237" class="post panel radius">
@@ -1067,7 +1054,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.5.0-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.5.0-7.x</p>
                     </div>
                 </header>
 
@@ -1127,7 +1114,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-7.x</p>
                     </div>
                 </header>
 
@@ -1147,7 +1134,7 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ~2.9-today</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 2.9-9.10</p>
                     </div>
                 </header>
 

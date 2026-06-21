@@ -7,7 +7,7 @@
       "name": "solr",
       "version": "SNAPSHOT",
       "type": "application",
-      "bom-ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+      "bom-ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
     }
   },
   "vulnerabilities": [
@@ -23,7 +23,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -39,7 +39,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -55,7 +55,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -71,7 +71,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -87,7 +87,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -103,7 +103,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -119,7 +119,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -135,7 +135,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -151,7 +151,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -167,7 +167,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -183,7 +183,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -199,7 +199,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -215,7 +215,55 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2015-0899",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2015-0899"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Scanners flag `velocity-tools-2.0.jar` with Apache Struts 1 CVEs because its POM declares a\ntransitive dependency on `struts-core`, `struts-taglib` and `struts-tiles` 1.3.8. Solr does not\nship any Struts jar \u2014 the dependency is excluded and only appears as a transitive POM listing\n(see SOLR-2849) \u2014 so these Struts vulnerabilities are not present in, or exploitable through, Solr."
+      },
+      "affects": [
+        {
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2016-1181",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-1181"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Scanners flag `velocity-tools-2.0.jar` with Apache Struts 1 CVEs because its POM declares a\ntransitive dependency on `struts-core`, `struts-taglib` and `struts-tiles` 1.3.8. Solr does not\nship any Struts jar \u2014 the dependency is excluded and only appears as a transitive POM listing\n(see SOLR-2849) \u2014 so these Struts vulnerabilities are not present in, or exploitable through, Solr."
+      },
+      "affects": [
+        {
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2016-1182",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-1182"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Scanners flag `velocity-tools-2.0.jar` with Apache Struts 1 CVEs because its POM declares a\ntransitive dependency on `struts-core`, `struts-taglib` and `struts-tiles` 1.3.8. Solr does not\nship any Struts jar \u2014 the dependency is excluded and only appears as a transitive POM listing\n(see SOLR-2849) \u2014 so these Struts vulnerabilities are not present in, or exploitable through, Solr."
+      },
+      "affects": [
+        {
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -227,11 +275,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11."
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -243,11 +291,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11."
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -259,11 +307,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11."
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -275,11 +323,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11."
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -295,7 +343,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -311,7 +359,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -327,7 +375,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -343,7 +391,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -359,7 +407,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -375,7 +423,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -391,7 +439,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -407,7 +455,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -423,7 +471,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -439,7 +487,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -455,7 +503,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -471,7 +519,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -487,7 +535,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -503,7 +551,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -519,7 +567,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -535,7 +583,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -551,7 +599,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -567,7 +615,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -583,7 +631,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -599,7 +647,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -615,7 +663,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -631,7 +679,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -647,7 +695,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -663,7 +711,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -679,7 +727,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -695,7 +743,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -711,7 +759,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -727,7 +775,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -743,7 +791,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -759,7 +807,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -775,7 +823,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -791,7 +839,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -807,7 +855,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -823,7 +871,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -839,7 +887,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -855,7 +903,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -871,7 +919,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -887,7 +935,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -903,7 +951,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -922,7 +970,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -938,7 +986,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -950,11 +998,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr."
+        "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.\n\nRegardless, Solr upgraded the bundled json-path to 2.9.0 \u2014 which fixes CVE-2023-51074 \u2014 in Solr 9.6.0, so the vulnerable json-path (\u2264 2.8.0) only shipped through Solr 9.5."
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -966,11 +1014,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr."
+        "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.\n\nRegardless, Solr upgraded the bundled json-path to 2.9.0 \u2014 which fixes CVE-2023-51074 \u2014 in Solr 9.6.0, so the vulnerable json-path (\u2264 2.8.0) only shipped through Solr 9.5."
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -989,7 +1037,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -1005,7 +1053,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -1022,7 +1070,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -1038,7 +1086,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -1055,7 +1103,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -1072,7 +1120,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -1089,7 +1137,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -1106,7 +1154,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     },
@@ -1123,7 +1171,7 @@
       },
       "affects": [
         {
-          "ref": "533b70ab-7b8b-53a5-b9e1-e829e7017b67"
+          "ref": "5236b97f-6aa9-5b4c-91b4-400c65345c60"
         }
       ]
     }
