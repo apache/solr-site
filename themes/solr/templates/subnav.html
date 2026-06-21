@@ -1,12 +1,14 @@
 {% extends "page.html" %}
 
 {% block subnav %}
+{% block subnav_header %}
 <div class="row">
   <div class="small-12 text-center columns">
     <h1>{% block subnav_title %}{% endblock %}<br/>
       <small>{% block subnav_subtitle %}{% endblock %}</small></h1>
   </div>
 </div>
+{% endblock %}
 <div class="sub-nav-container">
   <div class="row sub-nav-border anchor-top">
     <div class="small-12 text-center columns">

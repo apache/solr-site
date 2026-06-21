@@ -2,14 +2,6 @@
 
 {% block content_inner %}
 <div class="small-12 columns">
-  <style type="text/css">
-    .headerlink, .elementid-permalink {
-      visibility: hidden;
-    }
-    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink, h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink, dt:hover > .elementid-permalink {
-      visibility: visible
-    }
-  </style>
 
   <h1 id="solr-downloads">{{ page.title }}
     <a class="headerlink" href="#solr-downloads" title="Permanent link">¶</a>
@@ -49,34 +41,41 @@
     <li><a href="{{ SITEURL }}/{{ SOLR_LATEST_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
 
-  <h3 id="solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }}
-    <a class="headerlink" href="#solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}" title="Permanent link">¶</a>
-  </h3>
+  <h2 id="solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }}
+  <a class="headerlink" href="#solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}" title="Permanent link">¶</a>
+  </h2>
 
-  <p>Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }} is the last release in the {{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.x series.</p>
+  <p>Solr {{ SOLR_PREVIOUS_MAJOR_RELEASE }} is the last release in the {{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.x series.
+  </p>
 
   <ul>
     <li>Source release:
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz?action=download">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz.sha512">SHA512</a>]
+      <a href="https://www.apache.org/dyn/closer.lua/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz?action=download">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz</a>
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-src.tgz.sha512">SHA512</a>]
     </li>
 
     <li>Binary releases:
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz?action=download">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz.sha512">SHA512</a>]
-      /
-      <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.zip?action=download">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.zip</a>
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.zip.asc">PGP</a>]
-      [<a href="https://downloads.apache.org/lucene/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.zip.sha512">SHA512</a>]
+      <a href="https://www.apache.org/dyn/closer.lua/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz?action=download">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz</a>
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.tgz.sha512">SHA512</a>]
+      ,
+      <a href="https://www.apache.org/dyn/closer.lua/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-slim.tgz?action=download">solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-slim.tgz</a>
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-slim.tgz.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/solr-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-slim.tgz.sha512">SHA512</a>]
     </li>
 
-    <li>Docker: <a href="https://hub.docker.com/_/solr">solr:{{ SOLR_PREVIOUS_MAJOR_RELEASE }}</a></li>
+    <li>OpenAPI specification:
+      <a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/openApi/solr-openapi-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.json">solr-openapi-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.json</a>
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/openApi/solr-openapi-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.json.asc">PGP</a>]
+      [<a href="https://downloads.apache.org/solr/solr/{{ SOLR_PREVIOUS_MAJOR_RELEASE }}/openApi/solr-openapi-{{ SOLR_PREVIOUS_MAJOR_RELEASE }}.json.sha512">SHA512</a>]
+    </li>
+
+    <li>Docker: <a href="https://hub.docker.com/_/solr">solr:{{ SOLR_PREVIOUS_MAJOR_RELEASE }}</a>, <a href="https://hub.docker.com/_/solr">solr:{{ SOLR_PREVIOUS_MAJOR_RELEASE }}-slim</a></li>
 
     <li><a href="{{ SITEURL }}/{{ SOLR_PREVIOUS_MAJOR_RELEASE | replace(".", "_") }}/changes/Changes.html">Change log</a></li>
   </ul>
-
+  
   <h2 id="solr-reference-guide" class="offset">Solr Reference Guide
     <a class="headerlink" href="#solr-reference-guide" title="Permanent link">¶</a>
   </h2>
@@ -115,9 +114,8 @@
   </h3>
 
   <p>Apache Solr is under active development with frequent feature releases on the current major version.
-  <!-- Uncomment when 10.0 is released
+
   The <strong>previous</strong> major version will see occasional critical security- or bug fixes releases.
-  -->
   Older versions are considered EOL (End Of Life) and will not be further
   updated. For this reason it may also be difficult to obtain community support for EOL versions.</p>
 
@@ -133,21 +131,17 @@
       <td>{{ SOLR_LATEST_RELEASE.split('.') | first }}.x</td>
       <td>Current major version for feature releases (STABLE)</td>
     </tr>
-    <!-- Uncomment when 10.0 is released
+
     <tr align=left>
       <td>{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}.x</td>
       <td>Previous major version may sometimes receive critical bugfix releases</td>
     </tr>
-    -->
     <tr align=left>
       <td>{{ SOLR_LATEST_RELEASE.split('.') | first | int + 1 }}</td>
       <td>Next major version, yet to be released (UNSTABLE)</td>
     </tr>
     <tr align=left>
-      <td>&lt;={{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}</td>
-      <!-- Replace above line with this when 10.0 is released
       <td>&lt;{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.') | first }}.{{ SOLR_PREVIOUS_MAJOR_RELEASE.split('.')[1] }}</td>
-      -->
       <td>All older versions are End Of Life (EOL)</td>
     </tr>
   </table>
