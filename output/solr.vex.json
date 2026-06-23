@@ -7,7 +7,7 @@
       "name": "solr",
       "version": "SNAPSHOT",
       "type": "application",
-      "bom-ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+      "bom-ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
     }
   },
   "vulnerabilities": [
@@ -23,7 +23,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -39,7 +39,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -55,7 +55,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -71,7 +71,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -87,7 +87,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -103,7 +103,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -119,7 +119,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -135,7 +135,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -151,7 +151,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -167,7 +167,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -183,7 +183,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -199,7 +199,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -215,7 +215,55 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2015-0899",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2015-0899"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Scanners flag `velocity-tools-2.0.jar` with Apache Struts 1 CVEs because its POM declares a\ntransitive dependency on `struts-core`, `struts-taglib` and `struts-tiles` 1.3.8. Solr does not\nship any Struts jar \u2014 the dependency is excluded and only appears as a transitive POM listing\n(see SOLR-2849) \u2014 so these Struts vulnerabilities are not present in, or exploitable through, Solr."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2016-1181",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-1181"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Scanners flag `velocity-tools-2.0.jar` with Apache Struts 1 CVEs because its POM declares a\ntransitive dependency on `struts-core`, `struts-taglib` and `struts-tiles` 1.3.8. Solr does not\nship any Struts jar \u2014 the dependency is excluded and only appears as a transitive POM listing\n(see SOLR-2849) \u2014 so these Struts vulnerabilities are not present in, or exploitable through, Solr."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2016-1182",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-1182"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "detail": "Scanners flag `velocity-tools-2.0.jar` with Apache Struts 1 CVEs because its POM declares a\ntransitive dependency on `struts-core`, `struts-taglib` and `struts-tiles` 1.3.8. Solr does not\nship any Struts jar \u2014 the dependency is excluded and only appears as a transitive POM listing\n(see SOLR-2849) \u2014 so these Struts vulnerabilities are not present in, or exploitable through, Solr."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -227,11 +275,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11."
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -243,11 +291,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11."
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -259,11 +307,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11."
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -275,11 +323,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all."
+        "detail": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11."
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -295,7 +343,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -311,7 +359,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -327,7 +375,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -343,7 +391,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -359,7 +407,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -375,7 +423,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -391,7 +439,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -407,7 +455,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -423,7 +471,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -439,7 +487,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -455,7 +503,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -471,7 +519,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -487,7 +535,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -503,7 +551,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -519,7 +567,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -535,7 +583,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -551,7 +599,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -567,7 +615,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -583,7 +631,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -599,7 +647,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -615,7 +663,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -631,7 +679,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -647,7 +695,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -663,7 +711,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -679,7 +727,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -695,7 +743,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -711,7 +759,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -727,7 +775,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -743,7 +791,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -759,7 +807,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -775,7 +823,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -791,7 +839,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -807,7 +855,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -823,7 +871,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -839,7 +887,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -855,7 +903,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -871,7 +919,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -887,7 +935,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -903,7 +951,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -922,7 +970,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -938,7 +986,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -950,11 +998,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr."
+        "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.\n\nRegardless, Solr upgraded the bundled json-path to 2.9.0 \u2014 which fixes CVE-2023-51074 \u2014 in Solr 9.6.0, so the vulnerable json-path (\u2264 2.8.0) only shipped through Solr 9.5."
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -966,11 +1014,11 @@
       },
       "analysis": {
         "state": "not_affected",
-        "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr."
+        "detail": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.\n\nRegardless, Solr upgraded the bundled json-path to 2.9.0 \u2014 which fixes CVE-2023-51074 \u2014 in Solr 9.6.0, so the vulnerable json-path (\u2264 2.8.0) only shipped through Solr 9.5."
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -989,7 +1037,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -1005,7 +1053,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -1022,7 +1070,7 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     },
@@ -1038,7 +1086,169 @@
       },
       "affects": [
         {
-          "ref": "f5e98f6b-8f1b-5444-beae-716478ae4df3"
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2025-48924",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-48924"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "justification": "code_not_reachable",
+        "detail": "The vulnerable functionality is only reachable via `commons-configuration2`, which is used in Solr's Hadoop Kerberos support (`solr-hadoop-auth`) to load administrator-provided Hadoop configuration files. As such, the vulnerability is not exploitable in Solr."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-34477",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34477"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "justification": "requires_configuration",
+        "detail": "CVE-2026-34477 is **not** considered exploitable in typical deployments of Apache Solr.\nSuccessful exploitation requires a specific, non-default logging configuration together with a privileged network position.\nThe following conditions **must all be met**:\n\n* The Log4j configuration is modified to add an `SMTP`, `Socket` or `Syslog` appender that ships logs over TLS through a nested `<Ssl>` element.\n* That appender relies on the `verifyHostName` attribute to authenticate the remote receiver, which was silently ignored through Log4j Core 2.25.3.\n* A man-in-the-middle attacker can intercept the connection and present a certificate issued by a CA trusted by the configured (or default) trust store.\n\nNone of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution define such an appender.\nThey only use `Console` and `RollingRandomAccessFile` appenders, which open no network connection,\nso no TLS hostname verification ever takes place.\nThe `HTTP` appender is not affected either, as it uses a separate `verifyHostname` attribute that verifies host names by default.\n\nA configuration that does meet the conditions above looks like this:\n\n```xml\n<Appenders>\n  <Socket name=\"remote\" host=\"logs.example.com\" port=\"6514\">\n    <!-- verifyHostName=\"true\" was silently ignored through 2.25.3 -->\n    <Ssl verifyHostName=\"true\">\n      <KeyStore location=\"...\" password=\"...\"/>\n      <TrustStore location=\"...\" password=\"...\"/>\n    </Ssl>\n    <PatternLayout pattern=\"%m%n\"/>\n  </Socket>\n</Appenders>\n```\n\nOperators who do configure TLS network appenders should replace the vulnerable JAR file\n(`server/lib/ext/log4j-core-2.25.3.jar`)\nwith `log4j-core-2.25.4.jar`."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-34478",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34478"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "justification": "requires_configuration",
+        "detail": "CVE-2026-34478 is **not** considered exploitable in typical deployments of Apache Solr.\nSuccessful exploitation requires a specific, non-default logging configuration.\nThe following conditions **must all be met**:\n\n* The Log4j configuration is modified to send logs to a stream-based (TCP or TLS) syslog service using `Rfc5424Layout` directly.\n* An attacker is able to inject CRLF sequences into the logged data.\n\nBecause the `newLineEscape` and `useTlsMessageFormat` attributes were silently renamed in Log4j Core 2.21.0,\nnewline escaping stopped working and TLS framing was downgraded to plain TCP,\nleaving such configurations exposed to CRLF log injection.\n\nNone of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution reference `Rfc5424Layout`.\nThey only use `PatternLayout`, so the issue cannot be triggered.\nUsers of the `Syslog` appender are not affected either, since its attributes were not renamed.\n\nA configuration that does meet the conditions above looks like this:\n\n```xml\n<Appenders>\n  <Socket name=\"syslog\" host=\"logs.example.com\" port=\"601\" protocol=\"TCP\">\n    <Rfc5424Layout appName=\"Solr\" newLineEscape=\"\\\\n\"/>\n  </Socket>\n</Appenders>\n```\n\nOperators who do configure `Rfc5424Layout` should either:\n\n* replace `newLineEscape` with `escapeNL` and `useTlsMessageFormat` with `useTLSMessageFormat`\n  (note the capitalization), or\n* replace the vulnerable JAR file\n  (`server/lib/ext/log4j-core-2.25.3.jar`)\n  with `log4j-core-2.25.4.jar`."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-34479",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34479"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "justification": "requires_configuration",
+        "detail": "CVE-2026-34479 is **not** considered exploitable in typical deployments of Apache Solr.\nSuccessful exploitation requires a specific, non-default logging configuration.\nThe following conditions **must all be met**:\n\n* The Log4j 1-to-Log4j 2 bridge emits logs through `Log4j1XmlLayout`,\n  either configured directly in a Log4j 2 configuration\n  or selected as `org.apache.log4j.xml.XMLLayout` through the Log4j 1 compatibility layer.\n* The logged data contains characters forbidden by the XML 1.0 specification.\n\nThe `log4j-1.2-api` JAR is shipped so that third-party libraries that still call the Log4j 1 API keep working.\nHowever, Solr is configured through Log4j 2 configuration files that only use `PatternLayout`,\nand the distribution ships no Log4j 1 (`log4j.properties` or `log4j.xml`) configuration file,\nso the vulnerable layout is never instantiated.\n\nA configuration that does meet the conditions above looks like this:\n\n```xml\n<Appenders>\n  <File name=\"xml\" fileName=\"${sys:solr.log.dir}/solr-events.xml\">\n    <Log4j1XmlLayout/>\n  </File>\n</Appenders>\n```\n\nOperators who use legacy Log4j 1 configuration files or `Log4j1XmlLayout` should replace the vulnerable JAR file\n(`server/lib/ext/log4j-1.2-api-2.25.3.jar`)\nwith `log4j-1.2-api-2.25.4.jar`.\nSupport for `Log4j1XmlLayout` and legacy Log4j 1 configuration files may be removed in a future Solr release,\nso migrating to a native Log4j 2 configuration is recommended."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-34480",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34480"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "justification": "requires_configuration",
+        "detail": "CVE-2026-34480 is **not** considered exploitable in typical deployments of Apache Solr.\nSuccessful exploitation requires a specific, non-default logging configuration.\nThe following conditions **must all be met**:\n\n* The Log4j configuration is modified to write events through `XmlLayout`.\n* A log message or MDC value contains characters forbidden by the XML 1.0 specification.\n\nWhen triggered, the layout produces malformed XML, which downstream log processors may reject:\nsilently with the JRE built-in StAX, or by dropping the event with alternative implementations such as Woodstox.\n\nNone of the Log4j configuration files shipped in the Solr 9.10.1 binary distribution reference `XmlLayout`.\nThey only use `PatternLayout`, so the vulnerable code path is never reached.\nThe MDC values that Solr populates (collection, shard, replica, core and node names, plus a trace id) are not emitted as XML either.\n\nA configuration that does meet the conditions above looks like this:\n\n```xml\n<Appenders>\n  <RollingFile name=\"xml\" fileName=\"${sys:solr.log.dir}/solr-events.xml\"\n               filePattern=\"${sys:solr.log.dir}/solr-events.xml.%i\">\n    <XmlLayout/>\n  </RollingFile>\n</Appenders>\n```\n\nOperators who do configure `XmlLayout` should replace the vulnerable JAR file\n(`server/lib/ext/log4j-core-2.25.3.jar`)\nwith `log4j-core-2.25.4.jar`."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-34481",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34481"
+      },
+      "analysis": {
+        "state": "not_affected",
+        "justification": "code_not_reachable",
+        "detail": "CVE-2026-34481 is **not** considered exploitable in any deployment of the Apache Solr binary distribution.\nSuccessful exploitation requires the application to log a `MapMessage` (or one of its subclasses)\ncarrying a non-finite floating-point value (`NaN`, `Infinity` or `-Infinity`) through `JsonTemplateLayout`,\nwhich the layout then serializes as invalid JSON, in breach of RFC 8259.\n\nProducing a `MapMessage` requires application code, and users of the binary distribution run only the code shipped by Apache Solr.\nA scan of the bytecode of all JAR files in the distribution confirms that the `MapMessage` family\n(`MapMessage`, `StringMapMessage` and `StructuredDataMessage`)\nis referenced only inside Log4j's own JARs.\nNeither Solr nor any of its bundled dependencies ever constructs or logs such a message.\n\nBecause no shipped code can hand a triggering value to the layout,\nthe vulnerable code path cannot be reached regardless of the configured layout,\nand the Solr community considers this vulnerability **non-exploitable** in the binary distribution."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-40682",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40682"
+      },
+      "analysis": {
+        "state": "exploitable",
+        "response": [
+          "workaround_available",
+          "update"
+        ],
+        "detail": "CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's\ndictionary parsing. The `DictionaryEntryPersistor` class and the public `Dictionary(InputStream)`\nconstructor create a SAX parser without enabling `FEATURE_SECURE_PROCESSING` or disabling DTD\nprocessing, so external entity resolution and DOCTYPE declarations remain fully enabled. An attacker\nwho can supply a crafted dictionary file \u2014 either directly or embedded in a model archive that\nOpenNLP deserializes \u2014 can therefore read local files from the server or trigger outbound requests\n(server-side request forgery). Other OpenNLP XML parsing paths route through the hardened\n`XmlUtil.createSaxParser()` helper, but this code path does not.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr pulls in transitively via\n`lucene-analysis-opennlp` (Lucene 9.12.3). There is a `opennlp-tools-1.9.5` release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which parse dictionaries with secure\nXML processing that rejects DOCTYPE declarations and external entities.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable dictionary-parsing code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load OpenNLP model or\n  dictionary files (the schema-configured OpenNLP analyzers \u2014 tokenizer, POS, chunker, lemmatizer,\n  name-finder \u2014 or the `langid` / `analysis-extras` update processors).\n\nAny deployment that enables these modules and parses an OpenNLP model or dictionary an attacker can\ninfluence is exploitable. A deployment that does not enable them never parses an OpenNLP dictionary\nand is not exposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model and dictionary files only from\nlocations you fully control, since the bundled OpenNLP 1.9.4 does not disable external entities when\nparsing dictionaries.\n\nEvery OpenNLP model and dictionary is loaded as a resource through Solr's resource loaders, so the\narchive passes through a single chokepoint before OpenNLP is allowed to deserialize it. This applies\nto both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments, and whether the\ndictionary is loaded by the `langid` / `analysis-extras` update processors or by the\nschema-configured OpenNLP analyzers.\n\nFully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via `lucene-analysis-opennlp`) to 2.5.9."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-42027",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42027"
+      },
+      "analysis": {
+        "state": "exploitable",
+        "response": [
+          "workaround_available",
+          "update"
+        ],
+        "detail": "CVE-2026-42027 (CVSS 9.8) is an arbitrary class instantiation issue in Apache OpenNLP's\n`ExtensionLoader`. The `instantiateExtension(Class, String)` method loads a class named in a\nmodel archive's `manifest.properties` via `Class.forName()` and only performs its\n`isAssignableFrom` type check *after* the class has been loaded. Because `Class.forName()`\nruns the target class's static initializer at load time, an attacker who can supply a crafted\nmodel archive can trigger the static initializer of any class on the classpath (e.g. one that\nperforms a JNDI lookup, outbound network I/O, or filesystem access), regardless of the\ntype check that follows.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr pulls in transitively\nvia `lucene-analysis-opennlp` (Lucene 9.12.3). There is a `opennlp-tools-1.9.5` release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which consults a\npackage-prefix allowlist *before* calling `Class.forName()`.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load model files.\n\nAny deployment that enables these modules and loads an OpenNLP model an attacker can influence is\nexploitable. A deployment that does not enable them never invokes `ExtensionLoader` and is not\nexposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model files only from locations you\nfully control and never from untrusted or user-supplied sources.\n\nIn Solr 9.11.0 the upstream allowlist defense is backfilled at the application layer, since the\nvulnerable jar cannot yet be upgraded (Solr must track the OpenNLP version used by\n`lucene-analysis-opennlp`). Every OpenNLP model is loaded as a resource through Solr's resource\nloaders, so the archive is validated at that single chokepoint before OpenNLP is allowed to\ndeserialize it:\n\n* The archive is opened as a ZIP and every class name it declares \u2014 the `manifest.properties`\n  `factory` entry and any class referenced from embedded feature-generator XML descriptors \u2014 must\n  resolve under the `opennlp.` package prefix.\n* A model that names a class outside that prefix is rejected and never reaches `ExtensionLoader`,\n  so no attacker-controlled static initializer can run.\n* Validation covers both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments,\n  and applies whether the model is loaded by the `langid` / `analysis-extras` update processors or\n  by the schema-configured OpenNLP analyzers (tokenizer, POS, chunker, lemmatizer, name-finder).\n\nSolr's own usage only ever references built-in `opennlp.*` factories, so legitimate models load\nunchanged; only crafted models that try to instantiate arbitrary classes are blocked.\n\nFully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via `lucene-analysis-opennlp`) to 2.5.9."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
+        }
+      ]
+    },
+    {
+      "id": "CVE-2026-42440",
+      "source": {
+        "name": "NVD",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42440"
+      },
+      "analysis": {
+        "state": "exploitable",
+        "response": [
+          "workaround_available",
+          "update"
+        ],
+        "detail": "CVE-2026-42440 (CVSS 7.5) is an out-of-memory denial-of-service issue in Apache OpenNLP's binary\nmodel reader. The `AbstractModelReader` methods `getOutcomes()`, `getOutcomePatterns()` and\n`getPredicates()` read a 32-bit signed integer count field from a binary model stream and pass it\ndirectly to an array allocation without validating it. An attacker who can supply a crafted `.bin`\nmodel file with a count set to `Integer.MAX_VALUE` triggers an immediate `OutOfMemoryError` during\nmodel deserialization, before any substantial data is consumed.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr pulls in transitively via\n`lucene-analysis-opennlp` (Lucene 9.12.3). There is a `opennlp-tools-1.9.5` release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which validate the count against an\nupper bound (default 10,000,000, configurable via the `OPENNLP_MAX_ENTRIES` system property) before\nallocating.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable model-loading code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load OpenNLP model files (the\n  schema-configured OpenNLP analyzers \u2014 tokenizer, POS, chunker, lemmatizer, name-finder \u2014 or the\n  `langid` / `analysis-extras` update processors).\n\nAny deployment that enables these modules and loads an OpenNLP model an attacker can influence is\nexploitable. A deployment that does not enable them never deserializes an OpenNLP model and is not\nexposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model files only from locations you\nfully control and never from untrusted or user-supplied sources.\n\nFully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via `lucene-analysis-opennlp`) to 2.5.9."
+      },
+      "affects": [
+        {
+          "ref": "87b0825f-3532-5af7-be6b-bfda783d5759"
         }
       ]
     }

@@ -20,23 +20,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
 
-<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=d20084a9" />
-<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=d20084a9" />
-<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=d20084a9" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=d20084a9" />
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=d20084a9"/>
-<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=d20084a9"/>
-<link rel="stylesheet" href="/theme/css/base.css?v=d20084a9" />
+<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=501cdb3d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=501cdb3d"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=501cdb3d" />
 <meta name="Distribution" content="Global"/>
 <meta name="Robots" content="index,follow"/>
 
 <script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
-<script src="/theme/javascript/lib/foundation/modernizr.js?v=d20084a9"></script>
-<script src="/theme/javascript/lib/angularjs/angular.min.js?v=d20084a9"></script>
-<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=d20084a9"></script>
-<script src="/theme/javascript/lib/foundation/foundation.min.js?v=d20084a9"></script>
-<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=d20084a9"></script>
-<script src="/theme/javascript/main.js?v=d20084a9"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/main.js?v=501cdb3d"></script>
 <script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Solr™ CVE Status for Dependencies - Apache Solr</title>
 
     <meta name="keywords"
@@ -46,8 +46,8 @@
      <meta property="og:url" content="https://solr.apache.org/security-dependency-cves.html"/>
      <meta property="og:title" content="Solr™ CVE Status for Dependencies"/>
      <meta property="og:description" content="Apache Solr depends on many third-party libraries. Security scanners routinely flag CVEs in those libraries, but a CVE in a..."/>
-     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=d20084a9"/>
-     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=d20084a9"/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=501cdb3d"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=501cdb3d"/>
 
    <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
    <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
@@ -83,22 +83,25 @@
       <div class="top-bar-section">
         <ul class="navigation right">
           <li>
-            <a href="/posts.html">News</a>
+            <a href="https://solr.apache.org/guide/solr/latest/">Docs</a>
+          </li>
+          <li class="has-dropdown">
+            <a href="/features.html">Learn</a>
+            <ul class="dropdown">
+              <li><a href="/features.html">Features</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+            </ul>
           </li>
           <li>
             <a href="/security.html">Security</a>
           </li>
-          <li>
-            <a href="/features.html">Features</a>
-          </li>
-          <li>
-            <a href="/resources.html">Resources</a>
-          </li>
-          <li>
-            <a href="/community.html">Community</a>
-          </li>
-          <li>
-            <a href="/whoweare.html">Project</a>
+          <li class="has-dropdown">
+            <a href="/community.html">About</a>
+            <ul class="dropdown">
+              <li><a href="/community.html">Community</a></li>
+              <li><a href="/whoweare.html">Project</a></li>
+              <li><a href="/posts.html">News</a></li>
+            </ul>
           </li>
           <li>
             <a href="/operator/">Solr Operator</a>
@@ -150,7 +153,7 @@ VEX is an open standard that lets vendors state explicitly whether a CVE applies
 and why. A number of formats are under active development, including
 <a href="https://cyclonedx.org/capabilities/vex/">CycloneDX</a> and
 <a href="https://github.com/oasis-tcs/csaf/blob/master/csaf_2.0/prose/csaf-v2-editor-draft.md#45-profile-5-vex">CSAF</a>.
-We currently publish in CycloneDX 1.4 JSON format.</p>
+We currently publish in CycloneDX 1.6 JSON format.</p>
 <p>If your scanner supports VEX, download the file below and point your scanner at it to automatically
 suppress known non-applicable findings. If your scanner does not yet support VEX, you can use the
 table on this page to manually triage flagged CVEs.</p>
@@ -163,8 +166,8 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
   </div>
 
   <h2 id="cve-table">CVE Status for Dependencies <a class="headerlink" href="#cve-table" title="Permanent link">¶</a></h2>
-  <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies and their applicability to Solr.
-     CVEs assessed as exploitable in Solr have their own advisory on the
+  <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies and their applicability to Solr,
+     with the assessed state of each. CVEs assessed as exploitable in Solr also have their own advisory on the
      <a href="/security-news.html">security news page</a>.</p>
 
   <table>
@@ -177,74 +180,137 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
     </tr>
     <tr>
       <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42440">CVE-2026-42440</a>      </td>
+      <td>< 10.1.0</td>
+      <td>
+          opennlp-tools-1.9.4.jar      </td>
+      <td><span class="cdx-exploitable">exploitable</span></td>
+      <td><a href="/vex.html#cve-2026-42440">Apache OpenNLP: Out-of-memory denial of service via crafted model file</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42027">CVE-2026-42027</a>      </td>
+      <td>< 10.1.0</td>
+      <td>
+          opennlp-tools-1.9.4.jar      </td>
+      <td><span class="cdx-exploitable">exploitable</span></td>
+      <td><a href="/vex.html#cve-2026-42027">Apache OpenNLP: Arbitrary class instantiation via model manifest</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-40682">CVE-2026-40682</a>      </td>
+      <td>< 10.1.0</td>
+      <td>
+          opennlp-tools-1.9.4.jar      </td>
+      <td><span class="cdx-exploitable">exploitable</span></td>
+      <td><a href="/vex.html#cve-2026-40682">Apache OpenNLP: XXE in dictionary parsing</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34481">CVE-2026-34481</a>      </td>
+      <td>9.10.1, 10.0.0</td>
+      <td>
+          log4j-layout-template-json-2.25.3.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-34481">Apache Log4j JSON Template Layout: Invalid JSON for non-finite floating-point values</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34480">CVE-2026-34480</a>      </td>
+      <td>9.10.1, 10.0.0</td>
+      <td>
+          log4j-core-2.25.3.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-34480">Apache Log4j Core: Invalid XML output from XmlLayout</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34479">CVE-2026-34479</a>      </td>
+      <td>9.10.1, 10.0.0</td>
+      <td>
+          log4j-1.2-api-2.25.3.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-34479">Apache Log4j 1.x bridge: Malformed XML output from Log4j1XmlLayout</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34478">CVE-2026-34478</a>      </td>
+      <td>9.10.1, 10.0.0</td>
+      <td>
+          log4j-core-2.25.3.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-34478">Apache Log4j Core: Log injection via CRLF sequences in Rfc5424Layout</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34477">CVE-2026-34477</a>      </td>
+      <td>9.10.1, 10.0.0</td>
+      <td>
+          log4j-core-2.25.3.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-34477">Apache Log4j Core: TLS hostname verification silently ignored in Socket, SMTP and Syslog appenders</a></td>
+    </tr>
+    <tr>
+      <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-51504">CVE-2024-51504</a>      </td>
-      <td>9.4.0–9.8.1</td>
+      <td>9.4.0-9.8.1</td>
       <td>
           zookeeper-3.9.0.jar,           zookeeper-3.9.1.jar,           zookeeper-3.9.2.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2024-51504">Apache ZooKeeper: Authentication bypass with IP-based authentication in Admin Server</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-6763">CVE-2024-6763</a>      </td>
-      <td>< 9.8</td>
+      <td>≤ 9.7</td>
       <td>
           jetty-http-10.0.22.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2024-6763">jetty-http</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-51074">CVE-2023-51074</a>, <a href="https://github.com/advisories/GHSA-pfh2-hfmq-phg5">GHSA-pfh2-hfmq-phg5</a>      </td>
-      <td>all</td>
+      <td>≤ 9.5</td>
       <td>
           json-path-2.8.0.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2023-51074">json-path</a></td>
     </tr>
     <tr>
       <td>
-      </td>
-      <td>6.6.2-today</td>
-      <td>
-          velocity-tools-2.0.jar      </td>
-      <td>not affected</td>
-      <td><a href="/vex.html#cve-velocity-tools">velocity-tools</a></td>
-    </tr>
-    <tr>
-      <td>
-      </td>
-      <td>7.3.1-today</td>
-      <td>
-          tika-core.*.jar      </td>
-      <td>not affected</td>
-      <td><a href="/vex.html#cve-tika-core">tika-core.*</a></td>
-    </tr>
-    <tr>
-      <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-42889">CVE-2022-42889</a>      </td>
-      <td>< 9.1</td>
+      <td>≤ 9.0</td>
       <td>
           commons-text-1.9.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2022-42889">commons-text</a></td>
     </tr>
     <tr>
       <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2022-39135">CVE-2022-39135</a>      </td>
+      <td>6.5-8.11.2, 9.0</td>
+      <td>
+          calcite-1.31.0.jar      </td>
+      <td><span class="cdx-exploitable">exploitable</span></td>
+      <td><a href="/vex.html#cve-2022-39135">calcite</a></td>
+    </tr>
+    <tr>
+      <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-33980">CVE-2022-33980</a>      </td>
-      <td>< 9.1</td>
+      <td>≤ 9.0</td>
       <td>
           commons-configuration2-2.7.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2022-33980">commons-configuration2</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2022-25168">CVE-2022-25168</a>      </td>
-      <td>< 9.1</td>
+      <td>≤ 9.0</td>
       <td>
           hadoop-common-3.2.2.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2022-25168">hadoop-common</a></td>
     </tr>
     <tr>
@@ -253,7 +319,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>7.4-8.11.1</td>
       <td>
           log4j-core-2.14.1.jar,           log4j-core-2.16.0.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2021-45105">log4j-core</a></td>
     </tr>
     <tr>
@@ -262,25 +328,25 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>7.4-8.11.1</td>
       <td>
           log4j-core-2.14.1.jar,           log4j-core-2.16.0.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2021-44832">log4j-core</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-33813">CVE-2021-33813</a>      </td>
-      <td>to present</td>
+      <td>≤ 8.x</td>
       <td>
           jdom-*.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2021-33813">jdom-*</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-27223">CVE-2020-27223</a>      </td>
-      <td>7.3.0-present</td>
+      <td>7.3.0-8.x</td>
       <td>
           jetty-9.4.6 to 9.4.36      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2020-27223">jetty-9.4.6 to 9.4.36</a></td>
     </tr>
     <tr>
@@ -289,16 +355,16 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>7.3.0-8.8.0</td>
       <td>
           jetty-9.4.0 to 9.4.34      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2020-27218">jetty-9.4.0 to 9.4.34</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13955">CVE-2020-13955</a>      </td>
-      <td>8.1.0- today</td>
+      <td>8.1.0-8.x</td>
       <td>
           avatica-core-1.13.0.jar,           calcite-core-1.18.0.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2020-13955">avatica-core</a></td>
     </tr>
     <tr>
@@ -307,7 +373,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>8.2-8.3</td>
       <td>
           netty-all-4.1.29.Final.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2019-16869">netty-all</a></td>
     </tr>
     <tr>
@@ -316,7 +382,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>7.7.0-8.2</td>
       <td>
           jetty-9.4.14      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2019-10241">jetty</a></td>
     </tr>
     <tr>
@@ -325,16 +391,16 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>8.0.0-8.3.0</td>
       <td>
           commons-beanutils-1.9.3.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2019-10086">commons-beanutils</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-8088">CVE-2018-8088</a>      </td>
-      <td>4.x-today</td>
+      <td>4.x-9.1</td>
       <td>
           slf4j-api-1.7.24.jar,           jcl-over-slf4j-1.7.24.jar,           jul-to-slf4j-1.7.24.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2018-8088">slf4j-api</a></td>
     </tr>
     <tr>
@@ -343,7 +409,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>5.4.0-7.7.2, 8.0-8.3</td>
       <td>
           simple-xml-2.7.1.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2018-1471">simple-xml</a></td>
     </tr>
     <tr>
@@ -352,34 +418,34 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>7.3.1-7.5.0</td>
       <td>
           tika-core.1.17.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2018-1335">tika-core.1.17</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a>      </td>
-      <td>5.4.0-today</td>
+      <td>5.4.0-8.x</td>
       <td>
           carrot2-guava-18.0.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2018-10237">carrot2-guava</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-10237">CVE-2018-10237</a>      </td>
-      <td>4.6.0-today</td>
+      <td>4.6.0-8.x</td>
       <td>
           guava-*.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2018-10237-guava">guava-*</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1000632">CVE-2018-1000632</a>      </td>
-      <td>4.6.0-today</td>
+      <td>4.6.0-8.x</td>
       <td>
           dom4j-1.6.1.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2018-1000632">dom4j</a></td>
     </tr>
     <tr>
@@ -388,7 +454,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>4.6.0-7.6.0</td>
       <td>
           junit-4.10.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2018-1000056">junit</a></td>
     </tr>
     <tr>
@@ -397,16 +463,16 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>6.6.1-7.6.0</td>
       <td>
           hadoop-auth-2.7.4.jar,           hadoop-hdfs-2.7.4.jar (all Hadoop)      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2017-15718">hadoop-auth</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-15095">CVE-2017-15095</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-17485">CVE-2017-17485</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7525">CVE-2017-7525</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-5968">CVE-2018-5968</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-7489">CVE-2018-7489</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12086">CVE-2019-12086</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12384">CVE-2019-12384</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-12814">CVE-2018-12814</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14379">CVE-2019-14379</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14439">CVE-2019-14439</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35490">CVE-2020-35490</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35491">CVE-2020-35491</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-20190">CVE-2021-20190</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14540">CVE-2019-14540</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16335">CVE-2019-16335</a>      </td>
-      <td>4.7.0-today</td>
+      <td>4.7.0-8.x</td>
       <td>
           jackson-databind-*.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2017-15095">jackson-databind-*</a></td>
     </tr>
     <tr>
@@ -415,34 +481,43 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>6.0.0-7.5.0</td>
       <td>
           icu4j-56.1.jar,           icu4j-59.1.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2017-14952">icu4j</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14868">CVE-2017-14868</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-14949">CVE-2017-14949</a>      </td>
-      <td>5.2.0-today</td>
+      <td>5.2.0-8.x</td>
       <td>
           org.restlet-2.3.0.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2017-14868">org.restlet</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-6809">CVE-2016-6809</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1335">CVE-2018-1335</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1338">CVE-2018-1338</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1339">CVE-2018-1339</a>      </td>
-      <td>5.5.5, 6.2.0-today</td>
+      <td>5.5.5, 6.2.0-9.10</td>
       <td>
           vorbis-java-tika-0.8.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2016-6809">vorbis-java-tika</a></td>
     </tr>
     <tr>
       <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2015-0899">CVE-2015-0899</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-1181">CVE-2016-1181</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2016-1182">CVE-2016-1182</a>      </td>
+      <td>6.6.2-8.x</td>
+      <td>
+          velocity-tools-2.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2016-1181">Apache Struts 1 CVEs via velocity-tools transitive dependency</a></td>
+    </tr>
+    <tr>
+      <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2015-5237">CVE-2015-5237</a>      </td>
-      <td>6.5.0-today</td>
+      <td>6.5.0-7.x</td>
       <td>
           protobuf-java-3.1.0.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2015-5237">protobuf-java</a></td>
     </tr>
     <tr>
@@ -451,7 +526,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>7.3.1</td>
       <td>
           lucene-analyzers-icu-7.3.1.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2014-7940">lucene-analyzers-icu</a></td>
     </tr>
     <tr>
@@ -460,25 +535,25 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <td>4.9.0-7.5.0</td>
       <td>
           commons-beanutils-1.8.3.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2014-0114">commons-beanutils</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2012-2098">CVE-2012-2098</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-1324">CVE-2018-1324</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-11771">CVE-2018-11771</a>      </td>
-      <td>4.6.0-today</td>
+      <td>4.6.0-7.x</td>
       <td>
           commons-compress (only as part of Ant 1.8.2)      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2012-2098">commons-compress (only as part of Ant 1.8.2)</a></td>
     </tr>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2012-0881">CVE-2012-0881</a>      </td>
-      <td>~2.9-today</td>
+      <td>2.9-9.10</td>
       <td>
           xercesImpl-2.9.1.jar      </td>
-      <td>not affected</td>
+      <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2012-0881">xercesImpl</a></td>
     </tr>
   </table>
@@ -508,7 +583,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
     <h4>Resources</h4>
     <ul>
       <li><a href="/resources.html#tutorials">Tutorial</a></li>
-      <li><a href="/resources.html#documentation">Docs</a></li>
+      <li><a href="https://solr.apache.org/guide/solr/latest/">Docs</a></li>
       <li><a href="/resources.html#solr-books">Books</a></li>
       <li><a href="/resources.html#presentations">Presentations</a></li>
       <li><a href="/resources.html#videos">Videos</a></li>

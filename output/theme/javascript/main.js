@@ -16,7 +16,7 @@
  specific language governing permissions and limitations
  under the License.
 */
-;(function() {
+;(function($) {
 
   /*
    * --------------------------------------------------------------------------
@@ -49,17 +49,34 @@
   });
 
   /*
+   * Mobile: tap a top-nav dropdown parent (Learn/About) to expand its submenu
+   * instead of navigating. Desktop (hover) is unaffected.
+   */
+  $(function() {
+    $('.top-bar-section .has-dropdown > a').on('click', function(e) {
+      if (window.matchMedia('(max-width: 40em)').matches) {
+        e.preventDefault();
+        e.stopPropagation(); // keep Foundation's topbar handler from also firing
+        $(this).parent('.has-dropdown').toggleClass('mobile-open');
+      }
+    });
+  });
+
+  /*
    * Shrinking top-bar
    */
   $(function() {
     var header = $(".top-bar")
+    var subNav = $(".anchor-top")
     $(window).scroll(function() {
       var scroll = $(window).scrollTop();
-        if (scroll >= 150) {
+        if (scroll >= 50) {
             $(header).addClass("shrink");
+            $(subNav).addClass("anchor-fixed");
         }
-        if (scroll < 150) {
+        if (scroll < 50) {
             $(header).removeClass("shrink");
+            $(subNav).removeClass("anchor-fixed");
         }
     });
   });
@@ -163,32 +180,4 @@
 
     }])
 
-    .directive('anchorTop', ['$window', function($window) {
-      return {
-        restrict: 'C',
-        scopr: true,
-        link: function(scope, el, attrs) {
-
-          var windowEl = angular.element($window),
-            offset = el.offset().top,
-            handler = function() {
-              scope.scroll = windowEl.scrollTop()
-            }
-
-          windowEl.on('scroll', scope.$apply.bind(scope, handler))
-          handler();
-
-          scope.$watch('scroll', function(n, o, s) {
-            var difference = (-1 * (offset - n)) + 57;
-            if(difference > 0) {
-              el.addClass('anchor-fixed')
-            } else {
-              el.removeClass('anchor-fixed')
-            }
-          })
-
-        }
-      }
-    }])
-
-})()
+})(jQuery)
