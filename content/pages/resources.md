@@ -25,8 +25,6 @@ Users who have completed the tutorial are encouraged to review the [other docume
 
 * [Solr Reference Guide](/guide)
 
-* [Visual Guide to Streaming Expressions and Math Expressions](http://bit.ly/32srTpA)
-
 <h3 class="offset" id="javadocs">Solr Javadocs</h3>
 
 Solr generates JavaDocs for all included code in each release.
