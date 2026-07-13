@@ -1,5 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/vex</title><link href="/" rel="alternate"/><link href="/feeds/solr/vex.atom.xml" rel="self"/><id>/</id><updated>2026-05-04T00:00:00+00:00</updated><entry><title>Apache OpenNLP: XXE in dictionary parsing</title><link href="/cve-2026-40682.html" rel="alternate"/><published>2026-05-04T00:00:00+00:00</published><updated>2026-05-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-04:/cve-2026-40682.html</id><summary type="html">&lt;p&gt;CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/vex</title><link href="/" rel="alternate"/><link href="/feeds/solr/vex.atom.xml" rel="self"/><id>/</id><updated>2026-06-18T00:00:00+00:00</updated><entry><title>Eclipse Jetty: differential URI parsing can bypass front-end URI controls</title><link href="/cve-2025-11143.html" rel="alternate"/><published>2026-06-18T00:00:00+00:00</published><updated>2026-06-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-06-18:/cve-2025-11143.html</id><summary type="html">&lt;p&gt;CVE-2025-11143 (CVSS 6.5; 3.7 per the Eclipse Foundation) is an improper-input-validation issue
+(CWE-20) in Eclipse Jetty's URI parser (&lt;code&gt;HttpURI&lt;/code&gt;): it interprets some invalid or unusual URIs
+differently from other common HTTP parsers. When a component in front of Jetty parses the same URI
+differently, an attacker can craft …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-11143 (CVSS 6.5; 3.7 per the Eclipse Foundation) is an improper-input-validation issue
+(CWE-20) in Eclipse Jetty's URI parser (&lt;code&gt;HttpURI&lt;/code&gt;): it interprets some invalid or unusual URIs
+differently from other common HTTP parsers. When a component in front of Jetty parses the same URI
+differently, an attacker can craft a malformed URI to bypass URI-based security controls (such as
+path allow/deny lists) or to reveal implementation details. It affects Jetty 9.4.0–9.4.58,
+10.0.0–10.0.26, 11.0.0–11.0.26, 12.0.0–12.0.30 and 12.1.0–12.1.4; it is fixed in 9.4.59, 10.0.27,
+11.0.27, 12.0.31 and 12.1.5.&lt;/p&gt;
+&lt;p&gt;CVE-2025-11143 is &lt;strong&gt;not&lt;/strong&gt; considered exploitable in production deployments of Apache Solr.
+Successful exploitation requires a specific, non-recommended configuration — all of the following
+conditions must be true:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Solr must be deployed behind an HTTP intermediary (reverse proxy, load balancer, or API gateway)
+  that enforces &lt;strong&gt;URI-based&lt;/strong&gt; access rules (for example, blocking &lt;code&gt;/solr/admin/*&lt;/code&gt; at the proxy layer).&lt;/li&gt;
+&lt;li&gt;That intermediary must be the &lt;strong&gt;sole&lt;/strong&gt; security gate — Solr's own &lt;strong&gt;authentication and
+  authorization must not be enabled&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="why-solr-auth-is-a-complete-fix"&gt;Why Solr auth is a complete fix&lt;a class="headerlink" href="#why-solr-auth-is-a-complete-fix" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;This is a &lt;strong&gt;differential-parsing&lt;/strong&gt; issue: it only has security impact when a front-end proxy makes an
+access-control decision based on its own URI interpretation and Solr has no independent access control
+of its own. Solr enforces access control in its own servlet filter (&lt;code&gt;SolrDispatchFilter&lt;/code&gt; /
+the &lt;code&gt;AuthenticationPlugin&lt;/code&gt; framework) &lt;strong&gt;after&lt;/strong&gt; Jetty has parsed the URI. Because Solr's auth layer
+operates on the same already-resolved path that Jetty produced, it cannot be confused by differential
+proxy/Jetty parsing — the bypass that the proxy grants does not help an attacker get past Solr's own
+auth. Enabling Solr auth provides &lt;strong&gt;complete&lt;/strong&gt; protection, not merely a mitigating control. (This
+distinguishes CVE-2025-11143 from request-smuggling issues such as CVE-2026-2332, where Solr auth
+reduces impact but does not eliminate all cross-connection effects.)&lt;/p&gt;
+&lt;p&gt;The Apache Solr project considers authentication and authorization a prerequisite for any
+production-secure deployment and explicitly warns against relying on network-perimeter controls as the
+sole access mechanism. A deployment without Solr auth that relies on a proxy's URI rules as its only
+security boundary is therefore outside the project's supported production configuration.&lt;/p&gt;
+&lt;p&gt;Solr 10.0 ships the fixed Jetty 12.0.34.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Eclipse Jetty: HTTP/1.1 request smuggling via chunk-extension parsing</title><link href="/cve-2026-2332.html" rel="alternate"/><published>2026-06-18T00:00:00+00:00</published><updated>2026-06-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-06-18:/cve-2026-2332.html</id><summary type="html">&lt;p&gt;CVE-2026-2332 (CVSS 9.1) is an HTTP request-smuggling issue (CWE-444) in Eclipse Jetty's HTTP/1.1
+parser: the chunk-extension parser stops at a &lt;code&gt;\r\n&lt;/code&gt; inside a quoted string instead of treating it
+as an error, so a crafted chunk extension can desynchronize request boundaries between Jetty and a
+front-end …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-2332 (CVSS 9.1) is an HTTP request-smuggling issue (CWE-444) in Eclipse Jetty's HTTP/1.1
+parser: the chunk-extension parser stops at a &lt;code&gt;\r\n&lt;/code&gt; inside a quoted string instead of treating it
+as an error, so a crafted chunk extension can desynchronize request boundaries between Jetty and a
+front-end HTTP intermediary. It affects Jetty 9.4.0–9.4.59, 10.0.0–10.0.27, 11.0.0–11.0.27,
+12.0.0–12.0.32 and 12.1.0–12.1.6; it is fixed in 9.4.60, 10.0.28, 11.0.28, 12.0.33 and 12.1.7.&lt;/p&gt;
+&lt;p&gt;Unlike optional Jetty features (for example the JASPI authenticator), this is &lt;strong&gt;core request-parsing
+code&lt;/strong&gt;. Solr embeds Jetty as its HTTP server and bundles the vulnerable &lt;code&gt;jetty-http&lt;/code&gt; module
+(&lt;code&gt;HttpParser&lt;/code&gt;) — &lt;code&gt;jetty-http-10.0.26.jar&lt;/code&gt; in the Solr 9.x line, and Jetty 9.4.44 in earlier 9.x
+releases. Solr does not replace Jetty's wire-level HTTP parser, and it accepts chunked request
+bodies, so the vulnerable parser handles incoming requests and the code path is reachable.&lt;/p&gt;
+&lt;h4 id="exploitability-depends-on-a-fronting-proxy"&gt;Exploitability depends on a fronting proxy&lt;a class="headerlink" href="#exploitability-depends-on-a-fronting-proxy" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;Request smuggling is a &lt;strong&gt;desynchronization&lt;/strong&gt; attack: it requires a second HTTP processor in front of
+Jetty that parses the crafted chunk extension differently. It is therefore only exploitable when Solr
+is deployed &lt;strong&gt;behind an HTTP intermediary&lt;/strong&gt; — a reverse proxy, load balancer, TLS terminator, or API
+gateway — that disagrees with Jetty on request boundaries. This is a common Solr deployment, because
+operators frequently front Solr with such a proxy to add TLS and authentication. A Solr instance that
+is &lt;strong&gt;not&lt;/strong&gt; fronted by a mis-parsing intermediary has no second parser to desync against, so this
+particular attack does not apply to it.&lt;/p&gt;
+&lt;p&gt;The most damaging scenario is when that fronting proxy is the &lt;em&gt;only&lt;/em&gt; security boundary (it enforces
+authentication or restricts which Solr paths are reachable): a smuggled request rides past the proxy
+and reaches Solr's APIs directly, bypassing those controls.&lt;/p&gt;
+&lt;h4 id="mitigation"&gt;Mitigation&lt;a class="headerlink" href="#mitigation" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Use a re-encoding reverse proxy.&lt;/strong&gt; A reverse proxy that fully parses and re-encodes the HTTP/1.1
+  request body before forwarding to Jetty eliminates the attack at the network boundary: the proxy
+  reads the attacker's malformed chunk extensions, then emits a clean, standards-conformant chunked
+  (or &lt;code&gt;Content-Length&lt;/code&gt;) request to Solr. No attacker-controlled chunk extension survives the trip, so
+  Jetty never sees the malformed framing that triggers the desynchronization. &lt;strong&gt;nginx&lt;/strong&gt; (&lt;code&gt;proxy_pass&lt;/code&gt;
+  in HTTP mode) and &lt;strong&gt;HAProxy&lt;/strong&gt; (in &lt;code&gt;http&lt;/code&gt; mode) both re-encode by default. Proxies configured in
+  TCP pass-through or tunnel mode (e.g., HAProxy &lt;code&gt;tcp&lt;/code&gt; mode, nginx &lt;code&gt;stream&lt;/code&gt;) do &lt;em&gt;not&lt;/em&gt; re-encode and
+  do not mitigate this CVE.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Enable Solr's built-in authentication and authorization.&lt;/strong&gt; Solr enforces access control in its
+  own servlet filter (&lt;code&gt;SolrDispatchFilter&lt;/code&gt; / the &lt;code&gt;AuthenticationPlugin&lt;/code&gt; framework), &lt;em&gt;not&lt;/em&gt; at the
+  Jetty layer, so a request smuggled past a front-end proxy still has to pass Solr's own
+  authentication and authorization. Enabling them removes the "proxy is the only gate" exposure that
+  makes this attack most severe. (This is a mitigating control, not a complete fix — it does not
+  eliminate cross-connection effects such as request hijacking or response desync.)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Upgrade the bundled Jetty&lt;/strong&gt; to a patched release (≥ 10.0.28 on the 10.0.x line), which is the
+  full fix, however that requires commercial support. See https://webtide.com/end-of-life/ for options.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr 10.0 ships the fixed Jetty 12.0.34.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Eclipse Jetty: privilege escalation via uncleared JASPI ThreadLocals</title><link href="/cve-2026-5795.html" rel="alternate"/><published>2026-06-18T00:00:00+00:00</published><updated>2026-06-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-06-18:/cve-2026-5795.html</id><summary type="html">&lt;p&gt;CVE-2026-5795 (CVSS 7.4) is a broken-access-control / privilege-escalation issue in Eclipse Jetty's
+&lt;code&gt;JASPIAuthenticator&lt;/code&gt; (the JSR-196 / Jakarta Authentication "JASPI" integration). During an
+authentication check it sets thread-local state and, on an early return, fails to clear it, so a
+subsequent request served by the same pooled thread can inherit that authentication …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-5795 (CVSS 7.4) is a broken-access-control / privilege-escalation issue in Eclipse Jetty's
+&lt;code&gt;JASPIAuthenticator&lt;/code&gt; (the JSR-196 / Jakarta Authentication "JASPI" integration). During an
+authentication check it sets thread-local state and, on an early return, fails to clear it, so a
+subsequent request served by the same pooled thread can inherit that authentication state. It
+affects Jetty 9.4.0–9.4.60, 10.0.0–10.0.28, 11.0.0–11.0.28, 12.0.0–12.0.33 and 12.1.0–12.1.7; it is
+fixed in 9.4.61, 10.0.29, 11.0.29, 12.0.34 and 12.1.8.&lt;/p&gt;
+&lt;p&gt;Apache Solr 9.x bundles an affected Jetty (&lt;code&gt;jetty-server-10.0.26.jar&lt;/code&gt; in the current 9.x line, and
+Jetty 9.4.44 in earlier 9.x releases), so dependency scanners flag this CVE. Solr is &lt;strong&gt;not affected&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The vulnerable code is not shipped.&lt;/strong&gt; &lt;code&gt;JASPIAuthenticator&lt;/code&gt; lives in Jetty's &lt;code&gt;jetty-jaspi&lt;/code&gt;
+  module. Solr does not depend on &lt;code&gt;jetty-jaspi&lt;/code&gt; — it is absent from Solr's dependency set (the build
+  pulls in &lt;code&gt;jetty-server&lt;/code&gt;, &lt;code&gt;jetty-security&lt;/code&gt;, &lt;code&gt;jetty-servlet&lt;/code&gt;, etc., but not &lt;code&gt;jetty-jaspi&lt;/code&gt;), so the
+  vulnerable class is not on the classpath.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Solr does not use JASPI.&lt;/strong&gt; Solr authenticates requests in a servlet filter
+  (&lt;code&gt;SolrDispatchFilter&lt;/code&gt;) through its own &lt;code&gt;AuthenticationPlugin&lt;/code&gt; framework (Basic, JWT, Kerberos,
+  PKI, etc.). It never installs a Jetty &lt;code&gt;SecurityHandler&lt;/code&gt;/&lt;code&gt;Authenticator&lt;/code&gt;, and never the JASPI
+  mechanism, so the vulnerable code path is unreachable even if the module were present.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr 10.0 ships the fixed Jetty 12.0.34.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache OpenNLP: XXE in dictionary parsing</title><link href="/cve-2026-40682.html" rel="alternate"/><published>2026-05-04T00:00:00+00:00</published><updated>2026-05-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-05-04:/cve-2026-40682.html</id><summary type="html">&lt;p&gt;CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's
 dictionary parsing. The &lt;code&gt;DictionaryEntryPersistor&lt;/code&gt; class and the public &lt;code&gt;Dictionary(InputStream)&lt;/code&gt;
 constructor create a SAX parser without enabling &lt;code&gt;FEATURE_SECURE_PROCESSING&lt;/code&gt; or disabling DTD
 processing, so external entity resolution and DOCTYPE declarations remain fully enabled. An attacker
