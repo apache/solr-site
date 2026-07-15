@@ -16,8 +16,8 @@
   </div>
 
   <h2 id="cve-table">CVE Status for Dependencies <a class="headerlink" href="#cve-table" title="Permanent link">¶</a></h2>
-  <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies and their applicability to Solr.
-     CVEs assessed as exploitable in Solr have their own advisory on the
+  <p>Below is a list of CVE vulnerabilities in Apache Solr dependencies and their applicability to Solr,
+     with the assessed state of each. CVEs assessed as exploitable in Solr also have their own advisory on the
      <a href="{{ SITEURL }}/security-news.html">security news page</a>.</p>
 
   <table>
@@ -29,7 +29,7 @@
       <th>Title</th>
     </tr>
     {# vex is in ascending filename (date) order; reverse for newest first #}
-    {% for v in (vex | reverse | selectattr("analysis.state", "ne", "exploitable")) %}
+    {% for v in (vex | reverse) %}
     <tr>
       <td>
         {% for id in v.ids %}
@@ -43,7 +43,7 @@
           {{ jar }}{% if not loop.last %}, {% endif %}
         {% endfor %}
       </td>
-      <td>{{ v.analysis.state.replace('_', ' ') }}</td>
+      <td><span class="cdx-{{ v.analysis.state|replace('_', '-') }}">{{ v.analysis.state.replace('_', ' ') }}</span></td>
       <td><a href="/vex.html#{{ v.anchor }}">{{ v.title }}</a></td>
     </tr>
     {% endfor %}

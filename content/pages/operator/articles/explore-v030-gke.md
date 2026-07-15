@@ -17,7 +17,7 @@ The community now has a powerful vehicle to translate hard-earned lessons and be
 In this post, I explore the `v0.3.0` release from the perspective of a DevOps engineer needing to deploy a well-configured Solr cluster on Kubernetes.
 
 The Solr operator makes getting started with Solr on Kubernetes very easy.
-If you follow the [local tutorial](https://apache.github.io/solr-operator/docs/local_tutorial), you can have a Solr cluster up and running locally in no time.
+If you follow the [local tutorial](https://solr.apache.org/guide/operator/latest/getting-started/local-tutorial.html), you can have a Solr cluster up and running locally in no time.
 However, for rolling out to production, three additional concerns come to mind: security, high-availability, and performance monitoring.
 The purpose of this guide is to help you plan for and implement these important production concerns.
 
@@ -67,7 +67,7 @@ kubectl config set-context --current --namespace=sop030
 
 ### Solr Operator Setup
 
-If you installed previous versions of the Solr operator, then please upgrade to the **Apache Solr** version using these instructions: [Upgrading to Apache](https://apache.github.io/solr-operator/docs/upgrading-to-apache.html). 
+If you installed previous versions of the Solr operator, then please upgrade to the **Apache Solr** version using these instructions: [Upgrading to Apache](https://solr.apache.org/guide/operator/latest/development/upgrading-to-apache.html). 
 Otherwise, add the Apache Solr Helm repo, install the [Solr CRDs](#solr-crds) and [install the Solr operator](https://artifacthub.io/packages/helm/apache-solr/solr-operator):
 ```
 helm repo add apache-solr https://solr.apache.org/charts
@@ -225,7 +225,7 @@ There's one slightly nuanced setting I'm relying on for this initial SolrCloud d
   updateStrategy:
     method: StatefulSet
 ```
-We need to start with `StatefulSet` as the [`updateStrategy` method](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#update-strategy) so that we can enable TLS on an existing SolrCloud. 
+We need to start with `StatefulSet` as the [`updateStrategy` method](https://solr.apache.org/guide/operator/latest/solr-cloud/solr-cloud-crd.html#update-strategy) so that we can enable TLS on an existing SolrCloud. 
 We'll switch this to `Managed` in the HA section after enabling TLS. Using `Managed` requires the operator to call the
 collections API to get `CLUSTERSTATUS` which doesn't work while a cluster is converting from HTTP to HTTPs. 
 In a real deployment, you should just start with TLS enabled initially vs. upgrading to TLS on an existing cluster.
@@ -235,7 +235,7 @@ Also, let’s not create any collections or load data just yet as we want to loc
 #### Zookeeper Connection
 
 Solr Cloud depends on Apache Zookeeper. 
-In the `explore` SolrCloud definition, I'm using the [provided](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#zookeeper-reference) option, which means the Solr operator _provides_ a Zookeeper ensemble for the SolrCloud instance. 
+In the `explore` SolrCloud definition, I'm using the [provided](https://solr.apache.org/guide/operator/latest/solr-cloud/zookeeper.html) option, which means the Solr operator _provides_ a Zookeeper ensemble for the SolrCloud instance. 
 Behind the scenes, the Solr operator defines a `ZookeeperCluster` CRD instance, which is managed by the Zookeeper operator.
 The `provided` option is useful for getting started and development but does not expose all the configuration options supported by the Zookeeper operator. 
 For production deployments, consider defining your own `ZookeeperCluster` outside of the SolrCloud CRD definition and then simply pointing to the Zookeeper ensemble connection string using `connectionInfo` under `spec.zookeeperRef`.
@@ -246,18 +246,18 @@ Alternatively, the Solr operator does not require using the Zookeeper operator, 
 
 Before moving on, I wanted to point out a handy feature in the operator that allows you to load a custom Log4j config from a user-provided ConfigMap.
 I mention this feature because you may face a situation where you need to customize the Log4j config for Solr to help troubleshoot a problem in production.
-I won't go into the details here, but use the [Custom Log Configuration](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#custom-log-configuration) documentation to configure your own custom Log4J config.
+I won't go into the details here, but use the [Custom Log Configuration](https://solr.apache.org/guide/operator/latest/solr-cloud/custom-solr-config.html#custom-log-configuration) documentation to configure your own custom Log4J config.
 
 ## Security
 
 Security should be your first and main concern at all times, especially when running in public clouds like GKE; you don’t want to be that ops engineer who’s system gets compromised. 
 In this section we’re going to enable TLS, basic authentication, and authorization controls for Solr’s API endpoints. 
-For a more detailed explanation of all configuration options, see the [SolrCloud CRD](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html) documentation.
+For a more detailed explanation of all configuration options, see the [SolrCloud CRD](https://solr.apache.org/guide/operator/latest/solr-cloud/solr-cloud-crd.html) documentation.
 
 To enable TLS for Solr, all you need is a TLS secret containing a public X.509 certificate and a private key. 
 The Kubernetes ecosystem provides a powerful tool for issuing and managing certificates: [cert-manager](https://cert-manager.io/). 
 If not already installed in your cluster, follow the basic instructions provided by the Solr operator to get the latest version of cert-manager installed:
-[Use cert-manager to issue the certificate](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#use-cert-manager-to-issue-the-certificate).
+[Use cert-manager to issue the certificate](https://solr.apache.org/guide/operator/latest/solr-cloud/tls.html#use-cert-manager-to-issue-the-certificate).
 
 
 ### Cert-manager and Let’s Encrypt
@@ -433,7 +433,7 @@ The final step is to create a DNS A record to map the IP address of your Ingress
 ### mTLS
 
 The Solr operator supports mTLS-enabled Solr clusters but is a bit beyond the scope of this document. 
-Refer to the Solr Operator documentation for [configuring mTLS](https://apache.github.io/solr-operator/docs/running-the-operator.html#client-auth-for-mtls-enabled-solr-clusters).
+Refer to the Solr Operator documentation for [configuring mTLS](https://solr.apache.org/guide/operator/latest/getting-started/running-the-operator.html#client-auth-for-mtls-enabled-solr-clusters).
 
 ### Authentication & Authorization
 
@@ -441,7 +441,7 @@ If you followed the process in the previous section, then traffic on the wire be
 As of `v0.3.0`, the Solr operator supports basic authentication and Solr’s rule based authorization controls.
 
 The easiest way to get started is to have the operator bootstrap basic authentication and authorization controls. 
-For detailed instructions, see: [Authentication and Authorization](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#authentication-and-authorization)
+For detailed instructions, see: [Authentication and Authorization](https://solr.apache.org/guide/operator/latest/solr-cloud/authentication-and-authorization.html)
 
 ```
 spec:
@@ -650,7 +650,7 @@ spec:
 _Add this to your `explore-SolrCloud.yaml` and apply the changes._ 
 
 _* As you see above, the `Managed` update strategy is customizable and can be configured to be as safe or as fast as you require.
-See the [update documentation](https://apache.github.io/solr-operator/docs/solr-cloud/solr-cloud-crd.html#update-strategy) for more information._
+See the [update documentation](https://solr.apache.org/guide/operator/latest/solr-cloud/solr-cloud-crd.html#update-strategy) for more information._
 
 ## Performance Monitoring
 
@@ -660,11 +660,11 @@ This last piece I want to cover is performance monitoring with the [Prometheus s
 ### Prometheus Stack
 
 You’re probably already using Prometheus for monitoring but if not installed in your cluster, 
-use the [installation instructions](https://apache.github.io/solr-operator/docs/solr-prometheus-exporter/#prometheus-stack) to install the Prometheus stack which includes Grafana.
+use the [installation instructions](https://solr.apache.org/guide/operator/latest/solr-prometheus-exporter/index.html#prometheus-stack) to install the Prometheus stack which includes Grafana.
 
 ### Prometheus Exporter
 
-The operator [documentation](https://apache.github.io/solr-operator/docs/solr-prometheus-exporter/) covers how to deploy a Prometheus exporter for your SolrCloud instance. 
+The operator [documentation](https://solr.apache.org/guide/operator/latest/solr-prometheus-exporter/index.html) covers how to deploy a Prometheus exporter for your SolrCloud instance. 
 Since we enabled basic auth and TLS, you’ll need to ensure the exporter can talk to the secured Solr pods using the following config settings:
 
 ```
