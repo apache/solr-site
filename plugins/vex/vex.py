@@ -252,12 +252,85 @@ def jar_to_component(jar):
     return {'@id': jar}
 
 
+# Authoritative list of every released Solr version, used to expand the
+# free-form `versions` ranges into concrete per-version purls for OpenVEX.
+VERSIONS_FILE = Path(__file__).resolve().parent / 'solr-versions.txt'
+_solr_versions = None
+_INF = 10 ** 9
+
+
+def solr_versions():
+    global _solr_versions
+    if _solr_versions is None:
+        _solr_versions = [
+            ln.strip()
+            for ln in VERSIONS_FILE.read_text().splitlines()
+            if ln.strip() and not ln.strip().startswith('#')
+        ]
+    return _solr_versions
+
+
+def _vkey(version):
+    """Concrete version string -> comparable 4-tuple (missing parts default to 0)."""
+    parts = [int(re.match(r'\d+', p).group()) for p in version.split('.') if re.match(r'\d+', p)]
+    return tuple((parts + [0, 0, 0, 0])[:4])
+
+
+def _token_bounds(token):
+    """A version token -> (low, high) inclusive keys it covers. Fewer components
+    or a trailing '.x' widen it to the whole line: '9.9.0' is exact, '9.10' is the
+    9.10.x line, '8.x' is the whole 8.x major line."""
+    token = token.strip()
+    wildcard = token.endswith('.x')
+    core = token[:-2] if wildcard else token
+    parts = [int(re.match(r'\d+', p).group()) for p in core.split('.') if re.match(r'\d+', p)]
+    low = tuple((parts + [0, 0, 0, 0])[:4])
+    if not wildcard and len(parts) >= 3:      # fully-specified version -> exact
+        return low, low
+    return low, tuple((parts + [_INF, _INF, _INF, _INF])[:4])
+
+
+def _matches_token(vk, tok):
+    tok = tok.strip()
+    if tok.startswith('≤') or tok.startswith('<='):
+        return vk <= _token_bounds(tok.lstrip('≤<= ').strip())[1]
+    if tok.startswith('<'):
+        return vk < _token_bounds(tok.lstrip('< ').strip())[0]
+    if tok.startswith('≥') or tok.startswith('>='):
+        return vk >= _token_bounds(tok.lstrip('≥>= ').strip())[0]
+    if '-' in tok:
+        a, b = tok.split('-', 1)
+        return _token_bounds(a)[0] <= vk <= _token_bounds(b)[1]
+    low, high = _token_bounds(tok)
+    return low <= vk <= high
+
+
+def expand_versions(range_str):
+    """Expand a `versions` range string (e.g. '4.6.0-8.x') into the concrete
+    released Solr versions it covers.
+
+    Only fully-closed ranges are expanded. Ranges with an open lower bound
+    ('≤'/'<'), and 'all'/empty ranges, return [] so the caller falls back to a
+    version-less product purl. Without a real lower bound, expansion would run
+    back to the earliest release (1.1.0) and over-claim versions that predate the
+    affected dependency. (Closing those bounds is a follow-up in the VEX data.)"""
+    if not range_str or range_str.strip() == 'all':
+        return []
+    tokens = range_str.split(',')
+    if any(t.strip().startswith(('≤', '<')) for t in tokens):
+        return []
+    return [v for v in solr_versions() if any(_matches_token(_vkey(v), t) for t in tokens)]
+
+
 def build_openvex(entries):
     """Build an OpenVEX (v0.2.0) document from read_vex_articles() entries.
 
-    The affected product is Apache Solr (a version-less purl, since OpenVEX has
-    no version-range syntax); the vulnerable JARs become subcomponent purls, and
-    our free-text affected-version range is preserved in status_notes.
+    Each entry's free-form `versions` range is expanded (via solr-versions.txt)
+    into one versioned Solr product purl per affected release, so scanners can
+    match on version; the vulnerable JARs become subcomponent purls. Entries with
+    an open lower bound ('≤'/'<'), or 'all'/empty ranges, fall back to a single
+    version-less product to avoid over-claiming ancient releases (see
+    expand_versions).
     """
     statements = []
     for v in entries:
@@ -270,13 +343,24 @@ def build_openvex(entries):
         if len(v['ids']) > 1:
             vulnerability['aliases'] = v['ids'][1:]
 
-        product = {'@id': 'pkg:maven/org.apache.solr/solr-core'}
-        if v['jars']:
-            product['subcomponents'] = [jar_to_component(j) for j in v['jars']]
+        subcomponents = [jar_to_component(j) for j in v['jars']]
+        affected = expand_versions(v['versions'])
+        if affected:
+            products = []
+            for ver in affected:
+                product = {'@id': 'pkg:maven/org.apache.solr/solr-core@%s' % ver}
+                if subcomponents:
+                    product['subcomponents'] = subcomponents
+                products.append(product)
+        else:
+            product = {'@id': 'pkg:maven/org.apache.solr/solr-core'}
+            if subcomponents:
+                product['subcomponents'] = subcomponents
+            products = [product]
 
         statement = {
             'vulnerability': vulnerability,
-            'products': [product],
+            'products': products,
             'status': status,
             'timestamp': '%sT00:00:00Z' % v['date'],
         }
