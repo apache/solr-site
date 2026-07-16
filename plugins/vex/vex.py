@@ -1,6 +1,7 @@
 import glob
 import json
 import os
+import re
 from hashlib import md5
 from pathlib import Path
 from uuid import UUID, uuid5
@@ -94,6 +95,8 @@ def read_vex_articles(content_path):
             'title': meta.get('title', ''),
             # Anchor on vex.html (matches each VEX article's slug, see set_vex_slug).
             'anchor': vex_anchor(path),
+            # "YYYY-MM-DD" filename date prefix, used for OpenVEX timestamps.
+            'date': os.path.basename(path)[:10],
         })
     return articles
 
@@ -155,6 +158,158 @@ def pelican_init(pelicanobj):
     os.makedirs(output_path, exist_ok=True)
     with open('%s/solr.vex.json' % output_path, 'w') as out:
         json.dump(vex, out, indent=2)
+
+    # OpenVEX (https://openvex.dev/) output, derived from the same entries and
+    # validated against the vendored OpenVEX JSON schema.
+    openvex = build_openvex(vex_input)
+    with open(SCHEMA_DIR / 'openvex_json_schema.json') as schema:
+        validate(openvex, json.load(schema))
+    with open('%s/solr.openvex.json' % output_path, 'w') as out:
+        json.dump(openvex, out, indent=2)
+
+
+# --- OpenVEX generation -----------------------------------------------------
+
+# CycloneDX analysis.state -> OpenVEX status vocabulary.
+OPENVEX_STATUS = {
+    'not_affected': 'not_affected',
+    'exploitable': 'affected',
+    'in_triage': 'under_investigation',
+    'resolved': 'fixed',
+}
+
+# CycloneDX analysis.justification -> OpenVEX justification, for the cases that
+# have a clean equivalent. 'requires_configuration' has no OpenVEX counterpart,
+# so those not_affected statements rely on impact_statement instead.
+OPENVEX_JUSTIFICATION = {
+    'code_not_present': 'vulnerable_code_not_present',
+    'code_not_reachable': 'vulnerable_code_not_in_execute_path',
+}
+
+# Maven groupIds for the artifacts our VEX entries reference, so a JAR name can
+# be emitted as a proper purl subcomponent. Artifacts not listed here (or JARs
+# whose version can't be parsed, e.g. "guava-*.jar") fall back to a bare @id.
+JAR_GROUPS = {
+    'opennlp-tools': 'org.apache.opennlp',
+    'jetty-http': 'org.eclipse.jetty',
+    'jetty-server': 'org.eclipse.jetty',
+    'json-path': 'com.jayway.jsonpath',
+    'zookeeper': 'org.apache.zookeeper',
+    'xercesImpl': 'xerces',
+    'protobuf-java': 'com.google.protobuf',
+    'commons-beanutils': 'commons-beanutils',
+    'commons-configuration2': 'org.apache.commons',
+    'commons-text': 'org.apache.commons',
+    'dom4j': 'dom4j',
+    'avatica-core': 'org.apache.calcite.avatica',
+    'calcite': 'org.apache.calcite',
+    'slf4j-api': 'org.slf4j',
+    'icu4j': 'com.ibm.icu',
+    'netty-all': 'io.netty',
+    'hadoop-auth': 'org.apache.hadoop',
+    'hadoop-common': 'org.apache.hadoop',
+    'log4j-core': 'org.apache.logging.log4j',
+    'log4j-1.2-api': 'org.apache.logging.log4j',
+    'log4j-layout-template-json': 'org.apache.logging.log4j',
+    'lucene-analyzers-icu': 'org.apache.lucene',
+    'vorbis-java-tika': 'org.gagravarr',
+    'velocity-tools': 'org.apache.velocity',
+    'org.restlet': 'org.restlet.jee',
+    'simple-xml': 'org.simpleframework',
+    'carrot2-guava': 'org.carrot2.shaded',
+    'junit': 'junit',
+    'guava': 'com.google.guava',
+    'jackson-databind': 'com.fasterxml.jackson.core',
+    'jdom': 'org.jdom',
+    'tika-core': 'org.apache.tika',
+    'calcite': 'org.apache.calcite',
+    'calcite-core': 'org.apache.calcite',
+    'jcl-over-slf4j': 'org.slf4j',
+    'jul-to-slf4j': 'org.slf4j',
+    'hadoop-hdfs': 'org.apache.hadoop',
+    'hadoop-client': 'org.apache.hadoop',
+    'simple-xml': 'org.simpleframework',
+}
+
+# Split a JAR name into (artifact, version). Standard `artifact-version.jar` uses
+# a greedy artifact so the version is the *last* "-<digits...>" segment (handles
+# artifacts that themselves contain version-like parts, e.g. `log4j-1.2-api`).
+# The dot-separated form (`tika-core.1.17.jar`) is a rare fallback.
+_JAR_HYPHEN_RE = re.compile(r'^(.+)-(\d[\w.]*)\.jar$')
+_JAR_DOT_RE = re.compile(r'^(.+?)\.(\d[\w.]*)\.jar$')
+
+
+def jar_to_component(jar):
+    """Turn a vulnerable-JAR name into an OpenVEX subcomponent: a Maven purl when
+    the coordinates are known, otherwise a bare @id using the raw name (e.g. for
+    wildcard or descriptive entries like `guava-*.jar` or `jetty-9.4.6 to 9.4.36`)."""
+    match = _JAR_HYPHEN_RE.match(jar) or _JAR_DOT_RE.match(jar)
+    if match:
+        artifact, version = match.group(1), match.group(2)
+        group = JAR_GROUPS.get(artifact)
+        if group:
+            return {'@id': 'pkg:maven/%s/%s@%s' % (group, artifact, version)}
+    return {'@id': jar}
+
+
+def build_openvex(entries):
+    """Build an OpenVEX (v0.2.0) document from read_vex_articles() entries.
+
+    The affected product is Apache Solr (a version-less purl, since OpenVEX has
+    no version-range syntax); the vulnerable JARs become subcomponent purls, and
+    our free-text affected-version range is preserved in status_notes.
+    """
+    statements = []
+    for v in entries:
+        if not v['ids']:
+            continue
+        status = OPENVEX_STATUS.get(v['analysis']['state'], 'under_investigation')
+        detail = (v['analysis'].get('detail') or '').strip()
+
+        vulnerability = {'name': v['ids'][0]}
+        if len(v['ids']) > 1:
+            vulnerability['aliases'] = v['ids'][1:]
+
+        product = {'@id': 'pkg:maven/org.apache.solr/solr-core'}
+        if v['jars']:
+            product['subcomponents'] = [jar_to_component(j) for j in v['jars']]
+
+        statement = {
+            'vulnerability': vulnerability,
+            'products': [product],
+            'status': status,
+            'timestamp': '%sT00:00:00Z' % v['date'],
+        }
+        notes = ('Affected Apache Solr versions: %s.' % v['versions']) if v['versions'] else ''
+
+        if status == 'not_affected':
+            justification = OPENVEX_JUSTIFICATION.get(v['analysis'].get('justification'))
+            if justification:
+                statement['justification'] = justification
+            # OpenVEX requires a justification or impact_statement for not_affected.
+            statement['impact_statement'] = detail or 'Apache Solr is not affected.'
+            if notes:
+                statement['status_notes'] = notes
+        elif status == 'affected':
+            statement['action_statement'] = detail or 'Update to a fixed release of Apache Solr.'
+            if notes:
+                statement['status_notes'] = notes
+        else:  # under_investigation / fixed
+            combined = ' '.join(part for part in (notes, detail) if part)
+            if combined:
+                statement['status_notes'] = combined
+
+        statements.append(statement)
+
+    newest = max((v['date'] for v in entries), default='1970-01-01')
+    return {
+        '@context': 'https://openvex.dev/ns/v0.2.0',
+        '@id': 'https://solr.apache.org/solr.openvex.json',
+        'author': 'Apache Solr Project (security@apache.org)',
+        'timestamp': '%sT00:00:00Z' % newest,
+        'version': 1,
+        'statements': statements,
+    }
 
 
 def generator_initialized(generator):
