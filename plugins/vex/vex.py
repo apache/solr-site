@@ -198,7 +198,9 @@ JAR_GROUPS = {
     'xercesImpl': 'xerces',
     'protobuf-java': 'com.google.protobuf',
     'commons-beanutils': 'commons-beanutils',
+    'commons-compress': 'org.apache.commons',
     'commons-configuration2': 'org.apache.commons',
+    'commons-lang3': 'org.apache.commons',
     'commons-text': 'org.apache.commons',
     'dom4j': 'dom4j',
     'avatica-core': 'org.apache.calcite.avatica',
@@ -221,6 +223,7 @@ JAR_GROUPS = {
     'guava': 'com.google.guava',
     'jackson-databind': 'com.fasterxml.jackson.core',
     'jdom': 'org.jdom',
+    'jdom2': 'org.jdom',
     'tika-core': 'org.apache.tika',
     'calcite': 'org.apache.calcite',
     'calcite-core': 'org.apache.calcite',
@@ -250,6 +253,31 @@ def jar_to_component(jar):
         if group:
             return {'@id': 'pkg:maven/%s/%s@%s' % (group, artifact, version)}
     return {'@id': jar}
+
+
+def jar_coordinates(jar):
+    """Parse a JAR name into (group, artifact) when the group is known, else None.
+    The version in the JAR name is ignored — callers derive the concrete versions
+    Solr actually shipped from solr-dependency-versions.json."""
+    match = _JAR_HYPHEN_RE.match(jar) or _JAR_DOT_RE.match(jar)
+    if not match:
+        return None
+    artifact = match.group(1)
+    group = JAR_GROUPS.get(artifact)
+    return (group, artifact) if group else None
+
+
+DEP_VERSIONS_FILE = Path(__file__).resolve().parent / 'solr-dependency-versions.json'
+_dep_versions = None
+
+
+def dep_versions():
+    """Load the {'group:artifact': {solr_version: dep_version}} map that records
+    which version of each dependency every Solr release shipped."""
+    global _dep_versions
+    if _dep_versions is None:
+        _dep_versions = json.loads(DEP_VERSIONS_FILE.read_text())
+    return _dep_versions
 
 
 # Authoritative list of every released Solr version, used to expand the
@@ -322,15 +350,46 @@ def expand_versions(range_str):
     return [v for v in solr_versions() if any(_matches_token(_vkey(v), t) for t in tokens)]
 
 
+def jar_products(jars, versions):
+    """Turn an entry's vulnerable JARs into OpenVEX product purls.
+
+    A single VEX statement must match a dependency across every Solr image in the
+    affected range, but each Solr release ships a different pinned version of that
+    dependency. So for each JAR whose coordinates are known, we expand it to a purl
+    per concrete dependency version Solr actually shipped over the affected Solr
+    range (from solr-dependency-versions.json), rather than the single version in
+    the JAR name. JARs we can't resolve (unknown group, open-lower-bound range, or a
+    dependency not in the map) fall back to the literal purl from the JAR name."""
+    affected_solr = expand_versions(versions)
+    products, seen = [], set()
+
+    def add(component):
+        if component['@id'] not in seen:
+            seen.add(component['@id'])
+            products.append(component)
+
+    for jar in jars:
+        coords = jar_coordinates(jar)
+        shipped = dep_versions().get('%s:%s' % coords) if coords else None
+        derived = sorted({shipped[sv] for sv in affected_solr if sv in shipped}) \
+            if (coords and shipped and affected_solr) else []
+        if derived:
+            group, artifact = coords
+            for ver in derived:
+                add({'@id': 'pkg:maven/%s/%s@%s' % (group, artifact, ver)})
+        else:
+            add(jar_to_component(jar))
+    return products
+
+
 def build_openvex(entries):
     """Build an OpenVEX (v0.2.0) document from read_vex_articles() entries.
 
-    Each entry's free-form `versions` range is expanded (via solr-versions.txt)
-    into one versioned Solr product purl per affected release, so scanners can
-    match on version; the vulnerable JARs become subcomponent purls. Entries with
-    an open lower bound ('≤'/'<'), or 'all'/empty ranges, fall back to a single
-    version-less product to avoid over-claiming ancient releases (see
-    expand_versions).
+    The vulnerable JAR purls are emitted as the statement `products`, because
+    scanners (e.g. Docker Scout) match VEX on the product purl of the affected
+    package. Entries with no JAR (Solr-native CVEs) use the Solr product instead,
+    version-expanded from a closed range (via solr-versions.txt) or version-less
+    for an open lower bound. The Solr version range is preserved in status_notes.
     """
     statements = []
     for v in entries:
@@ -343,20 +402,19 @@ def build_openvex(entries):
         if len(v['ids']) > 1:
             vulnerability['aliases'] = v['ids'][1:]
 
-        subcomponents = [jar_to_component(j) for j in v['jars']]
-        affected = expand_versions(v['versions'])
-        if affected:
-            products = []
-            for ver in affected:
-                product = {'@id': 'pkg:maven/org.apache.solr/solr-core@%s' % ver}
-                if subcomponents:
-                    product['subcomponents'] = subcomponents
-                products.append(product)
+        # Scanners (e.g. Docker Scout) match VEX statements on the product purl,
+        # so the vulnerable JAR(s) are the products. For an entry with no JAR
+        # (e.g. a Solr-native CVE), the product is Solr itself: a versioned purl
+        # per affected release when the range is closed, else version-less. The
+        # human-readable Solr version range is carried in status_notes below.
+        if v['jars']:
+            products = jar_products(v['jars'], v['versions'])
         else:
-            product = {'@id': 'pkg:maven/org.apache.solr/solr-core'}
-            if subcomponents:
-                product['subcomponents'] = subcomponents
-            products = [product]
+            affected = expand_versions(v['versions'])
+            if affected:
+                products = [{'@id': 'pkg:maven/org.apache.solr/solr-core@%s' % ver} for ver in affected]
+            else:
+                products = [{'@id': 'pkg:maven/org.apache.solr/solr-core'}]
 
         statement = {
             'vulnerability': vulnerability,
@@ -394,7 +452,6 @@ def build_openvex(entries):
         'version': 1,
         'statements': statements,
     }
-
 
 def generator_initialized(generator):
     # The dependency-CVE table (security-dependency-cves.html) lists the entries
