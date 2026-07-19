@@ -186,61 +186,6 @@ OPENVEX_JUSTIFICATION = {
     'code_not_reachable': 'vulnerable_code_not_in_execute_path',
 }
 
-# Maven groupIds for the artifacts our VEX entries reference, so a JAR name can
-# be emitted as a proper purl subcomponent. Artifacts not listed here (or JARs
-# whose version can't be parsed, e.g. "guava-*.jar") fall back to a bare @id.
-JAR_GROUPS = {
-    'opennlp-tools': 'org.apache.opennlp',
-    'jetty-http': 'org.eclipse.jetty',
-    'jetty-server': 'org.eclipse.jetty',
-    'json-path': 'com.jayway.jsonpath',
-    'zookeeper': 'org.apache.zookeeper',
-    'xercesImpl': 'xerces',
-    'protobuf-java': 'com.google.protobuf',
-    'commons-beanutils': 'commons-beanutils',
-    'commons-compress': 'org.apache.commons',
-    'commons-configuration2': 'org.apache.commons',
-    'commons-lang3': 'org.apache.commons',
-    'commons-text': 'org.apache.commons',
-    'dom4j': 'dom4j',
-    'avatica-core': 'org.apache.calcite.avatica',
-    'calcite': 'org.apache.calcite',
-    'slf4j-api': 'org.slf4j',
-    'icu4j': 'com.ibm.icu',
-    'netty-all': 'io.netty',
-    'netty-codec-compression': 'io.netty',
-    'netty-codec-http': 'io.netty',
-    'netty-codec-http2': 'io.netty',
-    'netty-handler': 'io.netty',
-    'netty-handler-proxy': 'io.netty',
-    'netty-transport-native-epoll': 'io.netty',
-    'netty-transport-native-unix-common': 'io.netty',
-    'hadoop-auth': 'org.apache.hadoop',
-    'hadoop-common': 'org.apache.hadoop',
-    'log4j-core': 'org.apache.logging.log4j',
-    'log4j-1.2-api': 'org.apache.logging.log4j',
-    'log4j-layout-template-json': 'org.apache.logging.log4j',
-    'lucene-analyzers-icu': 'org.apache.lucene',
-    'vorbis-java-tika': 'org.gagravarr',
-    'velocity-tools': 'org.apache.velocity',
-    'org.restlet': 'org.restlet.jee',
-    'simple-xml': 'org.simpleframework',
-    'carrot2-guava': 'org.carrot2.shaded',
-    'junit': 'junit',
-    'guava': 'com.google.guava',
-    'jackson-databind': 'com.fasterxml.jackson.core',
-    'jdom': 'org.jdom',
-    'jdom2': 'org.jdom',
-    'tika-core': 'org.apache.tika',
-    'calcite': 'org.apache.calcite',
-    'calcite-core': 'org.apache.calcite',
-    'jcl-over-slf4j': 'org.slf4j',
-    'jul-to-slf4j': 'org.slf4j',
-    'hadoop-hdfs': 'org.apache.hadoop',
-    'hadoop-client': 'org.apache.hadoop',
-    'simple-xml': 'org.simpleframework',
-}
-
 # Split a JAR name into (artifact, version). Standard `artifact-version.jar` uses
 # a greedy artifact so the version is the *last* "-<digits...>" segment (handles
 # artifacts that themselves contain version-like parts, e.g. `log4j-1.2-api`).
@@ -256,7 +201,7 @@ def jar_to_component(jar):
     match = _JAR_HYPHEN_RE.match(jar) or _JAR_DOT_RE.match(jar)
     if match:
         artifact, version = match.group(1), match.group(2)
-        group = JAR_GROUPS.get(artifact)
+        group = jar_groups().get(artifact)
         if group:
             return {'@id': 'pkg:maven/%s/%s@%s' % (group, artifact, version)}
     return {'@id': jar}
@@ -270,7 +215,7 @@ def jar_coordinates(jar):
     if not match:
         return None
     artifact = match.group(1)
-    group = JAR_GROUPS.get(artifact)
+    group = jar_groups().get(artifact)
     return (group, artifact) if group else None
 
 
@@ -285,6 +230,26 @@ def dep_versions():
     if _dep_versions is None:
         _dep_versions = json.loads(DEP_VERSIONS_FILE.read_text())
     return _dep_versions
+
+
+_jar_groups = None
+
+
+def jar_groups():
+    """{artifact: groupId} for every artifact whose Maven coordinates are known,
+    so a JAR name can be emitted as a proper purl subcomponent. Derived from
+    solr-dependency-versions.json's 'group:artifact' keys (the authoritative
+    source, since Solr's own build pins those coordinates — an artifact with no
+    known per-release version history is still listed there with an empty map).
+    Artifacts not tracked there (or JARs whose version can't be parsed, e.g.
+    "guava-*.jar") fall back to a bare @id."""
+    global _jar_groups
+    if _jar_groups is None:
+        _jar_groups = {}
+        for key in dep_versions():
+            group, artifact = key.split(':', 1)
+            _jar_groups[artifact] = group
+    return _jar_groups
 
 
 # Authoritative list of every released Solr version, used to expand the
