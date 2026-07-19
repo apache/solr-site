@@ -92,6 +92,7 @@ def read_vex_articles(content_path):
             'analysis': analysis,
             'versions': meta.get('versions', ''),
             'jars': meta.get('jars', []),
+            'modules': meta.get('modules', ['solr-core']),
             'title': meta.get('title', ''),
             # Anchor on vex.html (matches each VEX article's slug, see set_vex_slug).
             'anchor': vex_anchor(path),
@@ -376,17 +377,19 @@ def build_openvex(entries):
 
         # Scanners (e.g. Docker Scout) match VEX statements on the product purl,
         # so the vulnerable JAR(s) are the products. For an entry with no JAR
-        # (e.g. a Solr-native CVE), the product is Solr itself: a versioned purl
-        # per affected release when the range is closed, else version-less. The
+        # (e.g. a Solr-native CVE), the product is the affected Solr module(s)
+        # ('modules' front matter, defaulting to solr-core): a versioned purl per
+        # affected release when the range is closed, else version-less. The
         # human-readable Solr version range is carried in status_notes below.
         if v['jars']:
             products = jar_products(v['jars'], v['versions'])
         else:
             affected = expand_versions(v['versions'])
             if affected:
-                products = [{'@id': 'pkg:maven/org.apache.solr/solr-core@%s' % ver} for ver in affected]
+                products = [{'@id': 'pkg:maven/org.apache.solr/%s@%s' % (module, ver)}
+                            for module in v['modules'] for ver in affected]
             else:
-                products = [{'@id': 'pkg:maven/org.apache.solr/solr-core'}]
+                products = [{'@id': 'pkg:maven/org.apache.solr/%s' % module} for module in v['modules']]
 
         statement = {
             'vulnerability': vulnerability,
