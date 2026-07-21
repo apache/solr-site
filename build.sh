@@ -25,6 +25,7 @@ DOCKER_CMD="docker run --rm -ti -w /work -p 8000:8000 -v $(pwd):/work $SOLR_LOCA
 unset SERVE
 unset BUILD
 unset LOCK
+unset UPDATE_DEPS
 PELICAN_CMD="pelican content -o output"
 export SITEURL="https://solr.apache.org/"
 
@@ -35,6 +36,7 @@ OPTIONS=(
   "l:live:Live build and reload source changes on localhost:8000"
   "b:build:Force rebuild of the local Docker image"
   ":lock:Regenerate requirements.txt from requirements.in (use with -b to also rebuild image)"
+  ":update-deps:Regenerate solr-dependency-versions.json (needs python3; pass versions after --, default is all)"
   "h:help:Show this help message"
   ":pelican-help:Show all options accepted by Pelican"
 )
@@ -81,6 +83,20 @@ function regen_lockfile {
   docker run --rm -w /work -v "$(pwd):/work" $SOLR_LOCAL_PELICAN_IMAGE \
     pip-compile --quiet --strip-extras --allow-unsafe --generate-hashes --output-file=requirements.txt requirements.in
   echo "requirements.txt updated."
+}
+
+function update_dependency_versions {
+  if ! command -v python3 >/dev/null 2>&1; then
+    echo "ERROR: --update-deps requires python3 on the host (in addition to Docker)." >&2
+    exit 2
+  fi
+  echo "Downloading and syft-scanning each tracked Solr release's binary distribution..."
+  echo "(Pulls the 'anchore/syft:latest' image on first run; a full run downloads every"
+  echo " release's tarball, so it's slow and bandwidth-heavy. Pass specific versions"
+  echo " and/or flags (--slim, --verbose) after --, e.g.:"
+  echo "   ./build.sh --update-deps -- --slim 10.0.0"
+  echo " See 'python3 plugins/vex/update_dependency_versions.py --help' for details.)"
+  python3 plugins/vex/update_dependency_versions.py "$@"
 }
 
 function ensure_image {
@@ -135,6 +151,7 @@ function handle_opt {
     -l|--live)      SERVE=true ;;
     -b|--build)     BUILD=true ;;
     --lock)         LOCK=true ;;
+    --update-deps)  UPDATE_DEPS=true ;;
     -h|--help)      usage; exit 0 ;;
     --pelican-help) ensure_image; $DOCKER_CMD pelican -h; exit 0 ;;
     --)             return 1 ;;
@@ -165,6 +182,11 @@ if [[ $LOCK ]]; then
     echo "Run './build.sh -b' to rebuild the Docker image with the updated lockfile."
     exit 0
   fi
+fi
+
+if [[ $UPDATE_DEPS ]]; then
+  update_dependency_versions "$@"
+  exit 0
 fi
 
 if [[ $BUILD ]]; then
