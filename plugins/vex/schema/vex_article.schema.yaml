@@ -32,6 +32,15 @@ properties:
     items:
       type: string
     description: Vulnerable JAR files (present for dependency CVEs).
+  modules:
+    type: array
+    minItems: 1
+    items:
+      type: string
+    description: |
+      Solr Maven artifactIds (under org.apache.solr) this Solr-native CVE affects,
+      e.g. "solr-solrj". Only meaningful when 'jars' is absent. Defaults to
+      ["solr-core"] when omitted.
   analysis:
     "$ref": "bom-1.6.schema.json#/definitions/vulnerability/properties/analysis"
     description: |

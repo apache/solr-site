@@ -1,6 +1,7 @@
 import glob
 import json
 import os
+import re
 from hashlib import md5
 from pathlib import Path
 from uuid import UUID, uuid5
@@ -91,9 +92,12 @@ def read_vex_articles(content_path):
             'analysis': analysis,
             'versions': meta.get('versions', ''),
             'jars': meta.get('jars', []),
+            'modules': meta.get('modules', ['solr-core']),
             'title': meta.get('title', ''),
             # Anchor on vex.html (matches each VEX article's slug, see set_vex_slug).
             'anchor': vex_anchor(path),
+            # "YYYY-MM-DD" filename date prefix, used for OpenVEX timestamps.
+            'date': os.path.basename(path)[:10],
         })
     return articles
 
@@ -156,6 +160,273 @@ def pelican_init(pelicanobj):
     with open('%s/solr.vex.json' % output_path, 'w') as out:
         json.dump(vex, out, indent=2)
 
+    # OpenVEX (https://openvex.dev/) output, derived from the same entries and
+    # validated against the vendored OpenVEX JSON schema.
+    openvex = build_openvex(vex_input)
+    with open(SCHEMA_DIR / 'openvex_json_schema.json') as schema:
+        validate(openvex, json.load(schema))
+    with open('%s/solr.openvex.json' % output_path, 'w') as out:
+        json.dump(openvex, out, indent=2)
+
+
+# --- OpenVEX generation -----------------------------------------------------
+
+# CycloneDX analysis.state -> OpenVEX status vocabulary.
+OPENVEX_STATUS = {
+    'not_affected': 'not_affected',
+    'exploitable': 'affected',
+    'in_triage': 'under_investigation',
+    'resolved': 'fixed',
+}
+
+# CycloneDX analysis.justification -> OpenVEX justification, for the cases that
+# have a clean equivalent. 'requires_configuration' has no OpenVEX counterpart,
+# so those not_affected statements rely on impact_statement instead.
+OPENVEX_JUSTIFICATION = {
+    'code_not_present': 'vulnerable_code_not_present',
+    'code_not_reachable': 'vulnerable_code_not_in_execute_path',
+}
+
+# Split a JAR name into (artifact, version). Standard `artifact-version.jar` uses
+# a greedy artifact so the version is the *last* "-<digits...>" segment (handles
+# artifacts that themselves contain version-like parts, e.g. `log4j-1.2-api`).
+# The dot-separated form (`tika-core.1.17.jar`) is a rare fallback.
+_JAR_HYPHEN_RE = re.compile(r'^(.+)-(\d[\w.]*)\.jar$')
+_JAR_DOT_RE = re.compile(r'^(.+?)\.(\d[\w.]*)\.jar$')
+
+
+def jar_to_component(jar):
+    """Turn a vulnerable-JAR name into an OpenVEX subcomponent: a Maven purl when
+    the coordinates are known, otherwise a bare @id using the raw name (e.g. for
+    wildcard or descriptive entries like `guava-*.jar` or `jetty-9.4.6 to 9.4.36`)."""
+    match = _JAR_HYPHEN_RE.match(jar) or _JAR_DOT_RE.match(jar)
+    if match:
+        artifact, version = match.group(1), match.group(2)
+        group = jar_groups().get(artifact)
+        if group:
+            return {'@id': 'pkg:maven/%s/%s@%s' % (group, artifact, version)}
+    return {'@id': jar}
+
+
+def jar_coordinates(jar):
+    """Parse a JAR name into (group, artifact) when the group is known, else None.
+    The version in the JAR name is ignored — callers derive the concrete versions
+    Solr actually shipped from solr-dependency-versions.json."""
+    match = _JAR_HYPHEN_RE.match(jar) or _JAR_DOT_RE.match(jar)
+    if not match:
+        return None
+    artifact = match.group(1)
+    group = jar_groups().get(artifact)
+    return (group, artifact) if group else None
+
+
+DEP_VERSIONS_FILE = Path(__file__).resolve().parent / 'solr-dependency-versions.json'
+_dep_versions = None
+
+
+def dep_versions():
+    """Load the {'group:artifact': {solr_version: dep_version}} map that records
+    which version of each dependency every Solr release shipped."""
+    global _dep_versions
+    if _dep_versions is None:
+        _dep_versions = json.loads(DEP_VERSIONS_FILE.read_text())
+    return _dep_versions
+
+
+_jar_groups = None
+
+
+def jar_groups():
+    """{artifact: groupId} for every artifact whose Maven coordinates are known,
+    so a JAR name can be emitted as a proper purl subcomponent. Derived from
+    solr-dependency-versions.json's 'group:artifact' keys (the authoritative
+    source, since Solr's own build pins those coordinates — an artifact with no
+    known per-release version history is still listed there with an empty map).
+    Artifacts not tracked there (or JARs whose version can't be parsed, e.g.
+    "guava-*.jar") fall back to a bare @id."""
+    global _jar_groups
+    if _jar_groups is None:
+        _jar_groups = {}
+        for key in dep_versions():
+            group, artifact = key.split(':', 1)
+            _jar_groups[artifact] = group
+    return _jar_groups
+
+
+# Authoritative list of every released Solr version, used to expand the
+# free-form `versions` ranges into concrete per-version purls for OpenVEX.
+VERSIONS_FILE = Path(__file__).resolve().parent / 'solr-versions.txt'
+_solr_versions = None
+_INF = 10 ** 9
+
+
+def solr_versions():
+    global _solr_versions
+    if _solr_versions is None:
+        _solr_versions = [
+            ln.strip()
+            for ln in VERSIONS_FILE.read_text().splitlines()
+            if ln.strip() and not ln.strip().startswith('#')
+        ]
+    return _solr_versions
+
+
+def _vkey(version):
+    """Concrete version string -> comparable 4-tuple (missing parts default to 0)."""
+    parts = [int(re.match(r'\d+', p).group()) for p in version.split('.') if re.match(r'\d+', p)]
+    return tuple((parts + [0, 0, 0, 0])[:4])
+
+
+def _token_bounds(token):
+    """A version token -> (low, high) inclusive keys it covers. Fewer components
+    or a trailing '.x' widen it to the whole line: '9.9.0' is exact, '9.10' is the
+    9.10.x line, '8.x' is the whole 8.x major line."""
+    token = token.strip()
+    wildcard = token.endswith('.x')
+    core = token[:-2] if wildcard else token
+    parts = [int(re.match(r'\d+', p).group()) for p in core.split('.') if re.match(r'\d+', p)]
+    low = tuple((parts + [0, 0, 0, 0])[:4])
+    if not wildcard and len(parts) >= 3:      # fully-specified version -> exact
+        return low, low
+    return low, tuple((parts + [_INF, _INF, _INF, _INF])[:4])
+
+
+def _matches_token(vk, tok):
+    tok = tok.strip()
+    if tok.startswith('≤') or tok.startswith('<='):
+        return vk <= _token_bounds(tok.lstrip('≤<= ').strip())[1]
+    if tok.startswith('<'):
+        return vk < _token_bounds(tok.lstrip('< ').strip())[0]
+    if tok.startswith('≥') or tok.startswith('>='):
+        return vk >= _token_bounds(tok.lstrip('≥>= ').strip())[0]
+    if '-' in tok:
+        a, b = tok.split('-', 1)
+        return _token_bounds(a)[0] <= vk <= _token_bounds(b)[1]
+    low, high = _token_bounds(tok)
+    return low <= vk <= high
+
+
+def expand_versions(range_str):
+    """Expand a `versions` range string (e.g. '4.6.0-8.x') into the concrete
+    released Solr versions it covers.
+
+    Only fully-closed ranges are expanded. Ranges with an open lower bound
+    ('≤'/'<'), and 'all'/empty ranges, return [] so the caller falls back to a
+    version-less product purl. Without a real lower bound, expansion would run
+    back to the earliest release (1.1.0) and over-claim versions that predate the
+    affected dependency. (Closing those bounds is a follow-up in the VEX data.)"""
+    if not range_str or range_str.strip() == 'all':
+        return []
+    tokens = range_str.split(',')
+    if any(t.strip().startswith(('≤', '<')) for t in tokens):
+        return []
+    return [v for v in solr_versions() if any(_matches_token(_vkey(v), t) for t in tokens)]
+
+
+def jar_products(jars, versions):
+    """Turn an entry's vulnerable JARs into OpenVEX product purls.
+
+    A single VEX statement must match a dependency across every Solr image in the
+    affected range, but each Solr release ships a different pinned version of that
+    dependency. So for each JAR whose coordinates are known, we expand it to a purl
+    per concrete dependency version Solr actually shipped over the affected Solr
+    range (from solr-dependency-versions.json), rather than the single version in
+    the JAR name. JARs we can't resolve (unknown group, open-lower-bound range, or a
+    dependency not in the map) fall back to the literal purl from the JAR name."""
+    affected_solr = expand_versions(versions)
+    products, seen = [], set()
+
+    def add(component):
+        if component['@id'] not in seen:
+            seen.add(component['@id'])
+            products.append(component)
+
+    for jar in jars:
+        coords = jar_coordinates(jar)
+        shipped = dep_versions().get('%s:%s' % coords) if coords else None
+        derived = sorted({shipped[sv] for sv in affected_solr if sv in shipped}) \
+            if (coords and shipped and affected_solr) else []
+        if derived:
+            group, artifact = coords
+            for ver in derived:
+                add({'@id': 'pkg:maven/%s/%s@%s' % (group, artifact, ver)})
+        else:
+            add(jar_to_component(jar))
+    return products
+
+
+def build_openvex(entries):
+    """Build an OpenVEX (v0.2.0) document from read_vex_articles() entries.
+
+    The vulnerable JAR purls are emitted as the statement `products`, because
+    scanners (e.g. Docker Scout) match VEX on the product purl of the affected
+    package. Entries with no JAR (Solr-native CVEs) use the Solr product instead,
+    version-expanded from a closed range (via solr-versions.txt) or version-less
+    for an open lower bound. The Solr version range is preserved in status_notes.
+    """
+    statements = []
+    for v in entries:
+        if not v['ids']:
+            continue
+        status = OPENVEX_STATUS.get(v['analysis']['state'], 'under_investigation')
+        detail = (v['analysis'].get('detail') or '').strip()
+
+        vulnerability = {'name': v['ids'][0]}
+        if len(v['ids']) > 1:
+            vulnerability['aliases'] = v['ids'][1:]
+
+        # Scanners (e.g. Docker Scout) match VEX statements on the product purl,
+        # so the vulnerable JAR(s) are the products. For an entry with no JAR
+        # (e.g. a Solr-native CVE), the product is the affected Solr module(s)
+        # ('modules' front matter, defaulting to solr-core): a versioned purl per
+        # affected release when the range is closed, else version-less. The
+        # human-readable Solr version range is carried in status_notes below.
+        if v['jars']:
+            products = jar_products(v['jars'], v['versions'])
+        else:
+            affected = expand_versions(v['versions'])
+            if affected:
+                products = [{'@id': 'pkg:maven/org.apache.solr/%s@%s' % (module, ver)}
+                            for module in v['modules'] for ver in affected]
+            else:
+                products = [{'@id': 'pkg:maven/org.apache.solr/%s' % module} for module in v['modules']]
+
+        statement = {
+            'vulnerability': vulnerability,
+            'products': products,
+            'status': status,
+            'timestamp': '%sT00:00:00Z' % v['date'],
+        }
+        notes = ('Affected Apache Solr versions: %s.' % v['versions']) if v['versions'] else ''
+
+        if status == 'not_affected':
+            justification = OPENVEX_JUSTIFICATION.get(v['analysis'].get('justification'))
+            if justification:
+                statement['justification'] = justification
+            # OpenVEX requires a justification or impact_statement for not_affected.
+            statement['impact_statement'] = detail or 'Apache Solr is not affected.'
+            if notes:
+                statement['status_notes'] = notes
+        elif status == 'affected':
+            statement['action_statement'] = detail or 'Update to a fixed release of Apache Solr.'
+            if notes:
+                statement['status_notes'] = notes
+        else:  # under_investigation / fixed
+            combined = ' '.join(part for part in (notes, detail) if part)
+            if combined:
+                statement['status_notes'] = combined
+
+        statements.append(statement)
+
+    newest = max((v['date'] for v in entries), default='1970-01-01')
+    return {
+        '@context': 'https://openvex.dev/ns/v0.2.0',
+        '@id': 'https://solr.apache.org/solr.openvex.json',
+        'author': 'Apache Solr Project (security@apache.org)',
+        'timestamp': '%sT00:00:00Z' % newest,
+        'version': 1,
+        'statements': statements,
+    }
 
 def generator_initialized(generator):
     # The dependency-CVE table (security-dependency-cves.html) lists the entries
