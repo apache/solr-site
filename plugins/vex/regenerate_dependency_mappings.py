@@ -14,9 +14,9 @@ downloads and unpacks each release's full binary distribution (tens to a few
 hundred MB each) -- expect a full run to take a long time and a lot of
 bandwidth, since archive.apache.org (the only host with the complete release
 history) serves archived releases slowly. Pass one or more specific versions
-(e.g. just-released ones) to only refresh those, and/or --slim to scan the
-much smaller "-slim" distribution (5-6x less data, 9.x+ only) at the cost of
-missing dependencies that only live in optional modules (Hadoop, Tika, etc).
+(e.g. just-released ones) to only refresh those. The full distribution is always
+used, so dependencies that only live in optional modules (Hadoop, Tika, etc) are
+covered.
 
 Before scanning, the script refreshes solr-versions.txt by discovering released
 versions from the Apache archive (archive.apache.org/dist/solr/solr/ -- the 9.0+
@@ -124,19 +124,11 @@ URL_TEMPLATES = [
     'https://archive.apache.org/dist/lucene/solr/{v}/apache-solr-{v}.tgz',
 ]
 
-# The much smaller "-slim" distribution (9.x+ only) excludes optional modules
-# (Hadoop, Tika/extraction, etc.), so any dependency that only lives in one of
-# those won't be found this way -- it'll just stay whatever it already is.
-SLIM_URL_TEMPLATES = [
-    'https://archive.apache.org/dist/solr/solr/{v}/solr-{v}-slim.tgz',
-]
 
-
-def download_distribution(version, dest, slim=False):
+def download_distribution(version, dest):
     """Download the first resolvable release tarball for `version` into `dest`.
     Returns True on success, False if no URL template resolved."""
-    templates = (SLIM_URL_TEMPLATES + URL_TEMPLATES) if slim else URL_TEMPLATES
-    for template in templates:
+    for template in URL_TEMPLATES:
         url = template.format(v=version)
         try:
             with urllib.request.urlopen(url, timeout=60) as resp, open(dest, 'wb') as out:
@@ -179,12 +171,12 @@ def iter_maven_packages(sbom):
             yield m.groups()
 
 
-def scan_version(version, work_dir, slim=False):
+def scan_version(version, work_dir):
     """Download, extract, and syft-scan `version`'s binary distribution under
     `work_dir`. Returns the parsed CycloneDX SBOM, or None if the release
     couldn't be downloaded, extracted, or scanned."""
     tarball = work_dir / 'dist.tgz'
-    if not download_distribution(version, tarball, slim=slim):
+    if not download_distribution(version, tarball):
         print(f'  no release tarball found for {version}, skipping', file=sys.stderr)
         return None
     extract_dir = work_dir / 'extracted'
@@ -212,10 +204,6 @@ def main():
                          help='Specific Solr versions to refresh (default: all)')
     parser.add_argument('--verbose', action='store_true',
                          help='List every untracked dependency seen, not just the count')
-    parser.add_argument('--slim', action='store_true',
-                         help='Scan the smaller "-slim" distribution (9.x+ only, falls back to '
-                              'full) instead of the full one. Faster, but misses dependencies '
-                              'that only live in optional modules (Hadoop, Tika/extraction, etc).')
     parser.add_argument('--no-discover', action='store_true',
                          help="Don't refresh solr-versions.txt from the Apache archive first; "
                               'use the committed list as-is.')
@@ -253,7 +241,7 @@ def main():
     for i, version in enumerate(versions, 1):
         print(f'[{i}/{len(versions)}] Solr {version}...', file=sys.stderr)
         with tempfile.TemporaryDirectory() as tmp:
-            sbom = scan_version(version, Path(tmp), slim=args.slim)
+            sbom = scan_version(version, Path(tmp))
         if sbom is None:
             skipped.append(version)
             continue

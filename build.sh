@@ -93,8 +93,8 @@ function regen_dependency_mappings {
   echo "Downloading and syft-scanning each tracked Solr release's binary distribution..."
   echo "(Pulls the 'anchore/syft:latest' image on first run; a full run downloads every"
   echo " release's tarball, so it's slow and bandwidth-heavy. Pass specific versions"
-  echo " and/or flags (--slim, --verbose) after --, e.g.:"
-  echo "   ./build.sh --vex-dependency-mappings -- --slim 10.0.0"
+  echo " and/or flags (--verbose) after --, e.g.:"
+  echo "   ./build.sh --vex-dependency-mappings -- 10.0.0"
   echo " See 'python3 plugins/vex/regenerate_dependency_mappings.py --help' for details.)"
   python3 plugins/vex/regenerate_dependency_mappings.py "$@"
 }
