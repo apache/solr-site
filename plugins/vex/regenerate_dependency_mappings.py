@@ -7,7 +7,7 @@ artifact with an unrelated same-named dependency pulled in by some other,
 optional module -- syft instead reads the real jars on disk.
 
 Usage:
-    python3 plugins/vex/update_dependency_versions.py [VERSION ...]
+    python3 plugins/vex/regenerate_dependency_mappings.py [VERSION ...]
 
 With no arguments, every version in solr-versions.txt is (re)scanned, which
 downloads and unpacks each release's full binary distribution (tens to a few
