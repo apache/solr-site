@@ -142,6 +142,929 @@
         <h1>Apache Solr VEX</h1>
         <p><a href="/security-dependency-cves.html">← Back to the dependency CVE table</a></p>
 
+            <article id="cve-2026-50560" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50560">CVE-2026-50560</a>, Netty: HTTP/2 max-header-size handling enables Rapid-Reset-style DoS</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-50560 (CVSS 5.3, CWE-770) is a resource-exhaustion issue in <code>netty-codec-http2</code>, in the
+same "HTTP/2 Rapid Reset" family of attacks as the 2023 stream-reset issue (CVE-2023-44487) but
+with a different trigger: a client that advertises <code>SETTINGS_MAX_HEADER_LIST_SIZE</code> can cause the
+server to read a request, start proxying/processing it, attempt to generate a response, and then
+throw an exception while writing the response headers — repeating this cheaply, many times, wastes
+server-side resources with a different signature than a classic stream reset. This is a
+<strong>server-side</strong> concern: it targets the endpoint accepting and processing inbound requests. It
+affects Netty before 4.1.135.Final and 4.2.0.Final–4.2.14.Final; fixed in 4.1.135.Final and
+4.2.15.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-codec-http2</code> since 9.2.0 (4.1.x through 9.9.0, 4.2.x —
+<code>netty-codec-http2-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward), arriving as a transitive runtime
+dependency of <code>grpc-netty</code>, used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr never runs an HTTP/2 server.</strong> This attack requires a server that reads and attempts to
+  process many abusive client requests. Solr's only Netty/HTTP2 channel is <code>grpc-netty</code>'s outbound
+  OTLP client — Solr is the one sending requests to a single, operator-configured collector, not
+  accepting them from arbitrary attackers.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources.</li>
+</ul>
+<p>Since Solr never accepts inbound HTTP/2 connections through Netty, the vulnerable code is present
+on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50560">CVE-2026-50560</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-50020" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50020">CVE-2026-50020</a>, Netty: HTTP request smuggling via overly permissive leading control-character skipping</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-50020 (CVSS 5.3, CWE-444) is a request-smuggling issue in <code>netty-codec-http</code>'s
+<code>HttpObjectDecoder</code>: before parsing a request line, it skips leading control characters
+(0x00–0x1F and 0x7F) and whitespace, more permissive than RFC 9112, which only allows ignoring an
+empty leading CRLF. This over-tolerant framing can let a crafted request boundary be interpreted
+differently by Netty than by a front-end intermediary. It affects Netty before 4.1.135.Final and
+4.2.0.Final–4.2.14.Final; fixed in 4.1.135.Final and 4.2.15.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-codec-http</code> since 9.2.0 (4.1.x through 9.9.0, 4.2.x —
+<code>netty-codec-http-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward), arriving as a transitive runtime
+dependency of <code>grpc-netty</code>, used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+<code>HttpObjectDecoder</code> itself isn't new at that point — earlier Solr releases (7.x through 8.2.x)
+already shipped this same class, bundled in the older <code>netty-all</code> uber-jar. This is a
+<strong>decoder</strong>-side issue — it only bites when Netty parses an inbound HTTP/1.x request. Solr is
+<strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr's HTTP server is Jetty, not Netty.</strong> Inbound requests to Solr's REST APIs never reach a
+  Netty decoder; <code>SolrDispatchFilter</code> and Jetty's own <code>HttpParser</code> handle every attacker-facing
+  request.</li>
+<li><strong>The OTLP gRPC path never parses HTTP/1.x requests.</strong> gRPC traffic is HTTP/2 framed, and Solr's
+  outbound gRPC client only ever decodes a proxy's CONNECT <em>response</em> (if a proxy is configured at
+  all, an optional non-default setup), never an inbound HTTP/1.x request.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources.</li>
+</ul>
+<p>Since there is no attacker-reachable path where Solr (or its dependencies) ever decodes an
+attacker-supplied HTTP/1.x request through this Netty codec, the vulnerable code is present on the
+classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50020">CVE-2026-50020</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-50010" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50010">CVE-2026-50010</a>, Netty: hostname verification silently disabled for custom TrustManagers (SimpleTrustManagerFactory)</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-50010 (CVSS 7.5, CWE-347) is a TLS hostname-verification bypass in <code>netty-handler</code>:
+<code>SimpleTrustManagerFactory</code> wraps a user-supplied <code>X509TrustManager</code> in an adapter that extends
+<code>X509ExtendedTrustManager</code> (required by the JDK's <code>SSLEngine</code>) but discards the <code>SSLEngine</code>
+parameters during certificate validation. Because those parameters carry the endpoint identity
+Java uses for hostname checking, wrapping a <em>custom</em> trust manager this way silently disables
+hostname verification — even when <code>endpointIdentificationAlgorithm</code> is set to <code>HTTPS</code> (Netty
+4.2's own default) — leaving the connection open to a man-in-the-middle who presents any
+CA-trusted certificate, valid hostname or not. This wrapper only fires when an application supplies
+its <strong>own</strong> <code>TrustManager</code>/certificate to Netty's <code>SslContextBuilder</code>; Netty's normal path of
+loading the platform's default trust store never goes through it. It affects Netty before
+4.1.135.Final and 4.2.0.Final–4.2.14.Final; fixed in 4.1.135.Final and 4.2.15.Final.</p>
+<p>Solr has shipped <code>netty-handler</code> — the modular jar this CVE concerns — since <strong>8.3.0</strong> (SOLR-13665,
+<code>netty-handler-4.2.6.Final.jar</code> in the current 9.10.x/10.0.x lines), as a transitive dependency of
+<strong>Apache ZooKeeper</strong>'s client library (earlier Solr releases, 7.x through 8.2.x, already shipped
+this same <code>SimpleTrustManagerFactory</code> class too, bundled in the older <code>netty-all</code> uber-jar). None of
+that matters for this specific CVE, though: the vulnerable scenario only becomes <em>possible</em> starting
+in <strong>9.2.0</strong>, when the optional <code>opentelemetry</code> module (and its <code>grpc-netty</code> OTLP exporter) was
+introduced — Solr versions before 9.2.0 don't have this module at all. CVE-2026-50010 is <strong>not</strong>
+considered exploitable in typical deployments of Apache Solr. Successful exploitation requires a
+specific, non-default configuration together with a privileged network position:</p>
+<ul>
+<li>The <code>opentelemetry</code> module is enabled <strong>and</strong> the operator has configured a custom trusted
+  certificate for the OTLP collector connection (e.g. via <code>OTEL_EXPORTER_OTLP_CERTIFICATE</code>, used to
+  trust a private/internal CA or self-signed collector certificate). That certificate-override path
+  is exactly what causes the OTLP exporter's <code>NettyChannelBuilder</code> to build its <code>SslContext</code> via
+  Netty's <code>SslContextBuilder.trustManager(...)</code>, the code path this bug affects.</li>
+<li>A man-in-the-middle attacker able to intercept the connection to the configured OTLP endpoint
+  presents a certificate issued by that same trusted CA, for any hostname.</li>
+</ul>
+<p>Solr's default configuration ships the <code>opentelemetry</code> module disabled, and even when enabled, OTLP
+export defaults to the JVM's ordinary default trust store — which loads trust managers through the
+platform <code>TrustManagerFactory</code>, not Netty's <code>SimpleTrustManagerFactory</code> wrapper, and is therefore
+unaffected. Only operators who have both enabled OTLP tracing <em>and</em> pointed it at a custom trusted
+certificate are exposed, and even then only to an attacker already positioned to intercept that
+specific outbound connection.</p>
+<p>Operators who do configure a custom OTLP trusted certificate should either restrict network access
+to the collector endpoint (e.g. a private network path with no attacker-reachable intercept point)
+until upgrading, or upgrade the bundled Netty once a Solr release ships 4.1.135.Final/4.2.15.Final —
+already present on the <code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but
+not yet in any released Solr line.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50010">CVE-2026-50010</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-48043" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48043">CVE-2026-48043</a>, Netty: pooled ByteBuf leak in HTTP/2 auto-decompression on flow-control errors</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-48043 (CVSS up to 7.5, CWE-400 / CWE-401 / CWE-772) is a resource-leak issue in
+<code>netty-codec-http2</code>'s <code>DelegatingDecompressorFrameListener</code>: it decompresses <code>gzip</code>/<code>deflate</code>/<code>zstd</code>
+HTTP/2 message bodies using a per-stream embedded channel, but when a flow-controller exception
+occurs, the pooled <code>ByteBuf</code>s involved aren't released — repeated triggering leaks pooled memory
+and can eventually crash the JVM with an OOM. <code>DelegatingDecompressorFrameListener</code> is an opt-in
+listener applications install to get automatic content-encoding-based decompression for generic
+HTTP/2 traffic; it affects Netty before 4.1.135.Final and 4.2.0.Final–4.2.14.Final; fixed in
+4.1.135.Final and 4.2.15.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-codec-http2</code> since 9.2.0 (4.1.x through 9.9.0, 4.2.x —
+<code>netty-codec-http2-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward), arriving as a transitive runtime
+dependency of <code>grpc-netty</code>, used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong><code>grpc-netty</code> never installs <code>DelegatingDecompressorFrameListener</code>.</strong> gRPC has its own
+  message-level compression framework, negotiated via <code>grpc-encoding</code> request/response metadata and
+  handled by grpc's own <code>Codec</code>/<code>Compressor</code> classes — it doesn't route through Netty's generic
+  HTTP/2 content-encoding auto-decompression listener at all.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources, so nothing in Solr itself installs this listener either.</li>
+</ul>
+<p>Since <code>DelegatingDecompressorFrameListener</code> is never installed in any pipeline Solr's dependencies
+construct, the vulnerable code is present on the classpath but not reachable in any real Solr
+deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48043">CVE-2026-48043</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-47691" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-47691">CVE-2026-47691</a>, Netty: DNS cache poisoning via insufficient NS record bailiwick checking (netty-resolver-dns not shipped)</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-47691 (CVSS up to 10.0, CWE-345 / CWE-346) is a DNS cache-poisoning issue in Netty's
+asynchronous DNS resolver (<code>io.netty:netty-resolver-dns</code>): it accepts any NS record from a DNS
+response's AUTHORITY section as long as its name is a suffix of the question name, without properly
+validating that the record is actually in that nameserver's bailiwick, then caches the associated A
+records directly. An attacker who controls an authoritative nameserver for any subdomain can use
+this to poison the resolver's cache for parent domains. It affects Netty before 4.1.135.Final and
+4.2.0.Final–4.2.14.Final; fixed in 4.1.135.Final and 4.2.15.Final.</p>
+<p>This CVE does not apply to Solr at all — <code>netty-resolver-dns</code> isn't in Solr's dependency graph in
+the first place. Solr's transitive Netty footprint (via <code>grpc-netty</code>, the optional <code>opentelemetry</code>
+module's OTLP gRPC exporter) pulls in the generic <code>io.netty:netty-resolver</code> API module, but never
+<code>netty-resolver-dns</code>, the separate artifact that contains the actual DNS resolver implementation
+this CVE lives in. Neither Solr nor any of its other dependencies (ZooKeeper, gRPC, etc.) uses
+Netty for DNS resolution — name lookups go through the JDK's standard <code>InetAddress</code>/<code>java.net</code>
+machinery instead. Solr is <strong>not affected</strong>: the vulnerable component is not shipped, in any
+version, on any Solr release line.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-47691">CVE-2026-47691</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-47244" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-47244">CVE-2026-47244</a>, Netty: unbounded HTTP/2 concurrent streams (Rapid-Reset-style DoS)</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-47244 (CVSS 5.3, CWE-400) is a resource-exhaustion issue in <code>netty-codec-http2</code>:
+<code>DefaultHttp2Connection.DefaultEndpoint</code> initializes <code>maxActiveStreams</code>/<code>maxStreams</code> to
+<code>Integer.MAX_VALUE</code>, and <code>Http2Settings</code> doesn't enforce <code>SETTINGS_MAX_CONCURRENT_STREAMS</code> unless
+an application explicitly configures it. A peer can open hundreds of thousands of stream objects on
+a single TCP connection, the same amplification pattern as the 2023 HTTP/2 "Rapid Reset" family
+(CVE-2023-44487) — this is a <strong>server-side</strong> concern, since it's the endpoint <em>accepting</em> streams
+whose limit matters. It affects Netty before 4.1.135.Final and 4.2.0.Final–4.2.14.Final; fixed in
+4.1.135.Final and 4.2.15.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-codec-http2</code> since 9.2.0 (4.1.x through 9.9.0, 4.2.x —
+<code>netty-codec-http2-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward), arriving as a transitive runtime
+dependency of <code>grpc-netty</code>, used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr never runs an HTTP/2 server.</strong> The unbounded-streams condition only matters for the local
+  endpoint that accepts streams opened by a remote peer. Solr's only Netty/HTTP2 channel is
+  <code>grpc-netty</code>'s outbound OTLP client — Solr is the one <em>opening</em> streams (its own trace-export
+  RPCs), not accepting an unbounded number of them from arbitrary attackers.</li>
+<li><strong>The remote peer is a single, operator-configured collector, not an open attack surface.</strong> Even
+  in the worst case of a malicious or compromised collector opening many streams back at the
+  client, that's a single trusted, operator-chosen endpoint — not the "hundreds of thousands of
+  streams from an internet-facing listener" amplification scenario this CVE targets.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources.</li>
+</ul>
+<p>Since Solr never accepts inbound HTTP/2 connections through Netty, the vulnerable code is present
+on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-47244">CVE-2026-47244</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-45536" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-45536">CVE-2026-45536</a>, Netty: file-descriptor leak in Unix domain socket recvFd()</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-45536 (CVSS 4.0, CWE-200 / CWE-772) is a file-descriptor leak in the native/JNI code
+backing <code>netty-transport-native-unix-common</code>: <code>netty_unix_socket_recvFd</code> allocates only 24 bytes
+for the ancillary-data control message, so when a peer sends an <code>SCM_RIGHTS</code> message carrying two
+file descriptors over a Unix domain socket, the kernel installs both fds but Netty's code only
+accounts for one, leaking the other on every such message. Its CVSS vector is Attack Vector:
+<strong>Local</strong> — this requires a local peer with an existing Unix-domain-socket connection to the
+affected process, not a remote/network attacker. It affects Netty before 4.1.135.Final and
+4.2.0.Final–4.2.14.Final; fixed in 4.1.135.Final and 4.2.15.Final.</p>
+<p><code>netty-transport-native-unix-common</code> — the modular jar this CVE concerns — has been part of Solr's
+dependency graph since <strong>8.3.0</strong> (SOLR-13665, <code>netty-transport-native-unix-common-4.2.6.Final.jar</code>
+in the current 9.10.x/10.0.x lines), the shared native support library underneath Netty's Epoll and
+KQueue transports, pulled in via <strong>Apache ZooKeeper</strong>'s client library and, since 9.2.0, also
+directly by <code>grpc-netty</code>. Older Solr releases (7.x through 8.2.x) already bundled this same native
+Unix-domain-socket code, in the older <code>netty-all</code> uber-jar at ancient 4.0.x Netty versions — the
+same architectural reasoning below (Solr never opens a Unix domain socket via Netty) applies to
+those releases just as it does here, independent of which jar or Netty version carries the code.
+Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr never opens a Unix domain socket via Netty.</strong> <code>netty_unix_socket_recvFd</code> is only invoked
+  when a <code>DomainSocketChannel</code>/<code>UnixChannel</code> is actually used. Solr's only Netty channel —
+  <code>grpc-netty</code>'s outbound OTLP exporter for the optional <code>opentelemetry</code> module — connects over
+  TCP/IP to a configured collector address, never a local Unix socket. ZooKeeper's client socket
+  defaults to plain NIO, and Solr never enables its Netty alternative by default — but even if an
+  operator does (following ZooKeeper's own TLS instructions), that transport still addresses the
+  ensemble over ordinary TCP/IP host:port connections, never a local Unix domain socket, so there's
+  still no Unix-domain-socket connection anywhere in Solr's dependency graph to leak a file
+  descriptor from.</li>
+<li><strong>Even where the jar is present, there's no peer positioned to send <code>SCM_RIGHTS</code>.</strong> Exploitation
+  requires a local process already connected over a Unix domain socket to the target, which never
+  exists here.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources.</li>
+</ul>
+<p>Since Solr never establishes a Unix-domain-socket channel through Netty, this native code path is
+present on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-45536">CVE-2026-45536</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-45416" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-45416">CVE-2026-45416</a>, Netty: unbounded allocation in SNI ClientHello sniffing (SslClientHelloHandler)</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.6.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-45416 (CVSS 7.5, CWE-770) is a resource-exhaustion issue in <code>netty-handler</code>'s
+<code>SslClientHelloHandler.decode()</code>: it reads the 24-bit TLS handshake length from an inbound
+ClientHello and eagerly allocates a buffer sized to it without a configured limit
+(<code>maxClientHelloLength</code> defaults to <code>0</code>, meaning unlimited), so a crafted ~16 MiB ClientHello can
+force a huge, unpooled allocation. This only matters for applications using <code>SniHandler</code> (or
+<code>AbstractSniHandler</code> directly) to peek at a TLS ClientHello's SNI extension and pick a per-hostname
+<code>SSLContext</code> — a <strong>server-side</strong> TLS-termination feature for inbound connections. It affects Netty
+before 4.1.135.Final and 4.2.0.Final–4.2.14.Final; fixed in 4.1.135.Final and 4.2.15.Final.</p>
+<p><code>netty-handler</code> has shipped in Solr since 8.3.0 (SOLR-13665), via <strong>Apache ZooKeeper</strong>'s client
+library, but <code>SslClientHelloHandler</code> — the specific class this CVE concerns — didn't exist yet at
+that point: Solr 8.3.0–8.5.2 pinned Netty 4.1.29.Final, which lacks it entirely (Netty only
+introduced it in 4.1.47.Final). Solr picked up that version starting at <strong>8.6.0</strong>, so that's the
+true first-shipped point for this specific vulnerability, not 8.3.0. <code>SniHandler</code> itself (the
+class applications actually configure) existed earlier, in both 4.1.29.Final and the older
+<code>netty-all</code> uber-jar Solr shipped before 8.3.0 — but the unbounded-allocation bug lives in
+<code>SslClientHelloHandler</code>, a piece <code>SniHandler</code> was refactored to delegate to only later. Since
+<strong>9.2.0</strong>, <code>netty-handler</code> has also arrived via <code>grpc-netty</code>, used by the optional <code>opentelemetry</code>
+module's OTLP gRPC exporter. Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr never runs a Netty server, let alone a TLS-terminating one that inspects ClientHello
+  SNI.</strong> <code>SniHandler</code>/<code>SslClientHelloHandler</code> only matter for a server accepting inbound TLS
+  connections and routing by SNI hostname. ZooKeeper's client socket defaults to plain NIO, and
+  Solr never enables its Netty alternative by default — but even if an operator does (following
+  ZooKeeper's own TLS instructions), that only switches Solr's ZooKeeper <em>client</em> socket, which
+  never receives a ClientHello to sniff in the first place (a client sends one; it doesn't parse
+  one). <code>grpc-netty</code>'s outbound OTLP client is in the same position.</li>
+<li><strong>Nothing in Solr's dependency graph installs <code>SniHandler</code>.</strong> There's no per-hostname TLS
+  routing feature anywhere in Solr, ZooKeeper's client configuration, or <code>grpc-netty</code>'s client
+  channel construction, that would need it.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources. Solr's own TLS termination (when enabled) is handled entirely by Jetty, not Netty.</li>
+</ul>
+<p>Since <code>SslClientHelloHandler</code> is never installed or invoked anywhere in Solr's dependency graph,
+the vulnerable code is present on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-45416">CVE-2026-45416</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-44249" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-44249">CVE-2026-44249</a>, Netty: IPv6 subnet-filter bypass in IpSubnetFilterRule</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-44249 (CVSS 8.1, CWE-284 / CWE-697 / CWE-1287) is an access-control bypass in
+<code>netty-handler</code>'s <code>IpSubnetFilterRule.compareTo()</code>: an incorrect IPv6 masking operation lets a
+valid public IPv6 address slip past a configured subnet allow/deny rule. <code>IpSubnetFilterRule</code> (and
+the <code>RuleBasedIpFilter</code> that uses it) is a server-side feature an application installs in a Netty
+pipeline to accept or reject <em>inbound</em> connections by source IP. It affects Netty before
+4.1.135.Final and 4.2.0.Final–4.2.14.Final; fixed in 4.1.135.Final and 4.2.15.Final.</p>
+<p>Solr has shipped <code>netty-handler</code> — the modular jar this CVE concerns — since <strong>8.3.0</strong> (SOLR-13665,
+<code>netty-handler-4.2.6.Final.jar</code> in the current 9.10.x/10.0.x lines), as a transitive dependency of
+<strong>Apache ZooKeeper</strong>'s client library (<code>org.apache.zookeeper:zookeeper</code>), which optionally supports
+a Netty-based connection socket. Earlier Solr releases (7.x through 8.2.x) already shipped this
+same <code>IpSubnetFilterRule</code> class too, bundled in the older <code>netty-all</code> uber-jar; 8.3.0 is when Solr's
+build started declaring the modular artifacts explicitly instead. Since <strong>9.2.0</strong> <code>netty-handler</code>
+has also arrived via <code>grpc-netty</code>, used by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr never runs a Netty server.</strong> <code>IpSubnetFilterRule</code> only matters for filtering <em>inbound</em>
+  connections at a server. Solr's own HTTP server is Jetty. ZooKeeper's client socket defaults to
+  plain NIO, and Solr never enables its Netty alternative by default — but even an operator who
+  does enable it (following ZooKeeper's own TLS instructions) only switches Solr's ZooKeeper
+  <em>client</em> socket; that never makes Solr run the corresponding <code>NettyServerCnxnFactory</code> server,
+  which Solr never uses at all. <code>grpc-netty</code>'s outbound OTLP client is a client too, and never
+  accepts an inbound connection to filter either.</li>
+<li><strong>Nothing in Solr's dependency graph ever constructs an <code>IpSubnetFilterRule</code>.</strong> There's no IP
+  allow/deny-list feature anywhere in Solr, ZooKeeper's client configuration, or <code>grpc-netty</code>'s
+  client channel construction, that uses this class.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources. Any IP-based access control an operator configures for Solr (e.g., at a fronting reverse
+  proxy, or Jetty's own connection-level controls) is implemented entirely outside Netty.</li>
+</ul>
+<p>Since <code>IpSubnetFilterRule</code> is never installed or evaluated anywhere in Solr's dependency graph, the
+vulnerable code is present on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-44249">CVE-2026-44249</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-42587" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42587">CVE-2026-42587</a>, Netty: HttpContentDecompressor maxAllocation bypass for br/zstd/snappy</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-42587 (CVSS 7.5, CWE-400 / CWE-770) is a resource-exhaustion issue in <code>netty-codec-http</code>'s
+<code>HttpContentDecompressor</code>: its <code>maxAllocation</code> parameter, meant to cap decompression-buffer size
+and prevent decompression-bomb attacks, is correctly enforced for <code>gzip</code>/<code>deflate</code> (via
+<code>ZlibDecoder</code>) but silently ignored for <code>br</code> (Brotli), <code>zstd</code>, and <code>snappy</code> content encodings — so
+a compressed body using one of those encodings can bypass the limit and trigger unbounded memory
+allocation. It affects Netty before 4.1.133.Final and 4.2.0.Alpha1–4.2.12.Final; fixed in
+4.1.133.Final and 4.2.13.Final.</p>
+<p><code>HttpContentDecompressor</code> is part of <code>netty-codec-http</code>. Solr has shipped a vulnerable
+<code>netty-codec-http</code> since 9.2.0 (4.1.x through 9.9.0, 4.2.x — <code>netty-codec-http-4.2.6.Final.jar</code> —
+from 9.10.0/10.0.0 onward), arriving as a transitive runtime dependency of <code>grpc-netty</code>, used only
+by the optional <code>opentelemetry</code> module's OTLP gRPC exporter. <code>HttpContentDecompressor</code> itself isn't
+new at that point — earlier Solr releases (7.x through 8.2.x) already shipped this same class,
+bundled in the older <code>netty-all</code> uber-jar. Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong><code>HttpContentDecompressor</code> is never added to any pipeline Solr builds.</strong> It's an opt-in handler
+  for automatic HTTP/1.x content decoding; gRPC has its own separate message-compression framework
+  (negotiated at the gRPC layer, using <code>gzip</code>/<code>identity</code>) that doesn't route through Netty's HTTP
+  content-encoding decompressor at all.</li>
+<li><strong>The only HTTP/1.x traffic Solr's Netty usage ever generates is a proxy CONNECT exchange</strong>
+  (an optional, non-default setup for the OTLP exporter), and CONNECT responses don't carry a
+  compressed body for this handler to decompress in the first place.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources.</li>
+</ul>
+<p>Since <code>HttpContentDecompressor</code> is never installed in any pipeline Solr's dependencies construct,
+the vulnerable code is present on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42587">CVE-2026-42587</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-42585" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42585">CVE-2026-42585</a>, Netty: HTTP request smuggling via malformed Transfer-Encoding parsing</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-42585 (CWE-444) is a request-smuggling issue in <code>netty-codec-http</code>'s HTTP/1.x
+decoder: a malformed <code>Transfer-Encoding</code> header value is parsed incorrectly, so Netty and a
+front-end HTTP intermediary can disagree about whether a request is chunked. It affects Netty
+before 4.1.133.Final and 4.2.0.Alpha1–4.2.12.Final; fixed in 4.1.133.Final and 4.2.13.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-codec-http</code> since 9.2.0 (4.1.x through 9.9.0, 4.2.x —
+<code>netty-codec-http-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward), arriving as a transitive runtime
+dependency of <code>grpc-netty</code>, used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+This HTTP/1.x decoder itself isn't new at that point — earlier Solr releases (7.x through 8.2.x)
+already shipped this same code, bundled in the older <code>netty-all</code> uber-jar. This is a
+<strong>decoder</strong>-side issue — it only bites when Netty parses an inbound HTTP/1.x request. Solr is
+<strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr's HTTP server is Jetty, not Netty.</strong> Inbound requests to Solr's REST APIs never reach a
+  Netty decoder; <code>SolrDispatchFilter</code> and Jetty's own <code>HttpParser</code> handle every attacker-facing
+  request.</li>
+<li><strong>The OTLP gRPC path never parses HTTP/1.x requests.</strong> gRPC traffic is HTTP/2 framed, and Solr's
+  outbound gRPC client only ever decodes a proxy's CONNECT <em>response</em> (if a proxy is configured at
+  all, an optional non-default setup), never an inbound HTTP/1.x request.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources.</li>
+</ul>
+<p>Since there is no attacker-reachable path where Solr (or its dependencies) ever decodes an
+attacker-supplied HTTP/1.x request through this Netty codec, the vulnerable code is present on the
+classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42585">CVE-2026-42585</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-42584" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42584">CVE-2026-42584</a>, Netty: HttpClientCodec request/response desync via 1xx responses</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-42584 (CVSS up to 9.1, CWE-444) is a request-smuggling issue in <code>netty-codec-http</code>'s
+<code>HttpClientCodec</code>: it pairs each inbound response with the next outbound request by calling
+<code>queue.poll()</code> exactly once per response, including for 1xx informational responses. When a server
+sends a 1xx response ahead of the real final response, the codec's request/response pairing slips,
+and a later response's body gets parsed from the wrong offset. It affects Netty before 4.1.133.Final
+and 4.2.0.Alpha1–4.2.12.Final; fixed in 4.1.133.Final and 4.2.13.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-codec-http</code> since <strong>9.2.0</strong> (4.1.x through 9.9.0, 4.2.x —
+<code>netty-codec-http-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward), arriving as a transitive runtime
+dependency of <code>grpc-netty</code>, used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+<code>HttpClientCodec</code> itself isn't new at that point — earlier Solr releases (7.x through 8.2.x)
+already shipped this same class, bundled in the older <code>netty-all</code> uber-jar. It's the HTTP/1.1
+client-side codec inside that jar, and Solr's dependency graph only ever uses it inside Netty's
+<code>HttpProxyHandler</code>, to send an HTTP CONNECT request and parse the proxy's response when tunneling
+<code>grpc-netty</code>'s OTLP export traffic through an HTTP proxy — itself a non-default configuration,
+since Solr never sets any JVM-wide HTTP proxy properties itself. Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>The bug requires a pipelined sequence of requests/responses (including 1xx) to desync.</strong> A
+  CONNECT tunnel is a single request/response exchange — once established, the connection carries
+  opaque HTTP/2 gRPC bytes, not further HTTP/1.1 messages for <code>HttpClientCodec</code> to mis-pair. There's
+  no second request in flight for the queue to get out of sync with.</li>
+<li><strong>The proxy path itself is non-default.</strong> <code>HttpProxyHandler</code>/<code>HttpClientCodec</code> are only
+  instantiated at all if an operator has separately configured an HTTP proxy for the OTLP exporter,
+  which isn't Solr's default posture.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources, and Solr's own HTTP server is Jetty, not Netty, so no inbound Solr traffic is ever parsed
+  by <code>HttpClientCodec</code> either way (it's a client-side class regardless).</li>
+</ul>
+<p>Since Solr never exercises a multi-request HTTP/1.1 exchange over any Netty channel, the
+request/response pairing this bug corrupts never has more than one entry to desync, so the
+vulnerable code is present on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42584">CVE-2026-42584</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-42583" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42583">CVE-2026-42583</a>, Netty: Lz4FrameDecoder unbounded allocation before decompression</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-42583 (CVSS 7.5, CWE-400 / CWE-770) is a resource-exhaustion issue in
+<code>netty-codec-compression</code>'s <code>Lz4FrameDecoder</code>: it allocates a <code>ByteBuf</code> sized to the frame's
+claimed <code>decompressedLength</code> (up to 32 MB per block) <em>before</em> running LZ4 decompression, so a
+crafted frame that lies about its decompressed size can force large allocations regardless of how
+much data was actually sent — a decompression-bomb-style DoS. It affects Netty before
+4.1.133.Final and 4.2.0.Alpha1–4.2.12.Final; fixed in 4.1.133.Final and 4.2.13.Final.</p>
+<p><code>netty-codec-compression</code> — the specific jar this entry tracks — first appears in Solr's dependency
+graph in <strong>9.10.0/10.0.0</strong> (<code>netty-codec-compression-4.2.6.Final.jar</code>); it's a byproduct of Netty's
+own 4.2 module split, which broke compression codecs out of the general-purpose <code>netty-codec</code>
+artifact into their own jar. <code>Lz4FrameDecoder</code> itself is not new at that point, though: it already
+existed in <code>netty-codec</code> going back to Solr 8.3.0 (SOLR-13665), when Solr first shipped modular
+Netty jars at all. The same reasoning below has applied for that whole span — Solr has never wired
+this decoder into anything, regardless of which jar happens to contain it. Solr is <strong>not
+affected</strong>:</p>
+<ul>
+<li><strong>Nothing in Solr's dependency graph ever instantiates <code>Lz4FrameDecoder</code>.</strong> It arrives purely as
+  a transitive dependency of Netty's own HTTP/2 and proxy-handler modules (used by <code>grpc-netty</code>,
+  the optional <code>opentelemetry</code> module's OTLP exporter), not because anything negotiates or uses LZ4
+  compression. gRPC's own message-compression layer uses <code>gzip</code>/<code>identity</code>, never LZ4, so this
+  decoder is never added to any pipeline Solr builds.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources, and no Solr build file references LZ4, Snappy, Brotli, or Zstd Netty codec classes.</li>
+</ul>
+<p>Since the vulnerable decoder is never wired into any pipeline that processes attacker-supplied
+data, the vulnerable code is present on the classpath (where it exists at all) but not reachable in
+any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42583">CVE-2026-42583</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-42581" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42581">CVE-2026-42581</a>, Netty: HTTP request smuggling via conflicting Content-Length/Transfer-Encoding</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-42581 (CWE-444) is a request-smuggling issue in <code>netty-codec-http</code>'s
+<code>HttpObjectDecoder</code>: for an HTTP/1.0 request that carries both <code>Transfer-Encoding: chunked</code> and a
+<code>Content-Length</code> header, the decoder fails to strip the conflicting <code>Content-Length</code>, so
+downstream proxies or handlers that pick a different header to trust can disagree with Netty about
+where the request body ends. It affects Netty before 4.1.133.Final and 4.2.0.Alpha1–4.2.12.Final;
+fixed in 4.1.133.Final and 4.2.13.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-codec-http</code> since 9.2.0 (4.1.x through 9.9.0, 4.2.x —
+<code>netty-codec-http-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward), arriving as a transitive runtime
+dependency of <code>grpc-netty</code>, used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+<code>HttpObjectDecoder</code> itself isn't new at that point — earlier Solr releases (7.x through 8.2.x)
+already shipped this same class, bundled in the older <code>netty-all</code> uber-jar. This is a
+<strong>decoder</strong>-side bug — it only bites when Netty parses an inbound HTTP/1.0/1.1 request. Solr is
+<strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr's HTTP server is Jetty, not Netty.</strong> Inbound requests to Solr's REST APIs never reach a
+  Netty decoder; <code>SolrDispatchFilter</code> and Jetty's own <code>HttpParser</code> handle every attacker-facing
+  request.</li>
+<li><strong>The OTLP gRPC path never parses HTTP/1.x requests.</strong> gRPC traffic is HTTP/2 framed, so
+  <code>HttpObjectDecoder</code> (an HTTP/1.x-only class) is never invoked by the actual trace-export traffic,
+  and Solr's outbound gRPC client never <em>receives</em> an HTTP/1.x request to decode in the first place
+  — it only ever decodes a proxy's CONNECT <em>response</em>, if a proxy is configured at all (an
+  optional, non-default setup for the OTLP exporter).</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources.</li>
+</ul>
+<p>Since there is no attacker-reachable path where Solr (or its dependencies) ever decodes an
+attacker-supplied HTTP/1.0 or HTTP/1.1 request through this Netty codec, the vulnerable code is
+present on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42581">CVE-2026-42581</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-42580" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42580">CVE-2026-42580</a>, Netty: HTTP request smuggling via chunk-size integer overflow</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-42580 (CVSS 6.5, CWE-190 / CWE-444) is a request-smuggling issue in <code>netty-codec-http</code>'s
+<code>HttpObjectDecoder</code>: when parsing a chunked HTTP/1.1 message, the hex chunk-size field is parsed
+into a 32-bit int without an overflow check, so an oversized chunk-size value silently wraps
+around to a small (or negative) number instead of being rejected. A crafted chunk whose declared
+size doesn't match the bytes actually sent can desynchronize how Netty and a front-end HTTP
+intermediary frame the request, the same general smuggling pattern as other chunk/header parsing
+bugs that have affected HTTP implementations. It affects Netty before 4.1.133.Final and
+4.2.0.Alpha1–4.2.12.Final; fixed in 4.1.133.Final and 4.2.13.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-codec-http</code> since 9.2.0 (4.1.x through 9.9.0, 4.2.x —
+<code>netty-codec-http-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward), arriving as a transitive runtime
+dependency of <code>grpc-netty</code>, used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter.
+<code>HttpObjectDecoder</code> itself isn't new at that point — earlier Solr releases (7.x through 8.2.x)
+already shipped this same class, bundled in the older <code>netty-all</code> uber-jar. This is a
+<strong>decoder</strong>-side bug — it only bites when Netty is parsing an inbound chunked HTTP/1.1 message,
+which makes Solr's exposure narrow to begin with, since Solr's own HTTP server never uses this
+decoder at all (see below). Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr's HTTP server is Jetty, not Netty.</strong> Inbound requests to Solr's REST APIs never reach a
+  Netty decoder at all; <code>SolrDispatchFilter</code> and Jetty's own <code>HttpParser</code> handle every
+  attacker-facing request.</li>
+<li><strong>The OTLP gRPC path never parses chunked HTTP/1.1.</strong> gRPC traffic is HTTP/2 framed, not
+  HTTP/1.1 chunked transfer-encoding, so <code>HttpObjectDecoder</code>'s chunk-size parsing is never invoked
+  by the actual trace-export traffic.</li>
+<li><strong>The only place this decoder could run is an optional proxy CONNECT response</strong>, and only if an
+  operator has separately configured an HTTP proxy for the OTLP exporter — itself non-default, since
+  Solr never sets any JVM-wide HTTP proxy properties itself — and only if that operator-configured,
+  trusted proxy sent back a chunked response, which isn't how CONNECT responses are normally
+  constructed.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources.</li>
+</ul>
+<p>Since there is no attacker-reachable path where Solr (or its dependencies) ever decodes an
+attacker-supplied chunked HTTP/1.1 message through this Netty codec, the vulnerable code is present
+on the classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42580">CVE-2026-42580</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-42578" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42578">CVE-2026-42578</a>, Netty: HTTP header injection via HttpProxyHandler CONNECT request</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-42578 (CVSS 7.5, CWE-93 / CWE-113) is a header-injection issue in
+<code>io.netty:netty-handler-proxy</code>'s <code>HttpProxyHandler</code>, used when a Netty client tunnels a connection
+through an HTTP proxy via CONNECT. Its <code>newInitialMessage()</code> method builds the CONNECT request's
+headers with validation explicitly disabled (<code>DefaultHttpHeadersFactory...withValidation(false)</code>),
+then appends the caller-supplied <code>outboundHeaders</code> without any CRLF check — so an attacker who
+influences those header values can inject arbitrary headers, or split, the CONNECT request sent to
+the proxy. It affects Netty before 4.1.133.Final and 4.2.0.Alpha1–4.2.12.Final; fixed in
+4.1.133.Final and 4.2.13.Final.</p>
+<p>Solr has shipped a vulnerable <code>netty-handler-proxy</code> since <strong>9.2.0</strong> (4.1.x through the 9.2.0–9.9.0
+line, 4.2.x — <code>netty-handler-proxy-4.2.6.Final.jar</code> — from 9.10.0/10.0.0 onward); Solr versions
+before 9.2.0 don't ship this jar. It arrives as a transitive runtime dependency of <code>grpc-netty</code>,
+used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter. Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr never configures an HTTP/SOCKS proxy for its OTLP exporter.</strong> <code>HttpProxyHandler</code> is only
+  instantiated when grpc-netty's channel is told to tunnel through a proxy — via gRPC's default
+  <code>ProxyDetector</code>, which honors the JVM's standard <code>http.proxyHost</code>/<code>https.proxyHost</code> system
+  properties. Solr sets none of this itself; a proxy tunnel (and therefore <code>HttpProxyHandler</code>) is
+  only in play if an operator has separately configured JVM-wide HTTP proxy settings, which isn't
+  Solr's default posture.</li>
+<li><strong>Even with a proxy configured, nothing attacker-controlled reaches <code>outboundHeaders</code>.</strong> The flaw
+  only bites through caller-supplied header values passed into <code>HttpProxyHandler</code>. Any values Solr's
+  (or grpc's) proxy path would ever supply — the collector address, proxy credentials sourced from
+  JVM properties — are operator-configured, never derived from a client request to Solr's search
+  APIs.</li>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources, so nothing in Solr itself constructs or feeds data into an <code>HttpProxyHandler</code>.</li>
+</ul>
+<p>Exploiting this requires both a non-default proxy configuration and attacker-controlled header
+data that Solr's OTLP export path never supplies, so the vulnerable code is present on the
+classpath but not reachable in any real Solr deployment.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42578">CVE-2026-42578</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-42577" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42577">CVE-2026-42577</a>, Netty: Epoll transport CPU busy-loop DoS via unclosed half-closed connections</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-42577 (CVSS 7.5, CWE-772) is a resource-leak / denial-of-service issue in Netty's Epoll
+native transport: a TCP connection that receives a RST after being half-closed isn't properly
+closed, so stale channels accumulate and can eventually pin the owning event-loop thread at 100%
+CPU. It affects Netty 4.2.0.Final up to (but not including) 4.2.13.Final — the Epoll transport code
+in question was introduced by the 4.2 rewrite, so the older 4.1.x line is unaffected regardless of
+patch version. It is fixed in 4.2.13.Final.</p>
+<p><code>netty-transport-native-epoll</code> — the modular jar this CVE concerns — has been part of Solr's
+dependency graph since <strong>8.3.0</strong> (SOLR-13665), as a transitive dependency of <strong>Apache ZooKeeper</strong>'s
+client library (<code>org.apache.zookeeper:zookeeper</code>), which optionally supports a Netty-based
+connection socket for both its client and server roles. Older Solr releases (7.x through 8.2.x)
+already bundled Netty's Epoll transport code too, in the older <code>netty-all</code> uber-jar, but at ancient
+4.0.x Netty versions — well below this CVE's affected range regardless. From 8.3.0 through 9.9.0,
+the modular jar stayed on Netty 4.1.x, still outside this CVE's affected range. Starting with
+9.10.0 (and 10.0.0), Solr moved to Netty 4.2.6.Final, which does fall in the vulnerable range, and
+dependency scanners flag <code>netty-transport-native-epoll-4.2.6.Final.jar</code> (classifier <code>linux-x86_64</code>)
+on the classpath.</p>
+<p>CVE-2026-42577 is <strong>not</strong> considered exploitable in typical deployments of Apache Solr. Successful
+exploitation requires a specific, non-default configuration together with a hostile or compromised
+peer on that connection:</p>
+<ul>
+<li>ZooKeeper client TLS must be explicitly enabled, following <strong>ZooKeeper's own</strong> documented
+  instructions — setting <code>zookeeper.client.secure=true</code> and
+  <code>zookeeper.clientCnxnSocket=org.apache.zookeeper.ClientCnxnSocketNetty</code> (typically as JVM system
+  properties in <code>solr.in.sh</code>/<code>SOLR_OPTS</code>), plus the corresponding <code>zookeeper.ssl.*</code> keystore/truststore
+  properties. ZooKeeper's own documentation states this plainly: "SSL feature will be enabled when
+  user plugs-in zookeeper.serverCnxnFactory, zookeeper.clientCnxnSocket as Netty" — the default
+  plain-NIO socket (<code>ClientCnxnSocketNIO</code>) has no TLS support at all. This is not something Solr
+  ships, sets, or documents in its own reference guide; it requires an operator to configure it
+  directly via ZooKeeper's own mechanism, independent of Solr.</li>
+<li>That alone is enough to make the Epoll transport reachable: ZooKeeper's Netty client
+  (<code>org.apache.zookeeper.common.NettyUtils</code>) explicitly prefers the Epoll event loop over plain NIO
+  whenever the native library is available, which it is on the common case of Linux.</li>
+<li>An attacker still needs to be able to trigger the RST-after-half-close condition against that
+  specific connection — meaning a compromised ZooKeeper ensemble member, or a network position
+  able to manipulate that TCP connection. ZooKeeper ensemble members are ordinarily trusted,
+  operator-controlled infrastructure, which narrows this further even when the configuration
+  precondition is met.</li>
+</ul>
+<p>Solr's default configuration never enables ZooKeeper client TLS, so ZooKeeper's client socket
+defaults to the plain-NIO <code>ClientCnxnSocketNIO</code>, and the bundled <code>netty-transport-native-epoll</code> jar
+sits completely unused on the classpath — ZooKeeper connections go through the default NIO socket,
+never through Netty's Epoll channel implementation, unless an operator has taken the additional
+step above. The other place Netty appears in Solr — the optional <code>opentelemetry</code> module's
+<code>grpc-netty</code> OTLP exporter — never depends on <code>netty-transport-native-epoll</code> at all, so it offers no
+alternate path to this code. No Solr code instantiates an Epoll channel directly either: there are
+no <code>io.netty</code> imports anywhere in Solr's own Java sources.</p>
+<p>Only operators who have both enabled ZooKeeper client TLS and are exposed to a hostile or
+compromised ZooKeeper peer are affected. Operators who do enable ZooKeeper client TLS should treat
+their ZooKeeper ensemble as they would any other TLS endpoint pending an upgrade, or restrict
+network access to it in the interim.</p>
+<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
+<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
+released line yet.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-42577">CVE-2026-42577</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-41417" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41417">CVE-2026-41417</a>, Netty: HTTP request smuggling via setUri() CRLF-validation bypass</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-41417 (CVSS 5.3) is a request-smuggling issue (CWE-93 / CWE-444) in Netty's HTTP/1.1
+codec. <code>DefaultHttpRequest</code> and <code>DefaultFullHttpRequest</code> reject CRLF and whitespace characters in
+their constructors, but the <code>setUri()</code> method that lets a request's URI be rewritten after
+construction has no equivalent validation, so an attacker who controls a value later passed to
+<code>setUri()</code> can inject CRLF sequences and smuggle a second request. It affects Netty versions before
+4.1.133.Final and 4.2.0.Alpha1–4.2.12.Final; it is fixed in 4.1.133.Final and 4.2.13.Final.</p>
+<p>The <code>netty-codec-http</code> jar this CVE concerns was first shipped by Solr in <strong>9.2.0</strong> (SOLR-16532),
+when the optional <code>opentelemetry</code> module started pulling it in transitively via <code>grpc-netty</code>. That
+doesn't mean Solr had no HTTP codec classes before then, though: earlier Solr releases (7.x through
+8.2.x) already shipped this same <code>DefaultHttpRequest</code>/<code>DefaultFullHttpRequest</code> code, bundled in the
+older <code>netty-all</code> uber-jar — just not as this specific modular jar. Every release since 9.2.0 has
+shipped a vulnerable <code>netty-codec-http</code>: 4.1.114.Final (before 4.1.133.Final) through the
+9.2.0–9.9.0 line, and 4.2.6.Final (within the vulnerable 4.2.0.Alpha1–4.2.12.Final range,
+<code>netty-codec-http-4.2.6.Final.jar</code>) in the current 9.10.x and 10.0.x lines. So dependency scanners
+flag this CVE across the whole 9.2.0–10.x range. Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>Solr's own code never touches Netty.</strong> There are no <code>io.netty</code> imports anywhere in Solr's Java
+  sources. Netty is a transitive dependency, not something Solr calls directly.</li>
+<li><strong>The only production path is an outbound gRPC client, not an HTTP server.</strong> The optional
+  <code>opentelemetry</code> module (<code>solr/modules/opentelemetry</code>) pulls in <code>io.grpc:grpc-netty</code> to export
+  trace spans over OTLP/gRPC to an operator-configured collector endpoint. That is a client
+  connection Solr <em>initiates</em> to a trusted, configured address — Netty never parses inbound,
+  attacker-controlled HTTP requests in this path, and nothing in that flow calls <code>setUri()</code> on a
+  request built from untrusted input.</li>
+<li><strong>Solr's HTTP server is Jetty, not Netty.</strong> Inbound requests to Solr's REST APIs are handled by
+  Jetty's servlet stack (<code>SolrDispatchFilter</code>); Netty is never in that request path at all.</li>
+<li><strong>The other place <code>netty-codec-http</code> appears is test-only.</strong> The <code>jwt-auth</code> module depends on it
+  as <code>testRuntimeOnly</code> (required by the <code>mock-oauth2-server</code> test dependency), so it is not part of
+  any shipped Solr artifact.</li>
+</ul>
+<p>Since the vulnerable <code>setUri()</code> bypass is never exercised — Solr neither constructs nor mutates
+Netty HTTP requests from attacker-controlled data — the vulnerable code is present on the classpath
+but not in any reachable execution path.</p>
+<p>No released Solr version ships the fix yet. On Solr's <code>main</code> development branch, Netty was bumped
+4.2.6.Final → 4.2.12.Final (still within the vulnerable range) → 4.2.15.Final in June 2026, which is
+fixed — and will be released in Solr versions 9.11.0 and 10.1.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41417">CVE-2026-41417</a></li>
+                </ul>
+            </article>
             <article id="cve-2026-5795" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-5795">CVE-2026-5795</a>, Eclipse Jetty: privilege escalation via uncleared JASPI ThreadLocals</h3>
@@ -150,7 +1073,7 @@
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-10.0.0</p>
                     </div>
                 </header>
 
@@ -173,7 +1096,11 @@ Jetty 9.4.44 in earlier 9.x releases), so dependency scanners flag this CVE. Sol
   PKI, etc.). It never installs a Jetty <code>SecurityHandler</code>/<code>Authenticator</code>, and never the JASPI
   mechanism, so the vulnerable code path is unreachable even if the module were present.</li>
 </ul>
-<p>Solr 10.0 ships the fixed Jetty 12.0.34.</p>
+<p>Solr has bundled a Jetty version in an affected branch (≥ 9.4.0) since Solr 7.3.0 — Jetty 9.4.x
+through Solr 9.1, Jetty 10.0.x through Solr 9.10, and Jetty 12.0.27 in Solr 10.0.0 (below the fixed
+12.0.34) — so scanners flag this CVE across Solr 7.3.0 – 10.0.0. Solr remains <strong>not affected</strong>
+throughout that range because it never ships the <code>jetty-jaspi</code> module, regardless of the bundled
+Jetty version.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -188,7 +1115,7 @@ Jetty 9.4.44 in earlier 9.x releases), so dependency scanners flag this CVE. Sol
                             <strong>Status:</strong>
                             <span class="cdx-exploitable">exploitable</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-10.0.0</p>
                     </div>
                 </header>
 
@@ -233,7 +1160,11 @@ and reaches Solr's APIs directly, bypassing those controls.</p>
 <li><strong>Upgrade the bundled Jetty</strong> to a patched release (≥ 10.0.28 on the 10.0.x line), which is the
   full fix, however that requires commercial support. See https://webtide.com/end-of-life/ for options.</li>
 </ul>
-<p>Solr 10.0 ships the fixed Jetty 12.0.34.</p>
+<p>Solr has bundled a Jetty version in an affected branch (≥ 9.4.0) since Solr 7.3.0 — Jetty 9.4.x
+through Solr 9.1, Jetty 10.0.x through Solr 9.10, and Jetty 12.0.27 in Solr 10.0.0 (which is still
+below the fixed 12.0.33). Earlier releases shipped Jetty 9.2.x/9.3.x or 8.1.x, which pre-date the
+affected 9.4.0 branch. The affected range is therefore 7.3.0 – 10.0.0; no released Solr yet bundles a
+fixed Jetty (≥ 10.0.28 / 12.0.33).</p>
 
                 <h4>References</h4>
                 <ul>
@@ -248,7 +1179,7 @@ and reaches Solr's APIs directly, bypassing those controls.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-10.0.0</p>
                     </div>
                 </header>
 
@@ -283,7 +1214,10 @@ reduces impact but does not eliminate all cross-connection effects.)</p>
 production-secure deployment and explicitly warns against relying on network-perimeter controls as the
 sole access mechanism. A deployment without Solr auth that relies on a proxy's URI rules as its only
 security boundary is therefore outside the project's supported production configuration.</p>
-<p>Solr 10.0 ships the fixed Jetty 12.0.34.</p>
+<p>Solr has bundled a Jetty version in an affected branch (≥ 9.4.0) since Solr 7.3.0 — Jetty 9.4.x
+through Solr 9.1, Jetty 10.0.x through Solr 9.10, and Jetty 12.0.27 in Solr 10.0.0 (below the fixed
+12.0.31) — so scanners flag this CVE across Solr 7.3.0 – 10.0.0. As explained above, Solr is not
+affected in a supported (authenticated) configuration throughout that range.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -298,7 +1232,7 @@ security boundary is therefore outside the project's supported production config
                             <strong>Status:</strong>
                             <span class="cdx-exploitable">exploitable</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> < 10.1.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-10.0.0</p>
                     </div>
                 </header>
 
@@ -310,9 +1244,10 @@ directly to an array allocation without validating it. An attacker who can suppl
 model file with a count set to <code>Integer.MAX_VALUE</code> triggers an immediate <code>OutOfMemoryError</code> during
 model deserialization, before any substantial data is consumed.</p>
 <p>The vulnerable code is present in the <code>opennlp-tools-1.9.4.jar</code> that Solr pulls in transitively via
-<code>lucene-analysis-opennlp</code> (Lucene 9.12.3). There is a <code>opennlp-tools-1.9.5</code> release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which validate the count against an
-upper bound (default 10,000,000, configurable via the <code>OPENNLP_MAX_ENTRIES</code> system property) before
-allocating.</p>
+<code>lucene-analysis-opennlp</code> (Lucene 9.12.3). The issue is fixed upstream in OpenNLP 2.5.9 (and
+3.0.0-M3), and backported to the end-of-life 1.9.x line as <code>opennlp-tools-1.9.5</code>; all of these
+validate the count against an upper bound (default 10,000,000, configurable via the
+<code>OPENNLP_MAX_ENTRIES</code> system property) before allocating.</p>
 <h4 id="when-solr-is-exposed">When Solr is exposed<a class="headerlink" href="#when-solr-is-exposed" title="Permanent link">&para;</a></h4>
 <p>OpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed
 modules are enabled. The vulnerable model-loading code path becomes reachable when:</p>
@@ -329,7 +1264,12 @@ exposed.</p>
 <p>The most reliable mitigation is to <strong>not enable the OpenNLP-backed <code>analysis-extras</code> or <code>langid</code>
 modules</strong> unless they are required. If you do use OpenNLP, load model files only from locations you
 fully control and never from untrusted or user-supplied sources.</p>
-<p>Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via <code>lucene-analysis-opennlp</code>) to 2.5.9.</p>
+<p>This flaw is present in every OpenNLP release before 2.5.9. Solr has bundled OpenNLP (transitively,
+via <code>lucene-analysis-opennlp</code>) since Solr 7.3.0, so every release from 7.3.0 through 10.0.0 ships an
+affected version (1.8.3 through 2.5.6). The affected range is therefore 7.3.0 – 10.0.0.</p>
+<p>Fixed in Solr 9.11, which bundles the patched <code>opennlp-tools</code> 1.9.5, and in Solr 10.1, which upgrades
+the bundled OpenNLP (via <code>lucene-analysis-opennlp</code>) to 2.5.9. Solr 10.0 remains affected (it ships
+OpenNLP 2.5.6).</p>
 
                 <h4>References</h4>
                 <ul>
@@ -344,7 +1284,7 @@ fully control and never from untrusted or user-supplied sources.</p>
                             <strong>Status:</strong>
                             <span class="cdx-exploitable">exploitable</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> < 10.1.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-10.0.0</p>
                     </div>
                 </header>
 
@@ -391,6 +1331,10 @@ deserialize it:</p>
 </ul>
 <p>Solr's own usage only ever references built-in <code>opennlp.*</code> factories, so legitimate models load
 unchanged; only crafted models that try to instantiate arbitrary classes are blocked.</p>
+<p>This flaw is present in every OpenNLP release before 2.5.9 (fixed in 2.5.9 / 3.0.0-M3, backported to
+1.9.5). Solr has bundled OpenNLP (transitively, via <code>lucene-analysis-opennlp</code>) since Solr 7.3.0, so
+every release from 7.3.0 through 10.0.0 ships an affected version (1.8.3 through 2.5.6). The affected
+range is therefore 7.3.0 – 10.0.0.</p>
 <p>Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via <code>lucene-analysis-opennlp</code>) to 2.5.9.</p>
 
                 <h4>References</h4>
@@ -406,7 +1350,7 @@ unchanged; only crafted models that try to instantiate arbitrary classes are blo
                             <strong>Status:</strong>
                             <span class="cdx-exploitable">exploitable</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> < 10.1.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-10.0.0</p>
                     </div>
                 </header>
 
@@ -444,6 +1388,10 @@ archive passes through a single chokepoint before OpenNLP is allowed to deserial
 to both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments, and whether the
 dictionary is loaded by the <code>langid</code> / <code>analysis-extras</code> update processors or by the
 schema-configured OpenNLP analyzers.</p>
+<p>This flaw is present in every OpenNLP release before 2.5.9 (fixed in 2.5.9 / 3.0.0-M3, backported to
+1.9.5). Solr has bundled OpenNLP (transitively, via <code>lucene-analysis-opennlp</code>) since Solr 7.3.0, so
+every release from 7.3.0 through 10.0.0 ships an affected version (1.8.3 through 2.5.6). The affected
+range is therefore 7.3.0 – 10.0.0.</p>
 <p>Fully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via <code>lucene-analysis-opennlp</code>) to 2.5.9.</p>
 
                 <h4>References</h4>
@@ -692,7 +1640,7 @@ with <code>log4j-core-2.25.4.jar</code>.</p>
             </article>
             <article id="cve-2025-48924" class="post panel radius">
                 <header class="post-header">
-                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48924">CVE-2025-48924</a>, commons-lang3-<version>.jar</h3>
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48924">CVE-2025-48924</a>, Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</h3>
                     <div class="panel callout">
                         <p class="subheader">
                             <strong>Status:</strong>
@@ -703,7 +1651,16 @@ with <code>log4j-core-2.25.4.jar</code>.</p>
                 </header>
 
                 <h4>Description</h4>
-                <p>The vulnerable functionality is only reachable via <code>commons-configuration2</code>, which is used in Solr's Hadoop Kerberos support (<code>solr-hadoop-auth</code>) to load administrator-provided Hadoop configuration files. As such, the vulnerability is not exploitable in Solr.</p>
+                <p>CVE-2025-48924 is an uncontrolled-recursion issue in Apache Commons Lang's
+<code>ClassUtils.getClass(...)</code>: a very long, deeply-nested class name can exhaust the stack and
+throw <code>StackOverflowError</code>. It affects <code>commons-lang3</code> from 3.0 up to (but not including) 3.18.0,
+so dependency scanners flag the <code>commons-lang3</code> JAR bundled in Solr 9.x (which ships versions
+3.12.0 through 3.15.0 across the 9.0–9.9 line).</p>
+<p>Solr is <strong>not affected</strong>. The vulnerable <code>ClassUtils.getClass(...)</code> code path is only reachable via
+<code>commons-configuration2</code>, which Solr uses solely in its Hadoop Kerberos support
+(<code>solr-hadoop-auth</code>) to load administrator-provided Hadoop configuration files. Class names are not
+attacker-controlled in that path, so the recursion cannot be driven by an adversary and the
+vulnerability is not exploitable in Solr.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -722,12 +1679,18 @@ with <code>log4j-core-2.25.4.jar</code>.</p>
                             <strong>Status:</strong>
                             <span class="cdx-in-triage">in_triage</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.9.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.4.0-9.9.0</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
                 <p>When parsing unknown fields in the Protobuf Java Lite and Full library, a maliciously crafted message can cause a StackOverflow error and lead to a program crash.</p>
+<p>CVE-2024-7254 affects all <code>protobuf-java</code> releases before 3.25.5 (per the upstream advisory the
+flaw was introduced at version 0, and is fixed in 3.25.5 / 4.27.5 / 4.28.2). Apache Solr has bundled
+<code>protobuf-java</code> (transitively, via Hadoop and ZooKeeper) since <strong>Solr 4.4.0</strong> (which shipped 2.4.0a),
+and every release from 4.4.0 through 9.9.0 ships an affected version (2.4.0a through 3.25.3). Solr
+<strong>9.10.0</strong> was the first release to ship a fixed <code>protobuf-java</code> (3.25.8), so the affected range is
+<strong>4.4.0 – 9.9.0</strong>.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -783,12 +1746,18 @@ the Solr community considers this vulnerability <strong>non-exploitable under st
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.7</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.0.0-9.10.1</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>Solr does not use the Jetty "HttpURI" utility class necessary for the vulnerability.</p>
+                <p>CVE-2024-6763 is an improper-input-validation issue in Eclipse Jetty's <code>HttpURI</code> parser, affecting
+Jetty from 7.0.0 up to (but not including) 12.0.12 (fixed in 12.0.12, with a 9.4.57 backport on the
+still-supported 9.4.x branch). Solr bundles Jetty as its HTTP server, so scanners flag this CVE on
+every Solr release whose Jetty predates 12.0.12 — Jetty 8.1.x/9.4.x/10.0.x from Solr 4.0.0 through
+Solr 9.10.1. Solr 10.0.0 ships Jetty 12.0.27 (≥ 12.0.12) and is not affected. The affected range is
+therefore 4.0.0 – 9.10.1.</p>
+<p>Solr is <strong>not affected</strong>: it does not use the Jetty "HttpURI" utility class necessary for the vulnerability.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -807,7 +1776,7 @@ the Solr community considers this vulnerability <strong>non-exploitable under st
                             <strong>Status:</strong>
                             <span class="cdx-exploitable">exploitable</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.7</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.8.0-9.7.0</p>
                     </div>
                 </header>
 
@@ -820,7 +1789,11 @@ the Solr community considers this vulnerability <strong>non-exploitable under st
 </ol>
 <p>In this configuration, attackers can exploit a privilege escalation issue by replacing individual "trusted" configset files with potentially untrusted files from elsewhere on the filesystem.
 These replacements are incorrectly treated as "trusted" and can leverage <code>&lt;lib&gt;</code> tags to add arbitrary code to Solr's classpath, potentially allowing malicious plugins or components to be loaded.</p>
-<p>This issue affects all Apache Solr versions up through Solr 9.7.</p>
+<p>This issue affects all Apache Solr versions up through Solr 9.7. The vulnerable behavior lives in
+the filesystem-backed config-set service used in standalone / user-managed mode — named
+<code>FileSystemConfigSetService</code> since Solr 9.0.0 (SOLR-15258), but present as its functional predecessor
+<code>ConfigSetService.Standalone</code> all the way back to Solr 4.8.0 (SOLR-4478). The affected range is
+therefore 4.8.0 – 9.7.0; Solr 9.8.0 mitigates it by disabling <code>&lt;lib&gt;</code> tags by default.</p>
 <h4 id="mitigation">Mitigation<a class="headerlink" href="#mitigation" title="Permanent link">&para;</a></h4>
 <p>Users can protect against the vulnerability by enabling authentication and authorization on their Solr clusters or switching to SolrCloud (and away from "FileSystemConfigSetService").
 Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue by disabling use of "<lib>" tags by default.</p>
@@ -841,13 +1814,15 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.5</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.1.0-9.5.0</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
                 <p>The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.</p>
-<p>Regardless, Solr upgraded the bundled json-path to 2.9.0 — which fixes CVE-2023-51074 — in Solr 9.6.0, so the vulnerable json-path (≤ 2.8.0) only shipped through Solr 9.5.</p>
+<p>CVE-2023-51074 affects json-path 2.2.0 through 2.8.0 (fixed in 2.9.0). Solr first bundled json-path
+in Solr 8.1.0 (2.4.0) and shipped an affected version — 2.4.0, then 2.7.0, then 2.8.0 — through Solr
+9.5.0; Solr 9.6.0 upgraded to the fixed 2.9.0. The affected range is therefore 8.1.0 – 9.5.0.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -856,18 +1831,23 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
             </article>
             <article id="cve-2022-42889" class="post panel radius">
                 <header class="post-header">
-                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-42889">CVE-2022-42889</a>, commons-text</h3>
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-42889">CVE-2022-42889</a>, commons-text (Text4Shell)</h3>
                     <div class="panel callout">
                         <p class="subheader">
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.1.0-9.0.0</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>Solr uses commons-text directly (StringEscapeUtils.escapeEcmaScript) in LoadAdminUiServlet that is not vulnerable. Solr also has a "hadoop-auth" module that uses Apache Hadoop which uses commons-text through commons-configuration2. For Solr, the concern is limited to loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).</p>
+                <p>CVE-2022-42889 ("Text4Shell") is a code-execution issue in Apache Commons Text: from version 1.5
+through 1.9, the default <code>StringSubstitutor</code> interpolators included <code>script</code>, <code>dns</code> and <code>url</code>
+lookups that could execute arbitrary code (fixed in 1.10.0). Solr bundled an affected <code>commons-text</code>
+in 8.1.0 (1.6) through 9.0.0 (1.8); Solr 8.0.0 shipped 1.4 (before the flaw was introduced) and Solr
+9.1.0 upgraded to the fixed 1.10.0. The affected range is therefore 8.1.0 – 9.0.0.</p>
+<p>Solr uses commons-text directly (StringEscapeUtils.escapeEcmaScript) in LoadAdminUiServlet that is not vulnerable. Solr also has a "hadoop-auth" module that uses Apache Hadoop which uses commons-text through commons-configuration2. For Solr, the concern is limited to loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).</p>
 
                 <h4>References</h4>
                 <ul>
@@ -902,12 +1882,17 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>Solr uses commons-configuration2 for "hadoop-auth" only (for Kerberos). It is only used for loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).</p>
+                <p>CVE-2022-33980 is a code-execution issue in Apache Commons Configuration: versions 2.4 through 2.7
+performed variable interpolation with <code>script</code>, <code>dns</code> and <code>url</code> lookups enabled by default (fixed in
+2.8.0). Only Solr 9.0.0 shipped an affected version (<code>commons-configuration2</code> 2.7); Solr 8.x shipped
+2.1.1 (before the flaw was introduced) and Solr 9.1.0 upgraded to the fixed 2.8.0. The affected
+version is therefore 9.0.0 only.</p>
+<p>Solr uses commons-configuration2 for "hadoop-auth" only (for Kerberos). It is only used for loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).</p>
 
                 <h4>References</h4>
                 <ul>
@@ -922,12 +1907,17 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 9.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.4.0-9.0.0</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>The vulnerable code won't be used by Solr because Solr only is only using HDFS as a client.</p>
+                <p>CVE-2022-25168 is a command-injection flaw in Apache Hadoop's <code>FileUtil.unTar(...)</code>, which fails to
+escape the input filename before passing it to a shell. It affects <code>hadoop-common</code> 2.0.0–2.10.1,
+3.0.0-alpha–3.2.3 and 3.3.0–3.3.2 (fixed in 2.10.2, 3.2.4 and 3.3.3). Solr has bundled an affected
+<code>hadoop-common</code> (transitively, for HDFS support) since Solr 4.4.0, through Solr 9.0.0 (which ships
+3.3.2); Solr 9.1.0 upgraded to the fixed 3.3.4. The affected range is therefore 4.4.0 – 9.0.0.</p>
+<p>The vulnerable code won't be used by Solr because Solr only is only using HDFS as a client.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -976,18 +1966,23 @@ Users are also recommended to upgrade to Solr 9.8.0, which mitigates this issue 
             </article>
             <article id="cve-2021-33813" class="post panel radius">
                 <header class="post-header">
-                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-33813">CVE-2021-33813</a>, jdom-*</h3>
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-33813">CVE-2021-33813</a>, jdom / jdom2 XXE</h3>
                     <div class="panel callout">
                         <p class="subheader">
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> ≤ 8.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 3.6.0-8.8.1</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>JDOM is only used in Solr Cell, which should not be used in production which makes the vulnerability unexploitable. It is a dependency of Apache Tika, which has analyzed the issue and determined the vulnerability is limited to two libraries not commonly used in search applications, see TIKA-3488 for details. Since Tika should be used outside of Solr, use a version of Tika which updates the affected libraries if concerned about exposure to this issue.</p>
+                <p>CVE-2021-33813 is an XML external entity (XXE) issue in JDOM's <code>SAXBuilder</code>, affecting all JDOM
+releases up to and including 2.0.6 (fixed in 2.0.6.1). Solr has bundled JDOM (transitively, via
+Apache Tika / Solr Cell) since Solr 3.6.0 — <code>jdom</code> 1.0, then <code>jdom</code> 2.0.2, then <code>jdom2</code> 2.0.6 —
+through the last 8.x release; Solr 9.0.0 upgraded to the fixed <code>jdom2</code> 2.0.6.1. The affected range is
+therefore 3.6.0 – 8.8.1.</p>
+<p>JDOM is only used in Solr Cell, which should not be used in production which makes the vulnerability unexploitable. It is a dependency of Apache Tika, which has analyzed the issue and determined the vulnerability is limited to two libraries not commonly used in search applications, see TIKA-3488 for details. Since Tika should be used outside of Solr, use a version of Tika which updates the affected libraries if concerned about exposure to this issue.</p>
 
                 <h4>References</h4>
                 <ul>
