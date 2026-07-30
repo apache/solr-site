@@ -3,11 +3,17 @@ URL: operator/resources.html
 save_as: operator/resources.html
 template: operator/resources
 
-All resources are currently found in the [Solr Operator repository](https://github.com/apache/solr-operator), but will eventually be moved to the website.
+## Documentation ##
+
+The Solr Operator documentation is published as part of the <b>[Apache Solr Reference Guide](https://solr.apache.org/guide/operator/latest/index.html)</b>.
+
+Additional, developer-focused, documentation can be found in the [Solr Operator's README](https://github.com/apache/solr-operator#solr-operator).
+
+***
 
 ## Tutorials ##
 
-* [Solr Operator Quick Start](https://apache.github.io/solr-operator/docs/local_tutorial)  
+* [Solr Operator Quick Start](https://solr.apache.org/guide/operator/latest/getting-started/local-tutorial.html)  
   This is a basic tutorial designed for users new to Kubernetes and the Solr Operator
 * [Exploring the Apache Solr Operator v0.3.0 on GKE]({filename}/pages/operator/articles/explore-v030-gke.md)  
   This is an advanced tutorial for users ready to use the Solr Operator for Solr Clouds running in a production environment.
@@ -29,18 +35,6 @@ If you want to run Solr on Kubernetes, the easiest way to get started is via ins
   <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
   <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
 </div>
-
-***
-
-## Documentation ##
-
-<h3 class="offset" id="the-apache-solr-reference-guide">The Apache Solr Reference Guide</h3>
-
-Current documentation can be found in the [repo's github pages](https://apache.github.io/solr-operator/docs), soon it will be migrated to this site.
-
-<h3 class="offset" id="additional-documentation">Additional Documentation</h3>
-
-Additional documentation, including upgrade notes, can be found in the [Solr Operator's README](https://github.com/apache/solr-operator#solr-operator).
 
 ***
 

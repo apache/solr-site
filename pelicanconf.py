@@ -98,9 +98,17 @@ PLUGINS = [
     'regex_replace',
     'age_days_lt',
     'vex',
+    'yaml_metadata',
     'combined_posts',
 #    'md_inline_extension',
 ]
+
+JINJA_ENVIRONMENT = {
+    'extensions': [
+        'jinja2.ext.do',
+        'jinja2.ext.loopcontrols'
+    ]
+}
 
 # Configuration for combined posts pagination
 COMBINED_POSTS_PER_PAGE = 20
