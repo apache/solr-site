@@ -1438,6 +1438,93 @@
     },
     {
       "vulnerability": {
+        "name": "CVE-2025-48734"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/commons-beanutils/commons-beanutils@1.7.0"
+        },
+        {
+          "@id": "pkg:maven/commons-beanutils/commons-beanutils@1.8.3"
+        },
+        {
+          "@id": "pkg:maven/commons-beanutils/commons-beanutils@1.9.3"
+        },
+        {
+          "@id": "pkg:maven/commons-beanutils/commons-beanutils@1.9.4"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-18T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr does not call PropertyUtilsBean.getProperty(), BeanUtilsBean, or any Commons BeanUtils introspection APIs directly. commons-beanutils is only ever pulled in transitively: in the 9.x line via `hadoop-common` (used by the optional Hadoop/Kerberos authentication module, which reads administrator-supplied configuration files rather than untrusted external input), and in 10.0 \u2014 after the Hadoop module was removed (SOLR-17540) \u2014 via the `cross-dc-manager` module's embedded Kafka broker (`kafka_2.13` \u2192 `commons-validator` \u2192 `commons-beanutils`). No Solr code passes externally-supplied property paths to BeanUtils in either case, so the vulnerable code path is unreachable regardless of how the jar is bundled.\n\nCVE-2025-48734 affects all Commons BeanUtils 1.x releases before 1.11.0. Solr has bundled\ncommons-beanutils since Solr 3.6.0, and every release that includes it, through Solr 10.0.0, ships an\naffected 1.x version (1.7.0, then 1.8.3, 1.9.3 and 1.9.4 \u2014 all below 1.11.0). The affected range is\ntherefore 3.6.0 \u2013 10.0.0.",
+      "status_notes": "Affected Apache Solr versions: 3.6.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-33870",
+        "aliases": [
+          "CVE-2026-33871"
+        ]
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-18T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-33870 is an HTTP/1.1 request smuggling vulnerability via malformed chunked transfer encoding extension values in Netty's server-side HTTP codec. CVE-2026-33871 is an HTTP/2 CONTINUATION frame flood DoS against a Netty HTTP/2 server. Both require Netty to be used as an HTTP server accepting connections from untrusted clients. In Solr, Netty is a transitive dependency (via ZooKeeper 3.9.x and optionally the OpenTelemetry OTLP exporter); it is used exclusively as an HTTP client and for ZooKeeper's own non-HTTP binary protocol. Solr's HTTP server is Jetty, not Netty. No Netty ServerBootstrap or HTTP server pipeline is configured in Solr. Therefore neither CVE can be triggered against a running Solr instance.\n\nBoth CVEs affect Netty releases before 4.1.132 and 4.2.0 through 4.2.9. Solr has bundled the modular\n`netty-codec-http` / `netty-codec-http2` artifacts (transitively, via ZooKeeper and the optional\nOpenTelemetry OTLP exporter) since Solr 9.2.0 \u2014 earlier releases used the `netty-all` uber-jar \u2014 and\nevery release from 9.2.0 through 10.0.0 ships an affected version (4.1.89.Final through 4.2.6.Final).\nThe affected range is therefore 9.2.0 \u2013 10.0.0.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
         "name": "CVE-2026-41417"
       },
       "products": [
@@ -2074,6 +2161,21 @@
       "justification": "vulnerable_code_not_in_execute_path",
       "impact_statement": "CVE-2026-50560 (CVSS 5.3, CWE-770) is a resource-exhaustion issue in `netty-codec-http2`, in the\nsame \"HTTP/2 Rapid Reset\" family of attacks as the 2023 stream-reset issue (CVE-2023-44487) but\nwith a different trigger: a client that advertises `SETTINGS_MAX_HEADER_LIST_SIZE` can cause the\nserver to read a request, start proxying/processing it, attempt to generate a response, and then\nthrow an exception while writing the response headers \u2014 repeating this cheaply, many times, wastes\nserver-side resources with a different signature than a classic stream reset. This is a\n**server-side** concern: it targets the endpoint accepting and processing inbound requests. It\naffects Netty before 4.1.135.Final and 4.2.0.Final\u20134.2.14.Final; fixed in 4.1.135.Final and\n4.2.15.Final.\n\nSolr has shipped a vulnerable `netty-codec-http2` since 9.2.0 (4.1.x through 9.9.0, 4.2.x \u2014\n`netty-codec-http2-4.2.6.Final.jar` \u2014 from 9.10.0/10.0.0 onward), arriving as a transitive runtime\ndependency of `grpc-netty`, used only by the optional `opentelemetry` module's OTLP gRPC exporter.\nSolr is **not affected**:\n\n* **Solr never runs an HTTP/2 server.** This attack requires a server that reads and attempts to\n  process many abusive client requests. Solr's only Netty/HTTP2 channel is `grpc-netty`'s outbound\n  OTLP client \u2014 Solr is the one sending requests to a single, operator-configured collector, not\n  accepting them from arbitrary attackers.\n* **Solr's own code never touches Netty.** There are no `io.netty` imports anywhere in Solr's Java\n  sources.\n\nSince Solr never accepts inbound HTTP/2 connections through Netty, the vulnerable code is present\non the classpath but not reachable in any real Solr deployment.\n\nNo released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the\n`branch_9x` (\u2192 9.11.0) and `branch_10x` (\u2192 10.1.0) development branches, but hasn't reached a\nreleased line yet.",
       "status_notes": "Affected Apache Solr versions: 9.2.0-9.10.x,10.0.x."
+    },
+    {
+      "vulnerability": {
+        "name": "GHSA-72hv-8253-57qq"
+      },
+      "products": [
+        {
+          "@id": "jackson-core-2.20.0.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-18T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "GHSA-72hv-8253-57qq is a DoS vulnerability in the non-blocking (async) JSON parser API of jackson-core (NonBlockingByteArrayJsonParser), which bypasses the maxNumberLength constraint. Exploitation requires an application to use the async/non-blocking parser API (factory.createNonBlockingByteArrayParser()). Solr uses the standard synchronous Jackson parser to deserialize JSON from HTTP request bodies and internal data structures. Solr is built on Jetty with synchronous request handling, not a reactive framework. The async parser API is not used anywhere in Solr's codebase. The synchronous parser correctly enforces the maxNumberLength constraint and is not affected.\n\nGHSA-72hv-8253-57qq affects jackson-core releases before 2.18.6 and the 2.19.0 through 2.21.0 line\n(fixed in 2.18.6 and 2.21.1). Solr has bundled jackson-core (alongside `jackson-databind`, which it\nships in lockstep with) since Solr 4.7.0, and every release through 10.0.0 ships an affected version\n(2.3.1 through 2.18.0, then 2.20.0). The affected range is therefore 4.7.0 \u2013 10.0.0.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
     }
   ]
 }
