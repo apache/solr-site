@@ -162,12 +162,32 @@ def run_syft(extracted_dir):
 PURL_RE = re.compile(r'^pkg:maven/([^/]+)/([^@]+)@([^?]+)')
 
 
+def _is_standalone_jar(component):
+    """True if syft found this package as its own jar file on disk, rather than
+    shaded/embedded inside another archive.
+
+    syft records a `syft:metadata:virtualPath` for each component. For a
+    standalone jar it is just the file path (e.g. `/.../commons-lang3-3.15.0.jar`),
+    but for a package discovered *inside* another archive it appends
+    archive-nesting separators (e.g.
+    `/.../hadoop-shaded-guava-1.2.0.jar:com.google.guava:guava`). We only want the
+    dependency jars Solr actually ships as files -- not the older copies that
+    Hadoop's `hadoop-shaded-*` bundles (and similar fat jars) embed -- so we treat
+    a ':' in the virtualPath as "nested" and skip it. If the property is absent
+    (older syft), we default to keeping the component rather than over-filtering.
+    """
+    props = {p.get('name'): p.get('value') for p in component.get('properties', [])}
+    vpath = props.get('syft:metadata:virtualPath', '')
+    return ':' not in vpath
+
+
 def iter_maven_packages(sbom):
-    """Yield (group, artifact, version) for every Maven-purl component in a
-    syft CycloneDX SBOM."""
+    """Yield (group, artifact, version) for every Maven-purl component in a syft
+    CycloneDX SBOM that syft found as a standalone jar (see _is_standalone_jar --
+    packages shaded inside another archive are skipped)."""
     for component in sbom.get('components', []):
         m = PURL_RE.match(component.get('purl', ''))
-        if m:
+        if m and _is_standalone_jar(component):
             yield m.groups()
 
 
