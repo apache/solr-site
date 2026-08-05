@@ -46,6 +46,52 @@ Or combine both steps in one command:
 Commit both `requirements.in` and the updated `requirements.txt` together.
 The lockfile is used by `build.sh` (via `pip install --require-hashes`) and by the GitHub Actions workflows.
 
+### VEX (dependency CVE assessments)
+
+The site publishes machine-readable [VEX](https://www.cisa.gov/sites/default/files/2023-04/minimum-requirements-for-vex-508c.pdf)
+documents that state whether CVEs in Solr's bundled dependencies are actually exploitable in Solr.
+Each assessment is a Markdown file under [`content/solr/vex/`](./content/solr/vex/) with YAML front
+matter (CVE id(s), affected `versions` range, vulnerable `jars`, and a CycloneDX `analysis` block);
+the front-matter shape is validated against
+[`plugins/vex/schema/vex_article.schema.yaml`](./plugins/vex/schema/vex_article.schema.yaml).
+To add or amend an assessment, edit these Markdown files — nothing else is required.
+
+On every build the `vex` plugin turns those files into two documents in `output/`, so they are
+regenerated automatically and should **not** be hand-edited:
+
+* `solr.vex.json` — CycloneDX 1.6
+* `solr.openvex.json` — OpenVEX 0.2.0
+
+To make a single statement match a dependency across every Solr release (each ships a different
+pinned version of it), the plugin expands each entry's affected `versions` range into one purl per
+concrete dependency version Solr actually shipped, using two data files in `plugins/vex/`:
+
+* `solr-versions.txt` — the authoritative list of released Solr versions.
+* `solr-dependency-versions.json` — a map of *which version of each tracked dependency every Solr
+  release shipped*, built from a real [syft](https://github.com/anchore/syft) SBOM scan of each
+  release's binary distribution.
+
+Both are committed. Regenerate them after a new Solr release, or after starting to track a new
+dependency, with:
+
+```bash
+./build.sh --vex-dependency-mappings
+```
+
+This first refreshes `solr-versions.txt` by discovering 9.0+ releases from `archive.apache.org`
+(union-only — it never drops existing entries), then downloads and syft-scans each release's binary
+distribution to fill in `solr-dependency-versions.json`. It requires `python3` on the host (in
+addition to Docker, which runs syft) and is slow and bandwidth-heavy on a full run. Useful flags,
+passed after `--`:
+
+```bash
+./build.sh --vex-dependency-mappings -- 10.1.0         # only (re)scan specific versions
+./build.sh --vex-dependency-mappings -- --no-discover  # skip the archive version-list refresh
+```
+
+See `python3 plugins/vex/regenerate_dependency_mappings.py --help` for the full list. Commit any
+changes to `solr-versions.txt` and `solr-dependency-versions.json` together with your VEX edits.
+
 ### Other options
 
 If you want to build the site without the docker image, you can install Python 3 and Pelican, see [manual install](./manual-install.md) for details.
