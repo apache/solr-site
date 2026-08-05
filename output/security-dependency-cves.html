@@ -153,16 +153,27 @@ VEX is an open standard that lets vendors state explicitly whether a CVE applies
 and why. A number of formats are under active development, including
 <a href="https://cyclonedx.org/capabilities/vex/">CycloneDX</a> and
 <a href="https://github.com/oasis-tcs/csaf/blob/master/csaf_2.0/prose/csaf-v2-editor-draft.md#45-profile-5-vex">CSAF</a>.
-We currently publish in CycloneDX 1.6 JSON format.</p>
+We publish this assessment in both <strong>CycloneDX 1.6</strong> and <strong>OpenVEX</strong> JSON formats (download links below).</p>
 <p>If your scanner supports VEX, download the file below and point your scanner at it to automatically
 suppress known non-applicable findings. If your scanner does not yet support VEX, you can use the
 table on this page to manually triage flagged CVEs.</p>
+<p>For example, <a href="https://docs.docker.com/scout/">Docker Scout</a> can apply the OpenVEX file when scanning
+an official Solr image:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Download the OpenVEX file, then have Docker Scout apply it to a scan.</span>
+curl<span class="w"> </span>-sO<span class="w"> </span>https://solr.apache.org/solr.openvex.json
+docker<span class="w"> </span>scout<span class="w"> </span>cves<span class="w"> </span>solr:9.9.0<span class="w"> </span>--vex-location<span class="w"> </span>solr.openvex.json<span class="w"> </span>--vex-author<span class="w"> </span><span class="s1">&#39;.*&#39;</span>
+</code></pre></div>
+
+<p>CVEs marked <code>not_affected</code> are then dropped from the results, while those marked <code>affected</code> remain.
+(Solr's VEX is authored by the Apache Solr project, so <code>--vex-author '.*'</code> is required — by default
+Docker Scout only trusts VEX statements authored by <code>*@docker.com</code>.)</p>
 <p>We encourage feedback on VEX and tool support — join the discussion at
 <a href="mailto:security-discuss@community.apache.org">security-discuss@community.apache.org</a>
 or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
 
   <div class="vex-download">
-    <a href="/solr.vex.json" class="button large" download>⬇ Download Solr VEX File (JSON)</a>
+    <a href="/solr.vex.json" class="button large" download>⬇ Download Solr VEX File (CycloneDX JSON)</a>
+    <a href="/solr.openvex.json" class="button large" download>⬇ Download Solr VEX File (OpenVEX JSON)</a>
   </div>
 
   <h2 id="cve-table">CVE Status for Dependencies <a class="headerlink" href="#cve-table" title="Permanent link">¶</a></h2>
@@ -177,6 +188,15 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
       <th>JARs</th>
       <th>State</th>
       <th>Title</th>
+    </tr>
+    <tr>
+      <td>
+<a href="https://github.com/advisories/GHSA-72hv-8253-57qq">GHSA-72hv-8253-57qq</a>      </td>
+      <td>4.7.0-10.0.0</td>
+      <td>
+          jackson-core-2.20.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#ghsa-72hv-8253-57qq">Jackson-core: async (non-blocking) parser bypasses maxNumberLength (DoS)</a></td>
     </tr>
     <tr>
       <td>
@@ -330,6 +350,24 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
           netty-codec-http-4.2.6.Final.jar      </td>
       <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2026-41417">Netty: HTTP request smuggling via setUri() CRLF-validation bypass</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-33870">CVE-2026-33870</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-33871">CVE-2026-33871</a>      </td>
+      <td>9.2.0-10.0.0</td>
+      <td>
+          netty-codec-http-4.2.6.Final.jar,           netty-codec-http2-4.2.6.Final.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-33870">Netty: HTTP/1.1 request smuggling and HTTP/2 CONTINUATION-flood DoS (server-side codec)</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48734">CVE-2025-48734</a>      </td>
+      <td>3.6.0-10.0.0</td>
+      <td>
+          commons-beanutils-1.9.4.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2025-48734">Apache Commons BeanUtils: class-loader access via a 'declaredClass' property path</a></td>
     </tr>
     <tr>
       <td>
