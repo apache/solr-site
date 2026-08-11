@@ -2,7 +2,7 @@
   "@context": "https://openvex.dev/ns/v0.2.0",
   "@id": "https://solr.apache.org/solr.openvex.json",
   "author": "Apache Solr Project (security@apache.org)",
-  "timestamp": "2026-07-18T00:00:00Z",
+  "timestamp": "2026-07-31T00:00:00Z",
   "version": 1,
   "statements": [
     {
@@ -1054,9 +1054,11 @@
           "@id": "pkg:maven/com.google.protobuf/protobuf-java@3.6.1"
         }
       ],
-      "status": "under_investigation",
+      "status": "not_affected",
       "timestamp": "2025-08-02T00:00:00Z",
-      "status_notes": "Affected Apache Solr versions: 4.4.0-9.9.0. When parsing unknown fields in the Protobuf Java Lite and Full library, a maliciously crafted message can cause a StackOverflow error and lead to a program crash.\n\nCVE-2024-7254 affects all `protobuf-java` releases before 3.25.5 (per the upstream advisory the\nflaw was introduced at version 0, and is fixed in 3.25.5 / 4.27.5 / 4.28.2). Apache Solr has bundled\n`protobuf-java` (transitively, via Hadoop and ZooKeeper) since **Solr 4.4.0** (which shipped 2.4.0a),\nand every release from 4.4.0 through 9.9.0 ships an affected version (2.4.0a through 3.25.3). Solr\n**9.10.0** was the first release to ship a fixed `protobuf-java` (3.25.8), so the affected range is\n**4.4.0 \u2013 9.9.0**."
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "When parsing unknown fields in the Protobuf Java Lite and Full library, a maliciously crafted message can cause a StackOverflow error and lead to a program crash.\n\nSolr is **not affected**. The crafted-message DoS requires an attacker to feed protobuf input to a\nparser, and Solr exposes no such path:\n\n* **Solr's own code never uses protobuf.** There is no `com.google.protobuf` usage anywhere in the\n  Solr codebase, and Solr's client-facing APIs speak javabin, JSON and XML \u2014 never protobuf. The SQL\n  module is reached through `SQLHandler` (Calcite runs in-process, returning tuples); Solr exposes no\n  Avatica/protobuf wire endpoint to clients.\n* **protobuf-java is only used to talk to trusted infrastructure.** It is pulled in transitively for\n  communication with operator-controlled endpoints \u2014 the ZooKeeper ensemble, Hadoop RPC (HDFS /\n  Kerberos), the Google Cloud Storage backup API, the OpenTelemetry OTLP collector, and the Kafka\n  cross-DC pipeline. An external attacker cannot supply the deeply-nested message the DoS requires to\n  any of those parsers.\n\nTracked upstream as SOLR-17833.\n\nCVE-2024-7254 affects all `protobuf-java` releases before 3.25.5 (per the upstream advisory the\nflaw was introduced at version 0, and is fixed in 3.25.5 / 4.27.5 / 4.28.2). Apache Solr has bundled\n`protobuf-java` (transitively, via Hadoop and ZooKeeper) since **Solr 4.4.0** (which shipped 2.4.0a),\nand every release from 4.4.0 through 9.9.0 ships an affected version (2.4.0a through 3.25.3). Solr\n**9.10.0** was the first release to ship a fixed `protobuf-java` (3.25.8), so the affected range is\n**4.4.0 \u2013 9.9.0**.",
+      "status_notes": "Affected Apache Solr versions: 4.4.0-9.9.0."
     },
     {
       "vulnerability": {
@@ -1179,8 +1181,8 @@
       ],
       "status": "affected",
       "timestamp": "2026-05-04T00:00:00Z",
-      "action_statement": "CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's\ndictionary parsing. The `DictionaryEntryPersistor` class and the public `Dictionary(InputStream)`\nconstructor create a SAX parser without enabling `FEATURE_SECURE_PROCESSING` or disabling DTD\nprocessing, so external entity resolution and DOCTYPE declarations remain fully enabled. An attacker\nwho can supply a crafted dictionary file \u2014 either directly or embedded in a model archive that\nOpenNLP deserializes \u2014 can therefore read local files from the server or trigger outbound requests\n(server-side request forgery). Other OpenNLP XML parsing paths route through the hardened\n`XmlUtil.createSaxParser()` helper, but this code path does not.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr pulls in transitively via\n`lucene-analysis-opennlp` (Lucene 9.12.3). There is a `opennlp-tools-1.9.5` release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which parse dictionaries with secure\nXML processing that rejects DOCTYPE declarations and external entities.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable dictionary-parsing code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load OpenNLP model or\n  dictionary files (the schema-configured OpenNLP analyzers \u2014 tokenizer, POS, chunker, lemmatizer,\n  name-finder \u2014 or the `langid` / `analysis-extras` update processors).\n\nAny deployment that enables these modules and parses an OpenNLP model or dictionary an attacker can\ninfluence is exploitable. A deployment that does not enable them never parses an OpenNLP dictionary\nand is not exposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model and dictionary files only from\nlocations you fully control, since the bundled OpenNLP 1.9.4 does not disable external entities when\nparsing dictionaries.\n\nEvery OpenNLP model and dictionary is loaded as a resource through Solr's resource loaders, so the\narchive passes through a single chokepoint before OpenNLP is allowed to deserialize it. This applies\nto both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments, and whether the\ndictionary is loaded by the `langid` / `analysis-extras` update processors or by the\nschema-configured OpenNLP analyzers.\n\nThis flaw is present in every OpenNLP release before 2.5.9 (fixed in 2.5.9 / 3.0.0-M3, backported to\n1.9.5). Solr has bundled OpenNLP (transitively, via `lucene-analysis-opennlp`) since Solr 7.3.0, so\nevery release from 7.3.0 through 10.0.0 ships an affected version (1.8.3 through 2.5.6). The affected\nrange is therefore 7.3.0 \u2013 10.0.0.\n\nFully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via `lucene-analysis-opennlp`) to 2.5.9.",
-      "status_notes": "Affected Apache Solr versions: 7.3.0-10.0.0."
+      "action_statement": "CVE-2026-40682 (CVSS 9.1) is an XML External Entity (XXE) vulnerability in Apache OpenNLP's\ndictionary parsing. The `DictionaryEntryPersistor` class and the public `Dictionary(InputStream)`\nconstructor create a SAX parser without enabling `FEATURE_SECURE_PROCESSING` or disabling DTD\nprocessing, so external entity resolution and DOCTYPE declarations remain fully enabled. An attacker\nwho can supply a crafted dictionary file \u2014 either directly or embedded in a model archive that\nOpenNLP deserializes \u2014 can therefore read local files from the server or trigger outbound requests\n(server-side request forgery). Other OpenNLP XML parsing paths route through the hardened\n`XmlUtil.createSaxParser()` helper, but this code path does not.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr's 9.x line pulls in\ntransitively via `lucene-analysis-opennlp` (Lucene 9.12.3). The issue is fixed in OpenNLP 2.5.9 (and\n3.0.0-M3), and backported to the 1.9.x line as `opennlp-tools-1.9.5`; all of these parse dictionaries\nwith secure XML processing that rejects DOCTYPE declarations and external entities.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable dictionary-parsing code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load OpenNLP model or\n  dictionary files (the schema-configured OpenNLP analyzers \u2014 tokenizer, POS, chunker, lemmatizer,\n  name-finder \u2014 or the `langid` / `analysis-extras` update processors).\n\nAny deployment that enables these modules and parses an OpenNLP model or dictionary an attacker can\ninfluence is exploitable. A deployment that does not enable them never parses an OpenNLP dictionary\nand is not exposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model and dictionary files only from\nlocations you fully control, since the bundled OpenNLP 1.9.4 does not disable external entities when\nparsing dictionaries.\n\nEvery OpenNLP model and dictionary is loaded as a resource through Solr's resource loaders, so the\narchive passes through a single chokepoint before OpenNLP is allowed to deserialize it. This applies\nto both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments, and whether the\ndictionary is loaded by the `langid` / `analysis-extras` update processors or by the\nschema-configured OpenNLP analyzers.\n\nSolr has bundled OpenNLP (via `lucene-analysis-opennlp`) since Solr 7.3.0. Every release from 7.3.0\nthrough the 9.10.x line ships an affected `opennlp-tools` (1.8.3 through 1.9.4), and Solr 10.0.0 ships\nthe affected 2.5.6. Solr **9.11** upgrades to the patched `opennlp-tools` 1.9.5 (the 1.9.x backport)\nand Solr **10.1** upgrades to 2.5.9, so both are fixed. The affected (exploitable) range is therefore\n**7.3.0 \u2013 9.10.1 and 10.0.0**.\n\nNote: advisory databases record the fix only as OpenNLP 2.5.9, so a dependency scanner may still flag\nthe backported `opennlp-tools` 1.9.5 that Solr 9.11 ships \u2014 a false positive, since 1.9.5 contains the\nbackported fix.",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-9.10.1,10.0.0."
     },
     {
       "vulnerability": {
@@ -1208,8 +1210,8 @@
       ],
       "status": "affected",
       "timestamp": "2026-05-04T00:00:00Z",
-      "action_statement": "CVE-2026-42027 (CVSS 9.8) is an arbitrary class instantiation issue in Apache OpenNLP's\n`ExtensionLoader`. The `instantiateExtension(Class, String)` method loads a class named in a\nmodel archive's `manifest.properties` via `Class.forName()` and only performs its\n`isAssignableFrom` type check *after* the class has been loaded. Because `Class.forName()`\nruns the target class's static initializer at load time, an attacker who can supply a crafted\nmodel archive can trigger the static initializer of any class on the classpath (e.g. one that\nperforms a JNDI lookup, outbound network I/O, or filesystem access), regardless of the\ntype check that follows.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr pulls in transitively\nvia `lucene-analysis-opennlp` (Lucene 9.12.3). There is a `opennlp-tools-1.9.5` release happening, but it hasn't finished or been integrated into Solr 9; the issue is fixed in OpenNLP 2.5.9 (and 3.0.0-M3), which consults a\npackage-prefix allowlist *before* calling `Class.forName()`.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load model files.\n\nAny deployment that enables these modules and loads an OpenNLP model an attacker can influence is\nexploitable. A deployment that does not enable them never invokes `ExtensionLoader` and is not\nexposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model files only from locations you\nfully control and never from untrusted or user-supplied sources.\n\nIn Solr 9.11.0 the upstream allowlist defense is backfilled at the application layer, since the\nvulnerable jar cannot yet be upgraded (Solr must track the OpenNLP version used by\n`lucene-analysis-opennlp`). Every OpenNLP model is loaded as a resource through Solr's resource\nloaders, so the archive is validated at that single chokepoint before OpenNLP is allowed to\ndeserialize it:\n\n* The archive is opened as a ZIP and every class name it declares \u2014 the `manifest.properties`\n  `factory` entry and any class referenced from embedded feature-generator XML descriptors \u2014 must\n  resolve under the `opennlp.` package prefix.\n* A model that names a class outside that prefix is rejected and never reaches `ExtensionLoader`,\n  so no attacker-controlled static initializer can run.\n* Validation covers both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments,\n  and applies whether the model is loaded by the `langid` / `analysis-extras` update processors or\n  by the schema-configured OpenNLP analyzers (tokenizer, POS, chunker, lemmatizer, name-finder).\n\nSolr's own usage only ever references built-in `opennlp.*` factories, so legitimate models load\nunchanged; only crafted models that try to instantiate arbitrary classes are blocked.\n\nThis flaw is present in every OpenNLP release before 2.5.9 (fixed in 2.5.9 / 3.0.0-M3, backported to\n1.9.5). Solr has bundled OpenNLP (transitively, via `lucene-analysis-opennlp`) since Solr 7.3.0, so\nevery release from 7.3.0 through 10.0.0 ships an affected version (1.8.3 through 2.5.6). The affected\nrange is therefore 7.3.0 \u2013 10.0.0.\n\nFully resolved in Solr 10.1 by upgrading the bundled OpenNLP (via `lucene-analysis-opennlp`) to 2.5.9.",
-      "status_notes": "Affected Apache Solr versions: 7.3.0-10.0.0."
+      "action_statement": "CVE-2026-42027 (CVSS 9.8) is an arbitrary class instantiation issue in Apache OpenNLP's\n`ExtensionLoader`. The `instantiateExtension(Class, String)` method loads a class named in a\nmodel archive's `manifest.properties` via `Class.forName()` and only performs its\n`isAssignableFrom` type check *after* the class has been loaded. Because `Class.forName()`\nruns the target class's static initializer at load time, an attacker who can supply a crafted\nmodel archive can trigger the static initializer of any class on the classpath (e.g. one that\nperforms a JNDI lookup, outbound network I/O, or filesystem access), regardless of the\ntype check that follows.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr's 9.x line pulls in\ntransitively via `lucene-analysis-opennlp` (Lucene 9.12.3). The issue is fixed upstream in OpenNLP\n2.5.9 (and 3.0.0-M3), and backported to the 1.9.x line as `opennlp-tools-1.9.5`; the fix consults a\npackage-prefix allowlist *before* calling `Class.forName()`.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load model files.\n\nAny deployment that enables these modules and loads an OpenNLP model an attacker can influence is\nexploitable. A deployment that does not enable them never invokes `ExtensionLoader` and is not\nexposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model files only from locations you\nfully control and never from untrusted or user-supplied sources.\n\nAs defense in depth, Solr 9.11 also validates OpenNLP models at the application layer before they\nreach `ExtensionLoader`. Every OpenNLP model is loaded as a resource through Solr's resource\nloaders, so the archive is validated at that single chokepoint before OpenNLP is allowed to\ndeserialize it:\n\n* The archive is opened as a ZIP and every class name it declares \u2014 the `manifest.properties`\n  `factory` entry and any class referenced from embedded feature-generator XML descriptors \u2014 must\n  resolve under the `opennlp.` package prefix.\n* A model that names a class outside that prefix is rejected and never reaches `ExtensionLoader`,\n  so no attacker-controlled static initializer can run.\n* Validation covers both standalone (filesystem configset) and SolrCloud (ZooKeeper) deployments,\n  and applies whether the model is loaded by the `langid` / `analysis-extras` update processors or\n  by the schema-configured OpenNLP analyzers (tokenizer, POS, chunker, lemmatizer, name-finder).\n\nSolr's own usage only ever references built-in `opennlp.*` factories, so legitimate models load\nunchanged; only crafted models that try to instantiate arbitrary classes are blocked.\n\nSolr has bundled OpenNLP (via `lucene-analysis-opennlp`) since Solr 7.3.0. Every release from 7.3.0\nthrough the 9.10.x line ships an affected `opennlp-tools` (1.8.3 through 1.9.4), and Solr 10.0.0 ships\nthe affected 2.5.6. Solr **9.11** is fixed \u2014 it upgrades to the patched `opennlp-tools` 1.9.5 (the\n1.9.x backport) and adds the application-layer allowlist described above \u2014 and Solr **10.1** upgrades\nto 2.5.9. The affected (exploitable) range is therefore **7.3.0 \u2013 9.10.1 and 10.0.0**.\n\nNote: advisory databases record the fix only as OpenNLP 2.5.9, so a dependency scanner may still flag\nthe backported `opennlp-tools` 1.9.5 that Solr 9.11 ships \u2014 a false positive, since 1.9.5 (plus Solr's\nown allowlist) closes this issue.",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-9.10.1,10.0.0."
     },
     {
       "vulnerability": {
@@ -1237,8 +1239,8 @@
       ],
       "status": "affected",
       "timestamp": "2026-05-04T00:00:00Z",
-      "action_statement": "CVE-2026-42440 (CVSS 7.5) is an out-of-memory denial-of-service issue in Apache OpenNLP's binary\nmodel reader. The `AbstractModelReader` methods `getOutcomes()`, `getOutcomePatterns()` and\n`getPredicates()` read a 32-bit signed integer count field from a binary model stream and pass it\ndirectly to an array allocation without validating it. An attacker who can supply a crafted `.bin`\nmodel file with a count set to `Integer.MAX_VALUE` triggers an immediate `OutOfMemoryError` during\nmodel deserialization, before any substantial data is consumed.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr pulls in transitively via\n`lucene-analysis-opennlp` (Lucene 9.12.3). The issue is fixed upstream in OpenNLP 2.5.9 (and\n3.0.0-M3), and backported to the end-of-life 1.9.x line as `opennlp-tools-1.9.5`; all of these\nvalidate the count against an upper bound (default 10,000,000, configurable via the\n`OPENNLP_MAX_ENTRIES` system property) before allocating.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable model-loading code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load OpenNLP model files (the\n  schema-configured OpenNLP analyzers \u2014 tokenizer, POS, chunker, lemmatizer, name-finder \u2014 or the\n  `langid` / `analysis-extras` update processors).\n\nAny deployment that enables these modules and loads an OpenNLP model an attacker can influence is\nexploitable. A deployment that does not enable them never deserializes an OpenNLP model and is not\nexposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model files only from locations you\nfully control and never from untrusted or user-supplied sources.\n\nThis flaw is present in every OpenNLP release before 2.5.9. Solr has bundled OpenNLP (transitively,\nvia `lucene-analysis-opennlp`) since Solr 7.3.0, so every release from 7.3.0 through 10.0.0 ships an\naffected version (1.8.3 through 2.5.6). The affected range is therefore 7.3.0 \u2013 10.0.0.\n\nFixed in Solr 9.11, which bundles the patched `opennlp-tools` 1.9.5, and in Solr 10.1, which upgrades\nthe bundled OpenNLP (via `lucene-analysis-opennlp`) to 2.5.9. Solr 10.0 remains affected (it ships\nOpenNLP 2.5.6).",
-      "status_notes": "Affected Apache Solr versions: 7.3.0-10.0.0."
+      "action_statement": "CVE-2026-42440 (CVSS 7.5) is an out-of-memory denial-of-service issue in Apache OpenNLP's binary\nmodel reader. The `AbstractModelReader` methods `getOutcomes()`, `getOutcomePatterns()` and\n`getPredicates()` read a 32-bit signed integer count field from a binary model stream and pass it\ndirectly to an array allocation without validating it. An attacker who can supply a crafted `.bin`\nmodel file with a count set to `Integer.MAX_VALUE` triggers an immediate `OutOfMemoryError` during\nmodel deserialization, before any substantial data is consumed.\n\nThe vulnerable code is present in the `opennlp-tools-1.9.4.jar` that Solr pulls in transitively via\n`lucene-analysis-opennlp` (Lucene 9.12.3). The issue is fixed upstream in OpenNLP 2.5.9 (and\n3.0.0-M3), which validate the count against an upper bound (default 10,000,000, configurable via the\n`OPENNLP_MAX_ENTRIES` system property) before allocating, and backported to the 1.9.x line as\n`opennlp-tools-1.9.5`.\n\n#### When Solr is exposed\n\nOpenNLP is not part of a default Solr installation, but it is exploitable once the OpenNLP-backed\nmodules are enabled. The vulnerable model-loading code path becomes reachable when:\n\n* The `analysis-extras` and/or `langid` modules are enabled \u2014 they are not loaded by default.\n* OpenNLP analysis components or update processors are configured to load OpenNLP model files (the\n  schema-configured OpenNLP analyzers \u2014 tokenizer, POS, chunker, lemmatizer, name-finder \u2014 or the\n  `langid` / `analysis-extras` update processors).\n\nAny deployment that enables these modules and loads an OpenNLP model an attacker can influence is\nexploitable. A deployment that does not enable them never deserializes an OpenNLP model and is not\nexposed.\n\n#### Mitigation\n\nThe most reliable mitigation is to **not enable the OpenNLP-backed `analysis-extras` or `langid`\nmodules** unless they are required. If you do use OpenNLP, load model files only from locations you\nfully control and never from untrusted or user-supplied sources.\n\nSolr has bundled OpenNLP (via `lucene-analysis-opennlp`) since Solr 7.3.0. Every release from 7.3.0\nthrough the 9.10.x line ships an affected `opennlp-tools` (1.8.3 through 1.9.4), and Solr 10.0.0 ships\nthe affected 2.5.6. Solr **9.11** upgrades to the patched `opennlp-tools` 1.9.5 (the 1.9.x backport)\nand Solr **10.1** upgrades to 2.5.9, so both are fixed. The affected (exploitable) range is therefore\n**7.3.0 \u2013 9.10.1 and 10.0.0**.\n\nNote: advisory databases record the fix only as OpenNLP 2.5.9, so a dependency scanner may still flag\nthe backported `opennlp-tools` 1.9.5 that Solr 9.11 ships \u2014 a false positive, since 1.9.5 contains the\nbackported fix.",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-9.10.1,10.0.0."
     },
     {
       "vulnerability": {
@@ -2176,6 +2178,618 @@
       "justification": "vulnerable_code_not_in_execute_path",
       "impact_statement": "GHSA-72hv-8253-57qq is a DoS vulnerability in the non-blocking (async) JSON parser API of jackson-core (NonBlockingByteArrayJsonParser), which bypasses the maxNumberLength constraint. Exploitation requires an application to use the async/non-blocking parser API (factory.createNonBlockingByteArrayParser()). Solr uses the standard synchronous Jackson parser to deserialize JSON from HTTP request bodies and internal data structures. Solr is built on Jetty with synchronous request handling, not a reactive framework. The async parser API is not used anywhere in Solr's codebase. The synchronous parser correctly enforces the maxNumberLength constraint and is not affected.\n\nGHSA-72hv-8253-57qq affects jackson-core releases before 2.18.6 and the 2.19.0 through 2.21.0 line\n(fixed in 2.18.6 and 2.21.1). Solr has bundled jackson-core (alongside `jackson-databind`, which it\nships in lockstep with) since Solr 4.7.0, and every release through 10.0.0 ships an affected version\n(2.3.1 through 2.18.0, then 2.20.0). The affected range is therefore 4.7.0 \u2013 10.0.0.",
       "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-47561",
+        "aliases": [
+          "CVE-2023-39410"
+        ]
+      },
+      "products": [
+        {
+          "@id": "avro-1.9.2.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2024-47561 (critical) is an arbitrary-code-execution issue in the Apache Avro Java SDK: parsing\nan attacker-controlled Avro **schema** can instantiate arbitrary classes (affects avro < 1.11.4).\nCVE-2023-39410 is a memory-exhaustion / DoS issue when **deserializing untrusted Avro data** (affects\navro < 1.11.3). Both require the application to feed attacker-controlled Avro input to the SDK.\n\nSolr is **not affected**:\n\n* **Solr does not use Apache Avro.** There is no `org.apache.avro` usage anywhere in the Solr\n  codebase, and Solr ships no standalone `avro-*.jar`. Avro appears only as an embedded/transitive\n  artifact of the optional Hadoop integration (the `hdfs` / `hadoop-auth` modules, which are not part\n  of a default install).\n* **The vulnerable entry points are never reached.** Solr never parses an externally-supplied Avro\n  schema and never deserializes untrusted Avro data \u2014 the only code that pulls Avro in is Hadoop's\n  own internal machinery, driven by administrator-supplied configuration, not by untrusted request\n  input.\n\nThe affected range covers the 9.x line, where the optional Hadoop modules transitively carry Avro\n1.9.2; Solr's own code path never invokes it.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-9.10.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2025-49128"
+      },
+      "products": [
+        {
+          "@id": "jackson-core-2.12.7.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2025-49128 can disclose adjacent buffer memory through the source snippet that jackson-core\nincludes in `JsonLocation` (e.g. surfaced in parse-error messages). It affects jackson-core < 2.13.0.\n\nSolr is **not affected**. Solr's own jackson-core is 2.18.0 in current 9.x and 2.22.0 in 9.11 \u2014 both\nwell past the 2.13.0 fix. The `2.12.7` copy a scanner flags is Hadoop's shaded jackson-core,\nreachable only via the optional Hadoop modules, which parse administrator-supplied configuration\nrather than untrusted external JSON, and whose parse errors are not returned to remote clients.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "GHSA-r7wm-3cxj-wff9",
+        "aliases": [
+          "CVE-2025-52999"
+        ]
+      },
+      "products": [
+        {
+          "@id": "jackson-core-2.12.7.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "GHSA-r7wm-3cxj-wff9 is a `maxNumberLength` bypass in jackson-core's **async / non-blocking** parser\n(an incomplete fix for GHSA-72hv-8253-57qq; affects < 2.18.8 and 2.19.0\u20132.21.3). CVE-2025-52999 is a\n`StackOverflowError` when parsing **very deeply nested** input (affects < 2.15.0).\n\nSolr is **not affected**:\n\n* **The async parser is never used.** Solr deserializes JSON with the standard *synchronous* Jackson\n  parser; it never calls the non-blocking `NonBlockingByteArrayParser` API, so the async-only\n  `maxNumberLength` bypass (GHSA-r7wm) is unreachable \u2014 as already assessed for GHSA-72hv-8253-57qq.\n* **Solr's own jackson-core is patched.** The bundled jackson-core is 2.18.0 in current 9.x and\n  2.22.0 in 9.11 \u2014 both fixed for the deep-nesting StackOverflow (fixed in 2.15.0). The `2.12.7`\n  copy a scanner flags is Hadoop's **shaded** jackson, reachable only through the optional Hadoop\n  modules, which parse administrator-supplied configuration rather than untrusted external JSON.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2025-53864"
+      },
+      "products": [
+        {
+          "@id": "nimbus-jose-jwt-9.37.2.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2025-53864 is an uncontrolled-recursion denial-of-service in the Nimbus JOSE + JWT library when\nparsing a maliciously crafted, deeply-nested JOSE object (affects 9.37.x < 9.37.4 and 10.0.x < 10.0.2).\n\nSolr is **not affected**. Solr's JWT authentication (the optional `jwt-auth` module, `JWTAuthPlugin`)\nparses and validates tokens exclusively with **jose4j** (`org.jose4j.*` \u2014 the plugin imports jose4j\nand does not reference `com.nimbusds` at all). Nimbus JOSE + JWT is not on Solr's JWT-processing code\npath; it appears only as a transitive/declared reference and is never invoked to parse an incoming\ntoken, so the vulnerable recursive parser cannot be reached by an attacker-supplied JWT.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-10050"
+      },
+      "products": [
+        {
+          "@id": "jetty-security-10.0.26.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-10050 is a lossy-encoding flaw in Eclipse Jetty's **Digest authentication** implementation\n(in `jetty-security`), which can weaken Digest credential handling. It affects the Jetty branches\nSolr ships (10.0.x through 10.0.30, and 12.0.x through 12.0.35; fixed in 10.0.31 / 12.0.36 / 12.1.10).\n\nSolr is **not affected**. Solr bundles `jetty-security` as part of the Jetty server stack, but it\ndoes not use Jetty's declarative security: it never installs a Jetty `SecurityHandler` /\n`ConstraintSecurityHandler` and never configures a Jetty `Authenticator` (Digest or otherwise). Solr\nauthenticates requests in its own servlet filter (`SolrDispatchFilter` / the `AuthenticationPlugin`\nframework \u2014 Basic, JWT, Kerberos, PKI, etc.), so Jetty's Digest-authentication code path \u2014 the code\nthis CVE affects \u2014 is never invoked. The affected range spans the releases whose bundled Jetty is in\nan affected branch (Solr 7.3.0 \u2013 10.0.0).",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-10051"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.13"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.15"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.17"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.19"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.20"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.22"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.26"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@12.0.27"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.10.v20180503"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.11.v20180605"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.14.v20181114"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.19.v20190610"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.24.v20191120"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.27.v20200227"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.34.v20201102"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.44.v20210927"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.48.v20220622"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.8.v20171121"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-10051 is an information-exposure bug in Jetty's `HttpConnection`: the `_trailers` field is\nnot reset between requests on an HTTP/1.1 keep-alive connection, so trailer fields from one request\ncan be observed via `getTrailers()` on a later request on the same connection. It has security impact\nonly for applications that **read HTTP trailers** (`request.getTrailers()`) and use them for logic or\nsecurity decisions.\n\nSolr is **not affected**. Solr does not read HTTP request trailers anywhere \u2014 there is no\n`getTrailers()` / trailer-field usage in the Solr codebase \u2014 so stale trailer state on a pooled\nconnection is never observed by Solr and cannot influence request handling or authorization. The\naffected range spans the releases whose bundled Jetty is in an affected branch (Solr 7.3.0 \u2013 10.0.0).",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-43869"
+      },
+      "products": [
+        {
+          "@id": "libthrift-0.15.0.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "impact_statement": "CVE-2026-43869 is a TLS hostname-verification weakness in Apache Thrift's\n`TSSLTransportFactory` (affects libthrift \u2264 0.22.0, fixed in 0.23.0): a client using Thrift's TLS\ntransport may not properly verify the server certificate's hostname, enabling a man-in-the-middle on\nthat connection.\n\nSolr is **not affected** in any default or recommended configuration. `libthrift` is bundled only by\nthe optional, opt-in **`jaegertracer-configurator`** module (Jaeger distributed-tracing exporter) \u2014\nit is not part of a default Solr install, and Solr does not use Thrift's TLS transport anywhere else.\nEven when Jaeger tracing is enabled, Solr exports spans to an **operator-configured** Jaeger backend\n(a trusted, first-party collector), not to an untrusted remote host, so there is no untrusted TLS\npeer for the missing hostname check to expose. The issue is only relevant to an operator who both\nenables Jaeger tracing and deliberately points it at an untrusted TLS endpoint.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-45205"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.commons/commons-configuration2@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/org.apache.commons/commons-configuration2@2.11.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.commons/commons-configuration2@2.12.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.commons/commons-configuration2@2.7"
+        },
+        {
+          "@id": "pkg:maven/org.apache.commons/commons-configuration2@2.8.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.commons/commons-configuration2@2.9.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-45205 is a `StackOverflowError` (DoS) when Apache Commons Configuration parses YAML input\ncontaining reference cycles (affects 2.2 \u2013 2.14.x, fixed in 2.15.0).\n\nSolr is **not affected**. Solr uses `commons-configuration2` only transitively, via the optional\nHadoop integration (Kerberos / HDFS support), to load **administrator-supplied** Hadoop configuration\nfiles \u2014 not untrusted, externally-supplied YAML. No Solr request path feeds attacker-controlled YAML\nto Commons Configuration, so the cyclic-YAML parser cannot be driven by an adversary. (This matches\nthe existing assessment of the other Commons Configuration CVEs in Solr.)",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-46718"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.calcite/calcite-core@1.27.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.calcite/calcite-core@1.32.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.calcite/calcite-core@1.33.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.calcite/calcite-core@1.34.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.calcite/calcite-core@1.35.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.calcite/calcite-core@1.37.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-46718 lets a **user-controlled Calcite model** load arbitrary classes, leading to code\nexecution (affects calcite-core 1.5.0 \u2013 1.41.x, fixed in 1.42.0). Exploitation requires the\napplication to let an attacker supply the Calcite *model* (the JSON schema/model definition that can\nname factory classes).\n\nSolr is **not affected**. Calcite is used only by the optional `sql` module (Parallel SQL, the `/sql`\nhandler). Solr constructs the Calcite schema/model **server-side** from the target collection; users\nsubmit only a SQL statement, never a Calcite model or schema-factory definition. There is no request\npath through which an attacker can supply a Calcite model, so the arbitrary-class-loading vector is\nnever reached.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-50193",
+        "aliases": [
+          "CVE-2026-54514",
+          "CVE-2026-54515",
+          "CVE-2026-59889",
+          "CVE-2026-59888",
+          "GHSA-mhm7-754m-9p8w"
+        ]
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), and GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-54512",
+        "aliases": [
+          "CVE-2026-54513"
+        ]
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-54512 and CVE-2026-54513 are bypasses of jackson-databind's `PolymorphicTypeValidator` \u2014 via\ngeneric type parameters (54512) and via an array-subtype allowlist gap in\n`allowIfSubType` (54513) \u2014 that can let unexpected classes be instantiated during polymorphic\ndeserialization (affects 2.10.0\u20132.18.7 and 2.19.0\u20132.21.3).\n\nSolr is **not affected**. Both issues are only exploitable when an application enables **polymorphic\ndeserialization** \u2014 default typing (`activateDefaultTyping`), `@JsonTypeInfo`, or a\n`BasicPolymorphicTypeValidator` allowlist \u2014 and then deserializes attacker-controlled JSON through it.\nSolr does none of this: it maps request JSON to fixed, known target types and never enables default\ntyping or polymorphic deserialization of untrusted input, so the `PolymorphicTypeValidator` code path\nthese CVEs target is never exercised. (The `2.12.7.1` copy a scanner flags is Hadoop's shaded\njackson-databind; Solr's own is 2.18.0 in current 9.x and 2.22.0 in 9.11.)",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-56740",
+        "aliases": [
+          "CVE-2026-56741"
+        ]
+      },
+      "products": [
+        {
+          "@id": "jline-remote-telnet-3.9.0.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_present",
+      "impact_statement": "CVE-2026-56740 and CVE-2026-56741 are unauthenticated remote denial-of-service issues in **JLine's\nTelnet server** \u2014 unbounded NEW-ENVIRON variables (56740) and unbounded NAWS terminal-geometry values\n(56741) in the `jline-remote-telnet` Telnet daemon (affects < 3.30.14, and the 4.0.x / 4.1.x lines).\n\nSolr is **not affected**:\n\n* **The vulnerable component is not shipped or run.** Solr ships no `jline-remote-telnet` jar; the\n  `3.9.0` coordinate a scanner reports comes only from a dependency reference embedded in the bundled\n  `zookeeper-3.9.5` jar's metadata. Solr never starts a JLine Telnet server (`Telnetd`).\n* JLine is used, at most, for the local interactive `bin/solr` CLI terminal \u2014 a `LineReader` on the\n  operator's own console, not a network-listening Telnet daemon \u2014 so nothing accepts remote Telnet\n  connections that the vulnerable NAWS/NEW-ENVIRON parsing could act on.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-56745",
+        "aliases": [
+          "CVE-2026-55833",
+          "CVE-2026-55831",
+          "CVE-2026-56819",
+          "CVE-2026-59901"
+        ]
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-compression@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues are resource-exhaustion / DoS bugs in server- and decoder-side code paths\n(all affect Netty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-56745, CVE-2026-55833, CVE-2026-55831 \u2014 the **SPDY** codec (`SpdyHttpDecoder` and SPDY\n  header/settings handling) in `netty-codec-http`.\n* CVE-2026-56819 \u2014 server-side **HTTP/2 decompression** ByteBuf reference leak in `netty-codec-http2`.\n* CVE-2026-59901 \u2014 infinite loop in the **Bzip2** decoder in `netty-codec-compression`.\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty acts strictly as a **client**. Solr's HTTP server is Jetty, not\nNetty: Solr never runs a Netty HTTP/HTTP2/SPDY server, never enables the SPDY codec, and never feeds\nattacker-controlled compressed (bzip2) streams through Netty. The vulnerable server/decoder code\npaths are therefore unreachable \u2014 the same reasoning as CVE-2026-33870 / CVE-2026-33871.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59899",
+        "aliases": [
+          "CVE-2026-56746",
+          "CVE-2026-59898",
+          "CVE-2026-59921",
+          "CVE-2026-59900"
+        ]
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect\nNetty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-59899 \u2014 unbounded per-connection queue growth in `HttpContentEncoder` via HTTP/1.1\n  pipelining (server response encoding).\n* CVE-2026-56746 \u2014 CORS short-circuit failure / security-control bypass (server CORS handler).\n* CVE-2026-59898 \u2014 WebSocket V07/V08 handshaker missing Connection/Upgrade validation (server).\n* CVE-2026-59921 \u2014 CRLF injection via multipart filename in the outbound `HttpPostRequestEncoder`.\n* CVE-2026-59900 \u2014 Host-header de-duplication gap in HTTP/2\u2192HTTP/1.x translation (server/proxy).\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty is used strictly as a **client**. Solr's HTTP server is Jetty:\nSolr never runs a Netty HTTP server, CORS handler, WebSocket server, or HTTP/2\u21921 proxy, and never\nuses Netty's multipart request encoder, so none of these code paths are reachable.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59949"
+      },
+      "products": [
+        {
+          "@id": "lz4-java-1.10.1.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the `at.yawk.lz4:lz4-java` codec: the\nJNI-based XXHash implementations insufficiently validate their byte-array arguments, so a caller that\npasses an invalid array reference or an out-of-range `off`/`len` to the native XXHash methods can\ncrash the JVM. It affects lz4-java \u2264 1.11.0 (fixed in 1.11.1). Exploitation requires an application\nto pass attacker-influenced array/offset/length values into those XXHash APIs.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where it is\nused by the embedded Apache Kafka client for LZ4 compression / checksums of cross-datacenter\nreplication messages. Kafka calls the XXHash APIs with its own internally-managed, validated buffers\nand offsets \u2014 it does not forward attacker-controlled `off`/`len` values into the native methods \u2014\nand the replication stream flows through an operator-controlled Kafka pipeline, not untrusted\nexternal input. The `cross-dc` module is not part of a default Solr installation, and no Solr request\npath reaches the vulnerable XXHash argument handling.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-6790"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.13"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.15"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.17"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.19"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.20"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.22"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@10.0.26"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@12.0.27"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.10.v20180503"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.11.v20180605"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.14.v20181114"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.19.v20190610"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.24.v20191120"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.27.v20200227"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.34.v20201102"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.44.v20210927"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.48.v20220622"
+        },
+        {
+          "@id": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.8.v20171121"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty\ndoes not require the `:authority` pseudo-header to match the `Host` header, so a single request can\ncarry two conflicting host interpretations. It affects the Jetty branches Solr ships (9.4.x, 10.0.x\nthrough 10.0.26, 12.0.x through 12.0.34). It has security impact only for applications that **make\nsecurity-sensitive decisions based on the request host** \u2014 host-based access control, virtual-host\nisolation, multi-tenant routing, or host-derived redirect URLs.\n\nSolr is **not affected**. Solr does none of those things: it does not perform host-based access\ncontrol or virtual-host/multi-tenant isolation, its authentication and authorization\n(`SolrDispatchFilter` / the `AuthenticationPlugin` framework) never key on the `Host`/`:authority`\nvalue, and it does not build security-sensitive redirects from the request host. With no\nhost-dependent security decision, the host-confusion has no exploitable consequence in Solr.",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-8384"
+      },
+      "products": [
+        {
+          "@id": "jetty-util-10.0.26.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-8384 is a path-canonicalization flaw in Jetty's `URIUtil.canonicalPath()`: a semicolon\npath-parameter marker before dot-dot segments (e.g. `/public;/../admin/secret`) is not normalized,\nso a path-prefix authorization check can be bypassed. It is exploitable by applications that use\nJetty's `SecurityHandler.PathMapped`, or that make an authorization decision on a canonicalized path\nat a **different layer** than the one that ultimately dispatches the request (the classic\ncanonicalization *desync*).\n\nSolr is **not affected**:\n\n* **No desync between authorization and dispatch.** `HttpSolrCall` computes the request path once\n  (`ServletUtils.getPathAfterContext()`), and uses that single value for *both* request routing\n  (`getPath()`) and authorization (`getAuthCtx()` builds its `AuthorizationContext` resource from the\n  same `getPath()`). `RuleBasedAuthorizationPlugin` therefore evaluates exactly the path that Solr\n  dispatches \u2014 there is no window in which authorization sees one path while a different path is\n  served, which is the precondition this CVE requires.\n* **Path parameters are already stripped.** Solr derives the path from `getServletPath()` +\n  `getPathInfo()`, which per the Servlet specification have path parameters (the `;\u2026` segments this\n  bug abuses) removed by the container before Solr ever sees the path.\n* Solr uses neither Jetty's `SecurityHandler.PathMapped` nor `URIUtil.canonicalPath()` directly.\n\nSo even on an affected Jetty, the mis-canonicalization cannot produce an authorization bypass in\nSolr, because Solr's authorization and dispatch are driven by the same, single path value.",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-10.0.0."
     }
   ]
 }
