@@ -286,7 +286,7 @@ def main():
             elif existing[version] != dep_version:
                 conflicts.append((key, version, existing[version], dep_version))
 
-        DEP_VERSIONS_FILE.write_text(json.dumps(dep_versions, indent=2) + '\n')
+        DEP_VERSIONS_FILE.write_text(json.dumps(dep_versions, indent=2, sort_keys=True) + '\n')
 
     print(f'\nUpdated {DEP_VERSIONS_FILE.relative_to(REPO_ROOT)}: filled {added} missing '
           f'(dependency, version) entries.', file=sys.stderr)
