@@ -371,10 +371,6 @@ def build_openvex(entries):
         status = OPENVEX_STATUS.get(v['analysis']['state'], 'under_investigation')
         detail = (v['analysis'].get('detail') or '').strip()
 
-        vulnerability = {'name': v['ids'][0]}
-        if len(v['ids']) > 1:
-            vulnerability['aliases'] = v['ids'][1:]
-
         # Scanners (e.g. Docker Scout) match VEX statements on the product purl,
         # so the vulnerable JAR(s) are the products. For an entry with no JAR
         # (e.g. a Solr-native CVE), the product is the affected Solr module(s)
@@ -392,7 +388,7 @@ def build_openvex(entries):
                 products = [{'@id': 'pkg:maven/org.apache.solr/%s' % module} for module in v['modules']]
 
         statement = {
-            'vulnerability': vulnerability,
+            'vulnerability': {'name': v['ids'][0]},
             'products': products,
             'status': status,
             'timestamp': '%sT00:00:00Z' % v['date'],
@@ -416,7 +412,15 @@ def build_openvex(entries):
             if combined:
                 statement['status_notes'] = combined
 
-        statements.append(statement)
+        # Emit one statement per identifier. Multiple CVEs on a single entry are
+        # distinct vulnerabilities, not aliases of one another, and scanners (e.g.
+        # Docker Scout) match a VEX statement only on `vulnerability.name` -- not on
+        # `aliases` -- so a separate statement per id is what actually suppresses
+        # every listed CVE/GHSA.
+        for vid in v['ids']:
+            stmt = dict(statement)
+            stmt['vulnerability'] = {'name': vid}
+            statements.append(stmt)
 
     newest = max((v['date'] for v in entries), default='1970-01-01')
     return {
