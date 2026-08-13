@@ -131,8 +131,9 @@ never reached.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><tit
 &lt;li&gt;&lt;strong&gt;Require Jackson features Solr does not use.&lt;/strong&gt; CVE-2026-54515 (case-insensitive deserialization
   bypassing per-property &lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;), CVE-2026-59889 (&lt;code&gt;@JsonView&lt;/code&gt; bypass for
   &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container properties), CVE-2026-59888 (&lt;code&gt;@JsonIgnore&lt;/code&gt; on a Record property bypassed
-  via a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt;), and GHSA-mhm7-754m-9p8w (&lt;code&gt;@JsonView&lt;/code&gt; bypass for creator properties
-  with &lt;code&gt;@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)&lt;/code&gt;) can reach Solr's own jackson-databind, but
+  via a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt;), GHSA-mhm7-754m-9p8w (&lt;code&gt;@JsonView&lt;/code&gt; bypass for creator properties
+  with &lt;code&gt;@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)&lt;/code&gt;), and CVE-2026-54518 (&lt;code&gt;@JsonView&lt;/code&gt; bypass for
+  unwrapped creator parameters) can reach Solr's own jackson-databind, but
   only when an application relies on those annotation-based mechanisms — case-insensitive property
   mapping, &lt;code&gt;@JsonView&lt;/code&gt;, &lt;code&gt;@JsonUnwrapped&lt;/code&gt;, &lt;code&gt;@JsonIgnore&lt;/code&gt; on records, or &lt;code&gt;@JsonTypeInfo&lt;/code&gt; external-property
   polymorphism — to restrict which fields untrusted input may set. Solr uses none of them: it maps
