@@ -2,7 +2,7 @@
   "@context": "https://openvex.dev/ns/v0.2.0",
   "@id": "https://solr.apache.org/solr.openvex.json",
   "author": "Apache Solr Project (security@apache.org)",
-  "timestamp": "2026-07-31T00:00:00Z",
+  "timestamp": "2026-08-13T00:00:00Z",
   "version": 1,
   "statements": [
     {
@@ -4176,43 +4176,13 @@
       },
       "products": [
         {
-          "@id": "lz4-java-1.8.0.jar"
+          "@id": "pkg:maven/org.lz4/lz4-java@1.8.0"
         }
       ],
       "status": "not_affected",
       "timestamp": "2026-07-31T00:00:00Z",
       "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Three issues in the `at.yawk.lz4:lz4-java` codec (the community-maintained fork of the discontinued\nlz4-java):\n\n* **CVE-2026-59949** (CVSS 6.5) \u2014 out-of-bounds read: the JNI-based XXHash implementations don't\n  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range\n  `off`/`len` can crash the JVM (fixed in 1.11.1).\n* **CVE-2025-12183** \u2014 out-of-bounds memory access in the compression/decompression functions,\n  leading to denial of service and possible information disclosure when processing untrusted input\n  (fixed in 1.8.1).\n* **CVE-2025-66566** \u2014 the Java decompressor does not clear reused output buffers, so crafted\n  compressed input can read previous buffer contents when an output buffer is reused (fixed in\n  1.10.1).\n\nAll three affect the `lz4-java` 1.8.0 that Solr's released 9.8.0 \u2013 10.0.0 line bundles (SOLR-18013\ntracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled\ninput to the codec, or passes attacker-influenced arguments into it.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where the\nembedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication\nmessages. Those messages flow through an **operator-controlled** Kafka pipeline (Solr's own cross-DC\nproducer \u2192 the operator's Kafka \u2192 Solr's consumer), not untrusted external input, and Kafka calls the\ncodec with its own internally-managed, validated buffers and offsets rather than forwarding\nattacker-controlled arguments. The `cross-dc` module is not part of a default Solr installation, and\nno Solr request path reaches the vulnerable compression/decompression or XXHash code.",
-      "status_notes": "Affected Apache Solr versions: 9.8.0-10.0.0."
-    },
-    {
-      "vulnerability": {
-        "name": "CVE-2025-12183"
-      },
-      "products": [
-        {
-          "@id": "lz4-java-1.8.0.jar"
-        }
-      ],
-      "status": "not_affected",
-      "timestamp": "2026-07-31T00:00:00Z",
-      "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Three issues in the `at.yawk.lz4:lz4-java` codec (the community-maintained fork of the discontinued\nlz4-java):\n\n* **CVE-2026-59949** (CVSS 6.5) \u2014 out-of-bounds read: the JNI-based XXHash implementations don't\n  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range\n  `off`/`len` can crash the JVM (fixed in 1.11.1).\n* **CVE-2025-12183** \u2014 out-of-bounds memory access in the compression/decompression functions,\n  leading to denial of service and possible information disclosure when processing untrusted input\n  (fixed in 1.8.1).\n* **CVE-2025-66566** \u2014 the Java decompressor does not clear reused output buffers, so crafted\n  compressed input can read previous buffer contents when an output buffer is reused (fixed in\n  1.10.1).\n\nAll three affect the `lz4-java` 1.8.0 that Solr's released 9.8.0 \u2013 10.0.0 line bundles (SOLR-18013\ntracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled\ninput to the codec, or passes attacker-influenced arguments into it.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where the\nembedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication\nmessages. Those messages flow through an **operator-controlled** Kafka pipeline (Solr's own cross-DC\nproducer \u2192 the operator's Kafka \u2192 Solr's consumer), not untrusted external input, and Kafka calls the\ncodec with its own internally-managed, validated buffers and offsets rather than forwarding\nattacker-controlled arguments. The `cross-dc` module is not part of a default Solr installation, and\nno Solr request path reaches the vulnerable compression/decompression or XXHash code.",
-      "status_notes": "Affected Apache Solr versions: 9.8.0-10.0.0."
-    },
-    {
-      "vulnerability": {
-        "name": "CVE-2025-66566"
-      },
-      "products": [
-        {
-          "@id": "lz4-java-1.8.0.jar"
-        }
-      ],
-      "status": "not_affected",
-      "timestamp": "2026-07-31T00:00:00Z",
-      "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Three issues in the `at.yawk.lz4:lz4-java` codec (the community-maintained fork of the discontinued\nlz4-java):\n\n* **CVE-2026-59949** (CVSS 6.5) \u2014 out-of-bounds read: the JNI-based XXHash implementations don't\n  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range\n  `off`/`len` can crash the JVM (fixed in 1.11.1).\n* **CVE-2025-12183** \u2014 out-of-bounds memory access in the compression/decompression functions,\n  leading to denial of service and possible information disclosure when processing untrusted input\n  (fixed in 1.8.1).\n* **CVE-2025-66566** \u2014 the Java decompressor does not clear reused output buffers, so crafted\n  compressed input can read previous buffer contents when an output buffer is reused (fixed in\n  1.10.1).\n\nAll three affect the `lz4-java` 1.8.0 that Solr's released 9.8.0 \u2013 10.0.0 line bundles (SOLR-18013\ntracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled\ninput to the codec, or passes attacker-influenced arguments into it.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where the\nembedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication\nmessages. Those messages flow through an **operator-controlled** Kafka pipeline (Solr's own cross-DC\nproducer \u2192 the operator's Kafka \u2192 Solr's consumer), not untrusted external input, and Kafka calls the\ncodec with its own internally-managed, validated buffers and offsets rather than forwarding\nattacker-controlled arguments. The `cross-dc` module is not part of a default Solr installation, and\nno Solr request path reaches the vulnerable compression/decompression or XXHash code.",
+      "impact_statement": "CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the `lz4-java` codec: the JNI-based XXHash\nimplementations insufficiently validate their byte-array arguments, so a caller that passes an\ninvalid array reference or an out-of-range `off`/`len` to the native XXHash methods can crash the JVM.\nIt affects `lz4-java` \u2264 1.11.0 (fixed in 1.11.1). Exploitation requires an application to pass\nattacker-influenced array/offset/length values into those XXHash APIs.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where it is\nused by the embedded Apache Kafka client for LZ4 compression / checksums of cross-datacenter\nreplication messages. Kafka calls the XXHash APIs with its own internally-managed, validated buffers\nand offsets \u2014 it does not forward attacker-controlled `off`/`len` values into the native methods \u2014 and\nthe replication stream flows through an operator-controlled Kafka pipeline, not untrusted external\ninput. The `cross-dc` module is not part of a default Solr installation, and no Solr request path\nreaches the vulnerable XXHash argument handling.\n\nSolr shipped an affected `org.lz4:lz4-java` 1.8.0 from 9.8.0 (when the `cross-dc` module first bundled\nit) through 10.0.0. Unlike CVE-2025-12183 / CVE-2025-66566 (covered separately and fixed by the\n`branch_9x` / `branch_10x` / `main` migration to the fork `at.yawk.lz4:lz4-java` 1.10.1), **this issue\nis not yet fixed on any branch**: 1.11.1 is required, and all three development branches are on 1.10.1,\nso the upcoming 9.11 and 10.1 releases will still bundle an affected version. The affected Solr range\nwill need to extend to those releases once they ship.",
       "status_notes": "Affected Apache Solr versions: 9.8.0-10.0.0."
     },
     {
@@ -4309,6 +4279,50 @@
       "timestamp": "2026-07-31T00:00:00Z",
       "impact_statement": "GHSA-mhm7-754m-9p8w is a deserialization-filter bypass in jackson-databind: a `@JsonView` restriction\ncan be bypassed for creator properties that use `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`\npolymorphic typing, letting untrusted JSON populate fields the active view was meant to exclude. It\naffects jackson-databind 2.18.0 \u2013 2.18.8 and 2.21.0 \u2013 2.21.4 (fixed in 2.18.9 / 2.21.5); the\nexternal-type-id creator path was fixed on the 3.x line and not backported to the 2.19/2.20 lines,\nwhich are not affected.\n\nSolr is **not affected**. Exploiting this requires an application to combine `@JsonView` filtering\nwith `@JsonTypeInfo` external-property polymorphic typing on untrusted input. Solr applies neither\n`@JsonView` filtering nor polymorphic type handling to request deserialization (see also the\nlong-standing polymorphic-typing analysis in the jackson-databind gadget statement), so the bypass has\nnothing to defeat.\n\nSolr's own standalone `jackson-databind` is in an affected range only in 9.8.0 \u2013 9.10.1 (2.18.0).\nSolr 10.0.0 (2.20.0) and Solr 9.11 (2.22.0) are outside the affected ranges and are not affected.",
       "status_notes": "Affected Apache Solr versions: 9.8.0-9.10.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2022-40152"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.woodstox/woodstox-core@6.2.8"
+        }
+      ],
+      "status": "affected",
+      "timestamp": "2026-08-11T00:00:00Z",
+      "action_statement": "CVE-2022-40152 (CVSS 6.5) is a denial-of-service issue in the Woodstox XML parser\n(`com.fasterxml.woodstox:woodstox-core`): when DTD support is enabled, a client can supply XML whose\n`DOCTYPE` internal subset contains a deeply-nested element content model, causing the parser to\nrecurse until it throws a `StackOverflowError`. It affects `woodstox-core` before 5.4.0 and 6.0.0 \u2013\n6.3.x, and is fixed in 5.4.0 and 6.4.0.\n\nSolr **9.0.0 and 9.1.0 are affected.** Those two releases shipped `woodstox-core` 6.2.8 (< 6.4.0), and\nSolr's XML update handler (`XMLLoader`, serving the untrusted `/update` request path) configures its\nStAX input factory via `EmptyEntityResolver.configureXMLInputFactory`. That configuration neutralizes\nexternal entities \u2014 so Solr is *not* exposed to XXE \u2014 but it does **not** disable DTD processing, so\nthe parser still reads the internal DTD subset. A client that POSTs crafted XML with a deeply-nested\nDTD to `/update` can therefore reach the vulnerable code and trigger the stack-overflow DoS. Because\nthe vulnerable path is reachable with attacker-controlled input, these releases are marked\n`exploitable` rather than `not_affected`.\n\n**Remediation: upgrade to Apache Solr 9.1.1 or later.** Solr 9.1.1 upgraded to `woodstox-core` 6.4.0\n(past the fix), and every later release ships a fixed version (6.5.0 in 9.2.0, 7.0.0 in current 9.x,\n7.1.1 in 10.0.0), so no release from 9.1.1 onward is affected. Solr 8.x and earlier are out of scope\nfor this CVE: they used the unrelated `org.codehaus.woodstox:woodstox-core-asl` artifact, not\n`com.fasterxml.woodstox:woodstox-core` (the migration in SOLR-10702 introduced the affected artifact\nat 9.0.0). Solr 9.0.0 and 9.1.0 are both end of life.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-9.1.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2025-12183"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.lz4/lz4-java@1.8.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-08-13T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Two issues in the `lz4-java` codec:\n\n* **CVE-2025-12183** \u2014 several lz4-java compression/decompression implementations do not guard against\n  out-of-bounds memory access (fixed in `lz4-java` 1.8.1).\n* **CVE-2025-66566** \u2014 decompressor implementations insufficiently clear their buffers, allowing a\n  caller to read leftover contents of a previously used buffer (fixed in `lz4-java` 1.10.1).\n\nBoth require an application to drive lz4-java's (de)compression APIs with attacker-influenced\ninput/buffers.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where it is\nused by the embedded Apache Kafka client for LZ4 compression of cross-datacenter replication messages.\nKafka manages its own internal, validated buffers and does not forward attacker-controlled data into\nthe vulnerable code paths, and the replication stream flows through an operator-controlled Kafka\npipeline rather than untrusted external input. The `cross-dc` module is not part of a default Solr\ninstallation, and no Solr request path reaches these lz4-java routines.\n\nSolr shipped an affected `org.lz4:lz4-java` 1.8.0 from 9.8.0 (when the `cross-dc` module first bundled\nit) through 10.0.0; releases 9.7.0 and earlier, and the 8.x line, ship no `lz4-java`. The fix is\nalready on all active development branches: `branch_9x`, `branch_10x`, and `main` migrated to the\nmaintained community fork `at.yawk.lz4:lz4-java` 1.10.1, which is past both fixes (1.8.1 and 1.10.1),\nso the next releases (9.11, 10.1) will not be affected. Note this upgrade did not require Apache Kafka\nto update first \u2014 Kafka still declares the old `org.lz4:lz4-java`, and Solr replaced that transitive\ndependency with the fork directly.",
+      "status_notes": "Affected Apache Solr versions: 9.8.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2025-66566"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.lz4/lz4-java@1.8.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-08-13T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Two issues in the `lz4-java` codec:\n\n* **CVE-2025-12183** \u2014 several lz4-java compression/decompression implementations do not guard against\n  out-of-bounds memory access (fixed in `lz4-java` 1.8.1).\n* **CVE-2025-66566** \u2014 decompressor implementations insufficiently clear their buffers, allowing a\n  caller to read leftover contents of a previously used buffer (fixed in `lz4-java` 1.10.1).\n\nBoth require an application to drive lz4-java's (de)compression APIs with attacker-influenced\ninput/buffers.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where it is\nused by the embedded Apache Kafka client for LZ4 compression of cross-datacenter replication messages.\nKafka manages its own internal, validated buffers and does not forward attacker-controlled data into\nthe vulnerable code paths, and the replication stream flows through an operator-controlled Kafka\npipeline rather than untrusted external input. The `cross-dc` module is not part of a default Solr\ninstallation, and no Solr request path reaches these lz4-java routines.\n\nSolr shipped an affected `org.lz4:lz4-java` 1.8.0 from 9.8.0 (when the `cross-dc` module first bundled\nit) through 10.0.0; releases 9.7.0 and earlier, and the 8.x line, ship no `lz4-java`. The fix is\nalready on all active development branches: `branch_9x`, `branch_10x`, and `main` migrated to the\nmaintained community fork `at.yawk.lz4:lz4-java` 1.10.1, which is past both fixes (1.8.1 and 1.10.1),\nso the next releases (9.11, 10.1) will not be affected. Note this upgrade did not require Apache Kafka\nto update first \u2014 Kafka still declares the old `org.lz4:lz4-java`, and Solr replaced that transitive\ndependency with the fork directly.",
+      "status_notes": "Affected Apache Solr versions: 9.8.0-10.0.0."
     }
   ]
 }

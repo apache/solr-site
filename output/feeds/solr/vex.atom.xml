@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/vex</title><link href="/" rel="alternate"/><link href="/feeds/solr/vex.atom.xml" rel="self"/><id>/</id><updated>2026-07-31T00:00:00+00:00</updated><entry><title>Apache Avro (Java): RCE reading a crafted schema / DoS deserializing untrusted data</title><link href="/cve-2024-47561.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2024-47561.html</id><summary type="html">&lt;p&gt;CVE-2024-47561 (critical) is an arbitrary-code-execution issue in the Apache Avro Java SDK: parsing
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/vex</title><link href="/" rel="alternate"/><link href="/feeds/solr/vex.atom.xml" rel="self"/><id>/</id><updated>2026-08-13T00:00:00+00:00</updated><entry><title>lz4-java: out-of-bounds memory access and insufficient buffer clearing in compression/decompression</title><link href="/cve-2025-12183.html" rel="alternate"/><published>2026-08-13T00:00:00+00:00</published><updated>2026-08-13T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-13:/cve-2025-12183.html</id><summary type="html">&lt;p&gt;Two issues in the &lt;code&gt;lz4-java&lt;/code&gt; codec:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-12183&lt;/strong&gt; — several lz4-java compression/decompression implementations do not guard against
+  out-of-bounds memory access (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.8.1).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-66566&lt;/strong&gt; — decompressor implementations insufficiently clear their buffers, allowing a
+  caller to read leftover contents of a previously used buffer (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.10.1 …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Two issues in the &lt;code&gt;lz4-java&lt;/code&gt; codec:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-12183&lt;/strong&gt; — several lz4-java compression/decompression implementations do not guard against
+  out-of-bounds memory access (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.8.1).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-66566&lt;/strong&gt; — decompressor implementations insufficiently clear their buffers, allowing a
+  caller to read leftover contents of a previously used buffer (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.10.1).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both require an application to drive lz4-java's (de)compression APIs with attacker-influenced
+input/buffers.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;lz4-java&lt;/code&gt; is bundled only by the optional &lt;code&gt;cross-dc&lt;/code&gt; module, where it is
+used by the embedded Apache Kafka client for LZ4 compression of cross-datacenter replication messages.
+Kafka manages its own internal, validated buffers and does not forward attacker-controlled data into
+the vulnerable code paths, and the replication stream flows through an operator-controlled Kafka
+pipeline rather than untrusted external input. The &lt;code&gt;cross-dc&lt;/code&gt; module is not part of a default Solr
+installation, and no Solr request path reaches these lz4-java routines.&lt;/p&gt;
+&lt;p&gt;Solr shipped an affected &lt;code&gt;org.lz4:lz4-java&lt;/code&gt; 1.8.0 from 9.8.0 (when the &lt;code&gt;cross-dc&lt;/code&gt; module first bundled
+it) through 10.0.0; releases 9.7.0 and earlier, and the 8.x line, ship no &lt;code&gt;lz4-java&lt;/code&gt;. The fix is
+already on all active development branches: &lt;code&gt;branch_9x&lt;/code&gt;, &lt;code&gt;branch_10x&lt;/code&gt;, and &lt;code&gt;main&lt;/code&gt; migrated to the
+maintained community fork &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; 1.10.1, which is past both fixes (1.8.1 and 1.10.1),
+so the next releases (9.11, 10.1) will not be affected. Note this upgrade did not require Apache Kafka
+to update first — Kafka still declares the old &lt;code&gt;org.lz4:lz4-java&lt;/code&gt;, and Solr replaced that transitive
+dependency with the fork directly.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Woodstox: denial-of-service (stack overflow) parsing untrusted XML when DTD support is enabled</title><link href="/cve-2022-40152.html" rel="alternate"/><published>2026-08-11T00:00:00+00:00</published><updated>2026-08-11T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-11:/cve-2022-40152.html</id><summary type="html">&lt;p&gt;CVE-2022-40152 (CVSS 6.5) is a denial-of-service issue in the Woodstox XML parser
+(&lt;code&gt;com.fasterxml.woodstox:woodstox-core&lt;/code&gt;): when DTD support is enabled, a client can supply XML whose
+&lt;code&gt;DOCTYPE&lt;/code&gt; internal subset contains a deeply-nested element content model, causing the parser to
+recurse until it throws a &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects &lt;code&gt;woodstox-core …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2022-40152 (CVSS 6.5) is a denial-of-service issue in the Woodstox XML parser
+(&lt;code&gt;com.fasterxml.woodstox:woodstox-core&lt;/code&gt;): when DTD support is enabled, a client can supply XML whose
+&lt;code&gt;DOCTYPE&lt;/code&gt; internal subset contains a deeply-nested element content model, causing the parser to
+recurse until it throws a &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects &lt;code&gt;woodstox-core&lt;/code&gt; before 5.4.0 and 6.0.0 –
+6.3.x, and is fixed in 5.4.0 and 6.4.0.&lt;/p&gt;
+&lt;p&gt;Solr &lt;strong&gt;9.0.0 and 9.1.0 are affected.&lt;/strong&gt; Those two releases shipped &lt;code&gt;woodstox-core&lt;/code&gt; 6.2.8 (&amp;lt; 6.4.0), and
+Solr's XML update handler (&lt;code&gt;XMLLoader&lt;/code&gt;, serving the untrusted &lt;code&gt;/update&lt;/code&gt; request path) configures its
+StAX input factory via &lt;code&gt;EmptyEntityResolver.configureXMLInputFactory&lt;/code&gt;. That configuration neutralizes
+external entities — so Solr is &lt;em&gt;not&lt;/em&gt; exposed to XXE — but it does &lt;strong&gt;not&lt;/strong&gt; disable DTD processing, so
+the parser still reads the internal DTD subset. A client that POSTs crafted XML with a deeply-nested
+DTD to &lt;code&gt;/update&lt;/code&gt; can therefore reach the vulnerable code and trigger the stack-overflow DoS. Because
+the vulnerable path is reachable with attacker-controlled input, these releases are marked
+&lt;code&gt;exploitable&lt;/code&gt; rather than &lt;code&gt;not_affected&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remediation: upgrade to Apache Solr 9.1.1 or later.&lt;/strong&gt; Solr 9.1.1 upgraded to &lt;code&gt;woodstox-core&lt;/code&gt; 6.4.0
+(past the fix), and every later release ships a fixed version (6.5.0 in 9.2.0, 7.0.0 in current 9.x,
+7.1.1 in 10.0.0), so no release from 9.1.1 onward is affected. Solr 8.x and earlier are out of scope
+for this CVE: they used the unrelated &lt;code&gt;org.codehaus.woodstox:woodstox-core-asl&lt;/code&gt; artifact, not
+&lt;code&gt;com.fasterxml.woodstox:woodstox-core&lt;/code&gt; (the migration in SOLR-10702 introduced the affected artifact
+at 9.0.0). Solr 9.0.0 and 9.1.0 are both end of life.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Avro (Java): RCE reading a crafted schema / DoS deserializing untrusted data</title><link href="/cve-2024-47561.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2024-47561.html</id><summary type="html">&lt;p&gt;CVE-2024-47561 (critical) is an arbitrary-code-execution issue in the Apache Avro Java SDK: parsing
 an attacker-controlled Avro &lt;strong&gt;schema&lt;/strong&gt; can instantiate arbitrary classes (affects avro &amp;lt; 1.11.4).
 CVE-2023-39410 is a memory-exhaustion / DoS issue when &lt;strong&gt;deserializing untrusted Avro data&lt;/strong&gt; (affects
 avro &amp;lt; 1.11.3). Both require the application to feed attacker-controlled Avro …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-47561 (critical) is an arbitrary-code-execution issue in the Apache Avro Java SDK: parsing
@@ -257,34 +304,27 @@ Netty &amp;lt; 4.1.136 and 4.2.0–4.2.15, fixed in 4.1.136 / 4.2.16):&lt;/p&gt;
 &lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and
 the ZooKeeper client, where Netty is used strictly as a &lt;strong&gt;client&lt;/strong&gt;. Solr's HTTP server is Jetty:
 Solr never runs a Netty HTTP server, CORS handler, WebSocket server, or HTTP/2→1 proxy, and never
-uses Netty's multipart request encoder, so none of these code paths are reachable.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>lz4-java: out-of-bounds access and buffer-reuse disclosure in (de)compression</title><link href="/cve-2026-59949.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59949.html</id><summary type="html">&lt;p&gt;Three issues in the &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; codec (the community-maintained fork of the discontinued
-lz4-java):&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;CVE-2026-59949&lt;/strong&gt; (CVSS 6.5) — out-of-bounds read: the JNI-based XXHash implementations don't
-  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range
-  &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; can crash the JVM (fixed in 1 …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Three issues in the &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; codec (the community-maintained fork of the discontinued
-lz4-java):&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;CVE-2026-59949&lt;/strong&gt; (CVSS 6.5) — out-of-bounds read: the JNI-based XXHash implementations don't
-  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range
-  &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; can crash the JVM (fixed in 1.11.1).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;CVE-2025-12183&lt;/strong&gt; — out-of-bounds memory access in the compression/decompression functions,
-  leading to denial of service and possible information disclosure when processing untrusted input
-  (fixed in 1.8.1).&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;CVE-2025-66566&lt;/strong&gt; — the Java decompressor does not clear reused output buffers, so crafted
-  compressed input can read previous buffer contents when an output buffer is reused (fixed in
-  1.10.1).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;All three affect the &lt;code&gt;lz4-java&lt;/code&gt; 1.8.0 that Solr's released 9.8.0 – 10.0.0 line bundles (SOLR-18013
-tracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled
-input to the codec, or passes attacker-influenced arguments into it.&lt;/p&gt;
-&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;lz4-java&lt;/code&gt; is bundled only by the optional &lt;code&gt;cross-dc&lt;/code&gt; module, where the
-embedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication
-messages. Those messages flow through an &lt;strong&gt;operator-controlled&lt;/strong&gt; Kafka pipeline (Solr's own cross-DC
-producer → the operator's Kafka → Solr's consumer), not untrusted external input, and Kafka calls the
-codec with its own internally-managed, validated buffers and offsets rather than forwarding
-attacker-controlled arguments. The &lt;code&gt;cross-dc&lt;/code&gt; module is not part of a default Solr installation, and
-no Solr request path reaches the vulnerable compression/decompression or XXHash code.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Eclipse Jetty: HTTP/2 :authority vs Host header confusion</title><link href="/cve-2026-6790.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-6790.html</id><summary type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
+uses Netty's multipart request encoder, so none of these code paths are reachable.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>lz4-java: out-of-bounds read via invalid arguments to native XXHash</title><link href="/cve-2026-59949.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59949.html</id><summary type="html">&lt;p&gt;CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the &lt;code&gt;lz4-java&lt;/code&gt; codec: the JNI-based XXHash
+implementations insufficiently validate their byte-array arguments, so a caller that passes an
+invalid array reference or an out-of-range &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; to the native XXHash methods can crash the JVM.
+It affects &lt;code&gt;lz4-java&lt;/code&gt; ≤ 1.11.0 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the &lt;code&gt;lz4-java&lt;/code&gt; codec: the JNI-based XXHash
+implementations insufficiently validate their byte-array arguments, so a caller that passes an
+invalid array reference or an out-of-range &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; to the native XXHash methods can crash the JVM.
+It affects &lt;code&gt;lz4-java&lt;/code&gt; ≤ 1.11.0 (fixed in 1.11.1). Exploitation requires an application to pass
+attacker-influenced array/offset/length values into those XXHash APIs.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;lz4-java&lt;/code&gt; is bundled only by the optional &lt;code&gt;cross-dc&lt;/code&gt; module, where it is
+used by the embedded Apache Kafka client for LZ4 compression / checksums of cross-datacenter
+replication messages. Kafka calls the XXHash APIs with its own internally-managed, validated buffers
+and offsets — it does not forward attacker-controlled &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; values into the native methods — and
+the replication stream flows through an operator-controlled Kafka pipeline, not untrusted external
+input. The &lt;code&gt;cross-dc&lt;/code&gt; module is not part of a default Solr installation, and no Solr request path
+reaches the vulnerable XXHash argument handling.&lt;/p&gt;
+&lt;p&gt;Solr shipped an affected &lt;code&gt;org.lz4:lz4-java&lt;/code&gt; 1.8.0 from 9.8.0 (when the &lt;code&gt;cross-dc&lt;/code&gt; module first bundled
+it) through 10.0.0. Unlike CVE-2025-12183 / CVE-2025-66566 (covered separately and fixed by the
+&lt;code&gt;branch_9x&lt;/code&gt; / &lt;code&gt;branch_10x&lt;/code&gt; / &lt;code&gt;main&lt;/code&gt; migration to the fork &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; 1.10.1), &lt;strong&gt;this issue
+is not yet fixed on any branch&lt;/strong&gt;: 1.11.1 is required, and all three development branches are on 1.10.1,
+so the upcoming 9.11 and 10.1 releases will still bundle an affected version. The affected Solr range
+will need to extend to those releases once they ship.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Eclipse Jetty: HTTP/2 :authority vs Host header confusion</title><link href="/cve-2026-6790.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-6790.html</id><summary type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
 does not require the &lt;code&gt;:authority&lt;/code&gt; pseudo-header to match the &lt;code&gt;Host&lt;/code&gt; header, so a single request can
 carry two conflicting host interpretations. It affects the Jetty branches Solr ships (9.4.x, 10.0.x
 through …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
@@ -1647,12 +1687,4 @@ performed variable interpolation with &lt;code&gt;script&lt;/code&gt;, &lt;code&
 2.8.0). Only Solr 9.0.0 shipped an affected version (&lt;code&gt;commons-configuration2&lt;/code&gt; 2.7); Solr 8.x shipped
 2.1.1 (before the flaw was introduced) and Solr 9.1.0 upgraded to the fixed 2.8.0. The affected
 version is therefore 9.0.0 only.&lt;/p&gt;
-&lt;p&gt;Solr uses commons-configuration2 for "hadoop-auth" only (for Kerberos). It is only used for loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>calcite</title><link href="/cve-2022-39135.html" rel="alternate"/><published>2022-12-14T00:00:00+00:00</published><updated>2022-12-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-12-14:/cve-2022-39135.html</id><summary type="html">&lt;p&gt;Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode. If an untrusted user can supply SQL queries to Solr's '/sql' handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack. This might have been exposed by …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Apache Calcite has a vulnerability, CVE-2022-39135, that is exploitable in Apache Solr in SolrCloud mode. If an untrusted user can supply SQL queries to Solr's '/sql' handler (even indirectly via proxies / other apps), then the user could perform an XML External Entity (XXE) attack. This might have been exposed by some deployers of Solr in order for internal analysts to use JDBC based tooling, but would have unlikely been granted to wider audiences.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>commons-text (Text4Shell)</title><link href="/cve-2022-42889.html" rel="alternate"/><published>2022-12-14T00:00:00+00:00</published><updated>2022-12-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-12-14:/cve-2022-42889.html</id><summary type="html">&lt;p&gt;CVE-2022-42889 ("Text4Shell") is a code-execution issue in Apache Commons Text: from version 1.5
-through 1.9, the default &lt;code&gt;StringSubstitutor&lt;/code&gt; interpolators included &lt;code&gt;script&lt;/code&gt;, &lt;code&gt;dns&lt;/code&gt; and &lt;code&gt;url&lt;/code&gt;
-lookups that could execute arbitrary code (fixed in 1.10.0). Solr bundled an affected &lt;code&gt;commons-text&lt;/code&gt;
-in 8.1.0 (1.6) through 9 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2022-42889 ("Text4Shell") is a code-execution issue in Apache Commons Text: from version 1.5
-through 1.9, the default &lt;code&gt;StringSubstitutor&lt;/code&gt; interpolators included &lt;code&gt;script&lt;/code&gt;, &lt;code&gt;dns&lt;/code&gt; and &lt;code&gt;url&lt;/code&gt;
-lookups that could execute arbitrary code (fixed in 1.10.0). Solr bundled an affected &lt;code&gt;commons-text&lt;/code&gt;
-in 8.1.0 (1.6) through 9.0.0 (1.8); Solr 8.0.0 shipped 1.4 (before the flaw was introduced) and Solr
-9.1.0 upgraded to the fixed 1.10.0. The affected range is therefore 8.1.0 – 9.0.0.&lt;/p&gt;
-&lt;p&gt;Solr uses commons-text directly (StringEscapeUtils.escapeEcmaScript) in LoadAdminUiServlet that is not vulnerable. Solr also has a "hadoop-auth" module that uses Apache Hadoop which uses commons-text through commons-configuration2. For Solr, the concern is limited to loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).&lt;/p&gt;</content><category term="solr/vex"/></entry></feed>
+&lt;p&gt;Solr uses commons-configuration2 for "hadoop-auth" only (for Kerberos). It is only used for loading Hadoop configuration files that would only ever be provided by trusted administrators, not externally (untrusted).&lt;/p&gt;</content><category term="solr/vex"/></entry></feed>
