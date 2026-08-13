@@ -1086,6 +1086,36 @@
     },
     {
       "vulnerability": {
+        "name": "CVE-2024-21742"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.james/apache-mime4j-core@0.7"
+        },
+        {
+          "@id": "pkg:maven/org.apache.james/apache-mime4j-core@0.7.2"
+        },
+        {
+          "@id": "pkg:maven/org.apache.james/apache-mime4j-core@0.8.1"
+        },
+        {
+          "@id": "pkg:maven/org.apache.james/apache-mime4j-core@0.8.2"
+        },
+        {
+          "@id": "pkg:maven/org.apache.james/apache-mime4j-core@0.8.3"
+        },
+        {
+          "@id": "pkg:maven/org.apache.james/apache-mime4j-core@0.8.4"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is\nused to **compose / write** MIME messages, improper input validation lets crafted field values inject\nunintended headers into the produced message. It affects `apache-mime4j` before 0.8.10 (fixed in\n0.8.10), and is only reachable through MIME4J's message-**building** API (MIME4J DOM composition).\n\nSolr is **not affected**. `apache-mime4j-core` is bundled only by the optional **extraction (Solr\nCell)** module, where Apache Tika uses MIME4J solely to **parse** documents (for example to extract\ntext from `.eml` / RFC-822 messages). Neither Solr nor Tika ever uses MIME4J to *compose* or write\nMIME messages, so the vulnerable message-building / header-injection code path is never invoked \u2014\nregardless of whether the (non-default, not-recommended-for-production) Solr Cell module is enabled.\n\nSolr has bundled an affected `apache-mime4j-core` via Solr Cell from Solr 3.6.0 (0.7) through 9.10.1\n(0.8.4) \u2014 all below the fixed 0.8.10. Solr 10.x ships no MIME4J. The affected range is therefore\n3.6.0 \u2013 9.10.1, but the composition code path this CVE requires is not exercised in any of them.\nOperators who run Solr Cell can additionally follow the project's guidance to perform document\nextraction in a separate Tika service, or replace `modules/extraction/lib/apache-mime4j-*.jar` with\n0.8.10 or later.",
+      "status_notes": "Affected Apache Solr versions: 3.6.0-9.10.1."
+    },
+    {
+      "vulnerability": {
         "name": "CVE-2025-31672"
       },
       "products": [

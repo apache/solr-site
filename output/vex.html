@@ -2284,6 +2284,45 @@ extraction out of Solr (the recommended architecture) or replace the bundled
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-31672">CVE-2025-31672</a></li>
                 </ul>
             </article>
+            <article id="cve-2024-21742" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21742">CVE-2024-21742</a>, Apache James MIME4J: header injection when composing MIME messages</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 3.6.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
+used to <strong>compose / write</strong> MIME messages, improper input validation lets crafted field values inject
+unintended headers into the produced message. It affects <code>apache-mime4j</code> before 0.8.10 (fixed in
+0.8.10), and is only reachable through MIME4J's message-<strong>building</strong> API (MIME4J DOM composition).</p>
+<p>Solr is <strong>not affected</strong>. <code>apache-mime4j-core</code> is bundled only by the optional <strong>extraction (Solr
+Cell)</strong> module, where Apache Tika uses MIME4J solely to <strong>parse</strong> documents (for example to extract
+text from <code>.eml</code> / RFC-822 messages). Neither Solr nor Tika ever uses MIME4J to <em>compose</em> or write
+MIME messages, so the vulnerable message-building / header-injection code path is never invoked —
+regardless of whether the (non-default, not-recommended-for-production) Solr Cell module is enabled.</p>
+<p>Solr has bundled an affected <code>apache-mime4j-core</code> via Solr Cell from Solr 3.6.0 (0.7) through 9.10.1
+(0.8.4) — all below the fixed 0.8.10. Solr 10.x ships no MIME4J. The affected range is therefore
+3.6.0 – 9.10.1, but the composition code path this CVE requires is not exercised in any of them.
+Operators who run Solr Cell can additionally follow the project's guidance to perform document
+extraction in a separate Tika service, or replace <code>modules/extraction/lib/apache-mime4j-*.jar</code> with
+0.8.10 or later.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17901">SOLR-17901</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21742">CVE-2024-21742</a></li>
+                </ul>
+            </article>
             <article id="cve-2025-48924" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48924">CVE-2025-48924</a>, Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</h3>

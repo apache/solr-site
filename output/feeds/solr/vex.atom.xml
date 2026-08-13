@@ -1262,7 +1262,24 @@ is referenced only inside Log4j's own JARs.
 Neither Solr nor any of its bundled dependencies ever constructs or logs such a message.&lt;/p&gt;
 &lt;p&gt;Because no shipped code can hand a triggering value to the layout,
 the vulnerable code path cannot be reached regardless of the configured layout,
-and the Solr community considers this vulnerability &lt;strong&gt;non-exploitable&lt;/strong&gt; in the binary distribution.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache POI: improper input validation parsing OOXML files</title><link href="/cve-2025-31672.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2025-31672.html</id><summary type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
+and the Solr community considers this vulnerability &lt;strong&gt;non-exploitable&lt;/strong&gt; in the binary distribution.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache James MIME4J: header injection when composing MIME messages</title><link href="/cve-2024-21742.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-21742.html</id><summary type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
+used to &lt;strong&gt;compose / write&lt;/strong&gt; MIME messages, improper input validation lets crafted field values inject
+unintended headers into the produced message. It affects &lt;code&gt;apache-mime4j&lt;/code&gt; before 0.8.10 (fixed in
+0.8.10), and is …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
+used to &lt;strong&gt;compose / write&lt;/strong&gt; MIME messages, improper input validation lets crafted field values inject
+unintended headers into the produced message. It affects &lt;code&gt;apache-mime4j&lt;/code&gt; before 0.8.10 (fixed in
+0.8.10), and is only reachable through MIME4J's message-&lt;strong&gt;building&lt;/strong&gt; API (MIME4J DOM composition).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;apache-mime4j-core&lt;/code&gt; is bundled only by the optional &lt;strong&gt;extraction (Solr
+Cell)&lt;/strong&gt; module, where Apache Tika uses MIME4J solely to &lt;strong&gt;parse&lt;/strong&gt; documents (for example to extract
+text from &lt;code&gt;.eml&lt;/code&gt; / RFC-822 messages). Neither Solr nor Tika ever uses MIME4J to &lt;em&gt;compose&lt;/em&gt; or write
+MIME messages, so the vulnerable message-building / header-injection code path is never invoked —
+regardless of whether the (non-default, not-recommended-for-production) Solr Cell module is enabled.&lt;/p&gt;
+&lt;p&gt;Solr has bundled an affected &lt;code&gt;apache-mime4j-core&lt;/code&gt; via Solr Cell from Solr 3.6.0 (0.7) through 9.10.1
+(0.8.4) — all below the fixed 0.8.10. Solr 10.x ships no MIME4J. The affected range is therefore
+3.6.0 – 9.10.1, but the composition code path this CVE requires is not exercised in any of them.
+Operators who run Solr Cell can additionally follow the project's guidance to perform document
+extraction in a separate Tika service, or replace &lt;code&gt;modules/extraction/lib/apache-mime4j-*.jar&lt;/code&gt; with
+0.8.10 or later.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache POI: improper input validation parsing OOXML files</title><link href="/cve-2025-31672.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2025-31672.html</id><summary type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
 a crafted OOXML file (&lt;code&gt;.xlsx&lt;/code&gt;, &lt;code&gt;.docx&lt;/code&gt;, etc.) can cause &lt;code&gt;poi-ooxml&lt;/code&gt; to read unexpected data or consume
 excessive resources. It affects all &lt;code&gt;poi-ooxml&lt;/code&gt; releases before 5.4.0 (fixed in 5.4.0). Solr bundles
 an affected …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
