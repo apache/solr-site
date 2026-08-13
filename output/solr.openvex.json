@@ -27,11 +27,35 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2012-2098",
-        "aliases": [
-          "CVE-2018-1324",
-          "CVE-2018-11771"
-        ]
+        "name": "CVE-2012-2098"
+      },
+      "products": [
+        {
+          "@id": "commons-compress (only as part of Ant 1.8.2)"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "Only used in test framework and at build time.",
+      "status_notes": "Affected Apache Solr versions: 4.6.0-7.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2018-1324"
+      },
+      "products": [
+        {
+          "@id": "commons-compress (only as part of Ant 1.8.2)"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "Only used in test framework and at build time.",
+      "status_notes": "Affected Apache Solr versions: 4.6.0-7.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2018-11771"
       },
       "products": [
         {
@@ -59,15 +83,91 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2014-7940",
-        "aliases": [
-          "CVE-2016-6293",
-          "CVE-2016-7415",
-          "CVE-2017-14952",
-          "CVE-2017-17484",
-          "CVE-2017-7867",
-          "CVE-2017-7868"
-        ]
+        "name": "CVE-2014-7940"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.lucene/lucene-analyzers-icu@7.3.1"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.",
+      "status_notes": "Affected Apache Solr versions: 7.3.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2016-6293"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.lucene/lucene-analyzers-icu@7.3.1"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.",
+      "status_notes": "Affected Apache Solr versions: 7.3.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2016-7415"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.lucene/lucene-analyzers-icu@7.3.1"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.",
+      "status_notes": "Affected Apache Solr versions: 7.3.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2017-14952"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.lucene/lucene-analyzers-icu@7.3.1"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.",
+      "status_notes": "Affected Apache Solr versions: 7.3.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2017-17484"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.lucene/lucene-analyzers-icu@7.3.1"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.",
+      "status_notes": "Affected Apache Solr versions: 7.3.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2017-7867"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.lucene/lucene-analyzers-icu@7.3.1"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.",
+      "status_notes": "Affected Apache Solr versions: 7.3.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2017-7868"
       },
       "products": [
         {
@@ -95,11 +195,7 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2015-0899",
-        "aliases": [
-          "CVE-2016-1181",
-          "CVE-2016-1182"
-        ]
+        "name": "CVE-2015-0899"
       },
       "products": [
         {
@@ -113,12 +209,35 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2016-6809",
-        "aliases": [
-          "CVE-2018-1335",
-          "CVE-2018-1338",
-          "CVE-2018-1339"
-        ]
+        "name": "CVE-2016-1181"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.velocity/velocity-tools@2.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "Scanners flag `velocity-tools-2.0.jar` with Apache Struts 1 CVEs because its POM declares a\ntransitive dependency on `struts-core`, `struts-taglib` and `struts-tiles` 1.3.8. Solr does not\nship any Struts jar \u2014 the dependency is excluded and only appears as a transitive POM listing\n(see SOLR-2849) \u2014 so these Struts vulnerabilities are not present in, or exploitable through, Solr.",
+      "status_notes": "Affected Apache Solr versions: 6.6.2-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2016-1182"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.velocity/velocity-tools@2.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "Scanners flag `velocity-tools-2.0.jar` with Apache Struts 1 CVEs because its POM declares a\ntransitive dependency on `struts-core`, `struts-taglib` and `struts-tiles` 1.3.8. Solr does not\nship any Struts jar \u2014 the dependency is excluded and only appears as a transitive POM listing\n(see SOLR-2849) \u2014 so these Struts vulnerabilities are not present in, or exploitable through, Solr.",
+      "status_notes": "Affected Apache Solr versions: 6.6.2-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2016-6809"
       },
       "products": [
         {
@@ -135,10 +254,78 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2017-14868",
-        "aliases": [
-          "CVE-2017-14949"
-        ]
+        "name": "CVE-2018-1335"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.gagravarr/vorbis-java-tika@0.6"
+        },
+        {
+          "@id": "pkg:maven/org.gagravarr/vorbis-java-tika@0.8"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11.",
+      "status_notes": "Affected Apache Solr versions: 5.5.5, 6.2.0-9.10."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2018-1338"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.gagravarr/vorbis-java-tika@0.6"
+        },
+        {
+          "@id": "pkg:maven/org.gagravarr/vorbis-java-tika@0.8"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11.",
+      "status_notes": "Affected Apache Solr versions: 5.5.5, 6.2.0-9.10."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2018-1339"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.gagravarr/vorbis-java-tika@0.6"
+        },
+        {
+          "@id": "pkg:maven/org.gagravarr/vorbis-java-tika@0.8"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.\n\nTika as an in-process component was removed in Solr 9.11.",
+      "status_notes": "Affected Apache Solr versions: 5.5.5, 6.2.0-9.10."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2017-14868"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.restlet.jee/org.restlet@2.3.0"
+        },
+        {
+          "@id": "pkg:maven/org.restlet.jee/org.restlet@2.4.0"
+        },
+        {
+          "@id": "pkg:maven/org.restlet.jee/org.restlet@2.4.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "Solr should not be exposed outside a firewall where bad actors can send HTTP requests. These two CVEs specifically involve classes (SimpleXMLProvider and XmlRepresentation, respectively) that Solr does not use in any code path.",
+      "status_notes": "Affected Apache Solr versions: 5.2.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2017-14949"
       },
       "products": [
         {
@@ -181,23 +368,203 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2017-15095",
-        "aliases": [
-          "CVE-2017-17485",
-          "CVE-2017-7525",
-          "CVE-2018-5968",
-          "CVE-2018-7489",
-          "CVE-2019-12086",
-          "CVE-2019-12384",
-          "CVE-2018-12814",
-          "CVE-2019-14379",
-          "CVE-2019-14439",
-          "CVE-2020-35490",
-          "CVE-2020-35491",
-          "CVE-2021-20190",
-          "CVE-2019-14540",
-          "CVE-2019-16335"
-        ]
+        "name": "CVE-2017-15095"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2017-17485"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2017-7525"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2018-5968"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2018-7489"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2019-12086"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2019-12384"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2018-12814"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2019-14379"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2019-14439"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2020-35490"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2020-35491"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2021-20190"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2019-14540"
+      },
+      "products": [
+        {
+          "@id": "jackson-databind-*.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "These CVEs, and most of the known jackson-databind CVEs since 2017, are all related to problematic 'gadgets' that could be exploited during deserialization of untrusted data. The Jackson developers described 4 conditions that must be met in order for a problematic gadget to be exploited. See https://medium.com/@cowtowncoder/on-jackson-cves-dont-panic-here-is-what-you-need-to-know-54cd0d6e8062. Solr's use of jackson-databind does not meet 1 of the 4 conditions described which makes these CVEs unexploitable. The specific condition that Solr does not meet is the 3rd one: 'Enable polymorphic type handling' Solr does not include any polymorphic type handling, and Solr does not configure jackson-databind de/serialization to expect or include class names in serialized JSON. Two CVEs, 2019-14540 & 2019-16335, are related to HikariConfig and HikariDataSource classes, neither of which are used in Solr's code base.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-8.x."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2019-16335"
       },
       "products": [
         {
@@ -391,10 +758,21 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2019-10241",
-        "aliases": [
-          "CVE-2019-10247"
-        ]
+        "name": "CVE-2019-10241"
+      },
+      "products": [
+        {
+          "@id": "jetty-9.4.14"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "Solr upgraded to Jetty 9.4.19 for the 8.2 release. Additionally, the path to exploit these vulnerabilities was fixed in 8.1 and 7.7.2. Earlier versions can manually patch their configurations as described in SOLR-13409.",
+      "status_notes": "Affected Apache Solr versions: 7.7.0-8.2."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2019-10247"
       },
       "products": [
         {
@@ -510,10 +888,27 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2021-45105",
-        "aliases": [
-          "CVE-2021-45046"
-        ]
+        "name": "CVE-2021-45105"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.logging.log4j/log4j-core@2.11.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.logging.log4j/log4j-core@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/org.apache.logging.log4j/log4j-core@2.13.2"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2022-12-14T00:00:00Z",
+      "impact_statement": "The MDC data used by Solr are for the collection, shard, replica, core and node names, and a potential trace id, which are all sanitized. Furthermore, Solr's default log configuration doesn't use double-dollar-sign and we don't imagine a user would want to do that.",
+      "status_notes": "Affected Apache Solr versions: 7.4-8.11.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2021-45046"
       },
       "products": [
         {
@@ -613,10 +1008,27 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2023-51074",
-        "aliases": [
-          "GHSA-pfh2-hfmq-phg5"
-        ]
+        "name": "CVE-2023-51074"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.jayway.jsonpath/json-path@2.4.0"
+        },
+        {
+          "@id": "pkg:maven/com.jayway.jsonpath/json-path@2.7.0"
+        },
+        {
+          "@id": "pkg:maven/com.jayway.jsonpath/json-path@2.8.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2024-01-12T00:00:00Z",
+      "impact_statement": "The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.\n\nCVE-2023-51074 affects json-path 2.2.0 through 2.8.0 (fixed in 2.9.0). Solr first bundled json-path\nin Solr 8.1.0 (2.4.0) and shipped an affected version \u2014 2.4.0, then 2.7.0, then 2.8.0 \u2014 through Solr\n9.5.0; Solr 9.6.0 upgraded to the fixed 2.9.0. The affected range is therefore 8.1.0 \u2013 9.5.0.",
+      "status_notes": "Affected Apache Solr versions: 8.1.0-9.5.0."
+    },
+    {
+      "vulnerability": {
+        "name": "GHSA-pfh2-hfmq-phg5"
       },
       "products": [
         {
@@ -1086,12 +1498,88 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2023-33201",
-        "aliases": [
-          "CVE-2024-29857",
-          "CVE-2024-30171",
-          "CVE-2024-30172"
-        ]
+        "name": "CVE-2023-33201"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.54"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.60"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.64"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.65"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.70"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four vulnerabilities in the Bouncy Castle crypto provider (`org.bouncycastle:bcprov-jdk15on`),\neach in a distinct crypto operation:\n\n* **CVE-2023-33201** \u2014 LDAP injection in the X.509 `CertStore` (fixed in 1.74); requires using Bouncy\n  Castle's LDAP-backed `CertStore` for certificate lookups.\n* **CVE-2024-29857** \u2014 importing an EC certificate with crafted F2m parameters causes CPU exhaustion\n  (fixed in 1.78); requires parsing/importing an attacker-supplied EC certificate.\n* **CVE-2024-30171** \u2014 RSA/TLS timing side-channel (\"Marvin\"; fixed in 1.78); requires using Bouncy\n  Castle as the **TLS/JSSE provider** with an attacker able to time RSA handshake responses.\n* **CVE-2024-30172** \u2014 infinite loop verifying a crafted Ed25519 signature (fixed in 1.78); requires\n  verifying an attacker-supplied Ed25519 signature.\n\nSolr is **not affected**. Bouncy Castle (`bcprov`/`bcpkix`/`bcmail`/`bcutil`) is bundled only by the\noptional **extraction (Solr Cell)** module, where Apache Tika / PDFBox use it to handle encrypted or\ndigitally-signed PDFs during document parsing. Solr does not use Bouncy Castle as a security provider\nin any of the ways these CVEs require:\n\n* Solr's TLS is served by the JVM's default JSSE provider, **not** Bouncy Castle, so the RSA timing\n  side-channel (CVE-2024-30171) has no Solr-reachable surface.\n* Solr never configures an LDAP `CertStore` (CVE-2023-33201), never imports attacker-supplied EC\n  certificates (CVE-2024-29857), and never verifies standalone Ed25519 signatures (CVE-2024-30172).\n* Tika's text/metadata **extraction** does not exercise TLS, LDAP certificate lookup, EC-certificate\n  import, or Ed25519 signature verification, so even with Solr Cell enabled none of the vulnerable\n  code paths are reached.\n\nSolr shipped an affected `bcprov-jdk15on` via Solr Cell from 7.3.0 (1.54) through 9.10.1 (1.70) \u2014 all\nbelow the fixed 1.74/1.78. Solr 10.0.0 upgraded the extraction stack to Tika 3.x, whose PDFBox no\nlonger bundles Bouncy Castle, so 10.x ships no `bcprov` at all. The affected range is therefore\n7.3.0 \u2013 9.10.1. (Solr 9.5\u20139.6 also briefly bundled a separate `bcprov-jdk18on` 1.77 for another\nmodule, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-9.10.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-29857"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.54"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.60"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.64"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.65"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.70"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four vulnerabilities in the Bouncy Castle crypto provider (`org.bouncycastle:bcprov-jdk15on`),\neach in a distinct crypto operation:\n\n* **CVE-2023-33201** \u2014 LDAP injection in the X.509 `CertStore` (fixed in 1.74); requires using Bouncy\n  Castle's LDAP-backed `CertStore` for certificate lookups.\n* **CVE-2024-29857** \u2014 importing an EC certificate with crafted F2m parameters causes CPU exhaustion\n  (fixed in 1.78); requires parsing/importing an attacker-supplied EC certificate.\n* **CVE-2024-30171** \u2014 RSA/TLS timing side-channel (\"Marvin\"; fixed in 1.78); requires using Bouncy\n  Castle as the **TLS/JSSE provider** with an attacker able to time RSA handshake responses.\n* **CVE-2024-30172** \u2014 infinite loop verifying a crafted Ed25519 signature (fixed in 1.78); requires\n  verifying an attacker-supplied Ed25519 signature.\n\nSolr is **not affected**. Bouncy Castle (`bcprov`/`bcpkix`/`bcmail`/`bcutil`) is bundled only by the\noptional **extraction (Solr Cell)** module, where Apache Tika / PDFBox use it to handle encrypted or\ndigitally-signed PDFs during document parsing. Solr does not use Bouncy Castle as a security provider\nin any of the ways these CVEs require:\n\n* Solr's TLS is served by the JVM's default JSSE provider, **not** Bouncy Castle, so the RSA timing\n  side-channel (CVE-2024-30171) has no Solr-reachable surface.\n* Solr never configures an LDAP `CertStore` (CVE-2023-33201), never imports attacker-supplied EC\n  certificates (CVE-2024-29857), and never verifies standalone Ed25519 signatures (CVE-2024-30172).\n* Tika's text/metadata **extraction** does not exercise TLS, LDAP certificate lookup, EC-certificate\n  import, or Ed25519 signature verification, so even with Solr Cell enabled none of the vulnerable\n  code paths are reached.\n\nSolr shipped an affected `bcprov-jdk15on` via Solr Cell from 7.3.0 (1.54) through 9.10.1 (1.70) \u2014 all\nbelow the fixed 1.74/1.78. Solr 10.0.0 upgraded the extraction stack to Tika 3.x, whose PDFBox no\nlonger bundles Bouncy Castle, so 10.x ships no `bcprov` at all. The affected range is therefore\n7.3.0 \u2013 9.10.1. (Solr 9.5\u20139.6 also briefly bundled a separate `bcprov-jdk18on` 1.77 for another\nmodule, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-9.10.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-30171"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.54"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.60"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.64"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.65"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.70"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four vulnerabilities in the Bouncy Castle crypto provider (`org.bouncycastle:bcprov-jdk15on`),\neach in a distinct crypto operation:\n\n* **CVE-2023-33201** \u2014 LDAP injection in the X.509 `CertStore` (fixed in 1.74); requires using Bouncy\n  Castle's LDAP-backed `CertStore` for certificate lookups.\n* **CVE-2024-29857** \u2014 importing an EC certificate with crafted F2m parameters causes CPU exhaustion\n  (fixed in 1.78); requires parsing/importing an attacker-supplied EC certificate.\n* **CVE-2024-30171** \u2014 RSA/TLS timing side-channel (\"Marvin\"; fixed in 1.78); requires using Bouncy\n  Castle as the **TLS/JSSE provider** with an attacker able to time RSA handshake responses.\n* **CVE-2024-30172** \u2014 infinite loop verifying a crafted Ed25519 signature (fixed in 1.78); requires\n  verifying an attacker-supplied Ed25519 signature.\n\nSolr is **not affected**. Bouncy Castle (`bcprov`/`bcpkix`/`bcmail`/`bcutil`) is bundled only by the\noptional **extraction (Solr Cell)** module, where Apache Tika / PDFBox use it to handle encrypted or\ndigitally-signed PDFs during document parsing. Solr does not use Bouncy Castle as a security provider\nin any of the ways these CVEs require:\n\n* Solr's TLS is served by the JVM's default JSSE provider, **not** Bouncy Castle, so the RSA timing\n  side-channel (CVE-2024-30171) has no Solr-reachable surface.\n* Solr never configures an LDAP `CertStore` (CVE-2023-33201), never imports attacker-supplied EC\n  certificates (CVE-2024-29857), and never verifies standalone Ed25519 signatures (CVE-2024-30172).\n* Tika's text/metadata **extraction** does not exercise TLS, LDAP certificate lookup, EC-certificate\n  import, or Ed25519 signature verification, so even with Solr Cell enabled none of the vulnerable\n  code paths are reached.\n\nSolr shipped an affected `bcprov-jdk15on` via Solr Cell from 7.3.0 (1.54) through 9.10.1 (1.70) \u2014 all\nbelow the fixed 1.74/1.78. Solr 10.0.0 upgraded the extraction stack to Tika 3.x, whose PDFBox no\nlonger bundles Bouncy Castle, so 10.x ships no `bcprov` at all. The affected range is therefore\n7.3.0 \u2013 9.10.1. (Solr 9.5\u20139.6 also briefly bundled a separate `bcprov-jdk18on` 1.77 for another\nmodule, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-9.10.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2024-30172"
       },
       "products": [
         {
@@ -1576,10 +2064,67 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2026-33870",
-        "aliases": [
-          "CVE-2026-33871"
-        ]
+        "name": "CVE-2026-33870"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-18T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-33870 is an HTTP/1.1 request smuggling vulnerability via malformed chunked transfer encoding extension values in Netty's server-side HTTP codec. CVE-2026-33871 is an HTTP/2 CONTINUATION frame flood DoS against a Netty HTTP/2 server. Both require Netty to be used as an HTTP server accepting connections from untrusted clients. In Solr, Netty is a transitive dependency (via ZooKeeper 3.9.x and optionally the OpenTelemetry OTLP exporter); it is used exclusively as an HTTP client and for ZooKeeper's own non-HTTP binary protocol. Solr's HTTP server is Jetty, not Netty. No Netty ServerBootstrap or HTTP server pipeline is configured in Solr. Therefore neither CVE can be triggered against a running Solr instance.\n\nBoth CVEs affect Netty releases before 4.1.132 and 4.2.0 through 4.2.9. Solr has bundled the modular\n`netty-codec-http` / `netty-codec-http2` artifacts (transitively, via ZooKeeper and the optional\nOpenTelemetry OTLP exporter) since Solr 9.2.0 \u2014 earlier releases used the `netty-all` uber-jar \u2014 and\nevery release from 9.2.0 through 10.0.0 ships an affected version (4.1.89.Final through 4.2.6.Final).\nThe affected range is therefore 9.2.0 \u2013 10.0.0.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-33871"
       },
       "products": [
         {
@@ -2293,10 +2838,22 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2024-47561",
-        "aliases": [
-          "CVE-2023-39410"
-        ]
+        "name": "CVE-2024-47561"
+      },
+      "products": [
+        {
+          "@id": "avro-1.9.2.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2024-47561 (critical) is an arbitrary-code-execution issue in the Apache Avro Java SDK: parsing\nan attacker-controlled Avro **schema** can instantiate arbitrary classes (affects avro < 1.11.4).\nCVE-2023-39410 is a memory-exhaustion / DoS issue when **deserializing untrusted Avro data** (affects\navro < 1.11.3). Both require the application to feed attacker-controlled Avro input to the SDK.\n\nSolr is **not affected**:\n\n* **Solr does not use Apache Avro.** There is no `org.apache.avro` usage anywhere in the Solr\n  codebase, and Solr ships no standalone `avro-*.jar`. Avro appears only as an embedded/transitive\n  artifact of the optional Hadoop integration (the `hdfs` / `hadoop-auth` modules, which are not part\n  of a default install).\n* **The vulnerable entry points are never reached.** Solr never parses an externally-supplied Avro\n  schema and never deserializes untrusted Avro data \u2014 the only code that pulls Avro in is Hadoop's\n  own internal machinery, driven by administrator-supplied configuration, not by untrusted request\n  input.\n\nThe affected range covers the 9.x line, where the optional Hadoop modules transitively carry Avro\n1.9.2; Solr's own code path never invokes it.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-9.10.1."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2023-39410"
       },
       "products": [
         {
@@ -2326,10 +2883,22 @@
     },
     {
       "vulnerability": {
-        "name": "GHSA-r7wm-3cxj-wff9",
-        "aliases": [
-          "CVE-2025-52999"
-        ]
+        "name": "GHSA-r7wm-3cxj-wff9"
+      },
+      "products": [
+        {
+          "@id": "jackson-core-2.12.7.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "GHSA-r7wm-3cxj-wff9 is a `maxNumberLength` bypass in jackson-core's **async / non-blocking** parser\n(an incomplete fix for GHSA-72hv-8253-57qq; affects < 2.18.8 and 2.19.0\u20132.21.3). CVE-2025-52999 is a\n`StackOverflowError` when parsing **very deeply nested** input (affects < 2.15.0).\n\nSolr is **not affected**:\n\n* **The async parser is never used.** Solr deserializes JSON with the standard *synchronous* Jackson\n  parser; it never calls the non-blocking `NonBlockingByteArrayParser` API, so the async-only\n  `maxNumberLength` bypass (GHSA-r7wm) is unreachable \u2014 as already assessed for GHSA-72hv-8253-57qq.\n* **Solr's own jackson-core is patched.** The bundled jackson-core is 2.18.0 in current 9.x and\n  2.22.0 in 9.11 \u2014 both fixed for the deep-nesting StackOverflow (fixed in 2.15.0). The `2.12.7`\n  copy a scanner flags is Hadoop's **shaded** jackson, reachable only through the optional Hadoop\n  modules, which parse administrator-supplied configuration rather than untrusted external JSON.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2025-52999"
       },
       "products": [
         {
@@ -2514,14 +3083,7 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2026-50193",
-        "aliases": [
-          "CVE-2026-54514",
-          "CVE-2026-54515",
-          "CVE-2026-59889",
-          "CVE-2026-59888",
-          "GHSA-mhm7-754m-9p8w"
-        ]
+        "name": "CVE-2026-50193"
       },
       "products": [
         {
@@ -2587,10 +3149,337 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2026-54512",
-        "aliases": [
-          "CVE-2026-54513"
-        ]
+        "name": "CVE-2026-54514"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), and GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-54515"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), and GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59889"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), and GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59888"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), and GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "GHSA-mhm7-754m-9p8w"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), and GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-54512"
       },
       "products": [
         {
@@ -2656,10 +3545,73 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2026-56740",
-        "aliases": [
-          "CVE-2026-56741"
-        ]
+        "name": "CVE-2026-54513"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-54512 and CVE-2026-54513 are bypasses of jackson-databind's `PolymorphicTypeValidator` \u2014 via\ngeneric type parameters (54512) and via an array-subtype allowlist gap in\n`allowIfSubType` (54513) \u2014 that can let unexpected classes be instantiated during polymorphic\ndeserialization (affects 2.10.0\u20132.18.7 and 2.19.0\u20132.21.3).\n\nSolr is **not affected**. Both issues are only exploitable when an application enables **polymorphic\ndeserialization** \u2014 default typing (`activateDefaultTyping`), `@JsonTypeInfo`, or a\n`BasicPolymorphicTypeValidator` allowlist \u2014 and then deserializes attacker-controlled JSON through it.\nSolr does none of this: it maps request JSON to fixed, known target types and never enables default\ntyping or polymorphic deserialization of untrusted input, so the `PolymorphicTypeValidator` code path\nthese CVEs target is never exercised. (The `2.12.7.1` copy a scanner flags is Hadoop's shaded\njackson-databind; Solr's own is 2.18.0 in current 9.x and 2.22.0 in 9.11.)",
+      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-56740"
       },
       "products": [
         {
@@ -2674,13 +3626,22 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2026-56745",
-        "aliases": [
-          "CVE-2026-55833",
-          "CVE-2026-55831",
-          "CVE-2026-56819",
-          "CVE-2026-59901"
-        ]
+        "name": "CVE-2026-56741"
+      },
+      "products": [
+        {
+          "@id": "jline-remote-telnet-3.9.0.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_present",
+      "impact_statement": "CVE-2026-56740 and CVE-2026-56741 are unauthenticated remote denial-of-service issues in **JLine's\nTelnet server** \u2014 unbounded NEW-ENVIRON variables (56740) and unbounded NAWS terminal-geometry values\n(56741) in the `jline-remote-telnet` Telnet daemon (affects < 3.30.14, and the 4.0.x / 4.1.x lines).\n\nSolr is **not affected**:\n\n* **The vulnerable component is not shipped or run.** Solr ships no `jline-remote-telnet` jar; the\n  `3.9.0` coordinate a scanner reports comes only from a dependency reference embedded in the bundled\n  `zookeeper-3.9.5` jar's metadata. Solr never starts a JLine Telnet server (`Telnetd`).\n* JLine is used, at most, for the local interactive `bin/solr` CLI terminal \u2014 a `LineReader` on the\n  operator's own console, not a network-listening Telnet daemon \u2014 so nothing accepts remote Telnet\n  connections that the vulnerable NAWS/NEW-ENVIRON parsing could act on.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-56745"
       },
       "products": [
         {
@@ -2743,13 +3704,499 @@
     },
     {
       "vulnerability": {
-        "name": "CVE-2026-59899",
-        "aliases": [
-          "CVE-2026-56746",
-          "CVE-2026-59898",
-          "CVE-2026-59921",
-          "CVE-2026-59900"
-        ]
+        "name": "CVE-2026-55833"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-compression@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues are resource-exhaustion / DoS bugs in server- and decoder-side code paths\n(all affect Netty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-56745, CVE-2026-55833, CVE-2026-55831 \u2014 the **SPDY** codec (`SpdyHttpDecoder` and SPDY\n  header/settings handling) in `netty-codec-http`.\n* CVE-2026-56819 \u2014 server-side **HTTP/2 decompression** ByteBuf reference leak in `netty-codec-http2`.\n* CVE-2026-59901 \u2014 infinite loop in the **Bzip2** decoder in `netty-codec-compression`.\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty acts strictly as a **client**. Solr's HTTP server is Jetty, not\nNetty: Solr never runs a Netty HTTP/HTTP2/SPDY server, never enables the SPDY codec, and never feeds\nattacker-controlled compressed (bzip2) streams through Netty. The vulnerable server/decoder code\npaths are therefore unreachable \u2014 the same reasoning as CVE-2026-33870 / CVE-2026-33871.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-55831"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-compression@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues are resource-exhaustion / DoS bugs in server- and decoder-side code paths\n(all affect Netty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-56745, CVE-2026-55833, CVE-2026-55831 \u2014 the **SPDY** codec (`SpdyHttpDecoder` and SPDY\n  header/settings handling) in `netty-codec-http`.\n* CVE-2026-56819 \u2014 server-side **HTTP/2 decompression** ByteBuf reference leak in `netty-codec-http2`.\n* CVE-2026-59901 \u2014 infinite loop in the **Bzip2** decoder in `netty-codec-compression`.\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty acts strictly as a **client**. Solr's HTTP server is Jetty, not\nNetty: Solr never runs a Netty HTTP/HTTP2/SPDY server, never enables the SPDY codec, and never feeds\nattacker-controlled compressed (bzip2) streams through Netty. The vulnerable server/decoder code\npaths are therefore unreachable \u2014 the same reasoning as CVE-2026-33870 / CVE-2026-33871.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-56819"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-compression@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues are resource-exhaustion / DoS bugs in server- and decoder-side code paths\n(all affect Netty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-56745, CVE-2026-55833, CVE-2026-55831 \u2014 the **SPDY** codec (`SpdyHttpDecoder` and SPDY\n  header/settings handling) in `netty-codec-http`.\n* CVE-2026-56819 \u2014 server-side **HTTP/2 decompression** ByteBuf reference leak in `netty-codec-http2`.\n* CVE-2026-59901 \u2014 infinite loop in the **Bzip2** decoder in `netty-codec-compression`.\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty acts strictly as a **client**. Solr's HTTP server is Jetty, not\nNetty: Solr never runs a Netty HTTP/HTTP2/SPDY server, never enables the SPDY codec, and never feeds\nattacker-controlled compressed (bzip2) streams through Netty. The vulnerable server/decoder code\npaths are therefore unreachable \u2014 the same reasoning as CVE-2026-33870 / CVE-2026-33871.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59901"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-compression@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues are resource-exhaustion / DoS bugs in server- and decoder-side code paths\n(all affect Netty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-56745, CVE-2026-55833, CVE-2026-55831 \u2014 the **SPDY** codec (`SpdyHttpDecoder` and SPDY\n  header/settings handling) in `netty-codec-http`.\n* CVE-2026-56819 \u2014 server-side **HTTP/2 decompression** ByteBuf reference leak in `netty-codec-http2`.\n* CVE-2026-59901 \u2014 infinite loop in the **Bzip2** decoder in `netty-codec-compression`.\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty acts strictly as a **client**. Solr's HTTP server is Jetty, not\nNetty: Solr never runs a Netty HTTP/HTTP2/SPDY server, never enables the SPDY codec, and never feeds\nattacker-controlled compressed (bzip2) streams through Netty. The vulnerable server/decoder code\npaths are therefore unreachable \u2014 the same reasoning as CVE-2026-33870 / CVE-2026-33871.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59899"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect\nNetty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-59899 \u2014 unbounded per-connection queue growth in `HttpContentEncoder` via HTTP/1.1\n  pipelining (server response encoding).\n* CVE-2026-56746 \u2014 CORS short-circuit failure / security-control bypass (server CORS handler).\n* CVE-2026-59898 \u2014 WebSocket V07/V08 handshaker missing Connection/Upgrade validation (server).\n* CVE-2026-59921 \u2014 CRLF injection via multipart filename in the outbound `HttpPostRequestEncoder`.\n* CVE-2026-59900 \u2014 Host-header de-duplication gap in HTTP/2\u2192HTTP/1.x translation (server/proxy).\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty is used strictly as a **client**. Solr's HTTP server is Jetty:\nSolr never runs a Netty HTTP server, CORS handler, WebSocket server, or HTTP/2\u21921 proxy, and never\nuses Netty's multipart request encoder, so none of these code paths are reachable.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-56746"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect\nNetty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-59899 \u2014 unbounded per-connection queue growth in `HttpContentEncoder` via HTTP/1.1\n  pipelining (server response encoding).\n* CVE-2026-56746 \u2014 CORS short-circuit failure / security-control bypass (server CORS handler).\n* CVE-2026-59898 \u2014 WebSocket V07/V08 handshaker missing Connection/Upgrade validation (server).\n* CVE-2026-59921 \u2014 CRLF injection via multipart filename in the outbound `HttpPostRequestEncoder`.\n* CVE-2026-59900 \u2014 Host-header de-duplication gap in HTTP/2\u2192HTTP/1.x translation (server/proxy).\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty is used strictly as a **client**. Solr's HTTP server is Jetty:\nSolr never runs a Netty HTTP server, CORS handler, WebSocket server, or HTTP/2\u21921 proxy, and never\nuses Netty's multipart request encoder, so none of these code paths are reachable.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59898"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect\nNetty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-59899 \u2014 unbounded per-connection queue growth in `HttpContentEncoder` via HTTP/1.1\n  pipelining (server response encoding).\n* CVE-2026-56746 \u2014 CORS short-circuit failure / security-control bypass (server CORS handler).\n* CVE-2026-59898 \u2014 WebSocket V07/V08 handshaker missing Connection/Upgrade validation (server).\n* CVE-2026-59921 \u2014 CRLF injection via multipart filename in the outbound `HttpPostRequestEncoder`.\n* CVE-2026-59900 \u2014 Host-header de-duplication gap in HTTP/2\u2192HTTP/1.x translation (server/proxy).\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty is used strictly as a **client**. Solr's HTTP server is Jetty:\nSolr never runs a Netty HTTP server, CORS handler, WebSocket server, or HTTP/2\u21921 proxy, and never\nuses Netty's multipart request encoder, so none of these code paths are reachable.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59921"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http@4.2.6.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.104.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.108.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.111.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.114.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.89.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.93.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.1.99.Final"
+        },
+        {
+          "@id": "pkg:maven/io.netty/netty-codec-http2@4.2.6.Final"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect\nNetty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-59899 \u2014 unbounded per-connection queue growth in `HttpContentEncoder` via HTTP/1.1\n  pipelining (server response encoding).\n* CVE-2026-56746 \u2014 CORS short-circuit failure / security-control bypass (server CORS handler).\n* CVE-2026-59898 \u2014 WebSocket V07/V08 handshaker missing Connection/Upgrade validation (server).\n* CVE-2026-59921 \u2014 CRLF injection via multipart filename in the outbound `HttpPostRequestEncoder`.\n* CVE-2026-59900 \u2014 Host-header de-duplication gap in HTTP/2\u2192HTTP/1.x translation (server/proxy).\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty is used strictly as a **client**. Solr's HTTP server is Jetty:\nSolr never runs a Netty HTTP server, CORS handler, WebSocket server, or HTTP/2\u21921 proxy, and never\nuses Netty's multipart request encoder, so none of these code paths are reachable.",
+      "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59900"
       },
       "products": [
         {
