@@ -1262,7 +1262,24 @@ is referenced only inside Log4j's own JARs.
 Neither Solr nor any of its bundled dependencies ever constructs or logs such a message.&lt;/p&gt;
 &lt;p&gt;Because no shipped code can hand a triggering value to the layout,
 the vulnerable code path cannot be reached regardless of the configured layout,
-and the Solr community considers this vulnerability &lt;strong&gt;non-exploitable&lt;/strong&gt; in the binary distribution.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</title><link href="/cve-2025-48924.html" rel="alternate"/><published>2025-08-04T00:00:00+00:00</published><updated>2025-08-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-08-04:/cve-2025-48924.html</id><summary type="html">&lt;p&gt;CVE-2025-48924 is an uncontrolled-recursion issue in Apache Commons Lang's
+and the Solr community considers this vulnerability &lt;strong&gt;non-exploitable&lt;/strong&gt; in the binary distribution.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache POI: improper input validation parsing OOXML files</title><link href="/cve-2025-31672.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2025-31672.html</id><summary type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
+a crafted OOXML file (&lt;code&gt;.xlsx&lt;/code&gt;, &lt;code&gt;.docx&lt;/code&gt;, etc.) can cause &lt;code&gt;poi-ooxml&lt;/code&gt; to read unexpected data or consume
+excessive resources. It affects all &lt;code&gt;poi-ooxml&lt;/code&gt; releases before 5.4.0 (fixed in 5.4.0). Solr bundles
+an affected …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
+a crafted OOXML file (&lt;code&gt;.xlsx&lt;/code&gt;, &lt;code&gt;.docx&lt;/code&gt;, etc.) can cause &lt;code&gt;poi-ooxml&lt;/code&gt; to read unexpected data or consume
+excessive resources. It affects all &lt;code&gt;poi-ooxml&lt;/code&gt; releases before 5.4.0 (fixed in 5.4.0). Solr bundles
+an affected &lt;code&gt;poi-ooxml&lt;/code&gt; via the optional &lt;strong&gt;extraction (Solr Cell)&lt;/strong&gt; module — 5.2.2 in the 9.x line,
+and older 3.x/4.x builds before that — from Solr 3.6.0 through 9.10.1. Solr 10.x ships no POI, and the
+9.x line upgraded to a fixed &lt;code&gt;poi-ooxml&lt;/code&gt; (5.5.1) after 9.10.1, so the affected range is 3.6.0 – 9.10.1.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt; in a supported configuration. Apache POI is used only by the extraction
+(Solr Cell) module, which parses rich documents (PDF, Office, etc.) via Apache Tika. Solr Cell is not
+enabled by default and is &lt;strong&gt;not recommended for production&lt;/strong&gt;: the project's guidance is to run Tika as
+a separate service and index the extracted text, rather than have Solr parse untrusted documents
+in-process. A deployment that follows that guidance never feeds an attacker-controlled OOXML file to
+the bundled POI, so the vulnerable parser is not reached.&lt;/p&gt;
+&lt;p&gt;Operators who nonetheless enable Solr Cell and parse untrusted documents should either move document
+extraction out of Solr (the recommended architecture) or replace the bundled
+&lt;code&gt;modules/extraction/lib/poi-ooxml-*.jar&lt;/code&gt; with &lt;code&gt;poi-ooxml&lt;/code&gt; 5.4.0 or later. Tracked as SOLR-17903.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</title><link href="/cve-2025-48924.html" rel="alternate"/><published>2025-08-04T00:00:00+00:00</published><updated>2025-08-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-08-04:/cve-2025-48924.html</id><summary type="html">&lt;p&gt;CVE-2025-48924 is an uncontrolled-recursion issue in Apache Commons Lang's
 &lt;code&gt;ClassUtils.getClass(...)&lt;/code&gt;: a very long, deeply-nested class name can exhaust the stack and
 throw &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects &lt;code&gt;commons-lang3&lt;/code&gt; from 3.0 up to (but not including) 3.18.0,
 so dependency scanners flag the &lt;code&gt;commons-lang3&lt;/code&gt; JAR bundled in Solr 9.x …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-48924 is an uncontrolled-recursion issue in Apache Commons Lang's

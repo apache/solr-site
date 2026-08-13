@@ -2245,6 +2245,45 @@ with <code>log4j-core-2.25.4.jar</code>.</p>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34477">CVE-2026-34477</a></li>
                 </ul>
             </article>
+            <article id="cve-2025-31672" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-31672">CVE-2025-31672</a>, Apache POI: improper input validation parsing OOXML files</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 3.6.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
+a crafted OOXML file (<code>.xlsx</code>, <code>.docx</code>, etc.) can cause <code>poi-ooxml</code> to read unexpected data or consume
+excessive resources. It affects all <code>poi-ooxml</code> releases before 5.4.0 (fixed in 5.4.0). Solr bundles
+an affected <code>poi-ooxml</code> via the optional <strong>extraction (Solr Cell)</strong> module — 5.2.2 in the 9.x line,
+and older 3.x/4.x builds before that — from Solr 3.6.0 through 9.10.1. Solr 10.x ships no POI, and the
+9.x line upgraded to a fixed <code>poi-ooxml</code> (5.5.1) after 9.10.1, so the affected range is 3.6.0 – 9.10.1.</p>
+<p>Solr is <strong>not affected</strong> in a supported configuration. Apache POI is used only by the extraction
+(Solr Cell) module, which parses rich documents (PDF, Office, etc.) via Apache Tika. Solr Cell is not
+enabled by default and is <strong>not recommended for production</strong>: the project's guidance is to run Tika as
+a separate service and index the extracted text, rather than have Solr parse untrusted documents
+in-process. A deployment that follows that guidance never feeds an attacker-controlled OOXML file to
+the bundled POI, so the vulnerable parser is not reached.</p>
+<p>Operators who nonetheless enable Solr Cell and parse untrusted documents should either move document
+extraction out of Solr (the recommended architecture) or replace the bundled
+<code>modules/extraction/lib/poi-ooxml-*.jar</code> with <code>poi-ooxml</code> 5.4.0 or later. Tracked as SOLR-17903.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17903">SOLR-17903</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-31672">CVE-2025-31672</a></li>
+                </ul>
+            </article>
             <article id="cve-2025-48924" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48924">CVE-2025-48924</a>, Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</h3>

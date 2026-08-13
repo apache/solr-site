@@ -1086,6 +1086,56 @@
     },
     {
       "vulnerability": {
+        "name": "CVE-2025-31672"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.10-beta2"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.10.1"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.11"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.15-beta1"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.17"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.17-beta1"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.8"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.8-beta4"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@3.9"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@4.0.0"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@4.1.1"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@4.1.2"
+        },
+        {
+          "@id": "pkg:maven/org.apache.poi/poi-ooxml@5.2.2"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "impact_statement": "CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing\na crafted OOXML file (`.xlsx`, `.docx`, etc.) can cause `poi-ooxml` to read unexpected data or consume\nexcessive resources. It affects all `poi-ooxml` releases before 5.4.0 (fixed in 5.4.0). Solr bundles\nan affected `poi-ooxml` via the optional **extraction (Solr Cell)** module \u2014 5.2.2 in the 9.x line,\nand older 3.x/4.x builds before that \u2014 from Solr 3.6.0 through 9.10.1. Solr 10.x ships no POI, and the\n9.x line upgraded to a fixed `poi-ooxml` (5.5.1) after 9.10.1, so the affected range is 3.6.0 \u2013 9.10.1.\n\nSolr is **not affected** in a supported configuration. Apache POI is used only by the extraction\n(Solr Cell) module, which parses rich documents (PDF, Office, etc.) via Apache Tika. Solr Cell is not\nenabled by default and is **not recommended for production**: the project's guidance is to run Tika as\na separate service and index the extracted text, rather than have Solr parse untrusted documents\nin-process. A deployment that follows that guidance never feeds an attacker-controlled OOXML file to\nthe bundled POI, so the vulnerable parser is not reached.\n\nOperators who nonetheless enable Solr Cell and parse untrusted documents should either move document\nextraction out of Solr (the recommended architecture) or replace the bundled\n`modules/extraction/lib/poi-ooxml-*.jar` with `poi-ooxml` 5.4.0 or later. Tracked as SOLR-17903.",
+      "status_notes": "Affected Apache Solr versions: 3.6.0-9.10.1."
+    },
+    {
+      "vulnerability": {
         "name": "CVE-2026-34477"
       },
       "products": [
