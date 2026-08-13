@@ -663,10 +663,14 @@ avro &lt; 1.11.3). Both require the application to feed attacker-controlled Avro
   own internal machinery, driven by administrator-supplied configuration, not by untrusted request
   input.</li>
 </ul>
-<p>The affected range covers the 9.x line, where the optional Hadoop modules transitively carry Avro
-1.9.2; Solr's own code path never invokes it. A scanner surfaces this as <code>avro@1.9.2</code> because Avro is
-shaded inside <code>hadoop-client-runtime-3.4.0.jar</code> in the <code>hdfs</code> module (this is the form reported by
-SOLR-17900); it is the same non-reachable Hadoop transitive either way.</p>
+<p>The affected range covers Solr 9.0.0 – 9.10.1, where the optional Hadoop modules transitively carry a
+vulnerable Avro (1.7.7 in <code>hadoop-client-runtime</code> 3.3.2 – 3.3.6, then 1.9.2 in 3.4.0 – 3.4.1); Solr's
+own code path never invokes it. A scanner surfaces this as <code>avro@1.9.2</code> because Avro is shaded inside
+<code>hadoop-client-runtime</code> in the <code>hdfs</code> module (the form reported by SOLR-17900). Unlike the other
+Hadoop-shaded CVEs from SOLR-17900, Avro stayed vulnerable all the way through 9.10.1: Solr 9.11
+(branch_9x) is the first fixed release, having upgraded to Hadoop 3.4.3, whose <code>hadoop-client-runtime</code>
+shades Avro 1.11.4 (past both the 1.11.3 and 1.11.4 fixes). Solr 10.x ships no <code>hadoop-client-runtime</code>.
+Either way it is the same non-reachable Hadoop transitive.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -2303,7 +2307,7 @@ extraction out of Solr (the recommended architecture) or replace the bundled
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.9.0</p>
                     </div>
                 </header>
 
@@ -2319,7 +2323,10 @@ integration — both the standalone copy in the <code>hadoop-auth</code> module 
 path feeds attacker-controlled configuration to Commons Configuration, so the recursive list-delimiter
 parser cannot be driven by an adversary. This matches the existing assessment of the other Commons
 Configuration CVEs (CVE-2022-33980, CVE-2026-45205). The affected range spans the releases whose
-Hadoop modules carry an affected commons-configuration2 (Solr 9.0.0 – 9.10.1).</p>
+Hadoop modules carry an affected commons-configuration2 — Solr 9.0.0 – 9.9.0 (<code>hadoop-client-runtime</code>
+3.3.2 – 3.4.0 shades commons-configuration2 ≤ 2.8.0; the standalone <code>hadoop-auth</code> copy was already
+≥ 2.10.1, at 2.11.0, by 9.7.0). Solr 9.10.0 upgraded to Hadoop 3.4.1, whose <code>hadoop-client-runtime</code>
+shades the fixed commons-configuration2 2.10.1, so 9.10.x onward is not affected.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -2339,7 +2346,7 @@ Hadoop modules carry an affected commons-configuration2 (Solr 9.0.0 – 9.10.1).
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.9.0</p>
                     </div>
                 </header>
 
@@ -2354,7 +2361,10 @@ format) is not part of any Solr request path. The affected <code>commons-compres
 module; Solr's HDFS-client usage does not feed untrusted Pack200 input to it, and Solr's own use of
 Commons Compress elsewhere does not invoke the Pack200 unpacker. The vulnerable code path is therefore
 not reached. The affected range spans the releases whose <code>hdfs</code> module bundles an affected shaded
-commons-compress (Solr 9.0.0 – 9.10.1); Solr 10.x ships no <code>hadoop-client-runtime</code>.</p>
+commons-compress — Solr 9.0.0 – 9.9.0 (<code>hadoop-client-runtime</code> 3.3.2 – 3.4.0, shading commons-compress
+≤ 1.24.0; the standalone copy in the <code>extraction</code> module was already ≥ 1.26.0 by 9.7.0). Solr 9.10.0
+upgraded to Hadoop 3.4.1, whose <code>hadoop-client-runtime</code> shades the fixed commons-compress 1.26.1, and
+Solr 10.x ships no <code>hadoop-client-runtime</code>, so neither is affected.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -2374,7 +2384,7 @@ commons-compress (Solr 9.0.0 – 9.10.1); Solr 10.x ships no <code>hadoop-client
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.9.0</p>
                     </div>
                 </header>
 
@@ -2389,7 +2399,9 @@ where Hadoop may use it for name resolution. Solr uses the HDFS module only as a
 connects to operator-configured HDFS NameNode/DataNode hosts, not attacker-controlled names, and it
 does not rely on dnsjava's DNSSEC validation to make any security decision. The vulnerable resolver
 path is therefore not reached. The affected range spans the releases whose <code>hdfs</code> module bundles an
-affected shaded dnsjava (Solr 9.0.0 – 9.10.1); Solr 10.x ships no <code>hadoop-client-runtime</code>.</p>
+affected shaded dnsjava — Solr 9.0.0 – 9.9.0 (<code>hadoop-client-runtime</code> 3.3.2 – 3.4.0, shading dnsjava
+≤ 3.4.0). Solr 9.10.0 upgraded to Hadoop 3.4.1, whose <code>hadoop-client-runtime</code> shades the fixed dnsjava
+3.6.1, and Solr 10.x ships no <code>hadoop-client-runtime</code>, so neither is affected.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -2448,7 +2460,7 @@ extraction in a separate Tika service, or replace <code>modules/extraction/lib/a
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.9.0</p>
                     </div>
                 </header>
 
@@ -2462,8 +2474,10 @@ application parses attacker-supplied JOSE/JWT input with Nimbus.</p>
 scanner flags (<code>nimbus-jose-jwt@9.31</code>) is shaded inside <code>hadoop-client-runtime</code> in the optional
 <code>hdfs</code> module and is only used by Hadoop's own internal auth machinery — Solr never routes an
 untrusted, externally-supplied JOSE object to it. The vulnerable parser is therefore not reached. The
-affected range spans the releases whose <code>hdfs</code> module bundles the affected shaded Nimbus (Solr
-9.0.0 – 9.10.1); Solr 10.x ships no <code>hadoop-client-runtime</code>.</p>
+affected range spans the releases whose <code>hdfs</code> module bundles an affected shaded Nimbus — Solr
+9.0.0 – 9.9.0 (<code>hadoop-client-runtime</code> 3.3.2 – 3.4.0, shading Nimbus ≤ 9.31). Solr 9.10.0 upgraded to
+Hadoop 3.4.1, whose <code>hadoop-client-runtime</code> shades the fixed Nimbus 9.37.2, and Solr 10.x ships no
+<code>hadoop-client-runtime</code>, so neither is affected.</p>
 
                 <h4>References</h4>
                 <ul>

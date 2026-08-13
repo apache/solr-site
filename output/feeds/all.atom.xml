@@ -17,10 +17,14 @@ avro &amp;lt; 1.11.3). Both require the application to feed attacker-controlled 
   own internal machinery, driven by administrator-supplied configuration, not by untrusted request
   input.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The affected range covers the 9.x line, where the optional Hadoop modules transitively carry Avro
-1.9.2; Solr's own code path never invokes it. A scanner surfaces this as &lt;code&gt;avro@1.9.2&lt;/code&gt; because Avro is
-shaded inside &lt;code&gt;hadoop-client-runtime-3.4.0.jar&lt;/code&gt; in the &lt;code&gt;hdfs&lt;/code&gt; module (this is the form reported by
-SOLR-17900); it is the same non-reachable Hadoop transitive either way.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-core: memory disclosure via source snippet in JsonLocation error messages</title><link href="/cve-2025-49128.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2025-49128.html</id><summary type="html">&lt;p&gt;CVE-2025-49128 can disclose adjacent buffer memory through the source snippet that jackson-core
+&lt;p&gt;The affected range covers Solr 9.0.0 – 9.10.1, where the optional Hadoop modules transitively carry a
+vulnerable Avro (1.7.7 in &lt;code&gt;hadoop-client-runtime&lt;/code&gt; 3.3.2 – 3.3.6, then 1.9.2 in 3.4.0 – 3.4.1); Solr's
+own code path never invokes it. A scanner surfaces this as &lt;code&gt;avro@1.9.2&lt;/code&gt; because Avro is shaded inside
+&lt;code&gt;hadoop-client-runtime&lt;/code&gt; in the &lt;code&gt;hdfs&lt;/code&gt; module (the form reported by SOLR-17900). Unlike the other
+Hadoop-shaded CVEs from SOLR-17900, Avro stayed vulnerable all the way through 9.10.1: Solr 9.11
+(branch_9x) is the first fixed release, having upgraded to Hadoop 3.4.3, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt;
+shades Avro 1.11.4 (past both the 1.11.3 and 1.11.4 fixes). Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;.
+Either way it is the same non-reachable Hadoop transitive.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-core: memory disclosure via source snippet in JsonLocation error messages</title><link href="/cve-2025-49128.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2025-49128.html</id><summary type="html">&lt;p&gt;CVE-2025-49128 can disclose adjacent buffer memory through the source snippet that jackson-core
 includes in &lt;code&gt;JsonLocation&lt;/code&gt; (e.g. surfaced in parse-error messages). It affects jackson-core &amp;lt; 2.13.0.&lt;/p&gt;
 &lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr's own jackson-core is 2.18.0 in current 9.x and 2.22.0 in 9.11 — both …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-49128 can disclose adjacent buffer memory through the source snippet that jackson-core
 includes in &lt;code&gt;JsonLocation&lt;/code&gt; (e.g. surfaced in parse-error messages). It affects jackson-core &amp;lt; 2.13.0.&lt;/p&gt;
@@ -1542,8 +1546,10 @@ application parses attacker-supplied JOSE/JWT input with Nimbus.&lt;/p&gt;
 scanner flags (&lt;code&gt;nimbus-jose-jwt@9.31&lt;/code&gt;) is shaded inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt; in the optional
 &lt;code&gt;hdfs&lt;/code&gt; module and is only used by Hadoop's own internal auth machinery — Solr never routes an
 untrusted, externally-supplied JOSE object to it. The vulnerable parser is therefore not reached. The
-affected range spans the releases whose &lt;code&gt;hdfs&lt;/code&gt; module bundles the affected shaded Nimbus (Solr
-9.0.0 – 9.10.1); Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache James MIME4J: header injection when composing MIME messages</title><link href="/cve-2024-21742.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-21742.html</id><summary type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
+affected range spans the releases whose &lt;code&gt;hdfs&lt;/code&gt; module bundles an affected shaded Nimbus — Solr
+9.0.0 – 9.9.0 (&lt;code&gt;hadoop-client-runtime&lt;/code&gt; 3.3.2 – 3.4.0, shading Nimbus ≤ 9.31). Solr 9.10.0 upgraded to
+Hadoop 3.4.1, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt; shades the fixed Nimbus 9.37.2, and Solr 10.x ships no
+&lt;code&gt;hadoop-client-runtime&lt;/code&gt;, so neither is affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache James MIME4J: header injection when composing MIME messages</title><link href="/cve-2024-21742.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-21742.html</id><summary type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
 used to &lt;strong&gt;compose / write&lt;/strong&gt; MIME messages, improper input validation lets crafted field values inject
 unintended headers into the produced message. It affects &lt;code&gt;apache-mime4j&lt;/code&gt; before 0.8.10 (fixed in
 0.8.10), and is …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
@@ -1572,7 +1578,9 @@ where Hadoop may use it for name resolution. Solr uses the HDFS module only as a
 connects to operator-configured HDFS NameNode/DataNode hosts, not attacker-controlled names, and it
 does not rely on dnsjava's DNSSEC validation to make any security decision. The vulnerable resolver
 path is therefore not reached. The affected range spans the releases whose &lt;code&gt;hdfs&lt;/code&gt; module bundles an
-affected shaded dnsjava (Solr 9.0.0 – 9.10.1); Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Compress: OutOfMemoryError unpacking a broken Pack200 file</title><link href="/cve-2024-26308.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-26308.html</id><summary type="html">&lt;p&gt;CVE-2024-26308 (CVSS 6.7) is a denial-of-service issue in Apache Commons Compress: unpacking a
+affected shaded dnsjava — Solr 9.0.0 – 9.9.0 (&lt;code&gt;hadoop-client-runtime&lt;/code&gt; 3.3.2 – 3.4.0, shading dnsjava
+≤ 3.4.0). Solr 9.10.0 upgraded to Hadoop 3.4.1, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt; shades the fixed dnsjava
+3.6.1, and Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;, so neither is affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Compress: OutOfMemoryError unpacking a broken Pack200 file</title><link href="/cve-2024-26308.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-26308.html</id><summary type="html">&lt;p&gt;CVE-2024-26308 (CVSS 6.7) is a denial-of-service issue in Apache Commons Compress: unpacking a
 malformed &lt;strong&gt;Pack200&lt;/strong&gt; (&lt;code&gt;.pack&lt;/code&gt;/&lt;code&gt;.pack.gz&lt;/code&gt;) stream can allocate excessive memory and throw
 &lt;code&gt;OutOfMemoryError&lt;/code&gt; (affects 1.21 through 1.25.0, fixed in 1.26.0). It is reachable only when an
 application uses Commons Compress to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-26308 (CVSS 6.7) is a denial-of-service issue in Apache Commons Compress: unpacking a
@@ -1585,7 +1593,10 @@ format) is not part of any Solr request path. The affected &lt;code&gt;commons-c
 module; Solr's HDFS-client usage does not feed untrusted Pack200 input to it, and Solr's own use of
 Commons Compress elsewhere does not invoke the Pack200 unpacker. The vulnerable code path is therefore
 not reached. The affected range spans the releases whose &lt;code&gt;hdfs&lt;/code&gt; module bundles an affected shaded
-commons-compress (Solr 9.0.0 – 9.10.1); Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Configuration: StackOverflowError in list-delimiter handling</title><link href="/cve-2024-29131.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-29131.html</id><summary type="html">&lt;p&gt;CVE-2024-29131 and CVE-2024-29133 are denial-of-service issues (StackOverflowError) in Apache Commons
+commons-compress — Solr 9.0.0 – 9.9.0 (&lt;code&gt;hadoop-client-runtime&lt;/code&gt; 3.3.2 – 3.4.0, shading commons-compress
+≤ 1.24.0; the standalone copy in the &lt;code&gt;extraction&lt;/code&gt; module was already ≥ 1.26.0 by 9.7.0). Solr 9.10.0
+upgraded to Hadoop 3.4.1, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt; shades the fixed commons-compress 1.26.1, and
+Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;, so neither is affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Configuration: StackOverflowError in list-delimiter handling</title><link href="/cve-2024-29131.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-29131.html</id><summary type="html">&lt;p&gt;CVE-2024-29131 and CVE-2024-29133 are denial-of-service issues (StackOverflowError) in Apache Commons
 Configuration's list-delimiter handling — &lt;code&gt;AbstractListDelimiterHandler.flattenIterator(...)&lt;/code&gt; and
 &lt;code&gt;ListDelimiterHandler.flatten(Object, int)&lt;/code&gt; respectively — when a configuration contains a cyclic
 reference (both affect 2.0 through 2.10.0, fixed in 2.10.1).&lt;/p&gt;
@@ -1600,7 +1611,10 @@ integration — both the standalone copy in the &lt;code&gt;hadoop-auth&lt;/code
 path feeds attacker-controlled configuration to Commons Configuration, so the recursive list-delimiter
 parser cannot be driven by an adversary. This matches the existing assessment of the other Commons
 Configuration CVEs (CVE-2022-33980, CVE-2026-45205). The affected range spans the releases whose
-Hadoop modules carry an affected commons-configuration2 (Solr 9.0.0 – 9.10.1).&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache POI: improper input validation parsing OOXML files</title><link href="/cve-2025-31672.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2025-31672.html</id><summary type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
+Hadoop modules carry an affected commons-configuration2 — Solr 9.0.0 – 9.9.0 (&lt;code&gt;hadoop-client-runtime&lt;/code&gt;
+3.3.2 – 3.4.0 shades commons-configuration2 ≤ 2.8.0; the standalone &lt;code&gt;hadoop-auth&lt;/code&gt; copy was already
+≥ 2.10.1, at 2.11.0, by 9.7.0). Solr 9.10.0 upgraded to Hadoop 3.4.1, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt;
+shades the fixed commons-configuration2 2.10.1, so 9.10.x onward is not affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache POI: improper input validation parsing OOXML files</title><link href="/cve-2025-31672.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2025-31672.html</id><summary type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
 a crafted OOXML file (&lt;code&gt;.xlsx&lt;/code&gt;, &lt;code&gt;.docx&lt;/code&gt;, etc.) can cause &lt;code&gt;poi-ooxml&lt;/code&gt; to read unexpected data or consume
 excessive resources. It affects all &lt;code&gt;poi-ooxml&lt;/code&gt; releases before 5.4.0 (fixed in 5.4.0). Solr bundles
 an affected …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
