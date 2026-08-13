@@ -257,21 +257,34 @@ Netty &amp;lt; 4.1.136 and 4.2.0–4.2.15, fixed in 4.1.136 / 4.2.16):&lt;/p&gt;
 &lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and
 the ZooKeeper client, where Netty is used strictly as a &lt;strong&gt;client&lt;/strong&gt;. Solr's HTTP server is Jetty:
 Solr never runs a Netty HTTP server, CORS handler, WebSocket server, or HTTP/2→1 proxy, and never
-uses Netty's multipart request encoder, so none of these code paths are reachable.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>lz4-java: out-of-bounds read via invalid arguments to native XXHash</title><link href="/cve-2026-59949.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59949.html</id><summary type="html">&lt;p&gt;CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; codec: the
-JNI-based XXHash implementations insufficiently validate their byte-array arguments, so a caller that
-passes an invalid array reference or an out-of-range &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; to the native XXHash methods can
-crash the JVM. It affects lz4-java …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; codec: the
-JNI-based XXHash implementations insufficiently validate their byte-array arguments, so a caller that
-passes an invalid array reference or an out-of-range &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; to the native XXHash methods can
-crash the JVM. It affects lz4-java ≤ 1.11.0 (fixed in 1.11.1). Exploitation requires an application
-to pass attacker-influenced array/offset/length values into those XXHash APIs.&lt;/p&gt;
-&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;lz4-java&lt;/code&gt; is bundled only by the optional &lt;code&gt;cross-dc&lt;/code&gt; module, where it is
-used by the embedded Apache Kafka client for LZ4 compression / checksums of cross-datacenter
-replication messages. Kafka calls the XXHash APIs with its own internally-managed, validated buffers
-and offsets — it does not forward attacker-controlled &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; values into the native methods —
-and the replication stream flows through an operator-controlled Kafka pipeline, not untrusted
-external input. The &lt;code&gt;cross-dc&lt;/code&gt; module is not part of a default Solr installation, and no Solr request
-path reaches the vulnerable XXHash argument handling.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Eclipse Jetty: HTTP/2 :authority vs Host header confusion</title><link href="/cve-2026-6790.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-6790.html</id><summary type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
+uses Netty's multipart request encoder, so none of these code paths are reachable.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>lz4-java: out-of-bounds access and buffer-reuse disclosure in (de)compression</title><link href="/cve-2026-59949.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59949.html</id><summary type="html">&lt;p&gt;Three issues in the &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; codec (the community-maintained fork of the discontinued
+lz4-java):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2026-59949&lt;/strong&gt; (CVSS 6.5) — out-of-bounds read: the JNI-based XXHash implementations don't
+  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range
+  &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; can crash the JVM (fixed in 1 …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Three issues in the &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; codec (the community-maintained fork of the discontinued
+lz4-java):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2026-59949&lt;/strong&gt; (CVSS 6.5) — out-of-bounds read: the JNI-based XXHash implementations don't
+  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range
+  &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; can crash the JVM (fixed in 1.11.1).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-12183&lt;/strong&gt; — out-of-bounds memory access in the compression/decompression functions,
+  leading to denial of service and possible information disclosure when processing untrusted input
+  (fixed in 1.8.1).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-66566&lt;/strong&gt; — the Java decompressor does not clear reused output buffers, so crafted
+  compressed input can read previous buffer contents when an output buffer is reused (fixed in
+  1.10.1).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All three affect the &lt;code&gt;lz4-java&lt;/code&gt; 1.8.0 that Solr's released 9.8.0 – 10.0.0 line bundles (SOLR-18013
+tracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled
+input to the codec, or passes attacker-influenced arguments into it.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;lz4-java&lt;/code&gt; is bundled only by the optional &lt;code&gt;cross-dc&lt;/code&gt; module, where the
+embedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication
+messages. Those messages flow through an &lt;strong&gt;operator-controlled&lt;/strong&gt; Kafka pipeline (Solr's own cross-DC
+producer → the operator's Kafka → Solr's consumer), not untrusted external input, and Kafka calls the
+codec with its own internally-managed, validated buffers and offsets rather than forwarding
+attacker-controlled arguments. The &lt;code&gt;cross-dc&lt;/code&gt; module is not part of a default Solr installation, and
+no Solr request path reaches the vulnerable compression/decompression or XXHash code.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Eclipse Jetty: HTTP/2 :authority vs Host header confusion</title><link href="/cve-2026-6790.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-6790.html</id><summary type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
 does not require the &lt;code&gt;:authority&lt;/code&gt; pseudo-header to match the &lt;code&gt;Host&lt;/code&gt; header, so a single request can
 carry two conflicting host interpretations. It affects the Jetty branches Solr ships (9.4.x, 10.0.x
 through …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
@@ -1355,7 +1368,36 @@ line to &lt;code&gt;libthrift&lt;/code&gt; 0.14.1 (past the 0.14.0 fix), and Sol
 so no 8.11.1+, 9.x, or 10.x release is affected. (The Solr 8.x line is end of life.) Note that
 SOLR-15507 — which proposed the upgrade and observed that Solr 8.9.0 still bundled &lt;code&gt;libthrift&lt;/code&gt; 0.13.0 —
 remains open with no fix version, but the upgrade was in fact delivered in 8.11.1 (verified against the
-&lt;code&gt;solr:8.11.0&lt;/code&gt; and &lt;code&gt;solr:8.11.1&lt;/code&gt; release images).&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Bouncy Castle (bcprov): LDAP CertStore injection, EC/Ed25519 DoS, and RSA/TLS timing side-channel</title><link href="/cve-2023-33201.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2023-33201.html</id><summary type="html">&lt;p&gt;Four vulnerabilities in the Bouncy Castle crypto provider (&lt;code&gt;org.bouncycastle:bcprov-jdk15on&lt;/code&gt;),
+&lt;code&gt;solr:8.11.0&lt;/code&gt; and &lt;code&gt;solr:8.11.1&lt;/code&gt; release images).&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jQuery UI (Admin UI): XSS in datepicker and position widgets</title><link href="/cve-2021-41182.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2021-41182.html</id><summary type="html">&lt;p&gt;Three XSS issues in jQuery UI 1.12.1 (all fixed in 1.13.x):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41182&lt;/strong&gt; — XSS via the datepicker &lt;code&gt;altField&lt;/code&gt; option.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41183&lt;/strong&gt; — XSS via the datepicker &lt;code&gt;*Text&lt;/code&gt; options.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41184&lt;/strong&gt; — XSS via the &lt;code&gt;.position()&lt;/code&gt; &lt;code&gt;of&lt;/code&gt; option.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr's Admin UI bundles a &lt;strong&gt;custom subset&lt;/strong&gt; of jQuery UI (&lt;code&gt;server/solr-webapp/webapp/libs …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Three XSS issues in jQuery UI 1.12.1 (all fixed in 1.13.x):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41182&lt;/strong&gt; — XSS via the datepicker &lt;code&gt;altField&lt;/code&gt; option.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41183&lt;/strong&gt; — XSS via the datepicker &lt;code&gt;*Text&lt;/code&gt; options.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41184&lt;/strong&gt; — XSS via the &lt;code&gt;.position()&lt;/code&gt; &lt;code&gt;of&lt;/code&gt; option.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr's Admin UI bundles a &lt;strong&gt;custom subset&lt;/strong&gt; of jQuery UI (&lt;code&gt;server/solr-webapp/webapp/libs/jquery-ui.min.js&lt;/code&gt;,
+v1.12.1) from Solr 7.5.0 through 10.0.0. Solr is &lt;strong&gt;not affected&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The datepicker widget is not included.&lt;/strong&gt; Solr's build excludes datepicker entirely (it is absent
+  from the shipped &lt;code&gt;jquery-ui.min.js&lt;/code&gt;), so CVE-2021-41182 and CVE-2021-41183 — both datepicker-only —
+  have no code present to exploit.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The position utility is included, but not reachable with attacker input.&lt;/strong&gt; CVE-2021-41184
+  requires passing attacker-controlled markup to the &lt;code&gt;of&lt;/code&gt; option of &lt;code&gt;.position()&lt;/code&gt;. Solr's Admin UI
+  invokes positioning (for tooltips/dialogs) only with its own static, trusted selectors, never with
+  externally-supplied values. The Admin UI is also an operator-facing console, not an
+  unauthenticated public surface.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: this is a &lt;strong&gt;front-end JavaScript&lt;/strong&gt; dependency, not a Maven artifact. This entry documents
+Solr's assessment for the record; unlike the Java-jar entries it does not emit a matchable Maven
+purl, and Docker Scout does not flag the bundled minified JS. It corresponds to SOLR-16309, whose
+reporter likewise characterized it as a compliance finding rather than an exploitable risk.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="solr/vex"/></entry><entry><title>Bouncy Castle (bcprov): LDAP CertStore injection, EC/Ed25519 DoS, and RSA/TLS timing side-channel</title><link href="/cve-2023-33201.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2023-33201.html</id><summary type="html">&lt;p&gt;Four vulnerabilities in the Bouncy Castle crypto provider (&lt;code&gt;org.bouncycastle:bcprov-jdk15on&lt;/code&gt;),
 each in a distinct crypto operation:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;CVE-2023-33201&lt;/strong&gt; — LDAP injection in the X.509 &lt;code&gt;CertStore&lt;/code&gt; (fixed in 1.74); requires using Bouncy

@@ -246,33 +246,49 @@ host-dependent security decision, the host-confusion has no exploitable conseque
             </article>
             <article id="cve-2026-59949" class="post panel radius">
                 <header class="post-header">
-                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59949">CVE-2026-59949</a>, lz4-java: out-of-bounds read via invalid arguments to native XXHash</h3>
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59949">CVE-2026-59949</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-12183">CVE-2025-12183</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-66566">CVE-2025-66566</a>, lz4-java: out-of-bounds access and buffer-reuse disclosure in (de)compression</h3>
                     <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-07-31T00:00:00+00:00">2026-07-31</time>
+                            </p>
                         <p class="subheader">
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-10.0.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.8.0-10.0.0</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the <code>at.yawk.lz4:lz4-java</code> codec: the
-JNI-based XXHash implementations insufficiently validate their byte-array arguments, so a caller that
-passes an invalid array reference or an out-of-range <code>off</code>/<code>len</code> to the native XXHash methods can
-crash the JVM. It affects lz4-java ≤ 1.11.0 (fixed in 1.11.1). Exploitation requires an application
-to pass attacker-influenced array/offset/length values into those XXHash APIs.</p>
-<p>Solr is <strong>not affected</strong>. <code>lz4-java</code> is bundled only by the optional <code>cross-dc</code> module, where it is
-used by the embedded Apache Kafka client for LZ4 compression / checksums of cross-datacenter
-replication messages. Kafka calls the XXHash APIs with its own internally-managed, validated buffers
-and offsets — it does not forward attacker-controlled <code>off</code>/<code>len</code> values into the native methods —
-and the replication stream flows through an operator-controlled Kafka pipeline, not untrusted
-external input. The <code>cross-dc</code> module is not part of a default Solr installation, and no Solr request
-path reaches the vulnerable XXHash argument handling.</p>
+                <p>Three issues in the <code>at.yawk.lz4:lz4-java</code> codec (the community-maintained fork of the discontinued
+lz4-java):</p>
+<ul>
+<li><strong>CVE-2026-59949</strong> (CVSS 6.5) — out-of-bounds read: the JNI-based XXHash implementations don't
+  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range
+  <code>off</code>/<code>len</code> can crash the JVM (fixed in 1.11.1).</li>
+<li><strong>CVE-2025-12183</strong> — out-of-bounds memory access in the compression/decompression functions,
+  leading to denial of service and possible information disclosure when processing untrusted input
+  (fixed in 1.8.1).</li>
+<li><strong>CVE-2025-66566</strong> — the Java decompressor does not clear reused output buffers, so crafted
+  compressed input can read previous buffer contents when an output buffer is reused (fixed in
+  1.10.1).</li>
+</ul>
+<p>All three affect the <code>lz4-java</code> 1.8.0 that Solr's released 9.8.0 – 10.0.0 line bundles (SOLR-18013
+tracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled
+input to the codec, or passes attacker-influenced arguments into it.</p>
+<p>Solr is <strong>not affected</strong>. <code>lz4-java</code> is bundled only by the optional <code>cross-dc</code> module, where the
+embedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication
+messages. Those messages flow through an <strong>operator-controlled</strong> Kafka pipeline (Solr's own cross-DC
+producer → the operator's Kafka → Solr's consumer), not untrusted external input, and Kafka calls the
+codec with its own internally-managed, validated buffers and offsets rather than forwarding
+attacker-controlled arguments. The <code>cross-dc</code> module is not part of a default Solr installation, and
+no Solr request path reaches the vulnerable compression/decompression or XXHash code.</p>
 
                 <h4>References</h4>
                 <ul>
-                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59949">CVE-2026-59949</a></li>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-18013">SOLR-18013</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59949">CVE-2026-59949</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-12183">CVE-2025-12183</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-66566">CVE-2025-66566</a></li>
                 </ul>
             </article>
             <article id="cve-2026-59899" class="post panel radius">
@@ -2691,6 +2707,54 @@ module, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)</p>
                 <ul>
                         <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17899">SOLR-17899</a></li>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-33201">CVE-2023-33201</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29857">CVE-2024-29857</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30171">CVE-2024-30171</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30172">CVE-2024-30172</a></li>
+                </ul>
+            </article>
+            <article id="cve-2021-41182" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41182">CVE-2021-41182</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41183">CVE-2021-41183</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41184">CVE-2021-41184</a>, jQuery UI (Admin UI): XSS in datepicker and position widgets</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.5.0-10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Three XSS issues in jQuery UI 1.12.1 (all fixed in 1.13.x):</p>
+<ul>
+<li><strong>CVE-2021-41182</strong> — XSS via the datepicker <code>altField</code> option.</li>
+<li><strong>CVE-2021-41183</strong> — XSS via the datepicker <code>*Text</code> options.</li>
+<li><strong>CVE-2021-41184</strong> — XSS via the <code>.position()</code> <code>of</code> option.</li>
+</ul>
+<p>Solr's Admin UI bundles a <strong>custom subset</strong> of jQuery UI (<code>server/solr-webapp/webapp/libs/jquery-ui.min.js</code>,
+v1.12.1) from Solr 7.5.0 through 10.0.0. Solr is <strong>not affected</strong>:</p>
+<ul>
+<li><strong>The datepicker widget is not included.</strong> Solr's build excludes datepicker entirely (it is absent
+  from the shipped <code>jquery-ui.min.js</code>), so CVE-2021-41182 and CVE-2021-41183 — both datepicker-only —
+  have no code present to exploit.</li>
+<li><strong>The position utility is included, but not reachable with attacker input.</strong> CVE-2021-41184
+  requires passing attacker-controlled markup to the <code>of</code> option of <code>.position()</code>. Solr's Admin UI
+  invokes positioning (for tooltips/dialogs) only with its own static, trusted selectors, never with
+  externally-supplied values. The Admin UI is also an operator-facing console, not an
+  unauthenticated public surface.</li>
+</ul>
+<blockquote>
+<p>Note: this is a <strong>front-end JavaScript</strong> dependency, not a Maven artifact. This entry documents
+Solr's assessment for the record; unlike the Java-jar entries it does not emit a matchable Maven
+purl, and Docker Scout does not flag the bundled minified JS. It corresponds to SOLR-16309, whose
+reporter likewise characterized it as a compliance finding rather than an exploitable risk.</p>
+</blockquote>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-16309">SOLR-16309</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41182">CVE-2021-41182</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41183">CVE-2021-41183</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41184">CVE-2021-41184</a></li>
                 </ul>
             </article>
             <article id="cve-2020-13949" class="post panel radius">

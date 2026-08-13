@@ -1513,6 +1513,51 @@
     },
     {
       "vulnerability": {
+        "name": "CVE-2021-41182"
+      },
+      "products": [
+        {
+          "@id": "jquery-ui-1.12.1.js"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Three XSS issues in jQuery UI 1.12.1 (all fixed in 1.13.x):\n\n* **CVE-2021-41182** \u2014 XSS via the datepicker `altField` option.\n* **CVE-2021-41183** \u2014 XSS via the datepicker `*Text` options.\n* **CVE-2021-41184** \u2014 XSS via the `.position()` `of` option.\n\nSolr's Admin UI bundles a **custom subset** of jQuery UI (`server/solr-webapp/webapp/libs/jquery-ui.min.js`,\nv1.12.1) from Solr 7.5.0 through 10.0.0. Solr is **not affected**:\n\n* **The datepicker widget is not included.** Solr's build excludes datepicker entirely (it is absent\n  from the shipped `jquery-ui.min.js`), so CVE-2021-41182 and CVE-2021-41183 \u2014 both datepicker-only \u2014\n  have no code present to exploit.\n* **The position utility is included, but not reachable with attacker input.** CVE-2021-41184\n  requires passing attacker-controlled markup to the `of` option of `.position()`. Solr's Admin UI\n  invokes positioning (for tooltips/dialogs) only with its own static, trusted selectors, never with\n  externally-supplied values. The Admin UI is also an operator-facing console, not an\n  unauthenticated public surface.\n\n> Note: this is a **front-end JavaScript** dependency, not a Maven artifact. This entry documents\n> Solr's assessment for the record; unlike the Java-jar entries it does not emit a matchable Maven\n> purl, and Docker Scout does not flag the bundled minified JS. It corresponds to SOLR-16309, whose\n> reporter likewise characterized it as a compliance finding rather than an exploitable risk.",
+      "status_notes": "Affected Apache Solr versions: 7.5.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2021-41183"
+      },
+      "products": [
+        {
+          "@id": "jquery-ui-1.12.1.js"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Three XSS issues in jQuery UI 1.12.1 (all fixed in 1.13.x):\n\n* **CVE-2021-41182** \u2014 XSS via the datepicker `altField` option.\n* **CVE-2021-41183** \u2014 XSS via the datepicker `*Text` options.\n* **CVE-2021-41184** \u2014 XSS via the `.position()` `of` option.\n\nSolr's Admin UI bundles a **custom subset** of jQuery UI (`server/solr-webapp/webapp/libs/jquery-ui.min.js`,\nv1.12.1) from Solr 7.5.0 through 10.0.0. Solr is **not affected**:\n\n* **The datepicker widget is not included.** Solr's build excludes datepicker entirely (it is absent\n  from the shipped `jquery-ui.min.js`), so CVE-2021-41182 and CVE-2021-41183 \u2014 both datepicker-only \u2014\n  have no code present to exploit.\n* **The position utility is included, but not reachable with attacker input.** CVE-2021-41184\n  requires passing attacker-controlled markup to the `of` option of `.position()`. Solr's Admin UI\n  invokes positioning (for tooltips/dialogs) only with its own static, trusted selectors, never with\n  externally-supplied values. The Admin UI is also an operator-facing console, not an\n  unauthenticated public surface.\n\n> Note: this is a **front-end JavaScript** dependency, not a Maven artifact. This entry documents\n> Solr's assessment for the record; unlike the Java-jar entries it does not emit a matchable Maven\n> purl, and Docker Scout does not flag the bundled minified JS. It corresponds to SOLR-16309, whose\n> reporter likewise characterized it as a compliance finding rather than an exploitable risk.",
+      "status_notes": "Affected Apache Solr versions: 7.5.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2021-41184"
+      },
+      "products": [
+        {
+          "@id": "jquery-ui-1.12.1.js"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Three XSS issues in jQuery UI 1.12.1 (all fixed in 1.13.x):\n\n* **CVE-2021-41182** \u2014 XSS via the datepicker `altField` option.\n* **CVE-2021-41183** \u2014 XSS via the datepicker `*Text` options.\n* **CVE-2021-41184** \u2014 XSS via the `.position()` `of` option.\n\nSolr's Admin UI bundles a **custom subset** of jQuery UI (`server/solr-webapp/webapp/libs/jquery-ui.min.js`,\nv1.12.1) from Solr 7.5.0 through 10.0.0. Solr is **not affected**:\n\n* **The datepicker widget is not included.** Solr's build excludes datepicker entirely (it is absent\n  from the shipped `jquery-ui.min.js`), so CVE-2021-41182 and CVE-2021-41183 \u2014 both datepicker-only \u2014\n  have no code present to exploit.\n* **The position utility is included, but not reachable with attacker input.** CVE-2021-41184\n  requires passing attacker-controlled markup to the `of` option of `.position()`. Solr's Admin UI\n  invokes positioning (for tooltips/dialogs) only with its own static, trusted selectors, never with\n  externally-supplied values. The Admin UI is also an operator-facing console, not an\n  unauthenticated public surface.\n\n> Note: this is a **front-end JavaScript** dependency, not a Maven artifact. This entry documents\n> Solr's assessment for the record; unlike the Java-jar entries it does not emit a matchable Maven\n> purl, and Docker Scout does not flag the bundled minified JS. It corresponds to SOLR-16309, whose\n> reporter likewise characterized it as a compliance finding rather than an exploitable risk.",
+      "status_notes": "Affected Apache Solr versions: 7.5.0-10.0.0."
+    },
+    {
+      "vulnerability": {
         "name": "CVE-2023-33201"
       },
       "products": [
@@ -4131,14 +4176,44 @@
       },
       "products": [
         {
-          "@id": "lz4-java-1.10.1.jar"
+          "@id": "lz4-java-1.8.0.jar"
         }
       ],
       "status": "not_affected",
       "timestamp": "2026-07-31T00:00:00Z",
       "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the `at.yawk.lz4:lz4-java` codec: the\nJNI-based XXHash implementations insufficiently validate their byte-array arguments, so a caller that\npasses an invalid array reference or an out-of-range `off`/`len` to the native XXHash methods can\ncrash the JVM. It affects lz4-java \u2264 1.11.0 (fixed in 1.11.1). Exploitation requires an application\nto pass attacker-influenced array/offset/length values into those XXHash APIs.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where it is\nused by the embedded Apache Kafka client for LZ4 compression / checksums of cross-datacenter\nreplication messages. Kafka calls the XXHash APIs with its own internally-managed, validated buffers\nand offsets \u2014 it does not forward attacker-controlled `off`/`len` values into the native methods \u2014\nand the replication stream flows through an operator-controlled Kafka pipeline, not untrusted\nexternal input. The `cross-dc` module is not part of a default Solr installation, and no Solr request\npath reaches the vulnerable XXHash argument handling.",
-      "status_notes": "Affected Apache Solr versions: 9.0.0-10.0.0."
+      "impact_statement": "Three issues in the `at.yawk.lz4:lz4-java` codec (the community-maintained fork of the discontinued\nlz4-java):\n\n* **CVE-2026-59949** (CVSS 6.5) \u2014 out-of-bounds read: the JNI-based XXHash implementations don't\n  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range\n  `off`/`len` can crash the JVM (fixed in 1.11.1).\n* **CVE-2025-12183** \u2014 out-of-bounds memory access in the compression/decompression functions,\n  leading to denial of service and possible information disclosure when processing untrusted input\n  (fixed in 1.8.1).\n* **CVE-2025-66566** \u2014 the Java decompressor does not clear reused output buffers, so crafted\n  compressed input can read previous buffer contents when an output buffer is reused (fixed in\n  1.10.1).\n\nAll three affect the `lz4-java` 1.8.0 that Solr's released 9.8.0 \u2013 10.0.0 line bundles (SOLR-18013\ntracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled\ninput to the codec, or passes attacker-influenced arguments into it.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where the\nembedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication\nmessages. Those messages flow through an **operator-controlled** Kafka pipeline (Solr's own cross-DC\nproducer \u2192 the operator's Kafka \u2192 Solr's consumer), not untrusted external input, and Kafka calls the\ncodec with its own internally-managed, validated buffers and offsets rather than forwarding\nattacker-controlled arguments. The `cross-dc` module is not part of a default Solr installation, and\nno Solr request path reaches the vulnerable compression/decompression or XXHash code.",
+      "status_notes": "Affected Apache Solr versions: 9.8.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2025-12183"
+      },
+      "products": [
+        {
+          "@id": "lz4-java-1.8.0.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Three issues in the `at.yawk.lz4:lz4-java` codec (the community-maintained fork of the discontinued\nlz4-java):\n\n* **CVE-2026-59949** (CVSS 6.5) \u2014 out-of-bounds read: the JNI-based XXHash implementations don't\n  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range\n  `off`/`len` can crash the JVM (fixed in 1.11.1).\n* **CVE-2025-12183** \u2014 out-of-bounds memory access in the compression/decompression functions,\n  leading to denial of service and possible information disclosure when processing untrusted input\n  (fixed in 1.8.1).\n* **CVE-2025-66566** \u2014 the Java decompressor does not clear reused output buffers, so crafted\n  compressed input can read previous buffer contents when an output buffer is reused (fixed in\n  1.10.1).\n\nAll three affect the `lz4-java` 1.8.0 that Solr's released 9.8.0 \u2013 10.0.0 line bundles (SOLR-18013\ntracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled\ninput to the codec, or passes attacker-influenced arguments into it.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where the\nembedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication\nmessages. Those messages flow through an **operator-controlled** Kafka pipeline (Solr's own cross-DC\nproducer \u2192 the operator's Kafka \u2192 Solr's consumer), not untrusted external input, and Kafka calls the\ncodec with its own internally-managed, validated buffers and offsets rather than forwarding\nattacker-controlled arguments. The `cross-dc` module is not part of a default Solr installation, and\nno Solr request path reaches the vulnerable compression/decompression or XXHash code.",
+      "status_notes": "Affected Apache Solr versions: 9.8.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2025-66566"
+      },
+      "products": [
+        {
+          "@id": "lz4-java-1.8.0.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Three issues in the `at.yawk.lz4:lz4-java` codec (the community-maintained fork of the discontinued\nlz4-java):\n\n* **CVE-2026-59949** (CVSS 6.5) \u2014 out-of-bounds read: the JNI-based XXHash implementations don't\n  validate their byte-array arguments, so a caller passing an invalid array reference or out-of-range\n  `off`/`len` can crash the JVM (fixed in 1.11.1).\n* **CVE-2025-12183** \u2014 out-of-bounds memory access in the compression/decompression functions,\n  leading to denial of service and possible information disclosure when processing untrusted input\n  (fixed in 1.8.1).\n* **CVE-2025-66566** \u2014 the Java decompressor does not clear reused output buffers, so crafted\n  compressed input can read previous buffer contents when an output buffer is reused (fixed in\n  1.10.1).\n\nAll three affect the `lz4-java` 1.8.0 that Solr's released 9.8.0 \u2013 10.0.0 line bundles (SOLR-18013\ntracks the upgrade to 1.10.1). Each is reachable only when an application feeds attacker-controlled\ninput to the codec, or passes attacker-influenced arguments into it.\n\nSolr is **not affected**. `lz4-java` is bundled only by the optional `cross-dc` module, where the\nembedded Apache Kafka client uses it to (de)compress and checksum cross-datacenter replication\nmessages. Those messages flow through an **operator-controlled** Kafka pipeline (Solr's own cross-DC\nproducer \u2192 the operator's Kafka \u2192 Solr's consumer), not untrusted external input, and Kafka calls the\ncodec with its own internally-managed, validated buffers and offsets rather than forwarding\nattacker-controlled arguments. The `cross-dc` module is not part of a default Solr installation, and\nno Solr request path reaches the vulnerable compression/decompression or XXHash code.",
+      "status_notes": "Affected Apache Solr versions: 9.8.0-10.0.0."
     },
     {
       "vulnerability": {
