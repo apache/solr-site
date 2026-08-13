@@ -1511,10 +1511,13 @@ by an application that runs a Thrift server accepting messages from untrusted cl
 integration, where Solr uses Thrift purely as a &lt;strong&gt;client&lt;/strong&gt; to export spans to an operator-configured
 Jaeger collector — it never runs a Thrift RPC server that accepts untrusted incoming messages. The
 vulnerable server-side allocation path is therefore never reached.&lt;/p&gt;
-&lt;p&gt;Solr shipped an affected &lt;code&gt;libthrift&lt;/code&gt; in the 8.x line — 0.12.0 (8.2.0) and 0.13.0 (8.5.0 – 8.8.1),
-both ≤ 0.13.0 — so the affected range is 8.2.0 – 8.8.1. Solr 9.0.0 upgraded to &lt;code&gt;libthrift&lt;/code&gt; 0.14.1
-(and later 0.15.0), which are past the 0.14.0 fix, so no 9.x or 10.x release is affected. (The Solr
-8.x line is end of life.)&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Bouncy Castle (bcprov): LDAP CertStore injection, EC/Ed25519 DoS, and RSA/TLS timing side-channel</title><link href="/cve-2023-33201.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2023-33201.html</id><summary type="html">&lt;p&gt;Four vulnerabilities in the Bouncy Castle crypto provider (&lt;code&gt;org.bouncycastle:bcprov-jdk15on&lt;/code&gt;),
+&lt;p&gt;Solr shipped an affected &lt;code&gt;libthrift&lt;/code&gt; in the 8.x line — 0.12.0 (8.2.0 – 8.4.1) and 0.13.0 (8.5.0 –
+8.11.0), both ≤ 0.13.0 — so the affected range is 8.2.0 – 8.11.0. Solr &lt;strong&gt;8.11.1&lt;/strong&gt; upgraded the 8.x
+line to &lt;code&gt;libthrift&lt;/code&gt; 0.14.1 (past the 0.14.0 fix), and Solr 9.0.0 likewise ships 0.14.1 (later 0.15.0),
+so no 8.11.1+, 9.x, or 10.x release is affected. (The Solr 8.x line is end of life.) Note that
+SOLR-15507 — which proposed the upgrade and observed that Solr 8.9.0 still bundled &lt;code&gt;libthrift&lt;/code&gt; 0.13.0 —
+remains open with no fix version, but the upgrade was in fact delivered in 8.11.1 (verified against the
+&lt;code&gt;solr:8.11.0&lt;/code&gt; and &lt;code&gt;solr:8.11.1&lt;/code&gt; release images).&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Bouncy Castle (bcprov): LDAP CertStore injection, EC/Ed25519 DoS, and RSA/TLS timing side-channel</title><link href="/cve-2023-33201.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2023-33201.html</id><summary type="html">&lt;p&gt;Four vulnerabilities in the Bouncy Castle crypto provider (&lt;code&gt;org.bouncycastle:bcprov-jdk15on&lt;/code&gt;),
 each in a distinct crypto operation:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;CVE-2023-33201&lt;/strong&gt; — LDAP injection in the X.509 &lt;code&gt;CertStore&lt;/code&gt; (fixed in 1.74); requires using Bouncy
