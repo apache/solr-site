@@ -1912,7 +1912,7 @@ The affected range is therefore 9.2.0 – 10.0.0.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 3.6.0-10.0.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 3.6.0-9.10.1, 10.0.0</p>
                     </div>
                 </header>
 
@@ -1921,7 +1921,12 @@ The affected range is therefore 9.2.0 – 10.0.0.</p>
 <p>CVE-2025-48734 affects all Commons BeanUtils 1.x releases before 1.11.0. Solr has bundled
 commons-beanutils since Solr 3.6.0, and every release that includes it, through Solr 10.0.0, ships an
 affected 1.x version (1.7.0, then 1.8.3, 1.9.3 and 1.9.4 — all below 1.11.0). The affected range is
-therefore 3.6.0 – 10.0.0.</p>
+therefore 3.6.0 – 9.10.1 plus 10.0.0.</p>
+<p>The fix has landed on all active development branches: Solr 9.11 (<code>branch_9x</code>), 10.1 (<code>branch_10x</code>),
+and <code>main</code> upgrade the bundled copy to commons-beanutils 1.11.0, and Hadoop 3.4.3 (shipped in 9.11)
+additionally dropped the shaded commons-beanutils it previously carried inside <code>hadoop-client-runtime</code>.
+So 9.11 and 10.1 are not affected, and the range is capped at 9.10.1 / 10.0.0 rather than an open
+<code>3.6.0 – 10.0.0</code> that would otherwise sweep in the fixed 9.11 release.</p>
 
                 <h4>References</h4>
                 <ul>
