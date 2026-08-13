@@ -1262,7 +1262,41 @@ is referenced only inside Log4j's own JARs.
 Neither Solr nor any of its bundled dependencies ever constructs or logs such a message.&lt;/p&gt;
 &lt;p&gt;Because no shipped code can hand a triggering value to the layout,
 the vulnerable code path cannot be reached regardless of the configured layout,
-and the Solr community considers this vulnerability &lt;strong&gt;non-exploitable&lt;/strong&gt; in the binary distribution.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache James MIME4J: header injection when composing MIME messages</title><link href="/cve-2024-21742.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-21742.html</id><summary type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
+and the Solr community considers this vulnerability &lt;strong&gt;non-exploitable&lt;/strong&gt; in the binary distribution.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Bouncy Castle (bcprov): LDAP CertStore injection, EC/Ed25519 DoS, and RSA/TLS timing side-channel</title><link href="/cve-2023-33201.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2023-33201.html</id><summary type="html">&lt;p&gt;Four vulnerabilities in the Bouncy Castle crypto provider (&lt;code&gt;org.bouncycastle:bcprov-jdk15on&lt;/code&gt;),
+each in a distinct crypto operation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2023-33201&lt;/strong&gt; — LDAP injection in the X.509 &lt;code&gt;CertStore&lt;/code&gt; (fixed in 1.74); requires using Bouncy
+  Castle's LDAP-backed &lt;code&gt;CertStore&lt;/code&gt; for certificate lookups.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-29857&lt;/strong&gt; — importing an EC certificate with crafted F2m parameters causes CPU exhaustion …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Four vulnerabilities in the Bouncy Castle crypto provider (&lt;code&gt;org.bouncycastle:bcprov-jdk15on&lt;/code&gt;),
+each in a distinct crypto operation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2023-33201&lt;/strong&gt; — LDAP injection in the X.509 &lt;code&gt;CertStore&lt;/code&gt; (fixed in 1.74); requires using Bouncy
+  Castle's LDAP-backed &lt;code&gt;CertStore&lt;/code&gt; for certificate lookups.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-29857&lt;/strong&gt; — importing an EC certificate with crafted F2m parameters causes CPU exhaustion
+  (fixed in 1.78); requires parsing/importing an attacker-supplied EC certificate.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-30171&lt;/strong&gt; — RSA/TLS timing side-channel ("Marvin"; fixed in 1.78); requires using Bouncy
+  Castle as the &lt;strong&gt;TLS/JSSE provider&lt;/strong&gt; with an attacker able to time RSA handshake responses.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-30172&lt;/strong&gt; — infinite loop verifying a crafted Ed25519 signature (fixed in 1.78); requires
+  verifying an attacker-supplied Ed25519 signature.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Bouncy Castle (&lt;code&gt;bcprov&lt;/code&gt;/&lt;code&gt;bcpkix&lt;/code&gt;/&lt;code&gt;bcmail&lt;/code&gt;/&lt;code&gt;bcutil&lt;/code&gt;) is bundled only by the
+optional &lt;strong&gt;extraction (Solr Cell)&lt;/strong&gt; module, where Apache Tika / PDFBox use it to handle encrypted or
+digitally-signed PDFs during document parsing. Solr does not use Bouncy Castle as a security provider
+in any of the ways these CVEs require:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Solr's TLS is served by the JVM's default JSSE provider, &lt;strong&gt;not&lt;/strong&gt; Bouncy Castle, so the RSA timing
+  side-channel (CVE-2024-30171) has no Solr-reachable surface.&lt;/li&gt;
+&lt;li&gt;Solr never configures an LDAP &lt;code&gt;CertStore&lt;/code&gt; (CVE-2023-33201), never imports attacker-supplied EC
+  certificates (CVE-2024-29857), and never verifies standalone Ed25519 signatures (CVE-2024-30172).&lt;/li&gt;
+&lt;li&gt;Tika's text/metadata &lt;strong&gt;extraction&lt;/strong&gt; does not exercise TLS, LDAP certificate lookup, EC-certificate
+  import, or Ed25519 signature verification, so even with Solr Cell enabled none of the vulnerable
+  code paths are reached.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr shipped an affected &lt;code&gt;bcprov-jdk15on&lt;/code&gt; via Solr Cell from 7.3.0 (1.54) through 9.10.1 (1.70) — all
+below the fixed 1.74/1.78. Solr 10.0.0 upgraded the extraction stack to Tika 3.x, whose PDFBox no
+longer bundles Bouncy Castle, so 10.x ships no &lt;code&gt;bcprov&lt;/code&gt; at all. The affected range is therefore
+7.3.0 – 9.10.1. (Solr 9.5–9.6 also briefly bundled a separate &lt;code&gt;bcprov-jdk18on&lt;/code&gt; 1.77 for another
+module, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache James MIME4J: header injection when composing MIME messages</title><link href="/cve-2024-21742.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-21742.html</id><summary type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
 used to &lt;strong&gt;compose / write&lt;/strong&gt; MIME messages, improper input validation lets crafted field values inject
 unintended headers into the produced message. It affects &lt;code&gt;apache-mime4j&lt;/code&gt; before 0.8.10 (fixed in
 0.8.10), and is …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is

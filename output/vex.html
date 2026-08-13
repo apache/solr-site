@@ -2323,6 +2323,60 @@ extraction in a separate Tika service, or replace <code>modules/extraction/lib/a
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21742">CVE-2024-21742</a></li>
                 </ul>
             </article>
+            <article id="cve-2023-33201" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-33201">CVE-2023-33201</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29857">CVE-2024-29857</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30171">CVE-2024-30171</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30172">CVE-2024-30172</a>, Bouncy Castle (bcprov): LDAP CertStore injection, EC/Ed25519 DoS, and RSA/TLS timing side-channel</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>Four vulnerabilities in the Bouncy Castle crypto provider (<code>org.bouncycastle:bcprov-jdk15on</code>),
+each in a distinct crypto operation:</p>
+<ul>
+<li><strong>CVE-2023-33201</strong> — LDAP injection in the X.509 <code>CertStore</code> (fixed in 1.74); requires using Bouncy
+  Castle's LDAP-backed <code>CertStore</code> for certificate lookups.</li>
+<li><strong>CVE-2024-29857</strong> — importing an EC certificate with crafted F2m parameters causes CPU exhaustion
+  (fixed in 1.78); requires parsing/importing an attacker-supplied EC certificate.</li>
+<li><strong>CVE-2024-30171</strong> — RSA/TLS timing side-channel ("Marvin"; fixed in 1.78); requires using Bouncy
+  Castle as the <strong>TLS/JSSE provider</strong> with an attacker able to time RSA handshake responses.</li>
+<li><strong>CVE-2024-30172</strong> — infinite loop verifying a crafted Ed25519 signature (fixed in 1.78); requires
+  verifying an attacker-supplied Ed25519 signature.</li>
+</ul>
+<p>Solr is <strong>not affected</strong>. Bouncy Castle (<code>bcprov</code>/<code>bcpkix</code>/<code>bcmail</code>/<code>bcutil</code>) is bundled only by the
+optional <strong>extraction (Solr Cell)</strong> module, where Apache Tika / PDFBox use it to handle encrypted or
+digitally-signed PDFs during document parsing. Solr does not use Bouncy Castle as a security provider
+in any of the ways these CVEs require:</p>
+<ul>
+<li>Solr's TLS is served by the JVM's default JSSE provider, <strong>not</strong> Bouncy Castle, so the RSA timing
+  side-channel (CVE-2024-30171) has no Solr-reachable surface.</li>
+<li>Solr never configures an LDAP <code>CertStore</code> (CVE-2023-33201), never imports attacker-supplied EC
+  certificates (CVE-2024-29857), and never verifies standalone Ed25519 signatures (CVE-2024-30172).</li>
+<li>Tika's text/metadata <strong>extraction</strong> does not exercise TLS, LDAP certificate lookup, EC-certificate
+  import, or Ed25519 signature verification, so even with Solr Cell enabled none of the vulnerable
+  code paths are reached.</li>
+</ul>
+<p>Solr shipped an affected <code>bcprov-jdk15on</code> via Solr Cell from 7.3.0 (1.54) through 9.10.1 (1.70) — all
+below the fixed 1.74/1.78. Solr 10.0.0 upgraded the extraction stack to Tika 3.x, whose PDFBox no
+longer bundles Bouncy Castle, so 10.x ships no <code>bcprov</code> at all. The affected range is therefore
+7.3.0 – 9.10.1. (Solr 9.5–9.6 also briefly bundled a separate <code>bcprov-jdk18on</code> 1.77 for another
+module, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17899">SOLR-17899</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-33201">CVE-2023-33201</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29857">CVE-2024-29857</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30171">CVE-2024-30171</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30172">CVE-2024-30172</a></li>
+                </ul>
+            </article>
             <article id="cve-2025-48924" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48924">CVE-2025-48924</a>, Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</h3>

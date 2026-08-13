@@ -1086,6 +1086,38 @@
     },
     {
       "vulnerability": {
+        "name": "CVE-2023-33201",
+        "aliases": [
+          "CVE-2024-29857",
+          "CVE-2024-30171",
+          "CVE-2024-30172"
+        ]
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.54"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.60"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.64"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.65"
+        },
+        {
+          "@id": "pkg:maven/org.bouncycastle/bcprov-jdk15on@1.70"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "Four vulnerabilities in the Bouncy Castle crypto provider (`org.bouncycastle:bcprov-jdk15on`),\neach in a distinct crypto operation:\n\n* **CVE-2023-33201** \u2014 LDAP injection in the X.509 `CertStore` (fixed in 1.74); requires using Bouncy\n  Castle's LDAP-backed `CertStore` for certificate lookups.\n* **CVE-2024-29857** \u2014 importing an EC certificate with crafted F2m parameters causes CPU exhaustion\n  (fixed in 1.78); requires parsing/importing an attacker-supplied EC certificate.\n* **CVE-2024-30171** \u2014 RSA/TLS timing side-channel (\"Marvin\"; fixed in 1.78); requires using Bouncy\n  Castle as the **TLS/JSSE provider** with an attacker able to time RSA handshake responses.\n* **CVE-2024-30172** \u2014 infinite loop verifying a crafted Ed25519 signature (fixed in 1.78); requires\n  verifying an attacker-supplied Ed25519 signature.\n\nSolr is **not affected**. Bouncy Castle (`bcprov`/`bcpkix`/`bcmail`/`bcutil`) is bundled only by the\noptional **extraction (Solr Cell)** module, where Apache Tika / PDFBox use it to handle encrypted or\ndigitally-signed PDFs during document parsing. Solr does not use Bouncy Castle as a security provider\nin any of the ways these CVEs require:\n\n* Solr's TLS is served by the JVM's default JSSE provider, **not** Bouncy Castle, so the RSA timing\n  side-channel (CVE-2024-30171) has no Solr-reachable surface.\n* Solr never configures an LDAP `CertStore` (CVE-2023-33201), never imports attacker-supplied EC\n  certificates (CVE-2024-29857), and never verifies standalone Ed25519 signatures (CVE-2024-30172).\n* Tika's text/metadata **extraction** does not exercise TLS, LDAP certificate lookup, EC-certificate\n  import, or Ed25519 signature verification, so even with Solr Cell enabled none of the vulnerable\n  code paths are reached.\n\nSolr shipped an affected `bcprov-jdk15on` via Solr Cell from 7.3.0 (1.54) through 9.10.1 (1.70) \u2014 all\nbelow the fixed 1.74/1.78. Solr 10.0.0 upgraded the extraction stack to Tika 3.x, whose PDFBox no\nlonger bundles Bouncy Castle, so 10.x ships no `bcprov` at all. The affected range is therefore\n7.3.0 \u2013 9.10.1. (Solr 9.5\u20139.6 also briefly bundled a separate `bcprov-jdk18on` 1.77 for another\nmodule, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)",
+      "status_notes": "Affected Apache Solr versions: 7.3.0-9.10.1."
+    },
+    {
+      "vulnerability": {
         "name": "CVE-2024-21742"
       },
       "products": [
