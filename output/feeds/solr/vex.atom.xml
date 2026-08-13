@@ -115,31 +115,21 @@ name factory classes).&lt;/p&gt;
 handler). Solr constructs the Calcite schema/model &lt;strong&gt;server-side&lt;/strong&gt; from the target collection; users
 submit only a SQL statement, never a Calcite model or schema-factory definition. There is no request
 path through which an attacker can supply a Calcite model, so the arbitrary-class-loading vector is
-never reached.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: nested-toString DoS, InetSocketAddress SSRF, and deserialization-filter bypasses</title><link href="/cve-2026-50193.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-50193.html</id><summary type="html">&lt;p&gt;Four jackson-databind issues, in two groups:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Only the Hadoop-shaded old copy is affected.&lt;/strong&gt; CVE-2026-50193 (StackOverflow on &lt;code&gt;toString()&lt;/code&gt; of a
-  deeply-nested &lt;code&gt;JsonNode&lt;/code&gt;, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when
-  deserializing into &lt;code&gt;InetSocketAddress&lt;/code&gt;, fixed 2.18.8 / 2.21.4) do not affect Solr's own
-  jackson-databind (2.18 …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Four jackson-databind issues, in two groups:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Only the Hadoop-shaded old copy is affected.&lt;/strong&gt; CVE-2026-50193 (StackOverflow on &lt;code&gt;toString()&lt;/code&gt; of a
-  deeply-nested &lt;code&gt;JsonNode&lt;/code&gt;, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when
-  deserializing into &lt;code&gt;InetSocketAddress&lt;/code&gt;, fixed 2.18.8 / 2.21.4) do not affect Solr's own
-  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 — both patched). The &lt;code&gt;2.12.7.1&lt;/code&gt; a scanner
-  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process
-  administrator-supplied configuration rather than untrusted external JSON.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Require Jackson features Solr does not use.&lt;/strong&gt; CVE-2026-54515 (case-insensitive deserialization
-  bypassing per-property &lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;), CVE-2026-59889 (&lt;code&gt;@JsonView&lt;/code&gt; bypass for
-  &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container properties), CVE-2026-59888 (&lt;code&gt;@JsonIgnore&lt;/code&gt; on a Record property bypassed
-  via a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt;), GHSA-mhm7-754m-9p8w (&lt;code&gt;@JsonView&lt;/code&gt; bypass for creator properties
-  with &lt;code&gt;@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)&lt;/code&gt;), and CVE-2026-54518 (&lt;code&gt;@JsonView&lt;/code&gt; bypass for
-  unwrapped creator parameters) can reach Solr's own jackson-databind, but
-  only when an application relies on those annotation-based mechanisms — case-insensitive property
-  mapping, &lt;code&gt;@JsonView&lt;/code&gt;, &lt;code&gt;@JsonUnwrapped&lt;/code&gt;, &lt;code&gt;@JsonIgnore&lt;/code&gt; on records, or &lt;code&gt;@JsonTypeInfo&lt;/code&gt; external-property
-  polymorphism — to restrict which fields untrusted input may set. Solr uses none of them: it maps
-  request JSON to fixed, known types and never applies &lt;code&gt;@JsonView&lt;/code&gt;/&lt;code&gt;@JsonIgnore&lt;/code&gt;-based deserialization
-  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: PolymorphicTypeValidator allowlist bypasses (unsafe deserialization)</title><link href="/cve-2026-54512.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-54512.html</id><summary type="html">&lt;p&gt;CVE-2026-54512 and CVE-2026-54513 are bypasses of jackson-databind's &lt;code&gt;PolymorphicTypeValidator&lt;/code&gt; — via
+never reached.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: StackOverflowError calling toString() on a deeply-nested JsonNode</title><link href="/cve-2026-50193.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-50193.html</id><summary type="html">&lt;p&gt;CVE-2026-50193 is a denial-of-service issue in jackson-databind: calling &lt;code&gt;toString()&lt;/code&gt; on a
+deeply-nested &lt;code&gt;JsonNode&lt;/code&gt; recurses until it throws a &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects jackson-databind
+before 2.14.0 (fixed in 2.14.0), and is reachable only when an application builds a &lt;code&gt;JsonNode&lt;/code&gt; tree
+from attacker-controlled JSON and then calls &lt;code&gt;toString()&lt;/code&gt; on …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-50193 is a denial-of-service issue in jackson-databind: calling &lt;code&gt;toString()&lt;/code&gt; on a
+deeply-nested &lt;code&gt;JsonNode&lt;/code&gt; recurses until it throws a &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects jackson-databind
+before 2.14.0 (fixed in 2.14.0), and is reachable only when an application builds a &lt;code&gt;JsonNode&lt;/code&gt; tree
+from attacker-controlled JSON and then calls &lt;code&gt;toString()&lt;/code&gt; on it.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr does not call &lt;code&gt;toString()&lt;/code&gt; on an untrusted, attacker-nested &lt;code&gt;JsonNode&lt;/code&gt;
+as part of any request path.&lt;/p&gt;
+&lt;p&gt;Solr's own standalone &lt;code&gt;jackson-databind&lt;/code&gt; is below 2.14.0 only in 9.0.0 – 9.1.1 (2.13.2.2 / 2.13.3 /
+2.13.4.2); from 9.2.0 onward it ships 2.14.2 or later (up to 2.20.0 in 10.0.0), all past the fix, so
+those releases are not affected. Note the old &lt;code&gt;2.12.7.1&lt;/code&gt; copy shaded inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt;
+(optional &lt;code&gt;hdfs&lt;/code&gt; module) is also below 2.14.0 and is present across the wider 9.x line, but that
+shaded purl is a separate scanner/generator concern tracked with the other Hadoop-shaded dependencies
+(SOLR-17900); this statement covers Solr's standalone jackson-databind.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: PolymorphicTypeValidator allowlist bypasses (unsafe deserialization)</title><link href="/cve-2026-54512.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-54512.html</id><summary type="html">&lt;p&gt;CVE-2026-54512 and CVE-2026-54513 are bypasses of jackson-databind's &lt;code&gt;PolymorphicTypeValidator&lt;/code&gt; — via
 generic type parameters (54512) and via an array-subtype allowlist gap in
 &lt;code&gt;allowIfSubType&lt;/code&gt; (54513) — that can let unexpected classes be instantiated during polymorphic
 deserialization (affects 2.10.0–2.18.7 and 2.19.0–2.21.3).&lt;/p&gt;
@@ -153,7 +143,42 @@ deserialization&lt;/strong&gt; — default typing (&lt;code&gt;activateDefaultTy
 Solr does none of this: it maps request JSON to fixed, known target types and never enables default
 typing or polymorphic deserialization of untrusted input, so the &lt;code&gt;PolymorphicTypeValidator&lt;/code&gt; code path
 these CVEs target is never exercised. (The &lt;code&gt;2.12.7.1&lt;/code&gt; copy a scanner flags is Hadoop's shaded
-jackson-databind; Solr's own is 2.18.0 in current 9.x and 2.22.0 in 9.11.)&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>JLine: unauthenticated remote DoS in the Telnet server</title><link href="/cve-2026-56740.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-56740.html</id><summary type="html">&lt;p&gt;CVE-2026-56740 and CVE-2026-56741 are unauthenticated remote denial-of-service issues in &lt;strong&gt;JLine's
+jackson-databind; Solr's own is 2.18.0 in current 9.x and 2.22.0 in 9.11.)&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: SSRF via eager DNS resolution deserializing into InetSocketAddress</title><link href="/cve-2026-54514.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-54514.html</id><summary type="html">&lt;p&gt;CVE-2026-54514 is a server-side request forgery (SSRF) issue in jackson-databind:
+&lt;code&gt;JDKFromStringDeserializer&lt;/code&gt; builds an &lt;code&gt;InetSocketAddress&lt;/code&gt; with &lt;code&gt;new InetSocketAddress(host, port)&lt;/code&gt;,
+which performs eager DNS name resolution. Deserializing attacker-controlled JSON into an
+&lt;code&gt;InetSocketAddress&lt;/code&gt; therefore triggers a DNS lookup of an attacker-chosen name. It affects
+jackson-databind 2.0.0 – 2.18.7 and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-54514 is a server-side request forgery (SSRF) issue in jackson-databind:
+&lt;code&gt;JDKFromStringDeserializer&lt;/code&gt; builds an &lt;code&gt;InetSocketAddress&lt;/code&gt; with &lt;code&gt;new InetSocketAddress(host, port)&lt;/code&gt;,
+which performs eager DNS name resolution. Deserializing attacker-controlled JSON into an
+&lt;code&gt;InetSocketAddress&lt;/code&gt; therefore triggers a DNS lookup of an attacker-chosen name. It affects
+jackson-databind 2.0.0 – 2.18.7 and 2.19.0 – 2.21.3 (fixed in 2.18.8 / 2.21.4).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr deserializes request JSON into fixed, known types and never binds
+untrusted input to a &lt;code&gt;java.net.InetSocketAddress&lt;/code&gt; (or a field that would trigger this deserializer),
+so the eager-resolution path is never driven by attacker-controlled data.&lt;/p&gt;
+&lt;p&gt;Solr shipped an in-range &lt;code&gt;jackson-databind&lt;/code&gt; from 9.0.0 through 9.10.1 (2.13.2.2 → 2.18.0, all
+&amp;lt; 2.18.8) and in 10.0.0 (2.20.0, within 2.19.0 – 2.21.3). Solr 9.11 upgrades to 2.22.0 (past the
+2.21.4 fix) and is not affected. The old &lt;code&gt;2.12.7.1&lt;/code&gt; copy shaded inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt; (in the
+optional &lt;code&gt;hdfs&lt;/code&gt; module across the 9.x line) is likewise below the fix, but its shaded purl is a
+separate scanner/generator concern tracked with the other Hadoop-shaded dependencies (SOLR-17900);
+either way Solr does not route untrusted JSON into &lt;code&gt;InetSocketAddress&lt;/code&gt; deserialization.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: case-insensitive deserialization bypasses per-property @JsonIgnoreProperties</title><link href="/cve-2026-54515.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-54515.html</id><summary type="html">&lt;p&gt;CVE-2026-54515 is a deserialization-filter bypass in jackson-databind: when case-insensitive property
+matching (&lt;code&gt;MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES&lt;/code&gt;) is enabled together with per-property
+&lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;, a property meant to be ignored can still be set from untrusted JSON using a
+different-case name (a mass-assignment-style write). It affects jackson-databind 2.8.0 – 2.18.8,
+2.19 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-54515 is a deserialization-filter bypass in jackson-databind: when case-insensitive property
+matching (&lt;code&gt;MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES&lt;/code&gt;) is enabled together with per-property
+&lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;, a property meant to be ignored can still be set from untrusted JSON using a
+different-case name (a mass-assignment-style write). It affects jackson-databind 2.8.0 – 2.18.8,
+2.19.0 – 2.21.4, and 2.22.0 (fixed in 2.18.9 / 2.21.5 / 2.22.1).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Exploiting this requires an application to rely on case-insensitive matching
+plus per-property &lt;code&gt;@JsonIgnoreProperties&lt;/code&gt; to restrict which fields untrusted input may set. Solr does
+neither: it maps request JSON to fixed, known types and does not use &lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;-based
+filtering (nor case-insensitive property mapping) as a security boundary on untrusted input, so there
+is nothing for the bypass to defeat.&lt;/p&gt;
+&lt;p&gt;Solr shipped an in-range &lt;code&gt;jackson-databind&lt;/code&gt; from 9.0.0 through 9.10.1 (2.13.2.2 → 2.18.0) and in
+10.0.0 (2.20.0). Solr 9.11 ships 2.22.0, which is also affected (fixed in 2.22.1) — it should be added
+to this range once released. The old &lt;code&gt;2.12.7.1&lt;/code&gt; copy shaded inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt; (optional
+&lt;code&gt;hdfs&lt;/code&gt; module) is also in range, but its shaded purl is a separate scanner/generator concern tracked
+with the other Hadoop-shaded dependencies (SOLR-17900).&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>JLine: unauthenticated remote DoS in the Telnet server</title><link href="/cve-2026-56740.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-56740.html</id><summary type="html">&lt;p&gt;CVE-2026-56740 and CVE-2026-56741 are unauthenticated remote denial-of-service issues in &lt;strong&gt;JLine's
 Telnet server&lt;/strong&gt; — unbounded NEW-ENVIRON variables (56740) and unbounded NAWS terminal-geometry values
 (56741) in the &lt;code&gt;jline-remote-telnet&lt;/code&gt; Telnet daemon (affects &amp;lt; 3.30.14, and the 4.0.x / 4.1.x lines).&lt;/p&gt;
 &lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;:&lt;/p&gt;
@@ -186,7 +211,36 @@ Telnet server&lt;/strong&gt; — unbounded NEW-ENVIRON variables (56740) and unb
 the ZooKeeper client, where Netty acts strictly as a &lt;strong&gt;client&lt;/strong&gt;. Solr's HTTP server is Jetty, not
 Netty: Solr never runs a Netty HTTP/HTTP2/SPDY server, never enables the SPDY codec, and never feeds
 attacker-controlled compressed (bzip2) streams through Netty. The vulnerable server/decoder code
-paths are therefore unreachable — the same reasoning as CVE-2026-33870 / CVE-2026-33871.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Netty codec-http/http2: server-side HTTP handling issues (DoS, CORS/WebSocket, smuggling, CRLF)</title><link href="/cve-2026-59899.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59899.html</id><summary type="html">&lt;p&gt;These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect
+paths are therefore unreachable — the same reasoning as CVE-2026-33870 / CVE-2026-33871.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: @JsonIgnore on a Record property bypassed via a PropertyNamingStrategy</title><link href="/cve-2026-59888.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59888.html</id><summary type="html">&lt;p&gt;CVE-2026-59888 is a deserialization-filter bypass in jackson-databind: &lt;code&gt;@JsonIgnore&lt;/code&gt; on a Record
+property can be bypassed when a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt; is in effect, because
+&lt;code&gt;POJOPropertiesCollector._removeUnwantedIgnorals()&lt;/code&gt; records the ignored component under its original
+implicit name before &lt;code&gt;_renameUsing()&lt;/code&gt; applies the naming strategy — so the renamed property is no
+longer recognised as ignored and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-59888 is a deserialization-filter bypass in jackson-databind: &lt;code&gt;@JsonIgnore&lt;/code&gt; on a Record
+property can be bypassed when a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt; is in effect, because
+&lt;code&gt;POJOPropertiesCollector._removeUnwantedIgnorals()&lt;/code&gt; records the ignored component under its original
+implicit name before &lt;code&gt;_renameUsing()&lt;/code&gt; applies the naming strategy — so the renamed property is no
+longer recognised as ignored and can be set from untrusted JSON. It affects jackson-databind
+2.15.0 – 2.18.7 and 2.19.0 – 2.21.3 (fixed in 2.18.8 / 2.21.4).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Exploiting this requires an application to deserialize untrusted JSON into
+Java Records that use &lt;code&gt;@JsonIgnore&lt;/code&gt; together with a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt; to keep a field
+unwritable. Solr does not rely on that mechanism to filter untrusted input, so the bypass has nothing
+to defeat.&lt;/p&gt;
+&lt;p&gt;Solr shipped an in-range &lt;code&gt;jackson-databind&lt;/code&gt; from 9.3.0 through 9.10.1 (2.15.2 → 2.18.0) and in 10.0.0
+(2.20.0). Earlier 9.x (≤ 9.2.x, jackson-databind ≤ 2.14.2) and Solr 9.11 (2.22.0) are past/below the
+affected ranges and are not affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: @JsonView bypass for @JsonUnwrapped container properties</title><link href="/cve-2026-59889.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59889.html</id><summary type="html">&lt;p&gt;CVE-2026-59889 is a deserialization-filter bypass in jackson-databind: a &lt;code&gt;@JsonView&lt;/code&gt; restriction can
+be bypassed for the properties of a &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container, letting untrusted JSON set fields that
+the active view was meant to exclude. It affects jackson-databind 2.18.0 – 2.18.8, 2.21.0 – 2.21.4,
+and 2 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-59889 is a deserialization-filter bypass in jackson-databind: a &lt;code&gt;@JsonView&lt;/code&gt; restriction can
+be bypassed for the properties of a &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container, letting untrusted JSON set fields that
+the active view was meant to exclude. It affects jackson-databind 2.18.0 – 2.18.8, 2.21.0 – 2.21.4,
+and 2.22.0 (fixed in 2.18.9 / 2.21.5 / 2.22.1).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Exploiting this requires an application to use &lt;code&gt;@JsonView&lt;/code&gt;-based
+deserialization filtering over &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container properties to restrict which fields
+untrusted input may set. Solr applies no &lt;code&gt;@JsonView&lt;/code&gt; filtering to request deserialization, so there
+is nothing for the bypass to defeat.&lt;/p&gt;
+&lt;p&gt;Solr's own standalone &lt;code&gt;jackson-databind&lt;/code&gt; is in an affected range only in 9.8.0 – 9.10.1 (2.18.0).
+Solr 10.0.0 ships 2.20.0, which is outside the affected ranges and is not affected. Solr 9.11 ships
+2.22.0, which &lt;em&gt;is&lt;/em&gt; affected (fixed in 2.22.1) and should be added to this range once released.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Netty codec-http/http2: server-side HTTP handling issues (DoS, CORS/WebSocket, smuggling, CRLF)</title><link href="/cve-2026-59899.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59899.html</id><summary type="html">&lt;p&gt;These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect
 Netty &amp;lt; 4.1.136 and 4.2.0–4.2.15, fixed in 4.1.136 / 4.2.16):&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;CVE-2026-59899 — unbounded per-connection queue growth in &lt;code&gt;HttpContentEncoder&lt;/code&gt; via HTTP/1.1
@@ -253,7 +307,22 @@ canonicalization &lt;em&gt;desync&lt;/em&gt;).&lt;/p&gt;
 &lt;li&gt;Solr uses neither Jetty's &lt;code&gt;SecurityHandler.PathMapped&lt;/code&gt; nor &lt;code&gt;URIUtil.canonicalPath()&lt;/code&gt; directly.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;So even on an affected Jetty, the mis-canonicalization cannot produce an authorization bypass in
-Solr, because Solr's authorization and dispatch are driven by the same, single path value.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons BeanUtils: class-loader access via a 'declaredClass' property path</title><link href="/cve-2025-48734.html" rel="alternate"/><published>2026-07-18T00:00:00+00:00</published><updated>2026-07-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-18:/cve-2025-48734.html</id><summary type="html">&lt;p&gt;CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr does not call PropertyUtilsBean.getProperty(), BeanUtilsBean, or any Commons BeanUtils introspection APIs directly. commons-beanutils is only ever pulled in transitively: in the 9.x line via &lt;code&gt;hadoop-common&lt;/code&gt; (used by the optional Hadoop/Kerberos authentication module, which reads administrator-supplied configuration files rather than untrusted external input), and in 10.0 — after the Hadoop module was removed (SOLR-17540) — via the &lt;code&gt;cross-dc-manager&lt;/code&gt; module's embedded Kafka broker (&lt;code&gt;kafka_2.13&lt;/code&gt; → &lt;code&gt;commons-validator&lt;/code&gt; → &lt;code&gt;commons-beanutils&lt;/code&gt;). No Solr code passes externally-supplied property paths to BeanUtils in either case, so the vulnerable code path is unreachable regardless of how the jar is bundled.&lt;/p&gt;
+Solr, because Solr's authorization and dispatch are driven by the same, single path value.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: @JsonView bypass for creator properties with @JsonTypeInfo external-property polymorphism</title><link href="/ghsa-mhm7-754m-9p8w.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/ghsa-mhm7-754m-9p8w.html</id><summary type="html">&lt;p&gt;GHSA-mhm7-754m-9p8w is a deserialization-filter bypass in jackson-databind: a &lt;code&gt;@JsonView&lt;/code&gt; restriction
+can be bypassed for creator properties that use &lt;code&gt;@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)&lt;/code&gt;
+polymorphic typing, letting untrusted JSON populate fields the active view was meant to exclude. It
+affects jackson-databind 2.18.0 – 2.18.8 and 2.21.0 – 2 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;GHSA-mhm7-754m-9p8w is a deserialization-filter bypass in jackson-databind: a &lt;code&gt;@JsonView&lt;/code&gt; restriction
+can be bypassed for creator properties that use &lt;code&gt;@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)&lt;/code&gt;
+polymorphic typing, letting untrusted JSON populate fields the active view was meant to exclude. It
+affects jackson-databind 2.18.0 – 2.18.8 and 2.21.0 – 2.21.4 (fixed in 2.18.9 / 2.21.5); the
+external-type-id creator path was fixed on the 3.x line and not backported to the 2.19/2.20 lines,
+which are not affected.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Exploiting this requires an application to combine &lt;code&gt;@JsonView&lt;/code&gt; filtering
+with &lt;code&gt;@JsonTypeInfo&lt;/code&gt; external-property polymorphic typing on untrusted input. Solr applies neither
+&lt;code&gt;@JsonView&lt;/code&gt; filtering nor polymorphic type handling to request deserialization (see also the
+long-standing polymorphic-typing analysis in the jackson-databind gadget statement), so the bypass has
+nothing to defeat.&lt;/p&gt;
+&lt;p&gt;Solr's own standalone &lt;code&gt;jackson-databind&lt;/code&gt; is in an affected range only in 9.8.0 – 9.10.1 (2.18.0).
+Solr 10.0.0 (2.20.0) and Solr 9.11 (2.22.0) are outside the affected ranges and are not affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons BeanUtils: class-loader access via a 'declaredClass' property path</title><link href="/cve-2025-48734.html" rel="alternate"/><published>2026-07-18T00:00:00+00:00</published><updated>2026-07-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-18:/cve-2025-48734.html</id><summary type="html">&lt;p&gt;CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr does not call PropertyUtilsBean.getProperty(), BeanUtilsBean, or any Commons BeanUtils introspection APIs directly. commons-beanutils is only ever pulled in transitively: in the 9.x line via &lt;code&gt;hadoop-common&lt;/code&gt; (used by the optional Hadoop/Kerberos authentication module, which reads administrator-supplied configuration files rather than untrusted external input), and in 10.0 — after the Hadoop module was removed (SOLR-17540) — via the &lt;code&gt;cross-dc-manager&lt;/code&gt; module's embedded Kafka broker (&lt;code&gt;kafka_2.13&lt;/code&gt; → &lt;code&gt;commons-validator&lt;/code&gt; → &lt;code&gt;commons-beanutils&lt;/code&gt;). No Solr code passes externally-supplied property paths to BeanUtils in either case, so the vulnerable code path is unreachable regardless of how the jar is bundled.&lt;/p&gt;
 &lt;p&gt;CVE-2025-48734 affects all Commons BeanUtils 1.x releases before 1.11.0. Solr has bundled
 commons-beanutils since Solr 3.6.0, and every release that includes it, through Solr 10.0.0, ships an
 affected 1.x version (1.7.0, then 1.8.3, 1.9.3 and 1.9.4 — all below 1.11.0). The affected range is

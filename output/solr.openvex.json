@@ -3216,15 +3216,6 @@
       },
       "products": [
         {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
-        },
-        {
           "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
         },
         {
@@ -3232,445 +3223,13 @@
         },
         {
           "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
         }
       ],
       "status": "not_affected",
       "timestamp": "2026-07-31T00:00:00Z",
       "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`), and CVE-2026-54518 (`@JsonView` bypass for\n  unwrapped creator parameters) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
-      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
-    },
-    {
-      "vulnerability": {
-        "name": "CVE-2026-54514"
-      },
-      "products": [
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
-        }
-      ],
-      "status": "not_affected",
-      "timestamp": "2026-07-31T00:00:00Z",
-      "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`), and CVE-2026-54518 (`@JsonView` bypass for\n  unwrapped creator parameters) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
-      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
-    },
-    {
-      "vulnerability": {
-        "name": "CVE-2026-54515"
-      },
-      "products": [
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
-        }
-      ],
-      "status": "not_affected",
-      "timestamp": "2026-07-31T00:00:00Z",
-      "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`), and CVE-2026-54518 (`@JsonView` bypass for\n  unwrapped creator parameters) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
-      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
-    },
-    {
-      "vulnerability": {
-        "name": "CVE-2026-59889"
-      },
-      "products": [
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
-        }
-      ],
-      "status": "not_affected",
-      "timestamp": "2026-07-31T00:00:00Z",
-      "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`), and CVE-2026-54518 (`@JsonView` bypass for\n  unwrapped creator parameters) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
-      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
-    },
-    {
-      "vulnerability": {
-        "name": "CVE-2026-59888"
-      },
-      "products": [
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
-        }
-      ],
-      "status": "not_affected",
-      "timestamp": "2026-07-31T00:00:00Z",
-      "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`), and CVE-2026-54518 (`@JsonView` bypass for\n  unwrapped creator parameters) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
-      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
-    },
-    {
-      "vulnerability": {
-        "name": "CVE-2026-54518"
-      },
-      "products": [
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
-        }
-      ],
-      "status": "not_affected",
-      "timestamp": "2026-07-31T00:00:00Z",
-      "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`), and CVE-2026-54518 (`@JsonView` bypass for\n  unwrapped creator parameters) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
-      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
-    },
-    {
-      "vulnerability": {
-        "name": "GHSA-mhm7-754m-9p8w"
-      },
-      "products": [
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.10.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.11.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.3.1"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.5.4"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.5"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.6"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.8"
-        },
-        {
-          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.9.9.3"
-        }
-      ],
-      "status": "not_affected",
-      "timestamp": "2026-07-31T00:00:00Z",
-      "justification": "vulnerable_code_not_in_execute_path",
-      "impact_statement": "Four jackson-databind issues, in two groups:\n\n* **Only the Hadoop-shaded old copy is affected.** CVE-2026-50193 (StackOverflow on `toString()` of a\n  deeply-nested `JsonNode`, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when\n  deserializing into `InetSocketAddress`, fixed 2.18.8 / 2.21.4) do not affect Solr's own\n  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 \u2014 both patched). The `2.12.7.1` a scanner\n  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process\n  administrator-supplied configuration rather than untrusted external JSON.\n* **Require Jackson features Solr does not use.** CVE-2026-54515 (case-insensitive deserialization\n  bypassing per-property `@JsonIgnoreProperties`), CVE-2026-59889 (`@JsonView` bypass for\n  `@JsonUnwrapped` container properties), CVE-2026-59888 (`@JsonIgnore` on a Record property bypassed\n  via a `PropertyNamingStrategy`), GHSA-mhm7-754m-9p8w (`@JsonView` bypass for creator properties\n  with `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`), and CVE-2026-54518 (`@JsonView` bypass for\n  unwrapped creator parameters) can reach Solr's own jackson-databind, but\n  only when an application relies on those annotation-based mechanisms \u2014 case-insensitive property\n  mapping, `@JsonView`, `@JsonUnwrapped`, `@JsonIgnore` on records, or `@JsonTypeInfo` external-property\n  polymorphism \u2014 to restrict which fields untrusted input may set. Solr uses none of them: it maps\n  request JSON to fixed, known types and never applies `@JsonView`/`@JsonIgnore`-based deserialization\n  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.",
-      "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+      "impact_statement": "CVE-2026-50193 is a denial-of-service issue in jackson-databind: calling `toString()` on a\ndeeply-nested `JsonNode` recurses until it throws a `StackOverflowError`. It affects jackson-databind\nbefore 2.14.0 (fixed in 2.14.0), and is reachable only when an application builds a `JsonNode` tree\nfrom attacker-controlled JSON and then calls `toString()` on it.\n\nSolr is **not affected**. Solr does not call `toString()` on an untrusted, attacker-nested `JsonNode`\nas part of any request path.\n\nSolr's own standalone `jackson-databind` is below 2.14.0 only in 9.0.0 \u2013 9.1.1 (2.13.2.2 / 2.13.3 /\n2.13.4.2); from 9.2.0 onward it ships 2.14.2 or later (up to 2.20.0 in 10.0.0), all past the fix, so\nthose releases are not affected. Note the old `2.12.7.1` copy shaded inside `hadoop-client-runtime`\n(optional `hdfs` module) is also below 2.14.0 and is present across the wider 9.x line, but that\nshaded purl is a separate scanner/generator concern tracked with the other Hadoop-shaded dependencies\n(SOLR-17900); this statement covers Solr's standalone jackson-databind.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-9.1.1."
     },
     {
       "vulnerability": {
@@ -3803,6 +3362,83 @@
       "justification": "vulnerable_code_not_in_execute_path",
       "impact_statement": "CVE-2026-54512 and CVE-2026-54513 are bypasses of jackson-databind's `PolymorphicTypeValidator` \u2014 via\ngeneric type parameters (54512) and via an array-subtype allowlist gap in\n`allowIfSubType` (54513) \u2014 that can let unexpected classes be instantiated during polymorphic\ndeserialization (affects 2.10.0\u20132.18.7 and 2.19.0\u20132.21.3).\n\nSolr is **not affected**. Both issues are only exploitable when an application enables **polymorphic\ndeserialization** \u2014 default typing (`activateDefaultTyping`), `@JsonTypeInfo`, or a\n`BasicPolymorphicTypeValidator` allowlist \u2014 and then deserializes attacker-controlled JSON through it.\nSolr does none of this: it maps request JSON to fixed, known target types and never enables default\ntyping or polymorphic deserialization of untrusted input, so the `PolymorphicTypeValidator` code path\nthese CVEs target is never exercised. (The `2.12.7.1` copy a scanner flags is Hadoop's shaded\njackson-databind; Solr's own is 2.18.0 in current 9.x and 2.22.0 in 9.11.)",
       "status_notes": "Affected Apache Solr versions: 4.7.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-54514"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-54514 is a server-side request forgery (SSRF) issue in jackson-databind:\n`JDKFromStringDeserializer` builds an `InetSocketAddress` with `new InetSocketAddress(host, port)`,\nwhich performs eager DNS name resolution. Deserializing attacker-controlled JSON into an\n`InetSocketAddress` therefore triggers a DNS lookup of an attacker-chosen name. It affects\njackson-databind 2.0.0 \u2013 2.18.7 and 2.19.0 \u2013 2.21.3 (fixed in 2.18.8 / 2.21.4).\n\nSolr is **not affected**. Solr deserializes request JSON into fixed, known types and never binds\nuntrusted input to a `java.net.InetSocketAddress` (or a field that would trigger this deserializer),\nso the eager-resolution path is never driven by attacker-controlled data.\n\nSolr shipped an in-range `jackson-databind` from 9.0.0 through 9.10.1 (2.13.2.2 \u2192 2.18.0, all\n< 2.18.8) and in 10.0.0 (2.20.0, within 2.19.0 \u2013 2.21.3). Solr 9.11 upgrades to 2.22.0 (past the\n2.21.4 fix) and is not affected. The old `2.12.7.1` copy shaded inside `hadoop-client-runtime` (in the\noptional `hdfs` module across the 9.x line) is likewise below the fix, but its shaded purl is a\nseparate scanner/generator concern tracked with the other Hadoop-shaded dependencies (SOLR-17900);\neither way Solr does not route untrusted JSON into `InetSocketAddress` deserialization.",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-9.10.1, 10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-54515"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.2.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.3"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.13.4.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "impact_statement": "CVE-2026-54515 is a deserialization-filter bypass in jackson-databind: when case-insensitive property\nmatching (`MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES`) is enabled together with per-property\n`@JsonIgnoreProperties`, a property meant to be ignored can still be set from untrusted JSON using a\ndifferent-case name (a mass-assignment-style write). It affects jackson-databind 2.8.0 \u2013 2.18.8,\n2.19.0 \u2013 2.21.4, and 2.22.0 (fixed in 2.18.9 / 2.21.5 / 2.22.1).\n\nSolr is **not affected**. Exploiting this requires an application to rely on case-insensitive matching\nplus per-property `@JsonIgnoreProperties` to restrict which fields untrusted input may set. Solr does\nneither: it maps request JSON to fixed, known types and does not use `@JsonIgnoreProperties`-based\nfiltering (nor case-insensitive property mapping) as a security boundary on untrusted input, so there\nis nothing for the bypass to defeat.\n\nSolr shipped an in-range `jackson-databind` from 9.0.0 through 9.10.1 (2.13.2.2 \u2192 2.18.0) and in\n10.0.0 (2.20.0). Solr 9.11 ships 2.22.0, which is also affected (fixed in 2.22.1) \u2014 it should be added\nto this range once released. The old `2.12.7.1` copy shaded inside `hadoop-client-runtime` (optional\n`hdfs` module) is also in range, but its shaded purl is a separate scanner/generator concern tracked\nwith the other Hadoop-shaded dependencies (SOLR-17900).",
+      "status_notes": "Affected Apache Solr versions: 9.0.0-9.10.1, 10.0.0."
     },
     {
       "vulnerability": {
@@ -4148,6 +3784,46 @@
       "justification": "vulnerable_code_not_in_execute_path",
       "impact_statement": "These five Netty issues are resource-exhaustion / DoS bugs in server- and decoder-side code paths\n(all affect Netty < 4.1.136 and 4.2.0\u20134.2.15, fixed in 4.1.136 / 4.2.16):\n\n* CVE-2026-56745, CVE-2026-55833, CVE-2026-55831 \u2014 the **SPDY** codec (`SpdyHttpDecoder` and SPDY\n  header/settings handling) in `netty-codec-http`.\n* CVE-2026-56819 \u2014 server-side **HTTP/2 decompression** ByteBuf reference leak in `netty-codec-http2`.\n* CVE-2026-59901 \u2014 infinite loop in the **Bzip2** decoder in `netty-codec-compression`.\n\nSolr is **not affected**. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and\nthe ZooKeeper client, where Netty acts strictly as a **client**. Solr's HTTP server is Jetty, not\nNetty: Solr never runs a Netty HTTP/HTTP2/SPDY server, never enables the SPDY codec, and never feeds\nattacker-controlled compressed (bzip2) streams through Netty. The vulnerable server/decoder code\npaths are therefore unreachable \u2014 the same reasoning as CVE-2026-33870 / CVE-2026-33871.",
       "status_notes": "Affected Apache Solr versions: 9.2.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59888"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        },
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.20.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "impact_statement": "CVE-2026-59888 is a deserialization-filter bypass in jackson-databind: `@JsonIgnore` on a Record\nproperty can be bypassed when a `PropertyNamingStrategy` is in effect, because\n`POJOPropertiesCollector._removeUnwantedIgnorals()` records the ignored component under its original\nimplicit name before `_renameUsing()` applies the naming strategy \u2014 so the renamed property is no\nlonger recognised as ignored and can be set from untrusted JSON. It affects jackson-databind\n2.15.0 \u2013 2.18.7 and 2.19.0 \u2013 2.21.3 (fixed in 2.18.8 / 2.21.4).\n\nSolr is **not affected**. Exploiting this requires an application to deserialize untrusted JSON into\nJava Records that use `@JsonIgnore` together with a `PropertyNamingStrategy` to keep a field\nunwritable. Solr does not rely on that mechanism to filter untrusted input, so the bypass has nothing\nto defeat.\n\nSolr shipped an in-range `jackson-databind` from 9.3.0 through 9.10.1 (2.15.2 \u2192 2.18.0) and in 10.0.0\n(2.20.0). Earlier 9.x (\u2264 9.2.x, jackson-databind \u2264 2.14.2) and Solr 9.11 (2.22.0) are past/below the\naffected ranges and are not affected.",
+      "status_notes": "Affected Apache Solr versions: 9.3.0-9.10.1, 10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-59889"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "impact_statement": "CVE-2026-59889 is a deserialization-filter bypass in jackson-databind: a `@JsonView` restriction can\nbe bypassed for the properties of a `@JsonUnwrapped` container, letting untrusted JSON set fields that\nthe active view was meant to exclude. It affects jackson-databind 2.18.0 \u2013 2.18.8, 2.21.0 \u2013 2.21.4,\nand 2.22.0 (fixed in 2.18.9 / 2.21.5 / 2.22.1).\n\nSolr is **not affected**. Exploiting this requires an application to use `@JsonView`-based\ndeserialization filtering over `@JsonUnwrapped` container properties to restrict which fields\nuntrusted input may set. Solr applies no `@JsonView` filtering to request deserialization, so there\nis nothing for the bypass to defeat.\n\nSolr's own standalone `jackson-databind` is in an affected range only in 9.8.0 \u2013 9.10.1 (2.18.0).\nSolr 10.0.0 ships 2.20.0, which is outside the affected ranges and is not affected. Solr 9.11 ships\n2.22.0, which *is* affected (fixed in 2.22.1) and should be added to this range once released.",
+      "status_notes": "Affected Apache Solr versions: 9.8.0-9.10.1."
     },
     {
       "vulnerability": {
@@ -4544,6 +4220,20 @@
       "justification": "vulnerable_code_not_in_execute_path",
       "impact_statement": "CVE-2026-8384 is a path-canonicalization flaw in Jetty's `URIUtil.canonicalPath()`: a semicolon\npath-parameter marker before dot-dot segments (e.g. `/public;/../admin/secret`) is not normalized,\nso a path-prefix authorization check can be bypassed. It is exploitable by applications that use\nJetty's `SecurityHandler.PathMapped`, or that make an authorization decision on a canonicalized path\nat a **different layer** than the one that ultimately dispatches the request (the classic\ncanonicalization *desync*).\n\nSolr is **not affected**:\n\n* **No desync between authorization and dispatch.** `HttpSolrCall` computes the request path once\n  (`ServletUtils.getPathAfterContext()`), and uses that single value for *both* request routing\n  (`getPath()`) and authorization (`getAuthCtx()` builds its `AuthorizationContext` resource from the\n  same `getPath()`). `RuleBasedAuthorizationPlugin` therefore evaluates exactly the path that Solr\n  dispatches \u2014 there is no window in which authorization sees one path while a different path is\n  served, which is the precondition this CVE requires.\n* **Path parameters are already stripped.** Solr derives the path from `getServletPath()` +\n  `getPathInfo()`, which per the Servlet specification have path parameters (the `;\u2026` segments this\n  bug abuses) removed by the container before Solr ever sees the path.\n* Solr uses neither Jetty's `SecurityHandler.PathMapped` nor `URIUtil.canonicalPath()` directly.\n\nSo even on an affected Jetty, the mis-canonicalization cannot produce an authorization bypass in\nSolr, because Solr's authorization and dispatch are driven by the same, single path value.",
       "status_notes": "Affected Apache Solr versions: 7.3.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "GHSA-mhm7-754m-9p8w"
+      },
+      "products": [
+        {
+          "@id": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.18.0"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-07-31T00:00:00Z",
+      "impact_statement": "GHSA-mhm7-754m-9p8w is a deserialization-filter bypass in jackson-databind: a `@JsonView` restriction\ncan be bypassed for creator properties that use `@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)`\npolymorphic typing, letting untrusted JSON populate fields the active view was meant to exclude. It\naffects jackson-databind 2.18.0 \u2013 2.18.8 and 2.21.0 \u2013 2.21.4 (fixed in 2.18.9 / 2.21.5); the\nexternal-type-id creator path was fixed on the 3.x line and not backported to the 2.19/2.20 lines,\nwhich are not affected.\n\nSolr is **not affected**. Exploiting this requires an application to combine `@JsonView` filtering\nwith `@JsonTypeInfo` external-property polymorphic typing on untrusted input. Solr applies neither\n`@JsonView` filtering nor polymorphic type handling to request deserialization (see also the\nlong-standing polymorphic-typing analysis in the jackson-databind gadget statement), so the bypass has\nnothing to defeat.\n\nSolr's own standalone `jackson-databind` is in an affected range only in 9.8.0 \u2013 9.10.1 (2.18.0).\nSolr 10.0.0 (2.20.0) and Solr 9.11 (2.22.0) are outside the affected ranges and are not affected.",
+      "status_notes": "Affected Apache Solr versions: 9.8.0-9.10.1."
     }
   ]
 }

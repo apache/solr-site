@@ -142,6 +142,38 @@
         <h1>Apache Solr VEX</h1>
         <p><a href="/security-dependency-cves.html">← Back to the dependency CVE table</a></p>
 
+            <article id="ghsa-mhm7-754m-9p8w" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://github.com/advisories/GHSA-mhm7-754m-9p8w">GHSA-mhm7-754m-9p8w</a>, jackson-databind: @JsonView bypass for creator properties with @JsonTypeInfo external-property polymorphism</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.8.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>GHSA-mhm7-754m-9p8w is a deserialization-filter bypass in jackson-databind: a <code>@JsonView</code> restriction
+can be bypassed for creator properties that use <code>@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)</code>
+polymorphic typing, letting untrusted JSON populate fields the active view was meant to exclude. It
+affects jackson-databind 2.18.0 – 2.18.8 and 2.21.0 – 2.21.4 (fixed in 2.18.9 / 2.21.5); the
+external-type-id creator path was fixed on the 3.x line and not backported to the 2.19/2.20 lines,
+which are not affected.</p>
+<p>Solr is <strong>not affected</strong>. Exploiting this requires an application to combine <code>@JsonView</code> filtering
+with <code>@JsonTypeInfo</code> external-property polymorphic typing on untrusted input. Solr applies neither
+<code>@JsonView</code> filtering nor polymorphic type handling to request deserialization (see also the
+long-standing polymorphic-typing analysis in the jackson-databind gadget statement), so the bypass has
+nothing to defeat.</p>
+<p>Solr's own standalone <code>jackson-databind</code> is in an affected range only in 9.8.0 – 9.10.1 (2.18.0).
+Solr 10.0.0 (2.20.0) and Solr 9.11 (2.22.0) are outside the affected ranges and are not affected.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://github.com/advisories/GHSA-mhm7-754m-9p8w">GHSA-mhm7-754m-9p8w</a></li>
+                </ul>
+            </article>
             <article id="cve-2026-8384" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8384">CVE-2026-8384</a>, Eclipse Jetty: non-canonical URL paths in URIUtil.canonicalPath (authorization bypass)</h3>
@@ -276,6 +308,68 @@ uses Netty's multipart request encoder, so none of these code paths are reachabl
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59899">CVE-2026-59899</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-56746">CVE-2026-56746</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59898">CVE-2026-59898</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59921">CVE-2026-59921</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59900">CVE-2026-59900</a></li>
                 </ul>
             </article>
+            <article id="cve-2026-59889" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59889">CVE-2026-59889</a>, jackson-databind: @JsonView bypass for @JsonUnwrapped container properties</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.8.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-59889 is a deserialization-filter bypass in jackson-databind: a <code>@JsonView</code> restriction can
+be bypassed for the properties of a <code>@JsonUnwrapped</code> container, letting untrusted JSON set fields that
+the active view was meant to exclude. It affects jackson-databind 2.18.0 – 2.18.8, 2.21.0 – 2.21.4,
+and 2.22.0 (fixed in 2.18.9 / 2.21.5 / 2.22.1).</p>
+<p>Solr is <strong>not affected</strong>. Exploiting this requires an application to use <code>@JsonView</code>-based
+deserialization filtering over <code>@JsonUnwrapped</code> container properties to restrict which fields
+untrusted input may set. Solr applies no <code>@JsonView</code> filtering to request deserialization, so there
+is nothing for the bypass to defeat.</p>
+<p>Solr's own standalone <code>jackson-databind</code> is in an affected range only in 9.8.0 – 9.10.1 (2.18.0).
+Solr 10.0.0 ships 2.20.0, which is outside the affected ranges and is not affected. Solr 9.11 ships
+2.22.0, which <em>is</em> affected (fixed in 2.22.1) and should be added to this range once released.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59889">CVE-2026-59889</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-59888" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59888">CVE-2026-59888</a>, jackson-databind: @JsonIgnore on a Record property bypassed via a PropertyNamingStrategy</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.3.0-9.10.1, 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-59888 is a deserialization-filter bypass in jackson-databind: <code>@JsonIgnore</code> on a Record
+property can be bypassed when a <code>PropertyNamingStrategy</code> is in effect, because
+<code>POJOPropertiesCollector._removeUnwantedIgnorals()</code> records the ignored component under its original
+implicit name before <code>_renameUsing()</code> applies the naming strategy — so the renamed property is no
+longer recognised as ignored and can be set from untrusted JSON. It affects jackson-databind
+2.15.0 – 2.18.7 and 2.19.0 – 2.21.3 (fixed in 2.18.8 / 2.21.4).</p>
+<p>Solr is <strong>not affected</strong>. Exploiting this requires an application to deserialize untrusted JSON into
+Java Records that use <code>@JsonIgnore</code> together with a <code>PropertyNamingStrategy</code> to keep a field
+unwritable. Solr does not rely on that mechanism to filter untrusted input, so the bypass has nothing
+to defeat.</p>
+<p>Solr shipped an in-range <code>jackson-databind</code> from 9.3.0 through 9.10.1 (2.15.2 → 2.18.0) and in 10.0.0
+(2.20.0). Earlier 9.x (≤ 9.2.x, jackson-databind ≤ 2.14.2) and Solr 9.11 (2.22.0) are past/below the
+affected ranges and are not affected.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59888">CVE-2026-59888</a></li>
+                </ul>
+            </article>
             <article id="cve-2026-56745" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-56745">CVE-2026-56745</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-55833">CVE-2026-55833</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-55831">CVE-2026-55831</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-56819">CVE-2026-56819</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59901">CVE-2026-59901</a>, Netty codec: SPDY / HTTP2-decompression / Bzip2 denial-of-service issues</h3>
@@ -339,6 +433,73 @@ Telnet server</strong> — unbounded NEW-ENVIRON variables (56740) and unbounded
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-56740">CVE-2026-56740</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-56741">CVE-2026-56741</a></li>
                 </ul>
             </article>
+            <article id="cve-2026-54515" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54515">CVE-2026-54515</a>, jackson-databind: case-insensitive deserialization bypasses per-property @JsonIgnoreProperties</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1, 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-54515 is a deserialization-filter bypass in jackson-databind: when case-insensitive property
+matching (<code>MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES</code>) is enabled together with per-property
+<code>@JsonIgnoreProperties</code>, a property meant to be ignored can still be set from untrusted JSON using a
+different-case name (a mass-assignment-style write). It affects jackson-databind 2.8.0 – 2.18.8,
+2.19.0 – 2.21.4, and 2.22.0 (fixed in 2.18.9 / 2.21.5 / 2.22.1).</p>
+<p>Solr is <strong>not affected</strong>. Exploiting this requires an application to rely on case-insensitive matching
+plus per-property <code>@JsonIgnoreProperties</code> to restrict which fields untrusted input may set. Solr does
+neither: it maps request JSON to fixed, known types and does not use <code>@JsonIgnoreProperties</code>-based
+filtering (nor case-insensitive property mapping) as a security boundary on untrusted input, so there
+is nothing for the bypass to defeat.</p>
+<p>Solr shipped an in-range <code>jackson-databind</code> from 9.0.0 through 9.10.1 (2.13.2.2 → 2.18.0) and in
+10.0.0 (2.20.0). Solr 9.11 ships 2.22.0, which is also affected (fixed in 2.22.1) — it should be added
+to this range once released. The old <code>2.12.7.1</code> copy shaded inside <code>hadoop-client-runtime</code> (optional
+<code>hdfs</code> module) is also in range, but its shaded purl is a separate scanner/generator concern tracked
+with the other Hadoop-shaded dependencies (SOLR-17900).</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54515">CVE-2026-54515</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-54514" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54514">CVE-2026-54514</a>, jackson-databind: SSRF via eager DNS resolution deserializing into InetSocketAddress</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1, 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-54514 is a server-side request forgery (SSRF) issue in jackson-databind:
+<code>JDKFromStringDeserializer</code> builds an <code>InetSocketAddress</code> with <code>new InetSocketAddress(host, port)</code>,
+which performs eager DNS name resolution. Deserializing attacker-controlled JSON into an
+<code>InetSocketAddress</code> therefore triggers a DNS lookup of an attacker-chosen name. It affects
+jackson-databind 2.0.0 – 2.18.7 and 2.19.0 – 2.21.3 (fixed in 2.18.8 / 2.21.4).</p>
+<p>Solr is <strong>not affected</strong>. Solr deserializes request JSON into fixed, known types and never binds
+untrusted input to a <code>java.net.InetSocketAddress</code> (or a field that would trigger this deserializer),
+so the eager-resolution path is never driven by attacker-controlled data.</p>
+<p>Solr shipped an in-range <code>jackson-databind</code> from 9.0.0 through 9.10.1 (2.13.2.2 → 2.18.0, all
+&lt; 2.18.8) and in 10.0.0 (2.20.0, within 2.19.0 – 2.21.3). Solr 9.11 upgrades to 2.22.0 (past the
+2.21.4 fix) and is not affected. The old <code>2.12.7.1</code> copy shaded inside <code>hadoop-client-runtime</code> (in the
+optional <code>hdfs</code> module across the 9.x line) is likewise below the fix, but its shaded purl is a
+separate scanner/generator concern tracked with the other Hadoop-shaded dependencies (SOLR-17900);
+either way Solr does not route untrusted JSON into <code>InetSocketAddress</code> deserialization.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54514">CVE-2026-54514</a></li>
+                </ul>
+            </article>
             <article id="cve-2026-54512" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54512">CVE-2026-54512</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54513">CVE-2026-54513</a>, jackson-databind: PolymorphicTypeValidator allowlist bypasses (unsafe deserialization)</h3>
@@ -371,41 +532,33 @@ jackson-databind; Solr's own is 2.18.0 in current 9.x and 2.22.0 in 9.11.)</p>
             </article>
             <article id="cve-2026-50193" class="post panel radius">
                 <header class="post-header">
-                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50193">CVE-2026-50193</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54514">CVE-2026-54514</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54515">CVE-2026-54515</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59889">CVE-2026-59889</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59888">CVE-2026-59888</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54518">CVE-2026-54518</a>, <a href="https://github.com/advisories/GHSA-mhm7-754m-9p8w">GHSA-mhm7-754m-9p8w</a>, jackson-databind: nested-toString DoS, InetSocketAddress SSRF, and deserialization-filter bypasses</h3>
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50193">CVE-2026-50193</a>, jackson-databind: StackOverflowError calling toString() on a deeply-nested JsonNode</h3>
                     <div class="panel callout">
                         <p class="subheader">
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.7.0-10.0.0</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.1.1</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>Four jackson-databind issues, in two groups:</p>
-<ul>
-<li><strong>Only the Hadoop-shaded old copy is affected.</strong> CVE-2026-50193 (StackOverflow on <code>toString()</code> of a
-  deeply-nested <code>JsonNode</code>, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when
-  deserializing into <code>InetSocketAddress</code>, fixed 2.18.8 / 2.21.4) do not affect Solr's own
-  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 — both patched). The <code>2.12.7.1</code> a scanner
-  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process
-  administrator-supplied configuration rather than untrusted external JSON.</li>
-<li><strong>Require Jackson features Solr does not use.</strong> CVE-2026-54515 (case-insensitive deserialization
-  bypassing per-property <code>@JsonIgnoreProperties</code>), CVE-2026-59889 (<code>@JsonView</code> bypass for
-  <code>@JsonUnwrapped</code> container properties), CVE-2026-59888 (<code>@JsonIgnore</code> on a Record property bypassed
-  via a <code>PropertyNamingStrategy</code>), GHSA-mhm7-754m-9p8w (<code>@JsonView</code> bypass for creator properties
-  with <code>@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)</code>), and CVE-2026-54518 (<code>@JsonView</code> bypass for
-  unwrapped creator parameters) can reach Solr's own jackson-databind, but
-  only when an application relies on those annotation-based mechanisms — case-insensitive property
-  mapping, <code>@JsonView</code>, <code>@JsonUnwrapped</code>, <code>@JsonIgnore</code> on records, or <code>@JsonTypeInfo</code> external-property
-  polymorphism — to restrict which fields untrusted input may set. Solr uses none of them: it maps
-  request JSON to fixed, known types and never applies <code>@JsonView</code>/<code>@JsonIgnore</code>-based deserialization
-  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.</li>
-</ul>
+                <p>CVE-2026-50193 is a denial-of-service issue in jackson-databind: calling <code>toString()</code> on a
+deeply-nested <code>JsonNode</code> recurses until it throws a <code>StackOverflowError</code>. It affects jackson-databind
+before 2.14.0 (fixed in 2.14.0), and is reachable only when an application builds a <code>JsonNode</code> tree
+from attacker-controlled JSON and then calls <code>toString()</code> on it.</p>
+<p>Solr is <strong>not affected</strong>. Solr does not call <code>toString()</code> on an untrusted, attacker-nested <code>JsonNode</code>
+as part of any request path.</p>
+<p>Solr's own standalone <code>jackson-databind</code> is below 2.14.0 only in 9.0.0 – 9.1.1 (2.13.2.2 / 2.13.3 /
+2.13.4.2); from 9.2.0 onward it ships 2.14.2 or later (up to 2.20.0 in 10.0.0), all past the fix, so
+those releases are not affected. Note the old <code>2.12.7.1</code> copy shaded inside <code>hadoop-client-runtime</code>
+(optional <code>hdfs</code> module) is also below 2.14.0 and is present across the wider 9.x line, but that
+shaded purl is a separate scanner/generator concern tracked with the other Hadoop-shaded dependencies
+(SOLR-17900); this statement covers Solr's standalone jackson-databind.</p>
 
                 <h4>References</h4>
                 <ul>
-                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50193">CVE-2026-50193</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54514">CVE-2026-54514</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54515">CVE-2026-54515</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59889">CVE-2026-59889</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59888">CVE-2026-59888</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54518">CVE-2026-54518</a>, <a href="https://github.com/advisories/GHSA-mhm7-754m-9p8w">GHSA-mhm7-754m-9p8w</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50193">CVE-2026-50193</a></li>
                 </ul>
             </article>
             <article id="cve-2026-46718" class="post panel radius">
