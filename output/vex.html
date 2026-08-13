@@ -635,6 +635,10 @@ rather than untrusted external JSON, and whose parse errors are not returned to 
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-47561">CVE-2024-47561</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-39410">CVE-2023-39410</a>, Apache Avro (Java): RCE reading a crafted schema / DoS deserializing untrusted data</h3>
                     <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-07-31T00:00:00+00:00">2026-07-31</time>
+                            </p>
                         <p class="subheader">
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
@@ -660,10 +664,13 @@ avro &lt; 1.11.3). Both require the application to feed attacker-controlled Avro
   input.</li>
 </ul>
 <p>The affected range covers the 9.x line, where the optional Hadoop modules transitively carry Avro
-1.9.2; Solr's own code path never invokes it.</p>
+1.9.2; Solr's own code path never invokes it. A scanner surfaces this as <code>avro@1.9.2</code> because Avro is
+shaded inside <code>hadoop-client-runtime-3.4.0.jar</code> in the <code>hdfs</code> module (this is the form reported by
+SOLR-17900); it is the same non-reachable Hadoop transitive either way.</p>
 
                 <h4>References</h4>
                 <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17900">SOLR-17900</a></li>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-47561">CVE-2024-47561</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-39410">CVE-2023-39410</a></li>
                 </ul>
             </article>
@@ -2284,6 +2291,112 @@ extraction out of Solr (the recommended architecture) or replace the bundled
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-31672">CVE-2025-31672</a></li>
                 </ul>
             </article>
+            <article id="cve-2024-29131" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29131">CVE-2024-29131</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29133">CVE-2024-29133</a>, Apache Commons Configuration: StackOverflowError in list-delimiter handling</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2024-29131 and CVE-2024-29133 are denial-of-service issues (StackOverflowError) in Apache Commons
+Configuration's list-delimiter handling — <code>AbstractListDelimiterHandler.flattenIterator(...)</code> and
+<code>ListDelimiterHandler.flatten(Object, int)</code> respectively — when a configuration contains a cyclic
+reference (both affect 2.0 through 2.10.0, fixed in 2.10.1).</p>
+<p>Solr is <strong>not affected</strong>. Solr uses <code>commons-configuration2</code> only through its optional Hadoop
+integration — both the standalone copy in the <code>hadoop-auth</code> module and the copy shaded into
+<code>hadoop-client-runtime</code> (which a scanner reports as <code>commons-configuration2@2.8.0</code>) — to load
+<strong>administrator-supplied</strong> Hadoop configuration files, never untrusted external input. No Solr request
+path feeds attacker-controlled configuration to Commons Configuration, so the recursive list-delimiter
+parser cannot be driven by an adversary. This matches the existing assessment of the other Commons
+Configuration CVEs (CVE-2022-33980, CVE-2026-45205). The affected range spans the releases whose
+Hadoop modules carry an affected commons-configuration2 (Solr 9.0.0 – 9.10.1).</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17900">SOLR-17900</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29131">CVE-2024-29131</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29133">CVE-2024-29133</a></li>
+                </ul>
+            </article>
+            <article id="cve-2024-26308" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-26308">CVE-2024-26308</a>, Apache Commons Compress: OutOfMemoryError unpacking a broken Pack200 file</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2024-26308 (CVSS 6.7) is a denial-of-service issue in Apache Commons Compress: unpacking a
+malformed <strong>Pack200</strong> (<code>.pack</code>/<code>.pack.gz</code>) stream can allocate excessive memory and throw
+<code>OutOfMemoryError</code> (affects 1.21 through 1.25.0, fixed in 1.26.0). It is reachable only when an
+application uses Commons Compress to unpack an attacker-supplied Pack200 archive.</p>
+<p>Solr is <strong>not affected</strong>. Solr never unpacks Pack200 archives — Pack200 (a legacy JAR-compression
+format) is not part of any Solr request path. The affected <code>commons-compress</code> a scanner flags
+(<code>commons-compress@1.24.0</code>) is the copy shaded into <code>hadoop-client-runtime</code> in the optional <code>hdfs</code>
+module; Solr's HDFS-client usage does not feed untrusted Pack200 input to it, and Solr's own use of
+Commons Compress elsewhere does not invoke the Pack200 unpacker. The vulnerable code path is therefore
+not reached. The affected range spans the releases whose <code>hdfs</code> module bundles an affected shaded
+commons-compress (Solr 9.0.0 – 9.10.1); Solr 10.x ships no <code>hadoop-client-runtime</code>.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17900">SOLR-17900</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-26308">CVE-2024-26308</a></li>
+                </ul>
+            </article>
+            <article id="cve-2024-25638" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-25638">CVE-2024-25638</a>, dnsjava: DNSSEC validation bypass</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2024-25638 (CVSS 7.0) is a DNSSEC-validation bypass in dnsjava: a resolver relying on dnsjava to
+validate DNSSEC could be tricked into accepting spoofed records (affects dnsjava &lt; 3.6.0). It matters
+only for an application that uses dnsjava as its resolver and relies on its DNSSEC validation for a
+security decision.</p>
+<p>Solr is <strong>not affected</strong>. dnsjava is not a Solr dependency in its own right — it is shaded inside
+<code>hadoop-client-runtime</code> (reported by scanners as <code>dnsjava@3.4.0</code>) in the optional <code>hdfs</code> module,
+where Hadoop may use it for name resolution. Solr uses the HDFS module only as a <strong>client</strong> that
+connects to operator-configured HDFS NameNode/DataNode hosts, not attacker-controlled names, and it
+does not rely on dnsjava's DNSSEC validation to make any security decision. The vulnerable resolver
+path is therefore not reached. The affected range spans the releases whose <code>hdfs</code> module bundles an
+affected shaded dnsjava (Solr 9.0.0 – 9.10.1); Solr 10.x ships no <code>hadoop-client-runtime</code>.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17900">SOLR-17900</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-25638">CVE-2024-25638</a></li>
+                </ul>
+            </article>
             <article id="cve-2024-21742" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21742">CVE-2024-21742</a>, Apache James MIME4J: header injection when composing MIME messages</h3>
@@ -2321,6 +2434,41 @@ extraction in a separate Tika service, or replace <code>modules/extraction/lib/a
                 <ul>
                         <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17901">SOLR-17901</a></li>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21742">CVE-2024-21742</a></li>
+                </ul>
+            </article>
+            <article id="cve-2023-52428" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-52428">CVE-2023-52428</a>, Nimbus JOSE + JWT: denial of service parsing crafted JOSE objects</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.0.0-9.10.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2023-52428 (CVSS 8.7) is a denial-of-service issue in Nimbus JOSE + JWT: parsing a crafted JOSE
+object (for example a PBES2-encrypted JWE with a huge <code>p2c</code> iteration count, or a large deeply-nested
+structure) can consume excessive resources (fixed in 9.37.2). It is only reachable when an
+application parses attacker-supplied JOSE/JWT input with Nimbus.</p>
+<p>Solr is <strong>not affected</strong>. Solr's own JWT authentication (the optional <code>jwt-auth</code> module,
+<code>JWTAuthPlugin</code>) parses tokens with <strong>jose4j</strong>, not Nimbus (see CVE-2025-53864). The Nimbus copy a
+scanner flags (<code>nimbus-jose-jwt@9.31</code>) is shaded inside <code>hadoop-client-runtime</code> in the optional
+<code>hdfs</code> module and is only used by Hadoop's own internal auth machinery — Solr never routes an
+untrusted, externally-supplied JOSE object to it. The vulnerable parser is therefore not reached. The
+affected range spans the releases whose <code>hdfs</code> module bundles the affected shaded Nimbus (Solr
+9.0.0 – 9.10.1); Solr 10.x ships no <code>hadoop-client-runtime</code>.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17900">SOLR-17900</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-52428">CVE-2023-52428</a></li>
                 </ul>
             </article>
             <article id="cve-2023-33201" class="post panel radius">
