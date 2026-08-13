@@ -2539,6 +2539,42 @@ module, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)</p>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-33201">CVE-2023-33201</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29857">CVE-2024-29857</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30171">CVE-2024-30171</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30172">CVE-2024-30172</a></li>
                 </ul>
             </article>
+            <article id="cve-2020-13949" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13949">CVE-2020-13949</a>, Apache Thrift: server-side memory-exhaustion DoS via crafted short messages</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2025-09-07T00:00:00+00:00">2025-09-07</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.2.0-8.8.1</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2020-13949 is a denial-of-service issue in Apache Thrift: a malicious RPC <strong>client</strong> can send
+specially-crafted short messages that cause a Thrift <strong>server</strong> to allocate a large amount of memory,
+potentially exhausting it (affects <code>libthrift</code> 0.9.3 – 0.13.0, fixed in 0.14.0). It is reachable only
+by an application that runs a Thrift server accepting messages from untrusted clients.</p>
+<p>Solr is <strong>not affected</strong>. <code>libthrift</code> is bundled only by the optional Jaeger distributed-tracing
+integration, where Solr uses Thrift purely as a <strong>client</strong> to export spans to an operator-configured
+Jaeger collector — it never runs a Thrift RPC server that accepts untrusted incoming messages. The
+vulnerable server-side allocation path is therefore never reached.</p>
+<p>Solr shipped an affected <code>libthrift</code> in the 8.x line — 0.12.0 (8.2.0) and 0.13.0 (8.5.0 – 8.8.1),
+both ≤ 0.13.0 — so the affected range is 8.2.0 – 8.8.1. Solr 9.0.0 upgraded to <code>libthrift</code> 0.14.1
+(and later 0.15.0), which are past the 0.14.0 fix, so no 9.x or 10.x release is affected. (The Solr
+8.x line is end of life.)</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-15507">SOLR-15507</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13949">CVE-2020-13949</a></li>
+                </ul>
+            </article>
             <article id="cve-2025-48924" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48924">CVE-2025-48924</a>, Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</h3>

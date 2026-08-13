@@ -1498,6 +1498,21 @@
     },
     {
       "vulnerability": {
+        "name": "CVE-2020-13949"
+      },
+      "products": [
+        {
+          "@id": "libthrift-0.13.0.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2025-09-07T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2020-13949 is a denial-of-service issue in Apache Thrift: a malicious RPC **client** can send\nspecially-crafted short messages that cause a Thrift **server** to allocate a large amount of memory,\npotentially exhausting it (affects `libthrift` 0.9.3 \u2013 0.13.0, fixed in 0.14.0). It is reachable only\nby an application that runs a Thrift server accepting messages from untrusted clients.\n\nSolr is **not affected**. `libthrift` is bundled only by the optional Jaeger distributed-tracing\nintegration, where Solr uses Thrift purely as a **client** to export spans to an operator-configured\nJaeger collector \u2014 it never runs a Thrift RPC server that accepts untrusted incoming messages. The\nvulnerable server-side allocation path is therefore never reached.\n\nSolr shipped an affected `libthrift` in the 8.x line \u2014 0.12.0 (8.2.0) and 0.13.0 (8.5.0 \u2013 8.8.1),\nboth \u2264 0.13.0 \u2014 so the affected range is 8.2.0 \u2013 8.8.1. Solr 9.0.0 upgraded to `libthrift` 0.14.1\n(and later 0.15.0), which are past the 0.14.0 fix, so no 9.x or 10.x release is affected. (The Solr\n8.x line is end of life.)",
+      "status_notes": "Affected Apache Solr versions: 8.2.0-8.8.1."
+    },
+    {
+      "vulnerability": {
         "name": "CVE-2023-33201"
       },
       "products": [
