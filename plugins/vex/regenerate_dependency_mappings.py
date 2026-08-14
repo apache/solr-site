@@ -162,32 +162,47 @@ def run_syft(extracted_dir):
 PURL_RE = re.compile(r'^pkg:maven/([^/]+)/([^@]+)@([^?]+)')
 
 
-def _is_standalone_jar(component):
-    """True if syft found this package as its own jar file on disk, rather than
-    shaded/embedded inside another archive.
+def _is_own_jar(component, artifact):
+    """True if syft found this package as its own on-disk jar named for `artifact`,
+    rather than as metadata attributed to a *different* jar. Two distinct traps:
 
-    syft records a `syft:metadata:virtualPath` for each component. For a
-    standalone jar it is just the file path (e.g. `/.../commons-lang3-3.15.0.jar`),
-    but for a package discovered *inside* another archive it appends
-    archive-nesting separators (e.g.
-    `/.../hadoop-shaded-guava-1.2.0.jar:com.google.guava:guava`). We only want the
-    dependency jars Solr actually ships as files -- not the older copies that
-    Hadoop's `hadoop-shaded-*` bundles (and similar fat jars) embed -- so we treat
-    a ':' in the virtualPath as "nested" and skip it. If the property is absent
-    (older syft), we default to keeping the component rather than over-filtering.
+    * **Shaded inside another archive** -- e.g. Hadoop's `hadoop-shaded-guava`
+      bundles an old guava. syft records this by appending archive-nesting
+      separators to the component's `syft:metadata:virtualPath`
+      (`/.../hadoop-shaded-guava-1.2.0.jar:com.google.guava:guava`), so a ':' means
+      "nested" -> skip.
+    * **A repackaged jar carrying the original's Maven metadata** -- e.g.
+      `carrot2-guava-18.0.jar` is a shade of guava that still ships guava's
+      `META-INF/maven/com.google.guava/guava/pom.properties`, so syft reports it as
+      a *standalone* `com.google.guava:guava@18.0` whose virtualPath is just
+      `/carrot2-guava-18.0.jar` (no ':'). The tell is that the on-disk filename
+      (`carrot2-guava-...`) isn't named for the purl's artifact (`guava`). A genuine
+      standalone jar is named `<artifactId>-<version>[-classifier].jar`, so we
+      require the filename to start with `<artifact>-` and reject the rest. This is
+      what keeps `carrot2-guava` (tracked separately as
+      `org.carrot2.shaded:carrot2-guava`) from masquerading as `com.google.guava:guava`.
+
+    If the virtualPath property is absent (older syft), we default to keeping the
+    component rather than over-filtering.
     """
     props = {p.get('name'): p.get('value') for p in component.get('properties', [])}
-    vpath = props.get('syft:metadata:virtualPath', '')
-    return ':' not in vpath
+    vpath = props.get('syft:metadata:virtualPath')
+    if vpath is None:
+        return True  # older syft: don't over-filter
+    if ':' in vpath:
+        return False  # shaded inside another archive
+    filename = vpath.rsplit('/', 1)[-1]
+    return filename.startswith(f'{artifact}-')
 
 
 def iter_maven_packages(sbom):
     """Yield (group, artifact, version) for every Maven-purl component in a syft
-    CycloneDX SBOM that syft found as a standalone jar (see _is_standalone_jar --
-    packages shaded inside another archive are skipped)."""
+    CycloneDX SBOM that syft found as the artifact's own standalone jar (see
+    _is_own_jar -- packages shaded inside another archive, or attributed to a
+    differently-named repackaged jar, are skipped)."""
     for component in sbom.get('components', []):
         m = PURL_RE.match(component.get('purl', ''))
-        if m and _is_standalone_jar(component):
+        if m and _is_own_jar(component, m.group(2)):
             yield m.groups()
 
 
