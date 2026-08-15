@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2026-07-31T00:00:00+00:00</updated><entry><title>Apache Avro (Java): RCE reading a crafted schema / DoS deserializing untrusted data</title><link href="/cve-2024-47561.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2024-47561.html</id><summary type="html">&lt;p&gt;CVE-2024-47561 (critical) is an arbitrary-code-execution issue in the Apache Avro Java SDK: parsing
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2026-08-13T00:00:00+00:00</updated><entry><title>lz4-java: out-of-bounds memory access and insufficient buffer clearing in compression/decompression</title><link href="/cve-2025-12183.html" rel="alternate"/><published>2026-08-13T00:00:00+00:00</published><updated>2026-08-13T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-13:/cve-2025-12183.html</id><summary type="html">&lt;p&gt;Two issues in the &lt;code&gt;lz4-java&lt;/code&gt; codec:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-12183&lt;/strong&gt; — several lz4-java compression/decompression implementations do not guard against
+  out-of-bounds memory access (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.8.1).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-66566&lt;/strong&gt; — decompressor implementations insufficiently clear their buffers, allowing a
+  caller to read leftover contents of a previously used buffer (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.10.1 …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Two issues in the &lt;code&gt;lz4-java&lt;/code&gt; codec:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-12183&lt;/strong&gt; — several lz4-java compression/decompression implementations do not guard against
+  out-of-bounds memory access (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.8.1).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2025-66566&lt;/strong&gt; — decompressor implementations insufficiently clear their buffers, allowing a
+  caller to read leftover contents of a previously used buffer (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.10.1).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Both require an application to drive lz4-java's (de)compression APIs with attacker-influenced
+input/buffers.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;lz4-java&lt;/code&gt; is bundled only by the optional &lt;code&gt;cross-dc&lt;/code&gt; module, where it is
+used by the embedded Apache Kafka client for LZ4 compression of cross-datacenter replication messages.
+Kafka manages its own internal, validated buffers and does not forward attacker-controlled data into
+the vulnerable code paths, and the replication stream flows through an operator-controlled Kafka
+pipeline rather than untrusted external input. The &lt;code&gt;cross-dc&lt;/code&gt; module is not part of a default Solr
+installation, and no Solr request path reaches these lz4-java routines.&lt;/p&gt;
+&lt;p&gt;Solr shipped an affected &lt;code&gt;org.lz4:lz4-java&lt;/code&gt; 1.8.0 from 9.8.0 (when the &lt;code&gt;cross-dc&lt;/code&gt; module first bundled
+it) through 10.0.0; releases 9.7.0 and earlier, and the 8.x line, ship no &lt;code&gt;lz4-java&lt;/code&gt;. The fix is
+already on all active development branches: &lt;code&gt;branch_9x&lt;/code&gt;, &lt;code&gt;branch_10x&lt;/code&gt;, and &lt;code&gt;main&lt;/code&gt; migrated to the
+maintained community fork &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; 1.10.1, which is past both fixes (1.8.1 and 1.10.1),
+so the next releases (9.11, 10.1) will not be affected. Note this upgrade did not require Apache Kafka
+to update first — Kafka still declares the old &lt;code&gt;org.lz4:lz4-java&lt;/code&gt;, and Solr replaced that transitive
+dependency with the fork directly.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Woodstox: denial-of-service (stack overflow) parsing untrusted XML when DTD support is enabled</title><link href="/cve-2022-40152.html" rel="alternate"/><published>2026-08-11T00:00:00+00:00</published><updated>2026-08-11T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-11:/cve-2022-40152.html</id><summary type="html">&lt;p&gt;CVE-2022-40152 (CVSS 6.5) is a denial-of-service issue in the Woodstox XML parser
+(&lt;code&gt;com.fasterxml.woodstox:woodstox-core&lt;/code&gt;): when DTD support is enabled, a client can supply XML whose
+&lt;code&gt;DOCTYPE&lt;/code&gt; internal subset contains a deeply-nested element content model, causing the parser to
+recurse until it throws a &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects &lt;code&gt;woodstox-core …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2022-40152 (CVSS 6.5) is a denial-of-service issue in the Woodstox XML parser
+(&lt;code&gt;com.fasterxml.woodstox:woodstox-core&lt;/code&gt;): when DTD support is enabled, a client can supply XML whose
+&lt;code&gt;DOCTYPE&lt;/code&gt; internal subset contains a deeply-nested element content model, causing the parser to
+recurse until it throws a &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects &lt;code&gt;woodstox-core&lt;/code&gt; before 5.4.0 and 6.0.0 –
+6.3.x, and is fixed in 5.4.0 and 6.4.0.&lt;/p&gt;
+&lt;p&gt;Solr &lt;strong&gt;9.0.0 and 9.1.0 are affected.&lt;/strong&gt; Those two releases shipped &lt;code&gt;woodstox-core&lt;/code&gt; 6.2.8 (&amp;lt; 6.4.0), and
+Solr's XML update handler (&lt;code&gt;XMLLoader&lt;/code&gt;, serving the untrusted &lt;code&gt;/update&lt;/code&gt; request path) configures its
+StAX input factory via &lt;code&gt;EmptyEntityResolver.configureXMLInputFactory&lt;/code&gt;. That configuration neutralizes
+external entities — so Solr is &lt;em&gt;not&lt;/em&gt; exposed to XXE — but it does &lt;strong&gt;not&lt;/strong&gt; disable DTD processing, so
+the parser still reads the internal DTD subset. A client that POSTs crafted XML with a deeply-nested
+DTD to &lt;code&gt;/update&lt;/code&gt; can therefore reach the vulnerable code and trigger the stack-overflow DoS. Because
+the vulnerable path is reachable with attacker-controlled input, these releases are marked
+&lt;code&gt;exploitable&lt;/code&gt; rather than &lt;code&gt;not_affected&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remediation: upgrade to Apache Solr 9.1.1 or later.&lt;/strong&gt; Solr 9.1.1 upgraded to &lt;code&gt;woodstox-core&lt;/code&gt; 6.4.0
+(past the fix), and every later release ships a fixed version (6.5.0 in 9.2.0, 7.0.0 in current 9.x,
+7.1.1 in 10.0.0), so no release from 9.1.1 onward is affected. Solr 8.x and earlier are out of scope
+for this CVE: they used the unrelated &lt;code&gt;org.codehaus.woodstox:woodstox-core-asl&lt;/code&gt; artifact, not
+&lt;code&gt;com.fasterxml.woodstox:woodstox-core&lt;/code&gt; (the migration in SOLR-10702 introduced the affected artifact
+at 9.0.0). Solr 9.0.0 and 9.1.0 are both end of life.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Avro (Java): RCE reading a crafted schema / DoS deserializing untrusted data</title><link href="/cve-2024-47561.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2024-47561.html</id><summary type="html">&lt;p&gt;CVE-2024-47561 (critical) is an arbitrary-code-execution issue in the Apache Avro Java SDK: parsing
 an attacker-controlled Avro &lt;strong&gt;schema&lt;/strong&gt; can instantiate arbitrary classes (affects avro &amp;lt; 1.11.4).
 CVE-2023-39410 is a memory-exhaustion / DoS issue when &lt;strong&gt;deserializing untrusted Avro data&lt;/strong&gt; (affects
 avro &amp;lt; 1.11.3). Both require the application to feed attacker-controlled Avro …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-47561 (critical) is an arbitrary-code-execution issue in the Apache Avro Java SDK: parsing
@@ -17,8 +64,14 @@ avro &amp;lt; 1.11.3). Both require the application to feed attacker-controlled 
   own internal machinery, driven by administrator-supplied configuration, not by untrusted request
   input.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The affected range covers the 9.x line, where the optional Hadoop modules transitively carry Avro
-1.9.2; Solr's own code path never invokes it.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-core: memory disclosure via source snippet in JsonLocation error messages</title><link href="/cve-2025-49128.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2025-49128.html</id><summary type="html">&lt;p&gt;CVE-2025-49128 can disclose adjacent buffer memory through the source snippet that jackson-core
+&lt;p&gt;The affected range covers Solr 9.0.0 – 9.10.1, where the optional Hadoop modules transitively carry a
+vulnerable Avro (1.7.7 in &lt;code&gt;hadoop-client-runtime&lt;/code&gt; 3.3.2 – 3.3.6, then 1.9.2 in 3.4.0 – 3.4.1); Solr's
+own code path never invokes it. A scanner surfaces this as &lt;code&gt;avro@1.9.2&lt;/code&gt; because Avro is shaded inside
+&lt;code&gt;hadoop-client-runtime&lt;/code&gt; in the &lt;code&gt;hdfs&lt;/code&gt; module (the form reported by SOLR-17900). Unlike the other
+Hadoop-shaded CVEs from SOLR-17900, Avro stayed vulnerable all the way through 9.10.1: Solr 9.11
+(branch_9x) is the first fixed release, having upgraded to Hadoop 3.4.3, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt;
+shades Avro 1.11.4 (past both the 1.11.3 and 1.11.4 fixes). Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;.
+Either way it is the same non-reachable Hadoop transitive.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-core: memory disclosure via source snippet in JsonLocation error messages</title><link href="/cve-2025-49128.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2025-49128.html</id><summary type="html">&lt;p&gt;CVE-2025-49128 can disclose adjacent buffer memory through the source snippet that jackson-core
 includes in &lt;code&gt;JsonLocation&lt;/code&gt; (e.g. surfaced in parse-error messages). It affects jackson-core &amp;lt; 2.13.0.&lt;/p&gt;
 &lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr's own jackson-core is 2.18.0 in current 9.x and 2.22.0 in 9.11 — both …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-49128 can disclose adjacent buffer memory through the source snippet that jackson-core
 includes in &lt;code&gt;JsonLocation&lt;/code&gt; (e.g. surfaced in parse-error messages). It affects jackson-core &amp;lt; 2.13.0.&lt;/p&gt;
@@ -109,30 +162,21 @@ name factory classes).&lt;/p&gt;
 handler). Solr constructs the Calcite schema/model &lt;strong&gt;server-side&lt;/strong&gt; from the target collection; users
 submit only a SQL statement, never a Calcite model or schema-factory definition. There is no request
 path through which an attacker can supply a Calcite model, so the arbitrary-class-loading vector is
-never reached.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: nested-toString DoS, InetSocketAddress SSRF, and deserialization-filter bypasses</title><link href="/cve-2026-50193.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-50193.html</id><summary type="html">&lt;p&gt;Four jackson-databind issues, in two groups:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Only the Hadoop-shaded old copy is affected.&lt;/strong&gt; CVE-2026-50193 (StackOverflow on &lt;code&gt;toString()&lt;/code&gt; of a
-  deeply-nested &lt;code&gt;JsonNode&lt;/code&gt;, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when
-  deserializing into &lt;code&gt;InetSocketAddress&lt;/code&gt;, fixed 2.18.8 / 2.21.4) do not affect Solr's own
-  jackson-databind (2.18 …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Four jackson-databind issues, in two groups:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Only the Hadoop-shaded old copy is affected.&lt;/strong&gt; CVE-2026-50193 (StackOverflow on &lt;code&gt;toString()&lt;/code&gt; of a
-  deeply-nested &lt;code&gt;JsonNode&lt;/code&gt;, fixed 2.14.0) and CVE-2026-54514 (eager DNS resolution / SSRF when
-  deserializing into &lt;code&gt;InetSocketAddress&lt;/code&gt;, fixed 2.18.8 / 2.21.4) do not affect Solr's own
-  jackson-databind (2.18.0 in current 9.x, 2.22.0 in 9.11 — both patched). The &lt;code&gt;2.12.7.1&lt;/code&gt; a scanner
-  flags is Hadoop's shaded copy, reachable only through the optional Hadoop modules, which process
-  administrator-supplied configuration rather than untrusted external JSON.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Require Jackson features Solr does not use.&lt;/strong&gt; CVE-2026-54515 (case-insensitive deserialization
-  bypassing per-property &lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;), CVE-2026-59889 (&lt;code&gt;@JsonView&lt;/code&gt; bypass for
-  &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container properties), CVE-2026-59888 (&lt;code&gt;@JsonIgnore&lt;/code&gt; on a Record property bypassed
-  via a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt;), and GHSA-mhm7-754m-9p8w (&lt;code&gt;@JsonView&lt;/code&gt; bypass for creator properties
-  with &lt;code&gt;@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)&lt;/code&gt;) can reach Solr's own jackson-databind, but
-  only when an application relies on those annotation-based mechanisms — case-insensitive property
-  mapping, &lt;code&gt;@JsonView&lt;/code&gt;, &lt;code&gt;@JsonUnwrapped&lt;/code&gt;, &lt;code&gt;@JsonIgnore&lt;/code&gt; on records, or &lt;code&gt;@JsonTypeInfo&lt;/code&gt; external-property
-  polymorphism — to restrict which fields untrusted input may set. Solr uses none of them: it maps
-  request JSON to fixed, known types and never applies &lt;code&gt;@JsonView&lt;/code&gt;/&lt;code&gt;@JsonIgnore&lt;/code&gt;-based deserialization
-  filtering or polymorphic typing to untrusted input, so these bypasses have nothing to bypass.&lt;/li&gt;
-&lt;/ul&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: PolymorphicTypeValidator allowlist bypasses (unsafe deserialization)</title><link href="/cve-2026-54512.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-54512.html</id><summary type="html">&lt;p&gt;CVE-2026-54512 and CVE-2026-54513 are bypasses of jackson-databind's &lt;code&gt;PolymorphicTypeValidator&lt;/code&gt; — via
+never reached.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: StackOverflowError calling toString() on a deeply-nested JsonNode</title><link href="/cve-2026-50193.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-50193.html</id><summary type="html">&lt;p&gt;CVE-2026-50193 is a denial-of-service issue in jackson-databind: calling &lt;code&gt;toString()&lt;/code&gt; on a
+deeply-nested &lt;code&gt;JsonNode&lt;/code&gt; recurses until it throws a &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects jackson-databind
+before 2.14.0 (fixed in 2.14.0), and is reachable only when an application builds a &lt;code&gt;JsonNode&lt;/code&gt; tree
+from attacker-controlled JSON and then calls &lt;code&gt;toString()&lt;/code&gt; on …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-50193 is a denial-of-service issue in jackson-databind: calling &lt;code&gt;toString()&lt;/code&gt; on a
+deeply-nested &lt;code&gt;JsonNode&lt;/code&gt; recurses until it throws a &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects jackson-databind
+before 2.14.0 (fixed in 2.14.0), and is reachable only when an application builds a &lt;code&gt;JsonNode&lt;/code&gt; tree
+from attacker-controlled JSON and then calls &lt;code&gt;toString()&lt;/code&gt; on it.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr does not call &lt;code&gt;toString()&lt;/code&gt; on an untrusted, attacker-nested &lt;code&gt;JsonNode&lt;/code&gt;
+as part of any request path.&lt;/p&gt;
+&lt;p&gt;Solr's own standalone &lt;code&gt;jackson-databind&lt;/code&gt; is below 2.14.0 only in 9.0.0 – 9.1.1 (2.13.2.2 / 2.13.3 /
+2.13.4.2); from 9.2.0 onward it ships 2.14.2 or later (up to 2.20.0 in 10.0.0), all past the fix, so
+those releases are not affected. Note the old &lt;code&gt;2.12.7.1&lt;/code&gt; copy shaded inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt;
+(optional &lt;code&gt;hdfs&lt;/code&gt; module) is also below 2.14.0 and is present across the wider 9.x line, but that
+shaded purl is a separate scanner/generator concern tracked with the other Hadoop-shaded dependencies
+(SOLR-17900); this statement covers Solr's standalone jackson-databind.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: PolymorphicTypeValidator allowlist bypasses (unsafe deserialization)</title><link href="/cve-2026-54512.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-54512.html</id><summary type="html">&lt;p&gt;CVE-2026-54512 and CVE-2026-54513 are bypasses of jackson-databind's &lt;code&gt;PolymorphicTypeValidator&lt;/code&gt; — via
 generic type parameters (54512) and via an array-subtype allowlist gap in
 &lt;code&gt;allowIfSubType&lt;/code&gt; (54513) — that can let unexpected classes be instantiated during polymorphic
 deserialization (affects 2.10.0–2.18.7 and 2.19.0–2.21.3).&lt;/p&gt;
@@ -146,7 +190,42 @@ deserialization&lt;/strong&gt; — default typing (&lt;code&gt;activateDefaultTy
 Solr does none of this: it maps request JSON to fixed, known target types and never enables default
 typing or polymorphic deserialization of untrusted input, so the &lt;code&gt;PolymorphicTypeValidator&lt;/code&gt; code path
 these CVEs target is never exercised. (The &lt;code&gt;2.12.7.1&lt;/code&gt; copy a scanner flags is Hadoop's shaded
-jackson-databind; Solr's own is 2.18.0 in current 9.x and 2.22.0 in 9.11.)&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>JLine: unauthenticated remote DoS in the Telnet server</title><link href="/cve-2026-56740.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-56740.html</id><summary type="html">&lt;p&gt;CVE-2026-56740 and CVE-2026-56741 are unauthenticated remote denial-of-service issues in &lt;strong&gt;JLine's
+jackson-databind; Solr's own is 2.18.0 in current 9.x and 2.22.0 in 9.11.)&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: SSRF via eager DNS resolution deserializing into InetSocketAddress</title><link href="/cve-2026-54514.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-54514.html</id><summary type="html">&lt;p&gt;CVE-2026-54514 is a server-side request forgery (SSRF) issue in jackson-databind:
+&lt;code&gt;JDKFromStringDeserializer&lt;/code&gt; builds an &lt;code&gt;InetSocketAddress&lt;/code&gt; with &lt;code&gt;new InetSocketAddress(host, port)&lt;/code&gt;,
+which performs eager DNS name resolution. Deserializing attacker-controlled JSON into an
+&lt;code&gt;InetSocketAddress&lt;/code&gt; therefore triggers a DNS lookup of an attacker-chosen name. It affects
+jackson-databind 2.0.0 – 2.18.7 and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-54514 is a server-side request forgery (SSRF) issue in jackson-databind:
+&lt;code&gt;JDKFromStringDeserializer&lt;/code&gt; builds an &lt;code&gt;InetSocketAddress&lt;/code&gt; with &lt;code&gt;new InetSocketAddress(host, port)&lt;/code&gt;,
+which performs eager DNS name resolution. Deserializing attacker-controlled JSON into an
+&lt;code&gt;InetSocketAddress&lt;/code&gt; therefore triggers a DNS lookup of an attacker-chosen name. It affects
+jackson-databind 2.0.0 – 2.18.7 and 2.19.0 – 2.21.3 (fixed in 2.18.8 / 2.21.4).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr deserializes request JSON into fixed, known types and never binds
+untrusted input to a &lt;code&gt;java.net.InetSocketAddress&lt;/code&gt; (or a field that would trigger this deserializer),
+so the eager-resolution path is never driven by attacker-controlled data.&lt;/p&gt;
+&lt;p&gt;Solr shipped an in-range &lt;code&gt;jackson-databind&lt;/code&gt; from 9.0.0 through 9.10.1 (2.13.2.2 → 2.18.0, all
+&amp;lt; 2.18.8) and in 10.0.0 (2.20.0, within 2.19.0 – 2.21.3). Solr 9.11 upgrades to 2.22.0 (past the
+2.21.4 fix) and is not affected. The old &lt;code&gt;2.12.7.1&lt;/code&gt; copy shaded inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt; (in the
+optional &lt;code&gt;hdfs&lt;/code&gt; module across the 9.x line) is likewise below the fix, but its shaded purl is a
+separate scanner/generator concern tracked with the other Hadoop-shaded dependencies (SOLR-17900);
+either way Solr does not route untrusted JSON into &lt;code&gt;InetSocketAddress&lt;/code&gt; deserialization.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: case-insensitive deserialization bypasses per-property @JsonIgnoreProperties</title><link href="/cve-2026-54515.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-54515.html</id><summary type="html">&lt;p&gt;CVE-2026-54515 is a deserialization-filter bypass in jackson-databind: when case-insensitive property
+matching (&lt;code&gt;MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES&lt;/code&gt;) is enabled together with per-property
+&lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;, a property meant to be ignored can still be set from untrusted JSON using a
+different-case name (a mass-assignment-style write). It affects jackson-databind 2.8.0 – 2.18.8,
+2.19 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-54515 is a deserialization-filter bypass in jackson-databind: when case-insensitive property
+matching (&lt;code&gt;MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES&lt;/code&gt;) is enabled together with per-property
+&lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;, a property meant to be ignored can still be set from untrusted JSON using a
+different-case name (a mass-assignment-style write). It affects jackson-databind 2.8.0 – 2.18.8,
+2.19.0 – 2.21.4, and 2.22.0 (fixed in 2.18.9 / 2.21.5 / 2.22.1).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Exploiting this requires an application to rely on case-insensitive matching
+plus per-property &lt;code&gt;@JsonIgnoreProperties&lt;/code&gt; to restrict which fields untrusted input may set. Solr does
+neither: it maps request JSON to fixed, known types and does not use &lt;code&gt;@JsonIgnoreProperties&lt;/code&gt;-based
+filtering (nor case-insensitive property mapping) as a security boundary on untrusted input, so there
+is nothing for the bypass to defeat.&lt;/p&gt;
+&lt;p&gt;Solr shipped an in-range &lt;code&gt;jackson-databind&lt;/code&gt; from 9.0.0 through 9.10.1 (2.13.2.2 → 2.18.0) and in
+10.0.0 (2.20.0). Solr 9.11 ships 2.22.0, which is also affected (fixed in 2.22.1) — it should be added
+to this range once released. The old &lt;code&gt;2.12.7.1&lt;/code&gt; copy shaded inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt; (optional
+&lt;code&gt;hdfs&lt;/code&gt; module) is also in range, but its shaded purl is a separate scanner/generator concern tracked
+with the other Hadoop-shaded dependencies (SOLR-17900).&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>JLine: unauthenticated remote DoS in the Telnet server</title><link href="/cve-2026-56740.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-56740.html</id><summary type="html">&lt;p&gt;CVE-2026-56740 and CVE-2026-56741 are unauthenticated remote denial-of-service issues in &lt;strong&gt;JLine's
 Telnet server&lt;/strong&gt; — unbounded NEW-ENVIRON variables (56740) and unbounded NAWS terminal-geometry values
 (56741) in the &lt;code&gt;jline-remote-telnet&lt;/code&gt; Telnet daemon (affects &amp;lt; 3.30.14, and the 4.0.x / 4.1.x lines).&lt;/p&gt;
 &lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;:&lt;/p&gt;
@@ -179,7 +258,36 @@ Telnet server&lt;/strong&gt; — unbounded NEW-ENVIRON variables (56740) and unb
 the ZooKeeper client, where Netty acts strictly as a &lt;strong&gt;client&lt;/strong&gt;. Solr's HTTP server is Jetty, not
 Netty: Solr never runs a Netty HTTP/HTTP2/SPDY server, never enables the SPDY codec, and never feeds
 attacker-controlled compressed (bzip2) streams through Netty. The vulnerable server/decoder code
-paths are therefore unreachable — the same reasoning as CVE-2026-33870 / CVE-2026-33871.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Netty codec-http/http2: server-side HTTP handling issues (DoS, CORS/WebSocket, smuggling, CRLF)</title><link href="/cve-2026-59899.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59899.html</id><summary type="html">&lt;p&gt;These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect
+paths are therefore unreachable — the same reasoning as CVE-2026-33870 / CVE-2026-33871.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: @JsonIgnore on a Record property bypassed via a PropertyNamingStrategy</title><link href="/cve-2026-59888.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59888.html</id><summary type="html">&lt;p&gt;CVE-2026-59888 is a deserialization-filter bypass in jackson-databind: &lt;code&gt;@JsonIgnore&lt;/code&gt; on a Record
+property can be bypassed when a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt; is in effect, because
+&lt;code&gt;POJOPropertiesCollector._removeUnwantedIgnorals()&lt;/code&gt; records the ignored component under its original
+implicit name before &lt;code&gt;_renameUsing()&lt;/code&gt; applies the naming strategy — so the renamed property is no
+longer recognised as ignored and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-59888 is a deserialization-filter bypass in jackson-databind: &lt;code&gt;@JsonIgnore&lt;/code&gt; on a Record
+property can be bypassed when a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt; is in effect, because
+&lt;code&gt;POJOPropertiesCollector._removeUnwantedIgnorals()&lt;/code&gt; records the ignored component under its original
+implicit name before &lt;code&gt;_renameUsing()&lt;/code&gt; applies the naming strategy — so the renamed property is no
+longer recognised as ignored and can be set from untrusted JSON. It affects jackson-databind
+2.15.0 – 2.18.7 and 2.19.0 – 2.21.3 (fixed in 2.18.8 / 2.21.4).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Exploiting this requires an application to deserialize untrusted JSON into
+Java Records that use &lt;code&gt;@JsonIgnore&lt;/code&gt; together with a &lt;code&gt;PropertyNamingStrategy&lt;/code&gt; to keep a field
+unwritable. Solr does not rely on that mechanism to filter untrusted input, so the bypass has nothing
+to defeat.&lt;/p&gt;
+&lt;p&gt;Solr shipped an in-range &lt;code&gt;jackson-databind&lt;/code&gt; from 9.3.0 through 9.10.1 (2.15.2 → 2.18.0) and in 10.0.0
+(2.20.0). Earlier 9.x (≤ 9.2.x, jackson-databind ≤ 2.14.2) and Solr 9.11 (2.22.0) are past/below the
+affected ranges and are not affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: @JsonView bypass for @JsonUnwrapped container properties</title><link href="/cve-2026-59889.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59889.html</id><summary type="html">&lt;p&gt;CVE-2026-59889 is a deserialization-filter bypass in jackson-databind: a &lt;code&gt;@JsonView&lt;/code&gt; restriction can
+be bypassed for the properties of a &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container, letting untrusted JSON set fields that
+the active view was meant to exclude. It affects jackson-databind 2.18.0 – 2.18.8, 2.21.0 – 2.21.4,
+and 2 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-59889 is a deserialization-filter bypass in jackson-databind: a &lt;code&gt;@JsonView&lt;/code&gt; restriction can
+be bypassed for the properties of a &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container, letting untrusted JSON set fields that
+the active view was meant to exclude. It affects jackson-databind 2.18.0 – 2.18.8, 2.21.0 – 2.21.4,
+and 2.22.0 (fixed in 2.18.9 / 2.21.5 / 2.22.1).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Exploiting this requires an application to use &lt;code&gt;@JsonView&lt;/code&gt;-based
+deserialization filtering over &lt;code&gt;@JsonUnwrapped&lt;/code&gt; container properties to restrict which fields
+untrusted input may set. Solr applies no &lt;code&gt;@JsonView&lt;/code&gt; filtering to request deserialization, so there
+is nothing for the bypass to defeat.&lt;/p&gt;
+&lt;p&gt;Solr's own standalone &lt;code&gt;jackson-databind&lt;/code&gt; is in an affected range only in 9.8.0 – 9.10.1 (2.18.0).
+Solr 10.0.0 ships 2.20.0, which is outside the affected ranges and is not affected. Solr 9.11 ships
+2.22.0, which &lt;em&gt;is&lt;/em&gt; affected (fixed in 2.22.1) and should be added to this range once released.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Netty codec-http/http2: server-side HTTP handling issues (DoS, CORS/WebSocket, smuggling, CRLF)</title><link href="/cve-2026-59899.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59899.html</id><summary type="html">&lt;p&gt;These five Netty issues live in server-side HTTP handling or the outbound request encoder (all affect
 Netty &amp;lt; 4.1.136 and 4.2.0–4.2.15, fixed in 4.1.136 / 4.2.16):&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;CVE-2026-59899 — unbounded per-connection queue growth in &lt;code&gt;HttpContentEncoder&lt;/code&gt; via HTTP/1.1
@@ -196,21 +304,27 @@ Netty &amp;lt; 4.1.136 and 4.2.0–4.2.15, fixed in 4.1.136 / 4.2.16):&lt;/p&gt;
 &lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr bundles Netty only via the optional OpenTelemetry (OTLP) exporter and
 the ZooKeeper client, where Netty is used strictly as a &lt;strong&gt;client&lt;/strong&gt;. Solr's HTTP server is Jetty:
 Solr never runs a Netty HTTP server, CORS handler, WebSocket server, or HTTP/2→1 proxy, and never
-uses Netty's multipart request encoder, so none of these code paths are reachable.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>lz4-java: out-of-bounds read via invalid arguments to native XXHash</title><link href="/cve-2026-59949.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59949.html</id><summary type="html">&lt;p&gt;CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; codec: the
-JNI-based XXHash implementations insufficiently validate their byte-array arguments, so a caller that
-passes an invalid array reference or an out-of-range &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; to the native XXHash methods can
-crash the JVM. It affects lz4-java …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; codec: the
-JNI-based XXHash implementations insufficiently validate their byte-array arguments, so a caller that
-passes an invalid array reference or an out-of-range &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; to the native XXHash methods can
-crash the JVM. It affects lz4-java ≤ 1.11.0 (fixed in 1.11.1). Exploitation requires an application
-to pass attacker-influenced array/offset/length values into those XXHash APIs.&lt;/p&gt;
+uses Netty's multipart request encoder, so none of these code paths are reachable.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>lz4-java: out-of-bounds read via invalid arguments to native XXHash</title><link href="/cve-2026-59949.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-59949.html</id><summary type="html">&lt;p&gt;CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the &lt;code&gt;lz4-java&lt;/code&gt; codec: the JNI-based XXHash
+implementations insufficiently validate their byte-array arguments, so a caller that passes an
+invalid array reference or an out-of-range &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; to the native XXHash methods can crash the JVM.
+It affects &lt;code&gt;lz4-java&lt;/code&gt; ≤ 1.11.0 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-59949 (CVSS 6.5) is an out-of-bounds read in the &lt;code&gt;lz4-java&lt;/code&gt; codec: the JNI-based XXHash
+implementations insufficiently validate their byte-array arguments, so a caller that passes an
+invalid array reference or an out-of-range &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; to the native XXHash methods can crash the JVM.
+It affects &lt;code&gt;lz4-java&lt;/code&gt; ≤ 1.11.0 (fixed in 1.11.1). Exploitation requires an application to pass
+attacker-influenced array/offset/length values into those XXHash APIs.&lt;/p&gt;
 &lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;lz4-java&lt;/code&gt; is bundled only by the optional &lt;code&gt;cross-dc&lt;/code&gt; module, where it is
 used by the embedded Apache Kafka client for LZ4 compression / checksums of cross-datacenter
 replication messages. Kafka calls the XXHash APIs with its own internally-managed, validated buffers
-and offsets — it does not forward attacker-controlled &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; values into the native methods —
-and the replication stream flows through an operator-controlled Kafka pipeline, not untrusted
-external input. The &lt;code&gt;cross-dc&lt;/code&gt; module is not part of a default Solr installation, and no Solr request
-path reaches the vulnerable XXHash argument handling.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Eclipse Jetty: HTTP/2 :authority vs Host header confusion</title><link href="/cve-2026-6790.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-6790.html</id><summary type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
+and offsets — it does not forward attacker-controlled &lt;code&gt;off&lt;/code&gt;/&lt;code&gt;len&lt;/code&gt; values into the native methods — and
+the replication stream flows through an operator-controlled Kafka pipeline, not untrusted external
+input. The &lt;code&gt;cross-dc&lt;/code&gt; module is not part of a default Solr installation, and no Solr request path
+reaches the vulnerable XXHash argument handling.&lt;/p&gt;
+&lt;p&gt;Solr shipped an affected &lt;code&gt;org.lz4:lz4-java&lt;/code&gt; 1.8.0 from 9.8.0 (when the &lt;code&gt;cross-dc&lt;/code&gt; module first bundled
+it) through 10.0.0. Unlike CVE-2025-12183 / CVE-2025-66566 (covered separately and fixed by the
+&lt;code&gt;branch_9x&lt;/code&gt; / &lt;code&gt;branch_10x&lt;/code&gt; / &lt;code&gt;main&lt;/code&gt; migration to the fork &lt;code&gt;at.yawk.lz4:lz4-java&lt;/code&gt; 1.10.1), &lt;strong&gt;this issue
+is not yet fixed on any branch&lt;/strong&gt;: 1.11.1 is required, and all three development branches are on 1.10.1,
+so the upcoming 9.11 and 10.1 releases will still bundle an affected version. The affected Solr range
+will need to extend to those releases once they ship.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Eclipse Jetty: HTTP/2 :authority vs Host header confusion</title><link href="/cve-2026-6790.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/cve-2026-6790.html</id><summary type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
 does not require the &lt;code&gt;:authority&lt;/code&gt; pseudo-header to match the &lt;code&gt;Host&lt;/code&gt; header, so a single request can
 carry two conflicting host interpretations. It affects the Jetty branches Solr ships (9.4.x, 10.0.x
 through …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-6790 is an input-validation gap in Jetty's HTTP/2 (and HTTP/3) request processing: Jetty
@@ -246,11 +360,31 @@ canonicalization &lt;em&gt;desync&lt;/em&gt;).&lt;/p&gt;
 &lt;li&gt;Solr uses neither Jetty's &lt;code&gt;SecurityHandler.PathMapped&lt;/code&gt; nor &lt;code&gt;URIUtil.canonicalPath()&lt;/code&gt; directly.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;So even on an affected Jetty, the mis-canonicalization cannot produce an authorization bypass in
-Solr, because Solr's authorization and dispatch are driven by the same, single path value.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons BeanUtils: class-loader access via a 'declaredClass' property path</title><link href="/cve-2025-48734.html" rel="alternate"/><published>2026-07-18T00:00:00+00:00</published><updated>2026-07-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-18:/cve-2025-48734.html</id><summary type="html">&lt;p&gt;CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr does not call PropertyUtilsBean.getProperty(), BeanUtilsBean, or any Commons BeanUtils introspection APIs directly. commons-beanutils is only ever pulled in transitively: in the 9.x line via &lt;code&gt;hadoop-common&lt;/code&gt; (used by the optional Hadoop/Kerberos authentication module, which reads administrator-supplied configuration files rather than untrusted external input), and in 10.0 — after the Hadoop module was removed (SOLR-17540) — via the &lt;code&gt;cross-dc-manager&lt;/code&gt; module's embedded Kafka broker (&lt;code&gt;kafka_2.13&lt;/code&gt; → &lt;code&gt;commons-validator&lt;/code&gt; → &lt;code&gt;commons-beanutils&lt;/code&gt;). No Solr code passes externally-supplied property paths to BeanUtils in either case, so the vulnerable code path is unreachable regardless of how the jar is bundled.&lt;/p&gt;
+Solr, because Solr's authorization and dispatch are driven by the same, single path value.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jackson-databind: @JsonView bypass for creator properties with @JsonTypeInfo external-property polymorphism</title><link href="/ghsa-mhm7-754m-9p8w.html" rel="alternate"/><published>2026-07-31T00:00:00+00:00</published><updated>2026-07-31T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-31:/ghsa-mhm7-754m-9p8w.html</id><summary type="html">&lt;p&gt;GHSA-mhm7-754m-9p8w is a deserialization-filter bypass in jackson-databind: a &lt;code&gt;@JsonView&lt;/code&gt; restriction
+can be bypassed for creator properties that use &lt;code&gt;@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)&lt;/code&gt;
+polymorphic typing, letting untrusted JSON populate fields the active view was meant to exclude. It
+affects jackson-databind 2.18.0 – 2.18.8 and 2.21.0 – 2 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;GHSA-mhm7-754m-9p8w is a deserialization-filter bypass in jackson-databind: a &lt;code&gt;@JsonView&lt;/code&gt; restriction
+can be bypassed for creator properties that use &lt;code&gt;@JsonTypeInfo(include = As.EXTERNAL_PROPERTY)&lt;/code&gt;
+polymorphic typing, letting untrusted JSON populate fields the active view was meant to exclude. It
+affects jackson-databind 2.18.0 – 2.18.8 and 2.21.0 – 2.21.4 (fixed in 2.18.9 / 2.21.5); the
+external-type-id creator path was fixed on the 3.x line and not backported to the 2.19/2.20 lines,
+which are not affected.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Exploiting this requires an application to combine &lt;code&gt;@JsonView&lt;/code&gt; filtering
+with &lt;code&gt;@JsonTypeInfo&lt;/code&gt; external-property polymorphic typing on untrusted input. Solr applies neither
+&lt;code&gt;@JsonView&lt;/code&gt; filtering nor polymorphic type handling to request deserialization (see also the
+long-standing polymorphic-typing analysis in the jackson-databind gadget statement), so the bypass has
+nothing to defeat.&lt;/p&gt;
+&lt;p&gt;Solr's own standalone &lt;code&gt;jackson-databind&lt;/code&gt; is in an affected range only in 9.8.0 – 9.10.1 (2.18.0).
+Solr 10.0.0 (2.20.0) and Solr 9.11 (2.22.0) are outside the affected ranges and are not affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons BeanUtils: class-loader access via a 'declaredClass' property path</title><link href="/cve-2025-48734.html" rel="alternate"/><published>2026-07-18T00:00:00+00:00</published><updated>2026-07-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-18:/cve-2025-48734.html</id><summary type="html">&lt;p&gt;CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-48734 allows an attacker to access the JVM ClassLoader (and potentially execute arbitrary code) by passing a property path containing 'declaredClass' to PropertyUtilsBean.getProperty() or getNestedProperty(). Exploitation requires an application to pass externally supplied property path strings to these BeanUtils methods. A search of the Solr codebase confirms that Solr does not call PropertyUtilsBean.getProperty(), BeanUtilsBean, or any Commons BeanUtils introspection APIs directly. commons-beanutils is only ever pulled in transitively: in the 9.x line via &lt;code&gt;hadoop-common&lt;/code&gt; (used by the optional Hadoop/Kerberos authentication module, which reads administrator-supplied configuration files rather than untrusted external input), and in 10.0 — after the Hadoop module was removed (SOLR-17540) — via the &lt;code&gt;cross-dc-manager&lt;/code&gt; module's embedded Kafka broker (&lt;code&gt;kafka_2.13&lt;/code&gt; → &lt;code&gt;commons-validator&lt;/code&gt; → &lt;code&gt;commons-beanutils&lt;/code&gt;). No Solr code passes externally-supplied property paths to BeanUtils in either case, so the vulnerable code path is unreachable regardless of how the jar is bundled.&lt;/p&gt;
 &lt;p&gt;CVE-2025-48734 affects all Commons BeanUtils 1.x releases before 1.11.0. Solr has bundled
 commons-beanutils since Solr 3.6.0, and every release that includes it, through Solr 10.0.0, ships an
 affected 1.x version (1.7.0, then 1.8.3, 1.9.3 and 1.9.4 — all below 1.11.0). The affected range is
-therefore 3.6.0 – 10.0.0.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Netty: HTTP/1.1 request smuggling and HTTP/2 CONTINUATION-flood DoS (server-side codec)</title><link href="/cve-2026-33870.html" rel="alternate"/><published>2026-07-18T00:00:00+00:00</published><updated>2026-07-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-18:/cve-2026-33870.html</id><summary type="html">&lt;p&gt;CVE-2026-33870 is an HTTP/1.1 request smuggling vulnerability via malformed chunked transfer encoding extension values in Netty's server-side HTTP codec. CVE-2026-33871 is an HTTP/2 CONTINUATION frame flood DoS against a Netty HTTP/2 server. Both require Netty to be used as an HTTP server accepting connections from untrusted …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-33870 is an HTTP/1.1 request smuggling vulnerability via malformed chunked transfer encoding extension values in Netty's server-side HTTP codec. CVE-2026-33871 is an HTTP/2 CONTINUATION frame flood DoS against a Netty HTTP/2 server. Both require Netty to be used as an HTTP server accepting connections from untrusted clients. In Solr, Netty is a transitive dependency (via ZooKeeper 3.9.x and optionally the OpenTelemetry OTLP exporter); it is used exclusively as an HTTP client and for ZooKeeper's own non-HTTP binary protocol. Solr's HTTP server is Jetty, not Netty. No Netty ServerBootstrap or HTTP server pipeline is configured in Solr. Therefore neither CVE can be triggered against a running Solr instance.&lt;/p&gt;
+therefore 3.6.0 – 9.10.1 plus 10.0.0.&lt;/p&gt;
+&lt;p&gt;The fix has landed on all active development branches: Solr 9.11 (&lt;code&gt;branch_9x&lt;/code&gt;), 10.1 (&lt;code&gt;branch_10x&lt;/code&gt;),
+and &lt;code&gt;main&lt;/code&gt; upgrade the bundled copy to commons-beanutils 1.11.0, and Hadoop 3.4.3 (shipped in 9.11)
+additionally dropped the shaded commons-beanutils it previously carried inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt;.
+So 9.11 and 10.1 are not affected, and the range is capped at 9.10.1 / 10.0.0 rather than an open
+&lt;code&gt;3.6.0 – 10.0.0&lt;/code&gt; that would otherwise sweep in the fixed 9.11 release.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Netty: HTTP/1.1 request smuggling and HTTP/2 CONTINUATION-flood DoS (server-side codec)</title><link href="/cve-2026-33870.html" rel="alternate"/><published>2026-07-18T00:00:00+00:00</published><updated>2026-07-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-07-18:/cve-2026-33870.html</id><summary type="html">&lt;p&gt;CVE-2026-33870 is an HTTP/1.1 request smuggling vulnerability via malformed chunked transfer encoding extension values in Netty's server-side HTTP codec. CVE-2026-33871 is an HTTP/2 CONTINUATION frame flood DoS against a Netty HTTP/2 server. Both require Netty to be used as an HTTP server accepting connections from untrusted …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-33870 is an HTTP/1.1 request smuggling vulnerability via malformed chunked transfer encoding extension values in Netty's server-side HTTP codec. CVE-2026-33871 is an HTTP/2 CONTINUATION frame flood DoS against a Netty HTTP/2 server. Both require Netty to be used as an HTTP server accepting connections from untrusted clients. In Solr, Netty is a transitive dependency (via ZooKeeper 3.9.x and optionally the OpenTelemetry OTLP exporter); it is used exclusively as an HTTP client and for ZooKeeper's own non-HTTP binary protocol. Solr's HTTP server is Jetty, not Netty. No Netty ServerBootstrap or HTTP server pipeline is configured in Solr. Therefore neither CVE can be triggered against a running Solr instance.&lt;/p&gt;
 &lt;p&gt;Both CVEs affect Netty releases before 4.1.132 and 4.2.0 through 4.2.9. Solr has bundled the modular
 &lt;code&gt;netty-codec-http&lt;/code&gt; / &lt;code&gt;netty-codec-http2&lt;/code&gt; artifacts (transitively, via ZooKeeper and the optional
 OpenTelemetry OTLP exporter) since Solr 9.2.0 — earlier releases used the &lt;code&gt;netty-all&lt;/code&gt; uber-jar — and
@@ -1494,7 +1628,184 @@ Damon Toey (reporter)&lt;/p&gt;
 &lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_10/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_10/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Please read CHANGELOG.md for a full list of new features, changes and bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_10_0/changes/Changes.html"&gt;https://solr.apache.org/9_10_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</title><link href="/cve-2025-48924.html" rel="alternate"/><published>2025-08-04T00:00:00+00:00</published><updated>2025-08-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-08-04:/cve-2025-48924.html</id><summary type="html">&lt;p&gt;CVE-2025-48924 is an uncontrolled-recursion issue in Apache Commons Lang's
+&lt;p&gt;&lt;a href="https://solr.apache.org/9_10_0/changes/Changes.html"&gt;https://solr.apache.org/9_10_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Thrift: server-side memory-exhaustion DoS via crafted short messages</title><link href="/cve-2020-13949.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2020-13949.html</id><summary type="html">&lt;p&gt;CVE-2020-13949 is a denial-of-service issue in Apache Thrift: a malicious RPC &lt;strong&gt;client&lt;/strong&gt; can send
+specially-crafted short messages that cause a Thrift &lt;strong&gt;server&lt;/strong&gt; to allocate a large amount of memory,
+potentially exhausting it (affects &lt;code&gt;libthrift&lt;/code&gt; 0.9.3 – 0.13.0, fixed in 0.14.0). It is reachable only
+by …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2020-13949 is a denial-of-service issue in Apache Thrift: a malicious RPC &lt;strong&gt;client&lt;/strong&gt; can send
+specially-crafted short messages that cause a Thrift &lt;strong&gt;server&lt;/strong&gt; to allocate a large amount of memory,
+potentially exhausting it (affects &lt;code&gt;libthrift&lt;/code&gt; 0.9.3 – 0.13.0, fixed in 0.14.0). It is reachable only
+by an application that runs a Thrift server accepting messages from untrusted clients.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;libthrift&lt;/code&gt; is bundled only by the optional Jaeger distributed-tracing
+integration, where Solr uses Thrift purely as a &lt;strong&gt;client&lt;/strong&gt; to export spans to an operator-configured
+Jaeger collector — it never runs a Thrift RPC server that accepts untrusted incoming messages. The
+vulnerable server-side allocation path is therefore never reached.&lt;/p&gt;
+&lt;p&gt;Solr shipped an affected &lt;code&gt;libthrift&lt;/code&gt; in the 8.x line — 0.12.0 (8.2.0 – 8.4.1) and 0.13.0 (8.5.0 –
+8.11.0), both ≤ 0.13.0 — so the affected range is 8.2.0 – 8.11.0. Solr &lt;strong&gt;8.11.1&lt;/strong&gt; upgraded the 8.x
+line to &lt;code&gt;libthrift&lt;/code&gt; 0.14.1 (past the 0.14.0 fix), and Solr 9.0.0 likewise ships 0.14.1 (later 0.15.0),
+so no 8.11.1+, 9.x, or 10.x release is affected. (The Solr 8.x line is end of life.) Note that
+SOLR-15507 — which proposed the upgrade and observed that Solr 8.9.0 still bundled &lt;code&gt;libthrift&lt;/code&gt; 0.13.0 —
+remains open with no fix version, but the upgrade was in fact delivered in 8.11.1 (verified against the
+&lt;code&gt;solr:8.11.0&lt;/code&gt; and &lt;code&gt;solr:8.11.1&lt;/code&gt; release images).&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>jQuery UI (Admin UI): XSS in datepicker and position widgets</title><link href="/cve-2021-41182.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2021-41182.html</id><summary type="html">&lt;p&gt;Three XSS issues in jQuery UI 1.12.1 (all fixed in 1.13.x):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41182&lt;/strong&gt; — XSS via the datepicker &lt;code&gt;altField&lt;/code&gt; option.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41183&lt;/strong&gt; — XSS via the datepicker &lt;code&gt;*Text&lt;/code&gt; options.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41184&lt;/strong&gt; — XSS via the &lt;code&gt;.position()&lt;/code&gt; &lt;code&gt;of&lt;/code&gt; option.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr's Admin UI bundles a &lt;strong&gt;custom subset&lt;/strong&gt; of jQuery UI (&lt;code&gt;server/solr-webapp/webapp/libs …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Three XSS issues in jQuery UI 1.12.1 (all fixed in 1.13.x):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41182&lt;/strong&gt; — XSS via the datepicker &lt;code&gt;altField&lt;/code&gt; option.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41183&lt;/strong&gt; — XSS via the datepicker &lt;code&gt;*Text&lt;/code&gt; options.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2021-41184&lt;/strong&gt; — XSS via the &lt;code&gt;.position()&lt;/code&gt; &lt;code&gt;of&lt;/code&gt; option.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr's Admin UI bundles a &lt;strong&gt;custom subset&lt;/strong&gt; of jQuery UI (&lt;code&gt;server/solr-webapp/webapp/libs/jquery-ui.min.js&lt;/code&gt;,
+v1.12.1) from Solr 7.5.0 through 10.0.0. Solr is &lt;strong&gt;not affected&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The datepicker widget is not included.&lt;/strong&gt; Solr's build excludes datepicker entirely (it is absent
+  from the shipped &lt;code&gt;jquery-ui.min.js&lt;/code&gt;), so CVE-2021-41182 and CVE-2021-41183 — both datepicker-only —
+  have no code present to exploit.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The position utility is included, but not reachable with attacker input.&lt;/strong&gt; CVE-2021-41184
+  requires passing attacker-controlled markup to the &lt;code&gt;of&lt;/code&gt; option of &lt;code&gt;.position()&lt;/code&gt;. Solr's Admin UI
+  invokes positioning (for tooltips/dialogs) only with its own static, trusted selectors, never with
+  externally-supplied values. The Admin UI is also an operator-facing console, not an
+  unauthenticated public surface.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: this is a &lt;strong&gt;front-end JavaScript&lt;/strong&gt; dependency, not a Maven artifact. This entry documents
+Solr's assessment for the record; unlike the Java-jar entries it does not emit a matchable Maven
+purl, and Docker Scout does not flag the bundled minified JS. It corresponds to SOLR-16309, whose
+reporter likewise characterized it as a compliance finding rather than an exploitable risk.&lt;/p&gt;
+&lt;/blockquote&gt;</content><category term="solr/vex"/></entry><entry><title>Bouncy Castle (bcprov): LDAP CertStore injection, EC/Ed25519 DoS, and RSA/TLS timing side-channel</title><link href="/cve-2023-33201.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2023-33201.html</id><summary type="html">&lt;p&gt;Four vulnerabilities in the Bouncy Castle crypto provider (&lt;code&gt;org.bouncycastle:bcprov-jdk15on&lt;/code&gt;),
+each in a distinct crypto operation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2023-33201&lt;/strong&gt; — LDAP injection in the X.509 &lt;code&gt;CertStore&lt;/code&gt; (fixed in 1.74); requires using Bouncy
+  Castle's LDAP-backed &lt;code&gt;CertStore&lt;/code&gt; for certificate lookups.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-29857&lt;/strong&gt; — importing an EC certificate with crafted F2m parameters causes CPU exhaustion …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Four vulnerabilities in the Bouncy Castle crypto provider (&lt;code&gt;org.bouncycastle:bcprov-jdk15on&lt;/code&gt;),
+each in a distinct crypto operation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2023-33201&lt;/strong&gt; — LDAP injection in the X.509 &lt;code&gt;CertStore&lt;/code&gt; (fixed in 1.74); requires using Bouncy
+  Castle's LDAP-backed &lt;code&gt;CertStore&lt;/code&gt; for certificate lookups.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-29857&lt;/strong&gt; — importing an EC certificate with crafted F2m parameters causes CPU exhaustion
+  (fixed in 1.78); requires parsing/importing an attacker-supplied EC certificate.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-30171&lt;/strong&gt; — RSA/TLS timing side-channel ("Marvin"; fixed in 1.78); requires using Bouncy
+  Castle as the &lt;strong&gt;TLS/JSSE provider&lt;/strong&gt; with an attacker able to time RSA handshake responses.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CVE-2024-30172&lt;/strong&gt; — infinite loop verifying a crafted Ed25519 signature (fixed in 1.78); requires
+  verifying an attacker-supplied Ed25519 signature.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Bouncy Castle (&lt;code&gt;bcprov&lt;/code&gt;/&lt;code&gt;bcpkix&lt;/code&gt;/&lt;code&gt;bcmail&lt;/code&gt;/&lt;code&gt;bcutil&lt;/code&gt;) is bundled only by the
+optional &lt;strong&gt;extraction (Solr Cell)&lt;/strong&gt; module, where Apache Tika / PDFBox use it to handle encrypted or
+digitally-signed PDFs during document parsing. Solr does not use Bouncy Castle as a security provider
+in any of the ways these CVEs require:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Solr's TLS is served by the JVM's default JSSE provider, &lt;strong&gt;not&lt;/strong&gt; Bouncy Castle, so the RSA timing
+  side-channel (CVE-2024-30171) has no Solr-reachable surface.&lt;/li&gt;
+&lt;li&gt;Solr never configures an LDAP &lt;code&gt;CertStore&lt;/code&gt; (CVE-2023-33201), never imports attacker-supplied EC
+  certificates (CVE-2024-29857), and never verifies standalone Ed25519 signatures (CVE-2024-30172).&lt;/li&gt;
+&lt;li&gt;Tika's text/metadata &lt;strong&gt;extraction&lt;/strong&gt; does not exercise TLS, LDAP certificate lookup, EC-certificate
+  import, or Ed25519 signature verification, so even with Solr Cell enabled none of the vulnerable
+  code paths are reached.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Solr shipped an affected &lt;code&gt;bcprov-jdk15on&lt;/code&gt; via Solr Cell from 7.3.0 (1.54) through 9.10.1 (1.70) — all
+below the fixed 1.74/1.78. Solr 10.0.0 upgraded the extraction stack to Tika 3.x, whose PDFBox no
+longer bundles Bouncy Castle, so 10.x ships no &lt;code&gt;bcprov&lt;/code&gt; at all. The affected range is therefore
+7.3.0 – 9.10.1. (Solr 9.5–9.6 also briefly bundled a separate &lt;code&gt;bcprov-jdk18on&lt;/code&gt; 1.77 for another
+module, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Nimbus JOSE + JWT: denial of service parsing crafted JOSE objects</title><link href="/cve-2023-52428.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2023-52428.html</id><summary type="html">&lt;p&gt;CVE-2023-52428 (CVSS 8.7) is a denial-of-service issue in Nimbus JOSE + JWT: parsing a crafted JOSE
+object (for example a PBES2-encrypted JWE with a huge &lt;code&gt;p2c&lt;/code&gt; iteration count, or a large deeply-nested
+structure) can consume excessive resources (fixed in 9.37.2). It is only reachable when an
+application parses …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2023-52428 (CVSS 8.7) is a denial-of-service issue in Nimbus JOSE + JWT: parsing a crafted JOSE
+object (for example a PBES2-encrypted JWE with a huge &lt;code&gt;p2c&lt;/code&gt; iteration count, or a large deeply-nested
+structure) can consume excessive resources (fixed in 9.37.2). It is only reachable when an
+application parses attacker-supplied JOSE/JWT input with Nimbus.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr's own JWT authentication (the optional &lt;code&gt;jwt-auth&lt;/code&gt; module,
+&lt;code&gt;JWTAuthPlugin&lt;/code&gt;) parses tokens with &lt;strong&gt;jose4j&lt;/strong&gt;, not Nimbus (see CVE-2025-53864). The Nimbus copy a
+scanner flags (&lt;code&gt;nimbus-jose-jwt@9.31&lt;/code&gt;) is shaded inside &lt;code&gt;hadoop-client-runtime&lt;/code&gt; in the optional
+&lt;code&gt;hdfs&lt;/code&gt; module and is only used by Hadoop's own internal auth machinery — Solr never routes an
+untrusted, externally-supplied JOSE object to it. The vulnerable parser is therefore not reached. The
+affected range spans the releases whose &lt;code&gt;hdfs&lt;/code&gt; module bundles an affected shaded Nimbus — Solr
+9.0.0 – 9.9.0 (&lt;code&gt;hadoop-client-runtime&lt;/code&gt; 3.3.2 – 3.4.0, shading Nimbus ≤ 9.31). Solr 9.10.0 upgraded to
+Hadoop 3.4.1, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt; shades the fixed Nimbus 9.37.2, and Solr 10.x ships no
+&lt;code&gt;hadoop-client-runtime&lt;/code&gt;, so neither is affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache James MIME4J: header injection when composing MIME messages</title><link href="/cve-2024-21742.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-21742.html</id><summary type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
+used to &lt;strong&gt;compose / write&lt;/strong&gt; MIME messages, improper input validation lets crafted field values inject
+unintended headers into the produced message. It affects &lt;code&gt;apache-mime4j&lt;/code&gt; before 0.8.10 (fixed in
+0.8.10), and is …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-21742 (CVSS 5.3) is a header-injection issue in Apache James MIME4J: when the library is
+used to &lt;strong&gt;compose / write&lt;/strong&gt; MIME messages, improper input validation lets crafted field values inject
+unintended headers into the produced message. It affects &lt;code&gt;apache-mime4j&lt;/code&gt; before 0.8.10 (fixed in
+0.8.10), and is only reachable through MIME4J's message-&lt;strong&gt;building&lt;/strong&gt; API (MIME4J DOM composition).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. &lt;code&gt;apache-mime4j-core&lt;/code&gt; is bundled only by the optional &lt;strong&gt;extraction (Solr
+Cell)&lt;/strong&gt; module, where Apache Tika uses MIME4J solely to &lt;strong&gt;parse&lt;/strong&gt; documents (for example to extract
+text from &lt;code&gt;.eml&lt;/code&gt; / RFC-822 messages). Neither Solr nor Tika ever uses MIME4J to &lt;em&gt;compose&lt;/em&gt; or write
+MIME messages, so the vulnerable message-building / header-injection code path is never invoked —
+regardless of whether the (non-default, not-recommended-for-production) Solr Cell module is enabled.&lt;/p&gt;
+&lt;p&gt;Solr has bundled an affected &lt;code&gt;apache-mime4j-core&lt;/code&gt; via Solr Cell from Solr 3.6.0 (0.7) through 9.10.1
+(0.8.4) — all below the fixed 0.8.10. Solr 10.x ships no MIME4J. The affected range is therefore
+3.6.0 – 9.10.1, but the composition code path this CVE requires is not exercised in any of them.
+Operators who run Solr Cell can additionally follow the project's guidance to perform document
+extraction in a separate Tika service, or replace &lt;code&gt;modules/extraction/lib/apache-mime4j-*.jar&lt;/code&gt; with
+0.8.10 or later.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>dnsjava: DNSSEC validation bypass</title><link href="/cve-2024-25638.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-25638.html</id><summary type="html">&lt;p&gt;CVE-2024-25638 (CVSS 7.0) is a DNSSEC-validation bypass in dnsjava: a resolver relying on dnsjava to
+validate DNSSEC could be tricked into accepting spoofed records (affects dnsjava &amp;lt; 3.6.0). It matters
+only for an application that uses dnsjava as its resolver and relies on its DNSSEC validation for a …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-25638 (CVSS 7.0) is a DNSSEC-validation bypass in dnsjava: a resolver relying on dnsjava to
+validate DNSSEC could be tricked into accepting spoofed records (affects dnsjava &amp;lt; 3.6.0). It matters
+only for an application that uses dnsjava as its resolver and relies on its DNSSEC validation for a
+security decision.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. dnsjava is not a Solr dependency in its own right — it is shaded inside
+&lt;code&gt;hadoop-client-runtime&lt;/code&gt; (reported by scanners as &lt;code&gt;dnsjava@3.4.0&lt;/code&gt;) in the optional &lt;code&gt;hdfs&lt;/code&gt; module,
+where Hadoop may use it for name resolution. Solr uses the HDFS module only as a &lt;strong&gt;client&lt;/strong&gt; that
+connects to operator-configured HDFS NameNode/DataNode hosts, not attacker-controlled names, and it
+does not rely on dnsjava's DNSSEC validation to make any security decision. The vulnerable resolver
+path is therefore not reached. The affected range spans the releases whose &lt;code&gt;hdfs&lt;/code&gt; module bundles an
+affected shaded dnsjava — Solr 9.0.0 – 9.9.0 (&lt;code&gt;hadoop-client-runtime&lt;/code&gt; 3.3.2 – 3.4.0, shading dnsjava
+≤ 3.4.0). Solr 9.10.0 upgraded to Hadoop 3.4.1, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt; shades the fixed dnsjava
+3.6.1, and Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;, so neither is affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Compress: OutOfMemoryError unpacking a broken Pack200 file</title><link href="/cve-2024-26308.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-26308.html</id><summary type="html">&lt;p&gt;CVE-2024-26308 (CVSS 6.7) is a denial-of-service issue in Apache Commons Compress: unpacking a
+malformed &lt;strong&gt;Pack200&lt;/strong&gt; (&lt;code&gt;.pack&lt;/code&gt;/&lt;code&gt;.pack.gz&lt;/code&gt;) stream can allocate excessive memory and throw
+&lt;code&gt;OutOfMemoryError&lt;/code&gt; (affects 1.21 through 1.25.0, fixed in 1.26.0). It is reachable only when an
+application uses Commons Compress to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-26308 (CVSS 6.7) is a denial-of-service issue in Apache Commons Compress: unpacking a
+malformed &lt;strong&gt;Pack200&lt;/strong&gt; (&lt;code&gt;.pack&lt;/code&gt;/&lt;code&gt;.pack.gz&lt;/code&gt;) stream can allocate excessive memory and throw
+&lt;code&gt;OutOfMemoryError&lt;/code&gt; (affects 1.21 through 1.25.0, fixed in 1.26.0). It is reachable only when an
+application uses Commons Compress to unpack an attacker-supplied Pack200 archive.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr never unpacks Pack200 archives — Pack200 (a legacy JAR-compression
+format) is not part of any Solr request path. The affected &lt;code&gt;commons-compress&lt;/code&gt; a scanner flags
+(&lt;code&gt;commons-compress@1.24.0&lt;/code&gt;) is the copy shaded into &lt;code&gt;hadoop-client-runtime&lt;/code&gt; in the optional &lt;code&gt;hdfs&lt;/code&gt;
+module; Solr's HDFS-client usage does not feed untrusted Pack200 input to it, and Solr's own use of
+Commons Compress elsewhere does not invoke the Pack200 unpacker. The vulnerable code path is therefore
+not reached. The affected range spans the releases whose &lt;code&gt;hdfs&lt;/code&gt; module bundles an affected shaded
+commons-compress — Solr 9.0.0 – 9.9.0 (&lt;code&gt;hadoop-client-runtime&lt;/code&gt; 3.3.2 – 3.4.0, shading commons-compress
+≤ 1.24.0; the standalone copy in the &lt;code&gt;extraction&lt;/code&gt; module was already ≥ 1.26.0 by 9.7.0). Solr 9.10.0
+upgraded to Hadoop 3.4.1, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt; shades the fixed commons-compress 1.26.1, and
+Solr 10.x ships no &lt;code&gt;hadoop-client-runtime&lt;/code&gt;, so neither is affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Configuration: StackOverflowError in list-delimiter handling</title><link href="/cve-2024-29131.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2024-29131.html</id><summary type="html">&lt;p&gt;CVE-2024-29131 and CVE-2024-29133 are denial-of-service issues (StackOverflowError) in Apache Commons
+Configuration's list-delimiter handling — &lt;code&gt;AbstractListDelimiterHandler.flattenIterator(...)&lt;/code&gt; and
+&lt;code&gt;ListDelimiterHandler.flatten(Object, int)&lt;/code&gt; respectively — when a configuration contains a cyclic
+reference (both affect 2.0 through 2.10.0, fixed in 2.10.1).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr uses &lt;code&gt;commons-configuration2&lt;/code&gt; only through …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2024-29131 and CVE-2024-29133 are denial-of-service issues (StackOverflowError) in Apache Commons
+Configuration's list-delimiter handling — &lt;code&gt;AbstractListDelimiterHandler.flattenIterator(...)&lt;/code&gt; and
+&lt;code&gt;ListDelimiterHandler.flatten(Object, int)&lt;/code&gt; respectively — when a configuration contains a cyclic
+reference (both affect 2.0 through 2.10.0, fixed in 2.10.1).&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt;. Solr uses &lt;code&gt;commons-configuration2&lt;/code&gt; only through its optional Hadoop
+integration — both the standalone copy in the &lt;code&gt;hadoop-auth&lt;/code&gt; module and the copy shaded into
+&lt;code&gt;hadoop-client-runtime&lt;/code&gt; (which a scanner reports as &lt;code&gt;commons-configuration2@2.8.0&lt;/code&gt;) — to load
+&lt;strong&gt;administrator-supplied&lt;/strong&gt; Hadoop configuration files, never untrusted external input. No Solr request
+path feeds attacker-controlled configuration to Commons Configuration, so the recursive list-delimiter
+parser cannot be driven by an adversary. This matches the existing assessment of the other Commons
+Configuration CVEs (CVE-2022-33980, CVE-2026-45205). The affected range spans the releases whose
+Hadoop modules carry an affected commons-configuration2 — Solr 9.0.0 – 9.9.0 (&lt;code&gt;hadoop-client-runtime&lt;/code&gt;
+3.3.2 – 3.4.0 shades commons-configuration2 ≤ 2.8.0; the standalone &lt;code&gt;hadoop-auth&lt;/code&gt; copy was already
+≥ 2.10.1, at 2.11.0, by 9.7.0). Solr 9.10.0 upgraded to Hadoop 3.4.1, whose &lt;code&gt;hadoop-client-runtime&lt;/code&gt;
+shades the fixed commons-configuration2 2.10.1, so 9.10.x onward is not affected.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache POI: improper input validation parsing OOXML files</title><link href="/cve-2025-31672.html" rel="alternate"/><published>2025-09-07T00:00:00+00:00</published><updated>2025-09-07T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-09-07:/cve-2025-31672.html</id><summary type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
+a crafted OOXML file (&lt;code&gt;.xlsx&lt;/code&gt;, &lt;code&gt;.docx&lt;/code&gt;, etc.) can cause &lt;code&gt;poi-ooxml&lt;/code&gt; to read unexpected data or consume
+excessive resources. It affects all &lt;code&gt;poi-ooxml&lt;/code&gt; releases before 5.4.0 (fixed in 5.4.0). Solr bundles
+an affected …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-31672 (CVSS 6.9) is an improper-input-validation issue in Apache POI's OOXML parser: parsing
+a crafted OOXML file (&lt;code&gt;.xlsx&lt;/code&gt;, &lt;code&gt;.docx&lt;/code&gt;, etc.) can cause &lt;code&gt;poi-ooxml&lt;/code&gt; to read unexpected data or consume
+excessive resources. It affects all &lt;code&gt;poi-ooxml&lt;/code&gt; releases before 5.4.0 (fixed in 5.4.0). Solr bundles
+an affected &lt;code&gt;poi-ooxml&lt;/code&gt; via the optional &lt;strong&gt;extraction (Solr Cell)&lt;/strong&gt; module — 5.2.2 in the 9.x line,
+and older 3.x/4.x builds before that — from Solr 3.6.0 through 9.10.1. Solr 10.x ships no POI, and the
+9.x line upgraded to a fixed &lt;code&gt;poi-ooxml&lt;/code&gt; (5.5.1) after 9.10.1, so the affected range is 3.6.0 – 9.10.1.&lt;/p&gt;
+&lt;p&gt;Solr is &lt;strong&gt;not affected&lt;/strong&gt; in a supported configuration. Apache POI is used only by the extraction
+(Solr Cell) module, which parses rich documents (PDF, Office, etc.) via Apache Tika. Solr Cell is not
+enabled by default and is &lt;strong&gt;not recommended for production&lt;/strong&gt;: the project's guidance is to run Tika as
+a separate service and index the extracted text, rather than have Solr parse untrusted documents
+in-process. A deployment that follows that guidance never feeds an attacker-controlled OOXML file to
+the bundled POI, so the vulnerable parser is not reached.&lt;/p&gt;
+&lt;p&gt;Operators who nonetheless enable Solr Cell and parse untrusted documents should either move document
+extraction out of Solr (the recommended architecture) or replace the bundled
+&lt;code&gt;modules/extraction/lib/poi-ooxml-*.jar&lt;/code&gt; with &lt;code&gt;poi-ooxml&lt;/code&gt; 5.4.0 or later. Tracked as SOLR-17903.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Commons Lang: uncontrolled recursion in ClassUtils.getClass</title><link href="/cve-2025-48924.html" rel="alternate"/><published>2025-08-04T00:00:00+00:00</published><updated>2025-08-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2025-08-04:/cve-2025-48924.html</id><summary type="html">&lt;p&gt;CVE-2025-48924 is an uncontrolled-recursion issue in Apache Commons Lang's
 &lt;code&gt;ClassUtils.getClass(...)&lt;/code&gt;: a very long, deeply-nested class name can exhaust the stack and
 throw &lt;code&gt;StackOverflowError&lt;/code&gt;. It affects &lt;code&gt;commons-lang3&lt;/code&gt; from 3.0 up to (but not including) 3.18.0,
 so dependency scanners flag the &lt;code&gt;commons-lang3&lt;/code&gt; JAR bundled in Solr 9.x …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-48924 is an uncontrolled-recursion issue in Apache Commons Lang's
@@ -2089,227 +2400,4 @@ CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50386"&gt;CVE-2023-5
 &lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_4/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_4/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_4_1/changes/Changes.html"&gt;https://solr.apache.org/9_4_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>CVE-2023-50290: Apache Solr allows read access to host environment variables</title><link href="/cve-2023-50290-apache-solr-allows-read-access-to-host-environment-variables.html" rel="alternate"/><published>2024-01-12T00:00:00+00:00</published><updated>2024-01-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-01-12:/cve-2023-50290-apache-solr-allows-read-access-to-host-environment-variables.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
-Important&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;br&gt;
-Solr 9.0 to 9.2.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
-Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.
-The Solr Metrics API publishes all unprotected environment variables available to each Apache Solr instance.
-Users are able to specify which environment variables to hide, however …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Severity:&lt;/strong&gt;&lt;br&gt;
-Important&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Versions Affected:&lt;/strong&gt;&lt;br&gt;
-Solr 9.0 to 9.2.1&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Description:&lt;/strong&gt;&lt;br&gt;
-Exposure of Sensitive Information to an Unauthorized Actor vulnerability in Apache Solr.
-The Solr Metrics API publishes all unprotected environment variables available to each Apache Solr instance.
-Users are able to specify which environment variables to hide, however, the default list is designed to work for known secret Java system properties.
-Environment variables cannot be strictly defined in Solr, like Java system properties can be, and may be set for the entire host, unlike Java system properties which are set per-Java-process.&lt;/p&gt;
-&lt;p&gt;The Solr Metrics API is protected by the "metrics-read" permission.
-Therefore, Solr Clouds with Authorization setup will only be vulnerable via users with the "metrics-read" permission.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mitigation:&lt;/strong&gt;&lt;br&gt;
-Users are recommended to upgrade to version 9.3.0 or later, in which environment variables are not published via the Metrics API.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
-JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-16808"&gt;SOLR-15233&lt;/a&gt;&lt;br&gt;
-CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50290"&gt;CVE-2023-50290&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"/></entry><entry><title>json-path</title><link href="/cve-2023-51074.html" rel="alternate"/><published>2024-01-12T00:00:00+00:00</published><updated>2024-01-12T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-01-12:/cve-2023-51074.html</id><summary type="html">&lt;p&gt;The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The only places we use json-path is for querying (via Calcite) and for transforming/indexing custom JSON. Since the advisory describes a problem that is limited to the current thread, and users that are allowed to query/transform/index are already trusted to cause load to some extent, this advisory does not appear to have impact on the way json-path is used in Solr.&lt;/p&gt;
-&lt;p&gt;CVE-2023-51074 affects json-path 2.2.0 through 2.8.0 (fixed in 2.9.0). Solr first bundled json-path
-in Solr 8.1.0 (2.4.0) and shipped an affected version — 2.4.0, then 2.7.0, then 2.8.0 — through Solr
-9.5.0; Solr 9.6.0 upgraded to the fixed 2.9.0. The affected range is therefore 8.1.0 – 9.5.0.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Solr Operator™ v0.8.0 available</title><link href="/apache-solr-operatortm-v080-available.html" rel="alternate"/><published>2023-10-20T00:00:00+00:00</published><updated>2023-10-20T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2023-10-20:/apache-solr-operatortm-v080-available.html</id><summary type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.8.0.&lt;/p&gt;
-&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
-&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.8.0.&lt;/p&gt;
-&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
-&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v080-release-highlights"&gt;Solr Operator v0.8.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v080-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The minimum supported version of Solr has been set to Solr 8.11&lt;/li&gt;
-&lt;li&gt;The minimum Kubernetes version supported is now v1.22&lt;/li&gt;
-&lt;li&gt;Managed scale up and scale down are now supported for SolrClouds.&lt;ul&gt;
-&lt;li&gt;By default, when scaling down a SolrCloud, replicas will be migrated off Pods before they are deleted.&lt;/li&gt;
-&lt;li&gt;By default, when scaling up a SolrCloud, replicas will be balanced across all Pods after the SolrCloud has been scaled up. (Only supported for Solr 9.3+)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;SSL bugs with Solr 9 have been fixed, and v0.8.0 will successfully support SSL for Solr 8.11 and 9.4+&lt;/li&gt;
-&lt;li&gt;Solr 8.11 features are now supported by default, such as maxBooleanClauses, metrics disabling, health endpoint for readinessCheck&lt;/li&gt;
-&lt;li&gt;Keystore/Truststore passwords can be explicitly set in the SolrCloud CRD for mountedDir SSL. This enables the use of the CertManager CSI Driver with Solr.&lt;/li&gt;
-&lt;li&gt;Rolling Updates for SolrClouds using ephemeral storage are now safer and replicas are balanced at the end of the operation to ensure optimal resource utilization.&lt;ul&gt;
-&lt;li&gt;Replica balancing is only supported when Solr 9.3+ is used.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A summary of important changes is published in the documentation at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/operator/latest/upgrade-notes/upgrade-notes.html"&gt;https://solr.apache.org/guide/operator/latest/upgrade-notes/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog"&gt;https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.8.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.8.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry><entry><title>Apache Solr™ 9.4.0 available</title><link href="/apache-solrtm-940-available.html" rel="alternate"/><published>2023-10-15T00:00:00+00:00</published><updated>2023-10-15T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2023-10-15:/apache-solrtm-940-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.4.0.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.4.0.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 9.4.0 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-940-release-highlights"&gt;Solr 9.4.0 Release Highlights:&lt;a class="headerlink" href="#solr-940-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The Lucene version used by Solr has been upgraded to 9.8 – see its release notes.&lt;/li&gt;
-&lt;li&gt;The Jetty version has been updated to 10.0.17 to address CVE-2023-44487&lt;/li&gt;
-&lt;li&gt;Added support for node-level caches&lt;/li&gt;
-&lt;li&gt;Circuit Breakers available for Update Requests&lt;/li&gt;
-&lt;li&gt;A new Circuit breaker for percentage of CPU utilization is added. The former "CPU" circuit breaker is now more correctly named LoadAverageCircuitBreaker as it trips on system load average which is not a percentage.&lt;/li&gt;
-&lt;li&gt;Solr now includes an always-on trace id generator. This will inject trace id headers for every Solr request, propagating the client supplied value or generating a new id as needed and replaces the existing &lt;code&gt;rid&lt;/code&gt; mechanism.&lt;/li&gt;
-&lt;li&gt;Solr now limits the number of concurrent expensive core operations (such as "backup", "restore", and "split") that are submitted asynchronously by running them in a dedicated thread pool.&lt;/li&gt;
-&lt;li&gt;Added support of OAuth 2.0/OIDC 'code with PKCE' flow&lt;/li&gt;
-&lt;li&gt;Multiple bug fixes for TLS and mTLS&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_4/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_4/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of new features, changes and bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_4_0/changes/Changes.html"&gt;https://solr.apache.org/9_4_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr Operator™ v0.7.1 available</title><link href="/apache-solr-operatortm-v071-available.html" rel="alternate"/><published>2023-07-21T00:00:00+00:00</published><updated>2023-07-21T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2023-07-21:/apache-solr-operatortm-v071-available.html</id><summary type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.7.1.&lt;/p&gt;
-&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
-&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.7.1.&lt;/p&gt;
-&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
-&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v071-release-highlights"&gt;Solr Operator v0.7.1 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v071-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The Kubernetes API client has been upgraded to fix a bug found when running on Kubernetes v1.27&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A summary of important changes is published in the documentation at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/operator/latest/upgrade-notes/upgrade-notes.html"&gt;https://solr.apache.org/guide/operator/latest/upgrade-notes/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog"&gt;https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.7.1"&gt;https://github.com/apache/solr-operator/releases/tag/v0.7.1&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry><entry><title>Apache Solr™ 9.3.0 available</title><link href="/apache-solrtm-930-available.html" rel="alternate"/><published>2023-07-21T00:00:00+00:00</published><updated>2023-07-21T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2023-07-21:/apache-solrtm-930-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.3.0.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.3.0.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 9.3.0 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-930-release-highlights"&gt;Solr 9.3.0 Release Highlights:&lt;a class="headerlink" href="#solr-930-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The Lucene version used by Solr has been upgraded to 9.7.&lt;/li&gt;
-&lt;li&gt;Solr releases now have a slim variant, both for the binary release and the docker image.&lt;ul&gt;
-&lt;li&gt;The Slim variant is the same as the normal variant, except that it does not include Solr modules or the Prometheus exporter.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Vector Search&lt;ul&gt;
-&lt;li&gt;Added support for byte vector encoding in DenseVectorField and KnnQParser&lt;/li&gt;
-&lt;li&gt;High dimensional vectors are now supported in Solr&lt;/li&gt;
-&lt;li&gt;Solr can now take advantage of SIMD optimizations for Vector calculations, when run with Java 20 or 21.&lt;/li&gt;
-&lt;li&gt;A new "vectorSimilarity" function query has been added to calculate similarity scores for DenseVectorFields&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Solr now provides an &lt;a href="https://solr.apache.org/guide/solr/9_3/deployment-guide/shard-management.html#installsharddata"&gt;"Install Shard" API&lt;/a&gt; to allow users who have built (per-shard) indices offline to import them into SolrCloud shards.&lt;/li&gt;
-&lt;li&gt;Solr’s experimental "v2" API has seen a number of improvements in the 9.3 release.&lt;ul&gt;
-&lt;li&gt;It is now approaching parity with the functionality offered by Solr’s v1 API.&lt;/li&gt;
-&lt;li&gt;The v2 API as a whole is being redesigned to be more REST-ful and intuitive&lt;br/&gt;
-  See the Changelog and upgrade notes for information on which v2 APIs have backward-incompatible changes.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;New APIs for MigrateReplicas and BalanceReplicas. These work out-of-the-box with the built-in PlacementPlugins.&lt;ul&gt;
-&lt;li&gt;The AffinityPlacementPlugin now supports co-location of shards between collections, using the "withCollectionShards" parameter.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Join Queries may handle equally sharded collections on both sides.&lt;ul&gt;
-&lt;li&gt;Collections shards should be collocated via AffinityPlacementPlugin.withCollectionShards&lt;/li&gt;
-&lt;li&gt;This operation doesn't support SplitShard&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Unknown cores are no longer deleted by default when Solr starts. Use "solr.deleteUnknownCores=true" to use the previous behavior.&lt;/li&gt;
-&lt;li&gt;Warning: Solr cannot be used with Java 20 on MacOS with the Java Security Manager.&lt;br/&gt;
-  Please use the environment variable SOLR_SECURITY_MANAGER_ENABLED=false when running with Java 20 on MacOS.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_3/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_3/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of new features, changes and bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_3_0/changes/Changes.html"&gt;https://solr.apache.org/9_3_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr™ 9.2.1 available</title><link href="/apache-solrtm-921-available.html" rel="alternate"/><published>2023-05-01T00:00:00+00:00</published><updated>2023-05-01T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2023-05-01:/apache-solrtm-921-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.2.1.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.2.1.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 9.2.1 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-921-release-highlights"&gt;Solr 9.2.1 Release Highlights:&lt;a class="headerlink" href="#solr-921-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Fix Classloading Exception for inter-node requests when using SSL and HTTP2&lt;/li&gt;
-&lt;li&gt;Use the right cluster property for displaying if TLS is enabled&lt;/li&gt;
-&lt;li&gt;Fix NPE in SystemInfoHandler for inter-node requests that would cause the Nodes page not to load&lt;/li&gt;
-&lt;li&gt;Fixing bin/solr's '-noprompt' option to work for examples&lt;/li&gt;
-&lt;li&gt;Allow custom configuration of Jetty's SecureRequestCustomizer&lt;/li&gt;
-&lt;li&gt;Fix KerberosPlugin module classloading when using the hadoop-auth module&lt;/li&gt;
-&lt;li&gt;Fixing SOLR_DATA_HOME to be honored outside of verbose mode&lt;/li&gt;
-&lt;li&gt;Use the correct instance of ReponseParser for Http2SolrClient.processErrorsAndResponse&lt;/li&gt;
-&lt;li&gt;Fix Java version detection when &lt;code&gt;_JAVA_OPTIONS&lt;/code&gt; is set`&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_2/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_2/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_2_1/changes/Changes.html"&gt;https://solr.apache.org/9_2_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr Operator™ v0.7.0 available</title><link href="/apache-solr-operatortm-v070-available.html" rel="alternate"/><published>2023-04-24T00:00:00+00:00</published><updated>2023-04-24T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2023-04-24:/apache-solr-operatortm-v070-available.html</id><summary type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.7.0.&lt;/p&gt;
-&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
-&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Apache Solr PMC is pleased to announce the release of the Apache Solr Operator v0.7.0.&lt;/p&gt;
-&lt;p&gt;The Apache Solr Operator is a safe and easy way of managing a Solr ecosystem in Kubernetes.&lt;/p&gt;
-&lt;p&gt;This release contains numerous bug fixes, optimizations, and improvements, some of which are highlighted below. The release is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/operator/artifacts.html"&gt;https://solr.apache.org/operator/artifacts.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-operator-v070-release-highlights"&gt;Solr Operator v0.7.0 Release Highlights:&lt;a class="headerlink" href="#solr-operator-v070-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The minimum Kubernetes version supported is now v1.21.&lt;/li&gt;
-&lt;li&gt;The required Zookeeper Operator version has been upgraded to v0.2.15.&lt;/li&gt;
-&lt;li&gt;Clusterwide PodDisruptionBudgets are now created for SolrClouds by default.&lt;/li&gt;
-&lt;li&gt;During a rolling restart/update, SolrCloud pods are now taken out of the common service endpoint before they are decommissioned. This should improve request reliability during rolling restarts.&lt;/li&gt;
-&lt;li&gt;Many missing Provided Zookeeper options have been added.&lt;/li&gt;
-&lt;li&gt;Using volume backupRepositories now initialize faster on pod creation and work with custom user/fsGroup.&lt;/li&gt;
-&lt;li&gt;Default SolrCloud and SolrPrometheusExporter Pod probes have been improved.&lt;/li&gt;
-&lt;li&gt;Bug fixed in non-recurring backups.&lt;/li&gt;
-&lt;li&gt;Bug fixed with custom persistent data volume names.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A summary of important changes is published in the documentation at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/operator/latest/upgrade-notes/upgrade-notes.html"&gt;https://solr.apache.org/guide/operator/latest/upgrade-notes/upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;For the most exhaustive list, see the change log on ArtifactHub or view the git history in the solr-operator repo.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog"&gt;https://artifacthub.io/packages/helm/apache-solr/solr-operator?modal=changelog&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://github.com/apache/solr-operator/releases/tag/v0.7.0"&gt;https://github.com/apache/solr-operator/releases/tag/v0.7.0&lt;/a&gt;&lt;/p&gt;</content><category term="solr/operator/news"/></entry><entry><title>Apache Solr™ 9.2.0 available</title><link href="/apache-solrtm-920-available.html" rel="alternate"/><published>2023-03-24T00:00:00+00:00</published><updated>2023-03-24T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2023-03-24:/apache-solrtm-920-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.2.0.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.2.0.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 9.2.0 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-920-release-highlights"&gt;Solr 9.2.0 Release Highlights:&lt;a class="headerlink" href="#solr-920-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Solr has upgraded to use Jetty 10 instead of Jetty 9.&lt;/li&gt;
-&lt;li&gt;Solr now includes an opentracing module, with support for OTEL tracing in OTLP  format using gRPC.&lt;ul&gt;
-&lt;li&gt;This module is meant to replace the jaegertracer-configurator module, which has been deprecated. &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;The base operating system of the Solr Docker image has been upgraded to Ubuntu 22 (Jammy).&lt;/li&gt;
-&lt;li&gt;Streaming Expressions have been moved out of Solrj core into its own module called solrj-streaming.&lt;/li&gt;
-&lt;li&gt;SolrJ Solr clients now use a builder/setter pattern to enable easier setup.&lt;/li&gt;
-&lt;li&gt;Solr ConfigSet management has been optimized to improve the startup time of nodes with multiple replicas.&lt;/li&gt;
-&lt;li&gt;SolrJ can again be used with the default Java truststore.&lt;/li&gt;
-&lt;li&gt;The "Films" example has been updated to demonstrate Dense Vector search.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_2/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_2/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of new features, changes and bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_2_0/changes/Changes.html"&gt;https://solr.apache.org/9_2_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr™ 9.1.1 available</title><link href="/apache-solrtm-911-available.html" rel="alternate"/><published>2023-01-25T00:00:00+00:00</published><updated>2023-01-25T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2023-01-25:/apache-solrtm-911-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.1.1.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.1.1.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 9.1.1 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-911-release-highlights"&gt;Solr 9.1.1 Release Highlights:&lt;a class="headerlink" href="#solr-911-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;Bugfixes&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;SOLR-16589: Fixed issue where large fields with large=true could be truncated when using unicode values&lt;/li&gt;
-&lt;li&gt;SOLR-16585: Fixed NPE when paginating MatchAllDocs with non-zero start offset, like &lt;code&gt;q=*:*&amp;amp;start=10&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;SOLR-16165: Fixed rare deadlock in SlotAcc static initialization&lt;/li&gt;
-&lt;li&gt;SOLR-16622: Fixed issue where replicas could fail to register as active after node restart&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Other&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;SOLR-16443: Upgrade Jackson bom to 2.13.4.20221013&lt;/li&gt;
-&lt;li&gt;SOLR-16568: Upgrade woodstox-core to 6.4.0&lt;/li&gt;
-&lt;li&gt;SOLR-16598: Upgrade Protobuf to 3.21.12&lt;/li&gt;
-&lt;li&gt;SOLR-16567: Fixed problem with filtering and KNN search, especially when using post-filters&lt;/li&gt;
-&lt;li&gt;SOLR-16588: Fixed problem with default knn algorithm&lt;/li&gt;
-&lt;li&gt;SOLR-16480: ConfigSets now have an overridable allow-list for filetypes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_1/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_1/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_1_1/changes/Changes.html"&gt;https://solr.apache.org/9_1_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>xercesImpl</title><link href="/cve-2012-0881.html" rel="alternate"/><published>2022-12-14T00:00:00+00:00</published><updated>2022-12-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-12-14:/cve-2012-0881.html</id><content type="html">&lt;p&gt;Only used in Lucene Benchmarks and Solr tests.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>commons-compress (only as part of Ant 1.8.2)</title><link href="/cve-2012-2098.html" rel="alternate"/><published>2022-12-14T00:00:00+00:00</published><updated>2022-12-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-12-14:/cve-2012-2098.html</id><content type="html">&lt;p&gt;Only used in test framework and at build time.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>commons-beanutils</title><link href="/cve-2014-0114.html" rel="alternate"/><published>2022-12-14T00:00:00+00:00</published><updated>2022-12-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-12-14:/cve-2014-0114.html</id><content type="html">&lt;p&gt;This is only used at compile time and it cannot be used to attack Solr. Since it is generally unnecessary, the dependency has been removed as of 7.5.0. See SOLR-12617.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>lucene-analyzers-icu</title><link href="/cve-2014-7940.html" rel="alternate"/><published>2022-12-14T00:00:00+00:00</published><updated>2022-12-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-12-14:/cve-2014-7940.html</id><content type="html">&lt;p&gt;All of these issues apply to the C++ release of ICU and not ICU4J, which is what Lucene uses.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>protobuf-java</title><link href="/cve-2015-5237.html" rel="alternate"/><published>2022-12-14T00:00:00+00:00</published><updated>2022-12-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-12-14:/cve-2015-5237.html</id><content type="html">&lt;p&gt;Dependency for Hadoop and Calcite. ??&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>Apache Struts 1 CVEs via velocity-tools transitive dependency</title><link href="/cve-2016-1181.html" rel="alternate"/><published>2022-12-14T00:00:00+00:00</published><updated>2022-12-14T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2022-12-14:/cve-2016-1181.html</id><summary type="html">&lt;p&gt;Scanners flag &lt;code&gt;velocity-tools-2.0.jar&lt;/code&gt; with Apache Struts 1 CVEs because its POM declares a
-transitive dependency on &lt;code&gt;struts-core&lt;/code&gt;, &lt;code&gt;struts-taglib&lt;/code&gt; and &lt;code&gt;struts-tiles&lt;/code&gt; 1.3.8. Solr does not
-ship any Struts jar — the dependency is excluded and only appears as a transitive POM listing
-(see SOLR-2849) — so these Struts vulnerabilities …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Scanners flag &lt;code&gt;velocity-tools-2.0.jar&lt;/code&gt; with Apache Struts 1 CVEs because its POM declares a
-transitive dependency on &lt;code&gt;struts-core&lt;/code&gt;, &lt;code&gt;struts-taglib&lt;/code&gt; and &lt;code&gt;struts-tiles&lt;/code&gt; 1.3.8. Solr does not
-ship any Struts jar — the dependency is excluded and only appears as a transitive POM listing
-(see SOLR-2849) — so these Struts vulnerabilities are not present in, or exploitable through, Solr.&lt;/p&gt;</content><category term="solr/vex"/></entry></feed>
+&lt;p&gt;&lt;a href="https://solr.apache.org/9_4_1/changes/Changes.html"&gt;https://solr.apache.org/9_4_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>

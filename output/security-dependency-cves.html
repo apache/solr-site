@@ -191,6 +191,33 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
     </tr>
     <tr>
       <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2025-12183">CVE-2025-12183</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-66566">CVE-2025-66566</a>      </td>
+      <td>9.8.0-10.0.0</td>
+      <td>
+          lz4-java-1.8.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2025-12183">lz4-java: out-of-bounds memory access and insufficient buffer clearing in compression/decompression</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2022-40152">CVE-2022-40152</a>      </td>
+      <td>9.0.0-9.1.0</td>
+      <td>
+          woodstox-core-6.2.8.jar      </td>
+      <td><span class="cdx-exploitable">exploitable</span></td>
+      <td><a href="/vex.html#cve-2022-40152">Woodstox: denial-of-service (stack overflow) parsing untrusted XML when DTD support is enabled</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://github.com/advisories/GHSA-mhm7-754m-9p8w">GHSA-mhm7-754m-9p8w</a>      </td>
+      <td>9.8.0-9.10.1</td>
+      <td>
+          jackson-databind-2.18.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#ghsa-mhm7-754m-9p8w">jackson-databind: @JsonView bypass for creator properties with @JsonTypeInfo external-property polymorphism</a></td>
+    </tr>
+    <tr>
+      <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-8384">CVE-2026-8384</a>      </td>
       <td>7.3.0-10.0.0</td>
       <td>
@@ -210,9 +237,9 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59949">CVE-2026-59949</a>      </td>
-      <td>9.0.0-10.0.0</td>
+      <td>9.8.0-10.0.0</td>
       <td>
-          lz4-java-1.10.1.jar      </td>
+          lz4-java-1.8.0.jar      </td>
       <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2026-59949">lz4-java: out-of-bounds read via invalid arguments to native XXHash</a></td>
     </tr>
@@ -224,6 +251,24 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
           netty-codec-http-4.2.15.Final.jar,           netty-codec-http2-4.2.15.Final.jar      </td>
       <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2026-59899">Netty codec-http/http2: server-side HTTP handling issues (DoS, CORS/WebSocket, smuggling, CRLF)</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59889">CVE-2026-59889</a>      </td>
+      <td>9.8.0-9.10.1</td>
+      <td>
+          jackson-databind-2.18.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-59889">jackson-databind: @JsonView bypass for @JsonUnwrapped container properties</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59888">CVE-2026-59888</a>      </td>
+      <td>9.3.0-9.10.1, 10.0.0</td>
+      <td>
+          jackson-databind-2.18.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-59888">jackson-databind: @JsonIgnore on a Record property bypassed via a PropertyNamingStrategy</a></td>
     </tr>
     <tr>
       <td>
@@ -245,6 +290,24 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
     </tr>
     <tr>
       <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54515">CVE-2026-54515</a>      </td>
+      <td>9.0.0-9.10.1, 10.0.0</td>
+      <td>
+          jackson-databind-2.18.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-54515">jackson-databind: case-insensitive deserialization bypasses per-property @JsonIgnoreProperties</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54514">CVE-2026-54514</a>      </td>
+      <td>9.0.0-9.10.1, 10.0.0</td>
+      <td>
+          jackson-databind-2.18.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2026-54514">jackson-databind: SSRF via eager DNS resolution deserializing into InetSocketAddress</a></td>
+    </tr>
+    <tr>
+      <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54512">CVE-2026-54512</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54513">CVE-2026-54513</a>      </td>
       <td>4.7.0-10.0.0</td>
       <td>
@@ -254,12 +317,12 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
     </tr>
     <tr>
       <td>
-<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50193">CVE-2026-50193</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54514">CVE-2026-54514</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54515">CVE-2026-54515</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59889">CVE-2026-59889</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-59888">CVE-2026-59888</a>, <a href="https://github.com/advisories/GHSA-mhm7-754m-9p8w">GHSA-mhm7-754m-9p8w</a>      </td>
-      <td>4.7.0-10.0.0</td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-50193">CVE-2026-50193</a>      </td>
+      <td>9.0.0-9.1.1</td>
       <td>
-          jackson-databind-2.12.7.1.jar      </td>
+          jackson-databind-2.13.4.2.jar      </td>
       <td><span class="cdx-not-affected">not affected</span></td>
-      <td><a href="/vex.html#cve-2026-50193">jackson-databind: nested-toString DoS, InetSocketAddress SSRF, and deserialization-filter bypasses</a></td>
+      <td><a href="/vex.html#cve-2026-50193">jackson-databind: StackOverflowError calling toString() on a deeply-nested JsonNode</a></td>
     </tr>
     <tr>
       <td>
@@ -516,7 +579,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-48734">CVE-2025-48734</a>      </td>
-      <td>3.6.0-10.0.0</td>
+      <td>3.6.0-9.10.1, 10.0.0</td>
       <td>
           commons-beanutils-1.9.4.jar      </td>
       <td><span class="cdx-not-affected">not affected</span></td>
@@ -620,6 +683,87 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
           log4j-core-2.25.3.jar      </td>
       <td><span class="cdx-not-affected">not affected</span></td>
       <td><a href="/vex.html#cve-2026-34477">Apache Log4j Core: TLS hostname verification silently ignored in Socket, SMTP and Syslog appenders</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2025-31672">CVE-2025-31672</a>      </td>
+      <td>3.6.0-9.10.1</td>
+      <td>
+          poi-ooxml-5.2.2.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2025-31672">Apache POI: improper input validation parsing OOXML files</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29131">CVE-2024-29131</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29133">CVE-2024-29133</a>      </td>
+      <td>9.0.0-9.9.0</td>
+      <td>
+          commons-configuration2-2.8.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2024-29131">Apache Commons Configuration: StackOverflowError in list-delimiter handling</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-26308">CVE-2024-26308</a>      </td>
+      <td>9.0.0-9.9.0</td>
+      <td>
+          commons-compress-1.24.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2024-26308">Apache Commons Compress: OutOfMemoryError unpacking a broken Pack200 file</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-25638">CVE-2024-25638</a>      </td>
+      <td>9.0.0-9.9.0</td>
+      <td>
+          dnsjava-3.4.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2024-25638">dnsjava: DNSSEC validation bypass</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2024-21742">CVE-2024-21742</a>      </td>
+      <td>3.6.0-9.10.1</td>
+      <td>
+          apache-mime4j-core-0.8.4.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2024-21742">Apache James MIME4J: header injection when composing MIME messages</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2023-52428">CVE-2023-52428</a>      </td>
+      <td>9.0.0-9.9.0</td>
+      <td>
+          nimbus-jose-jwt-9.31.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2023-52428">Nimbus JOSE + JWT: denial of service parsing crafted JOSE objects</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2023-33201">CVE-2023-33201</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-29857">CVE-2024-29857</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30171">CVE-2024-30171</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2024-30172">CVE-2024-30172</a>      </td>
+      <td>7.3.0-9.10.1</td>
+      <td>
+          bcprov-jdk15on-1.70.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2023-33201">Bouncy Castle (bcprov): LDAP CertStore injection, EC/Ed25519 DoS, and RSA/TLS timing side-channel</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41182">CVE-2021-41182</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41183">CVE-2021-41183</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-41184">CVE-2021-41184</a>      </td>
+      <td>7.5.0-10.0.0</td>
+      <td>
+          jquery-ui-1.12.1.js      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2021-41182">jQuery UI (Admin UI): XSS in datepicker and position widgets</a></td>
+    </tr>
+    <tr>
+      <td>
+<a href="https://nvd.nist.gov/vuln/detail/CVE-2020-13949">CVE-2020-13949</a>      </td>
+      <td>8.2.0-8.11.0</td>
+      <td>
+          libthrift-0.13.0.jar      </td>
+      <td><span class="cdx-not-affected">not affected</span></td>
+      <td><a href="/vex.html#cve-2020-13949">Apache Thrift: server-side memory-exhaustion DoS via crafted short messages</a></td>
     </tr>
     <tr>
       <td>
@@ -858,7 +1002,7 @@ or contact <a href="mailto:security@apache.org">security@apache.org</a>.</p>
     <tr>
       <td>
 <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-15095">CVE-2017-15095</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-17485">CVE-2017-17485</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2017-7525">CVE-2017-7525</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-5968">CVE-2018-5968</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-7489">CVE-2018-7489</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12086">CVE-2019-12086</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-12384">CVE-2019-12384</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2018-12814">CVE-2018-12814</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14379">CVE-2019-14379</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14439">CVE-2019-14439</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35490">CVE-2020-35490</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2020-35491">CVE-2020-35491</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2021-20190">CVE-2021-20190</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-14540">CVE-2019-14540</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-16335">CVE-2019-16335</a>      </td>
-      <td>4.7.0-8.x</td>
+      <td>4.7.0-8.6.3</td>
       <td>
           jackson-databind-*.jar      </td>
       <td><span class="cdx-not-affected">not affected</span></td>
