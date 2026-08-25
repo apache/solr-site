@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2026-08-13T00:00:00+00:00</updated><entry><title>lz4-java: out-of-bounds memory access and insufficient buffer clearing in compression/decompression</title><link href="/cve-2025-12183.html" rel="alternate"/><published>2026-08-13T00:00:00+00:00</published><updated>2026-08-13T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-13:/cve-2025-12183.html</id><summary type="html">&lt;p&gt;Two issues in the &lt;code&gt;lz4-java&lt;/code&gt; codec:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2026-08-23T00:00:00+00:00</updated><entry><title>Netty: SslHandler native crash on crafted packets</title><link href="/cve-2025-24970.html" rel="alternate"/><published>2026-08-23T00:00:00+00:00</published><updated>2026-08-23T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-23:/cve-2025-24970.html</id><summary type="html">&lt;p&gt;CVE-2025-24970 is a flaw in Netty's &lt;code&gt;SslHandler&lt;/code&gt;: when the native (OpenSSL/BoringSSL, via
+&lt;code&gt;netty-tcnative&lt;/code&gt;) TLS engine is in use, a specially crafted packet received during TLS
+processing is not properly validated, which can trigger a native crash (JVM segfault) rather
+than a clean exception. It affects Netty &lt;code&gt;netty-handler&lt;/code&gt; versions 4 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2025-24970 is a flaw in Netty's &lt;code&gt;SslHandler&lt;/code&gt;: when the native (OpenSSL/BoringSSL, via
+&lt;code&gt;netty-tcnative&lt;/code&gt;) TLS engine is in use, a specially crafted packet received during TLS
+processing is not properly validated, which can trigger a native crash (JVM segfault) rather
+than a clean exception. It affects Netty &lt;code&gt;netty-handler&lt;/code&gt; versions 4.1.91.Final through
+4.1.117.Final; fixed in 4.1.118.Final. The 4.2.x release line is not in the affected range at
+all — 4.2.0.Final was cut after the fix had already landed upstream.&lt;/p&gt;
+&lt;p&gt;Solr shipped an affected &lt;code&gt;netty-handler&lt;/code&gt; from 9.3.0 (4.1.93.Final) through 9.9.0
+(4.1.114.Final), arriving as a transitive runtime dependency of &lt;code&gt;io.grpc:grpc-netty&lt;/code&gt;, used only
+by the optional &lt;strong&gt;opentelemetry&lt;/strong&gt; module's OTLP gRPC trace exporter. Solr 9.10.0 onward already
+ships Netty 4.2.6.Final or later — outside the affected range — so no currently released Solr
+version bundles a vulnerable &lt;code&gt;netty-handler&lt;/code&gt;. Solr is &lt;strong&gt;not affected&lt;/strong&gt; even on the older,
+already-released 9.3.0–9.9.0 line:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The opentelemetry module is optional and disabled by default.&lt;/strong&gt; It must be explicitly
+  enabled (e.g. via &lt;code&gt;-Dsolr.modules=opentelemetry&lt;/code&gt;) before &lt;code&gt;grpc-netty&lt;/code&gt;, and therefore
+  &lt;code&gt;netty-handler&lt;/code&gt;, is even loaded.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Netty is used only as an outbound gRPC client dialing the operator's own configured OTLP
+  collector&lt;/strong&gt;, not as a listener accepting arbitrary inbound connections. &lt;code&gt;SslHandler&lt;/code&gt;'s
+  crafted-packet validation only matters for TLS data arriving from the remote peer on that
+  connection — here, the operator-designated collector endpoint, not an attacker-facing socket.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Solr's own request-handling surface is Jetty, not Netty.&lt;/strong&gt; Every attacker-facing API call
+  Solr accepts is parsed and served by Jetty; &lt;code&gt;io.netty&lt;/code&gt; code is never invoked to process
+  inbound requests to Solr itself.&lt;/li&gt;
+&lt;li&gt;Exploitation would additionally require the operator to have pointed OTLP export at a
+  compromised or malicious collector (or accepted an on-path attacker on that egress route) —
+  a threat model outside standard use of this optional telemetry feature.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;No released Solr version ships a fix for this specific line, because none currently needs one:
+9.10.0+ already carries a post-fix Netty. The &lt;code&gt;branch_9x&lt;/code&gt; (→ 9.11.0) and &lt;code&gt;main&lt;/code&gt;/&lt;code&gt;branch_10x&lt;/code&gt;
+(→ 10.x) development branches have since moved further still, to Netty 4.2.15.Final and
+4.2.17.Final respectively — picked up incidentally through routine dependency updates rather
+than a targeted SOLR-17826 fix commit. SOLR-17826 remains open upstream and should be closed
+out to reflect that no supported or in-development Solr line is exposed.&lt;/p&gt;</content><category term="solr/vex"/></entry><entry><title>lz4-java: out-of-bounds memory access and insufficient buffer clearing in compression/decompression</title><link href="/cve-2025-12183.html" rel="alternate"/><published>2026-08-13T00:00:00+00:00</published><updated>2026-08-13T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-13:/cve-2025-12183.html</id><summary type="html">&lt;p&gt;Two issues in the &lt;code&gt;lz4-java&lt;/code&gt; codec:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;CVE-2025-12183&lt;/strong&gt; — several lz4-java compression/decompression implementations do not guard against
   out-of-bounds memory access (fixed in &lt;code&gt;lz4-java&lt;/code&gt; 1.8.1).&lt;/li&gt;
@@ -2390,14 +2425,4 @@ In these versions, the following protections have been added:&lt;/p&gt;
 L3yx (reporter)&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;br&gt;
 JIRA - &lt;a href="https://issues.apache.org/jira/browse/SOLR-16949"&gt;SOLR-16949&lt;/a&gt;&lt;br&gt;
-CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50386"&gt;CVE-2023-50386&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"/></entry><entry><title>Apache Solr™ 9.4.1 available</title><link href="/apache-solrtm-941-available.html" rel="alternate"/><published>2024-01-18T00:00:00+00:00</published><updated>2024-01-18T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-01-18:/apache-solrtm-941-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.4.1.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.4.1.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Solr project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 9.4.1 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-941-release-highlights"&gt;Solr 9.4.1 Release Highlights:&lt;a class="headerlink" href="#solr-941-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;A big regression to the JSON Query API in 9.4 is primarily what prompted this release.  Additionally, some security oriented improvements/fixes have been added, and many transitive dependencies have been upgraded.&lt;/p&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_4/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_4/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_4_1/changes/Changes.html"&gt;https://solr.apache.org/9_4_1/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
+CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-50386"&gt;CVE-2023-50386&lt;/a&gt;&lt;/p&gt;</content><category term="solr/security"/></entry></feed>

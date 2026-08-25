@@ -142,6 +142,63 @@
         <h1>Apache Solr VEX</h1>
         <p><a href="/security-dependency-cves.html">← Back to the dependency CVE table</a></p>
 
+            <article id="cve-2025-24970" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-24970">CVE-2025-24970</a>, Netty: SslHandler native crash on crafted packets</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-08-23T00:00:00+00:00">2026-08-23</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.3.0-9.9.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2025-24970 is a flaw in Netty's <code>SslHandler</code>: when the native (OpenSSL/BoringSSL, via
+<code>netty-tcnative</code>) TLS engine is in use, a specially crafted packet received during TLS
+processing is not properly validated, which can trigger a native crash (JVM segfault) rather
+than a clean exception. It affects Netty <code>netty-handler</code> versions 4.1.91.Final through
+4.1.117.Final; fixed in 4.1.118.Final. The 4.2.x release line is not in the affected range at
+all — 4.2.0.Final was cut after the fix had already landed upstream.</p>
+<p>Solr shipped an affected <code>netty-handler</code> from 9.3.0 (4.1.93.Final) through 9.9.0
+(4.1.114.Final), arriving as a transitive runtime dependency of <code>io.grpc:grpc-netty</code>, used only
+by the optional <strong>opentelemetry</strong> module's OTLP gRPC trace exporter. Solr 9.10.0 onward already
+ships Netty 4.2.6.Final or later — outside the affected range — so no currently released Solr
+version bundles a vulnerable <code>netty-handler</code>. Solr is <strong>not affected</strong> even on the older,
+already-released 9.3.0–9.9.0 line:</p>
+<ul>
+<li><strong>The opentelemetry module is optional and disabled by default.</strong> It must be explicitly
+  enabled (e.g. via <code>-Dsolr.modules=opentelemetry</code>) before <code>grpc-netty</code>, and therefore
+  <code>netty-handler</code>, is even loaded.</li>
+<li><strong>Netty is used only as an outbound gRPC client dialing the operator's own configured OTLP
+  collector</strong>, not as a listener accepting arbitrary inbound connections. <code>SslHandler</code>'s
+  crafted-packet validation only matters for TLS data arriving from the remote peer on that
+  connection — here, the operator-designated collector endpoint, not an attacker-facing socket.</li>
+<li><strong>Solr's own request-handling surface is Jetty, not Netty.</strong> Every attacker-facing API call
+  Solr accepts is parsed and served by Jetty; <code>io.netty</code> code is never invoked to process
+  inbound requests to Solr itself.</li>
+<li>Exploitation would additionally require the operator to have pointed OTLP export at a
+  compromised or malicious collector (or accepted an on-path attacker on that egress route) —
+  a threat model outside standard use of this optional telemetry feature.</li>
+</ul>
+<p>No released Solr version ships a fix for this specific line, because none currently needs one:
+9.10.0+ already carries a post-fix Netty. The <code>branch_9x</code> (→ 9.11.0) and <code>main</code>/<code>branch_10x</code>
+(→ 10.x) development branches have since moved further still, to Netty 4.2.15.Final and
+4.2.17.Final respectively — picked up incidentally through routine dependency updates rather
+than a targeted SOLR-17826 fix commit. SOLR-17826 remains open upstream and should be closed
+out to reflect that no supported or in-development Solr line is exposed.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17826">SOLR-17826</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-24970">CVE-2025-24970</a></li>
+                </ul>
+            </article>
             <article id="cve-2025-12183" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-12183">CVE-2025-12183</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-66566">CVE-2025-66566</a>, lz4-java: out-of-bounds memory access and insufficient buffer clearing in compression/decompression</h3>
