@@ -2,7 +2,7 @@
   "@context": "https://openvex.dev/ns/v0.2.0",
   "@id": "https://solr.apache.org/solr.openvex.json",
   "author": "Apache Solr Project (security@apache.org)",
-  "timestamp": "2026-08-23T00:00:00Z",
+  "timestamp": "2026-08-25T00:00:00Z",
   "version": 1,
   "statements": [
     {
@@ -4352,6 +4352,66 @@
       "timestamp": "2026-08-23T00:00:00Z",
       "impact_statement": "CVE-2025-24970 is a flaw in Netty's `SslHandler`: when the native (OpenSSL/BoringSSL, via\n`netty-tcnative`) TLS engine is in use, a specially crafted packet received during TLS\nprocessing is not properly validated, which can trigger a native crash (JVM segfault) rather\nthan a clean exception. It affects Netty `netty-handler` versions 4.1.91.Final through\n4.1.117.Final; fixed in 4.1.118.Final. The 4.2.x release line is not in the affected range at\nall \u2014 4.2.0.Final was cut after the fix had already landed upstream.\n\nSolr shipped an affected `netty-handler` from 9.3.0 (4.1.93.Final) through 9.9.0\n(4.1.114.Final), arriving as a transitive runtime dependency of `io.grpc:grpc-netty`, used only\nby the optional **opentelemetry** module's OTLP gRPC trace exporter. Solr 9.10.0 onward already\nships Netty 4.2.6.Final or later \u2014 outside the affected range \u2014 so no currently released Solr\nversion bundles a vulnerable `netty-handler`. Solr is **not affected** even on the older,\nalready-released 9.3.0\u20139.9.0 line:\n\n* **The opentelemetry module is optional and disabled by default.** It must be explicitly\n  enabled (e.g. via `-Dsolr.modules=opentelemetry`) before `grpc-netty`, and therefore\n  `netty-handler`, is even loaded.\n* **Netty is used only as an outbound gRPC client dialing the operator's own configured OTLP\n  collector**, not as a listener accepting arbitrary inbound connections. `SslHandler`'s\n  crafted-packet validation only matters for TLS data arriving from the remote peer on that\n  connection \u2014 here, the operator-designated collector endpoint, not an attacker-facing socket.\n* **Solr's own request-handling surface is Jetty, not Netty.** Every attacker-facing API call\n  Solr accepts is parsed and served by Jetty; `io.netty` code is never invoked to process\n  inbound requests to Solr itself.\n* Exploitation would additionally require the operator to have pointed OTLP export at a\n  compromised or malicious collector (or accepted an on-path attacker on that egress route) \u2014\n  a threat model outside standard use of this optional telemetry feature.\n\nNo released Solr version ships a fix for this specific line, because none currently needs one:\n9.10.0+ already carries a post-fix Netty. The `branch_9x` (\u2192 9.11.0) and `main`/`branch_10x`\n(\u2192 10.x) development branches have since moved further still, to Netty 4.2.15.Final and\n4.2.17.Final respectively \u2014 picked up incidentally through routine dependency updates rather\nthan a targeted SOLR-17826 fix commit. SOLR-17826 remains open upstream and should be closed\nout to reflect that no supported or in-development Solr line is exposed.",
       "status_notes": "Affected Apache Solr versions: 9.3.0-9.9.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-48779"
+      },
+      "products": [
+        {
+          "@id": "ws-8.18.0.tgz"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-08-25T00:00:00Z",
+      "justification": "vulnerable_code_not_present",
+      "impact_statement": "CVE-2026-48779 is a memory-exhaustion denial-of-service issue in the Node.js `ws` WebSocket library:\na peer that sends a high volume of exceptionally small message fragments can force the receiving side\nto allocate and retain structural wrappers far larger than the documented message-size limit,\neventually exhausting memory. It affects `ws` 8.0.0 through 8.20.x; fixed in 8.21.0 (with backports\nto the 5.x/6.x/7.x lines for older major versions).\n\nSolr is **not affected**. `ws` is pinned in `kotlin-js-store/wasm/yarn.lock`, an auto-generated\nlockfile for the Kotlin/Wasm build toolchain that compiles the new Compose-based Admin UI\n(`solr/ui`). It is a transitive dependency of that toolchain's Node.js-based dev-server/test-runner\ntooling, not of Solr's own code. `ws` depends on Node.js's native TCP socket APIs, which don't exist\nin a browser sandbox -- it is therefore not possible for it to be bundled into the actual\nbrowser-executable Wasm/JS output that ships to end users and runs in their browser. This isn't a\ncase of unreachable-but-present code; the vulnerable component is never part of the shipped product\nartifact at all, only of the build/test pipeline that produces it.\n\n`ws` has been present in `solr/ui`'s build tooling since it was first introduced (shipped in the\n10.0.0 release at `ws@8.18.0`/`ws@8.18.3`, both within the affected range). `branch_9x` doesn't have\nthis module at all. Since this dependency never reaches a shipped artifact, no application-level fix\nis required; bumping it is worth doing as routine build-tooling hygiene regardless, since a compromised\nor misbehaving local/CI dev-server dependency is still worth avoiding even without direct product\nexposure.",
+      "status_notes": "Affected Apache Solr versions: 10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-54399"
+      },
+      "products": [
+        {
+          "@id": "httpcore5-5.3.5.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-08-25T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-54399 is an uncontrolled-resource-consumption issue in Apache HttpComponents Core's HTTP/1.1\nmessage parser: a remote peer can send messages with an excessive number of headers or excessive\nheader length, exhausting memory and causing a denial of service. It affects `httpcore5` 5.4.2 and\nearlier (and 5.5-beta1 and earlier); fixed in 5.4.3.\n\nSolr is **not affected**. `httpcore5` is bundled transitively by\n`org.apache.calcite.avatica:avatica-core`, which uses it to support Avatica's *optional remote-JDBC*\nHTTP transport -- see the companion VEX entry for CVE-2026-64607 (`httpclient5`) for the full\nreachability analysis, which applies identically here: Solr's `/sql` handler never uses Avatica's\nremote HTTP transport, only the local embedded `CalciteConnection`, so `httpcore5`'s HTTP/1.1 message\nparser is never invoked to process any inbound message, trusted or otherwise. The dependency is\n`permitUnusedDeclared` in Solr's own build and shipped only via the optional `solr:modules:sql`\nmodule.\n\nSolr has shipped an affected `httpcore5` since at least 9.1.0 (through 10.0.0, and continuing on\n`branch_10x`/`main` at 5.3.5). `branch_9x` has since moved to 5.4.3, exactly the fix version --\npicked up incidentally via routine dependency maintenance, not a targeted fix for this CVE. Since the\ncode path is unreachable regardless, no fix is required on `branch_10x`/`main` either.",
+      "status_notes": "Affected Apache Solr versions: 9.1.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-54428"
+      },
+      "products": [
+        {
+          "@id": "httpcore5-h2-5.3.4.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-08-25T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-54428 is an allocation-without-limits issue in Apache HttpComponents Core's HTTP/2 HPACK\ndecoder: before an HTTP/2 peer's `SETTINGS` frame is acknowledged, the configured header list size\nlimit isn't yet applied, so a remote peer can send oversized compressed header blocks and exhaust\nmemory, causing a denial of service. It affects `httpcore5-h2` 5.4.2 and earlier (and 5.5-beta1 and\nearlier); fixed in 5.4.3.\n\nSolr is **not affected**. `httpcore5-h2` is bundled transitively by\n`org.apache.calcite.avatica:avatica-core`, which uses it to support Avatica's *optional remote-JDBC*\nHTTP/2 transport -- see the companion VEX entry for CVE-2026-64607 (`httpclient5`) for the full\nreachability analysis, which applies identically here: Solr's `/sql` handler never uses Avatica's\nremote HTTP transport, only the local embedded `CalciteConnection`, so the HPACK decoder this CVE\nconcerns -- which only runs when HttpComponents is actually acting as an HTTP/2 endpoint -- is never\ninvoked. The dependency is `permitUnusedDeclared` in Solr's own build and shipped only via the\noptional `solr:modules:sql` module.\n\nSolr has shipped an affected `httpcore5-h2` since at least 9.1.0 (through 10.0.0, and continuing on\n`branch_10x`/`main` at 5.3.4). `branch_9x` has since moved to 5.4.3, exactly the fix version --\npicked up incidentally via routine dependency maintenance, not a targeted fix for this CVE. Since the\ncode path is unreachable regardless, no fix is required on `branch_10x`/`main` either.",
+      "status_notes": "Affected Apache Solr versions: 9.1.0-10.0.0."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-64607"
+      },
+      "products": [
+        {
+          "@id": "httpclient5-5.5.jar"
+        }
+      ],
+      "status": "not_affected",
+      "timestamp": "2026-08-25T00:00:00Z",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "CVE-2026-64607 (medium severity) is a connection-leak bug in Apache HttpComponents Client's classic\n(blocking) I/O model: if a response has an invalid or unsupported `Content-Encoding` header, the\nclient fails to release the underlying connection back to the connection manager, eventually\nexhausting the pool and causing a denial of service. It does not affect HttpClient's async I/O model.\nIt affects `httpclient5` from 5.0-alpha1 through 5.6.2; fixed in 5.6.3.\n\nSolr is **not affected**. `httpclient5` (along with `httpcore5` and `httpcore5-h2`, covered in\nseparate VEX entries for their own CVEs) is bundled transitively by `org.apache.calcite.avatica:avatica-core`,\nwhich uses it to support Avatica's *optional remote-JDBC* transport -- connecting to a remote Avatica\nserver over HTTP. Solr's own `/sql` handler (`CalciteSolrDriver`) only ever opens a local, in-process\n`org.apache.calcite.jdbc.CalciteConnection`; there is no `org.apache.hc.client5`/`org.apache.hc.core5`\nusage anywhere in `solr/modules/sql`'s source, and Solr never acts as an Avatica HTTP client or server.\nThe dependency has in fact been marked `permitUnusedDeclared` in Solr's own build since at least the\n10.0.0 release, confirming the build's own dependency-analysis tooling already recognized it as\npresent-but-unused. It's also shipped only via the optional `solr:modules:sql` module -- every other\nplace it appears (`solrj-streaming`, `solr-ref-guide`, `webapp`) is test-scope only, not shipped.\n\nSolr has shipped an affected `httpclient5` since at least 9.1.0 (through 10.0.0, and continuing on\n`branch_10x`/`main` at 5.5). `branch_9x` has since moved to 5.6.4, past the fix -- picked up\nincidentally via routine dependency maintenance, not a targeted fix for this CVE. Since the code path\nis unreachable regardless, no fix is required on `branch_10x`/`main` either.",
+      "status_notes": "Affected Apache Solr versions: 9.1.0-10.0.0."
     }
   ]
 }
