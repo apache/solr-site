@@ -142,6 +142,210 @@
         <h1>Apache Solr VEX</h1>
         <p><a href="/security-dependency-cves.html">← Back to the dependency CVE table</a></p>
 
+            <article id="cve-2026-64607" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-64607">CVE-2026-64607</a>, Apache HttpComponents Client: connection leak on Content-Encoding decode error</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.1.0-10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-64607 (medium severity) is a connection-leak bug in Apache HttpComponents Client's classic
+(blocking) I/O model: if a response has an invalid or unsupported <code>Content-Encoding</code> header, the
+client fails to release the underlying connection back to the connection manager, eventually
+exhausting the pool and causing a denial of service. It does not affect HttpClient's async I/O model.
+It affects <code>httpclient5</code> from 5.0-alpha1 through 5.6.2; fixed in 5.6.3.</p>
+<p>Solr is <strong>not affected</strong>. <code>httpclient5</code> (along with <code>httpcore5</code> and <code>httpcore5-h2</code>, covered in
+separate VEX entries for their own CVEs) is bundled transitively by <code>org.apache.calcite.avatica:avatica-core</code>,
+which uses it to support Avatica's <em>optional remote-JDBC</em> transport -- connecting to a remote Avatica
+server over HTTP. Solr's own <code>/sql</code> handler (<code>CalciteSolrDriver</code>) only ever opens a local, in-process
+<code>org.apache.calcite.jdbc.CalciteConnection</code>; there is no <code>org.apache.hc.client5</code>/<code>org.apache.hc.core5</code>
+usage anywhere in <code>solr/modules/sql</code>'s source, and Solr never acts as an Avatica HTTP client or server.
+The dependency has in fact been marked <code>permitUnusedDeclared</code> in Solr's own build since at least the
+10.0.0 release, confirming the build's own dependency-analysis tooling already recognized it as
+present-but-unused. It's also shipped only via the optional <code>solr:modules:sql</code> module -- every other
+place it appears (<code>solrj-streaming</code>, <code>solr-ref-guide</code>, <code>webapp</code>) is test-scope only, not shipped.</p>
+<p>Solr has shipped an affected <code>httpclient5</code> since at least 9.1.0 (through 10.0.0, and continuing on
+<code>branch_10x</code>/<code>main</code> at 5.5). <code>branch_9x</code> has since moved to 5.6.4, past the fix -- picked up
+incidentally via routine dependency maintenance, not a targeted fix for this CVE. Since the code path
+is unreachable regardless, no fix is required on <code>branch_10x</code>/<code>main</code> either.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-64607">CVE-2026-64607</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-54428" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54428">CVE-2026-54428</a>, Apache HttpComponents Core: HPACK decoder unlimited header list size before SETTINGS ACK</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.1.0-10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-54428 is an allocation-without-limits issue in Apache HttpComponents Core's HTTP/2 HPACK
+decoder: before an HTTP/2 peer's <code>SETTINGS</code> frame is acknowledged, the configured header list size
+limit isn't yet applied, so a remote peer can send oversized compressed header blocks and exhaust
+memory, causing a denial of service. It affects <code>httpcore5-h2</code> 5.4.2 and earlier (and 5.5-beta1 and
+earlier); fixed in 5.4.3.</p>
+<p>Solr is <strong>not affected</strong>. <code>httpcore5-h2</code> is bundled transitively by
+<code>org.apache.calcite.avatica:avatica-core</code>, which uses it to support Avatica's <em>optional remote-JDBC</em>
+HTTP/2 transport -- see the companion VEX entry for CVE-2026-64607 (<code>httpclient5</code>) for the full
+reachability analysis, which applies identically here: Solr's <code>/sql</code> handler never uses Avatica's
+remote HTTP transport, only the local embedded <code>CalciteConnection</code>, so the HPACK decoder this CVE
+concerns -- which only runs when HttpComponents is actually acting as an HTTP/2 endpoint -- is never
+invoked. The dependency is <code>permitUnusedDeclared</code> in Solr's own build and shipped only via the
+optional <code>solr:modules:sql</code> module.</p>
+<p>Solr has shipped an affected <code>httpcore5-h2</code> since at least 9.1.0 (through 10.0.0, and continuing on
+<code>branch_10x</code>/<code>main</code> at 5.3.4). <code>branch_9x</code> has since moved to 5.4.3, exactly the fix version --
+picked up incidentally via routine dependency maintenance, not a targeted fix for this CVE. Since the
+code path is unreachable regardless, no fix is required on <code>branch_10x</code>/<code>main</code> either.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54428">CVE-2026-54428</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-54399" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54399">CVE-2026-54399</a>, Apache HttpComponents Core: HTTP/1 header parsing memory-exhaustion denial of service</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.1.0-10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-54399 is an uncontrolled-resource-consumption issue in Apache HttpComponents Core's HTTP/1.1
+message parser: a remote peer can send messages with an excessive number of headers or excessive
+header length, exhausting memory and causing a denial of service. It affects <code>httpcore5</code> 5.4.2 and
+earlier (and 5.5-beta1 and earlier); fixed in 5.4.3.</p>
+<p>Solr is <strong>not affected</strong>. <code>httpcore5</code> is bundled transitively by
+<code>org.apache.calcite.avatica:avatica-core</code>, which uses it to support Avatica's <em>optional remote-JDBC</em>
+HTTP transport -- see the companion VEX entry for CVE-2026-64607 (<code>httpclient5</code>) for the full
+reachability analysis, which applies identically here: Solr's <code>/sql</code> handler never uses Avatica's
+remote HTTP transport, only the local embedded <code>CalciteConnection</code>, so <code>httpcore5</code>'s HTTP/1.1 message
+parser is never invoked to process any inbound message, trusted or otherwise. The dependency is
+<code>permitUnusedDeclared</code> in Solr's own build and shipped only via the optional <code>solr:modules:sql</code>
+module.</p>
+<p>Solr has shipped an affected <code>httpcore5</code> since at least 9.1.0 (through 10.0.0, and continuing on
+<code>branch_10x</code>/<code>main</code> at 5.3.5). <code>branch_9x</code> has since moved to 5.4.3, exactly the fix version --
+picked up incidentally via routine dependency maintenance, not a targeted fix for this CVE. Since the
+code path is unreachable regardless, no fix is required on <code>branch_10x</code>/<code>main</code> either.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-54399">CVE-2026-54399</a></li>
+                </ul>
+            </article>
+            <article id="cve-2026-48779" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48779">CVE-2026-48779</a>, ws: memory exhaustion denial of service from tiny WebSocket fragments</h3>
+                    <div class="panel callout">
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 10.0.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2026-48779 is a memory-exhaustion denial-of-service issue in the Node.js <code>ws</code> WebSocket library:
+a peer that sends a high volume of exceptionally small message fragments can force the receiving side
+to allocate and retain structural wrappers far larger than the documented message-size limit,
+eventually exhausting memory. It affects <code>ws</code> 8.0.0 through 8.20.x; fixed in 8.21.0 (with backports
+to the 5.x/6.x/7.x lines for older major versions).</p>
+<p>Solr is <strong>not affected</strong>. <code>ws</code> is pinned in <code>kotlin-js-store/wasm/yarn.lock</code>, an auto-generated
+lockfile for the Kotlin/Wasm build toolchain that compiles the new Compose-based Admin UI
+(<code>solr/ui</code>). It is a transitive dependency of that toolchain's Node.js-based dev-server/test-runner
+tooling, not of Solr's own code. <code>ws</code> depends on Node.js's native TCP socket APIs, which don't exist
+in a browser sandbox -- it is therefore not possible for it to be bundled into the actual
+browser-executable Wasm/JS output that ships to end users and runs in their browser. This isn't a
+case of unreachable-but-present code; the vulnerable component is never part of the shipped product
+artifact at all, only of the build/test pipeline that produces it.</p>
+<p><code>ws</code> has been present in <code>solr/ui</code>'s build tooling since it was first introduced (shipped in the
+10.0.0 release at <code>ws@8.18.0</code>/<code>ws@8.18.3</code>, both within the affected range). <code>branch_9x</code> doesn't have
+this module at all. Since this dependency never reaches a shipped artifact, no application-level fix
+is required; bumping it is worth doing as routine build-tooling hygiene regardless, since a compromised
+or misbehaving local/CI dev-server dependency is still worth avoiding even without direct product
+exposure.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-48779">CVE-2026-48779</a></li>
+                </ul>
+            </article>
+            <article id="cve-2025-24970" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-24970">CVE-2025-24970</a>, Netty: SslHandler native crash on crafted packets</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-08-23T00:00:00+00:00">2026-08-23</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-not-affected">not_affected</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.3.0-9.9.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2025-24970 is a flaw in Netty's <code>SslHandler</code>: when the native (OpenSSL/BoringSSL, via
+<code>netty-tcnative</code>) TLS engine is in use, a specially crafted packet received during TLS
+processing is not properly validated, which can trigger a native crash (JVM segfault) rather
+than a clean exception. It affects Netty <code>netty-handler</code> versions 4.1.91.Final through
+4.1.117.Final; fixed in 4.1.118.Final. The 4.2.x release line is not in the affected range at
+all — 4.2.0.Final was cut after the fix had already landed upstream.</p>
+<p>Solr shipped an affected <code>netty-handler</code> from 9.3.0 (4.1.93.Final) through 9.9.0
+(4.1.114.Final), arriving as a transitive runtime dependency of <code>io.grpc:grpc-netty</code>, used only
+by the optional <strong>opentelemetry</strong> module's OTLP gRPC trace exporter. Solr 9.10.0 onward already
+ships Netty 4.2.6.Final or later — outside the affected range — so no currently released Solr
+version bundles a vulnerable <code>netty-handler</code>. Solr is <strong>not affected</strong> even on the older,
+already-released 9.3.0–9.9.0 line:</p>
+<ul>
+<li><strong>The opentelemetry module is optional and disabled by default.</strong> It must be explicitly
+  enabled (e.g. via <code>-Dsolr.modules=opentelemetry</code>) before <code>grpc-netty</code>, and therefore
+  <code>netty-handler</code>, is even loaded.</li>
+<li><strong>Netty is used only as an outbound gRPC client dialing the operator's own configured OTLP
+  collector</strong>, not as a listener accepting arbitrary inbound connections. <code>SslHandler</code>'s
+  crafted-packet validation only matters for TLS data arriving from the remote peer on that
+  connection — here, the operator-designated collector endpoint, not an attacker-facing socket.</li>
+<li><strong>Solr's own request-handling surface is Jetty, not Netty.</strong> Every attacker-facing API call
+  Solr accepts is parsed and served by Jetty; <code>io.netty</code> code is never invoked to process
+  inbound requests to Solr itself.</li>
+<li>Exploitation would additionally require the operator to have pointed OTLP export at a
+  compromised or malicious collector (or accepted an on-path attacker on that egress route) —
+  a threat model outside standard use of this optional telemetry feature.</li>
+</ul>
+<p>No released Solr version ships a fix for this specific line, because none currently needs one:
+9.10.0+ already carries a post-fix Netty. The <code>branch_9x</code> (→ 9.11.0) and <code>main</code>/<code>branch_10x</code>
+(→ 10.x) development branches have since moved further still, to Netty 4.2.15.Final and
+4.2.17.Final respectively — picked up incidentally through routine dependency updates rather
+than a targeted SOLR-17826 fix commit. SOLR-17826 remains open upstream and should be closed
+out to reflect that no supported or in-development Solr line is exposed.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17826">SOLR-17826</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-24970">CVE-2025-24970</a></li>
+                </ul>
+            </article>
             <article id="cve-2025-12183" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-12183">CVE-2025-12183</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-66566">CVE-2025-66566</a>, lz4-java: out-of-bounds memory access and insufficient buffer clearing in compression/decompression</h3>
