@@ -1,0 +1,460 @@
+<!doctype html>
+<html>
+  <head>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE- 2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=501cdb3d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=501cdb3d"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=501cdb3d" />
+<meta name="Distribution" content="Global"/>
+<meta name="Robots" content="index,follow"/>
+
+<script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/main.js?v=501cdb3d"></script>
+<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>Walking Document Graphs in Apache Solr - Apache Solr</title>
+
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://solr.apache.org/blogposts/walking-document-graphs-in-apache-solr.html"/>
+     <meta property="og:title" content="Walking Document Graphs in Apache Solr"/>
+     <meta property="og:description" content="Walking Document Graphs in Apache Solr¶ Written by Prithvi S. A surprising number of Solr indexes already contain a graph. An..."/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=501cdb3d"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=501cdb3d"/>
+
+   <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDoNotTrack", true]);
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://analytics.apache.org/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '76']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->  </head>
+
+  <body class="page "  x-ng-app="page" x-ng-controller="page.controllers.main">
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="https://solr.apache.org/guide/solr/latest/">Docs</a>
+          </li>
+          <li class="has-dropdown">
+            <a href="/features.html">Learn</a>
+            <ul class="dropdown">
+              <li><a href="/features.html">Features</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/security.html">Security</a>
+          </li>
+          <li class="has-dropdown">
+            <a href="/community.html">About</a>
+            <ul class="dropdown">
+              <li><a href="/community.html">Community</a></li>
+              <li><a href="/whoweare.html">Project</a></li>
+              <li><a href="/posts.html">News</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/operator/">Solr Operator</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="/downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
+<div class="container">
+  <div class="row">
+<h1 id="walking-document-graphs-in-apache-solr">Walking Document Graphs in Apache Solr<a class="headerlink" href="#walking-document-graphs-in-apache-solr" title="Permanent link">&para;</a></h1>
+<p>Written by <a href="https://github.com/iprithv">Prithvi S</a>.</p>
+<p>A surprising number of Solr indexes already contain a graph.</p>
+<p>An employee document points at a manager. A group lists the groups it belongs to. A category records its parent. Those pointers are ordinary string fields, so they are easy to index and easy to ignore. Then a product question shows up: <em>all engineers under this VP</em>, <em>every document this nested group can see</em>, <em>the full subtree of Electronics</em>. A <a href="https://solr.apache.org/guide/solr/latest/query-guide/join-query-parser.html">join</a> answers the one-hop version of that question. The recursive version is already built in: Solr's <a href="https://solr.apache.org/guide/solr/latest/query-guide/other-parsers.html#graph-query-parser"><code>graph</code> query parser</a>.</p>
+<p>This post is a worked example of that parser. It is not a rewrite of the reference guide. The goal is to show a realistic schema, the <code>from</code>/<code>to</code> footgun that catches people coming from <code>{!join}</code>, and the cases where you should pick a different tool.</p>
+<h2 id="one-hop-is-a-join-the-tree-is-a-graph">One hop is a join. The tree is a graph.<a class="headerlink" href="#one-hop-is-a-join-the-tree-is-a-graph" title="Permanent link">&para;</a></h2>
+<p>Take a small org chart:</p>
+<div class="codehilite"><pre><span></span><code>alice (CEO)
+├── bob (Engineering Manager)
+│   ├── dave (Engineer)
+│   └── eve (Engineer, on leave)
+└── carol (Design Manager)
+    └── frank (Designer)
+</code></pre></div>
+
+<p>Each person is one Solr document. <code>id</code> is the person. <code>manager_id_s</code> is that person's pointer to their manager.</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;alice&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name_s&quot;</span><span class="p">:</span><span class="s2">&quot;Alice&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title_s&quot;</span><span class="p">:</span><span class="s2">&quot;CEO&quot;</span><span class="p">,</span><span class="w">              </span><span class="nt">&quot;dept_s&quot;</span><span class="p">:</span><span class="s2">&quot;exec&quot;</span><span class="p">,</span><span class="w">    </span><span class="nt">&quot;status_s&quot;</span><span class="p">:</span><span class="s2">&quot;active&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;bob&quot;</span><span class="p">,</span><span class="w">   </span><span class="nt">&quot;name_s&quot;</span><span class="p">:</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span><span class="w">   </span><span class="nt">&quot;title_s&quot;</span><span class="p">:</span><span class="s2">&quot;Engineering Manager&quot;</span><span class="p">,</span><span class="nt">&quot;dept_s&quot;</span><span class="p">:</span><span class="s2">&quot;eng&quot;</span><span class="p">,</span><span class="w">    </span><span class="nt">&quot;status_s&quot;</span><span class="p">:</span><span class="s2">&quot;active&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;manager_id_s&quot;</span><span class="p">:</span><span class="s2">&quot;alice&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;carol&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name_s&quot;</span><span class="p">:</span><span class="s2">&quot;Carol&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title_s&quot;</span><span class="p">:</span><span class="s2">&quot;Design Manager&quot;</span><span class="p">,</span><span class="w">    </span><span class="nt">&quot;dept_s&quot;</span><span class="p">:</span><span class="s2">&quot;design&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;status_s&quot;</span><span class="p">:</span><span class="s2">&quot;active&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;manager_id_s&quot;</span><span class="p">:</span><span class="s2">&quot;alice&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;dave&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;name_s&quot;</span><span class="p">:</span><span class="s2">&quot;Dave&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;title_s&quot;</span><span class="p">:</span><span class="s2">&quot;Engineer&quot;</span><span class="p">,</span><span class="w">          </span><span class="nt">&quot;dept_s&quot;</span><span class="p">:</span><span class="s2">&quot;eng&quot;</span><span class="p">,</span><span class="w">     </span><span class="nt">&quot;status_s&quot;</span><span class="p">:</span><span class="s2">&quot;active&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;manager_id_s&quot;</span><span class="p">:</span><span class="s2">&quot;bob&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;eve&quot;</span><span class="p">,</span><span class="w">   </span><span class="nt">&quot;name_s&quot;</span><span class="p">:</span><span class="s2">&quot;Eve&quot;</span><span class="p">,</span><span class="w">   </span><span class="nt">&quot;title_s&quot;</span><span class="p">:</span><span class="s2">&quot;Engineer&quot;</span><span class="p">,</span><span class="w">          </span><span class="nt">&quot;dept_s&quot;</span><span class="p">:</span><span class="s2">&quot;eng&quot;</span><span class="p">,</span><span class="w">     </span><span class="nt">&quot;status_s&quot;</span><span class="p">:</span><span class="s2">&quot;leave&quot;</span><span class="p">,</span><span class="w">   </span><span class="nt">&quot;manager_id_s&quot;</span><span class="p">:</span><span class="s2">&quot;bob&quot;</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;frank&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name_s&quot;</span><span class="p">:</span><span class="s2">&quot;Frank&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;title_s&quot;</span><span class="p">:</span><span class="s2">&quot;Designer&quot;</span><span class="p">,</span><span class="w">          </span><span class="nt">&quot;dept_s&quot;</span><span class="p">:</span><span class="s2">&quot;design&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;status_s&quot;</span><span class="p">:</span><span class="s2">&quot;active&quot;</span><span class="p">,</span><span class="w">  </span><span class="nt">&quot;manager_id_s&quot;</span><span class="p">:</span><span class="s2">&quot;carol&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>A join finds Alice's <strong>direct</strong> reports — Bob and Carol, and nobody else:</p>
+<div class="codehilite"><pre><span></span><code>q={!join from=id to=manager_id_s}id:alice
+</code></pre></div>
+
+<p>Join semantics are: run the inner query, collect values from <code>from</code>, return documents whose <code>to</code> field contains those values. One hop. Dave and Frank never appear.</p>
+<p>The graph parser keeps walking until the frontier is empty.</p>
+<h2 id="index-the-org-chart">Index the org chart<a class="headerlink" href="#index-the-org-chart" title="Permanent link">&para;</a></h2>
+<p>These examples use Solr 10's <code>_default</code> configset. The <code>_s</code> suffix gives you indexed string fields, which the graph parser accepts. Point fields with docValues also work; analyzed text fields do not.</p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>solr-graph<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8983</span>:8983<span class="w"> </span>solr:10.0.0<span class="w"> </span>solr-precreate<span class="w"> </span>orgchart
+<span class="k">until</span><span class="w"> </span>curl<span class="w"> </span>-sf<span class="w"> </span>http://localhost:8983/solr/orgchart/admin/ping<span class="w"> </span>&gt;/dev/null<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+
+curl<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s1">&#39;http://localhost:8983/solr/orgchart/update?commit=true&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-binary<span class="w"> </span><span class="s1">&#39;[</span>
+<span class="s1">    {&quot;id&quot;:&quot;alice&quot;, &quot;name_s&quot;:&quot;Alice&quot;, &quot;title_s&quot;:&quot;CEO&quot;,                 &quot;dept_s&quot;:&quot;exec&quot;,   &quot;status_s&quot;:&quot;active&quot;},</span>
+<span class="s1">    {&quot;id&quot;:&quot;bob&quot;,   &quot;name_s&quot;:&quot;Bob&quot;,   &quot;title_s&quot;:&quot;Engineering Manager&quot;, &quot;dept_s&quot;:&quot;eng&quot;,    &quot;status_s&quot;:&quot;active&quot;, &quot;manager_id_s&quot;:&quot;alice&quot;},</span>
+<span class="s1">    {&quot;id&quot;:&quot;carol&quot;, &quot;name_s&quot;:&quot;Carol&quot;, &quot;title_s&quot;:&quot;Design Manager&quot;,      &quot;dept_s&quot;:&quot;design&quot;, &quot;status_s&quot;:&quot;active&quot;, &quot;manager_id_s&quot;:&quot;alice&quot;},</span>
+<span class="s1">    {&quot;id&quot;:&quot;dave&quot;,  &quot;name_s&quot;:&quot;Dave&quot;,  &quot;title_s&quot;:&quot;Engineer&quot;,            &quot;dept_s&quot;:&quot;eng&quot;,    &quot;status_s&quot;:&quot;active&quot;, &quot;manager_id_s&quot;:&quot;bob&quot;},</span>
+<span class="s1">    {&quot;id&quot;:&quot;eve&quot;,   &quot;name_s&quot;:&quot;Eve&quot;,   &quot;title_s&quot;:&quot;Engineer&quot;,            &quot;dept_s&quot;:&quot;eng&quot;,    &quot;status_s&quot;:&quot;leave&quot;,  &quot;manager_id_s&quot;:&quot;bob&quot;},</span>
+<span class="s1">    {&quot;id&quot;:&quot;frank&quot;, &quot;name_s&quot;:&quot;Frank&quot;, &quot;title_s&quot;:&quot;Designer&quot;,            &quot;dept_s&quot;:&quot;design&quot;, &quot;status_s&quot;:&quot;active&quot;, &quot;manager_id_s&quot;:&quot;carol&quot;}</span>
+<span class="s1">  ]&#39;</span>
+</code></pre></div>
+
+<h2 id="walk-down-everyone-under-alice">Walk down: everyone under Alice<a class="headerlink" href="#walk-down-everyone-under-alice" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-sG<span class="w"> </span><span class="s1">&#39;http://localhost:8983/solr/orgchart/query&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;fl=id,name_s,title_s,manager_id_s&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;sort=id asc&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;q={!graph from=manager_id_s to=id}id:alice&#39;</span>
+</code></pre></div>
+
+<p>That returns all six people. The parser:</p>
+<ol>
+<li>Runs the wrapped query <code>id:alice</code> to get the root set.</li>
+<li>Collects values from <code>to</code> (<code>id</code>) on the current frontier.</li>
+<li>Finds documents whose <code>from</code> field (<code>manager_id_s</code>) matches those values.</li>
+<li>Repeats until a hop discovers no new documents.</li>
+</ol>
+<p>So the walk is: Alice → {Bob, Carol} → {Dave, Eve, Frank}. Cycles are skipped; a document already in the result set is not expanded again.</p>
+<h3 id="from-and-to-are-reversed-from-join"><code>from</code> and <code>to</code> are reversed from <code>{!join}</code><a class="headerlink" href="#from-and-to-are-reversed-from-join" title="Permanent link">&para;</a></h3>
+<p>This is the detail that costs people an afternoon.</p>
+<table>
+<thead>
+<tr>
+<th>Parser</th>
+<th>Collect values from</th>
+<th>Match those values on</th>
+<th>Recurses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{!join from=X to=Y}</code></td>
+<td><code>X</code></td>
+<td><code>Y</code></td>
+<td>no</td>
+</tr>
+<tr>
+<td><code>{!graph from=X to=Y}</code></td>
+<td><code>Y</code></td>
+<td><code>X</code></td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>For the org chart, the join that finds direct reports is <code>{!join from=id to=manager_id_s}id:alice</code>. The graph walk that finds the whole subtree is <code>{!graph from=manager_id_s to=id}id:alice</code>. Same two fields, opposite parameter names. The graph parser's defaults (<code>from=node_id</code>, <code>to=edge_ids</code>) match a "node identity / outgoing edges" model, which is why <code>to</code> is the field whose values you follow.</p>
+<p>If a graph query returns only the root document, swap <code>from</code> and <code>to</code> before you debug anything else.</p>
+<h2 id="walk-up-daves-management-chain">Walk up: Dave's management chain<a class="headerlink" href="#walk-up-daves-management-chain" title="Permanent link">&para;</a></h2>
+<p>Follow <code>manager_id_s</code> instead of inverting it:</p>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-sG<span class="w"> </span><span class="s1">&#39;http://localhost:8983/solr/orgchart/query&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;fl=id,name_s,title_s&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;sort=id asc&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;q={!graph from=id to=manager_id_s}id:dave&#39;</span>
+</code></pre></div>
+
+<p>Result: Dave, Bob, Alice. Same parser, opposite edge direction.</p>
+<h2 id="use-it-as-a-filter-not-as-the-scoring-query">Use it as a filter, not as the scoring query<a class="headerlink" href="#use-it-as-a-filter-not-as-the-scoring-query" title="Permanent link">&para;</a></h2>
+<p>Graph matches score as a constant <code>1.0</code>. That is the right behavior for "is this document in the subtree?" and the wrong behavior for "rank these people by title text." Production queries almost always belong in <code>fq</code>:</p>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-sG<span class="w"> </span><span class="s1">&#39;http://localhost:8983/solr/orgchart/query&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;fl=id,name_s,title_s,score&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;q=title_s:Engineer&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--data-urlencode<span class="w"> </span><span class="s1">&#39;fq={!graph from=manager_id_s to=id}id:alice&#39;</span>
+</code></pre></div>
+
+<p>Dave and Eve match. Bob does not: his title is "Engineering Manager", and the filter only restricts the domain. Swap in <code>edismax</code> or a vector query for <code>q</code> and the graph filter still applies. This is the same pattern as any other filter query; the graph parser is just a way to <em>compute</em> that filter from edges in the index.</p>
+<h2 id="parameters-worth-knowing">Parameters worth knowing<a class="headerlink" href="#parameters-worth-knowing" title="Permanent link">&para;</a></h2>
+<p>The reference guide lists every parameter. These are the ones that change the org-chart queries above.</p>
+<p><strong><code>maxDepth</code></strong> — hop budget, counting the root as depth 0. <code>maxDepth=0</code> is only the root. <code>maxDepth=1</code> is the root plus one hop (Alice, Bob, Carol). Omit it, or leave the default <code>-1</code>, for an unbounded walk.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Direct reports of Alice, including Alice</span>
+<span class="nv">q</span><span class="o">={</span>!graph<span class="w"> </span><span class="nv">from</span><span class="o">=</span>manager_id_s<span class="w"> </span><span class="nv">to</span><span class="o">=</span>id<span class="w"> </span><span class="nv">maxDepth</span><span class="o">=</span><span class="m">1</span><span class="o">}</span>id:alice
+
+<span class="c1"># Direct reports only</span>
+<span class="nv">q</span><span class="o">={</span>!graph<span class="w"> </span><span class="nv">from</span><span class="o">=</span>manager_id_s<span class="w"> </span><span class="nv">to</span><span class="o">=</span>id<span class="w"> </span><span class="nv">maxDepth</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">returnRoot</span><span class="o">=</span>false<span class="o">}</span>id:alice
+</code></pre></div>
+
+<p><strong><code>returnRoot</code></strong> — default <code>true</code>. Set <code>false</code> when the root is a container you do not want in the result (a VP, a parent category, a group). Combined with <code>maxDepth=1</code> this is the graph analogue of a join: one hop, same two fields, opposite <code>from</code>/<code>to</code>, root excluded.</p>
+<p><strong><code>traversalFilter</code></strong> — a query applied to <strong>subsequent</strong> hops, not to the root. To skip people on leave, and anyone reachable only through them:</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">q</span><span class="o">={</span>!graph<span class="w"> </span><span class="nv">from</span><span class="o">=</span>manager_id_s<span class="w"> </span><span class="nv">to</span><span class="o">=</span>id<span class="w"> </span><span class="nv">traversalFilter</span><span class="o">=</span><span class="s1">&#39;status_s:active&#39;</span><span class="o">}</span>id:alice
+</code></pre></div>
+
+<p>Alice is still returned (the root query is unfiltered). Eve is not. If Bob were on leave, Dave and Eve would both disappear, because the walk never enters Bob.</p>
+<p><strong><code>returnOnlyLeaf</code></strong> — keeps documents that have <strong>no value in the <code>to</code> field</strong>. That is useful when <code>to</code> is an outgoing-edge field that leaf nodes leave empty. It is <em>not</em> useful in this org chart: <code>to=id</code> is populated on every document, so the intersection is empty. Model leaves as "no outgoing edges," not as "bottom of the tree."</p>
+<p><strong><code>useAutn</code></strong> — default <code>false</code>. Compiling an automaton per hop may be faster for some wide frontiers. Leave it off unless you measure a gain.</p>
+<h2 id="what-the-parser-will-not-do">What the parser will not do<a class="headerlink" href="#what-the-parser-will-not-do" title="Permanent link">&para;</a></h2>
+<p><strong>It is not distributed.</strong> The graph parser runs against a single shard. Standalone Solr is fine. SolrCloud is fine only when the collection has exactly one shard. On a multi-shard collection the coordinator still fans the query out; each shard walks only its local documents, and the client gets the union of those incomplete walks. Cross-shard edges are dropped with no error, which can look plausible and still be wrong. If the data has to be sharded, use <a href="https://solr.apache.org/guide/solr/latest/query-guide/graph-traversal.html">streaming <code>nodes()</code></a>, which is built for distributed traversal and can span collections.</p>
+<p><strong>It does not rank along the path.</strong> There is no "closer to the root scores higher." If you need hop distance, walk with a few <code>maxDepth</code> queries, or use streaming <code>nodes()</code>, which emits a <code>level</code> field (root is 0). <code>scoreNodes</code> is a different tool: TF-IDF co-occurrence for recommendations, not path ranking.</p>
+<p><strong>It is not a substitute for nested documents.</strong> Parent/child block joins (<code>{!parent}</code> / <code>{!child}</code>) are the right tool when the relationship is physical adjacency in the index. Graph is the right tool when the relationship is <em>values in fields</em>, including cycles and variable depth.</p>
+<p><strong>Wide, deep graphs are search, not a graph database.</strong> Each hop is another query against <code>from</code>. That is fast on a subtree of tens or hundreds of thousands of nodes with a selective root. It is the wrong shape for "materialize the whole connected component of this 80-million-document corpus."</p>
+<h2 id="related-tools-same-edges">Related tools, same edges<a class="headerlink" href="#related-tools-same-edges" title="Permanent link">&para;</a></h2>
+<p>Solr has four ways to follow field values from one document to another. They share a mental model and do not share an implementation.</p>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One hop, possibly across collections (<code>fromIndex</code>, <code>crossCollection</code>)</td>
+<td><a href="https://solr.apache.org/guide/solr/latest/query-guide/join-query-parser.html"><code>{!join}</code></a></td>
+</tr>
+<tr>
+<td>Multi-hop filter or query, single shard</td>
+<td><a href="https://solr.apache.org/guide/solr/latest/query-guide/other-parsers.html#graph-query-parser"><code>{!graph}</code></a></td>
+</tr>
+<tr>
+<td>Multi-hop domain for a JSON facet</td>
+<td><a href="https://solr.apache.org/guide/solr/latest/query-guide/json-faceting-domain-changes.html#graph-traversal-domain-changes"><code>domain: { graph: { ... } }</code></a></td>
+</tr>
+<tr>
+<td>Distributed walk, aggregations, recommendations</td>
+<td><a href="https://solr.apache.org/guide/solr/latest/query-guide/graph-traversal.html">streaming <code>nodes()</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>JSON faceting's graph domain takes the same <code>from</code>/<code>to</code> parameters as the query parser, including the one-shard limitation. The walk starts from the facet's current domain — here, the main query <code>id:alice</code> — and expands it before the terms facet runs:</p>
+<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-sS<span class="w"> </span>http://localhost:8983/solr/orgchart/query<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;query&quot;: &quot;id:alice&quot;,</span>
+<span class="s1">    &quot;facet&quot;: {</span>
+<span class="s1">      &quot;dept&quot;: {</span>
+<span class="s1">        &quot;type&quot;: &quot;terms&quot;,</span>
+<span class="s1">        &quot;field&quot;: &quot;dept_s&quot;,</span>
+<span class="s1">        &quot;domain&quot;: {</span>
+<span class="s1">          &quot;graph&quot;: {</span>
+<span class="s1">            &quot;from&quot;: &quot;manager_id_s&quot;,</span>
+<span class="s1">            &quot;to&quot;: &quot;id&quot;</span>
+<span class="s1">          }</span>
+<span class="s1">        }</span>
+<span class="s1">      }</span>
+<span class="s1">    }</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div>
+
+<h2 id="other-graphs-hiding-in-ordinary-schemas">Other graphs hiding in ordinary schemas<a class="headerlink" href="#other-graphs-hiding-in-ordinary-schemas" title="Permanent link">&para;</a></h2>
+<p>The org chart is one picture. The same parser covers:</p>
+<ul>
+<li><strong>Nested groups.</strong> User → group → parent group. Walk <code>member_of</code> to compute the full set of groups a user inherits, then join that set against an ACL field on documents.</li>
+<li><strong>Product taxonomies.</strong> Category → parent category. Filter a product search to "this node and every descendant."</li>
+<li><strong>Ticket / issue links.</strong> <code>blocks_ss</code> / <code>depends_on_ss</code> with <code>maxDepth</code> to keep the walk in a neighborhood.</li>
+<li><strong>Document series.</strong> <code>replaces_s</code> / <code>superseded_by_s</code> to find the current version or the full history.</li>
+</ul>
+<p>If you can write the one-hop join, you can almost certainly write the graph walk. The extra cost is modeling the edge direction correctly and respecting the single-shard limit.</p>
+<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://solr.apache.org/guide/solr/latest/query-guide/other-parsers.html#graph-query-parser">Graph Query Parser</a> in the Solr Reference Guide</li>
+<li><a href="https://solr.apache.org/guide/solr/latest/query-guide/join-query-parser.html">Join Query Parser</a></li>
+<li><a href="https://solr.apache.org/guide/solr/latest/query-guide/graph-traversal.html">Graph Traversal with streaming expressions</a></li>
+<li><a href="https://solr.apache.org/guide/solr/latest/query-guide/json-faceting-domain-changes.html#graph-traversal-domain-changes">JSON Faceting: graph domain changes</a></li>
+</ul>  </div>
+</div>
+    <footer>
+<div class="row">
+  <div class="small-6 medium-3 columns">
+    <h4>Features</h4>
+    <ul>
+      <li><a href="/features.html">Overview</a></li>
+      <li><a href="/features.html#data-handling">Data Handling</a></li>
+      <li><a href="/features.html#query">Querying</a></li>
+      <li><a href="/features.html#facets">Faceting</a></li>
+      <li><a href="/features.html#discovery">Discovery</a></li>
+      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
+      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
+      <li><a href="/features.html#spatial">Spatial</a></li>
+      <li><a href="/features.html#rich-content">Rich Content</a></li>
+      <li><a href="/features.html#performance">Performance</a></li>
+      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
+      <li><a href="/features.html#admin-ui">User Interface</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="https://solr.apache.org/guide/solr/latest/">Docs</a></li>
+      <li><a href="/resources.html#solr-books">Books</a></li>
+      <li><a href="/resources.html#presentations">Presentations</a></li>
+      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
+      <li><a href="/editing-website.html">Editing this Website</a></li>
+      <br/>
+      <li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+      <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+      <li><a href="https://www.apache.org/security/">Security</a></li>
+      <li><a href="https://www.apache.org/licenses/">License</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Get Started</h4>
+    <ul>
+      <li><a href="/downloads.html">Download</a></li>
+      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+      <li><a href="/resources.html">Level Up</a></li>
+    </ul>
+    <br/>
+    <h4>Community</h4>
+    <ul>
+      <li><a href="/community.html#support">Support</a></li>
+      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
+      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
+      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Related Projects</h4>
+    <ul>
+      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row copyright">
+<div class="large-centered columns">
+  <p>Copyright © 2026 The Apache Software Foundation, Licensed under the
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
+    Apache and the Apache logo are trademarks of The Apache Software Foundation. Apache Lucene,
+    Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
+    Please see the <a href="https://www.apache.org/foundation/marks/">Apache Trademark Policy</a> for more information.
+    All non-Apache logos are the trademarks of their respective owners.</p>
+</div></div>    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<!-- TODO: This script is commented out because we do not use slick slider.
+<script>
+  $(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+  });
+</script>
+-->
+  </body>
+</html>
