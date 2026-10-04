@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2026-08-25T00:00:00+00:00</updated><entry><title>ws: memory exhaustion denial of service from tiny WebSocket fragments</title><link href="/cve-2026-48779.html" rel="alternate"/><published>2026-08-25T00:00:00+00:00</published><updated>2026-08-25T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-25:/cve-2026-48779.html</id><summary type="html">&lt;p&gt;CVE-2026-48779 is a memory-exhaustion denial-of-service issue in the Node.js &lt;code&gt;ws&lt;/code&gt; WebSocket library:
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr</title><link href="/" rel="alternate"/><link href="/feeds/all.atom.xml" rel="self"/><id>/</id><updated>2026-10-04T00:00:00+00:00</updated><entry><title>Apache Solr™ 9.11.0 available</title><link href="/apache-solrtm-9110-available.html" rel="alternate"/><published>2026-10-04T00:00:00+00:00</published><updated>2026-10-04T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-10-04:/apache-solrtm-9110-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.11.0.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 9.11.0.&lt;/p&gt;
+&lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.&lt;/p&gt;
+&lt;p&gt;Solr 9.11.0 is available for immediate download at:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/downloads.html"&gt;https://solr.apache.org/downloads.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="solr-9110-release-highlights"&gt;Solr 9.11.0 Release Highlights:&lt;a class="headerlink" href="#solr-9110-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Added new range field types — &lt;code&gt;IntRangeField&lt;/code&gt;, &lt;code&gt;LongRangeField&lt;/code&gt;, &lt;code&gt;FloatRangeField&lt;/code&gt;, and &lt;code&gt;DoubleRangeField&lt;/code&gt; — for storing and querying numeric ranges, plus an experimental &lt;code&gt;numericRange&lt;/code&gt; query parser.&lt;/li&gt;
+&lt;li&gt;Extended nested/block document support: the parent and child query parsers gained a &lt;code&gt;parentPath&lt;/code&gt; local parameter (&lt;code&gt;childPath&lt;/code&gt; also added) that automatically derives the correct filter from document nesting, so queries no longer need to reference the internal nest path field directly. Also added a root-document query shortcut for nested document queries. Index sorting now works correctly with nested documents.&lt;/li&gt;
+&lt;li&gt;Added hybrid search based on reciprocal rank fusion (RRF) via a new combined query search handler, merging multiple query strategies into one ranked result set. Also supports result collapsing and query elevation.&lt;/li&gt;
+&lt;li&gt;Added support for multiple dense vectors per document (nested vectors), enabling multi-valued vector search.&lt;/li&gt;
+&lt;li&gt;Added &lt;code&gt;MergeOnFlushMergePolicy&lt;/code&gt;, merging small segments together at commit, reducing segments to search.&lt;/li&gt;
+&lt;li&gt;Added &lt;code&gt;ContentHashVersionProcessor&lt;/code&gt;, an update processor avoiding index churn when re-adding documents with identical content.&lt;/li&gt;
+&lt;li&gt;Expanded streaming expression &lt;code&gt;rollup&lt;/code&gt; with new metrics: missing-value counts, count-distinct, percentile, standard deviation.&lt;/li&gt;
+&lt;li&gt;Added support for stored fields in Export Writer output, not just docValues.&lt;/li&gt;
+&lt;li&gt;Added an &lt;code&gt;UPGRADECOREINDEX&lt;/code&gt; core admin action to upgrade an index format in place without reindexing.&lt;/li&gt;
+&lt;li&gt;The Luke handler now aggregates results across all shards by default.&lt;/li&gt;
+&lt;li&gt;Improved &lt;code&gt;multiThreaded=true&lt;/code&gt; query performance when a docset is needed, such as faceting.&lt;/li&gt;
+&lt;li&gt;JWT authentication's &lt;code&gt;blockUnknown&lt;/code&gt; setting now defaults to &lt;code&gt;true&lt;/code&gt;, blocking unauthenticated requests by default; it previously defaulted to &lt;code&gt;false&lt;/code&gt; despite documentation stating otherwise. Deployments relying on pass-through authentication must now explicitly set &lt;code&gt;blockUnknown&lt;/code&gt; to &lt;code&gt;false&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Added an &lt;code&gt;allowZkHosts&lt;/code&gt; setting to restrict which ZooKeeper connection strings a cross-collection join or streaming expression may target. The local SolrCloud ensemble is always allowed.&lt;/li&gt;
+&lt;li&gt;Removed &lt;code&gt;LocalTikaExtractionBackend&lt;/code&gt; from the extraction module (SolrCell); extracting content via a remote Tika Server is now the only option.&lt;/li&gt;
+&lt;li&gt;And more features/improvements.&lt;/li&gt;
+&lt;li&gt;Fixed MANY bugs.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_11/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_11/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please read CHANGELOG.md for a full list of new features, changes and bugfixes:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://solr.apache.org/9_11_0/changes/Changes.html"&gt;https://solr.apache.org/9_11_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="thanks-to-all-contributors"&gt;Thanks to all contributors:&lt;a class="headerlink" href="#thanks-to-all-contributors" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Abhishek Umarjikar, Alessandro Benedetti, Andrzej Bialecki, Andy Webb, Arup Chauhan, Bartosz Fidrysiak, David Smiley, Dmitrii Tikhonov, Eric Pugh, Francois Huaulme, Gaurav Tuli, Houston Putman, Idan Tepper, Jalaz Kumar, James Vanneman, Jan Høydahl, Jason Gerlowski, Li Enlai, Luke Kot-Zaniewski, Mark Miller, Matthew Biscocho, Olivier Boudet, Pierre Salagnac, Puneet Ahuja, Puneet Sharma, Rahul Goswami, Rajat Raghav, Ravi Ranjan Jha, Renato Haeberli, Samuel Verstraete, Sanjay Kumar Yadav, Serhiy Bzhezytskyy, Shiming Li, Shrey Narayan, Shubham Ranjan, Sonu Sharma, Tony Panza, Vishnu Priya Chandra Sekar, William Wallace, Xinyao Zhang, ZhenyuLi, hossman, khushjain, r4mercur&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>ws: memory exhaustion denial of service from tiny WebSocket fragments</title><link href="/cve-2026-48779.html" rel="alternate"/><published>2026-08-25T00:00:00+00:00</published><updated>2026-08-25T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-08-25:/cve-2026-48779.html</id><summary type="html">&lt;p&gt;CVE-2026-48779 is a memory-exhaustion denial-of-service issue in the Node.js &lt;code&gt;ws&lt;/code&gt; WebSocket library:
 a peer that sends a high volume of exceptionally small message fragments can force the receiving side
 to allocate and retain structural wrappers far larger than the documented message-size limit,
 eventually exhausting memory. It affects &lt;code&gt;ws&lt;/code&gt; 8 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;CVE-2026-48779 is a memory-exhaustion denial-of-service issue in the Node.js &lt;code&gt;ws&lt;/code&gt; WebSocket library:
@@ -2345,38 +2374,4 @@ CVE - &lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2024-31391"&gt;CVE-2024-3
 &lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://solr.apache.org/guide/solr/9_5/upgrade-notes/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/solr/9_5/upgrade-notes/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Please read CHANGES.txt for a full list of new features, changes and bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/9_5_0/changes/Changes.html"&gt;https://solr.apache.org/9_5_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr™ 8.11.3 available</title><link href="/apache-solrtm-8113-available.html" rel="alternate"/><published>2024-02-08T00:00:00+00:00</published><updated>2024-02-08T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2024-02-08:/apache-solrtm-8113-available.html</id><summary type="html">&lt;p&gt;The Lucene and Solr PMCs are pleased to announce the release of Apache Solr 8.11.3.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Lucene and Solr PMCs are pleased to announce the release of Apache Solr 8.11.3.&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document handling, and geospatial search. Solr is highly scalable, providing fault tolerant distributed search and indexing, and powers the search and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 8.11.3 is available for immediate download at:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://lucene.apache.org/solr/downloads.html"&gt;https://lucene.apache.org/solr/downloads.html&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id="solr-8113-release-highlights"&gt;Solr 8.11.3 Release Highlights:&lt;a class="headerlink" href="#solr-8113-release-highlights" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
-&lt;h4 id="security"&gt;Security&lt;a class="headerlink" href="#security" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Converted enableRemoteStreaming and enableStreamBody solrconfig options into system properties and env vars.&lt;/li&gt;
-&lt;li&gt;Restrict certain file types from being uploaded to or downloaded from Config Sets&lt;/li&gt;
-&lt;li&gt;ZK Credentials and ACLs are no longer sent to all ZK Servers when using Streaming Expressions. They will only be used when sent to the default ZK Host.&lt;/li&gt;
-&lt;li&gt;Schema Designer now correctly manages trust of the ConfigSets it is managing.&lt;/li&gt;
-&lt;li&gt;More sysProps are redacted in the UI by default.&lt;/li&gt;
-&lt;li&gt;Upgrades of various client libraries, including Jetty, Tika, Netty and Calcite.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id="bugfixes"&gt;Bugfixes&lt;a class="headerlink" href="#bugfixes" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;TLOGs on TLOG replicas no longer grow continuously.&lt;/li&gt;
-&lt;li&gt;Various fixes for clusters using PRS.&lt;/li&gt;
-&lt;li&gt;Collection RENAME api no longer creates broken alias.&lt;/li&gt;
-&lt;li&gt;Using Schema/Config API no longer breaks the File-Upload of Config Set File.&lt;/li&gt;
-&lt;li&gt;Fixed NPE in FieldLengthFeature with non-stored/missing fields.&lt;/li&gt;
-&lt;li&gt;HEAD request for managed resource no longer returns 500 Server Error.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id="features"&gt;Features&lt;a class="headerlink" href="#features" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;AWS STS support has been added for the s3-repository module.&lt;/li&gt;
-&lt;li&gt;Node roles and dedicated query coordinator nodes have been added.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/guide/8_11/solr-upgrade-notes.html"&gt;https://solr.apache.org/guide/8_11/solr-upgrade-notes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Please read CHANGES.txt for a full list of bugfixes:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://solr.apache.org/docs/8_11_3/changes/Changes.html"&gt;https://solr.apache.org/docs/8_11_3/changes/Changes.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Solr 8.11.3 also includes bugfixes in the corresponding Apache Lucene release:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://lucene.apache.org/core/8_11_3/changes/Changes.html"&gt;https://lucene.apache.org/core/8_11_3/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
+&lt;p&gt;&lt;a href="https://solr.apache.org/9_5_0/changes/Changes.html"&gt;https://solr.apache.org/9_5_0/changes/Changes.html&lt;/a&gt;&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
