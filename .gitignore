@@ -14,3 +14,8 @@ CLAUDE.md
 .cursor/
 GEMINI.md
 .gemini/
+
+# MCP docs are sourced from apache/solr-mcp at build time (see build.sh fetch_mcp_docs
+# and the "Fetch MCP docs" step in .github/workflows/*pelican*.yml). Do not commit them.
+/content/pages/mcp/
+/content/doap/solr-mcp.rdf
