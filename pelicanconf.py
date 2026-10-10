@@ -18,6 +18,10 @@ SOLR_OPERATOR_LATEST_RELEASE = 'v0.9.1'
 SOLR_OPERATOR_LATEST_RELEASE_DATE = datetime(2025, 3, 25)
 SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE = 'v0.8.1'
 
+SOLR_MCP_LATEST_RELEASE = 'v0.0.0'
+#SOLR_MCP_LATEST_RELEASE_DATE = datetime(2025, 3, 25)
+#SOLR_MCP_PREVIOUS_MAJOR_RELEASE = 'v0.8.1'
+
 # This string will be appended to all unversioned css and js resources to prevent caching surprises on edits.
 # The theme's htaccess file also sets a cache-control header with longer lifetime, if the v=XXXX query string is added.
 STATIC_RESOURCE_SUFFIX = "?v=%s" % dirhash('themes/solr/static', 'sha1')[-8:]
