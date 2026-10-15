@@ -634,8 +634,8 @@ deserialization filtering over <code>@JsonUnwrapped</code> container properties 
 untrusted input may set. Solr applies no <code>@JsonView</code> filtering to request deserialization, so there
 is nothing for the bypass to defeat.</p>
 <p>Solr's own standalone <code>jackson-databind</code> is in an affected range only in 9.8.0 – 9.10.1 (2.18.0).
-Solr 10.0.0 ships 2.20.0, which is outside the affected ranges and is not affected. Solr 9.11 ships
-2.22.0, which <em>is</em> affected (fixed in 2.22.1) and should be added to this range once released.</p>
+Solr 10.0.0 ships 2.20.0, and Solr 9.11.0 ships 2.22.2 (past the 2.22.1 fix) — both are outside the
+affected ranges and not affected.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -761,10 +761,10 @@ neither: it maps request JSON to fixed, known types and does not use <code>@Json
 filtering (nor case-insensitive property mapping) as a security boundary on untrusted input, so there
 is nothing for the bypass to defeat.</p>
 <p>Solr shipped an in-range <code>jackson-databind</code> from 9.0.0 through 9.10.1 (2.13.2.2 → 2.18.0) and in
-10.0.0 (2.20.0). Solr 9.11 ships 2.22.0, which is also affected (fixed in 2.22.1) — it should be added
-to this range once released. The old <code>2.12.7.1</code> copy shaded inside <code>hadoop-client-runtime</code> (optional
-<code>hdfs</code> module) is also in range, but its shaded purl is a separate scanner/generator concern tracked
-with the other Hadoop-shaded dependencies (SOLR-17900).</p>
+10.0.0 (2.20.0). Solr 9.11.0 ships 2.22.2, past the 2.22.1 fix, and is not affected. The old
+<code>2.12.7.1</code> copy shaded inside <code>hadoop-client-runtime</code> (optional <code>hdfs</code> module) is also in range, but
+its shaded purl is a separate scanner/generator concern tracked with the other Hadoop-shaded
+dependencies (SOLR-17900).</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1168,7 +1168,7 @@ ships in lockstep with) since Solr 4.7.0, and every release through 10.0.0 ships
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1196,9 +1196,8 @@ Solr is <strong>not affected</strong>:</p>
 </ul>
 <p>Since Solr never accepts inbound HTTP/2 connections through Netty, the vulnerable code is present
 on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1213,7 +1212,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1244,9 +1243,8 @@ already shipped this same class, bundled in the older <code>netty-all</code> ube
 <p>Since there is no attacker-reachable path where Solr (or its dependencies) ever decodes an
 attacker-supplied HTTP/1.x request through this Netty codec, the vulnerable code is present on the
 classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1261,7 +1259,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1303,9 +1301,8 @@ certificate are exposed, and even then only to an attacker already positioned to
 specific outbound connection.</p>
 <p>Operators who do configure a custom OTLP trusted certificate should either restrict network access
 to the collector endpoint (e.g. a private network path with no attacker-reachable intercept point)
-until upgrading, or upgrade the bundled Netty once a Solr release ships 4.1.135.Final/4.2.15.Final —
-already present on the <code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but
-not yet in any released Solr line.</p>
+until upgrading, or upgrade the bundled Netty — Solr 9.11.0 now ships the fixed
+4.2.15.Final. <code>branch_10x</code> (→ 10.1.0) is expected to ship the same fix once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1320,7 +1317,7 @@ not yet in any released Solr line.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1348,9 +1345,8 @@ Solr is <strong>not affected</strong>:</p>
 <p>Since <code>DelegatingDecompressorFrameListener</code> is never installed in any pipeline Solr's dependencies
 construct, the vulnerable code is present on the classpath but not reachable in any real Solr
 deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1398,7 +1394,7 @@ version, on any Solr release line.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1429,9 +1425,8 @@ Solr is <strong>not affected</strong>:</p>
 </ul>
 <p>Since Solr never accepts inbound HTTP/2 connections through Netty, the vulnerable code is present
 on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1446,7 +1441,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1486,9 +1481,8 @@ Solr is <strong>not affected</strong>:</p>
 </ul>
 <p>Since Solr never establishes a Unix-domain-socket channel through Netty, this native code path is
 present on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1503,7 +1497,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.6.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.6.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1542,9 +1536,8 @@ module's OTLP gRPC exporter. Solr is <strong>not affected</strong>:</p>
 </ul>
 <p>Since <code>SslClientHelloHandler</code> is never installed or invoked anywhere in Solr's dependency graph,
 the vulnerable code is present on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1559,7 +1552,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.3.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1595,9 +1588,8 @@ Solr is <strong>not affected</strong>:</p>
 </ul>
 <p>Since <code>IpSubnetFilterRule</code> is never installed or evaluated anywhere in Solr's dependency graph, the
 vulnerable code is present on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1612,7 +1604,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1643,9 +1635,8 @@ bundled in the older <code>netty-all</code> uber-jar. Solr is <strong>not affect
 </ul>
 <p>Since <code>HttpContentDecompressor</code> is never installed in any pipeline Solr's dependencies construct,
 the vulnerable code is present on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1660,7 +1651,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1689,9 +1680,8 @@ already shipped this same code, bundled in the older <code>netty-all</code> uber
 <p>Since there is no attacker-reachable path where Solr (or its dependencies) ever decodes an
 attacker-supplied HTTP/1.x request through this Netty codec, the vulnerable code is present on the
 classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1706,7 +1696,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1741,9 +1731,8 @@ since Solr never sets any JVM-wide HTTP proxy properties itself. Solr is <strong
 <p>Since Solr never exercises a multi-request HTTP/1.1 exchange over any Netty channel, the
 request/response pairing this bug corrupts never has more than one entry to desync, so the
 vulnerable code is present on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1758,7 +1747,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1789,9 +1778,8 @@ affected</strong>:</p>
 <p>Since the vulnerable decoder is never wired into any pipeline that processes attacker-supplied
 data, the vulnerable code is present on the classpath (where it exists at all) but not reachable in
 any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1806,7 +1794,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1839,9 +1827,8 @@ already shipped this same class, bundled in the older <code>netty-all</code> ube
 <p>Since there is no attacker-reachable path where Solr (or its dependencies) ever decodes an
 attacker-supplied HTTP/1.0 or HTTP/1.1 request through this Netty codec, the vulnerable code is
 present on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1856,7 +1843,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1895,9 +1882,8 @@ decoder at all (see below). Solr is <strong>not affected</strong>:</p>
 <p>Since there is no attacker-reachable path where Solr (or its dependencies) ever decodes an
 attacker-supplied chunked HTTP/1.1 message through this Netty codec, the vulnerable code is present
 on the classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1912,7 +1898,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -1947,9 +1933,8 @@ used only by the optional <code>opentelemetry</code> module's OTLP gRPC exporter
 <p>Exploiting this requires both a non-default proxy configuration and attacker-controlled header
 data that Solr's OTLP export path never supplies, so the vulnerable code is present on the
 classpath but not reachable in any real Solr deployment.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -1964,7 +1949,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -2019,9 +2004,8 @@ no <code>io.netty</code> imports anywhere in Solr's own Java sources.</p>
 compromised ZooKeeper peer are affected. Operators who do enable ZooKeeper client TLS should treat
 their ZooKeeper ensemble as they would any other TLS endpoint pending an upgrade, or restrict
 network access to it in the interim.</p>
-<p>No released Solr version ships the fix. The fixed Netty (4.2.15.Final) is already present on the
-<code>branch_9x</code> (→ 9.11.0) and <code>branch_10x</code> (→ 10.1.0) development branches, but hasn't reached a
-released line yet.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final), closing this regardless of reachability. The
+same fix is expected on <code>branch_10x</code> (→ 10.1.0) once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -2036,7 +2020,7 @@ released line yet.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.x,10.0.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 9.2.0-9.10.1,10.0.0</p>
                     </div>
                 </header>
 
@@ -2074,9 +2058,9 @@ flag this CVE across the whole 9.2.0–10.x range. Solr is <strong>not affected<
 <p>Since the vulnerable <code>setUri()</code> bypass is never exercised — Solr neither constructs nor mutates
 Netty HTTP requests from attacker-controlled data — the vulnerable code is present on the classpath
 but not in any reachable execution path.</p>
-<p>No released Solr version ships the fix yet. On Solr's <code>main</code> development branch, Netty was bumped
-4.2.6.Final → 4.2.12.Final (still within the vulnerable range) → 4.2.15.Final in June 2026, which is
-fixed — and will be released in Solr versions 9.11.0 and 10.1.</p>
+<p>Solr 9.11.0 now ships the fixed Netty (4.2.15.Final) — Netty was bumped 4.2.6.Final →
+4.2.12.Final (still within the vulnerable range) → 4.2.15.Final in June 2026. 10.1 is expected to
+ship the same fix once released.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -2719,6 +2703,69 @@ with <code>log4j-core-2.25.4.jar</code>.</p>
                         <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2026-34477">CVE-2026-34477</a></li>
                 </ul>
             </article>
+            <article id="cve-2025-66516" class="post panel radius">
+                <header class="post-header">
+                    <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-66516">CVE-2025-66516</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-54988">CVE-2025-54988</a>, Apache Solr: extraction module (SolrCell) vulnerable to XXE via XFA content in PDFs</h3>
+                    <div class="panel callout">
+                            <p class="subheader">
+                                <strong>Published:</strong>
+                                <time datetime="2026-01-08T00:00:00+00:00">2026-01-08</time>
+                            </p>
+                        <p class="subheader">
+                            <strong>Status:</strong>
+                            <span class="cdx-exploitable">exploitable</span>
+                        </p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.2.0-9.10.0</p>
+                    </div>
+                </header>
+
+                <h4>Description</h4>
+                <p>CVE-2025-66516 is Apache Solr's own advisory for a vulnerability in Apache Tika's PDF parser, originally
+tracked as CVE-2025-54988 (CVSS 9.4, critical, upstream): Tika's PDF parser processes XFA (XML Forms
+Architecture) content embedded in a PDF without disabling external entity resolution, so a crafted PDF's
+XFA form can trigger an XXE (XML External Entity) injection. An attacker who gets such a PDF indexed can
+read local files or trigger outbound requests from the parsing process.</p>
+<p>Solr's <strong>extraction (Solr Cell)</strong> module uses Apache Tika to extract text and metadata from uploaded
+documents, including PDFs, so any deployment that enables Solr Cell and indexes untrusted PDF uploads
+is exposed. This is not a reachability-only concern the way most Tika-transitive CVEs tracked in this
+VEX data are: Solr Cell's entire purpose is parsing user-supplied documents, so the vulnerable XFA
+parsing path is exercised by design whenever a PDF is indexed through it.</p>
+<h4 id="impact-by-version">Impact by version<a class="headerlink" href="#impact-by-version" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Solr 6.2.0 – 8.x</strong>: full arbitrary file read. The extraction process runs with no sandboxing, so a
+  crafted PDF's XFA content can exfiltrate any file the Solr process user can read (configuration files,
+  credentials, arbitrary filesystem contents), and trigger outbound network requests (SSRF) to
+  internal or third-party hosts.</li>
+<li><strong>Solr 9.0.0 – 9.10.0</strong>: reduced but still present impact. Solr's Java Security Manager restricts the
+  extraction process's filesystem access to Solr's own directories, so arbitrary host-wide file reads are
+  blocked — but Solr's own configuration files, indexed data, and other in-scope paths remain readable,
+  and the SSRF / denial-of-service angles are unaffected by the Security Manager's filesystem scoping.</li>
+</ul>
+<p>Solr has bundled XFA-capable Tika PDF parsing (via <code>tika-core</code>/the PDFBox-backed PDF parser) since Solr
+Cell was introduced; every release from 6.2.0 through 9.10.0 is affected (the underlying Tika version
+stayed well within the vulnerable 1.13 – 3.2.1 range the whole time, including 9.10.0's bundled 1.28.5).
+Solr 9.10.1 ships a fix (SOLR-17888) that disables XFA form parsing by default via Solr Cell's
+<code>parseContext</code>, not a Tika version bump — Tika itself wasn't upgraded past the vulnerable range until
+Solr 9.11.0 (3.3.2, past Tika's own 3.2.2 fix). 9.11.0 closes this a second, independent way too:
+SOLR-18037 removed in-process Tika extraction entirely in that release, so SolrCell no longer parses
+PDFs inside Solr's own JVM at all regardless of dependency versions. Any of these three changes
+independently closes this for 9.10.1 and every release after it. The affected range is therefore
+6.2.0 – 9.10.0.</p>
+<h4 id="mitigation">Mitigation<a class="headerlink" href="#mitigation" title="Permanent link">&para;</a></h4>
+<p>Operators who cannot upgrade to Solr 9.10.1 (or later) can disable XFA form parsing directly by
+configuring a <code>parseContext.xml</code> with <code>extractAcroFormContent</code> set to <code>false</code>, and referencing it from
+the extraction request handler in <code>solrconfig.xml</code>. More generally, the project's standing guidance
+applies here too: Solr Cell is not recommended for production use on untrusted documents; running Tika
+as a separate, isolated service and indexing the extracted text is the more robust architecture
+regardless of this specific CVE — and as of Solr 9.11.0 (SOLR-18037), that separation is no longer
+optional guidance but the only supported extraction backend.</p>
+
+                <h4>References</h4>
+                <ul>
+                        <li>JIRA: <a href="https://issues.apache.org/jira/browse/SOLR-17888">SOLR-17888</a></li>
+                        <li>CVE: <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-66516">CVE-2025-66516</a>, <a href="https://nvd.nist.gov/vuln/detail/CVE-2025-54988">CVE-2025-54988</a></li>
+                </ul>
+            </article>
             <article id="cve-2025-31672" class="post panel radius">
                 <header class="post-header">
                     <h3 class="title"><a href="https://nvd.nist.gov/vuln/detail/CVE-2025-31672">CVE-2025-31672</a>, Apache POI: improper input validation parsing OOXML files</h3>
@@ -2899,7 +2946,8 @@ text from <code>.eml</code> / RFC-822 messages). Neither Solr nor Tika ever uses
 MIME messages, so the vulnerable message-building / header-injection code path is never invoked —
 regardless of whether the (non-default, not-recommended-for-production) Solr Cell module is enabled.</p>
 <p>Solr has bundled an affected <code>apache-mime4j-core</code> via Solr Cell from Solr 3.6.0 (0.7) through 9.10.1
-(0.8.4) — all below the fixed 0.8.10. Solr 10.x ships no MIME4J. The affected range is therefore
+(0.8.4) — all below the fixed 0.8.10. Solr 9.11.0's Tika 3.x upgrade dropped <code>apache-mime4j-core</code> as a
+transitive dependency entirely, and Solr 10.x ships no MIME4J either. The affected range is therefore
 3.6.0 – 9.10.1, but the composition code path this CVE requires is not exercised in any of them.
 Operators who run Solr Cell can additionally follow the project's guidance to perform document
 extraction in a separate Tika service, or replace <code>modules/extraction/lib/apache-mime4j-*.jar</code> with
@@ -2960,7 +3008,7 @@ Hadoop 3.4.1, whose <code>hadoop-client-runtime</code> shades the fixed Nimbus 9
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-9.10.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-9.11.0</p>
                     </div>
                 </header>
 
@@ -2991,10 +3039,11 @@ in any of the ways these CVEs require:</p>
   code paths are reached.</li>
 </ul>
 <p>Solr shipped an affected <code>bcprov-jdk15on</code> via Solr Cell from 7.3.0 (1.54) through 9.10.1 (1.70) — all
-below the fixed 1.74/1.78. Solr 10.0.0 upgraded the extraction stack to Tika 3.x, whose PDFBox no
-longer bundles Bouncy Castle, so 10.x ships no <code>bcprov</code> at all. The affected range is therefore
-7.3.0 – 9.10.1. (Solr 9.5–9.6 also briefly bundled a separate <code>bcprov-jdk18on</code> 1.77 for another
-module, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)</p>
+below the fixed 1.74/1.78. Solr 9.11.0 upgraded Tika to 3.x as well, but still bundles this same
+<code>bcprov-jdk15on-1.70.jar</code> unchanged (only the separate <code>bcmail-jdk15on</code> jar was dropped), so 9.11.0 is
+still in range. Solr 10.0.0's extraction stack no longer bundles Bouncy Castle at all. The affected
+range is therefore 7.3.0 – 9.11.0. (Solr 9.5–9.6 also briefly bundled a separate <code>bcprov-jdk18on</code> 1.77
+for another module, fixed to 1.78.1 in 9.7; the same not-affected reasoning applies.)</p>
 
                 <h4>References</h4>
                 <ul>
@@ -3211,7 +3260,7 @@ the Solr community considers this vulnerability <strong>non-exploitable under st
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.0.0-9.10.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.0.0-9.11.0</p>
                     </div>
                 </header>
 
@@ -3220,8 +3269,8 @@ the Solr community considers this vulnerability <strong>non-exploitable under st
 Jetty from 7.0.0 up to (but not including) 12.0.12 (fixed in 12.0.12, with a 9.4.57 backport on the
 still-supported 9.4.x branch). Solr bundles Jetty as its HTTP server, so scanners flag this CVE on
 every Solr release whose Jetty predates 12.0.12 — Jetty 8.1.x/9.4.x/10.0.x from Solr 4.0.0 through
-Solr 9.10.1. Solr 10.0.0 ships Jetty 12.0.27 (≥ 12.0.12) and is not affected. The affected range is
-therefore 4.0.0 – 9.10.1.</p>
+Solr 9.11.0 (Jetty stayed at 10.0.26, unchanged since 9.10.0, through the 9.11.0 release). Solr 10.0.0
+ships Jetty 12.0.27 (≥ 12.0.12) and is not affected. The affected range is therefore 4.0.0 – 9.11.0.</p>
 <p>Solr is <strong>not affected</strong>: it does not use the Jetty "HttpURI" utility class necessary for the vulnerability.</p>
 
                 <h4>References</h4>
@@ -3462,7 +3511,7 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-8.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 7.3.0-8.11.4</p>
                     </div>
                 </header>
 
@@ -3502,7 +3551,7 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.1.0-8.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 8.1.0-8.11.4</p>
                     </div>
                 </header>
 
@@ -3582,7 +3631,7 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.x-9.1</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.0.0-9.1.1</p>
                     </div>
                 </header>
 
@@ -3642,12 +3691,14 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.4.0-8.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.4.0-8.7.0</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>Only used with the Carrot2 clustering engine.</p>
+                <p>Only used with the Carrot2 clustering engine. <code>org.carrot2.shaded:carrot2-guava</code> was bundled through
+Solr 8.7.0 (18.0); Solr dropped it as a dependency entirely starting with 8.8.0, so the affected range
+is capped there rather than running through the end of the 8.x line.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -3662,7 +3713,7 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-8.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-8.11.4</p>
                     </div>
                 </header>
 
@@ -3682,12 +3733,14 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-8.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-8.0.0</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
-                <p>Only used in Solr tests.</p>
+                <p>Only used in Solr tests. <code>dom4j:dom4j</code> was bundled through Solr 8.0.0 (1.6.1); Solr dropped it as a
+dependency entirely starting with 8.1.0, so the affected range is capped there rather than running
+through the end of the 8.x line.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -3784,12 +3837,15 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.2.0-8.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.2.0-8.6.3</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
                 <p>Solr should not be exposed outside a firewall where bad actors can send HTTP requests. These two CVEs specifically involve classes (SimpleXMLProvider and XmlRepresentation, respectively) that Solr does not use in any code path.</p>
+<p><code>org.restlet.jee:org.restlet</code> was bundled from Solr 5.2.0 through 8.6.3 (2.3.0 → 2.4.3); Solr dropped
+it as a dependency entirely starting with 8.7.0, so the affected range is capped there rather than
+running through the end of the 8.x line.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -3804,13 +3860,17 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.5.5, 6.2.0-9.10</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 5.5.5, 6.2.0-9.10.1</p>
                     </div>
                 </header>
 
                 <h4>Description</h4>
                 <p>See https://github.com/Gagravarr/VorbisJava/issues/30; reported CVEs are not related to OggVorbis at all.</p>
-<p>Tika as an in-process component was removed in Solr 9.11.</p>
+<p>Solr 9.11 removed in-process Tika extraction entirely (SOLR-18037): SolrCell's extraction module now
+always delegates to a separate Tika Server process rather than running Tika inside Solr's own JVM.
+That same release also upgraded the bundled <code>tika-core</code> to 3.x, which dropped <code>vorbis-java-tika</code> as a
+transitive dependency — either change independently means this jar is no longer bundled from 9.11
+onward.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -3825,7 +3885,7 @@ therefore 3.6.0 – 8.8.1.</p>
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.6.2-8.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.6.2-8.0.0</p>
                     </div>
                 </header>
 
@@ -3834,6 +3894,9 @@ therefore 3.6.0 – 8.8.1.</p>
 transitive dependency on <code>struts-core</code>, <code>struts-taglib</code> and <code>struts-tiles</code> 1.3.8. Solr does not
 ship any Struts jar — the dependency is excluded and only appears as a transitive POM listing
 (see SOLR-2849) — so these Struts vulnerabilities are not present in, or exploitable through, Solr.</p>
+<p><code>org.apache.velocity:velocity-tools</code> was bundled through Solr 8.0.0 (2.0); Solr dropped it as a
+dependency entirely starting with 8.1.0, so the affected range is capped there rather than running
+through the end of the 8.x line.</p>
 
                 <h4>References</h4>
                 <ul>
@@ -3848,7 +3911,7 @@ ship any Struts jar — the dependency is excluded and only appears as a transit
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.5.0-7.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 6.5.0-7.7.3</p>
                     </div>
                 </header>
 
@@ -3908,7 +3971,7 @@ ship any Struts jar — the dependency is excluded and only appears as a transit
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-7.x</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 4.6.0-7.7.3</p>
                     </div>
                 </header>
 
@@ -3928,7 +3991,7 @@ ship any Struts jar — the dependency is excluded and only appears as a transit
                             <strong>Status:</strong>
                             <span class="cdx-not-affected">not_affected</span>
                         </p>
-                            <p class="subheader"><strong>Affected Solr versions:</strong> 2.9-9.10</p>
+                            <p class="subheader"><strong>Affected Solr versions:</strong> 2.9-9.10.1</p>
                     </div>
                 </header>
 
