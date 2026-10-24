@@ -27,7 +27,8 @@
 
       <li>Helm Chart release:
         <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}" target="_blank">Artifact Hub</a><br/>
-        <i>Use <code>{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i>
+        <i>Use <code>{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i><br/>
+        <code>helm install solr-operator oci://ghcr.io/apache/solr-operator/helm/solr-operator --version {{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}</code>
       </li>
 
       <li>CRDs:
@@ -67,7 +68,8 @@
 
     <li>Helm Chart release:
       <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}" target="_blank">Artifact Hub</a><br/>
-      <i>Use <code>{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i>
+      <i>Use <code>{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i><br/>
+      <code>helm install solr-operator oci://ghcr.io/apache/solr-operator/helm/solr-operator --version {{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}</code>
     </li>
 
     <li>CRDs:
