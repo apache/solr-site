@@ -37,8 +37,8 @@ Both charts are published as OCI artifacts to the GitHub Container Registry, so 
     helm install example oci://ghcr.io/apache/solr-operator/helm/solr --version VERSION
 
 <div style="display:flex; justify-content: space-evenly; flex-wrap: wrap">
-  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
-  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr-cloud/solr" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
 </div>
 
 ***
