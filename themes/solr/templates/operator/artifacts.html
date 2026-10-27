@@ -13,7 +13,7 @@
 
   <p>Solr Operator {{ SOLR_OPERATOR_LATEST_RELEASE }} is the most recent Apache Solr Operator release.</p>
 
-  <div style="display:flex">
+  <div style="display:flex; align-items:flex-start">
     <ul style="margin: 0.75rem; flex-shrink: 0">
       <li>Source release:
         <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz?action=download" target="_blank">solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz</a>
@@ -45,8 +45,14 @@
       <li><a href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog" target="_blank">Change log</a></li>
     </ul>
 
-    <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator" data-theme="light" data-header="true" data-responsive="true"></div>
-    <script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+    <a class="artifacthub-link" href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator" target="_blank" rel="noopener">
+      <img src="{{ SITEURL }}/theme/images/artifacthub-icon-color.svg" alt="Artifact Hub" width="360" height="360">
+      <span class="artifacthub-link-text">
+        <span class="artifacthub-link-title">Solr Operator</span>
+        <span class="artifacthub-link-sub">Helm chart on Artifact Hub</span>
+      </span>
+      <i class="fa fa-external-link" aria-hidden="true"></i>
+    </a>
   </div>
 
   <h3 id="solr-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr Operator {{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}

@@ -36,9 +36,23 @@ Both charts are published as OCI artifacts to the GitHub Container Registry, so 
     helm install solr-operator oci://ghcr.io/apache/solr-operator/helm/solr-operator --version VERSION
     helm install example oci://ghcr.io/apache/solr-operator/helm/solr --version VERSION
 
-<div style="display:flex; justify-content: space-evenly; flex-wrap: wrap">
-  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
-  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr-cloud/solr" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+<div class="artifacthub-links">
+  <a class="artifacthub-link" href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator" target="_blank" rel="noopener">
+    <img src="/theme/images/artifacthub-icon-color.svg" alt="Artifact Hub" width="360" height="360">
+    <span class="artifacthub-link-text">
+      <span class="artifacthub-link-title">Solr Operator</span>
+      <span class="artifacthub-link-sub">Helm chart on Artifact Hub</span>
+    </span>
+    <i class="fa fa-external-link" aria-hidden="true"></i>
+  </a>
+  <a class="artifacthub-link" href="https://artifacthub.io/packages/helm/apache-solr-cloud/solr" target="_blank" rel="noopener">
+    <img src="/theme/images/artifacthub-icon-color.svg" alt="Artifact Hub" width="360" height="360">
+    <span class="artifacthub-link-text">
+      <span class="artifacthub-link-title">Solr</span>
+      <span class="artifacthub-link-sub">Helm chart on Artifact Hub</span>
+    </span>
+    <i class="fa fa-external-link" aria-hidden="true"></i>
+  </a>
 </div>
 
 ***
