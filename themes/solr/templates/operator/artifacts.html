@@ -13,7 +13,7 @@
 
   <p>Solr Operator {{ SOLR_OPERATOR_LATEST_RELEASE }} is the most recent Apache Solr Operator release.</p>
 
-  <div style="display:flex">
+  <div style="display:flex; align-items:flex-start">
     <ul style="margin: 0.75rem; flex-shrink: 0">
       <li>Source release:
         <a href="https://www.apache.org/dyn/closer.lua/solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE }}/solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz?action=download" target="_blank">solr-operator-{{ SOLR_OPERATOR_LATEST_RELEASE }}.tgz</a>
@@ -26,8 +26,9 @@
       </li>
 
       <li>Helm Chart release:
-        <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}" target="_blank">Artifact Hub</a><br/>
-        <i>Use <code>{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i>
+        <a href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}" target="_blank">Artifact Hub</a><br/>
+        <i>Use <code>{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i><br/>
+        Also published as an OCI artifact, see <a href="{{ SITEURL }}/operator/resources.html#helm-charts">install instructions</a>.
       </li>
 
       <li>CRDs:
@@ -41,11 +42,17 @@
       </li>
 
       <!-- TODO: Put change log in site -->
-      <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog" target="_blank">Change log</a></li>
+      <li><a href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog" target="_blank">Change log</a></li>
     </ul>
 
-    <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="true" data-responsive="true"></div>
-    <script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+    <a class="artifacthub-link" href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator" target="_blank" rel="noopener">
+      <img src="{{ SITEURL }}/theme/images/artifacthub-icon-color.svg" alt="Artifact Hub" width="360" height="360">
+      <span class="artifacthub-link-text">
+        <span class="artifacthub-link-title">Solr Operator</span>
+        <span class="artifacthub-link-sub">Helm chart on Artifact Hub</span>
+      </span>
+      <i class="fa fa-external-link" aria-hidden="true"></i>
+    </a>
   </div>
 
   <h3 id="solr-{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE | replace(".", "") }}">Solr Operator {{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE }}
@@ -66,8 +73,9 @@
     </li>
 
     <li>Helm Chart release:
-      <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}" target="_blank">Artifact Hub</a><br/>
-      <i>Use <code>{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i>
+      <a href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator/{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}" target="_blank">Artifact Hub</a><br/>
+      <i>Use <code>{{ SOLR_OPERATOR_PREVIOUS_MAJOR_RELEASE  | replace("v", "") }}</code> as the version of the Helm Chart.</i><br/>
+      Also published as an OCI artifact, see <a href="{{ SITEURL }}/operator/resources.html#helm-charts">install instructions</a>.
     </li>
 
     <li>CRDs:
@@ -81,7 +89,7 @@
     </li>
 
     <!-- TODO: Put change log in site -->
-    <li><a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog" target="_blank">Change log</a></li>
+    <li><a href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator/{{ SOLR_OPERATOR_LATEST_RELEASE  | replace("v", "") }}?modal=changelog" target="_blank">Change log</a></li>
   </ul>
 
   <h2 id="past-versions">Past versions
@@ -89,7 +97,7 @@
   </h2>
 
   <p>Archives for all past versions of the Solr Operator are available at <a href="https://archive.apache.org/dist/solr/solr-operator" target="_blank">the Apache archives</a>
-    and <a href="https://artifacthub.io/packages/helm/apache-solr/solr-operator" target="_blank">ArtifactHub</a>. See the <a href="https://github.com/apache/solr-operator/releases">Github releases</a> for pre-v0.3.0 releases</p>
+    and <a href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator" target="_blank">ArtifactHub</a>. See the <a href="https://github.com/apache/solr-operator/releases">Github releases</a> for pre-v0.3.0 releases</p>
 
   <h2 id="about-downloads">About downloads
     <a class="headerlink" href="#about-downloads" title="Permanent link">&para;</a>
