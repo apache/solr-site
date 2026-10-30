@@ -148,6 +148,94 @@
   <h1 id="solr-news">Solr<sup>™</sup> Announcements<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as ATOM feeds: <a href="/feeds/solr/news.atom.xml">Announcements</a>, <a href="/feeds/solr/security.atom.xml">Security Announcements</a>..</p>
 
+  <h2 id="apache-solrtm-1010-available">27 October 2026, Apache Solr™ 10.1.0 available
+    <a class="headerlink" href="#apache-solrtm-1010-available" title="Permanent link">¶</a>
+  </h2>
+  <p>The Solr PMC is pleased to announce the release of Apache Solr 10.1.0.</p>
+<p>Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.</p>
+<p>Solr 10.1.0 is available for immediate download at:</p>
+<p><a href="https://solr.apache.org/downloads.html">https://solr.apache.org/downloads.html</a></p>
+<h2 id="solr-1010-release-highlights">Solr 10.1.0 Release Highlights:<a class="headerlink" href="#solr-1010-release-highlights" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Minimum Java version: <strong>Java 21</strong> for Solr server, <strong>Java 17</strong> for SolrJ</li>
+<li>Powered by <strong>Lucene 10.4</strong>, with numerous small and large improvements. (<a href="https://lucene.apache.org/core/10_4_0/index.html">https://lucene.apache.org/core/10_4_0/index.html</a>)</li>
+<li>Jetty 12 / Jakarta EE 10</li>
+<li>Numerous dependency upgrades across the release, including Kafka and the OpenTelemetry/Prometheus stack.</li>
+<li>Docker: official images use Java 25 and Ubuntu 24 (Noble Numbat)</li>
+</ul>
+<h3 id="querying-and-indexing">Querying and Indexing<a class="headerlink" href="#querying-and-indexing" title="Permanent link">&para;</a></h3>
+<ul>
+<li>New range field types (Int/Long/Float/DoubleRangeField) with an experimental numericRange parser and docValues filter optimization; plus expanded join parsers (auxIndexJoin, globalOrdinalsJoin, join) and a new Intervals Query Parser.</li>
+<li>New CombinedQuerySearchHandler for hybrid search via reciprocal rank fusion (RRF), with collapse/Query Elevation support and a new reRankCutoff field; streaming expressions' rollup function gained new aggregate metrics and a path parameter.</li>
+<li>Nested vector search support (best-child retrieval diversified by parent, multi-valued dense vectors), a new late-interaction reranking field type, a knnAlgorithm="flat" option to skip HNSW for exact search, and vector existence queries; fixed GPU vector indexing silently falling back to CPU.</li>
+<li>New DocumentEnrichmentUpdateProcessorFactory for LLM-based document enrichment at index time.</li>
+<li>SPLITSHARD now supports router.field routing on docValues fields; Export Writer can include stored fields in its output; fixed a disk space check bug in shard splitting.</li>
+<li>Fixed several query correctness bugs: shards.preference ignored on cross-collection joins, incorrect rerank+sort combinations, join queries combined with query limits, complement()/intersect() streaming expressions returning wrong results, and NOT expressions requiring an explicit <em>:</em>.</li>
+</ul>
+<h3 id="major-changes">Major changes<a class="headerlink" href="#major-changes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>OTLP metric export now uses dot-separated OTel metric names — a back-compat break from 10.0.</li>
+<li>MemoryCircuitBreaker now measures post-GC live heap data instead of a moving average — a breaking API change.</li>
+<li>
+<p>Removed support for PKI Authentication v1 and the experimental solr.api.v2.enabled property.</p>
+</li>
+<li>
+<p>JWT Authentication's blockUnknown now defaults to true, blocking unauthenticated requests by default — a breaking change for setups relying on pass-through auth.</p>
+</li>
+<li>SolrCloud requests are now authorized against the collection of the core actually serving them, not the "collection" request parameter.</li>
+<li>New solrConnection-based HTTP connection support lets cross-collection joins, streaming expressions, the SQL JDBC driver, CloudSolrClient, and CLI tools reach SolrCloud over HTTP(S) without direct ZooKeeper access; a new allowZkHosts setting restricts which connection strings such features may use.</li>
+</ul>
+<h3 id="solrj">SolrJ<a class="headerlink" href="#solrj" title="Permanent link">&para;</a></h3>
+<ul>
+<li>New v2 APIs and matching SolrJ classes: System Info, collection-properties, node healthcheck/properties, and JAX-RS-based ListTasks/TaskStatus/cluster command-status APIs.</li>
+<li>New unified HttpSolrClient base class, implemented by both Jetty- and JDK-HttpClient-based SolrClients (builder prefers Jetty, falls back to JDK).</li>
+<li>HttpJettySolrClient/HttpJdkSolrClient thread-pool defaults changed (no longer forces 32 threads or caps at 256), plus multiple reliability fixes (connection-loss handling, thread leaks, semaphore leaks, a rare deadlock).</li>
+<li>New ConcurrentUpdateJdkSolrClient; ConcurrentUpdateSolrClient can now report which documents in a batch failed to reach the server via a registered error handler.</li>
+<li>Optimized the JavaBin codec's internal buffer sizing to cut GC pressure on SolrJ clients under heavy indexing load.</li>
+<li>Fixed SolrJ's local-parameter-value encoding producing lossy/invalid output with backslashes or leading quotes, affecting facet response keys and SQL LIKE queries; published POMs now include resolved dependency versions.</li>
+</ul>
+<h3 id="other">Other<a class="headerlink" href="#other" title="Permanent link">&para;</a></h3>
+<ul>
+<li>SolrCloud operational improvements: a new setting to clean up unknown core data on creation, reduced ZooKeeper calls during distributed multi-collection search, state.json compression when the Overseer is disabled, and locked Admin APIs can now call each other within the same resource tree.</li>
+<li>Fixed several SolrCloud reliability bugs: CloudSolrClient deleteById/state-refresh issues, ZkController over-reacting to ZooKeeper reconnects, HttpShardHandler concurrency bugs causing hangs or 500s, PRS-based collection creation returning too early, and Balance Replicas now enforcing one replica per shard per node.</li>
+<li>Leader/follower replication now restarts using the latest index generation if the selected generation expires mid-download; readOnly collections and schema-change handling during concurrent requests were also made more robust.</li>
+<li>New jvm_system_memory_bytes metric; fixed several metrics/OpenTelemetry bugs including a memory leak from retained SolrIndexSearcher metric gauges and a race condition in CircuitBreaker registration; the release also includes numerous dependency upgrades, such as Lucene 10.4, Jetty, Kafka, and the OpenTelemetry/Prometheus stack.</li>
+<li>CoreAdmin API gained an UPGRADECOREINDEX action to upgrade an index in place; the CLI's configset upload no longer blocks certain file types.</li>
+<li>CrossDC gained Kafka property flexibility, Prometheus metrics, and a health endpoint, plus fixes for out-of-order partition processing, incorrect offset commits, and other reliability issues.</li>
+</ul>
+<h3 id="deprecations-and-removals">Deprecations and Removals<a class="headerlink" href="#deprecations-and-removals" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Deprecated the SolrStream "core URL" constructors, the PingRequestHandler/SolrPing family (the ping endpoint), and the Overseer ADDROLE/REMOVEROLE operations.</li>
+<li>Removed deprecated LocalSolrQueryRequest, CloudSolrClient.connect()/connect(long, TimeUnit), and ClusterStateProvider.connect().</li>
+<li>Removed the deprecated geohash()/ghhsin() function queries and old pre-QueryCommand SolrIndexSearcher search methods.</li>
+<li>Removed the old streamFunctions mechanism in GraphHandler for registering streaming expressions, and a broken disk-space optimization used during full-recovery.</li>
+<li>Removed deprecated http.status_code/http.method telemetry tags and Request ID based tracing.</li>
+</ul>
+<p>Please refer to the Upgrade Notes in the Solr Ref Guide for information on upgrading from previous Solr versions:</p>
+<p><a href="https://solr.apache.org/guide/solr/10_1/upgrade-notes/solr-upgrade-notes.html">https://solr.apache.org/guide/solr/10_1/upgrade-notes/solr-upgrade-notes.html</a></p>
+<p>Please read CHANGELOG.md for a full list of new features, changes and bugfixes:</p>
+<p><a href="https://solr.apache.org/10_1_0/changes/Changes.html">https://solr.apache.org/10_1_0/changes/Changes.html</a></p>
+  <h2 id="heads-up-the-local-tika-extraction-backend-is-gone-in-solr-911">7 October 2026, Heads-up: the 'local' Tika extraction backend is gone in Solr 9.11
+    <a class="headerlink" href="#heads-up-the-local-tika-extraction-backend-is-gone-in-solr-911" title="Permanent link">¶</a>
+  </h2>
+  <p>Solr normally keeps strict backwards compatibility within a major version. Solr 9.11.0 makes one exception: the embedded "local" Tika extraction backend has been removed from the extraction module (Solr Cell).</p>
+<p>That backend was tied to Tika 1.28, which has been end-of-life since September 2022. Rather than keep shipping known vulnerabilities in a 9.x release, we removed it. The same removal is in Solr 10.0 and later, where it was part of the normal major-version deprecation cycle.</p>
+<p><strong>Who is affected:</strong> only users of <code>ExtractingRequestHandler</code> (<code>/update/extract</code>) with the local backend. If you don't use the extraction module, you can upgrade with no action.</p>
+<p><strong>What to do:</strong> run a <a href="https://tika.apache.org/download.html">Tika Server</a> and point Solr at it:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;requestHandler</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;/update/extract&quot;</span>
+<span class="w">                </span><span class="na">class=</span><span class="s">&quot;solr.extraction.ExtractingRequestHandler&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;str</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;tikaserver.url&quot;</span><span class="nt">&gt;</span>http://your-tika-server:9998<span class="nt">&lt;/str&gt;</span>
+<span class="nt">&lt;/requestHandler&gt;</span>
+</code></pre></div>
+
+<p>The <code>parseContext.config</code> option is gone as well; Tika parser-specific properties are now configured on the Tika Server itself.</p>
+<p>The reference guide has the full picture, including every <code>tikaserver.*</code> parameter and a Docker example:</p>
+<ul>
+<li><a href="https://solr.apache.org/guide/solr/9_11/indexing-guide/indexing-with-tika.html">Indexing with Tika</a></li>
+<li><a href="https://solr.apache.org/guide/solr/9_11/upgrade-notes/major-changes-in-solr-9.html#removing-local-tika">Upgrade notes: Removing 'local' Tika</a></li>
+<li><a href="https://issues.apache.org/jira/browse/SOLR-18037">SOLR-18037</a></li>
+</ul>
+<p>We don't take a compatibility break in a minor release lightly, but shipping a known-vulnerable Tika 1.x was the worse option. Running Tika out of process also gives better isolation and resource control for extraction workloads.</p>
   <h2 id="apache-solrtm-9110-available">4 October 2026, Apache Solr™ 9.11.0 available
     <a class="headerlink" href="#apache-solrtm-9110-available" title="Permanent link">¶</a>
   </h2>
