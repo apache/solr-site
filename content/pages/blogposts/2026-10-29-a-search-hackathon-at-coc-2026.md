@@ -10,7 +10,34 @@ save_as: blogposts/a-search-hackathon-at-coc-2026.html
 It’s always a pleasure to spend time with search people - and last month’s [Community over Code](https://communityovercode.apache.org/events/glasgow-2026/), run by the Apache Software Foundation in Glasgow, was a great opportunity to do so. Although you might think that the majority of these people would be concerned with [Apache Solr](https://solr.apache.org/), the underlying [Apache Lucene](https://lucene.apache.org/) project underpins many other search engines including Elasticsearch and OpenSearch - so this was a gathering of search enthusiasts from many different backgrounds, companies and traditions.
 On Monday I (**Charlie Hull**) was pleased to join and help organise the Search Hackathon. 
 
-For many, this was the first time they had met in person for a while (we were going to make up for this over a few evenings enjoying the attractions of Glasgow!). There were a lot of friendships renewed and sometimes begun between those who had already collaborated on a project but hadn’t yet met in person. This felt like a gathering that hadn’t happened since the old days of Lucene Revolution conferences, with around 20-30 people in the room, many of them Lucene and/or Solr committers - a chance to set the direction and make the big decisions about projects that underpin most of today’s search and AI infrastructure. You can see some pictures from the day [here](./blog/2026-10-29-a-search-hackathon-at-coc-2026/).
+For many, this was the first time they had met in person for a while (we were going to make up for this over a few evenings enjoying the attractions of Glasgow!). There were a lot of friendships renewed and sometimes begun between those who had already collaborated on a project but hadn’t yet met in person. This felt like a gathering that hadn’t happened since the old days of Lucene Revolution conferences, with around 20-30 people in the room, many of them Lucene and/or Solr committers - a chance to set the direction and make the big decisions about projects that underpin most of today’s search and AI infrastructure.
+
+## Photos from the day
+
+<style>
+#hackathon-photos .orbit-slides-container { margin-left: 0; }
+#hackathon-photos .orbit-prev, #hackathon-photos .orbit-next { display: block; }
+#hackathon-photos img { width: 100%; height: clamp(240px, 60vw, 600px); object-fit: contain; background: #222; }
+</style>
+
+<div id="hackathon-photos" role="region" aria-label="Photos from the search hackathon">
+<ul data-orbit data-options="timer: false; bullets: false; next_on_click: false;">
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_111754.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_111754.jpg" alt="Hackathon participants collaborating around tables with laptops" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113546.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113546.jpg" alt="Participants discussing search projects in the hackathon room" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113555.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113555.jpg" alt="An overview of the hackathon room with groups working together" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113604.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113604.jpg" alt="A flip chart listing participants and their search project ideas" width="1200" height="1600"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114324.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114324.jpg" alt="Two participants working together at a laptop" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114341.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114341.jpg" alt="Three participants discussing their work around a laptop" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114351.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114351.jpg" alt="Participants collaborating on search projects at a table" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_121758.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_121758.jpg" alt="Flip chart notes connecting cluster, node, and core concepts with search collection schema design" width="1200" height="1600"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_144631.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_144631.jpg" alt="A participant explaining ideas on a flip chart" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165036.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165036.jpg" alt="Participants gathered for a presentation in the hackathon room" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165044.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165044.jpg" alt="The audience watching a search project presentation" width="1600" height="1200"></a></li>
+  <li><a href="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165646.jpg"><img src="{static}/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165646.jpg" alt="A presenter sharing project results with the hackathon participants" width="1600" height="1200"></a></li>
+</ul>
+</div>
+
+Use the previous and next arrows to browse the photos. Select a photo to view the larger image.
 
 ## What we worked on
 
