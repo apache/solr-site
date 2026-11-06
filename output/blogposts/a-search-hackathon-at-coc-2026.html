@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+  <head>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE- 2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="minimal-ui, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<link rel="stylesheet" href="/theme/css/google-fonts-raleway.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/google-fonts-kalam.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/font-awesome.min.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/normalize.css?v=501cdb3d" />
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation.min.css?v=501cdb3d"/>
+<link rel="stylesheet" href="/theme/css/lib/foundation/foundation-icons.css?v=501cdb3d"/>
+<link rel="stylesheet" href="/theme/css/base.css?v=501cdb3d" />
+<meta name="Distribution" content="Global"/>
+<meta name="Robots" content="index,follow"/>
+
+<script src="/theme/javascript/lib/jquery-2.1.1.min.js"></script>
+<script src="/theme/javascript/lib/foundation/modernizr.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/angularjs/angular.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/angularjs/angular-animate.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/foundation/foundation.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/lib/jquery.smooth-scroll.min.js?v=501cdb3d"></script>
+<script src="/theme/javascript/main.js?v=501cdb3d"></script>
+<script src="https://www.apachecon.com/event-images/snippet.js"></script>    <title>A Search Hackathon at Community over Code, Glasgow 2026 - Apache Solr</title>
+
+    <meta name="keywords"
+          content="apache, apache lucene, apache solr, solr, lucene,
+                   search, information retrieval, spell checking, faceting, inverted index, open source"/>
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://solr.apache.org/blogposts/a-search-hackathon-at-coc-2026.html"/>
+     <meta property="og:title" content="A Search Hackathon at Community over Code, Glasgow 2026"/>
+     <meta property="og:description" content="A Search Hackathon at Community over Code, Glasgow 2026¶ It’s always a pleasure to spend time with search people - and last month’s..."/>
+     <meta property="og:image" content="https://solr.apache.org/theme/images/solr_og_image.png?v=501cdb3d"/>
+     <meta property="og:image:secure_url" content="https://solr.apache.org/theme/solr/solr_og_image.png?v=501cdb3d"/>
+
+   <link rel="icon" href="/theme/images/favicon.ico" type="image/x-icon">
+   <link rel="shortcut icon" href="/theme/images/favicon.ico" type="image/x-icon">
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDoNotTrack", true]);
+  _paq.push(["disableCookies"]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://analytics.apache.org/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '76']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->  </head>
+
+  <body class="page "  x-ng-app="page" x-ng-controller="page.controllers.main">
+<div class="contain-to-grid">
+  <div class="header-section">
+    <nav class="top-bar" data-topbar role="navigation">
+      <ul class="title-area">
+        <li class="name">
+          <a href="/"><img class="logo" src="/theme/images/logo.svg" /></a>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      <div class="top-bar-section">
+        <ul class="navigation right">
+          <li>
+            <a href="https://solr.apache.org/guide/solr/latest/">Docs</a>
+          </li>
+          <li class="has-dropdown">
+            <a href="/features.html">Learn</a>
+            <ul class="dropdown">
+              <li><a href="/features.html">Features</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/security.html">Security</a>
+          </li>
+          <li class="has-dropdown">
+            <a href="/community.html">About</a>
+            <ul class="dropdown">
+              <li><a href="/community.html">Community</a></li>
+              <li><a href="/whoweare.html">Project</a></li>
+              <li><a href="/posts.html">News</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/operator/">Solr Operator</a>
+          </li>
+<!-- TODO Search not working as of feb 2021, disabling
+          <li class="toggle">
+            <a ng-hide="toggled" ng-click="toggle();" href="#">Search</a>
+            <div id="search">
+<form id="quick-search" method="GET" action="https://sematext.com/opensee/solr" name="searchform">
+  <fieldset>
+    <div ng-show="toggled" class="search-box ng-hide">
+      <input type="search" name="q" placeholder="Search..." accesskey="q"/>
+      <a class="search-button" type="submit" onclick="this.closest('form').submit();return false;"><img src="/theme/images/magnifying-glass.png"/></a>
+    </div>
+  </fieldset>
+</form>            </div>
+          </li>
+-->
+          <li>
+            <a class="btn" href="/downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="header-fill"></div>
+<div class="container">
+  <div class="row">
+<h1 id="a-search-hackathon-at-community-over-code-glasgow-2026">A Search Hackathon at Community over Code, Glasgow 2026<a class="headerlink" href="#a-search-hackathon-at-community-over-code-glasgow-2026" title="Permanent link">&para;</a></h1>
+<p>It’s always a pleasure to spend time with search people - and last month’s <a href="https://communityovercode.apache.org/events/glasgow-2026/">Community over Code</a>, run by the Apache Software Foundation in Glasgow, was a great opportunity to do so. Although you might think that the majority of these people would be concerned with <a href="https://solr.apache.org/">Apache Solr</a>, the underlying <a href="https://lucene.apache.org/">Apache Lucene</a> project underpins many other search engines including Elasticsearch and OpenSearch - so this was a gathering of search enthusiasts from many different backgrounds, companies and traditions.
+On Monday I (<strong>Charlie Hull</strong>) was pleased to join and help organise the Search Hackathon. </p>
+<p>For many, this was the first time they had met in person for a while (we were going to make up for this over a few evenings enjoying the attractions of Glasgow!). There were a lot of friendships renewed and sometimes begun between those who had already collaborated on a project but hadn’t yet met in person. This felt like a gathering that hadn’t happened since the old days of Lucene Revolution conferences, with around 20-30 people in the room, many of them Lucene and/or Solr committers - a chance to set the direction and make the big decisions about projects that underpin most of today’s search and AI infrastructure.</p>
+<h2 id="photos-from-the-day">Photos from the day<a class="headerlink" href="#photos-from-the-day" title="Permanent link">&para;</a></h2>
+<style>
+#hackathon-photos .orbit-slides-container { margin-left: 0; }
+#hackathon-photos .orbit-prev, #hackathon-photos .orbit-next { display: block; }
+#hackathon-photos img { width: 100%; height: clamp(240px, 60vw, 600px); object-fit: contain; background: #222; }
+</style>
+
+<div id="hackathon-photos" role="region" aria-label="Photos from the search hackathon">
+<ul data-orbit data-options="timer: false; bullets: false; next_on_click: false;">
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_111754.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_111754.jpg" alt="Hackathon participants collaborating around tables with laptops" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113546.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113546.jpg" alt="Participants discussing search projects in the hackathon room" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113555.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113555.jpg" alt="An overview of the hackathon room with groups working together" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113604.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_113604.jpg" alt="A flip chart listing participants and their search project ideas" width="1200" height="1600"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114324.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114324.jpg" alt="Two participants working together at a laptop" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114341.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114341.jpg" alt="Three participants discussing their work around a laptop" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114351.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_114351.jpg" alt="Participants collaborating on search projects at a table" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_121758.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_121758.jpg" alt="Flip chart notes connecting cluster, node, and core concepts with search collection schema design" width="1200" height="1600"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_144631.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_144631.jpg" alt="A participant explaining ideas on a flip chart" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165036.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165036.jpg" alt="Participants gathered for a presentation in the hackathon room" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165044.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165044.jpg" alt="The audience watching a search project presentation" width="1600" height="1200"></a></li>
+  <li><a href="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165646.jpg"><img src="/images/blog/2026-10-29-a-search-hackathon-at-coc-2026/20261012_165646.jpg" alt="A presenter sharing project results with the hackathon participants" width="1600" height="1200"></a></li>
+</ul>
+</div>
+
+<p>Use the previous and next arrows to browse the photos. Select a photo to view the larger image.</p>
+<h2 id="what-we-worked-on">What we worked on<a class="headerlink" href="#what-we-worked-on" title="Permanent link">&para;</a></h2>
+<p>We tried to record some of the work that was done - this isn’t in any particular order or an exhaustive list, as some people worked on their own or moved between projects, and apologies to anyone we missed out. I’ve added JIRA numbers and links to repositories where appropriate.</p>
+<ul>
+<li>
+<p><strong>David Smiley</strong> - worked on highlighting in streaming expressions: two PRs, both addressing old JIRAs, <a href="https://issues.apache.org/jira/browse/SOLR-3479">SOLR-3479</a> &amp; <a href="https://issues.apache.org/jira/browse/SOLR-9957">SOLR-9957</a></p>
+</li>
+<li>
+<p><strong>Alan Woodward, Luca Cavanna, Chris Hegarty, Mike Sokolov, Mike Drob, David Smiley, Uwe Schindler</strong> - Played with lots of ideas for Lucene 11.  We started with a brainstorm on things that a major version bump and new JDK requirement allows us to do, including:
+Merge RandomAccessInput interface into IndexInput: most implementations already extend both and it would remove a bunch of nasty instanceof checks and casting everywhere
+Start using MemorySegment in public APIs, reducing the amount of data copying we have to do and simplifying things like off-heap memory access/direct IO.
+We then talked about possible deprecations (this one was lots of fun…).  We ended up opening <a href="https://github.com/apache/lucene/issues/16820">an issue</a> to discuss future removals of SpanQuery, ValueSource, FastVectorHighlighter and the majority of the query parsers</p>
+</li>
+<li>
+<p><strong>Jan Høydahl &amp; Andrey Ukhanov</strong> - Grafana Dashboard in Solr 10. Revived a stale old JIRA/PR, <a href="https://github.com/apache/lucene/issues/18147">SOLR-18147</a>, split it in four consumable/reviewable parts. Jan implemented the first tooling focused part in <a href="https://github.com/apache/lucene/issues/18533">SOLR-18533</a> ready for review. Andrey plans to iterate on the dashboard layout itself in <a href="https://github.com/apache/lucene/issues/18543">SOLR-18534</a>. Then the remaining parts are alert rules (<a href="https://github.com/apache/lucene/issues/18535">SOLR-18535</a>) and OTEL push metrics (<a href="https://github.com/apache/lucene/issues/18536">SOLR-18536</a>). </p>
+</li>
+<li>
+<p><strong>Prithvi S</strong> - making Solr's Admin UI work across nodes. Added a node picker to Solr's Admin UI, allowing Thread Dump, Java Properties, Logging, Cores, and Dashboard screens to target any live node using the existing nodes= proxy. Also reorganised the sidebar into Cluster and Node sections, keeping the node-specific navigation out of the way when running Solr in standalone mode. Solr pull request
+See [https://github.com/apache/solr/pull/5110](<a href="https://github.com/apache/solr/pull/5110">https://github.com/apache/lucene/issues/16820</a></p>
+</li>
+<li>
+<p><strong>Andrzej Białecki</strong> - worked on the <a href="https://github.com/apache/solr-mcp/">Solr MCP</a> developer setup, tweaking the MCP built-in prompts</p>
+</li>
+<li>
+<p><strong>Aditya Parikh</strong> - Helped couple people including Andrej Bialecki and a graduate student from the University of Glasgow (new to Apache!) get set up and try out Solr-MCP in stdio &amp; http modes by following <a href="https://adityamparikh.github.io/solr-mcp/">these steps</a>. They configured Claude Code, MCP inspector clients to use the Docker image of the MCP server, indexed sample data and executed searches against Solr running locally via Docker. They also visualized metrics and traces exported to a locally running LGTM container, an all in one observability platform, using a Grafana dashboard. </p>
+</li>
+<li>
+<p><strong>Eric Pugh</strong> - Built <a href="https://claude.ai/code/artifact/60d11ce1-18c8-4699-a3fd-cd2a3c19d8e3?sk=XTELG6l6Mk2QHBBDmdaDog">a Claude prompt</a> that categorizes PR’s by their impact.  Leaned into the movie Pacific Rim to gamify this work, and produced a Breach Report that demonstrates for a recent contributor the impact of their 59 different PRs - from small Category 1 to massive Category 5!  https://claude.ai/code/artifact/60d11ce1-18c8-4699-a3fd-cd2a3c19d8e3?sk=XTELG6l6Mk2QHBBDmdaDog
+Then worked with Mike Drob to build a prompt that evaluates a PR and if it’s a bug (versus feature) oriented PR, then exercises the potential bug fix in order to reduce the amount of evaluation work that a committer has to perform to accept and merge the bug report.  <a href="https://claude.ai/code/artifact/e5aa97fa-a8e5-476b-9897-b969602f3af4?sk=3E_BFM-yzYD2OEWy7ou4yQ">Example here</a> for a real submitted PR.</p>
+</li>
+<li>
+<p><strong>Alec Bernardi</strong> - I/O benchmarks for vector search. Added three layers of microbenchmarks for vector search in the Lucene <a href="https://github.com/apache/lucene/tree/main/lucene/benchmark-jmh">benchmark-jmh</a> module:
+    Directory reads
+    Vector reads
+    Vector bulk reads
+  By comparing op/s, page faults, read amplification, and other results from these tests, we can figure out how close Lucene can drive I/O to device limits in cold/mixed index scenarios: particularly when performing vector queries using quantization with rescoring. PR incoming!</p>
+</li>
+<li>
+<p><strong>Luke Kot</strong> - <a href="https://lucene.apache.org/core/10_5_0/monitor/org/apache/lucene/monitor/package-summary.html">Lucene Monitor</a> with negative queries. Made a sloppy PoC to show that it can improve performance. Iterating on minimizing the blast radius of the change. Chatted with Alan Woodward about the future of Lucene Monitor extensibility.</p>
+</li>
+<li>
+<p><strong>Naveet</strong> - Move vector graphs from heap to off heap. I added an opt-in way for Lucene to build merged HNSW graphs in native memory instead of on the Java heap, using a new offHeapGraphBuild option on the HNSW vector formats that leaves the index format unchanged.
+    Benchmarks: On 1M 1024-dimension float32 vectors with a 1 GB heap, building the graph off-heap kept live heap flat at 91 MB during the force merge. The baseline used 375 MB at the median, 998 MB at p90, and peaked at the full 1 GB. The off-heap run also had no full GCs and much shorter pauses: 0.02 s in total with a longest pause of 1.7 ms, versus 0.52 s and 81.7 ms.
+    Indexing speed, merge times, recall (0.951 vs 0.952), search latency and index size were essentially unchanged. Off-heap merges ran 2–3% faster, within noise for a single run.
+    PR: <a href="https://github.com/apache/lucene/pull/16815">https://github.com/apache/lucene/pull/16815</a> </p>
+</li>
+<li>
+<p><strong>Pukit Gupta</strong> (Pulkitg64) - Subtract deleted vectors when recomputing the merge centroid. (PR: <a href="https://github.com/apache/lucene/pull/16819">#16819</a>) This avoids scanning all vectors while calculating centroid for quantization during segment merging when there are deletes in the segment. Before this change, when there are deleted docs in a segment, we go over all live docs and calculate the mean of the vectors. Now after this change we are just going over deleted docs (if they are less than 50%) and deleting the vectors from the old centroid values. This should save some CPU in theory. </p>
+</li>
+<li>
+<p><strong>Shubham Chaudhary</strong> - Reviewed some PRs related to the Lucene 11 feature ( <a href="https://github.com/apache/lucene/pull/16812">https://github.com/apache/lucene/pull/16812</a> and <a href="https://github.com/apache/lucene/pull/16795">https://github.com/apache/lucene/pull/16795</a> - WIP). Also, tried an optimization for <a href="https://github.com/apache/lucene/pull/15778">https://github.com/apache/lucene/issues/15778</a> and checking if it choosing a bad entry point worsens the visited count or latency with choosing different params (less beamwidth, max-connections etc) but didn’t observe much of a slowdown. Though the idea seems a no-harm (next would be to open a PR to make top layer as exhaustive search since that will not increase the % of visited nodes more than 1%)</p>
+</li>
+</ul>
+<p>Thanks to everyone who came and for all the hard, collaborative work! It was fantastic to see such progress in only one day - although no doubt the work will continue. We need these kind of gatherings to swap ideas, build real-world relationships and to figure out the future. </p>
+<p>During the conference I had some interesting discussions about when we might all meet up next…watch this space for more news!</p>
+<p>Charlie Hull - <a href="https://www.thesearchjuggler.com">The Search Juggler</a></p>  </div>
+</div>
+    <footer>
+<div class="row">
+  <div class="small-6 medium-3 columns">
+    <h4>Features</h4>
+    <ul>
+      <li><a href="/features.html">Overview</a></li>
+      <li><a href="/features.html#data-handling">Data Handling</a></li>
+      <li><a href="/features.html#query">Querying</a></li>
+      <li><a href="/features.html#facets">Faceting</a></li>
+      <li><a href="/features.html#discovery">Discovery</a></li>
+      <li><a href="/features.html#plugins">Plugins and Extensions</a></li>
+      <li><a href="/features.html#stats">Statistics and Aggregations</a></li>
+      <li><a href="/features.html#spatial">Spatial</a></li>
+      <li><a href="/features.html#rich-content">Rich Content</a></li>
+      <li><a href="/features.html#performance">Performance</a></li>
+      <li><a href="/features.html#solrcloud">Scaling with SolrCloud</a></li>
+      <li><a href="/features.html#admin-ui">User Interface</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="/resources.html#tutorials">Tutorial</a></li>
+      <li><a href="https://solr.apache.org/guide/solr/latest/">Docs</a></li>
+      <li><a href="/resources.html#solr-books">Books</a></li>
+      <li><a href="/resources.html#presentations">Presentations</a></li>
+      <li><a href="/resources.html#videos">Videos</a></li>
+      <li><a href="/logos-and-assets.html">Solr Logos and Assets</a></li>
+      <li><a href="/editing-website.html">Editing this Website</a></li>
+      <br/>
+      <li><a href="https://www.apache.org/">Apache Software Foundation</a></li>
+      <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+      <li><a href="https://www.apache.org/security/">Security</a></li>
+      <li><a href="https://www.apache.org/licenses/">License</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Get Started</h4>
+    <ul>
+      <li><a href="/downloads.html">Download</a></li>
+      <li><a href="/guide/solr-tutorial.html">Run Through the Tutorial</a></li>
+      <li><a href="/resources.html">Level Up</a></li>
+    </ul>
+    <br/>
+    <h4>Community</h4>
+    <ul>
+      <li><a href="/community.html#support">Support</a></li>
+      <li><a href="/community.html#mailing-lists-irc">Mailing Lists</a></li>
+      <li><a href="/community.html#issue-tracker">Issues (JIRA)</a></li>
+      <li><a href="/community.html#how-to-contribute">Contribute</a></li>
+      <li><a href="/community.html#version-control">Version control (GIT)</a></li>
+    </ul>
+  </div>
+  <div class="small-6 medium-3 columns">
+    <h4>Related Projects</h4>
+    <ul>
+      <li><a href="http://lucene.apache.org/">Apache Lucene</a></li>
+      <li><a href="http://zookeeper.apache.org/">Apache Zookeeper</a></li>
+      <li><a href="http://tika.apache.org/">Apache Tika</a></li>
+      <li><a href="http://manifoldcf.apache.org/">Apache ManifoldCF</a></li>
+      <li><a href="http://spark.apache.org/">Apache Spark</a></li>
+      <li><a href="http://nutch.apache.org/">Apache Nutch</a></li>
+      <li><a href="http://zeppelin.apache.org/">Apache Zeppelin</a></li>
+      <li><a href="http://opennlp.apache.org/">Apache OpenNLP</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row copyright">
+<div class="large-centered columns">
+  <p>Copyright © 2026 The Apache Software Foundation, Licensed under the
+    <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br/>
+    Apache and the Apache logo are trademarks of The Apache Software Foundation. Apache Lucene,
+    Apache Solr and their respective logos are trademarks of the Apache Software Foundation.
+    Please see the <a href="https://www.apache.org/foundation/marks/">Apache Trademark Policy</a> for more information.
+    All non-Apache logos are the trademarks of their respective owners.</p>
+</div></div>    </footer>
+
+<script>
+  $(document).foundation();
+</script>
+<!-- TODO: This script is commented out because we do not use slick slider.
+<script>
+  $(document).ready(function(){
+    $('.slider').slick({
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 6,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            infinite: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 320,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ],
+      prevArrow: '<i class="fa fa-angle-left fa-2x slider-prev"></i>',
+      nextArrow: '<i class="fa fa-angle-right fa-2x slider-next"></i>'
+    });
+  });
+</script>
+-->
+  </body>
+</html>
