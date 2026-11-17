@@ -10,6 +10,9 @@ or demonstrating exploitation via a dependency.
 **It is important not to publish a previously unknown exploit**, or exploit demonstration code, on public
 mailing lists or issue trackers before coordinating with the PMC.
 
+Before reporting, read Solr's [threat model](https://github.com/apache/solr/blob/main/THREAT_MODEL.md).
+Behavior that it describes as expected or out of scope is not a vulnerability.
+
 See the [vulnerability reporting procedure](security-reporting.html) for the full reporting rules,
 the workflow diagram, and what to expect after you report.
 

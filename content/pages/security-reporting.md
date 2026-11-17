@@ -23,6 +23,10 @@ feel free to use our [public mailing lists](community.html).
 
 <h2 id="before-you-report">Before You Report <a class="headerlink" href="#before-you-report" title="Permanent link">¶</a></h2>
 
+Read Solr's [threat model](https://github.com/apache/solr/blob/main/THREAT_MODEL.md) first.
+It describes Solr's trust boundaries, which actors are trusted, and what is out of scope.
+Behavior that the threat model describes as expected or out of scope is not a vulnerability.
+
 Ensure you have tested against a [supported Solr version](https://solr.apache.org/downloads.html)
 with both **authentication** and **authorization** properly configured.
 Solr's admin level APIs are designed to be used only by authenticated and trusted administrators.
@@ -38,6 +42,8 @@ A valid security report to [security@solr.apache.org](mailto:security@solr.apach
    without authentication is a misconfiguration, not a vulnerability
 5. **Target a [supported Solr version](https://solr.apache.org/downloads.html)** — reports
    against unsupported versions will not be accepted
+6. **Violate an assumption of the [threat model](https://github.com/apache/solr/blob/main/THREAT_MODEL.md)** —
+   explain which trust boundary is crossed
 
 <h2 id="workflow">Workflow <a class="headerlink" href="#workflow" title="Permanent link">¶</a></h2>
 
@@ -53,6 +59,7 @@ flowchart TD
 
     E["`**Rejected**
   *No repro / no auth*
+  *outside threat model*
   *zip or link / multiple issues*`"]
 
     F["`**Needs changes**
@@ -154,7 +161,9 @@ Solr uses those libraries. Before filing a security report, please:
    a VEX file listing CVEs already assessed as not exploitable in Solr.
 2. Verify the issue is actually exploitable in a properly configured Solr
    instance (with authentication and authorization enabled).
-3. Write step-by-step reproduction steps that demonstrate the impact on
+3. Read Solr's threat model and confirm the issue crosses a trust boundary:
+   https://github.com/apache/solr/blob/main/THREAT_MODEL.md
+4. Write step-by-step reproduction steps that demonstrate the impact on
    Solr specifically.
 
 For dependency upgrade discussions, the public Solr users list is the
@@ -215,12 +224,12 @@ Apache Solr Security Team
 </details>
 
 <details>
-<summary>Response E: Reject — no authentication configured or behavior within expected role</summary>
+<summary>Response E: Reject — no authentication, behavior within expected role, or outside the threat model</summary>
 <pre>
 Thank you for your security report.
 
 After reviewing your report, we are unable to treat this as a security
-vulnerability due to either of the following reasons:
+vulnerability due to one of the following reasons:
 
   a) The behavior requires Solr to be running without authentication.
      Solr is not designed for unauthenticated operation in any networked
@@ -231,9 +240,12 @@ vulnerability due to either of the following reasons:
      A vulnerability requires either that the action exceeded what the
      role should allow, or that it should never be permitted for any role.
 
+  c) The behavior is expected or out of scope according to Solr's threat
+     model: https://github.com/apache/solr/blob/main/THREAT_MODEL.md
+
 If you believe our assessment is incorrect, please reply with details
 explaining why the behavior should not be possible under your tested
-configuration and role.
+configuration and role, and which threat model assumption it violates.
 
 Please read https://solr.apache.org/security-reporting.html for the full process.
 
