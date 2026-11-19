@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/news</title><link href="/" rel="alternate"/><link href="/feeds/solr/news.atom.xml" rel="self"/><id>/</id><updated>2026-10-27T00:00:00+00:00</updated><entry><title>Apache Solr™ 10.1.0 available</title><link href="/apache-solrtm-1010-available.html" rel="alternate"/><published>2026-10-27T00:00:00+00:00</published><updated>2026-10-27T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-10-27:/apache-solrtm-1010-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.1.0.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Apache Solr - solr/news</title><link href="/" rel="alternate"/><link href="/feeds/solr/news.atom.xml" rel="self"/><id>/</id><updated>2026-11-19T00:00:00+00:00</updated><entry><title>Apache Solr and Java4Shell (CVE-2026-114938)</title><link href="/apache-solr-and-java4shell-cve-2026-114938.html" rel="alternate"/><published>2026-11-19T00:00:00+00:00</published><updated>2026-11-19T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-11-19:/apache-solr-and-java4shell-cve-2026-114938.html</id><summary type="html">&lt;p&gt;&lt;em&gt;From the Apache Solr PMC&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;A critical OpenJDK RCE vulnerability, CVE-2026-114938 ("Java4Shell"), was disclosed on November 17, 2026. It is a vulnerability in the Java runtime (OpenJDK), &lt;strong&gt;not in Apache Solr&lt;/strong&gt; - but Solr was publicly named as an application where exploitation was demonstrated, so users should act.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The fix is …&lt;/strong&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;em&gt;From the Apache Solr PMC&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;A critical OpenJDK RCE vulnerability, CVE-2026-114938 ("Java4Shell"), was disclosed on November 17, 2026. It is a vulnerability in the Java runtime (OpenJDK), &lt;strong&gt;not in Apache Solr&lt;/strong&gt; - but Solr was publicly named as an application where exploitation was demonstrated, so users should act.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The fix is to update your JDK.&lt;/strong&gt; No Solr release addresses this, because the bug is not in Solr.&lt;/p&gt;
+&lt;h3 id="does-it-affect-my-solr"&gt;Does it affect my Solr?&lt;a class="headerlink" href="#does-it-affect-my-solr" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Your deployment is affected only if &lt;strong&gt;ALL three&lt;/strong&gt; conditions are met:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The JDK is OpenJDK 17.0.6 or later (Temurin, Corretto, Zulu, Red Hat, Oracle, etc.).&lt;/li&gt;
+&lt;li&gt;The CPU is x86-64 with AVX-512 VBMI (Intel Ice Lake / Sapphire Rapids / Emerald Rapids / Granite Rapids; AMD Zen 4+). ARM/Apple Silicon is not affected. To check on Linux: &lt;code&gt;grep -o 'avx512vbmi' /proc/cpuinfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A reachable path decodes attacker-controlled Base64. If you are unsure of the answer to this, assume that such a path exists.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="what-to-do"&gt;What to do&lt;a class="headerlink" href="#what-to-do" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Update your JDK&lt;/strong&gt; to a patched build (Oracle Nov 2026 CPU / OpenJDK 2026-11-17 advisory). Patched builds end in &lt;code&gt;.1&lt;/code&gt;:&lt;ul&gt;
+&lt;li&gt;Java 17 → 17.0.21.1&lt;/li&gt;
+&lt;li&gt;Java 21 → 21.0.13.1&lt;/li&gt;
+&lt;li&gt;Java 25 → 25.0.5.1&lt;/li&gt;
+&lt;li&gt;Java 27 → 27.0.1.1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Restart every Solr node&lt;/strong&gt; after patching - a running JVM stays vulnerable until restarted.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;If you can't patch yet&lt;/strong&gt;, start the JVM with &lt;code&gt;-XX:-UseBASE64Intrinsics&lt;/code&gt; or &lt;code&gt;-XX:UseAVX=2&lt;/code&gt; (x86-64 only). Do &lt;strong&gt;not&lt;/strong&gt; use &lt;code&gt;-XX:DisableIntrinsic=_base64_decodeBlock&lt;/code&gt; alone - it can break JVM startup.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="official-solr-container-images"&gt;Official Solr container images&lt;a class="headerlink" href="#official-solr-container-images" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;If you run Solr using our &lt;a href="https://hub.docker.com/_/solr"&gt;official container images&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Make sure you're on a &lt;a href="https://hub.docker.com/_/solr"&gt;supported tag&lt;/a&gt;. If you're not, &lt;a href="https://solr.apache.org/guide/solr/latest/upgrade-notes/solr-upgrade-notes.html"&gt;upgrade&lt;/a&gt;..
+  ** Supported images are rebuilt regularly with the latest JRE and Linux patches and published under the same tags.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Patched images are not available yet.&lt;/strong&gt; The Solr images are built on Eclipse Temurin, and a rebuilt Solr image can only be published once patched Temurin base images are released. That may take anywhere from hours to days.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Don't wait for the new image. Apply the JVM flag now.&lt;/strong&gt; Set &lt;code&gt;SOLR_OPTS="-XX:-UseBASE64Intrinsics"&lt;/code&gt; on your current containers (e.g. &lt;code&gt;docker run -e SOLR_OPTS="-XX:-UseBASE64Intrinsics" …&lt;/code&gt;) and recreate them. This protects you on the image you're already running.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Once the patched image is published&lt;/strong&gt;, re-pull it and recreate your containers. This won't happen on its own for images you're already running. If you pin by digest (&lt;code&gt;solr@sha256:…&lt;/code&gt;), switch to the new digest once you've confirmed it has the patched Java. After that you can remove the JVM flag.&lt;/li&gt;
+&lt;li&gt;To check which Java version you have, look at the JVM section of the Solr Admin UI dashboard, or run &lt;code&gt;docker run --rm solr:&amp;lt;tag&amp;gt; java -version&lt;/code&gt;. It should show one of the patched versions listed above (e.g. 17.0.21.1, 21.0.13.1) or later.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="bottom-line"&gt;Bottom line&lt;a class="headerlink" href="#bottom-line" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Updating your JDK is the fix, and we strongly recommend doing it as soon as a patched build is available for your platform. Until then, the JVM flags above are a safe, effective way to protect your deployment today. Don't rely on authentication or network isolation alone to cover this issue. Patch the JDK or apply the flag.&lt;/p&gt;
+&lt;h3 id="references"&gt;References&lt;a class="headerlink" href="#references" title="Permanent link"&gt;&amp;para;&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenJDK advisory: &lt;a href="https://openjdk.org/groups/vulnerability/advisories/2026-11-17"&gt;https://openjdk.org/groups/vulnerability/advisories/2026-11-17&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Oracle CPU: &lt;a href="https://www.oracle.com/security-alerts/cspunov2026.html"&gt;https://www.oracle.com/security-alerts/cspunov2026.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CISA alert: &lt;a href="https://www.cisa.gov/news-events/alerts/2026/11/17/critical-java-vulnerability-requires-immediate-patching"&gt;https://www.cisa.gov/news-events/alerts/2026/11/17/critical-java-vulnerability-requires-immediate-patching&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Disclosure (Calif): &lt;a href="https://calif.io/java4shell"&gt;https://calif.io/java4shell&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The PMC is monitoring this and will update as needed. Questions can be sent to &lt;a href="mailto:users@solr.apache.org"&gt;users@solr.apache.org&lt;/a&gt; or, for security-sensitive matters, &lt;a href="mailto:security@solr.apache.org"&gt;security@solr.apache.org&lt;/a&gt;.&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr™ 10.1.0 available</title><link href="/apache-solrtm-1010-available.html" rel="alternate"/><published>2026-10-27T00:00:00+00:00</published><updated>2026-10-27T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2026-10-27:/apache-solrtm-1010-available.html</id><summary type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.1.0.&lt;/p&gt;
 &lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Solr PMC is pleased to announce the release of Apache Solr 10.1.0.&lt;/p&gt;
 &lt;p&gt;Solr is the blazing-fast, open source, multi-modal search platform built on Apache Lucene. It powers full-text, vector, analytics, and geospatial search at many of the world's largest organizations. Other major features include Kubernetes and docker integration, streaming, highlighting, faceting, and spellchecking.&lt;/p&gt;
 &lt;p&gt;Solr 10.1.0 is available for immediate download at:&lt;/p&gt;
@@ -2636,20 +2679,4 @@ delete your existing fork and re-fork from &lt;a href="https://github.com/apache
 &lt;p&gt;If you had active code changes and Pull Requests against our old GitHub mirror,
 please see &lt;a href="https://cwiki.apache.org/confluence/display/solr/HowToContribute#Working_with_GitHub"&gt;the wiki&lt;/a&gt;
 for some suggestions on how to proceed.&lt;/p&gt;
-&lt;p&gt;The PMC is happy to answer any question you may have regarding this change.&lt;/p&gt;</content><category term="solr/news"/></entry><entry><title>Apache Solr 5.3.2 Available</title><link href="/" rel="alternate"/><published>2016-01-23T00:00:00+00:00</published><updated>2016-01-23T00:00:00+00:00</updated><author><name>Solr Developers</name></author><id>tag:None,2016-01-23:/</id><summary type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 5.3.2&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform
-from the Apache Lucene project. Its major features include powerful
-full-text search, hit highlighting, faceted search, dynamic
-clustering, database integration, rich document (e.g …&lt;/p&gt;</summary><content type="html">&lt;p&gt;The Lucene PMC is pleased to announce the release of Apache Solr 5.3.2&lt;/p&gt;
-&lt;p&gt;Solr is the popular, blazing fast, open source NoSQL search platform
-from the Apache Lucene project. Its major features include powerful
-full-text search, hit highlighting, faceted search, dynamic
-clustering, database integration, rich document (e.g., Word, PDF)
-handling, and geospatial search. Solr is highly scalable, providing
-fault tolerant distributed search and indexing, and powers the search
-and navigation features of many of the world's largest internet sites.&lt;/p&gt;
-&lt;p&gt;Solr 5.3.2 is available for immediate download at:
-&lt;a href="https://www.apache.org/dyn/closer.lua/lucene/solr/5.3.2"&gt;https://www.apache.org/dyn/closer.lua/lucene/solr/5.3.2&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;This release contains a number of bug fixes for Solr, as well we Lucene.&lt;/p&gt;
-&lt;p&gt;See the &lt;a href="/docs/5_3_2/changes/Changes.html"&gt;CHANGES.txt&lt;/a&gt;
-file included with the release for a full list of details.&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
+&lt;p&gt;The PMC is happy to answer any question you may have regarding this change.&lt;/p&gt;</content><category term="solr/news"/></entry></feed>
