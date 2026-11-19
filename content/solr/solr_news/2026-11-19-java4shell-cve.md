@@ -23,8 +23,8 @@ Your deployment is affected only if **ALL three** conditions are met:
     * Java 21 → 21.0.13.1
     * Java 25 → 25.0.5.1
     * Java 27 → 27.0.1.1
-2. **Restart every Solr node** after patching — a running JVM stays vulnerable until restarted.
-3. **If you can't patch yet**, start the JVM with `-XX:-UseBASE64Intrinsics` or `-XX:UseAVX=2` (x86-64 only). Do **not** use `-XX:DisableIntrinsic=_base64_decodeBlock` alone — it can break JVM startup.
+2. **Restart every Solr node** after patching - a running JVM stays vulnerable until restarted.
+3. **If you can't patch yet**, start the JVM with `-XX:-UseBASE64Intrinsics` or `-XX:UseAVX=2` (x86-64 only). Do **not** use `-XX:DisableIntrinsic=_base64_decodeBlock` alone - it can break JVM startup.
 
 ### Official Solr container images
 
@@ -39,7 +39,7 @@ If you run Solr using our [official container images](https://hub.docker.com/_/s
 
 ### Why authentication matters
 
-RCE against Solr was demonstrated as a **post-authentication** issue — an attacker must get past Solr's auth first. That protects you only if auth is actually enabled. **Solr does not require authentication by default**, and deployments that rely on network isolation alone get no benefit from the "post-auth" qualifier: anyone who can reach the endpoint can reach the vulnerable path.
+RCE against Solr was demonstrated as a **post-authentication** issue - an attacker must get past Solr's auth first. That protects you only if auth is actually enabled. **Solr does not require authentication by default**, and deployments that rely on network isolation alone get no benefit from the "post-auth" qualifier: anyone who can reach the endpoint can reach the vulnerable path.
 
 Patching the JDK is the only fix. But this is a clear reminder to enable [authentication and authorization](https://solr.apache.org/guide/solr/latest/deployment-guide/authentication-and-authorization-plugins.html) on every deployment, never expose Solr to the public internet, and treat network isolation as one layer, not the only one.
 
