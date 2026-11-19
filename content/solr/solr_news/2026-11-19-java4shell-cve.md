@@ -30,7 +30,7 @@ Your deployment is affected only if **ALL three** conditions are met:
 
 If you run Solr using our [official container images](https://hub.docker.com/_/solr):
 
-* Make sure you're on a [supported tag](https://hub.docker.com/_/solr). If you're not, upgrade.
+* Make sure you're on a [supported tag](https://hub.docker.com/_/solr). If you're not, [upgrade](https://solr.apache.org/guide/solr/latest/upgrade-notes/solr-upgrade-notes.html)..
   ** Supported images are rebuilt regularly with the latest JRE and Linux patches and published under the same tags.
 * **Patched images are not available yet.** The Solr images are built on Eclipse Temurin, and a rebuilt Solr image can only be published once patched Temurin base images are released. That may take anywhere from hours to days.
 * **Don't wait for the new image. Apply the JVM flag now.** Set `SOLR_OPTS="-XX:-UseBASE64Intrinsics"` on your current containers (e.g. `docker run -e SOLR_OPTS="-XX:-UseBASE64Intrinsics" …`) and recreate them. This protects you on the image you're already running.
