@@ -45,9 +45,23 @@ If you want to run Solr on Kubernetes, the easiest way to get started is via ins
 * **[Solr Operator](/operator)** - A management layer that runs independently in Kubernetes. Only deploy 1 per Kubernetes cluster or namespace.
 * **Solr** - A SolrCloud cluster. In order to deploy this Helm chart successfully, you must first install the Solr Operator and Solr CRDs. Follow the instructions on the ArtifactHub page below.
 
-<div style="display:flex; justify-content: space-evenly; flex-wrap: wrap">
-  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr-operator" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
-  <div class="artifacthub-widget" data-url="https://artifacthub.io/packages/helm/apache-solr/solr" data-theme="light" data-header="false" data-responsive="true" style="flex-basis:0"></div><script async src="https://artifacthub.io/artifacthub-widget.js"></script>
+<div class="artifacthub-links">
+  <a class="artifacthub-link" href="https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator" target="_blank" rel="noopener">
+    <img src="/theme/images/artifacthub-icon-color.svg" alt="Artifact Hub" width="360" height="360">
+    <span class="artifacthub-link-text">
+      <span class="artifacthub-link-title">Solr Operator</span>
+      <span class="artifacthub-link-sub">Helm chart on Artifact Hub</span>
+    </span>
+    <i class="fa fa-external-link" aria-hidden="true"></i>
+  </a>
+  <a class="artifacthub-link" href="https://artifacthub.io/packages/helm/apache-solr-cloud/solr" target="_blank" rel="noopener">
+    <img src="/theme/images/artifacthub-icon-color.svg" alt="Artifact Hub" width="360" height="360">
+    <span class="artifacthub-link-text">
+      <span class="artifacthub-link-title">Solr</span>
+      <span class="artifacthub-link-sub">Helm chart on Artifact Hub</span>
+    </span>
+    <i class="fa fa-external-link" aria-hidden="true"></i>
+  </a>
 </div>
 
 ***

@@ -7,5 +7,6 @@ Official releases are usually created when the [developers]({filename}/pages/who
 feel there are sufficient changes, improvements and bug fixes to warrant a release.
 Due to the voluntary nature of Solr Operator development, no releases are scheduled in advance.
 
-The suggested method of installing the Solr Operator in your Kubernetes cluster is via the [provided Helm chart](https://artifacthub.io/packages/helm/apache-solr/solr-operator).
+The suggested method of installing the Solr Operator in your Kubernetes cluster is via the [provided Helm chart](https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator),
+which is published as an OCI artifact to the GitHub Container Registry.
 Source releases are provided for the operator, however binaries are only provided via the official [Docker Image](https://hub.docker.com/r/apache/solr-operator).

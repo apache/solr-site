@@ -443,8 +443,68 @@ section {
   text-align:center;
 }
 
-.artifacthub-widget > section {
-  padding: 0;
+/*
+ * Artifact Hub links: a mini-card linking to a Helm chart's page on Artifact Hub.
+ * Replaces the third-party Artifact Hub widget, whose script the site's
+ * Content-Security-Policy blocks. The text colour is inherited from the theme's
+ * own link colour, so the card fits both the Solr and the Solr Operator pages.
+ */
+.artifacthub-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.artifacthub-link {
+  display: flex;
+  flex: 0 1 320px;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  border: 1px solid #d1d3d4;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.artifacthub-link:hover,
+.artifacthub-link:focus {
+  border-color: currentColor;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.artifacthub-link:hover .artifacthub-link-title {
+  text-decoration: underline;
+}
+
+.artifacthub-link img {
+  flex-shrink: 0;
+  width: 40px;
+  height: auto;
+}
+
+.artifacthub-link-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.artifacthub-link-title {
+  display: block;
+  font-family: 'Raleway', 'Helvetica Neue', sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.artifacthub-link-sub {
+  display: block;
+  color: #6c6c6c;
+  font-size: 0.8rem;
+}
+
+.artifacthub-link .fa {
+  flex-shrink: 0;
 }
 
 section.gray {

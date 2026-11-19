@@ -68,7 +68,7 @@ kubectl config set-context --current --namespace=sop030
 ### Solr Operator Setup
 
 If you installed previous versions of the Solr operator, then please upgrade to the **Apache Solr** version using these instructions: [Upgrading to Apache](https://solr.apache.org/guide/operator/latest/development/upgrading-to-apache.html). 
-Otherwise, add the Apache Solr Helm repo, install the [Solr CRDs](#solr-crds) and [install the Solr operator](https://artifacthub.io/packages/helm/apache-solr/solr-operator):
+Otherwise, add the Apache Solr Helm repo, install the [Solr CRDs](#solr-crds) and [install the Solr operator](https://artifacthub.io/packages/helm/apache-solr-operator/solr-operator):
 ```
 helm repo add apache-solr https://solr.apache.org/charts
 helm repo update
