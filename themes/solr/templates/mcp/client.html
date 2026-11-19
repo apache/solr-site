@@ -1,0 +1,26 @@
+{% extends "mcp/page.html" %}
+
+{% block content_inner %}
+<div class="small-12 columns">
+  <style type="text/css">
+    .headerlink, .elementid-permalink { visibility: hidden; }
+    h2:hover > .headerlink, h3:hover > .headerlink, h1:hover > .headerlink,
+    h6:hover > .headerlink, h4:hover > .headerlink, h5:hover > .headerlink,
+    dt:hover > .elementid-permalink { visibility: visible; }
+  </style>
+
+  <h1>{{ page.title }}</h1>
+
+  <p style="margin-bottom:1.5em;">
+    <strong>All clients:</strong>
+    <a href="/mcp/clients/claude-desktop.html">Claude Desktop</a> &middot;
+    <a href="/mcp/clients/claude-code.html">Claude Code</a> &middot;
+    <a href="/mcp/clients/vs-code.html">VS Code / Copilot</a> &middot;
+    <a href="/mcp/clients/cursor.html">Cursor</a> &middot;
+    <a href="/mcp/clients/jetbrains.html">JetBrains</a> &middot;
+    <a href="/mcp/clients/mcp-inspector.html">MCP Inspector</a>
+  </p>
+
+  {{ page.content }}
+</div>
+{% endblock content_inner %}
