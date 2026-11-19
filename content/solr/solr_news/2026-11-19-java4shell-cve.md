@@ -14,7 +14,7 @@ Your deployment is affected only if **ALL three** conditions are met:
 
 1. The JDK is OpenJDK 17.0.6 or later (Temurin, Corretto, Zulu, Red Hat, Oracle, etc.).
 2. The CPU is x86-64 with AVX-512 VBMI (Intel Ice Lake / Sapphire Rapids / Emerald Rapids / Granite Rapids; AMD Zen 4+). ARM/Apple Silicon is not affected. To check on Linux: `grep -o 'avx512vbmi' /proc/cpuinfo`
-3. A reachable path decodes attacker-controlled Base64.
+3. A reachable path decodes attacker-controlled Base64. If you are unsure of the answer to this, assume that such a path exists.
 
 ### What to do
 
@@ -37,11 +37,9 @@ If you run Solr using our [official container images](https://hub.docker.com/_/s
 * **Once the patched image is published**, re-pull it and recreate your containers. This won't happen on its own for images you're already running. If you pin by digest (`solr@sha256:…`), switch to the new digest once you've confirmed it has the patched Java. After that you can remove the JVM flag.
 * To check which Java version you have, look at the JVM section of the Solr Admin UI dashboard, or run `docker run --rm solr:<tag> java -version`. It should show one of the patched versions listed above (e.g. 17.0.21.1, 21.0.13.1) or later.
 
-### Why authentication matters
+### Bottom line
 
-RCE against Solr was demonstrated as a **post-authentication** issue - an attacker must get past Solr's auth first. That protects you only if auth is actually enabled. **Solr does not require authentication by default**, and deployments that rely on network isolation alone get no benefit from the "post-auth" qualifier: anyone who can reach the endpoint can reach the vulnerable path.
-
-Patching the JDK is the only fix. But this is a clear reminder to enable [authentication and authorization](https://solr.apache.org/guide/solr/latest/deployment-guide/authentication-and-authorization-plugins.html) on every deployment, never expose Solr to the public internet, and treat network isolation as one layer, not the only one.
+Updating your JDK is the fix, and we strongly recommend doing it as soon as a patched build is available for your platform. Until then, the JVM flags above are a safe, effective way to protect your deployment today. Don't rely on authentication or network isolation alone to cover this issue. Patch the JDK or apply the flag.
 
 ### References
 
