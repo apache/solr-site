@@ -148,6 +148,51 @@
   <h1 id="solr-news">Solr<sup>™</sup> Announcements<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as ATOM feeds: <a href="/feeds/solr/news.atom.xml">Announcements</a>, <a href="/feeds/solr/security.atom.xml">Security Announcements</a>..</p>
 
+  <h2 id="apache-solr-and-java4shell-cve-2026-114938">19 November 2026, Apache Solr and Java4Shell (CVE-2026-114938)
+    <a class="headerlink" href="#apache-solr-and-java4shell-cve-2026-114938" title="Permanent link">¶</a>
+  </h2>
+  <p><em>From the Apache Solr PMC</em></p>
+<p>A critical OpenJDK RCE vulnerability, CVE-2026-114938 ("Java4Shell"), was disclosed on November 17, 2026. It is a vulnerability in the Java runtime (OpenJDK), <strong>not in Apache Solr</strong> - but Solr was publicly named as an application where exploitation was demonstrated, so users should act.</p>
+<p><strong>The fix is to update your JDK.</strong> No Solr release addresses this, because the bug is not in Solr.</p>
+<h3 id="does-it-affect-my-solr">Does it affect my Solr?<a class="headerlink" href="#does-it-affect-my-solr" title="Permanent link">&para;</a></h3>
+<p>Your deployment is affected only if <strong>ALL three</strong> conditions are met:</p>
+<ol>
+<li>The JDK is OpenJDK 17.0.6 or later (Temurin, Corretto, Zulu, Red Hat, Oracle, etc.).</li>
+<li>The CPU is x86-64 with AVX-512 VBMI (Intel Ice Lake / Sapphire Rapids / Emerald Rapids / Granite Rapids; AMD Zen 4+). ARM/Apple Silicon is not affected. To check on Linux: <code>grep -o 'avx512vbmi' /proc/cpuinfo</code></li>
+<li>A reachable path decodes attacker-controlled Base64. If you are unsure of the answer to this, assume that such a path exists.</li>
+</ol>
+<h3 id="what-to-do">What to do<a class="headerlink" href="#what-to-do" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Update your JDK</strong> to a patched build (Oracle Nov 2026 CPU / OpenJDK 2026-11-17 advisory). Patched builds end in <code>.1</code>:<ul>
+<li>Java 17 → 17.0.21.1</li>
+<li>Java 21 → 21.0.13.1</li>
+<li>Java 25 → 25.0.5.1</li>
+<li>Java 27 → 27.0.1.1</li>
+</ul>
+</li>
+<li><strong>Restart every Solr node</strong> after patching - a running JVM stays vulnerable until restarted.</li>
+<li><strong>If you can't patch yet</strong>, start the JVM with <code>-XX:-UseBASE64Intrinsics</code> or <code>-XX:UseAVX=2</code> (x86-64 only). Do <strong>not</strong> use <code>-XX:DisableIntrinsic=_base64_decodeBlock</code> alone - it can break JVM startup.</li>
+</ol>
+<h3 id="official-solr-container-images">Official Solr container images<a class="headerlink" href="#official-solr-container-images" title="Permanent link">&para;</a></h3>
+<p>If you run Solr using our <a href="https://hub.docker.com/_/solr">official container images</a>:</p>
+<ul>
+<li>Make sure you're on a <a href="https://hub.docker.com/_/solr">supported tag</a>. If you're not, <a href="https://solr.apache.org/guide/solr/latest/upgrade-notes/solr-upgrade-notes.html">upgrade</a>..
+  ** Supported images are rebuilt regularly with the latest JRE and Linux patches and published under the same tags.</li>
+<li><strong>Patched images are not available yet.</strong> The Solr images are built on Eclipse Temurin, and a rebuilt Solr image can only be published once patched Temurin base images are released. That may take anywhere from hours to days.</li>
+<li><strong>Don't wait for the new image. Apply the JVM flag now.</strong> Set <code>SOLR_OPTS="-XX:-UseBASE64Intrinsics"</code> on your current containers (e.g. <code>docker run -e SOLR_OPTS="-XX:-UseBASE64Intrinsics" …</code>) and recreate them. This protects you on the image you're already running.</li>
+<li><strong>Once the patched image is published</strong>, re-pull it and recreate your containers. This won't happen on its own for images you're already running. If you pin by digest (<code>solr@sha256:…</code>), switch to the new digest once you've confirmed it has the patched Java. After that you can remove the JVM flag.</li>
+<li>To check which Java version you have, look at the JVM section of the Solr Admin UI dashboard, or run <code>docker run --rm solr:&lt;tag&gt; java -version</code>. It should show one of the patched versions listed above (e.g. 17.0.21.1, 21.0.13.1) or later.</li>
+</ul>
+<h3 id="bottom-line">Bottom line<a class="headerlink" href="#bottom-line" title="Permanent link">&para;</a></h3>
+<p>Updating your JDK is the fix, and we strongly recommend doing it as soon as a patched build is available for your platform. Until then, the JVM flags above are a safe, effective way to protect your deployment today. Don't rely on authentication or network isolation alone to cover this issue. Patch the JDK or apply the flag.</p>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<ul>
+<li>OpenJDK advisory: <a href="https://openjdk.org/groups/vulnerability/advisories/2026-11-17">https://openjdk.org/groups/vulnerability/advisories/2026-11-17</a></li>
+<li>Oracle CPU: <a href="https://www.oracle.com/security-alerts/cspunov2026.html">https://www.oracle.com/security-alerts/cspunov2026.html</a></li>
+<li>CISA alert: <a href="https://www.cisa.gov/news-events/alerts/2026/11/17/critical-java-vulnerability-requires-immediate-patching">https://www.cisa.gov/news-events/alerts/2026/11/17/critical-java-vulnerability-requires-immediate-patching</a></li>
+<li>Disclosure (Calif): <a href="https://calif.io/java4shell">https://calif.io/java4shell</a></li>
+</ul>
+<p>The PMC is monitoring this and will update as needed. Questions can be sent to <a href="mailto:users@solr.apache.org">users@solr.apache.org</a> or, for security-sensitive matters, <a href="mailto:security@solr.apache.org">security@solr.apache.org</a>.</p>
   <h2 id="apache-solrtm-1010-available">27 October 2026, Apache Solr™ 10.1.0 available
     <a class="headerlink" href="#apache-solrtm-1010-available" title="Permanent link">¶</a>
   </h2>
