@@ -73,8 +73,17 @@ RedirectMatch Permanent ^/quickstart.html /guide/solr-tutorial.html
 RedirectMatch Permanent ^/docs/4_0_0-(ALPHA|BETA)(.*) /docs/4_0_0$2
 RedirectMatch Permanent ^/docs/api-(.*) /docs/$1
 
-### Redirects to Apache Nightlies, this will change when they have a separate area for released artifacts
-Redirect temp /charts https://nightlies.apache.org/solr/release/helm-charts
+### Solr Operator Helm repository (helm repo add apache-solr https://solr.apache.org/charts)
+# The index.yaml is served from content/charts/. Its entries point at the OCI copies of the
+# charts on ghcr.io, so no chart tarballs are hosted here. It is updated with
+# hack/release/upload/update_helm_index.sh from the solr-operator repository.
+# Keep its cache lifetime short, so a new release is visible soon after the site is published.
+<If "%{REQUEST_URI} =~ m#^/charts/index\.yaml(\.asc|\.sha512)?$#">
+  Header set Cache-Control "max-age=300, must-revalidate"
+</If>
+# Older indexes used relative chart urls, which resolve to /charts/<chart>-<version>.tgz.
+# Keep those working for clients with a cached copy of an older index.
+RedirectMatch temp ^/charts/([^/]+\.tgz(\.prov|\.asc|\.sha512)?)$ https://nightlies.apache.org/solr/release/helm-charts/$1
 ### Redirects to Apache Nightlies for pre-Apache Solr Operator CRDs (These don't exist in the archives)
 RedirectMatch ^/operator/downloads/crds/(v0\.2\.6|v0\.2\.7|v0\.2\.8)(/?.*)$ https://nightlies.apache.org/solr/release/operator/crds/$1$2
 ### Redirects to Apache Archives, where the official release CRDs are stored
