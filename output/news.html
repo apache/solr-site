@@ -148,6 +148,34 @@
   <h1 id="solr-news">Solr<sup>™</sup> Announcements<a class="headerlink" href="#solr-news" title="Permanent link">¶</a></h1>
   <p>You may also read these news as ATOM feeds: <a href="/feeds/solr/news.atom.xml">Announcements</a>, <a href="/feeds/solr/security.atom.xml">Security Announcements</a>..</p>
 
+  <h2 id="cve-2026-86312-ping-health-check-endpoint-could-trigger-unintended-functionality">23 November 2026, CVE-2026-86312: Ping health-check endpoint could trigger unintended functionality
+    <a class="headerlink" href="#cve-2026-86312-ping-health-check-endpoint-could-trigger-unintended-functionality" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity</strong>
+high (CVSS 3.1: 8.8, CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)</p>
+<p><strong>Versions Affected</strong></p>
+<ul>
+<li>Apache Solr 9.0.0 through 9.10.x</li>
+<li>Apache Solr 10.0.0</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>Under some configurations a request to the ping endpoint could carry out more than a simple health check. In deployments that rely on Solr's rule-based authorization, a client granted only the low-privilege health permission could thereby trigger behavior that should require higher privileges; where the shipped security.json template leaves the health permission unauthenticated, no credentials are required at all.</p>
+<p>You are affected if you run an affected version and allow the /admin/ping endpoint to be reached with only the health permission. This includes the default sample security configuration installed by the bin/solr CLI, where that endpoint is unauthenticated.</p>
+<p><strong>Mitigation</strong></p>
+<p>Users are recommended to upgrade to Apache Solr 9.11.0, 10.1.0 or a newer release, which contain fixes for this issue.</p>
+<p>Users who cannot upgrade immediately should restrict access to the /admin/ping endpoint in their authorization configuration, for example by requiring a trusted role for that path, and ensure Solr is not reachable from untrusted clients or networks, as recommended for all Solr deployments.</p>
+<p><strong>Credit</strong></p>
+<ul>
+<li>Andrew Rukin (Arenadata) (finder)</li>
+<li>Zhang Yilin (finder)</li>
+<li>Calif.io, in collaboration with Anthropic (finder)</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li>Fix - <a href="https://github.com/apache/solr/pull/4890">apache/solr#4890</a></li>
+<li>CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2026-86312">CVE-2026-86312</a></li>
+<li>Announcement - <a href="https://lists.apache.org/thread/23vlsohrl7vcckysqp9d094yplt4pjcv">announce@apache.org</a></li>
+</ul>
   <h2 id="cve-2026-53672-zookeeper-endpoint-authorization-bypass-discloses-securityjson">22 November 2026, CVE-2026-53672: Zookeeper endpoint authorization bypass discloses security.json
     <a class="headerlink" href="#cve-2026-53672-zookeeper-endpoint-authorization-bypass-discloses-securityjson" title="Permanent link">¶</a>
   </h2>

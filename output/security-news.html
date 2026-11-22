@@ -147,6 +147,35 @@
   <h1 id="solr-security-news">Solr<sup>™</sup> Security News<a class="headerlink" href="#solr-security-news" title="Permanent link">¶</a></h1>
   <p>Full history of Apache Solr security advisories. Subscribe to the <a href="/feeds/solr/security.atom.xml">security ATOM feed</a> to be notified of new advisories.</p>
 
+  <h2 id="cve-2026-86312-ping-health-check-endpoint-could-trigger-unintended-functionality">2026-11-23, CVE-2026-86312: Ping health-check endpoint could trigger unintended functionality
+    <a class="headerlink" href="#cve-2026-86312-ping-health-check-endpoint-could-trigger-unintended-functionality" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity</strong>
+high (CVSS 3.1: 8.8, CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)</p>
+<p><strong>Versions Affected</strong></p>
+<ul>
+<li>Apache Solr 9.0.0 through 9.10.x</li>
+<li>Apache Solr 10.0.0</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>Under some configurations a request to the ping endpoint could carry out more than a simple health check. In deployments that rely on Solr's rule-based authorization, a client granted only the low-privilege health permission could thereby trigger behavior that should require higher privileges; where the shipped security.json template leaves the health permission unauthenticated, no credentials are required at all.</p>
+<p>You are affected if you run an affected version and allow the /admin/ping endpoint to be reached with only the health permission. This includes the default sample security configuration installed by the bin/solr CLI, where that endpoint is unauthenticated.</p>
+<p><strong>Mitigation</strong></p>
+<p>Users are recommended to upgrade to Apache Solr 9.11.0, 10.1.0 or a newer release, which contain fixes for this issue.</p>
+<p>Users who cannot upgrade immediately should restrict access to the /admin/ping endpoint in their authorization configuration, for example by requiring a trusted role for that path, and ensure Solr is not reachable from untrusted clients or networks, as recommended for all Solr deployments.</p>
+<p><strong>Credit</strong></p>
+<ul>
+<li>Andrew Rukin (Arenadata) (finder)</li>
+<li>Zhang Yilin (finder)</li>
+<li>Calif.io, in collaboration with Anthropic (finder)</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li>Fix - <a href="https://github.com/apache/solr/pull/4890">apache/solr#4890</a></li>
+<li>CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2026-86312">CVE-2026-86312</a></li>
+<li>Announcement - <a href="https://lists.apache.org/thread/23vlsohrl7vcckysqp9d094yplt4pjcv">announce@apache.org</a></li>
+</ul>
+  <hr/>
   <h2 id="cve-2026-53672-zookeeper-endpoint-authorization-bypass-discloses-securityjson">2026-11-22, CVE-2026-53672: Zookeeper endpoint authorization bypass discloses security.json
     <a class="headerlink" href="#cve-2026-53672-zookeeper-endpoint-authorization-bypass-discloses-securityjson" title="Permanent link">¶</a>
   </h2>
@@ -659,30 +688,6 @@ Any of the following are enough to prevent this vulnerability:</p>
 Reported by Caolinhong(Skay) from QI-ANXIN Cert (QI-ANXIN Technology Group Inc.)</p>
 <p><strong>References:</strong>
 <a href="https://issues.apache.org/jira/browse/SOLR-15217">SOLR-15217</a>: CVE-2021-27905: SSRF vulnerability with the Replication handler</p>
-  <hr/>
-  <h2 id="cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings">2021-04-12, CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings
-    <a class="headerlink" href="#cve-2021-29262-misapplied-zookeeper-acls-can-result-in-leakage-of-configured-authentication-and-authorization-settings" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong>
-High</p>
-<p><strong>Versions Affected:</strong>
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1</p>
-<p><strong>Description:</strong>
-When starting Apache Solr versions prior to 8.8.2, configured with the SaslZkACLProvider or VMParamsAllAndReadonlyDigestZkACLProvider and no existing security.json znode, if the optional read-only user is configured then Solr would not treat that node as a sensitive path and would allow it to be readable.
-Additionally, with any ZkACLProvider, if the security.json is already present, Solr will not automatically update the ACLs.</p>
-<p><strong>Mitigation:</strong>
-Any of the following are enough to prevent this vulnerability:</p>
-<ul>
-<li>Manually set appropriate ACLs on /security.json znode.</li>
-<li>Upgrade to <code>Solr 8.8.2</code> or greater.</li>
-<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-15249">SOLR-15249</a></li>
-<li>Ensure that any access to zookeeper is only by trusted application.</li>
-</ul>
-<p><strong>Credit:</strong>
-Timothy Potter and Mike Drob, Apple Cloud Services</p>
-<p><strong>References:</strong>
-<a href="https://issues.apache.org/jira/browse/SOLR-15249">SOLR-15249</a>: CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</p>
   <hr/>
 
   <div class="pagination">
