@@ -147,6 +147,41 @@
   <h1 id="solr-security-news">Solr<sup>™</sup> Security News<a class="headerlink" href="#solr-security-news" title="Permanent link">¶</a></h1>
   <p>Full history of Apache Solr security advisories. Subscribe to the <a href="/feeds/solr/security.atom.xml">security ATOM feed</a> to be notified of new advisories.</p>
 
+  <h2 id="cve-2026-53672-zookeeper-endpoint-authorization-bypass-discloses-securityjson">2026-11-22, CVE-2026-53672: Zookeeper endpoint authorization bypass discloses security.json
+    <a class="headerlink" href="#cve-2026-53672-zookeeper-endpoint-authorization-bypass-discloses-securityjson" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity</strong>
+moderate (CVSS 3.1: 6.5, CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)</p>
+<p><strong>Versions Affected</strong></p>
+<ul>
+<li>Apache Solr 8.11.1 through 9.10.x</li>
+<li>Apache Solr 10.0.0</li>
+</ul>
+<p><strong>Description</strong></p>
+<p>A bug related to the Zookeeper HTTP endpoints in Apache Solr allows an authenticated attacker with zk-read permission to read /security.json, bypassing the security-read authorization check. This may cause unauthorized read of credential hashes and authorization configuration.</p>
+<p>For this attack to be successful, the following must be true:</p>
+<ol>
+<li>The system is secured with Solr's Basic Auth plugin.</li>
+<li>The attacker has gained direct network access to the Solr cluster.</li>
+<li>The attacker has obtained credentials for a user account with zk-read permission (which is recommended assigned to trusted admins only).</li>
+</ol>
+<p><strong>Mitigation</strong></p>
+<p>Users are recommended to upgrade to Apache Solr 9.11.0, 10.1.0 or a newer release, which contain fixes for this issue.</p>
+<p>Users who cannot upgrade immediately are recommended to assign the zk-read permission only to users who they entrust reading security.json.</p>
+<p><strong>Credit</strong></p>
+<ul>
+<li>secuholic (finder)</li>
+<li>William Wallace (phyr3wall) (finder)</li>
+<li>rea1mindx, Wenqiaor1ing (finder)</li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li>JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-18282">SOLR-18282</a></li>
+<li>JIRA - <a href="https://issues.apache.org/jira/browse/SOLR-18420">SOLR-18420</a></li>
+<li>CVE - <a href="https://www.cve.org/CVERecord?id=CVE-2026-53672">CVE-2026-53672</a></li>
+<li>Announcement - <a href="https://lists.apache.org/thread/k87w77v8rlchpybfwlgo3f75qlpgnpwj">announce@apache.org</a></li>
+</ul>
+  <hr/>
   <h2 id="jwt-authentication-blockunknown-default-allows-unauthenticated-access-contrary-to-documentation">2026-05-19, JWT Authentication: blockUnknown default allows unauthenticated access contrary to documentation
     <a class="headerlink" href="#jwt-authentication-blockunknown-default-allows-unauthenticated-access-contrary-to-documentation" title="Permanent link">¶</a>
   </h2>
@@ -648,28 +683,6 @@ Any of the following are enough to prevent this vulnerability:</p>
 Timothy Potter and Mike Drob, Apple Cloud Services</p>
 <p><strong>References:</strong>
 <a href="https://issues.apache.org/jira/browse/SOLR-15249">SOLR-15249</a>: CVE-2021-29262: Misapplied Zookeeper ACLs can result in leakage of configured authentication and authorization settings</p>
-  <hr/>
-  <h2 id="cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections">2021-04-12, CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections
-    <a class="headerlink" href="#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections" title="Permanent link">¶</a>
-  </h2>
-  <p><strong>Severity:</strong>
-High</p>
-<p><strong>Versions Affected:</strong>
-7.0.0 to 7.7.3
-8.0.0 to 8.8.1</p>
-<p><strong>Description:</strong>
-When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect authorization resolution on the receiving hosts.</p>
-<p><strong>Mitigation:</strong>
-Any of the following are enough to prevent this vulnerability:</p>
-<ul>
-<li>Upgrade to <code>Solr 8.8.2</code> or greater.</li>
-<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-15233">SOLR-15233</a></li>
-<li>Use a different authentication plugin, such as the KerberosPlugin or HadoopAuthPlugin</li>
-</ul>
-<p><strong>Credit:</strong>
-Geza Nagy</p>
-<p><strong>References:</strong>
-<a href="https://issues.apache.org/jira/browse/SOLR-15233">SOLR-15233</a>: CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections </p>
   <hr/>
 
   <div class="pagination">
