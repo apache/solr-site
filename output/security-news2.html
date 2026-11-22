@@ -147,6 +147,28 @@
   <h1 id="solr-security-news">Solr<sup>™</sup> Security News<a class="headerlink" href="#solr-security-news" title="Permanent link">¶</a></h1>
   <p>Full history of Apache Solr security advisories. Subscribe to the <a href="/feeds/solr/security.atom.xml">security ATOM feed</a> to be notified of new advisories.</p>
 
+  <h2 id="cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections">2021-04-12, CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections
+    <a class="headerlink" href="#cve-2021-29943-apache-solr-unprivileged-users-may-be-able-to-perform-unauthorized-readwrite-to-collections" title="Permanent link">¶</a>
+  </h2>
+  <p><strong>Severity:</strong>
+High</p>
+<p><strong>Versions Affected:</strong>
+7.0.0 to 7.7.3
+8.0.0 to 8.8.1</p>
+<p><strong>Description:</strong>
+When using ConfigurableInternodeAuthHadoopPlugin for authentication, Apache Solr versions prior to 8.8.2 would forward/proxy distributed requests using server credentials instead of original client credentials. This would result in incorrect authorization resolution on the receiving hosts.</p>
+<p><strong>Mitigation:</strong>
+Any of the following are enough to prevent this vulnerability:</p>
+<ul>
+<li>Upgrade to <code>Solr 8.8.2</code> or greater.</li>
+<li>If upgrading is not an option, consider applying the patch in <a href="https://issues.apache.org/jira/browse/SOLR-15233">SOLR-15233</a></li>
+<li>Use a different authentication plugin, such as the KerberosPlugin or HadoopAuthPlugin</li>
+</ul>
+<p><strong>Credit:</strong>
+Geza Nagy</p>
+<p><strong>References:</strong>
+<a href="https://issues.apache.org/jira/browse/SOLR-15233">SOLR-15233</a>: CVE-2021-29943: Apache Solr Unprivileged users may be able to perform unauthorized read/write to collections </p>
+  <hr/>
   <h2 id="cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented">2020-10-12, CVE-2020-13957: The checks added to unauthenticated configset uploads in Apache Solr can be circumvented
     <a class="headerlink" href="#cve-2020-13957-the-checks-added-to-unauthenticated-configset-uploads-in-apache-solr-can-be-circumvented" title="Permanent link">¶</a>
   </h2>
